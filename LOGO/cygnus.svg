@@ -10,8 +10,8 @@
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="3004.8367"
-   height="2987.1729"
-   viewBox="0 0 3004.8368 2987.1727"
+   height="2874.0356"
+   viewBox="0 0 3004.8368 2874.0355"
    id="svg2"
    version="1.1"
    inkscape:version="0.92.3 (2405546, 2018-03-11)"
@@ -44,9 +44,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.24748738"
-     inkscape:cx="2349.832"
-     inkscape:cy="1330.5754"
+     inkscape:zoom="0.175"
+     inkscape:cx="1302.5388"
+     inkscape:cy="1113.2549"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -63,8 +63,8 @@
     <inkscape:grid
        type="xygrid"
        id="grid4149"
-       originx="-32.822078"
-       originy="234.04047" />
+       originx="-32.822083"
+       originy="120.9033" />
   </sodipodi:namedview>
   <metadata
      id="metadata7">
@@ -82,10 +82,10 @@
      inkscape:label="Calque 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(-32.822067,1700.7702)">
+     transform="translate(-32.822071,1700.7702)">
     <g
        id="g4205"
-       transform="matrix(0.99976836,0,0,1.0733326,0.36020426,-173.98059)">
+       transform="matrix(1.0002471,0,0,0.92684099,-0.37473923,-104.79318)">
       <text
          id="text4177"
          y="1068.0558"
