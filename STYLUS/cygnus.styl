@@ -1,0 +1,242 @@
+html,
+body,
+p,
+ol,
+ul,
+li,
+dl,
+dt,
+dd,
+blockquote,
+figure,
+fieldset,
+legend,
+textarea,
+pre,
+iframe,
+hr,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6
+    margin : 0
+    padding : 0
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6
+    font-size : 100%
+    font-weight : normal
+
+ul
+    list-style : none
+
+button,
+input,
+select,
+textarea
+    margin : 0
+
+html
+    box-sizing : border-box
+
+*, *:before, *:after
+    box-sizing : inherit
+
+img,
+embed,
+iframe,
+object,
+video
+    height : auto
+    max-width : 100%
+
+audio
+    max-width : 100%
+
+iframe
+    border : 0
+
+table
+    border-collapse : collapse
+    border-spacing : 0
+
+td,
+th
+    padding : 0
+    text-align : left
+
+for index in 0 .. 96
+    size = index * 10
+    .with-{size}
+        width : ( size / 960.0 ) * 100vw
+
+for index in 0 .. 96
+    size = index * 10
+    .height-{size}
+        height : ( size / 960.0 ) * 100vw
+
+for index in 0 .. 96
+    size = index * 10
+    .max-with-{size}
+        max-width : ( size / 960.0 ) * 100vw
+
+for index in 0 .. 96
+    size = index * 10
+    .max-height-{size}
+        max-height : ( size / 960.0 ) * 100vw
+
+for index in 0 .. 96
+    size = index * 4
+    .padding-{size}
+        padding : ( size / 960.0 ) * 100vw !important
+
+for index in 0 .. 96
+    size = index * 4
+    .padding-left-{size}
+        padding-left : ( size / 960.0 ) * 100vw !important
+
+for index in 0 .. 96
+    size = index * 4
+    .padding-right-{size}
+        padding-right : ( size / 960.0 ) * 100vw !important
+
+for index in 0 .. 96
+    size = index * 4
+    .padding-bottom-{size}
+        padding-bottom : ( size / 960.0 ) * 100vw !important
+
+for index in 0 .. 96
+    size = index * 4
+    .padding-top-{size}
+        padding-top : ( size / 960.0 ) * 100vw !important
+
+for index in 0 .. 96
+    size = index * 4
+    .margin-{size}
+        margin : ( size / 960.0 ) * 100vw !important
+
+for index in 0 .. 96
+    size = index * 4
+    .margin-left-{size}
+        margin-left : ( size / 960.0 ) * 100vw !important
+
+for index in 0 .. 96
+    size = index * 4
+    .margin-right-{size}
+        margin-right : ( size / 960.0 ) * 100vw !important
+
+for index in 0 .. 96
+    size = index * 4
+    .margin-bottom-{size}
+        margin-bottom : ( size / 960.0 ) * 100vw !important
+
+for index in 0 .. 96
+    size = index * 4
+    .margin-top-{size}
+        margin-top : ( size / 960.0 ) * 100vw !important
+
+for index in 0 .. 96
+    size = index * 4
+    .font-size-{size}
+        font-size : ( size / 960.0 ) * 100vw
+
+.container
+    width : 100%
+    margin : 0 auto
+    display : block
+
+.grid
+    display : grid !important
+    grid-gap : 10vw
+    grid-template-columns : repeat(12, 1fr)
+
+.vertical-start
+    align-items : start
+
+.vertical-center
+    align-items : center
+
+.vertical-end
+    align-items : end
+
+.between
+    justify-content : center
+
+.gap-none
+    grid-gap : 0
+    margin-bottom : 0
+
+.gap-column-none
+    grid-column-gap : 0
+
+.gap-row-none
+    grid-row-gap : 0
+    margin-bottom : 0
+
+.first
+    order : -1
+
+.last
+    order : 12
+
+.hide
+    display : none !important
+
+.show
+    display : initial !important
+
+for index in 1 .. 12
+    fraction = 12.0 / index
+    .grid-{index}
+        grid-template-columns : repeat(fraction, 1fr)
+
+for index in 1 .. 12
+    .col-{index}
+        grid-column : span index/span index
+
+for index in 1 .. 12
+    .offset-{index}
+        grid-column-start : index
+
+.flex
+    flex-wrap : wrap
+    display : flex
+
+.fill
+    flex : 1 1 0%
+    flex-basis : 0%
+
+.fit
+    flex-basis : auto
+
+.float-center
+    margin-left : auto
+    margin-right : auto
+    display : block
+    float : none
+
+.float-left
+    float : left
+
+.float-right
+    float : right
+
+.clear-fix::after
+    content : ''
+    display : table
+    clear : both
+
+.text-left
+    text-align : left
+
+.text-right
+    text-align : right
+
+.text-center
+    text-align : center
