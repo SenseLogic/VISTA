@@ -1448,6 +1448,78 @@ th {
 .margin-top-960pt {
   margin-top: 100vw !important;
 }
+.font-size-4pt {
+  font-size: 0.416666666666667vw;
+}
+.font-size-8pt {
+  font-size: 0.833333333333333vw;
+}
+.font-size-12pt {
+  font-size: 1.25vw;
+}
+.font-size-16pt {
+  font-size: 1.666666666666667vw;
+}
+.font-size-20pt {
+  font-size: 2.083333333333333vw;
+}
+.font-size-24pt {
+  font-size: 2.5vw;
+}
+.font-size-28pt {
+  font-size: 2.916666666666667vw;
+}
+.font-size-32pt {
+  font-size: 3.333333333333333vw;
+}
+.font-size-36pt {
+  font-size: 3.75vw;
+}
+.font-size-40pt {
+  font-size: 4.166666666666667vw;
+}
+.font-size-44pt {
+  font-size: 4.583333333333334vw;
+}
+.font-size-48pt {
+  font-size: 5vw;
+}
+.font-size-52pt {
+  font-size: 5.416666666666667vw;
+}
+.font-size-56pt {
+  font-size: 5.833333333333334vw;
+}
+.font-size-60pt {
+  font-size: 6.25vw;
+}
+.font-size-64pt {
+  font-size: 6.666666666666667vw;
+}
+.font-size-68pt {
+  font-size: 7.083333333333334vw;
+}
+.font-size-72pt {
+  font-size: 7.5vw;
+}
+.font-size-76pt {
+  font-size: 7.916666666666667vw;
+}
+.font-size-80pt {
+  font-size: 8.333333333333334vw;
+}
+.font-size-84pt {
+  font-size: 8.75vw;
+}
+.font-size-88pt {
+  font-size: 9.166666666666668vw;
+}
+.font-size-92pt {
+  font-size: 9.583333333333334vw;
+}
+.font-size-96pt {
+  font-size: 10vw;
+}
 .container {
   width: 100%;
   margin: 0 auto;
