@@ -71,80 +71,75 @@ th
     padding : 0
     text-align : left
 
-for index in 0 .. 96
-    size = index * 10
-    .with-{size}
-        width : ( size / 960.0 ) * 100vw
+pc = 1%
+px = 1px
+pw = 1vw
+ph = 1vh
+pt = 100vw / 960.0
+rm = 1rem
 
-for index in 0 .. 96
-    size = index * 10
-    .height-{size}
-        height : ( size / 960.0 ) * 100vw
+MakeWidths( size, unit, suffix )
+    .with-{size}{suffix}
+        width : size * unit
+    .min-with-{size}{suffix}
+        min-width : size * unit
+    .max-with-{size}{suffix}
+        max-width : size * unit
 
-for index in 0 .. 96
-    size = index * 10
-    .max-with-{size}
-        max-width : ( size / 960.0 ) * 100vw
+MakeHeights( size, unit, suffix )
+    .height-{size}{suffix}
+        height : size * unit
+    .min-height-{size}{suffix}
+        min-height : size * unit
+    .max-height-{size}{suffix}
+        max-height : size * unit
 
-for index in 0 .. 96
-    size = index * 10
-    .max-height-{size}
-        max-height : ( size / 960.0 ) * 100vw
+MakePaddings( size, unit, suffix )
+    .padding-{size}{suffix}
+        padding : size * unit !important
+    .padding-left-right-{size}{suffix}
+        padding-left : size * unit !important
+        padding-right : size * unit !important
+    .padding-bottom-top-{size}{suffix}
+        padding-bottom : size * unit !important
+        padding-top : size * unit !important
+    .padding-left-{size}{suffix}
+        padding-left : size * unit !important
+    .padding-right-{size}{suffix}
+        padding-right : size * unit !important
+    .padding-bottom-{size}{suffix}
+        padding-bottom : size * unit !important
+    .padding-top-{size}{suffix}
+        padding-top : size * unit !important
 
-for index in 0 .. 96
-    size = index * 4
-    .padding-{size}
-        padding : ( size / 960.0 ) * 100vw !important
+MakeMargins( size, unit, suffix )
+    .margin-{size}{suffix}
+        margin : size * unit !important
+    .margin-left-right-{size}{suffix}
+        margin-left : size * unit !important
+        margin-right : size * unit !important
+    .margin-bottom-top-{size}{suffix}
+        margin-bottom : size * unit !important
+        margin-top : size * unit !important
+    .margin-left-{size}{suffix}
+        margin-left : size * unit !important
+    .margin-right-{size}{suffix}
+        margin-right : size * unit !important
+    .margin-bottom-{size}{suffix}
+        margin-bottom : size * unit !important
+    .margin-top-{size}{suffix}
+        margin-top : size * unit !important
 
-for index in 0 .. 96
-    size = index * 4
-    .padding-left-{size}
-        padding-left : ( size / 960.0 ) * 100vw !important
+MakeFontSize( size, unit, suffix )
+    .font-size-{size}{suffix}
+        font-size : {size}{suffix}
 
-for index in 0 .. 96
-    size = index * 4
-    .padding-right-{size}
-        padding-right : ( size / 960.0 ) * 100vw !important
-
-for index in 0 .. 96
-    size = index * 4
-    .padding-bottom-{size}
-        padding-bottom : ( size / 960.0 ) * 100vw !important
-
-for index in 0 .. 96
-    size = index * 4
-    .padding-top-{size}
-        padding-top : ( size / 960.0 ) * 100vw !important
-
-for index in 0 .. 96
-    size = index * 4
-    .margin-{size}
-        margin : ( size / 960.0 ) * 100vw !important
-
-for index in 0 .. 96
-    size = index * 4
-    .margin-left-{size}
-        margin-left : ( size / 960.0 ) * 100vw !important
-
-for index in 0 .. 96
-    size = index * 4
-    .margin-right-{size}
-        margin-right : ( size / 960.0 ) * 100vw !important
-
-for index in 0 .. 96
-    size = index * 4
-    .margin-bottom-{size}
-        margin-bottom : ( size / 960.0 ) * 100vw !important
-
-for index in 0 .. 96
-    size = index * 4
-    .margin-top-{size}
-        margin-top : ( size / 960.0 ) * 100vw !important
-
-for index in 0 .. 96
-    size = index * 4
-    .font-size-{size}
-        font-size : ( size / 960.0 ) * 100vw
+for index in 0 .. 24
+    size = index * 40
+    MakeWiths( size, pt, "pt" )
+    MakeHeights( size, pt, "pt" )
+    MakePaddings( size, pt, "pt" )
+    MakeMargins( size, pt, "pt" )
 
 .container
     width : 100%
@@ -153,8 +148,8 @@ for index in 0 .. 96
 
 .grid
     display : grid !important
-    grid-gap : 10vw
-    grid-template-columns : repeat(12, 1fr)
+    grid-gap : 0
+    grid-template-columns : repeat(24, 1fr)
 
 .vertical-start
     align-items : start
@@ -183,7 +178,7 @@ for index in 0 .. 96
     order : -1
 
 .last
-    order : 12
+    order : 24
 
 .hide
     display : none !important
@@ -191,16 +186,16 @@ for index in 0 .. 96
 .show
     display : initial !important
 
-for index in 1 .. 12
-    fraction = 12.0 / index
+for index in 1 .. 24
+    fraction = 24.0 / index
     .grid-{index}
         grid-template-columns : repeat(fraction, 1fr)
 
-for index in 1 .. 12
-    .col-{index}
+for index in 1 .. 24
+    .column-{index}
         grid-column : span index/span index
 
-for index in 1 .. 12
+for index in 1 .. 24
     .offset-{index}
         grid-column-start : index
 
@@ -228,7 +223,7 @@ for index in 1 .. 12
     float : right
 
 .clear-fix::after
-    content : ''
+    content : ""
     display : table
     clear : both
 
