@@ -1,6 +1,6 @@
-![](https://github.com/senselogic/CYGNUS/blob/master/LOGO/cygnus.png)
+![](https://github.com/senselogic/VISTA/blob/master/LOGO/vista.png)
 
-# Cygnus
+# Vista
 
 Minimalistic CSS framework.
 
