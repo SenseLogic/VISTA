@@ -132,7 +132,7 @@ MakeMargins( size, unit, suffix )
 
 MakeFontSize( size, unit, suffix )
     .font-size-{size}{suffix}
-        font-size : {size}{suffix}
+        font-size : size * unit
 
 for index in 0 .. 24
     size = index * 40
