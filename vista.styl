@@ -101,15 +101,9 @@ option
     appearance: none;
 }
 
-pct = 1%;
-vw = 1vw;
-vh = 1vh;
-px = 1px;
-pc = 100vw / 96.0;
-pt = 100vw / 960.0;
-rm = 1rem;
+// ~~
 
-MakeWidths( size, unit, suffix )
+MakeWidth( size, unit, suffix )
 
     .width-{size}{suffix}
     {
@@ -126,7 +120,7 @@ MakeWidths( size, unit, suffix )
         max-width : size * unit;
     }
 
-MakeHeights( size, unit, suffix )
+MakeHeight( size, unit, suffix )
 
     .height-{size}{suffix}
     {
@@ -143,20 +137,20 @@ MakeHeights( size, unit, suffix )
         max-height : size * unit;
     }
 
-MakePaddings( size, unit, suffix )
+MakePadding( size, unit, suffix )
 
     .padding-{size}{suffix}
     {
         padding : size * unit !important;
     }
 
-    .padding-left-right-{size}{suffix}
+    .padding-horizontal-{size}{suffix}
     {
         padding-left : size * unit !important;
         padding-right : size * unit !important;
     }
 
-    .padding-bottom-top-{size}{suffix}
+    .padding-vertical-{size}{suffix}
     {
         padding-bottom : size * unit !important;
         padding-top : size * unit !important;
@@ -182,20 +176,20 @@ MakePaddings( size, unit, suffix )
         padding-top : size * unit !important;
     }
 
-MakeMargins( size, unit, suffix )
+MakeMargin( size, unit, suffix )
 
     .margin-{size}{suffix}
     {
         margin : size * unit !important;
     }
 
-    .margin-left-right-{size}{suffix}
+    .margin-horizontal-{size}{suffix}
     {
         margin-left : size * unit !important;
         margin-right : size * unit !important;
     }
 
-    .margin-bottom-top-{size}{suffix}
+    .margin-vertical-{size}{suffix}
     {
         margin-bottom : size * unit !important;
         margin-top : size * unit !important;
@@ -228,98 +222,56 @@ MakeFontSize( size, unit, suffix )
         font-size : size * unit;
     }
 
-for index in 0 .. 39
-{
-    size = index;
-    MakeWidths( size, pt, "pt" );
-    MakeHeights( size, pt, "pt" );
-    MakePaddings( size, pt, "pt" );
-    MakeMargins( size, pt, "pt" );
-}
+MakeWidths( start, step, count, unit, suffix )
 
-for index in 4 .. 96
-{
-    size = index * 10;
-    MakeWidths( size, pt, "pt" );
-    MakeHeights( size, pt, "pt" );
-    MakePaddings( size, pt, "pt" );
-    MakeMargins( size, pt, "pt" );
-}
+    for index in 0 .. count
+    {
+        size = start + index * step;
 
-for index in 0 .. 10
-{
-    size = index * 10;
-    MakeWidths( size, pct, "pct" );
-    MakeHeights( size, pct, "pct" );
-    MakePaddings( size, pct, "pct" );
-    MakeMargins( size, pct, "pct" );
-}
+        MakeWidth( size, unit, suffix );
+    }
 
-for index in 1 .. 96
-{
-    size = index;
-    MakeFontSize( size, pt, "pt" );
-}
+MakeHeights( start, step, count, unit, suffix )
 
-.block
+    for index in 0 .. count
+    {
+        size = start + index * step;
+
+        MakeHeight( size, unit, suffix );
+    }
+
+MakePaddings( start, step, count, unit, suffix )
+
+    for index in 0 .. count
+    {
+        size = start + index * step;
+
+        MakePadding( size, unit, suffix );
+    }
+
+MakeMargins( start, step, count, unit, suffix )
+
+    for index in 0 .. count
+    {
+        size = start + index * step;
+
+        MakeMargin( size, unit, suffix );
+    }
+
+MakeFontSizes( start, step, count, unit, suffix )
+
+    for index in 0 .. count
+    {
+        size = start + index * step;
+
+        MakeFontSize( size, unit, suffix );
+    }
+
+// ~~
+
+.full-width
 {
     width : 100%;
-    margin : 0 auto;
-    display : block;
-}
-
-.grid
-{
-    display : grid !important;
-    grid-gap : 0;
-    grid-template-columns : repeat( 24, 1fr );
-}
-
-.vertical-start
-{
-    align-items : start;
-}
-
-.vertical-center
-{
-    align-items : center;
-}
-
-.vertical-end
-{
-    align-items : end;
-}
-
-.between
-{
-    justify-content : center;
-}
-
-.gap-none
-{
-    grid-gap : 0;
-    margin-bottom : 0;
-}
-
-.gap-column-none
-{
-    grid-column-gap : 0;
-}
-
-.gap-row-none
-{
-    grid-row-gap : 0;
-    margin-bottom : 0;
-}
-
-.first
-{
-    order : -1;
-}
-
-.last
-{
-    order : 24;
 }
 
 .hide
@@ -332,168 +284,16 @@ for index in 1 .. 96
     display : initial !important;
 }
 
-for index in 1 .. 24
+// ~~
+
+.block
 {
-    .grid-{index}
-    {
-        grid-template-columns : repeat( index, 1fr );
-    }
+    width : 100%;
+    margin : 0 auto;
+    display : block;
 }
 
-for index in 1 .. 24
-{
-    .column-{index}
-    {
-        grid-column : span index/span index;
-    }
-}
-
-for index in 1 .. 24
-{
-    .offset-{index}
-    {
-        grid-column-start : index;
-    }
-}
-
-.flex-row
-{
-    display : flex;
-    flex-direction : row;
-    flex-wrap : wrap;
-}
-
-.flex-row-reverse
-{
-    display : flex;
-    flex-direction : row-reverse;
-    flex-wrap : wrap;
-}
-
-.flex-column
-{
-    display : flex;
-    flex-direction : column;
-    flex-wrap : wrap;
-}
-
-.flex-column-reverse
-{
-    display : flex;
-    flex-direction : column-reverse;
-    flex-wrap : wrap;
-}
-
-.flex-wrap
-{
-    flex-wrap : wrap;
-}
-
-.flex-wrap-reverse
-{
-    flex-wrap : wrap-reverse;
-}
-
-.flex-no-wrap
-{
-    flex-wrap : nowrap;
-}
-
-.flex-justify-start
-{
-    justify-content : flex-start;
-}
-
-.flex-justify-end
-{
-    justify-content : flex-end;
-}
-
-.flex-justify-center
-{
-    justify-content : center;
-}
-
-.flex-justify-between
-{
-    justify-content : space-between;
-}
-
-.flex-justify-around
-{
-    justify-content : space-around;
-}
-
-.flex-justify-evenly
-{
-    justify-content : space-evenly;
-}
-
-.flex-align-start
-{
-    align-content : flex-start;
-}
-
-.flex-align-end
-{
-    align-content : flex-end;
-}
-
-.flex-align-center
-{
-    align-content : center;
-}
-
-.flex-align-between
-{
-    align-content : space-between;
-}
-
-.flex-align-around
-{
-    align-content : space-around;
-}
-
-.flex-align-evenly
-{
-    align-content : space-evenly;
-}
-
-.flex-stack-start
-{
-    align-items : flex-start;
-}
-
-.flex-stack-end
-{
-    align-items : flex-end;
-}
-
-.flex-stack-center
-{
-    align-items : center;
-}
-
-.flex-stack-stretch
-{
-    align-items : stretch;
-}
-
-.flex-stack-baseline
-{
-    align-items : baseline;
-}
-
-.flex-fill
-{
-    flex : 1 1 0%;
-    flex-basis : 0%;
-}
-
-.flex-basis-auto
-{
-    flex-basis : auto;
-}
+// ~~
 
 .float-center
 {
@@ -520,6 +320,8 @@ for index in 1 .. 24
     clear : both;
 }
 
+// ~~
+
 .text-align-left
 {
     text-align : left;
@@ -535,16 +337,467 @@ for index in 1 .. 24
     text-align : center;
 }
 
+// ~~
+
+.flex-row
+{
+    display : flex;
+    flex-direction : row;
+}
+
+.flex-row-reverse
+{
+    display : flex;
+    flex-direction : row-reverse;
+}
+
+.flex-column
+{
+    display : flex;
+    flex-direction : column;
+}
+
+.flex-column-reverse
+{
+    display : flex;
+    flex-direction : column-reverse;
+}
+
+.flex-wrap
+{
+    flex-wrap : wrap;
+}
+
+.flex-wrap-reverse
+{
+    flex-wrap : wrap-reverse;
+}
+
+.flex-no-wrap
+{
+    flex-wrap : nowrap;
+}
+
+.flex-fill
+{
+    flex : 1 1 0%;
+    flex-basis : 0%;
+}
+
+.flex-basis-auto
+{
+    flex-basis : auto;
+}
+
+// ~~
+
+.justify-content-start
+{
+    justify-content : start;
+}
+
+.justify-content-flex-start
+{
+    justify-content : flex-start;
+}
+
+.justify-content-center
+{
+    justify-content : center;
+}
+
+.justify-content-safe-center
+{
+    justify-content : safe center;
+}
+
+.justify-content-unsafe-center
+{
+    justify-content : unsafe center;
+}
+
+.justify-content-end
+{
+    justify-content : end;
+}
+
+.justify-content-flex-end
+{
+    justify-content : flex-end;
+}
+
+.justify-content-left
+{
+    justify-content : left;
+}
+
+.justify-content-right
+{
+    justify-content : right;
+}
+
+.justify-content-stretch
+{
+    justify-content : stretch;
+}
+
+.justify-content-between
+{
+    justify-content : space-between;
+}
+
+.justify-content-around
+{
+    justify-content : space-around;
+}
+
+.justify-content-evenly
+{
+    justify-content : space-evenly;
+}
+
+// ~~
+
+.justify-items-start
+{
+    justify-items : start;
+}
+
+.justify-items-self-start
+{
+    justify-items : self-start;
+}
+
+.justify-items-flex-start
+{
+    justify-items : flex-start;
+}
+
+.justify-items-center
+{
+    justify-items : center;
+}
+
+.justify-items-safe-center
+{
+    justify-items : safe center;
+}
+
+.justify-items-unsafe-center
+{
+    justify-items : unsafe center;
+}
+
+.justify-items-end
+{
+    justify-items : end;
+}
+
+.justify-items-self-end
+{
+    justify-items : self-end;
+}
+
+.justify-items-flex-end
+{
+    justify-items : flex-end;
+}
+
+.justify-items-left
+{
+    justify-items : left;
+}
+
+.justify-items-right
+{
+    justify-items : right;
+}
+
+// ~~
+
+.justify-self-start
+{
+    justify-self : start;
+}
+
+.justify-self-self-start
+{
+    justify-self : self-start;
+}
+
+.justify-self-flex-start
+{
+    justify-self : flex-start;
+}
+
+.justify-self-center
+{
+    justify-self : center;
+}
+
+.justify-self-safe-center
+{
+    justify-self : safe center;
+}
+
+.justify-self-unsafe-center
+{
+    justify-self : unsafe center;
+}
+
+.justify-self-end
+{
+    justify-self : end;
+}
+
+.justify-self-self-end
+{
+    justify-self : self-end;
+}
+
+.justify-self-flex-end
+{
+    justify-self : flex-end;
+}
+
+.justify-self-left
+{
+    justify-self : left;
+}
+
+.justify-self-right
+{
+    justify-self : right;
+}
+
+// ~~
+
+.align-content-start
+{
+    align-content : start;
+}
+
+.align-content-flex-start
+{
+    align-content : flex-start;
+}
+
+.align-content-center
+{
+    align-content : center;
+}
+
+.align-content-safe-center
+{
+    align-content : safe center;
+}
+
+.align-content-unsafe-center
+{
+    align-content : unsafe center;
+}
+
+.align-content-end
+{
+    align-content : end;
+}
+
+.align-content-flex-end
+{
+    align-content : flex-end;
+}
+
+.align-content-stretch
+{
+    align-content : stretch;
+}
+
+.align-content-between
+{
+    align-content : space-between;
+}
+
+.align-content-around
+{
+    align-content : space-around;
+}
+
+.align-content-evenly
+{
+    align-content : space-evenly;
+}
+
+.align-content-baseline
+{
+    align-content : baseline;
+}
+
+.align-content-first-baseline
+{
+    align-content : first baseline;
+}
+
+.align-content-last-baseline
+{
+    align-content : last baseline;
+}
+
+// ~~
+
+.align-items-start
+{
+    align-items : start;
+}
+
+.align-items-self-start
+{
+    align-items : self-start;
+}
+
+.align-items-flex-start
+{
+    align-items : flex-start;
+}
+
+.align-items-center
+{
+    align-items : center;
+}
+
+.align-items-safe-center
+{
+    align-items : safe center;
+}
+
+.align-items-unsafe-center
+{
+    align-items : unsafe center;
+}
+
+.align-items-end
+{
+    align-items : end;
+}
+
+.align-items-self-end
+{
+    align-items : self-end;
+}
+
+.align-items-flex-end
+{
+    align-items : flex-end;
+}
+
+.align-items-stretch
+{
+    align-items : stretch;
+}
+
+.align-items-baseline
+{
+    align-items : baseline;
+}
+
+.align-items-first-baseline
+{
+    align-items : first baseline;
+}
+
+.align-items-last-baseline
+{
+    align-items : last baseline;
+}
+
+// ~~
+
+.align-self-start
+{
+    align-self : start;
+}
+
+.align-self-center
+{
+    align-self : center;
+}
+
+.align-self-safe-center
+{
+    align-self : safe center;
+}
+
+.align-self-unsafe-center
+{
+    align-self : unsafe center;
+}
+
+.align-self-end
+{
+    align-self : end;
+}
+
+.align-self-stretch
+{
+    align-self : stretch;
+}
+
+.align-self-self-start
+{
+    align-self : self-start;
+}
+
+.align-self-self-end
+{
+    align-self : self-end;
+}
+
+.align-self-flex-start
+{
+    align-self : flex-start;
+}
+
+.align-self-flex-end
+{
+    align-self : flex-end;
+}
+
+.align-self-baseline
+{
+    align-self : baseline;
+}
+
+.align-self-first-baseline
+{
+    align-self : first baseline;
+}
+
+.align-self-last-baseline
+{
+    align-self : last baseline;
+}
+
+// ~~
+
+Pc = 1%;
+Pt = 1rem / 16;
+
+// ~~
+
+InputRadius = 10 * Pt;
+InputPadding = 5 * Pt;
+
+// ~~
+
 .input, .button, .select
 {
-    border-radius: 10 * pt;
-    padding : 5 * pt;
+    border-radius: InputRadius;
+    padding : InputPadding;
 }
 
 .input
 {
-    padding-left : 10 * pt;
-    padding-right : 10 * pt;
+    padding-left : 2 * InputPadding;
+    padding-right : 2 * InputPadding;
 }
 
 .select
