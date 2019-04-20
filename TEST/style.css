@@ -3394,10 +3394,6 @@ body {
 body * {
   border: 1px dotted #ccc;
 }
-a {
-  color: #fff;
-  text-decoration: none;
-}
 .content {
   max-width: 75rem;
   margin-left: auto;
@@ -3409,21 +3405,5 @@ a {
 }
 .main {
   background-color: #eee;
-  color: #000;
-}
-.footer {
-  background-color: #444;
-  color: #fff;
-}
-.first-column {
-  background-color: #88f8f8;
-  color: #000;
-}
-.first-row {
-  background-color: #f888f8;
-  color: #000;
-}
-.second-row {
-  background-color: #f8f888;
   color: #000;
 }
