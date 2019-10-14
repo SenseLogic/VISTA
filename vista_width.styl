@@ -1,0 +1,262 @@
+.width-auto
+{
+    width: auto;
+}
+
+// ~~
+
+MakeWidthAuto( breakpoint_size_map, breakpoint_precision )
+
+    for breakpoint_name, breakpoint_size in breakpoint_size_map
+    {
+        @media ( min-width: breakpoint_size )
+        {
+            .width-auto-above-{breakpoint_name}
+            {
+                width: auto;
+            }
+        }
+
+        @media ( max-width: breakpoint_size - breakpoint_precision )
+        {
+            .width-auto-below-{breakpoint_name}
+            {
+                width: auto;
+            }
+        }
+    }
+
+// ~~
+
+MakeWidth( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+
+    .width-{size}{unit_name}
+    {
+        width: size * unit_value;
+    }
+
+    for breakpoint_name, breakpoint_size in breakpoint_size_map
+    {
+        @media ( min-width: breakpoint_size )
+        {
+            .width-{size}{unit_name}-above-{breakpoint_name}
+            {
+                width: size * unit_value;
+            }
+        }
+
+        @media ( max-width: breakpoint_size - breakpoint_precision )
+        {
+            .width-{size}{unit_name}-below-{breakpoint_name}
+            {
+                width: size * unit_value;
+            }
+        }
+    }
+
+// ~~
+
+MakeWidthRange( start, step, count, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+
+    for index in 0 .. count
+    {
+        size = start + index * step;
+
+        MakeWidth( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision );
+    }
+
+// ~~
+
+MakeMinWidth( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+
+    .min-width-{size}{unit_name}
+    {
+        min-width: size * unit_value;
+    }
+
+    for breakpoint_name, breakpoint_size in breakpoint_size_map
+    {
+        @media ( min-width: breakpoint_size )
+        {
+            .min-width-{size}{unit_name}-above-{breakpoint_name}
+            {
+                min-width: size * unit_value;
+            }
+        }
+        @media ( max-width: breakpoint_size - breakpoint_precision )
+        {
+            .min-width-{size}{unit_name}-below-{breakpoint_name}
+            {
+                min-width: size * unit_value;
+            }
+        }
+    }
+
+// ~~
+
+MakeMinWidthRange( start, step, count, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+
+    for index in 0 .. count
+    {
+        size = start + index * step;
+
+        MakeMinWidth( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision );
+    }
+
+// ~~
+
+MakeMaxWidth( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+
+    .max-width-{size}{unit_name}
+    {
+        max-width: size * unit_value;
+    }
+
+    for breakpoint_name, breakpoint_size in breakpoint_size_map
+    {
+        @media ( min-width: breakpoint_size )
+        {
+            .max-width-{size}{unit_name}-above-{breakpoint_name}
+            {
+                max-width: size * unit_value;
+            }
+        }
+
+        @media ( max-width: breakpoint_size - breakpoint_precision )
+        {
+            .max-width-{size}{unit_name}-below-{breakpoint_name}
+            {
+                max-width: size * unit_value;
+            }
+        }
+    }
+
+// ~~
+
+MakeMaxWidthRange( start, step, count, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+
+    for index in 0 .. count
+    {
+        size = start + index * step;
+
+        MakeMaxWidth( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision );
+    }
+
+// ~~
+
+MakeFractionalWidth( column_count, breakpoint_size_map, breakpoint_precision )
+
+    for column_index in 1 .. column_count
+    {
+        .width-{column_index}_{column_count}
+        {
+            width: 100% * column_index / column_count;
+        }
+
+        for breakpoint_name, breakpoint_size in breakpoint_size_map
+        {
+            @media ( min-width: breakpoint_size )
+            {
+                .width-{column_index}_{column_count}-above-{breakpoint_name}
+                {
+                    width: 100% * column_index / column_count;
+                }
+            }
+
+            @media ( max-width: breakpoint_size - breakpoint_precision )
+            {
+                .width-{column_index}_{column_count}-below-{breakpoint_name}
+                {
+                    width: 100% * column_index / column_count;
+                }
+            }
+        }
+    }
+
+// ~~
+
+MakeFractionalWidthRange( first_column_count, last_column_count, breakpoint_size_map, breakpoint_precision )
+
+    for column_count in first_column_count .. last_column_count
+    {
+        MakeFractionalWidth( column_count, breakpoint_size_map, breakpoint_precision );
+    }
+
+// ~~
+
+MakeMinFractionalWidth( column_count, breakpoint_size_map, breakpoint_precision )
+
+    for column_index in 1 .. column_count
+    {
+        .min-width-{column_index}_{column_count}
+        {
+            min-width: 100% * column_index / column_count;
+        }
+
+        for breakpoint_name, breakpoint_size in breakpoint_size_map
+        {
+            @media ( min-width: breakpoint_size )
+            {
+                .min-width-{column_index}_{column_count}-above-{breakpoint_name}
+                {
+                    min-width: 100% * column_index / column_count;
+                }
+            }
+            @media ( max-width: breakpoint_size - breakpoint_precision )
+            {
+                .min-width-{column_index}_{column_count}-below-{breakpoint_name}
+                {
+                    min-width: 100% * column_index / column_count;
+                }
+            }
+        }
+    }
+
+// ~~
+
+MakeMinFractionalWidthRange( first_column_count, last_column_count, breakpoint_size_map, breakpoint_precision )
+
+    for column_count in first_column_count .. last_column_count
+    {
+        MakeMinFractionalWidth( column_count, breakpoint_size_map, breakpoint_precision );
+    }
+
+// ~~
+
+MakeMaxFractionalWidth( column_count, breakpoint_size_map, breakpoint_precision )
+
+    for column_index in 1 .. column_count
+    {
+        .max-width-{column_index}_{column_count}
+        {
+            max-width: 100% * column_index / column_count;
+        }
+
+        for breakpoint_name, breakpoint_size in breakpoint_size_map
+        {
+            @media ( min-width: breakpoint_size )
+            {
+                .max-width-{column_index}_{column_count}-above-{breakpoint_name}
+                {
+                    max-width: 100% * column_index / column_count;
+                }
+            }
+
+            @media ( max-width: breakpoint_size - breakpoint_precision )
+            {
+                .max-width-{column_index}_{column_count}-below-{breakpoint_name}
+                {
+                    max-width: 100% * column_index / column_count;
+                }
+            }
+        }
+    }
+
+// ~~
+
+MakeMaxFractionalWidthRange( first_column_count, last_column_count, breakpoint_size_map, breakpoint_precision )
+
+    for column_count in first_column_count .. last_column_count
+    {
+        MakeMaxFractionalWidth( column_count, breakpoint_size_map, breakpoint_precision );
+    }

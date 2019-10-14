@@ -1,0 +1,569 @@
+.margin-auto
+{
+    margin: auto;
+}
+
+// ~~
+
+MakeMarginAuto( breakpoint_size_map, breakpoint_precision )
+
+    for breakpoint_name, breakpoint_size in breakpoint_size_map
+    {
+        @media ( min-width: breakpoint_size )
+        {
+            .margin-auto-above-{breakpoint_name}
+            {
+                margin: auto;
+            }
+        }
+
+        @media ( max-width: breakpoint_size - breakpoint_precision )
+        {
+            .margin-auto-above-{breakpoint_name}
+            {
+                margin: auto;
+            }
+        }
+    }
+
+// ~~
+
+MakeMargin( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+
+    .margin-{size}{unit_name}
+    {
+        margin: size * unit_value;
+    }
+
+    for breakpoint_name, breakpoint_size in breakpoint_size_map
+    {
+        @media ( min-width: breakpoint_size )
+        {
+            .margin-{size}{unit_name}-above-{breakpoint_name}
+            {
+                margin: size * unit_value;
+            }
+        }
+
+        @media ( max-width: breakpoint_size - breakpoint_precision )
+        {
+            .margin-{size}{unit_name}-below-{breakpoint_name}
+            {
+                margin: size * unit_value;
+            }
+        }
+    }
+
+// ~~
+
+MakeMarginRange( start, step, count, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+
+    for index in 0 .. count
+    {
+        size = start + index * step;
+
+        MakeMargin( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision );
+    }
+
+// ~~
+
+.margin-lateral-auto
+{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+// ~~
+
+MakeMarginLateralAuto( breakpoint_size_map, breakpoint_precision )
+
+    for breakpoint_name, breakpoint_size in breakpoint_size_map
+    {
+        @media ( min-width: breakpoint_size )
+        {
+            .margin-lateral-auto-above-{breakpoint_name}
+            {
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+
+        @media ( max-width: breakpoint_size - breakpoint_precision )
+        {
+            .margin-lateral-auto-below-{breakpoint_name}
+            {
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+    }
+
+// ~~
+
+MakeMarginLateral( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+
+    .margin-lateral-{size}{unit_name}
+    {
+        margin-left: size * unit_value;
+        margin-right: size * unit_value;
+    }
+
+    for breakpoint_name, breakpoint_size in breakpoint_size_map
+    {
+        @media ( min-width: breakpoint_size )
+        {
+            .margin-lateral-{size}{unit_name}-above-{breakpoint_name}
+            {
+                margin-left: size * unit_value;
+                margin-right: size * unit_value;
+            }
+        }
+
+        @media ( max-width: breakpoint_size - breakpoint_precision )
+        {
+            .margin-lateral-{size}{unit_name}-below-{breakpoint_name}
+            {
+                margin-left: size * unit_value;
+                margin-right: size * unit_value;
+            }
+        }
+    }
+
+// ~~
+
+MakeMarginLateralRange( start, step, count, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+
+    for index in 0 .. count
+    {
+        size = start + index * step;
+
+        MakeMarginLateral( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision );
+    }
+
+// ~~
+
+.margin-vertical-auto
+{
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+// ~~
+
+MakeMarginVerticalAuto( breakpoint_size_map, breakpoint_precision )
+
+    for breakpoint_name, breakpoint_size in breakpoint_size_map
+    {
+        @media ( min-width: breakpoint_size )
+        {
+            .margin-vertical-auto-above-{breakpoint_name}
+            {
+                margin-top: auto;
+                margin-bottom: auto;
+            }
+        }
+
+        @media ( max-width: breakpoint_size - breakpoint_precision )
+        {
+            .margin-vertical-auto-below-{breakpoint_name}
+            {
+                margin-top: auto;
+                margin-bottom: auto;
+            }
+        }
+    }
+
+// ~~
+
+MakeMarginVertical( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+
+    .margin-vertical-{size}{unit_name}
+    {
+        margin-top: size * unit_value;
+        margin-bottom: size * unit_value;
+    }
+
+    for breakpoint_name, breakpoint_size in breakpoint_size_map
+    {
+        @media ( min-width: breakpoint_size )
+        {
+            .margin-vertical-{size}{unit_name}-above-{breakpoint_name}
+            {
+                margin-top: size * unit_value;
+                margin-bottom: size * unit_value;
+            }
+        }
+
+        @media ( max-width: breakpoint_size - breakpoint_precision )
+        {
+            .margin-vertical-{size}{unit_name}-below-{breakpoint_name}
+            {
+                margin-top: size * unit_value;
+                margin-bottom: size * unit_value;
+            }
+        }
+    }
+
+// ~~
+
+MakeMarginVerticalRange( start, step, count, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+
+    for index in 0 .. count
+    {
+        size = start + index * step;
+
+        MakeMarginVertical( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision );
+    }
+
+// ~~
+
+.margin-left-auto
+{
+    margin-left: auto;
+}
+
+// ~~
+
+MakeMarginLeftAuto( breakpoint_size_map, breakpoint_precision )
+
+    for breakpoint_name, breakpoint_size in breakpoint_size_map
+    {
+        @media ( min-width: breakpoint_size )
+        {
+            .margin-left-auto-above-{breakpoint_name}
+            {
+                margin-left: auto;
+            }
+        }
+
+        @media ( max-width: breakpoint_size - breakpoint_precision )
+        {
+            .margin-left-auto-below-{breakpoint_name}
+            {
+                margin-left: auto;
+            }
+        }
+    }
+
+// ~~
+
+MakeMarginLeft( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+
+    .margin-left-{size}{unit_name}
+    {
+        margin-left: size * unit_value;
+    }
+
+    for breakpoint_name, breakpoint_size in breakpoint_size_map
+    {
+        @media ( min-width: breakpoint_size )
+        {
+            .margin-left-{size}{unit_name}-above-{breakpoint_name}
+            {
+                margin-left: size * unit_value;
+            }
+        }
+        @media ( max-width: breakpoint_size - breakpoint_precision )
+        {
+            .margin-left-{size}{unit_name}-below-{breakpoint_name}
+            {
+                margin-left: size * unit_value;
+            }
+        }
+    }
+
+// ~~
+
+MakeMarginLeftRange( start, step, count, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+
+    for index in 0 .. count
+    {
+        size = start + index * step;
+
+        MakeMarginLeft( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision );
+    }
+
+// ~~
+
+.margin-right-auto
+{
+    margin-right: auto;
+}
+
+// ~~
+
+MakeMarginRightAuto( breakpoint_size_map, breakpoint_precision )
+
+    for breakpoint_name, breakpoint_size in breakpoint_size_map
+    {
+        @media ( min-width: breakpoint_size )
+        {
+            .margin-right-auto-above-{breakpoint_name}
+            {
+                margin-right: auto;
+            }
+        }
+
+        @media ( max-width: breakpoint_size - breakpoint_precision )
+        {
+            .margin-right-auto-below-{breakpoint_name}
+            {
+                margin-right: auto;
+            }
+        }
+    }
+
+// ~~
+
+MakeMarginRight( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+
+    .margin-right-{size}{unit_name}
+    {
+        margin-right: size * unit_value;
+    }
+
+    for breakpoint_name, breakpoint_size in breakpoint_size_map
+    {
+        @media ( min-width: breakpoint_size )
+        {
+            .margin-right-{size}{unit_name}-above-{breakpoint_name}
+            {
+                margin-right: size * unit_value;
+            }
+        }
+
+        @media ( max-width: breakpoint_size - breakpoint_precision )
+        {
+            .margin-right-{size}{unit_name}-below-{breakpoint_name}
+            {
+                margin-right: size * unit_value;
+            }
+        }
+    }
+
+// ~~
+
+MakeMarginRightRange( start, step, count, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+
+    for index in 0 .. count
+    {
+        size = start + index * step;
+
+        MakeMarginRight( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision );
+    }
+
+// ~~
+
+.margin-top-auto
+{
+    margin-top: auto;
+}
+
+// ~~
+
+MakeMarginTopAuto( breakpoint_size_map, breakpoint_precision )
+
+    for breakpoint_name, breakpoint_size in breakpoint_size_map
+    {
+        @media ( min-width: breakpoint_size )
+        {
+            .margin-top-auto-above-{breakpoint_name}
+            {
+                margin-top: auto;
+            }
+        }
+
+        @media ( max-width: breakpoint_size - breakpoint_precision )
+        {
+            .margin-top-auto-below-{breakpoint_name}
+            {
+                margin-top: auto;
+            }
+        }
+    }
+
+// ~~
+
+MakeMarginTop( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+
+    .margin-top-{size}{unit_name}
+    {
+        margin-top: size * unit_value;
+    }
+
+    for breakpoint_name, breakpoint_size in breakpoint_size_map
+    {
+        @media ( min-width: breakpoint_size )
+        {
+            .margin-top-{size}{unit_name}-above-{breakpoint_name}
+            {
+                margin-top: size * unit_value;
+            }
+        }
+
+        @media ( max-width: breakpoint_size - breakpoint_precision )
+        {
+            .margin-top-{size}{unit_name}-below-{breakpoint_name}
+            {
+                margin-top: size * unit_value;
+            }
+        }
+    }
+
+// ~~
+
+MakeMarginTopRange( start, step, count, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+
+    for index in 0 .. count
+    {
+        size = start + index * step;
+
+        MakeMarginTop( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision );
+    }
+
+// ~~
+
+.margin-bottom-auto
+{
+    margin-bottom: auto;
+}
+
+// ~~
+
+MakeMarginBottomAuto( breakpoint_size_map, breakpoint_precision )
+
+    for breakpoint_name, breakpoint_size in breakpoint_size_map
+    {
+        @media ( min-width: breakpoint_size )
+        {
+            .margin-bottom-auto-above-{breakpoint_name}
+            {
+                margin-bottom: auto;
+            }
+        }
+
+        @media ( max-width: breakpoint_size - breakpoint_precision )
+        {
+            .margin-bottom-auto-below-{breakpoint_name}
+            {
+                margin-bottom: auto;
+            }
+        }
+    }
+
+// ~~
+
+MakeMarginBottom( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+
+    .margin-bottom-{size}{unit_name}
+    {
+        margin-bottom: size * unit_value;
+    }
+
+    for breakpoint_name, breakpoint_size in breakpoint_size_map
+    {
+        @media ( min-width: breakpoint_size )
+        {
+            .margin-bottom-{size}{unit_name}-above-{breakpoint_name}
+            {
+                margin-bottom: size * unit_value;
+            }
+        }
+
+        @media ( max-width: breakpoint_size - breakpoint_precision )
+        {
+            .margin-bottom-{size}{unit_name}-below-{breakpoint_name}
+            {
+                margin-bottom: size * unit_value;
+            }
+        }
+    }
+
+// ~~
+
+MakeMarginBottomRange( start, step, count, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+
+    for index in 0 .. count
+    {
+        size = start + index * step;
+
+        MakeMarginBottom( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision );
+    }
+
+// ~~
+
+MakeFractionalMarginLeft( column_count, breakpoint_size_map, breakpoint_precision )
+
+    for column_index in 1 .. column_count
+
+        .margin-left-{column_index}_{column_count}
+        {
+            margin-left: 100% * column_index / column_count;
+        }
+
+        for breakpoint_name, breakpoint_size in breakpoint_size_map
+        {
+            @media ( min-width: breakpoint_size )
+            {
+                .margin-left-{column_index}_{column_count}-above-{breakpoint_name}
+                {
+                    margin-left: 100% * column_index / column_count;
+                }
+            }
+
+            @media ( max-width: breakpoint_size - breakpoint_precision )
+            {
+                .margin-left-{column_index}_{column_count}-below-{breakpoint_name}
+                {
+                    margin-left: 100% * column_index / column_count;
+                }
+            }
+        }
+
+// ~~
+
+MakeFractionalMarginLeftRange( first_column_count, last_column_count, breakpoint_size_map, breakpoint_precision )
+
+    for column_count in first_column_count .. last_column_count
+    {
+        MakeFractionalMarginLeft( column_count, breakpoint_size_map, breakpoint_precision );
+    }
+
+// ~~
+
+MakeFractionalMarginRight( column_count, breakpoint_size_map, breakpoint_precision )
+
+    for column_index in 1 .. column_count
+
+        .margin-right-{column_index}_{column_count}
+        {
+            margin-right: 100% * column_index / column_count;
+        }
+
+        for breakpoint_name, breakpoint_size in breakpoint_size_map
+        {
+            @media ( min-width: breakpoint_size )
+            {
+                .margin-right-{column_index}_{column_count}-above-{breakpoint_name}
+                {
+                    margin-right: 100% * column_index / column_count;
+                }
+            }
+
+            @media ( max-width: breakpoint_size - breakpoint_precision )
+            {
+                .margin-right-{column_index}_{column_count}-below-{breakpoint_name}
+                {
+                    margin-right: 100% * column_index / column_count;
+                }
+            }
+        }
+
+// ~~
+
+MakeFractionalMarginRightRange( first_column_count, last_column_count, breakpoint_size_map, breakpoint_precision )
+
+    for column_count in first_column_count .. last_column_count
+    {
+        MakeFractionalMarginRight( column_count, breakpoint_size_map, breakpoint_precision );
+    }

@@ -1,0 +1,17 @@
+MakeRemSize( rem_size, rem_size_map, breakpoint_size_map, breakpoint_precision )
+
+    html
+    {
+        font-size: rem_size;
+    }
+
+    for breakpoint_name, breakpoint_size in breakpoint_size_map
+    {
+        @media ( min-width: breakpoint_size )
+        {
+            html
+            {
+                font-size: rem_size_map[ breakpoint_name ];
+            }
+        }
+    }

@@ -1,0 +1,57 @@
+MakeGutter( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+
+    .gutter-{size}{unit_name}
+    {
+        margin-top: -( size * unit_value );
+        margin-left: -( size * unit_value );
+    }
+
+    .gutter-{size}{unit_name} > [class*="flex-item"]
+    {
+        padding-top: size * unit_value;
+        padding-left: size * unit_value;
+    }
+
+    for breakpoint_name, breakpoint_size in breakpoint_size_map
+    {
+        @media ( min-width: breakpoint_size )
+        {
+            .gutter-{size}{unit_name}-above-{breakpoint_name}
+            {
+                margin-top: -( size * unit_value );
+                margin-left: -( size * unit_value );
+            }
+
+            .gutter-{size}{unit_name}-above-{breakpoint_name} > [class*="flex-item"]
+            {
+                padding-top: size * unit_value;
+                padding-left: size * unit_value;
+            }
+        }
+
+        @media ( max-width: breakpoint_size - breakpoint_precision )
+        {
+            .gutter-{size}{unit_name}-below-{breakpoint_name}
+            {
+                margin-top: -( size * unit_value );
+                margin-left: -( size * unit_value );
+            }
+
+            .gutter-{size}{unit_name}-below-{breakpoint_name} > [class*="flex-item"]
+            {
+                padding-top: size * unit_value;
+                padding-left: size * unit_value;
+            }
+        }
+    }
+
+// ~~
+
+MakeGutterRange( start, step, count, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+
+    for index in 0 .. count
+    {
+        size = start + index * step;
+
+        MakeGutter( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision );
+    }

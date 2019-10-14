@@ -1,0 +1,71 @@
+.display-none
+{
+    display: none;
+}
+
+.display-block
+{
+    display: block;
+}
+
+.display-inline-block
+{
+    display: inline-block;
+}
+
+.display-flex
+{
+    display: flex;
+}
+
+// ~~
+
+MakeDisplay( breakpoint_size_map, breakpoint_precision )
+
+    for breakpoint_name, breakpoint_size in breakpoint_size_map
+    {
+        @media ( min-width: breakpoint_size )
+        {
+            .display-none-above-{breakpoint_name}
+            {
+                display: none;
+            }
+
+            .display-block-above-{breakpoint_name}
+            {
+                display: block;
+            }
+
+            .display-inline-block-above-{breakpoint_name}
+            {
+                display: inline-block;
+            }
+
+            .display-flex-above-{breakpoint_name}
+            {
+                display: flex;
+            }
+        }
+        @media ( max-width: breakpoint_size - breakpoint_precision )
+        {
+            .display-none-below-{breakpoint_name}
+            {
+                display: none;
+            }
+
+            .display-block-below-{breakpoint_name}
+            {
+                display: block;
+            }
+
+            .display-inline-block-below-{breakpoint_name}
+            {
+                display: inline-block;
+            }
+
+            .display-flex-below-{breakpoint_name}
+            {
+                display: flex;
+            }
+        }
+    }

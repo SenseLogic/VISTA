@@ -1,0 +1,263 @@
+.height-auto
+{
+    height: auto;
+}
+
+// ~~
+
+MakeHeightAuto( breakpoint_size_map, breakpoint_precision )
+
+    for breakpoint_name, breakpoint_size in breakpoint_size_map
+    {
+        @media ( min-width: breakpoint_size )
+        {
+            .height-auto-above-{breakpoint_name}
+            {
+                height: auto;
+            }
+        }
+
+        @media ( max-width: breakpoint_size - breakpoint_precision )
+        {
+            .height-auto-below-{breakpoint_name}
+            {
+                height: auto;
+            }
+        }
+    }
+
+// ~~
+
+MakeHeight( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+
+    .height-{size}{unit_name}
+    {
+        height: size * unit_value;
+    }
+
+    for breakpoint_name, breakpoint_size in breakpoint_size_map
+    {
+        @media ( min-width: breakpoint_size )
+        {
+            .height-{size}{unit_name}-above-{breakpoint_name}
+            {
+                height: size * unit_value;
+            }
+        }
+
+        @media ( max-width: breakpoint_size - breakpoint_precision )
+        {
+            .height-{size}{unit_name}-below-{breakpoint_name}
+            {
+                height: size * unit_value;
+            }
+        }
+    }
+
+// ~~
+
+MakeHeightRange( start, step, count, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+
+    for index in 0 .. count
+    {
+        size = start + index * step;
+
+        MakeHeight( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision );
+    }
+
+// ~~
+
+MakeMinHeight( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+
+    .min-height-{size}{unit_name}
+    {
+        min-height: size * unit_value;
+    }
+
+    for breakpoint_name, breakpoint_size in breakpoint_size_map
+    {
+        @media ( min-width: breakpoint_size )
+        {
+            .min-height-{size}{unit_name}-above-{breakpoint_name}
+            {
+                min-height: size * unit_value;
+            }
+        }
+
+        @media ( max-width: breakpoint_size - breakpoint_precision )
+        {
+            .min-height-{size}{unit_name}-below-{breakpoint_name}
+            {
+                min-height: size * unit_value;
+            }
+        }
+    }
+
+// ~~
+
+MakeMinHeightRange( start, step, count, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+
+    for index in 0 .. count
+    {
+        size = start + index * step;
+
+        MakeHeight( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision );
+    }
+
+// ~~
+
+MakeMaxHeight( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+
+    .max-height-{size}{unit_name}
+    {
+        max-height: size * unit_value;
+    }
+
+    for breakpoint_name, breakpoint_size in breakpoint_size_map
+    {
+        @media ( min-width: breakpoint_size )
+        {
+            .max-height-{size}{unit_name}-above-{breakpoint_name}
+            {
+                max-height: size * unit_value;
+            }
+        }
+
+        @media ( max-width: breakpoint_size - breakpoint_precision )
+        {
+            .max-height-{size}{unit_name}-below-{breakpoint_name}
+            {
+                max-height: size * unit_value;
+            }
+        }
+    }
+
+// ~~
+
+MakeMaxHeightRange( start, step, count, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+
+    for index in 0 .. count
+    {
+        size = start + index * step;
+
+        MakeHeight( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision );
+    }
+
+// ~~
+
+MakeFractionalHeight( column_count, breakpoint_size_map, breakpoint_precision )
+
+    for column_index in 1 .. column_count
+    {
+        .height-{column_index}_{column_count}
+        {
+            height: 100% * column_index / column_count;
+        }
+
+        for breakpoint_name, breakpoint_size in breakpoint_size_map
+        {
+            @media ( min-width: breakpoint_size )
+            {
+                .height-{column_index}_{column_count}-above-{breakpoint_name}
+                {
+                    height: 100% * column_index / column_count;
+                }
+            }
+
+            @media ( max-width: breakpoint_size - breakpoint_precision )
+            {
+                .height-{column_index}_{column_count}-below-{breakpoint_name}
+                {
+                    height: 100% * column_index / column_count;
+                }
+            }
+        }
+    }
+
+// ~~
+
+MakeFractionalHeightRange( first_column_count, last_column_count, breakpoint_size_map, breakpoint_precision )
+
+    for column_count in first_column_count .. last_column_count
+    {
+        MakeFractionalHeight( column_count, breakpoint_size_map, breakpoint_precision );
+    }
+
+// ~~
+
+MakeMinFractionalHeight( column_count, breakpoint_size_map, breakpoint_precision )
+
+    for column_index in 1 .. column_count
+    {
+        .min-height-{column_index}_{column_count}
+        {
+            min-height: 100% * column_index / column_count;
+        }
+
+        for breakpoint_name, breakpoint_size in breakpoint_size_map
+        {
+            @media ( min-width: breakpoint_size )
+            {
+                .min-height-{column_index}_{column_count}-above-{breakpoint_name}
+                {
+                    min-height: 100% * column_index / column_count;
+                }
+            }
+            @media ( max-width: breakpoint_size - breakpoint_precision )
+            {
+                .min-height-{column_index}_{column_count}-below-{breakpoint_name}
+                {
+                    min-height: 100% * column_index / column_count;
+                }
+            }
+        }
+    }
+
+// ~~
+
+MakeMinFractionalHeightRange( first_column_count, last_column_count, breakpoint_size_map, breakpoint_precision )
+
+    for column_count in first_column_count .. last_column_count
+    {
+        MakeMinFractionalHeight( column_count, breakpoint_size_map, breakpoint_precision );
+    }
+
+// ~~
+
+MakeMaxFractionalHeight( column_count, breakpoint_size_map, breakpoint_precision )
+
+    for column_index in 1 .. column_count
+    {
+        .max-height-{column_index}_{column_count}
+        {
+            max-height: 100% * column_index / column_count;
+        }
+
+        for breakpoint_name, breakpoint_size in breakpoint_size_map
+        {
+            @media ( min-width: breakpoint_size )
+            {
+                .max-height-{column_index}_{column_count}-above-{breakpoint_name}
+                {
+                    max-height: 100% * column_index / column_count;
+                }
+            }
+
+            @media ( max-width: breakpoint_size - breakpoint_precision )
+            {
+                .max-height-{column_index}_{column_count}-below-{breakpoint_name}
+                {
+                    max-height: 100% * column_index / column_count;
+                }
+            }
+        }
+    }
+
+// ~~
+
+MakeMaxFractionalHeightRange( first_column_count, last_column_count, breakpoint_size_map, breakpoint_precision )
+
+    for column_count in first_column_count .. last_column_count
+    {
+        MakeMaxFractionalHeight( column_count, breakpoint_size_map, breakpoint_precision );
+    }

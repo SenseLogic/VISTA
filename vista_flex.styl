@@ -1,0 +1,459 @@
+.flex-row
+{
+    flex-direction: row;
+}
+
+.flex-row-reverse
+{
+    flex-direction: row-reverse;
+}
+
+.flex-column
+{
+    flex-direction: column;
+}
+
+.flex-column-reverse
+{
+    flex-direction: column-reverse;
+}
+
+.flex-wrap
+{
+    flex-wrap: wrap;
+}
+
+.flex-nowrap
+{
+    flex-wrap: nowrap;
+}
+
+.flex-left
+{
+    justify-content: flex-start;
+}
+
+.flex-center
+{
+    justify-content: center;
+}
+
+.flex-right
+{
+    justify-content: flex-end;
+}
+
+.flex-between
+{
+    justify-content: space-between;
+}
+
+.flex-around
+{
+    justify-content: space-around;
+}
+
+.flex-top
+{
+    align-items: flex-start;
+}
+
+.flex-middle
+{
+    align-items: center;
+}
+
+.flex-bottom
+{
+    align-items: flex-end;
+}
+
+.flex-stretch
+{
+    align-items: stretch;
+}
+
+.flex-baseline
+{
+    align-items: baseline;
+}
+
+.flex-top-self
+{
+    align-self: flex-start;
+}
+
+.flex-middle-self
+{
+    align-self: center;
+}
+
+.flex-bottom-self
+{
+    align-self: flex-end;
+}
+
+.flex-stretch-self
+{
+    align-self: stretch;
+}
+
+.flex-baseline-self
+{
+    align-self: baseline;
+}
+
+.flex-first
+{
+    order: -1;
+}
+
+.flex-last
+{
+    order: 1;
+}
+
+// ~~
+
+MakeFlex( breakpoint_size_map, breakpoint_precision )
+
+    for breakpoint_name, breakpoint_size in breakpoint_size_map
+    {
+        @media ( min-width: breakpoint_size )
+        {
+            .flex-row-above-{breakpoint_name}
+            {
+                flex-direction: row;
+            }
+
+            .flex-row-reverse-above-{breakpoint_name}
+            {
+                flex-direction: row-reverse;
+            }
+
+            .flex-column-above-{breakpoint_name}
+            {
+                flex-direction: column;
+            }
+
+            .flex-column-reverse-above-{breakpoint_name}
+            {
+                flex-direction: column-reverse;
+            }
+
+            .flex-wrap-above-{breakpoint_name}
+            {
+                flex-wrap: wrap;
+            }
+
+            .flex-nowrap-above-{breakpoint_name}
+            {
+                flex-wrap: nowrap;
+            }
+
+            .flex-left-above-{breakpoint_name}
+            {
+                justify-content: flex-start;
+            }
+
+            .flex-center-above-{breakpoint_name}
+            {
+                justify-content: center;
+            }
+
+            .flex-right-above-{breakpoint_name}
+            {
+                justify-content: flex-end;
+            }
+
+            .flex-between-above-{breakpoint_name}
+            {
+                justify-content: space-between;
+            }
+
+            .flex-around-above-{breakpoint_name}
+            {
+                justify-content: space-around;
+            }
+
+            .flex-top-above-{breakpoint_name}
+            {
+                align-items: flex-start;
+            }
+
+            .flex-middle-above-{breakpoint_name}
+            {
+                align-items: center;
+            }
+
+            .flex-bottom-above-{breakpoint_name}
+            {
+                align-items: flex-end;
+            }
+
+            .flex-stretch-above-{breakpoint_name}
+            {
+                align-items: stretch;
+            }
+
+            .flex-baseline-above-{breakpoint_name}
+            {
+                align-items: baseline;
+            }
+
+            .flex-top-above-{breakpoint_name}
+            {
+                align-self: flex-start;
+            }
+
+            .flex-middle-above-{breakpoint_name}
+            {
+                align-self: center;
+            }
+
+            .flex-bottom-above-{breakpoint_name}
+            {
+                align-self: flex-end;
+            }
+
+            .flex-stretch-above-{breakpoint_name}
+            {
+                align-self: stretch;
+            }
+
+            .flex-baseline-above-{breakpoint_name}
+            {
+                align-self: baseline;
+            }
+
+            .flex-first-above-{breakpoint_name}
+            {
+                order: -1;
+            }
+
+            .flex-last-above-{breakpoint_name}
+            {
+                order: 1;
+            }
+        }
+
+        @media ( max-width: breakpoint_size - breakpoint_precision )
+        {
+            .flex-row-below-{breakpoint_name}
+            {
+                flex-direction: row;
+            }
+
+            .flex-row-reverse-below-{breakpoint_name}
+            {
+                flex-direction: row-reverse;
+            }
+
+            .flex-column-below-{breakpoint_name}
+            {
+                flex-direction: column;
+            }
+
+            .flex-column-reverse-below-{breakpoint_name}
+            {
+                flex-direction: column-reverse;
+            }
+
+            .flex-wrap-below-{breakpoint_name}
+            {
+                flex-wrap: wrap;
+            }
+
+            .flex-nowrap-below-{breakpoint_name}
+            {
+                flex-wrap: nowrap;
+            }
+
+            .flex-left-below-{breakpoint_name}
+            {
+                justify-content: flex-start;
+            }
+
+            .flex-center-below-{breakpoint_name}
+            {
+                justify-content: center;
+            }
+
+            .flex-right-below-{breakpoint_name}
+            {
+                justify-content: flex-end;
+            }
+
+            .flex-between-below-{breakpoint_name}
+            {
+                justify-content: space-between;
+            }
+
+            .flex-around-below-{breakpoint_name}
+            {
+                justify-content: space-around;
+            }
+
+            .flex-top-below-{breakpoint_name}
+            {
+                align-items: flex-start;
+            }
+
+            .flex-middle-below-{breakpoint_name}
+            {
+                align-items: center;
+            }
+
+            .flex-bottom-below-{breakpoint_name}
+            {
+                align-items: flex-end;
+            }
+
+            .flex-stretch-below-{breakpoint_name}
+            {
+                align-items: stretch;
+            }
+
+            .flex-baseline-below-{breakpoint_name}
+            {
+                align-items: baseline;
+            }
+
+            .flex-top-below-{breakpoint_name}
+            {
+                align-self: flex-start;
+            }
+
+            .flex-middle-below-{breakpoint_name}
+            {
+                align-self: center;
+            }
+
+            .flex-bottom-below-{breakpoint_name}
+            {
+                align-self: flex-end;
+            }
+
+            .flex-stretch-below-{breakpoint_name}
+            {
+                align-self: stretch;
+            }
+
+            .flex-baseline-below-{breakpoint_name}
+            {
+                align-self: baseline;
+            }
+
+            .flex-first-below-{breakpoint_name}
+            {
+                order: -1;
+            }
+
+            .flex-last-below-{breakpoint_name}
+            {
+                order: 1;
+            }
+        }
+    }
+
+// ~~
+
+MakeFlexBasis( column_count, breakpoint_size_map, breakpoint_precision )
+
+    for column_index in 1 .. column_count
+
+        .flex-basis-{column_index}_{column_count}
+        {
+            flex-basis: 100% * column_index / column_count;
+            max-width: 100% * column_index / column_count;
+        }
+
+    for breakpoint_name, breakpoint_size in breakpoint_size_map
+    {
+        @media ( min-width: breakpoint_size )
+        {
+            .flex-basis-{column_index}_{column_count}-above-{breakpoint_name}
+            {
+                flex-basis: 100% * column_index / column_count;
+                max-width: 100% * column_index / column_count;
+            }
+        }
+
+        @media ( max-width: breakpoint_size - breakpoint_precision )
+        {
+            .flex-basis-{column_index}_{column_count}-below-{breakpoint_name}
+            {
+                flex-basis: 100% * column_index / column_count;
+                max-width: 100% * column_index / column_count;
+            }
+        }
+    }
+
+// ~~
+
+MakeFlexBasisRange( first_column_count, last_column_count, breakpoint_size_map, breakpoint_precision )
+
+    for column_count in first_column_count .. last_column_count
+    {
+        MakeFlexBasis( column_count, breakpoint_size_map, breakpoint_precision )
+    }
+
+// ~~
+
+MakeFlexShrink( minimum_factor, maximum_factor, breakpoint_size_map, breakpoint_precision )
+
+    for factor in minimum_factor .. maximum_factor
+
+        .flex-shrink-{factor}
+        {
+            flex-shrink: factor;
+        }
+
+    for breakpoint_name, breakpoint_size in breakpoint_size_map
+    {
+        @media ( min-width: breakpoint_size )
+        {
+            .flex-shrink-{factor}-above-{breakpoint_name}
+            {
+                flex-shrink: factor;
+            }
+        }
+
+        @media ( max-width: breakpoint_size - breakpoint_precision )
+        {
+            .flex-shrink-{factor}-below-{breakpoint_name}
+            {
+                flex-shrink: factor;
+            }
+        }
+    }
+
+// ~~
+
+MakeFlexGrow( minimum_factor, maximum_factor, breakpoint_size_map, breakpoint_precision )
+
+    for factor in minimum_factor .. maximum_factor
+
+        .flex-grow-{factor}
+        {
+            flex-grow: factor;
+        }
+
+    for breakpoint_name, breakpoint_size in breakpoint_size_map
+    {
+        @media ( min-width: breakpoint_size )
+        {
+            .flex-grow-{factor}-above-{breakpoint_name}
+            {
+                flex-grow: factor;
+            }
+        }
+
+        @media ( max-width: breakpoint_size - breakpoint_precision )
+        {
+            .flex-grow-{factor}-below-{breakpoint_name}
+            {
+                flex-grow: factor;
+            }
+        }
+    }

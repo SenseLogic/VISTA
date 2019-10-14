@@ -2,11 +2,11 @@
 
 # Vista
 
-Minimalistic CSS framework.
+Stylus framework generator.
 
 ## Version
 
-0.9
+0.1
 
 ## Author
 

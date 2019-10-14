@@ -1,0 +1,275 @@
+MakePadding( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+
+    .padding-{size}{unit_name}
+    {
+        padding: size * unit_value;
+    }
+
+    for breakpoint_name, breakpoint_size in breakpoint_size_map
+    {
+        @media ( min-width: breakpoint_size )
+        {
+            .padding-{size}{unit_name}-above-{breakpoint_name}
+            {
+                padding: size * unit_value;
+            }
+        }
+
+        @media ( max-width: breakpoint_size - breakpoint_precision )
+        {
+            .padding-{size}{unit_name}-below-{breakpoint_name}
+            {
+                padding: size * unit_value;
+            }
+        }
+    }
+
+// ~~
+
+MakePaddingRange( start, step, count, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+
+    for index in 0 .. count
+    {
+        size = start + index * step;
+
+        MakePadding( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision );
+    }
+
+// ~~
+
+MakePaddingLateral( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+
+    .padding-lateral-{size}{unit_name}
+    {
+        padding-left: size * unit_value;
+        padding-right: size * unit_value;
+    }
+
+    for breakpoint_name, breakpoint_size in breakpoint_size_map
+    {
+        @media ( min-width: breakpoint_size )
+        {
+            .padding-lateral-{size}{unit_name}-above-{breakpoint_name}
+            {
+                padding-left: size * unit_value;
+                padding-right: size * unit_value;
+            }
+        }
+
+        @media ( max-width: breakpoint_size - breakpoint_precision )
+        {
+            .padding-lateral-{size}{unit_name}-below-{breakpoint_name}
+            {
+                padding-left: size * unit_value;
+                padding-right: size * unit_value;
+            }
+        }
+    }
+
+// ~~
+
+MakePaddingLateralRange( start, step, count, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+
+    for index in 0 .. count
+    {
+        size = start + index * step;
+
+        MakePaddingLateral( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision );
+    }
+
+// ~~
+
+MakePaddingVertical( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+
+    .padding-vertical-{size}{unit_name}
+    {
+        padding-top: size * unit_value;
+        padding-bottom: size * unit_value;
+    }
+
+    for breakpoint_name, breakpoint_size in breakpoint_size_map
+    {
+        @media ( min-width: breakpoint_size )
+        {
+            .padding-vertical-{size}{unit_name}-above-{breakpoint_name}
+            {
+                padding-top: size * unit_value;
+                padding-bottom: size * unit_value;
+            }
+        }
+
+        @media ( max-width: breakpoint_size - breakpoint_precision )
+        {
+            .padding-vertical-{size}{unit_name}-below-{breakpoint_name}
+            {
+                padding-top: size * unit_value;
+                padding-bottom: size * unit_value;
+            }
+        }
+    }
+
+// ~~
+
+MakePaddingVerticalRange( start, step, count, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+
+    for index in 0 .. count
+    {
+        size = start + index * step;
+
+        MakePaddingVertical( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision );
+    }
+
+// ~~
+
+MakePaddingLeft( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+
+    .padding-left-{size}{unit_name}
+    {
+        padding-left: size * unit_value;
+    }
+
+    for breakpoint_name, breakpoint_size in breakpoint_size_map
+    {
+        @media ( min-width: breakpoint_size )
+        {
+            .padding-left-{size}{unit_name}-above-{breakpoint_name}
+            {
+                padding-left: size * unit_value;
+            }
+        }
+        @media ( max-width: breakpoint_size - breakpoint_precision )
+        {
+            .padding-left-{size}{unit_name}-below-{breakpoint_name}
+            {
+                padding-left: size * unit_value;
+            }
+        }
+    }
+
+// ~~
+
+MakePaddingLeftRange( start, step, count, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+
+    for index in 0 .. count
+    {
+        size = start + index * step;
+
+        MakePaddingLeft( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision );
+    }
+
+// ~~
+
+MakePaddingRight( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+
+    .padding-right-{size}{unit_name}
+    {
+        padding-right: size * unit_value;
+    }
+
+    for breakpoint_name, breakpoint_size in breakpoint_size_map
+    {
+        @media ( min-width: breakpoint_size )
+        {
+            .padding-right-{size}{unit_name}-above-{breakpoint_name}
+            {
+                padding-right: size * unit_value;
+            }
+        }
+
+        @media ( max-width: breakpoint_size - breakpoint_precision )
+        {
+            .padding-right-{size}{unit_name}-below-{breakpoint_name}
+            {
+                padding-right: size * unit_value;
+            }
+        }
+    }
+
+// ~~
+
+MakePaddingRightRange( start, step, count, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+
+    for index in 0 .. count
+    {
+        size = start + index * step;
+
+        MakePaddingRight( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision );
+    }
+
+// ~~
+
+MakePaddingTop( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+
+    .padding-top-{size}{unit_name}
+    {
+        padding-top: size * unit_value;
+    }
+
+    for breakpoint_name, breakpoint_size in breakpoint_size_map
+    {
+        @media ( min-width: breakpoint_size )
+        {
+            .padding-top-{size}{unit_name}-above-{breakpoint_name}
+            {
+                padding-top: size * unit_value;
+            }
+        }
+
+        @media ( max-width: breakpoint_size - breakpoint_precision )
+        {
+            .padding-top-{size}{unit_name}-below-{breakpoint_name}
+            {
+                padding-top: size * unit_value;
+            }
+        }
+    }
+
+// ~~
+
+MakePaddingTopRange( start, step, count, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+
+    for index in 0 .. count
+    {
+        size = start + index * step;
+
+        MakePaddingTop( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision );
+    }
+
+// ~~
+
+MakePaddingBottom( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+
+    .padding-bottom-{size}{unit_name}
+    {
+        padding-bottom: size * unit_value;
+    }
+
+    for breakpoint_name, breakpoint_size in breakpoint_size_map
+    {
+        @media ( min-width: breakpoint_size )
+        {
+            .padding-bottom-{size}{unit_name}-above-{breakpoint_name}
+            {
+                padding-bottom: size * unit_value;
+            }
+        }
+
+        @media ( max-width: breakpoint_size - breakpoint_precision )
+        {
+            .padding-bottom-{size}{unit_name}-below-{breakpoint_name}
+            {
+                padding-bottom: size * unit_value;
+            }
+        }
+    }
+
+// ~~
+
+MakePaddingBottomRange( start, step, count, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+
+    for index in 0 .. count
+    {
+        size = start + index * step;
+
+        MakePaddingBottom( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision );
+    }
