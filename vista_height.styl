@@ -151,7 +151,7 @@ MakeFractionalHeight( column_count, breakpoint_size_map, breakpoint_precision )
     {
         .height-{column_index}_{column_count}
         {
-            height: 100% * column_index / column_count;
+            height: 100% * ( column_index / column_count );
         }
 
         for breakpoint_name, breakpoint_size in breakpoint_size_map
@@ -160,7 +160,7 @@ MakeFractionalHeight( column_count, breakpoint_size_map, breakpoint_precision )
             {
                 .height-{column_index}_{column_count}-above-{breakpoint_name}
                 {
-                    height: 100% * column_index / column_count;
+                    height: 100% * ( column_index / column_count );
                 }
             }
 
@@ -168,7 +168,7 @@ MakeFractionalHeight( column_count, breakpoint_size_map, breakpoint_precision )
             {
                 .height-{column_index}_{column_count}-below-{breakpoint_name}
                 {
-                    height: 100% * column_index / column_count;
+                    height: 100% * ( column_index / column_count );
                 }
             }
         }
@@ -191,7 +191,7 @@ MakeMinFractionalHeight( column_count, breakpoint_size_map, breakpoint_precision
     {
         .min-height-{column_index}_{column_count}
         {
-            min-height: 100% * column_index / column_count;
+            min-height: 100% * ( column_index / column_count );
         }
 
         for breakpoint_name, breakpoint_size in breakpoint_size_map
@@ -200,14 +200,14 @@ MakeMinFractionalHeight( column_count, breakpoint_size_map, breakpoint_precision
             {
                 .min-height-{column_index}_{column_count}-above-{breakpoint_name}
                 {
-                    min-height: 100% * column_index / column_count;
+                    min-height: 100% * ( column_index / column_count );
                 }
             }
             @media ( max-width: breakpoint_size - breakpoint_precision )
             {
                 .min-height-{column_index}_{column_count}-below-{breakpoint_name}
                 {
-                    min-height: 100% * column_index / column_count;
+                    min-height: 100% * ( column_index / column_count );
                 }
             }
         }
@@ -230,7 +230,7 @@ MakeMaxFractionalHeight( column_count, breakpoint_size_map, breakpoint_precision
     {
         .max-height-{column_index}_{column_count}
         {
-            max-height: 100% * column_index / column_count;
+            max-height: 100% * ( column_index / column_count );
         }
 
         for breakpoint_name, breakpoint_size in breakpoint_size_map
@@ -239,7 +239,7 @@ MakeMaxFractionalHeight( column_count, breakpoint_size_map, breakpoint_precision
             {
                 .max-height-{column_index}_{column_count}-above-{breakpoint_name}
                 {
-                    max-height: 100% * column_index / column_count;
+                    max-height: 100% * ( column_index / column_count );
                 }
             }
 
@@ -247,7 +247,7 @@ MakeMaxFractionalHeight( column_count, breakpoint_size_map, breakpoint_precision
             {
                 .max-height-{column_index}_{column_count}-below-{breakpoint_name}
                 {
-                    max-height: 100% * column_index / column_count;
+                    max-height: 100% * ( column_index / column_count );
                 }
             }
         }

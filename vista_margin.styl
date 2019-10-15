@@ -498,7 +498,7 @@ MakeFractionalMarginLeft( column_count, breakpoint_size_map, breakpoint_precisio
 
         .margin-left-{column_index}_{column_count}
         {
-            margin-left: 100% * column_index / column_count;
+            margin-left: 100% * ( column_index / column_count );
         }
 
         for breakpoint_name, breakpoint_size in breakpoint_size_map
@@ -507,7 +507,7 @@ MakeFractionalMarginLeft( column_count, breakpoint_size_map, breakpoint_precisio
             {
                 .margin-left-{column_index}_{column_count}-above-{breakpoint_name}
                 {
-                    margin-left: 100% * column_index / column_count;
+                    margin-left: 100% * ( column_index / column_count );
                 }
             }
 
@@ -515,7 +515,7 @@ MakeFractionalMarginLeft( column_count, breakpoint_size_map, breakpoint_precisio
             {
                 .margin-left-{column_index}_{column_count}-below-{breakpoint_name}
                 {
-                    margin-left: 100% * column_index / column_count;
+                    margin-left: 100% * ( column_index / column_count );
                 }
             }
         }
@@ -537,7 +537,7 @@ MakeFractionalMarginRight( column_count, breakpoint_size_map, breakpoint_precisi
 
         .margin-right-{column_index}_{column_count}
         {
-            margin-right: 100% * column_index / column_count;
+            margin-right: 100% * ( column_index / column_count );
         }
 
         for breakpoint_name, breakpoint_size in breakpoint_size_map
@@ -546,7 +546,7 @@ MakeFractionalMarginRight( column_count, breakpoint_size_map, breakpoint_precisi
             {
                 .margin-right-{column_index}_{column_count}-above-{breakpoint_name}
                 {
-                    margin-right: 100% * column_index / column_count;
+                    margin-right: 100% * ( column_index / column_count );
                 }
             }
 
@@ -554,7 +554,7 @@ MakeFractionalMarginRight( column_count, breakpoint_size_map, breakpoint_precisi
             {
                 .margin-right-{column_index}_{column_count}-below-{breakpoint_name}
                 {
-                    margin-right: 100% * column_index / column_count;
+                    margin-right: 100% * ( column_index / column_count );
                 }
             }
         }

@@ -2,60 +2,60 @@
 
 // ~~
 
-Pt = 0.0625rem
+Pt = 0.0625rem;
 
 RemSize = 16px;
-RemSizeMap = { sm: 11px, md: 12px, lg: 13px, xl: 14px }
+RemSizeMap = { sm: 11px, md: 12px, lg: 13px, xl: 14px };
 
-BreakpointSizeMap = { sm: 576px, md: 768px, lg: 992px, xl: 1200px }
-BreakpointPrecision = 0.02px
+BreakpointSizeMap = { sm: 576px, md: 768px, lg: 992px, xl: 1200px };
+BreakpointPrecision = 0.02px;
 
 // ~~
 
-MakeRemSize( RemSize, RemSizeMap, BreakpointSizeMap, BreakpointPrecision )
-MakeWidthAuto( BreakpointSizeMap, BreakpointPrecision )
-MakeWidthRange( 10, 10, 5, Pt, "pt", BreakpointSizeMap, BreakpointPrecision )
-MakeMinWidthRange( 10, 10, 5, Pt, "pt", BreakpointSizeMap, BreakpointPrecision )
-MakeMaxWidthRange( 10, 10, 5, Pt, "pt", BreakpointSizeMap, BreakpointPrecision )
-MakeFractionalWidthRange( 12, 12, BreakpointSizeMap, BreakpointPrecision )
-MakeMinFractionalWidthRange( 12, 12, BreakpointSizeMap, BreakpointPrecision )
-MakeMaxFractionalWidthRange( 12, 12, BreakpointSizeMap, BreakpointPrecision )
-MakeHeightAuto( BreakpointSizeMap, BreakpointPrecision )
-MakeHeightRange( 10, 10, 5, Pt, "pt", BreakpointSizeMap, BreakpointPrecision )
-MakeMinHeightRange( 10, 10, 5, Pt, "pt", BreakpointSizeMap, BreakpointPrecision )
-MakeMaxHeightRange( 10, 10, 5, Pt, "pt", BreakpointSizeMap, BreakpointPrecision )
-MakeFractionalHeightRange( 12, 12, BreakpointSizeMap, BreakpointPrecision )
-MakeMinFractionalHeightRange( 12, 12, BreakpointSizeMap, BreakpointPrecision )
-MakeMaxFractionalHeightRange( 12, 12, BreakpointSizeMap, BreakpointPrecision )
-MakePaddingRange( 10, 10, 5, Pt, "pt", BreakpointSizeMap, BreakpointPrecision )
-MakePaddingLateralRange( 10, 10, 5, Pt, "pt", BreakpointSizeMap, BreakpointPrecision )
-MakePaddingVerticalRange( 10, 10, 5, Pt, "pt", BreakpointSizeMap, BreakpointPrecision )
-MakePaddingLeftRange( 10, 10, 5, Pt, "pt", BreakpointSizeMap, BreakpointPrecision )
-MakePaddingRightRange( 10, 10, 5, Pt, "pt", BreakpointSizeMap, BreakpointPrecision )
-MakePaddingTopRange( 10, 10, 5, Pt, "pt", BreakpointSizeMap, BreakpointPrecision )
-MakePaddingBottomRange( 10, 10, 5, Pt, "pt", BreakpointSizeMap, BreakpointPrecision )
-MakeMarginAuto( BreakpointSizeMap, BreakpointPrecision )
-MakeMarginLateralAuto( BreakpointSizeMap, BreakpointPrecision )
-MakeMarginLateralRange( 10, 10, 5, Pt, "pt", BreakpointSizeMap, BreakpointPrecision )
-MakeMarginVerticalAuto( BreakpointSizeMap, BreakpointPrecision )
-MakeMarginVerticalRange( 10, 10, 5, Pt, "pt", BreakpointSizeMap, BreakpointPrecision )
-MakeMarginLeftAuto( BreakpointSizeMap, BreakpointPrecision )
-MakeMarginLeftRange( 10, 10, 5, Pt, "pt", BreakpointSizeMap, BreakpointPrecision )
-MakeMarginRightAuto( BreakpointSizeMap, BreakpointPrecision )
-MakeMarginRightRange( 10, 10, 5, Pt, "pt", BreakpointSizeMap, BreakpointPrecision )
-MakeMarginTopAuto( BreakpointSizeMap, BreakpointPrecision )
-MakeMarginTopRange( 10, 10, 5, Pt, "pt", BreakpointSizeMap, BreakpointPrecision )
-MakeMarginBottomAuto( BreakpointSizeMap, BreakpointPrecision )
-MakeMarginBottomRange( 10, 10, 5, Pt, "pt", BreakpointSizeMap, BreakpointPrecision )
-MakeFractionalMarginLeftRange( 12, 12, BreakpointSizeMap, BreakpointPrecision )
-MakeFractionalMarginRightRange( 12, 12, BreakpointSizeMap, BreakpointPrecision )
-MakeGutterRange( 10, 10, 5, Pt, "pt", BreakpointSizeMap, BreakpointPrecision )
-MakeDisplay( BreakpointSizeMap, BreakpointPrecision )
-MakeFlex( BreakpointSizeMap, BreakpointPrecision )
-MakeFlexBasisRange( 12, 12, BreakpointSizeMap, BreakpointPrecision )
-MakeFlexShrink( 1, 12, BreakpointSizeMap, BreakpointPrecision )
-MakeFlexGrow( 1, 12, BreakpointSizeMap, BreakpointPrecision )
-MakeFontSizeRange( 10, 10, 5, Pt, "pt", BreakpointSizeMap, BreakpointPrecision )
-MakeInput( 10 * Pt, 5 * Pt )
-MakeButton( 10 * Pt )
-MakeSelect( 10 * Pt )
+MakeRemSize( RemSize, RemSizeMap, BreakpointSizeMap, BreakpointPrecision );
+MakeWidthAuto( BreakpointSizeMap, BreakpointPrecision );
+MakeWidthRange( 10, 10, 5, Pt, "pt", BreakpointSizeMap, BreakpointPrecision );
+MakeMinWidthRange( 10, 10, 5, Pt, "pt", BreakpointSizeMap, BreakpointPrecision );
+MakeMaxWidthRange( 10, 10, 5, Pt, "pt", BreakpointSizeMap, BreakpointPrecision );
+MakeFractionalWidthRange( 12, 12, BreakpointSizeMap, BreakpointPrecision );
+MakeMinFractionalWidthRange( 12, 12, BreakpointSizeMap, BreakpointPrecision );
+MakeMaxFractionalWidthRange( 12, 12, BreakpointSizeMap, BreakpointPrecision );
+MakeHeightAuto( BreakpointSizeMap, BreakpointPrecision );
+MakeHeightRange( 10, 10, 5, Pt, "pt", BreakpointSizeMap, BreakpointPrecision );
+MakeMinHeightRange( 10, 10, 5, Pt, "pt", BreakpointSizeMap, BreakpointPrecision );
+MakeMaxHeightRange( 10, 10, 5, Pt, "pt", BreakpointSizeMap, BreakpointPrecision );
+MakeFractionalHeightRange( 12, 12, BreakpointSizeMap, BreakpointPrecision );
+MakeMinFractionalHeightRange( 12, 12, BreakpointSizeMap, BreakpointPrecision );
+MakeMaxFractionalHeightRange( 12, 12, BreakpointSizeMap, BreakpointPrecision );
+MakePaddingRange( 10, 10, 5, Pt, "pt", BreakpointSizeMap, BreakpointPrecision );
+MakePaddingLateralRange( 10, 10, 5, Pt, "pt", BreakpointSizeMap, BreakpointPrecision );
+MakePaddingVerticalRange( 10, 10, 5, Pt, "pt", BreakpointSizeMap, BreakpointPrecision );
+MakePaddingLeftRange( 10, 10, 5, Pt, "pt", BreakpointSizeMap, BreakpointPrecision );
+MakePaddingRightRange( 10, 10, 5, Pt, "pt", BreakpointSizeMap, BreakpointPrecision );
+MakePaddingTopRange( 10, 10, 5, Pt, "pt", BreakpointSizeMap, BreakpointPrecision );
+MakePaddingBottomRange( 10, 10, 5, Pt, "pt", BreakpointSizeMap, BreakpointPrecision );
+MakeMarginAuto( BreakpointSizeMap, BreakpointPrecision );
+MakeMarginLateralAuto( BreakpointSizeMap, BreakpointPrecision );
+MakeMarginLateralRange( 10, 10, 5, Pt, "pt", BreakpointSizeMap, BreakpointPrecision );
+MakeMarginVerticalAuto( BreakpointSizeMap, BreakpointPrecision );
+MakeMarginVerticalRange( 10, 10, 5, Pt, "pt", BreakpointSizeMap, BreakpointPrecision );
+MakeMarginLeftAuto( BreakpointSizeMap, BreakpointPrecision );
+MakeMarginLeftRange( 10, 10, 5, Pt, "pt", BreakpointSizeMap, BreakpointPrecision );
+MakeMarginRightAuto( BreakpointSizeMap, BreakpointPrecision );
+MakeMarginRightRange( 10, 10, 5, Pt, "pt", BreakpointSizeMap, BreakpointPrecision );
+MakeMarginTopAuto( BreakpointSizeMap, BreakpointPrecision );
+MakeMarginTopRange( 10, 10, 5, Pt, "pt", BreakpointSizeMap, BreakpointPrecision );
+MakeMarginBottomAuto( BreakpointSizeMap, BreakpointPrecision );
+MakeMarginBottomRange( 10, 10, 5, Pt, "pt", BreakpointSizeMap, BreakpointPrecision );
+MakeFractionalMarginLeftRange( 12, 12, BreakpointSizeMap, BreakpointPrecision );
+MakeFractionalMarginRightRange( 12, 12, BreakpointSizeMap, BreakpointPrecision );
+MakeGutterRange( 10, 10, 5, Pt, "pt", BreakpointSizeMap, BreakpointPrecision );
+MakeDisplay( BreakpointSizeMap, BreakpointPrecision );
+MakeFlex( BreakpointSizeMap, BreakpointPrecision );
+MakeFlexBasisRange( 12, 12, BreakpointSizeMap, BreakpointPrecision );
+MakeFlexShrink( 1, 12, BreakpointSizeMap, BreakpointPrecision );
+MakeFlexGrow( 1, 12, BreakpointSizeMap, BreakpointPrecision );
+MakeFontSizeRange( 10, 10, 5, Pt, "pt", BreakpointSizeMap, BreakpointPrecision );
+MakeInput( 10 * Pt, 5 * Pt );
+MakeButton( 10 * Pt );
+MakeSelect( 10 * Pt );

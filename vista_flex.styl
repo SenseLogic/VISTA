@@ -364,8 +364,8 @@ MakeFlexBasis( column_count, breakpoint_size_map, breakpoint_precision )
 
         .flex-basis-{column_index}_{column_count}
         {
-            flex-basis: 100% * column_index / column_count;
-            max-width: 100% * column_index / column_count;
+            flex-basis: 100% * ( column_index / column_count );
+            max-width: 100% * ( column_index / column_count );
         }
 
     for breakpoint_name, breakpoint_size in breakpoint_size_map
@@ -374,8 +374,8 @@ MakeFlexBasis( column_count, breakpoint_size_map, breakpoint_precision )
         {
             .flex-basis-{column_index}_{column_count}-above-{breakpoint_name}
             {
-                flex-basis: 100% * column_index / column_count;
-                max-width: 100% * column_index / column_count;
+                flex-basis: 100% * ( column_index / column_count );
+                max-width: 100% * ( column_index / column_count );
             }
         }
 
@@ -383,8 +383,8 @@ MakeFlexBasis( column_count, breakpoint_size_map, breakpoint_precision )
         {
             .flex-basis-{column_index}_{column_count}-below-{breakpoint_name}
             {
-                flex-basis: 100% * column_index / column_count;
-                max-width: 100% * column_index / column_count;
+                flex-basis: 100% * ( column_index / column_count );
+                max-width: 100% * ( column_index / column_count );
             }
         }
     }
