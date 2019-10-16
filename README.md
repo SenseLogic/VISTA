@@ -2,11 +2,11 @@
 
 # Vista
 
-Stylus framework generator.
+Lightweight CSS framework generator.
 
 ## Version
 
-0.1
+0.2
 
 ## Author
 
