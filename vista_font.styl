@@ -1,3 +1,23 @@
+MakeRootFontSize( root_font_size, root_font_size_map, breakpoint_size_map, breakpoint_precision )
+
+    html
+    {
+        font-size: root_font_size;
+    }
+
+    for breakpoint_name, breakpoint_size in breakpoint_size_map
+    {
+        @media ( min-width: breakpoint_size )
+        {
+            html
+            {
+                font-size: root_font_size_map[ breakpoint_name ];
+            }
+        }
+    }
+
+// ~~
+
 MakeFontSize( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
 
     .font-size-{size}{unit_name}

@@ -1,0 +1,64 @@
+MakeBorderRadius( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+
+    .border-radius-{size}{unit_name}
+    {
+        border-radius: size * unit_value;
+    }
+
+    for breakpoint_name, breakpoint_size in breakpoint_size_map
+    {
+        @media ( min-width: breakpoint_size )
+        {
+            .border-radius-{size}{unit_name}-above-{breakpoint_name}
+            {
+                border-radius: size * unit_value;
+            }
+        }
+
+        @media ( max-width: breakpoint_size - breakpoint_precision )
+        {
+            .border-radius-{size}{unit_name}-below-{breakpoint_name}
+            {
+                border-radius: size * unit_value;
+            }
+        }
+    }
+
+// ~~
+
+MakeBorderRadiusRange( start, step, count, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+
+    for index in 0 .. count
+    {
+        size = start + index * step;
+
+        MakeBorderRadius( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision );
+    }
+
+// ~~
+
+MakeBorderColor( name, value, breakpoint_size_map, breakpoint_precision )
+
+    .border-color-{name}
+    {
+        border-color: value;
+    }
+
+    for breakpoint_name, breakpoint_size in breakpoint_size_map
+    {
+        @media ( min-width: breakpoint_size )
+        {
+            .border-color-{name}-above-{breakpoint_name}
+            {
+                border-color: value;
+            }
+        }
+
+        @media ( max-width: breakpoint_size - breakpoint_precision )
+        {
+            .border-color-{name}-below-{breakpoint_name}
+            {
+                border-color: value;
+            }
+        }
+    }

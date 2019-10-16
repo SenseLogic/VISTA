@@ -4,15 +4,15 @@
 
 Pt = 0.0625rem;
 
-RemSize = 16px;
-RemSizeMap = { sm: 11px, md: 12px, lg: 13px, xl: 14px };
+RootFontSize = 16px;
+RootFontSizeMap = { sm: 11px, md: 12px, lg: 13px, xl: 14px };
 
 BreakpointSizeMap = { sm: 576px, md: 768px, lg: 992px, xl: 1200px };
 BreakpointPrecision = 0.02px;
 
 // ~~
 
-MakeRemSize( RemSize, RemSizeMap, BreakpointSizeMap, BreakpointPrecision );
+MakeRootFontSize( RootFontSize, RootFontSizeMap, BreakpointSizeMap, BreakpointPrecision );
 MakeWidthAuto( BreakpointSizeMap, BreakpointPrecision );
 MakeWidthRange( 10, 10, 5, Pt, "pt", BreakpointSizeMap, BreakpointPrecision );
 MakeMinWidthRange( 10, 10, 5, Pt, "pt", BreakpointSizeMap, BreakpointPrecision );

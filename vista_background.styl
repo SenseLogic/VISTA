@@ -1,0 +1,25 @@
+MakeBackgroundColor( name, value, breakpoint_size_map, breakpoint_precision )
+
+    .background-color-{name}
+    {
+        background-color: value;
+    }
+
+    for breakpoint_name, breakpoint_size in breakpoint_size_map
+    {
+        @media ( min-width: breakpoint_size )
+        {
+            .background-color-{name}-above-{breakpoint_name}
+            {
+                background-color: value;
+            }
+        }
+
+        @media ( max-width: breakpoint_size - breakpoint_precision )
+        {
+            .background-color-{name}-below-{breakpoint_name}
+            {
+                background-color: value;
+            }
+        }
+    }

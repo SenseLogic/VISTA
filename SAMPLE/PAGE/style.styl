@@ -6,77 +6,32 @@ Pt = 0.0625rem;
 
 // ~~
 
-MakeRemSize( 16px, {}, {}, 0 );
+MakeContainerCentered( 960 * Pt, {}, {}, 0 );
+MakeRootFontSize( 16px, {}, {}, 0 );
 MakeWidth( 400, Pt, "pt", {}, 0 );
 MakeWidth( 800, Pt, "pt", {}, 0 );
 MakeHeight( 40, Pt, "pt", {}, 0 );
 MakeHeight( 200, Pt, "pt", {}, 0 );
 MakeHeight( 400, Pt, "pt", {}, 0 );
+MakeBackgroundColor( "dark-gray", #444444, {}, 0 );
+MakeBackgroundColor( "light-gray", #EEEEEE, {}, 0 );
+MakeBackgroundColor( "gray", #888888, {}, 0 );
+MakeBackgroundColor( "light-cyan", #88F8F8, {}, 0 );
+MakeBackgroundColor( "light-magenta", #F888F8, {}, 0 );
+MakeBackgroundColor( "light-yellow", #F8F888, {}, 0 );
+MakeBackgroundColor( "white", #FFFFFF, {}, 0 );
+MakeTextColor( "black", #000000, {}, 0 );
+MakeTextColor( "white", #FFFFFF, {}, 0 );
 
 // ~~
 
 html
 {
-   background-color: #FFFFFF;
-}
-
-body
-{
-    font-size: 16 * Pt;
-}
-
-body *
-{
-    border: 1px dotted #CCCCCC;
+    background: #FFFFFF;
 }
 
 a
 {
-    color: white;
+    color: inherit;
     text-decoration: none;
-}
-
-// ~~
-
-.content
-{
-    max-width: 1200 * Pt;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.header
-{
-    background-color: #888888;
-    color: white;
-}
-
-.main
-{
-    background-color: #EEEEEE;
-    color: black;
-}
-
-.footer
-{
-    background-color: #444444;
-    color: white;
-}
-
-.first-column
-{
-    background-color: #88F8F8;
-    color: black;
-}
-
-.first-row
-{
-    background-color: #F888F8;
-    color: black;
-}
-
-.second-row
-{
-    background-color: #F8F888;
-    color: black;
 }

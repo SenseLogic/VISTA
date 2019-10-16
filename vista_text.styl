@@ -32,3 +32,31 @@
 {
     text-align: justify;
 }
+
+// ~~
+
+MakeTextColor( name, value, breakpoint_size_map, breakpoint_precision )
+
+    .text-color-{name}
+    {
+        text-color: value;
+    }
+
+    for breakpoint_name, breakpoint_size in breakpoint_size_map
+    {
+        @media ( min-width: breakpoint_size )
+        {
+            .text-color-{name}-above-{breakpoint_name}
+            {
+                color: value;
+            }
+        }
+
+        @media ( max-width: breakpoint_size - breakpoint_precision )
+        {
+            .text-color-{name}-below-{breakpoint_name}
+            {
+                color: value;
+            }
+        }
+    }
