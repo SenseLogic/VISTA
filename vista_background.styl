@@ -1,23 +1,15 @@
-MakeBackgroundColor( name, value, breakpoint_size_map, breakpoint_precision )
+MakeBackgroundColor( name, value, media_query_name_list, media_query_map )
 
     .background-color-{name}
     {
         background-color: value;
     }
 
-    for breakpoint_name, breakpoint_size in breakpoint_size_map
+    for media_query_name in media_query_name_list
     {
-        @media ( min-width: breakpoint_size )
+        @media media_query_map[ media_query_name ]
         {
-            .background-color-{name}-above-{breakpoint_name}
-            {
-                background-color: value;
-            }
-        }
-
-        @media ( max-width: breakpoint_size - breakpoint_precision )
-        {
-            .background-color-{name}-below-{breakpoint_name}
+            .background-color-{name}-{media_query_name}
             {
                 background-color: value;
             }

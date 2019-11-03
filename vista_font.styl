@@ -1,53 +1,26 @@
-MakeRootFontSize( root_font_size, root_font_size_map, breakpoint_size_map, breakpoint_precision )
-
-    html
-    {
-        font-size: root_font_size;
-    }
-
-    for breakpoint_name, breakpoint_size in breakpoint_size_map
-    {
-        @media ( min-width: breakpoint_size )
-        {
-            html
-            {
-                font-size: root_font_size_map[ breakpoint_name ];
-            }
-        }
-    }
-
-// ~~
-
-MakeFontSize( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+MakeFontSize( size, unit_value, unit_name, media_query_name_list, media_query_map )
 
     .font-size-{size}{unit_name}
     {
         font-size: size * unit_value;
     }
 
-    for breakpoint_name, breakpoint_size in breakpoint_size_map
+    for media_query_name in media_query_name_list
     {
-        @media ( min-width: breakpoint_size )
+        @media media_query_map[ media_query_name ]
         {
-            .font-size-{size}{unit_name}-above-{breakpoint_name}
-            {
-                font-size: size * unit_value;
-            }
-        }
-        @media ( max-width: breakpoint_size - breakpoint_precision )
-        {
-            .font-size-{size}{unit_name}-below-{breakpoint_name}
+            .font-size-{size}{unit_name}-{media_query_name}
             {
                 font-size: size * unit_value;
             }
         }
     }
 
-MakeFontSizeRange( start, step, count, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+MakeFontSizeRange( start, step, count, unit_value, unit_name, media_query_name_list, media_query_map )
 
     for index in 0 .. count
     {
         size = start + index * step;
 
-        MakeFontSize( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision );
+        MakeFontSize( size, unit_value, unit_name, media_query_name_list, media_query_map );
     }

@@ -5,21 +5,13 @@
 
 // ~~
 
-MakeWidthAuto( breakpoint_size_map, breakpoint_precision )
+MakeWidthAuto( media_query_map )
 
-    for breakpoint_name, breakpoint_size in breakpoint_size_map
+    for media_query_name in media_query_name_list
     {
-        @media ( min-width: breakpoint_size )
+        @media media_query_map[ media_query_name ]
         {
-            .width-auto-above-{breakpoint_name}
-            {
-                width: auto;
-            }
-        }
-
-        @media ( max-width: breakpoint_size - breakpoint_precision )
-        {
-            .width-auto-below-{breakpoint_name}
+            .width-auto-{media_query_name}
             {
                 width: auto;
             }
@@ -28,26 +20,18 @@ MakeWidthAuto( breakpoint_size_map, breakpoint_precision )
 
 // ~~
 
-MakeWidth( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+MakeWidth( size, unit_value, unit_name, media_query_name_list, media_query_map )
 
     .width-{size}{unit_name}
     {
         width: size * unit_value;
     }
 
-    for breakpoint_name, breakpoint_size in breakpoint_size_map
+    for media_query_name in media_query_name_list
     {
-        @media ( min-width: breakpoint_size )
+        @media media_query_map[ media_query_name ]
         {
-            .width-{size}{unit_name}-above-{breakpoint_name}
-            {
-                width: size * unit_value;
-            }
-        }
-
-        @media ( max-width: breakpoint_size - breakpoint_precision )
-        {
-            .width-{size}{unit_name}-below-{breakpoint_name}
+            .width-{size}{unit_name}-{media_query_name}
             {
                 width: size * unit_value;
             }
@@ -56,36 +40,29 @@ MakeWidth( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precisio
 
 // ~~
 
-MakeWidthRange( start, step, count, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+MakeWidthRange( start, step, count, unit_value, unit_name, media_query_name_list, media_query_map )
 
     for index in 0 .. count
     {
         size = start + index * step;
 
-        MakeWidth( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision );
+        MakeWidth( size, unit_value, unit_name, media_query_name_list, media_query_map );
     }
 
 // ~~
 
-MakeMinWidth( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+MakeMinWidth( size, unit_value, unit_name, media_query_name_list, media_query_map )
 
     .min-width-{size}{unit_name}
     {
         min-width: size * unit_value;
     }
 
-    for breakpoint_name, breakpoint_size in breakpoint_size_map
+    for media_query_name in media_query_name_list
     {
-        @media ( min-width: breakpoint_size )
+        @media media_query_map[ media_query_name ]
         {
-            .min-width-{size}{unit_name}-above-{breakpoint_name}
-            {
-                min-width: size * unit_value;
-            }
-        }
-        @media ( max-width: breakpoint_size - breakpoint_precision )
-        {
-            .min-width-{size}{unit_name}-below-{breakpoint_name}
+            .min-width-{size}{unit_name}-{media_query_name}
             {
                 min-width: size * unit_value;
             }
@@ -94,37 +71,29 @@ MakeMinWidth( size, unit_value, unit_name, breakpoint_size_map, breakpoint_preci
 
 // ~~
 
-MakeMinWidthRange( start, step, count, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+MakeMinWidthRange( start, step, count, unit_value, unit_name, media_query_name_list, media_query_map )
 
     for index in 0 .. count
     {
         size = start + index * step;
 
-        MakeMinWidth( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision );
+        MakeMinWidth( size, unit_value, unit_name, media_query_name_list, media_query_map );
     }
 
 // ~~
 
-MakeMaxWidth( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+MakeMaxWidth( size, unit_value, unit_name, media_query_name_list, media_query_map )
 
     .max-width-{size}{unit_name}
     {
         max-width: size * unit_value;
     }
 
-    for breakpoint_name, breakpoint_size in breakpoint_size_map
+    for media_query_name in media_query_name_list
     {
-        @media ( min-width: breakpoint_size )
+        @media media_query_map[ media_query_name ]
         {
-            .max-width-{size}{unit_name}-above-{breakpoint_name}
-            {
-                max-width: size * unit_value;
-            }
-        }
-
-        @media ( max-width: breakpoint_size - breakpoint_precision )
-        {
-            .max-width-{size}{unit_name}-below-{breakpoint_name}
+            .max-width-{size}{unit_name}-{media_query_name}
             {
                 max-width: size * unit_value;
             }
@@ -133,18 +102,18 @@ MakeMaxWidth( size, unit_value, unit_name, breakpoint_size_map, breakpoint_preci
 
 // ~~
 
-MakeMaxWidthRange( start, step, count, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+MakeMaxWidthRange( start, step, count, unit_value, unit_name, media_query_name_list, media_query_map )
 
     for index in 0 .. count
     {
         size = start + index * step;
 
-        MakeMaxWidth( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision );
+        MakeMaxWidth( size, unit_value, unit_name, media_query_name_list, media_query_map );
     }
 
 // ~~
 
-MakeFractionalWidth( column_count, breakpoint_size_map, breakpoint_precision )
+MakeFractionalWidth( column_count, media_query_name_list, media_query_map )
 
     for column_index in 1 .. column_count
     {
@@ -153,19 +122,11 @@ MakeFractionalWidth( column_count, breakpoint_size_map, breakpoint_precision )
             width: 100% * ( column_index / column_count );
         }
 
-        for breakpoint_name, breakpoint_size in breakpoint_size_map
+        for media_query_name in media_query_name_list
         {
-            @media ( min-width: breakpoint_size )
+            @media media_query_map[ media_query_name ]
             {
-                .width-{column_index}_{column_count}-above-{breakpoint_name}
-                {
-                    width: 100% * ( column_index / column_count );
-                }
-            }
-
-            @media ( max-width: breakpoint_size - breakpoint_precision )
-            {
-                .width-{column_index}_{column_count}-below-{breakpoint_name}
+                .width-{column_index}_{column_count}-{media_query_name}
                 {
                     width: 100% * ( column_index / column_count );
                 }
@@ -175,16 +136,16 @@ MakeFractionalWidth( column_count, breakpoint_size_map, breakpoint_precision )
 
 // ~~
 
-MakeFractionalWidthRange( first_column_count, last_column_count, breakpoint_size_map, breakpoint_precision )
+MakeFractionalWidthRange( first_column_count, last_column_count, media_query_name_list, media_query_map )
 
     for column_count in first_column_count .. last_column_count
     {
-        MakeFractionalWidth( column_count, breakpoint_size_map, breakpoint_precision );
+        MakeFractionalWidth( column_count, media_query_name_list, media_query_map );
     }
 
 // ~~
 
-MakeMinFractionalWidth( column_count, breakpoint_size_map, breakpoint_precision )
+MakeMinFractionalWidth( column_count, media_query_name_list, media_query_map )
 
     for column_index in 1 .. column_count
     {
@@ -193,18 +154,11 @@ MakeMinFractionalWidth( column_count, breakpoint_size_map, breakpoint_precision 
             min-width: 100% * ( column_index / column_count );
         }
 
-        for breakpoint_name, breakpoint_size in breakpoint_size_map
+        for media_query_name in media_query_name_list
         {
-            @media ( min-width: breakpoint_size )
+            @media media_query_map[ media_query_name ]
             {
-                .min-width-{column_index}_{column_count}-above-{breakpoint_name}
-                {
-                    min-width: 100% * ( column_index / column_count );
-                }
-            }
-            @media ( max-width: breakpoint_size - breakpoint_precision )
-            {
-                .min-width-{column_index}_{column_count}-below-{breakpoint_name}
+                .min-width-{column_index}_{column_count}-{media_query_name}
                 {
                     min-width: 100% * ( column_index / column_count );
                 }
@@ -214,16 +168,16 @@ MakeMinFractionalWidth( column_count, breakpoint_size_map, breakpoint_precision 
 
 // ~~
 
-MakeMinFractionalWidthRange( first_column_count, last_column_count, breakpoint_size_map, breakpoint_precision )
+MakeMinFractionalWidthRange( first_column_count, last_column_count, media_query_name_list, media_query_map )
 
     for column_count in first_column_count .. last_column_count
     {
-        MakeMinFractionalWidth( column_count, breakpoint_size_map, breakpoint_precision );
+        MakeMinFractionalWidth( column_count, media_query_name_list, media_query_map );
     }
 
 // ~~
 
-MakeMaxFractionalWidth( column_count, breakpoint_size_map, breakpoint_precision )
+MakeMaxFractionalWidth( column_count, media_query_name_list, media_query_map )
 
     for column_index in 1 .. column_count
     {
@@ -232,19 +186,11 @@ MakeMaxFractionalWidth( column_count, breakpoint_size_map, breakpoint_precision 
             max-width: 100% * ( column_index / column_count );
         }
 
-        for breakpoint_name, breakpoint_size in breakpoint_size_map
+        for media_query_name in media_query_name_list
         {
-            @media ( min-width: breakpoint_size )
+            @media media_query_map[ media_query_name ]
             {
-                .max-width-{column_index}_{column_count}-above-{breakpoint_name}
-                {
-                    max-width: 100% * ( column_index / column_count );
-                }
-            }
-
-            @media ( max-width: breakpoint_size - breakpoint_precision )
-            {
-                .max-width-{column_index}_{column_count}-below-{breakpoint_name}
+                .max-width-{column_index}_{column_count}-{media_query_name}
                 {
                     max-width: 100% * ( column_index / column_count );
                 }
@@ -254,9 +200,9 @@ MakeMaxFractionalWidth( column_count, breakpoint_size_map, breakpoint_precision 
 
 // ~~
 
-MakeMaxFractionalWidthRange( first_column_count, last_column_count, breakpoint_size_map, breakpoint_precision )
+MakeMaxFractionalWidthRange( first_column_count, last_column_count, media_query_name_list, media_query_map )
 
     for column_count in first_column_count .. last_column_count
     {
-        MakeMaxFractionalWidth( column_count, breakpoint_size_map, breakpoint_precision );
+        MakeMaxFractionalWidth( column_count, media_query_name_list, media_query_map );
     }

@@ -35,26 +35,18 @@
 
 // ~~
 
-MakeTextColor( name, value, breakpoint_size_map, breakpoint_precision )
+MakeTextColor( name, value, media_query_name_list, media_query_map )
 
     .text-color-{name}
     {
         color: value;
     }
 
-    for breakpoint_name, breakpoint_size in breakpoint_size_map
+    for media_query_name in media_query_name_list
     {
-        @media ( min-width: breakpoint_size )
+        @media media_query_map[ media_query_name ]
         {
-            .text-color-{name}-above-{breakpoint_name}
-            {
-                color: value;
-            }
-        }
-
-        @media ( max-width: breakpoint_size - breakpoint_precision )
-        {
-            .text-color-{name}-below-{breakpoint_name}
+            .text-color-{name}-{media_query_name}
             {
                 color: value;
             }

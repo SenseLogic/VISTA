@@ -6,26 +6,18 @@
 
 // ~~
 
-MakeBorderRadius( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+MakeBorderRadius( size, unit_value, unit_name, media_query_name_list, media_query_map )
 
     .border-radius-{size}{unit_name}
     {
         border-radius: size * unit_value;
     }
 
-    for breakpoint_name, breakpoint_size in breakpoint_size_map
+    for media_query_name in media_query_name_list
     {
-        @media ( min-width: breakpoint_size )
+        @media media_query_map[ media_query_name ]
         {
-            .border-radius-{size}{unit_name}-above-{breakpoint_name}
-            {
-                border-radius: size * unit_value;
-            }
-        }
-
-        @media ( max-width: breakpoint_size - breakpoint_precision )
-        {
-            .border-radius-{size}{unit_name}-below-{breakpoint_name}
+            .border-radius-{size}{unit_name}-{media_query_name}
             {
                 border-radius: size * unit_value;
             }
@@ -34,37 +26,29 @@ MakeBorderRadius( size, unit_value, unit_name, breakpoint_size_map, breakpoint_p
 
 // ~~
 
-MakeBorderRadiusRange( start, step, count, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+MakeBorderRadiusRange( start, step, count, unit_value, unit_name, media_query_name_list, media_query_map )
 
     for index in 0 .. count
     {
         size = start + index * step;
 
-        MakeBorderRadius( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision );
+        MakeBorderRadius( size, unit_value, unit_name, media_query_name_list, media_query_map );
     }
 
 // ~~
 
-MakeBorderColor( name, value, breakpoint_size_map, breakpoint_precision )
+MakeBorderColor( name, value, media_query_name_list, media_query_map )
 
     .border-color-{name}
     {
         border-color: value;
     }
 
-    for breakpoint_name, breakpoint_size in breakpoint_size_map
+    for media_query_name in media_query_name_list
     {
-        @media ( min-width: breakpoint_size )
+        @media media_query_map[ media_query_name ]
         {
-            .border-color-{name}-above-{breakpoint_name}
-            {
-                border-color: value;
-            }
-        }
-
-        @media ( max-width: breakpoint_size - breakpoint_precision )
-        {
-            .border-color-{name}-below-{breakpoint_name}
+            .border-color-{name}-{media_query_name}
             {
                 border-color: value;
             }

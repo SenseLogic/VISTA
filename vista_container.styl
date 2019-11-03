@@ -7,7 +7,7 @@
 
 // ~~
 
-MakeContainerCentered( max_width, max_width_map, breakpoint_size_map, breakpoint_precision )
+MakeContainerCentered( max_width, max_width_map, media_query_name_list, media_query_map )
 
     .container-centered
     {
@@ -16,9 +16,9 @@ MakeContainerCentered( max_width, max_width_map, breakpoint_size_map, breakpoint
         margin-right: auto;
     }
 
-    for breakpoint_name, breakpoint_size in breakpoint_size_map
+    for media_query_name in media_query_name_list
     {
-        @media ( min-width: breakpoint_size )
+        @media media_query_map[ media_query_name ]
         {
             .container-centered
             {

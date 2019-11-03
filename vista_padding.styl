@@ -1,23 +1,15 @@
-MakePadding( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+MakePadding( size, unit_value, unit_name, media_query_name_list, media_query_map )
 
     .padding-{size}{unit_name}
     {
         padding: size * unit_value;
     }
 
-    for breakpoint_name, breakpoint_size in breakpoint_size_map
+    for media_query_name in media_query_name_list
     {
-        @media ( min-width: breakpoint_size )
+        @media media_query_map[ media_query_name ]
         {
-            .padding-{size}{unit_name}-above-{breakpoint_name}
-            {
-                padding: size * unit_value;
-            }
-        }
-
-        @media ( max-width: breakpoint_size - breakpoint_precision )
-        {
-            .padding-{size}{unit_name}-below-{breakpoint_name}
+            .padding-{size}{unit_name}-{media_query_name}
             {
                 padding: size * unit_value;
             }
@@ -26,18 +18,18 @@ MakePadding( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precis
 
 // ~~
 
-MakePaddingRange( start, step, count, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+MakePaddingRange( start, step, count, unit_value, unit_name, media_query_name_list, media_query_map )
 
     for index in 0 .. count
     {
         size = start + index * step;
 
-        MakePadding( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision );
+        MakePadding( size, unit_value, unit_name, media_query_name_list, media_query_map );
     }
 
 // ~~
 
-MakePaddingLateral( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+MakePaddingLateral( size, unit_value, unit_name, media_query_name_list, media_query_map )
 
     .padding-lateral-{size}{unit_name}
     {
@@ -45,20 +37,11 @@ MakePaddingLateral( size, unit_value, unit_name, breakpoint_size_map, breakpoint
         padding-right: size * unit_value;
     }
 
-    for breakpoint_name, breakpoint_size in breakpoint_size_map
+    for media_query_name in media_query_name_list
     {
-        @media ( min-width: breakpoint_size )
+        @media media_query_map[ media_query_name ]
         {
-            .padding-lateral-{size}{unit_name}-above-{breakpoint_name}
-            {
-                padding-left: size * unit_value;
-                padding-right: size * unit_value;
-            }
-        }
-
-        @media ( max-width: breakpoint_size - breakpoint_precision )
-        {
-            .padding-lateral-{size}{unit_name}-below-{breakpoint_name}
+            .padding-lateral-{size}{unit_name}-{media_query_name}
             {
                 padding-left: size * unit_value;
                 padding-right: size * unit_value;
@@ -68,18 +51,18 @@ MakePaddingLateral( size, unit_value, unit_name, breakpoint_size_map, breakpoint
 
 // ~~
 
-MakePaddingLateralRange( start, step, count, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+MakePaddingLateralRange( start, step, count, unit_value, unit_name, media_query_name_list, media_query_map )
 
     for index in 0 .. count
     {
         size = start + index * step;
 
-        MakePaddingLateral( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision );
+        MakePaddingLateral( size, unit_value, unit_name, media_query_name_list, media_query_map );
     }
 
 // ~~
 
-MakePaddingVertical( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+MakePaddingVertical( size, unit_value, unit_name, media_query_name_list, media_query_map )
 
     .padding-vertical-{size}{unit_name}
     {
@@ -87,20 +70,11 @@ MakePaddingVertical( size, unit_value, unit_name, breakpoint_size_map, breakpoin
         padding-bottom: size * unit_value;
     }
 
-    for breakpoint_name, breakpoint_size in breakpoint_size_map
+    for media_query_name in media_query_name_list
     {
-        @media ( min-width: breakpoint_size )
+        @media media_query_map[ media_query_name ]
         {
-            .padding-vertical-{size}{unit_name}-above-{breakpoint_name}
-            {
-                padding-top: size * unit_value;
-                padding-bottom: size * unit_value;
-            }
-        }
-
-        @media ( max-width: breakpoint_size - breakpoint_precision )
-        {
-            .padding-vertical-{size}{unit_name}-below-{breakpoint_name}
+            .padding-vertical-{size}{unit_name}-{media_query_name}
             {
                 padding-top: size * unit_value;
                 padding-bottom: size * unit_value;
@@ -110,36 +84,29 @@ MakePaddingVertical( size, unit_value, unit_name, breakpoint_size_map, breakpoin
 
 // ~~
 
-MakePaddingVerticalRange( start, step, count, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+MakePaddingVerticalRange( start, step, count, unit_value, unit_name, media_query_name_list, media_query_map )
 
     for index in 0 .. count
     {
         size = start + index * step;
 
-        MakePaddingVertical( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision );
+        MakePaddingVertical( size, unit_value, unit_name, media_query_name_list, media_query_map );
     }
 
 // ~~
 
-MakePaddingLeft( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+MakePaddingLeft( size, unit_value, unit_name, media_query_name_list, media_query_map )
 
     .padding-left-{size}{unit_name}
     {
         padding-left: size * unit_value;
     }
 
-    for breakpoint_name, breakpoint_size in breakpoint_size_map
+    for media_query_name in media_query_name_list
     {
-        @media ( min-width: breakpoint_size )
+        @media media_query_map[ media_query_name ]
         {
-            .padding-left-{size}{unit_name}-above-{breakpoint_name}
-            {
-                padding-left: size * unit_value;
-            }
-        }
-        @media ( max-width: breakpoint_size - breakpoint_precision )
-        {
-            .padding-left-{size}{unit_name}-below-{breakpoint_name}
+            .padding-left-{size}{unit_name}-{media_query_name}
             {
                 padding-left: size * unit_value;
             }
@@ -148,37 +115,29 @@ MakePaddingLeft( size, unit_value, unit_name, breakpoint_size_map, breakpoint_pr
 
 // ~~
 
-MakePaddingLeftRange( start, step, count, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+MakePaddingLeftRange( start, step, count, unit_value, unit_name, media_query_name_list, media_query_map )
 
     for index in 0 .. count
     {
         size = start + index * step;
 
-        MakePaddingLeft( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision );
+        MakePaddingLeft( size, unit_value, unit_name, media_query_name_list, media_query_map );
     }
 
 // ~~
 
-MakePaddingRight( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+MakePaddingRight( size, unit_value, unit_name, media_query_name_list, media_query_map )
 
     .padding-right-{size}{unit_name}
     {
         padding-right: size * unit_value;
     }
 
-    for breakpoint_name, breakpoint_size in breakpoint_size_map
+    for media_query_name in media_query_name_list
     {
-        @media ( min-width: breakpoint_size )
+        @media media_query_map[ media_query_name ]
         {
-            .padding-right-{size}{unit_name}-above-{breakpoint_name}
-            {
-                padding-right: size * unit_value;
-            }
-        }
-
-        @media ( max-width: breakpoint_size - breakpoint_precision )
-        {
-            .padding-right-{size}{unit_name}-below-{breakpoint_name}
+            .padding-right-{size}{unit_name}-{media_query_name}
             {
                 padding-right: size * unit_value;
             }
@@ -187,37 +146,29 @@ MakePaddingRight( size, unit_value, unit_name, breakpoint_size_map, breakpoint_p
 
 // ~~
 
-MakePaddingRightRange( start, step, count, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+MakePaddingRightRange( start, step, count, unit_value, unit_name, media_query_name_list, media_query_map )
 
     for index in 0 .. count
     {
         size = start + index * step;
 
-        MakePaddingRight( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision );
+        MakePaddingRight( size, unit_value, unit_name, media_query_name_list, media_query_map );
     }
 
 // ~~
 
-MakePaddingTop( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+MakePaddingTop( size, unit_value, unit_name, media_query_name_list, media_query_map )
 
     .padding-top-{size}{unit_name}
     {
         padding-top: size * unit_value;
     }
 
-    for breakpoint_name, breakpoint_size in breakpoint_size_map
+    for media_query_name in media_query_name_list
     {
-        @media ( min-width: breakpoint_size )
+        @media media_query_map[ media_query_name ]
         {
-            .padding-top-{size}{unit_name}-above-{breakpoint_name}
-            {
-                padding-top: size * unit_value;
-            }
-        }
-
-        @media ( max-width: breakpoint_size - breakpoint_precision )
-        {
-            .padding-top-{size}{unit_name}-below-{breakpoint_name}
+            .padding-top-{size}{unit_name}-{media_query_name}
             {
                 padding-top: size * unit_value;
             }
@@ -226,37 +177,29 @@ MakePaddingTop( size, unit_value, unit_name, breakpoint_size_map, breakpoint_pre
 
 // ~~
 
-MakePaddingTopRange( start, step, count, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+MakePaddingTopRange( start, step, count, unit_value, unit_name, media_query_name_list, media_query_map )
 
     for index in 0 .. count
     {
         size = start + index * step;
 
-        MakePaddingTop( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision );
+        MakePaddingTop( size, unit_value, unit_name, media_query_name_list, media_query_map );
     }
 
 // ~~
 
-MakePaddingBottom( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+MakePaddingBottom( size, unit_value, unit_name, media_query_name_list, media_query_map )
 
     .padding-bottom-{size}{unit_name}
     {
         padding-bottom: size * unit_value;
     }
 
-    for breakpoint_name, breakpoint_size in breakpoint_size_map
+    for media_query_name in media_query_name_list
     {
-        @media ( min-width: breakpoint_size )
+        @media media_query_map[ media_query_name ]
         {
-            .padding-bottom-{size}{unit_name}-above-{breakpoint_name}
-            {
-                padding-bottom: size * unit_value;
-            }
-        }
-
-        @media ( max-width: breakpoint_size - breakpoint_precision )
-        {
-            .padding-bottom-{size}{unit_name}-below-{breakpoint_name}
+            .padding-bottom-{size}{unit_name}-{media_query_name}
             {
                 padding-bottom: size * unit_value;
             }
@@ -265,11 +208,11 @@ MakePaddingBottom( size, unit_value, unit_name, breakpoint_size_map, breakpoint_
 
 // ~~
 
-MakePaddingBottomRange( start, step, count, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+MakePaddingBottomRange( start, step, count, unit_value, unit_name, media_query_name_list, media_query_map )
 
     for index in 0 .. count
     {
         size = start + index * step;
 
-        MakePaddingBottom( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision );
+        MakePaddingBottom( size, unit_value, unit_name, media_query_name_list, media_query_map );
     }

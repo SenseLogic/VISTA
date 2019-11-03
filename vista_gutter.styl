@@ -1,4 +1,4 @@
-MakeGutter( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+MakeGutter( size, unit_value, unit_name, media_query_name_list, media_query_map )
 
     .gutter-{size}{unit_name}
     {
@@ -12,32 +12,17 @@ MakeGutter( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precisi
         padding-left: size * unit_value;
     }
 
-    for breakpoint_name, breakpoint_size in breakpoint_size_map
+    for media_query_name in media_query_name_list
     {
-        @media ( min-width: breakpoint_size )
+        @media media_query_map[ media_query_name ]
         {
-            .gutter-{size}{unit_name}-above-{breakpoint_name}
+            .gutter-{size}{unit_name}-{media_query_name}
             {
                 margin-top: -( size * unit_value );
                 margin-left: -( size * unit_value );
             }
 
-            .gutter-{size}{unit_name}-above-{breakpoint_name} > [class*="flex-item"]
-            {
-                padding-top: size * unit_value;
-                padding-left: size * unit_value;
-            }
-        }
-
-        @media ( max-width: breakpoint_size - breakpoint_precision )
-        {
-            .gutter-{size}{unit_name}-below-{breakpoint_name}
-            {
-                margin-top: -( size * unit_value );
-                margin-left: -( size * unit_value );
-            }
-
-            .gutter-{size}{unit_name}-below-{breakpoint_name} > [class*="flex-item"]
+            .gutter-{size}{unit_name}-{media_query_name} > [class*="flex-item"]
             {
                 padding-top: size * unit_value;
                 padding-left: size * unit_value;
@@ -47,11 +32,11 @@ MakeGutter( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precisi
 
 // ~~
 
-MakeGutterRange( start, step, count, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+MakeGutterRange( start, step, count, unit_value, unit_name, media_query_name_list, media_query_map )
 
     for index in 0 .. count
     {
         size = start + index * step;
 
-        MakeGutter( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision );
+        MakeGutter( size, unit_value, unit_name, media_query_name_list, media_query_map );
     }

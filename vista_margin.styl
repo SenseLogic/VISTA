@@ -5,21 +5,13 @@
 
 // ~~
 
-MakeMarginAuto( breakpoint_size_map, breakpoint_precision )
+MakeMarginAuto( media_query_map )
 
-    for breakpoint_name, breakpoint_size in breakpoint_size_map
+    for media_query_name in media_query_name_list
     {
-        @media ( min-width: breakpoint_size )
+        @media media_query_map[ media_query_name ]
         {
-            .margin-auto-above-{breakpoint_name}
-            {
-                margin: auto;
-            }
-        }
-
-        @media ( max-width: breakpoint_size - breakpoint_precision )
-        {
-            .margin-auto-above-{breakpoint_name}
+            .margin-auto-{media_query_name}
             {
                 margin: auto;
             }
@@ -28,26 +20,18 @@ MakeMarginAuto( breakpoint_size_map, breakpoint_precision )
 
 // ~~
 
-MakeMargin( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+MakeMargin( size, unit_value, unit_name, media_query_name_list, media_query_map )
 
     .margin-{size}{unit_name}
     {
         margin: size * unit_value;
     }
 
-    for breakpoint_name, breakpoint_size in breakpoint_size_map
+    for media_query_name in media_query_name_list
     {
-        @media ( min-width: breakpoint_size )
+        @media media_query_map[ media_query_name ]
         {
-            .margin-{size}{unit_name}-above-{breakpoint_name}
-            {
-                margin: size * unit_value;
-            }
-        }
-
-        @media ( max-width: breakpoint_size - breakpoint_precision )
-        {
-            .margin-{size}{unit_name}-below-{breakpoint_name}
+            .margin-{size}{unit_name}-{media_query_name}
             {
                 margin: size * unit_value;
             }
@@ -56,13 +40,13 @@ MakeMargin( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precisi
 
 // ~~
 
-MakeMarginRange( start, step, count, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+MakeMarginRange( start, step, count, unit_value, unit_name, media_query_name_list, media_query_map )
 
     for index in 0 .. count
     {
         size = start + index * step;
 
-        MakeMargin( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision );
+        MakeMargin( size, unit_value, unit_name, media_query_name_list, media_query_map );
     }
 
 // ~~
@@ -75,22 +59,13 @@ MakeMarginRange( start, step, count, unit_value, unit_name, breakpoint_size_map,
 
 // ~~
 
-MakeMarginLateralAuto( breakpoint_size_map, breakpoint_precision )
+MakeMarginLateralAuto( media_query_map )
 
-    for breakpoint_name, breakpoint_size in breakpoint_size_map
+    for media_query_name in media_query_name_list
     {
-        @media ( min-width: breakpoint_size )
+        @media media_query_map[ media_query_name ]
         {
-            .margin-lateral-auto-above-{breakpoint_name}
-            {
-                margin-left: auto;
-                margin-right: auto;
-            }
-        }
-
-        @media ( max-width: breakpoint_size - breakpoint_precision )
-        {
-            .margin-lateral-auto-below-{breakpoint_name}
+            .margin-lateral-auto-{media_query_name}
             {
                 margin-left: auto;
                 margin-right: auto;
@@ -100,7 +75,7 @@ MakeMarginLateralAuto( breakpoint_size_map, breakpoint_precision )
 
 // ~~
 
-MakeMarginLateral( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+MakeMarginLateral( size, unit_value, unit_name, media_query_name_list, media_query_map )
 
     .margin-lateral-{size}{unit_name}
     {
@@ -108,20 +83,11 @@ MakeMarginLateral( size, unit_value, unit_name, breakpoint_size_map, breakpoint_
         margin-right: size * unit_value;
     }
 
-    for breakpoint_name, breakpoint_size in breakpoint_size_map
+    for media_query_name in media_query_name_list
     {
-        @media ( min-width: breakpoint_size )
+        @media media_query_map[ media_query_name ]
         {
-            .margin-lateral-{size}{unit_name}-above-{breakpoint_name}
-            {
-                margin-left: size * unit_value;
-                margin-right: size * unit_value;
-            }
-        }
-
-        @media ( max-width: breakpoint_size - breakpoint_precision )
-        {
-            .margin-lateral-{size}{unit_name}-below-{breakpoint_name}
+            .margin-lateral-{size}{unit_name}-{media_query_name}
             {
                 margin-left: size * unit_value;
                 margin-right: size * unit_value;
@@ -131,13 +97,13 @@ MakeMarginLateral( size, unit_value, unit_name, breakpoint_size_map, breakpoint_
 
 // ~~
 
-MakeMarginLateralRange( start, step, count, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+MakeMarginLateralRange( start, step, count, unit_value, unit_name, media_query_name_list, media_query_map )
 
     for index in 0 .. count
     {
         size = start + index * step;
 
-        MakeMarginLateral( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision );
+        MakeMarginLateral( size, unit_value, unit_name, media_query_name_list, media_query_map );
     }
 
 // ~~
@@ -150,22 +116,13 @@ MakeMarginLateralRange( start, step, count, unit_value, unit_name, breakpoint_si
 
 // ~~
 
-MakeMarginVerticalAuto( breakpoint_size_map, breakpoint_precision )
+MakeMarginVerticalAuto( media_query_map )
 
-    for breakpoint_name, breakpoint_size in breakpoint_size_map
+    for media_query_name in media_query_name_list
     {
-        @media ( min-width: breakpoint_size )
+        @media media_query_map[ media_query_name ]
         {
-            .margin-vertical-auto-above-{breakpoint_name}
-            {
-                margin-top: auto;
-                margin-bottom: auto;
-            }
-        }
-
-        @media ( max-width: breakpoint_size - breakpoint_precision )
-        {
-            .margin-vertical-auto-below-{breakpoint_name}
+            .margin-vertical-auto-{media_query_name}
             {
                 margin-top: auto;
                 margin-bottom: auto;
@@ -175,7 +132,7 @@ MakeMarginVerticalAuto( breakpoint_size_map, breakpoint_precision )
 
 // ~~
 
-MakeMarginVertical( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+MakeMarginVertical( size, unit_value, unit_name, media_query_name_list, media_query_map )
 
     .margin-vertical-{size}{unit_name}
     {
@@ -183,20 +140,11 @@ MakeMarginVertical( size, unit_value, unit_name, breakpoint_size_map, breakpoint
         margin-bottom: size * unit_value;
     }
 
-    for breakpoint_name, breakpoint_size in breakpoint_size_map
+    for media_query_name in media_query_name_list
     {
-        @media ( min-width: breakpoint_size )
+        @media media_query_map[ media_query_name ]
         {
-            .margin-vertical-{size}{unit_name}-above-{breakpoint_name}
-            {
-                margin-top: size * unit_value;
-                margin-bottom: size * unit_value;
-            }
-        }
-
-        @media ( max-width: breakpoint_size - breakpoint_precision )
-        {
-            .margin-vertical-{size}{unit_name}-below-{breakpoint_name}
+            .margin-vertical-{size}{unit_name}-{media_query_name}
             {
                 margin-top: size * unit_value;
                 margin-bottom: size * unit_value;
@@ -206,13 +154,13 @@ MakeMarginVertical( size, unit_value, unit_name, breakpoint_size_map, breakpoint
 
 // ~~
 
-MakeMarginVerticalRange( start, step, count, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+MakeMarginVerticalRange( start, step, count, unit_value, unit_name, media_query_name_list, media_query_map )
 
     for index in 0 .. count
     {
         size = start + index * step;
 
-        MakeMarginVertical( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision );
+        MakeMarginVertical( size, unit_value, unit_name, media_query_name_list, media_query_map );
     }
 
 // ~~
@@ -224,21 +172,13 @@ MakeMarginVerticalRange( start, step, count, unit_value, unit_name, breakpoint_s
 
 // ~~
 
-MakeMarginLeftAuto( breakpoint_size_map, breakpoint_precision )
+MakeMarginLeftAuto( media_query_map )
 
-    for breakpoint_name, breakpoint_size in breakpoint_size_map
+    for media_query_name in media_query_name_list
     {
-        @media ( min-width: breakpoint_size )
+        @media media_query_map[ media_query_name ]
         {
-            .margin-left-auto-above-{breakpoint_name}
-            {
-                margin-left: auto;
-            }
-        }
-
-        @media ( max-width: breakpoint_size - breakpoint_precision )
-        {
-            .margin-left-auto-below-{breakpoint_name}
+            .margin-left-auto-{media_query_name}
             {
                 margin-left: auto;
             }
@@ -247,25 +187,18 @@ MakeMarginLeftAuto( breakpoint_size_map, breakpoint_precision )
 
 // ~~
 
-MakeMarginLeft( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+MakeMarginLeft( size, unit_value, unit_name, media_query_name_list, media_query_map )
 
     .margin-left-{size}{unit_name}
     {
         margin-left: size * unit_value;
     }
 
-    for breakpoint_name, breakpoint_size in breakpoint_size_map
+    for media_query_name in media_query_name_list
     {
-        @media ( min-width: breakpoint_size )
+        @media media_query_map[ media_query_name ]
         {
-            .margin-left-{size}{unit_name}-above-{breakpoint_name}
-            {
-                margin-left: size * unit_value;
-            }
-        }
-        @media ( max-width: breakpoint_size - breakpoint_precision )
-        {
-            .margin-left-{size}{unit_name}-below-{breakpoint_name}
+            .margin-left-{size}{unit_name}-{media_query_name}
             {
                 margin-left: size * unit_value;
             }
@@ -274,13 +207,13 @@ MakeMarginLeft( size, unit_value, unit_name, breakpoint_size_map, breakpoint_pre
 
 // ~~
 
-MakeMarginLeftRange( start, step, count, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+MakeMarginLeftRange( start, step, count, unit_value, unit_name, media_query_name_list, media_query_map )
 
     for index in 0 .. count
     {
         size = start + index * step;
 
-        MakeMarginLeft( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision );
+        MakeMarginLeft( size, unit_value, unit_name, media_query_name_list, media_query_map );
     }
 
 // ~~
@@ -292,21 +225,13 @@ MakeMarginLeftRange( start, step, count, unit_value, unit_name, breakpoint_size_
 
 // ~~
 
-MakeMarginRightAuto( breakpoint_size_map, breakpoint_precision )
+MakeMarginRightAuto( media_query_map )
 
-    for breakpoint_name, breakpoint_size in breakpoint_size_map
+    for media_query_name in media_query_name_list
     {
-        @media ( min-width: breakpoint_size )
+        @media media_query_map[ media_query_name ]
         {
-            .margin-right-auto-above-{breakpoint_name}
-            {
-                margin-right: auto;
-            }
-        }
-
-        @media ( max-width: breakpoint_size - breakpoint_precision )
-        {
-            .margin-right-auto-below-{breakpoint_name}
+            .margin-right-auto-{media_query_name}
             {
                 margin-right: auto;
             }
@@ -315,26 +240,18 @@ MakeMarginRightAuto( breakpoint_size_map, breakpoint_precision )
 
 // ~~
 
-MakeMarginRight( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+MakeMarginRight( size, unit_value, unit_name, media_query_name_list, media_query_map )
 
     .margin-right-{size}{unit_name}
     {
         margin-right: size * unit_value;
     }
 
-    for breakpoint_name, breakpoint_size in breakpoint_size_map
+    for media_query_name in media_query_name_list
     {
-        @media ( min-width: breakpoint_size )
+        @media media_query_map[ media_query_name ]
         {
-            .margin-right-{size}{unit_name}-above-{breakpoint_name}
-            {
-                margin-right: size * unit_value;
-            }
-        }
-
-        @media ( max-width: breakpoint_size - breakpoint_precision )
-        {
-            .margin-right-{size}{unit_name}-below-{breakpoint_name}
+            .margin-right-{size}{unit_name}-{media_query_name}
             {
                 margin-right: size * unit_value;
             }
@@ -343,13 +260,13 @@ MakeMarginRight( size, unit_value, unit_name, breakpoint_size_map, breakpoint_pr
 
 // ~~
 
-MakeMarginRightRange( start, step, count, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+MakeMarginRightRange( start, step, count, unit_value, unit_name, media_query_name_list, media_query_map )
 
     for index in 0 .. count
     {
         size = start + index * step;
 
-        MakeMarginRight( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision );
+        MakeMarginRight( size, unit_value, unit_name, media_query_name_list, media_query_map );
     }
 
 // ~~
@@ -361,21 +278,13 @@ MakeMarginRightRange( start, step, count, unit_value, unit_name, breakpoint_size
 
 // ~~
 
-MakeMarginTopAuto( breakpoint_size_map, breakpoint_precision )
+MakeMarginTopAuto( media_query_map )
 
-    for breakpoint_name, breakpoint_size in breakpoint_size_map
+    for media_query_name in media_query_name_list
     {
-        @media ( min-width: breakpoint_size )
+        @media media_query_map[ media_query_name ]
         {
-            .margin-top-auto-above-{breakpoint_name}
-            {
-                margin-top: auto;
-            }
-        }
-
-        @media ( max-width: breakpoint_size - breakpoint_precision )
-        {
-            .margin-top-auto-below-{breakpoint_name}
+            .margin-top-auto-{media_query_name}
             {
                 margin-top: auto;
             }
@@ -384,26 +293,18 @@ MakeMarginTopAuto( breakpoint_size_map, breakpoint_precision )
 
 // ~~
 
-MakeMarginTop( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+MakeMarginTop( size, unit_value, unit_name, media_query_name_list, media_query_map )
 
     .margin-top-{size}{unit_name}
     {
         margin-top: size * unit_value;
     }
 
-    for breakpoint_name, breakpoint_size in breakpoint_size_map
+    for media_query_name in media_query_name_list
     {
-        @media ( min-width: breakpoint_size )
+        @media media_query_map[ media_query_name ]
         {
-            .margin-top-{size}{unit_name}-above-{breakpoint_name}
-            {
-                margin-top: size * unit_value;
-            }
-        }
-
-        @media ( max-width: breakpoint_size - breakpoint_precision )
-        {
-            .margin-top-{size}{unit_name}-below-{breakpoint_name}
+            .margin-top-{size}{unit_name}-{media_query_name}
             {
                 margin-top: size * unit_value;
             }
@@ -412,13 +313,13 @@ MakeMarginTop( size, unit_value, unit_name, breakpoint_size_map, breakpoint_prec
 
 // ~~
 
-MakeMarginTopRange( start, step, count, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+MakeMarginTopRange( start, step, count, unit_value, unit_name, media_query_name_list, media_query_map )
 
     for index in 0 .. count
     {
         size = start + index * step;
 
-        MakeMarginTop( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision );
+        MakeMarginTop( size, unit_value, unit_name, media_query_name_list, media_query_map );
     }
 
 // ~~
@@ -430,21 +331,13 @@ MakeMarginTopRange( start, step, count, unit_value, unit_name, breakpoint_size_m
 
 // ~~
 
-MakeMarginBottomAuto( breakpoint_size_map, breakpoint_precision )
+MakeMarginBottomAuto( media_query_map )
 
-    for breakpoint_name, breakpoint_size in breakpoint_size_map
+    for media_query_name in media_query_name_list
     {
-        @media ( min-width: breakpoint_size )
+        @media media_query_map[ media_query_name ]
         {
-            .margin-bottom-auto-above-{breakpoint_name}
-            {
-                margin-bottom: auto;
-            }
-        }
-
-        @media ( max-width: breakpoint_size - breakpoint_precision )
-        {
-            .margin-bottom-auto-below-{breakpoint_name}
+            .margin-bottom-auto-{media_query_name}
             {
                 margin-bottom: auto;
             }
@@ -453,26 +346,18 @@ MakeMarginBottomAuto( breakpoint_size_map, breakpoint_precision )
 
 // ~~
 
-MakeMarginBottom( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+MakeMarginBottom( size, unit_value, unit_name, media_query_name_list, media_query_map )
 
     .margin-bottom-{size}{unit_name}
     {
         margin-bottom: size * unit_value;
     }
 
-    for breakpoint_name, breakpoint_size in breakpoint_size_map
+    for media_query_name in media_query_name_list
     {
-        @media ( min-width: breakpoint_size )
+        @media media_query_map[ media_query_name ]
         {
-            .margin-bottom-{size}{unit_name}-above-{breakpoint_name}
-            {
-                margin-bottom: size * unit_value;
-            }
-        }
-
-        @media ( max-width: breakpoint_size - breakpoint_precision )
-        {
-            .margin-bottom-{size}{unit_name}-below-{breakpoint_name}
+            .margin-bottom-{size}{unit_name}-{media_query_name}
             {
                 margin-bottom: size * unit_value;
             }
@@ -481,18 +366,18 @@ MakeMarginBottom( size, unit_value, unit_name, breakpoint_size_map, breakpoint_p
 
 // ~~
 
-MakeMarginBottomRange( start, step, count, unit_value, unit_name, breakpoint_size_map, breakpoint_precision )
+MakeMarginBottomRange( start, step, count, unit_value, unit_name, media_query_name_list, media_query_map )
 
     for index in 0 .. count
     {
         size = start + index * step;
 
-        MakeMarginBottom( size, unit_value, unit_name, breakpoint_size_map, breakpoint_precision );
+        MakeMarginBottom( size, unit_value, unit_name, media_query_name_list, media_query_map );
     }
 
 // ~~
 
-MakeFractionalMarginLeft( column_count, breakpoint_size_map, breakpoint_precision )
+MakeFractionalMarginLeft( column_count, media_query_name_list, media_query_map )
 
     for column_index in 1 .. column_count
 
@@ -501,19 +386,11 @@ MakeFractionalMarginLeft( column_count, breakpoint_size_map, breakpoint_precisio
             margin-left: 100% * ( column_index / column_count );
         }
 
-        for breakpoint_name, breakpoint_size in breakpoint_size_map
+        for media_query_name in media_query_name_list
         {
-            @media ( min-width: breakpoint_size )
+            @media media_query_map[ media_query_name ]
             {
-                .margin-left-{column_index}_{column_count}-above-{breakpoint_name}
-                {
-                    margin-left: 100% * ( column_index / column_count );
-                }
-            }
-
-            @media ( max-width: breakpoint_size - breakpoint_precision )
-            {
-                .margin-left-{column_index}_{column_count}-below-{breakpoint_name}
+                .margin-left-{column_index}_{column_count}-{media_query_name}
                 {
                     margin-left: 100% * ( column_index / column_count );
                 }
@@ -522,16 +399,16 @@ MakeFractionalMarginLeft( column_count, breakpoint_size_map, breakpoint_precisio
 
 // ~~
 
-MakeFractionalMarginLeftRange( first_column_count, last_column_count, breakpoint_size_map, breakpoint_precision )
+MakeFractionalMarginLeftRange( first_column_count, last_column_count, media_query_name_list, media_query_map )
 
     for column_count in first_column_count .. last_column_count
     {
-        MakeFractionalMarginLeft( column_count, breakpoint_size_map, breakpoint_precision );
+        MakeFractionalMarginLeft( column_count, media_query_name_list, media_query_map );
     }
 
 // ~~
 
-MakeFractionalMarginRight( column_count, breakpoint_size_map, breakpoint_precision )
+MakeFractionalMarginRight( column_count, media_query_name_list, media_query_map )
 
     for column_index in 1 .. column_count
 
@@ -540,19 +417,11 @@ MakeFractionalMarginRight( column_count, breakpoint_size_map, breakpoint_precisi
             margin-right: 100% * ( column_index / column_count );
         }
 
-        for breakpoint_name, breakpoint_size in breakpoint_size_map
+        for media_query_name in media_query_name_list
         {
-            @media ( min-width: breakpoint_size )
+            @media media_query_map[ media_query_name ]
             {
-                .margin-right-{column_index}_{column_count}-above-{breakpoint_name}
-                {
-                    margin-right: 100% * ( column_index / column_count );
-                }
-            }
-
-            @media ( max-width: breakpoint_size - breakpoint_precision )
-            {
-                .margin-right-{column_index}_{column_count}-below-{breakpoint_name}
+                .margin-right-{column_index}_{column_count}-{media_query_name}
                 {
                     margin-right: 100% * ( column_index / column_count );
                 }
@@ -561,9 +430,9 @@ MakeFractionalMarginRight( column_count, breakpoint_size_map, breakpoint_precisi
 
 // ~~
 
-MakeFractionalMarginRightRange( first_column_count, last_column_count, breakpoint_size_map, breakpoint_precision )
+MakeFractionalMarginRightRange( first_column_count, last_column_count, media_query_name_list, media_query_map )
 
     for column_count in first_column_count .. last_column_count
     {
-        MakeFractionalMarginRight( column_count, breakpoint_size_map, breakpoint_precision );
+        MakeFractionalMarginRight( column_count, media_query_name_list, media_query_map );
     }
