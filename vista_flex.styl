@@ -1,19 +1,19 @@
-.flex-row
+.flex-direction-row
 {
     flex-direction: row;
 }
 
-.flex-row-reverse
+.flex-direction-row-reverse
 {
     flex-direction: row-reverse;
 }
 
-.flex-column
+.flex-direction-column
 {
     flex-direction: column;
 }
 
-.flex-column-reverse
+.flex-direction-column-reverse
 {
     flex-direction: column-reverse;
 }
@@ -28,115 +28,30 @@
     flex-wrap: nowrap;
 }
 
-.flex-left
-{
-    justify-content: flex-start;
-}
-
-.flex-center
-{
-    justify-content: center;
-}
-
-.flex-right
-{
-    justify-content: flex-end;
-}
-
-.flex-between
-{
-    justify-content: space-between;
-}
-
-.flex-around
-{
-    justify-content: space-around;
-}
-
-.flex-top
-{
-    align-items: flex-start;
-}
-
-.flex-middle
-{
-    align-items: center;
-}
-
-.flex-bottom
-{
-    align-items: flex-end;
-}
-
-.flex-stretch
-{
-    align-items: stretch;
-}
-
-.flex-baseline
-{
-    align-items: baseline;
-}
-
-.flex-top-self
-{
-    align-self: flex-start;
-}
-
-.flex-middle-self
-{
-    align-self: center;
-}
-
-.flex-bottom-self
-{
-    align-self: flex-end;
-}
-
-.flex-stretch-self
-{
-    align-self: stretch;
-}
-
-.flex-baseline-self
-{
-    align-self: baseline;
-}
-
-.flex-first
-{
-    order: -1;
-}
-
-.flex-last
-{
-    order: 1;
-}
-
 // ~~
 
-MakeFlex( media_query_map )
+MakeFlex( media_query_name_list, media_query_map )
 
     for media_query_name in media_query_name_list
     {
         @media media_query_map[ media_query_name ]
         {
-            .flex-row-{media_query_name}
+            .flex-direction-row-{media_query_name}
             {
                 flex-direction: row;
             }
 
-            .flex-row-reverse-{media_query_name}
+            .flex-direction-row-reverse-{media_query_name}
             {
                 flex-direction: row-reverse;
             }
 
-            .flex-column-{media_query_name}
+            .flex-direction-column-{media_query_name}
             {
                 flex-direction: column;
             }
 
-            .flex-column-reverse-{media_query_name}
+            .flex-direction-column-reverse-{media_query_name}
             {
                 flex-direction: column-reverse;
             }
@@ -149,91 +64,6 @@ MakeFlex( media_query_map )
             .flex-nowrap-{media_query_name}
             {
                 flex-wrap: nowrap;
-            }
-
-            .flex-left-{media_query_name}
-            {
-                justify-content: flex-start;
-            }
-
-            .flex-center-{media_query_name}
-            {
-                justify-content: center;
-            }
-
-            .flex-right-{media_query_name}
-            {
-                justify-content: flex-end;
-            }
-
-            .flex-between-{media_query_name}
-            {
-                justify-content: space-between;
-            }
-
-            .flex-around-{media_query_name}
-            {
-                justify-content: space-around;
-            }
-
-            .flex-top-{media_query_name}
-            {
-                align-items: flex-start;
-            }
-
-            .flex-middle-{media_query_name}
-            {
-                align-items: center;
-            }
-
-            .flex-bottom-{media_query_name}
-            {
-                align-items: flex-end;
-            }
-
-            .flex-stretch-{media_query_name}
-            {
-                align-items: stretch;
-            }
-
-            .flex-baseline-{media_query_name}
-            {
-                align-items: baseline;
-            }
-
-            .flex-top-{media_query_name}
-            {
-                align-self: flex-start;
-            }
-
-            .flex-middle-{media_query_name}
-            {
-                align-self: center;
-            }
-
-            .flex-bottom-{media_query_name}
-            {
-                align-self: flex-end;
-            }
-
-            .flex-stretch-{media_query_name}
-            {
-                align-self: stretch;
-            }
-
-            .flex-baseline-{media_query_name}
-            {
-                align-self: baseline;
-            }
-
-            .flex-first-{media_query_name}
-            {
-                order: -1;
-            }
-
-            .flex-last-{media_query_name}
-            {
-                order: 1;
             }
         }
     }

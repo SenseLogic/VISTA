@@ -18,9 +18,21 @@
     display: flex;
 }
 
+.display-grid
+{
+    display: -ms-grid;
+    display: grid;
+}
+
+.display-inline-grid
+{
+    display: -ms-inline-grid;
+    display: inline-grid;
+}
+
 // ~~
 
-MakeDisplay( media_query_map )
+MakeDisplay( media_query_name_list, media_query_map )
 
     for media_query_name in media_query_name_list
     {
@@ -44,6 +56,11 @@ MakeDisplay( media_query_map )
             .display-flex-{media_query_name}
             {
                 display: flex;
+            }
+
+            .display-grid-{media_query_name}
+            {
+                display: grid;
             }
         }
     }

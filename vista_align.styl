@@ -1,0 +1,122 @@
+.align-top
+{
+    align-items: flex-start;
+}
+
+.align-middle
+{
+    align-items: center;
+}
+
+.align-bottom
+{
+    align-items: flex-end;
+}
+
+.align-stretch
+{
+    align-items: stretch;
+}
+
+.align-baseline
+{
+    align-items: baseline;
+}
+
+// ~~
+
+MakeAlign( media_query_name_list, media_query_map )
+
+    for media_query_name in media_query_name_list
+    {
+        @media media_query_map[ media_query_name ]
+        {
+            .align-top-{media_query_name}
+            {
+                align-items: flex-start;
+            }
+
+            .align-middle-{media_query_name}
+            {
+                align-items: center;
+            }
+
+            .align-bottom-{media_query_name}
+            {
+                align-items: flex-end;
+            }
+
+            .align-stretch-{media_query_name}
+            {
+                align-items: stretch;
+            }
+
+            .align-baseline-{media_query_name}
+            {
+                align-items: baseline;
+            }
+        }
+    }
+
+// ~~
+
+.align-self-top
+{
+    align-self: flex-start;
+}
+
+.align-self-middle
+{
+    align-self: center;
+}
+
+.align-self-bottom
+{
+    align-self: flex-end;
+}
+
+.align-self-stretch
+{
+    align-self: stretch;
+}
+
+.align-self-baseline
+{
+    align-self: baseline;
+}
+
+// ~~
+
+MakeAlignSelf( media_query_name_list, media_query_map )
+
+    for media_query_name in media_query_name_list
+    {
+        @media media_query_map[ media_query_name ]
+        {
+            .align-self-top-{media_query_name}
+            {
+                align-self: flex-start;
+            }
+
+            .align-self-middle-{media_query_name}
+            {
+                align-self: center;
+            }
+
+            .align-self-bottom-{media_query_name}
+            {
+                align-self: flex-end;
+            }
+
+            .align-self-stretch-{media_query_name}
+            {
+                align-self: stretch;
+            }
+
+            .align-self-baseline-{media_query_name}
+            {
+                align-self: baseline;
+            }
+        }
+    }
+

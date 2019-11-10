@@ -1,0 +1,321 @@
+.grid-flow-row
+{
+    grid-auto-flow: row;
+}
+
+.grid-flow-column
+{
+    grid-auto-flow: column;
+}
+
+// ~~
+
+MakeGridFlow( media_query_name_list, media_query_map )
+
+    for media_query_name in media_query_name_list
+    {
+        @media media_query_map[ media_query_name ]
+        {
+            .grid-flow-row-{media_query_name}
+            {
+                grid-auto-flow: row;
+            }
+
+            .grid-flow-column-{media_query_name}
+            {
+                grid-auto-flow: column;
+            }
+
+        }
+    }
+
+// ~~
+
+.grid-heights-auto
+{
+    grid-auto-rows: auto;
+}
+
+.grid-heights-min
+{
+    grid-auto-rows: min-content;
+}
+
+.grid-heights-max
+{
+    grid-auto-rows: max-content;
+}
+
+// ~~
+
+MakeGridHeights( size, unit_value, unit_name, media_query_name_list, media_query_map )
+
+    .grid-auto-rows-{size}{unit_name}
+    {
+        grid-auto-rows: size * unit_value;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media media_query_map[ media_query_name ]
+        {
+            .grid-auto-rows-{size}{unit_name}-{media_query_name}
+            {
+                grid-auto-rows: size * unit_value;
+            }
+        }
+    }
+
+// ~~
+
+MakeGridHeightsRange( start, step, count, unit_value, unit_name, media_query_name_list, media_query_map )
+
+    for index in 0 .. count
+    {
+        size = start + index * step;
+
+        MakeGridHeights( size, unit_value, unit_name, media_query_name_list, media_query_map );
+    }
+
+// ~~
+
+.grid-widths-auto
+{
+    grid-auto-columns: auto;
+}
+
+.grid-widths-auto
+{
+    grid-auto-columns: min-content;
+}
+
+.grid-widths-auto
+{
+    grid-auto-columns: max-content;
+}
+
+// ~~
+
+MakeGridWidths( size, unit_value, unit_name, media_query_name_list, media_query_map )
+
+    .grid-auto-columns-{size}{unit_name}
+    {
+        grid-auto-columns: size * unit_value;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media media_query_map[ media_query_name ]
+        {
+            .grid-auto-columns-{size}{unit_name}-{media_query_name}
+            {
+                grid-auto-columns: size * unit_value;
+            }
+        }
+    }
+
+// ~~
+
+MakeGridWidthsRange( start, step, count, unit_value, unit_name, media_query_name_list, media_query_map )
+
+    for index in 0 .. count
+    {
+        size = start + index * step;
+
+        MakeGridWidths( size, unit_value, unit_name, media_query_name_list, media_query_map );
+    }
+
+// ~~
+
+MakeGridRowSpan( row_count, media_query_name_list, media_query_map )
+
+    .grid-row-span-{row_count}
+    {
+        grid-row: auto/span row_count;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media media_query_map[ media_query_name ]
+        {
+            .grid-row-span-{row_count}-{media_query_name}
+            {
+                grid-row: auto/span row_count;
+            }
+        }
+    }
+
+// ~~
+
+MakeGridRowSpanRange( first_row_count, last_row_count, media_query_name_list, media_query_map )
+
+    for row_count in first_row_count .. last_row_count
+    {
+        MakeGridRowSpan( row_count, media_query_name_list, media_query_map )
+    }
+
+// ~~
+
+MakeGridColumnSpan( column_count, media_query_name_list, media_query_map )
+
+    .grid-column-span-{column_count}
+    {
+        grid-column: auto/span column_count;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media media_query_map[ media_query_name ]
+        {
+            .grid-column-span-{column_count}-{media_query_name}
+            {
+                grid-column: auto/span column_count;
+            }
+        }
+    }
+
+// ~~
+
+MakeGridColumnSpanRange( first_column_count, last_column_count, media_query_name_list, media_query_map )
+
+    for column_count in first_column_count .. last_column_count
+    {
+        MakeGridColumnSpan( column_count, media_query_name_list, media_query_map )
+    }
+
+// ~~
+
+.grid-row-span-all
+{
+    grid-row: 1/-1;
+}
+
+// ~~
+
+MakeGridRowSpanAll( media_query_name_list, media_query_map )
+
+    for media_query_name in media_query_name_list
+    {
+        @media media_query_map[ media_query_name ]
+        {
+            .grid-row-span-all-{media_query_name}
+            {
+                grid-row: 1/-1;
+            }
+        }
+    }
+
+// ~~
+
+.grid-column-span-all
+{
+    grid-column: 1/-1;
+}
+
+// ~~
+
+MakeGridColumnSpanAll( media_query_name_list, media_query_map )
+
+    for media_query_name in media_query_name_list
+    {
+        @media media_query_map[ media_query_name ]
+        {
+            .grid-column-span-all-{media_query_name}
+            {
+                grid-column: 1/-1;
+            }
+        }
+    }
+
+// ~~
+
+MakeGridRowGap( size, unit_value, unit_name, media_query_name_list, media_query_map )
+
+    .grid-row-gap-{size}{unit_name}
+    {
+        grid-row-gap: size * unit_value;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media media_query_map[ media_query_name ]
+        {
+            .grid-row-gap-{size}{unit_name}-{media_query_name}
+            {
+                grid-row-gap: size * unit_value;
+            }
+        }
+    }
+
+// ~~
+
+MakeGridRowGapRange( start, step, count, unit_value, unit_name, media_query_name_list, media_query_map )
+
+    for index in 0 .. count
+    {
+        size = start + index * step;
+
+        MakeGridRowGap( size, unit_value, unit_name, media_query_name_list, media_query_map );
+    }
+
+// ~~
+
+MakeGridColumnGap( size, unit_value, unit_name, media_query_name_list, media_query_map )
+
+    .grid-column-gap-{size}{unit_name}
+    {
+        grid-column-gap: size * unit_value;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media media_query_map[ media_query_name ]
+        {
+            .grid-column-gap-{size}{unit_name}-{media_query_name}
+            {
+                grid-column-gap: size * unit_value;
+            }
+        }
+    }
+
+// ~~
+
+MakeGridColumnGapRange( start, step, count, unit_value, unit_name, media_query_name_list, media_query_map )
+
+    for index in 0 .. count
+    {
+        size = start + index * step;
+
+        MakeGridColumnGap( size, unit_value, unit_name, media_query_name_list, media_query_map );
+    }
+
+// ~~
+
+MakeGridColumns( column_count, media_query_name_list, media_query_map )
+
+    .grid-columns-{column_count}
+    {
+        -ms-grid-columns: ( 1fr )[ column_count ];
+        grid-template-columns: repeat( column_count, 1fr );
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media media_query_map[ media_query_name ]
+        {
+            .grid-columns-{column_count}-{media_query_name}
+            {
+                -ms-grid-columns: ( 1fr )[ column_count ];
+                grid-template-columns: repeat( column_count, 1fr );
+            }
+        }
+    }
+
+// ~~
+
+MakeGridColumnsRange( first_column_count, last_column_count, media_query_name_list, media_query_map )
+
+    for column_count in first_column_count .. last_column_count
+    {
+        MakeGridColumns( column_count, media_query_name_list, media_query_map )
+    }

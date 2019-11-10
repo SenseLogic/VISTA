@@ -1,0 +1,122 @@
+.justify-left
+{
+    justify-content: flex-start;
+}
+
+.justify-center
+{
+    justify-content: center;
+}
+
+.justify-right
+{
+    justify-content: flex-end;
+}
+
+.justify-between
+{
+    justify-content: space-between;
+}
+
+.justify-around
+{
+    justify-content: space-around;
+}
+
+// ~~
+
+MakeJustify( media_query_name_list, media_query_map )
+
+    for media_query_name in media_query_name_list
+    {
+        @media media_query_map[ media_query_name ]
+        {
+            .justify-left-{media_query_name}
+            {
+                justify-content: flex-start;
+            }
+
+            .justify-center-{media_query_name}
+            {
+                justify-content: center;
+            }
+
+            .justify-right-{media_query_name}
+            {
+                justify-content: flex-end;
+            }
+
+            .justify-between-{media_query_name}
+            {
+                justify-content: space-between;
+            }
+
+            .justify-around-{media_query_name}
+            {
+                justify-content: space-around;
+            }
+        }
+    }
+
+// ~~
+
+.justify-self-left
+{
+    justify-self: flex-start;
+}
+
+.justify-self-center
+{
+    justify-self: center;
+}
+
+.justify-self-right
+{
+    justify-self: flex-end;
+}
+
+.justify-self-between
+{
+    justify-self: space-between;
+}
+
+.justify-self-around
+{
+    justify-self: space-around;
+}
+
+// ~~
+
+MakeJustifySelf( media_query_name_list, media_query_map )
+
+    for media_query_name in media_query_name_list
+    {
+        @media media_query_map[ media_query_name ]
+        {
+            .justify-self-left-{media_query_name}
+            {
+                justify-self: flex-start;
+            }
+
+            .justify-self-center-{media_query_name}
+            {
+                justify-self: center;
+            }
+
+            .justify-self-right-{media_query_name}
+            {
+                justify-self: flex-end;
+            }
+
+            .justify-self-between-{media_query_name}
+            {
+                justify-self: space-between;
+            }
+
+            .justify-self-around-{media_query_name}
+            {
+                justify-self: space-around;
+            }
+        }
+    }
+

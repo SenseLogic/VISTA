@@ -1,0 +1,29 @@
+.invisible
+{
+    visibility: hidden;
+}
+
+.visible
+{
+    visibility: visible;
+}
+
+// ~~
+
+MakeVisibility( media_query_name_list, media_query_map )
+
+    for media_query_name in media_query_name_list
+    {
+        @media media_query_map[ media_query_name ]
+        {
+            .invisible-{media_query_name}
+            {
+                visibility: hidden;
+            }
+
+            .visible-{media_query_name}
+            {
+                visibility: visible;
+            }
+        }
+    }
