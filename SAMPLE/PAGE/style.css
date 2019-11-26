@@ -562,19 +562,19 @@ a:hover {
   margin-left: auto;
   margin-right: auto;
 }
-.width-400pt {
+.width-400pxm {
   width: 25rem;
 }
-.width-800pt {
+.width-800pxm {
   width: 50rem;
 }
-.height-40pt {
+.height-40pxm {
   height: 2.5rem;
 }
-.height-200pt {
+.height-200pxm {
   height: 12.5rem;
 }
-.height-400pt {
+.height-400pxm {
   height: 25rem;
 }
 .background-color-dark-gray {

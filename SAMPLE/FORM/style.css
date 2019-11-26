@@ -562,37 +562,37 @@ a:hover {
   margin-left: auto;
   margin-right: auto;
 }
-.width-480pt {
+.width-480pxm {
   width: 30rem;
 }
-.height-80pt {
+.height-80pxm {
   height: 5rem;
 }
-.margin-lateral-20pt {
+.margin-lateral-20pxm {
   margin-left: 1.25rem;
   margin-right: 1.25rem;
 }
-.margin-top-10pt {
+.margin-top-10pxm {
   margin-top: 0.625rem;
 }
-.margin-top-20pt {
+.margin-top-20pxm {
   margin-top: 1.25rem;
 }
-.border-radius-10pt {
+.border-radius-10pxm {
   border-radius: 0.625rem;
 }
-.padding-10pt {
+.padding-10pxm {
   padding: 0.625rem;
 }
-.padding-lateral-5pt {
+.padding-lateral-5pxm {
   padding-left: 0.3125rem;
   padding-right: 0.3125rem;
 }
-.padding-vertical-10pt {
+.padding-vertical-10pxm {
   padding-top: 0.625rem;
   padding-bottom: 0.625rem;
 }
-.padding-vertical-20pt {
+.padding-vertical-20pxm {
   padding-top: 1.25rem;
   padding-bottom: 1.25rem;
 }
