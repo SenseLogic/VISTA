@@ -1,35 +1,36 @@
-Pxm = 0.0625rem;
-
-// ~~
-
-MediaQueryNameList = at-20em, at-30em, at-40em, at-60em, below-20em, below-30em, below-40em, below-60em, below-80em, above-20em, above-30em, above-40em, above-60em, above-80em;
-
 MediaQueryMap = {
     at-20em: "only screen and (min-width: 20em) and (max-width: 29.98em)",
     at-30em: "only screen and (min-width: 30em) and (max-width: 39.98em)",
-    at-40em: "only screen and (min-width: 40em) and (max-width: 59.98em)",
-    at-60em: "only screen and (min-width: 60em) and (max-width: 79.98em)",
+    at-40em: "only screen and (min-width: 40em) and (max-width: 49.98em)",
+    at-50em: "only screen and (min-width: 50em) and (max-width: 59.98em)",
+    at-60em: "only screen and (min-width: 60em) and (max-width: 69.98em)",
+    at-70em: "only screen and (min-width: 70em) and (max-width: 79.98em)",
+    at-80em: "only screen and (min-width: 80em) and (max-width: 89.98em)",
     below-20em: "only screen and (max-width: 19.98em)",
     below-30em: "only screen and (max-width: 29.98em)",
     below-40em: "only screen and (max-width: 39.98em)",
+    below-50em: "only screen and (max-width: 49.98em)",
     below-60em: "only screen and (max-width: 59.98em)",
+    below-70em: "only screen and (max-width: 69.98em)",
     below-80em: "only screen and (max-width: 79.98em)"
     above-20em: "only screen and (min-width: 20em)",
     above-30em: "only screen and (min-width: 30em)",
     above-40em: "only screen and (min-width: 40em)",
+    above-50em: "only screen and (min-width: 50em)",
     above-60em: "only screen and (min-width: 60em)",
+    above-70em: "only screen and (min-width: 70em)",
     above-80em: "only screen and (min-width: 80em)"
 };
 
 // ~~
 
-Media( media_query_name_list, media_query_map )
+Media( media_query_name_list )
 
     media_query_list = ();
 
     for media_query_name in media_query_name_list
     {
-        push( media_query_list, media_query_map[ media_query_name ] );
+        push( media_query_list, MediaQueryMap[ media_query_name ] );
     }
 
     media_query_list_text = join( ", ", media_query_list );

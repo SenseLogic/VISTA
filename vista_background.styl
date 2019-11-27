@@ -1,4 +1,4 @@
-MakeBackgroundColor( name, value, media_query_name_list, media_query_map )
+MakeBackgroundColor( name, value, media_query_name_list )
 
     .background-color-{name}
     {
@@ -7,7 +7,7 @@ MakeBackgroundColor( name, value, media_query_name_list, media_query_map )
 
     for media_query_name in media_query_name_list
     {
-        @media media_query_map[ media_query_name ]
+        @media MediaQueryMap[ media_query_name ]
         {
             .background-color-{name}-{media_query_name}
             {

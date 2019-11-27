@@ -5,11 +5,11 @@
 
 // ~~
 
-MakeHeightAuto( media_query_name_list, media_query_map )
+MakeHeightAuto( media_query_name_list )
 
     for media_query_name in media_query_name_list
     {
-        @media media_query_map[ media_query_name ]
+        @media MediaQueryMap[ media_query_name ]
         {
             .height-auto-{media_query_name}
             {
@@ -20,7 +20,7 @@ MakeHeightAuto( media_query_name_list, media_query_map )
 
 // ~~
 
-MakeHeight( size, unit_value, unit_name, media_query_name_list, media_query_map )
+MakeHeight( size, unit_value, unit_name, media_query_name_list )
 
     .height-{size}{unit_name}
     {
@@ -29,7 +29,7 @@ MakeHeight( size, unit_value, unit_name, media_query_name_list, media_query_map 
 
     for media_query_name in media_query_name_list
     {
-        @media media_query_map[ media_query_name ]
+        @media MediaQueryMap[ media_query_name ]
         {
             .height-{size}{unit_name}-{media_query_name}
             {
@@ -40,18 +40,18 @@ MakeHeight( size, unit_value, unit_name, media_query_name_list, media_query_map 
 
 // ~~
 
-MakeHeightRange( start, step, count, unit_value, unit_name, media_query_name_list, media_query_map )
+MakeHeightRange( start, step, count, unit_value, unit_name, media_query_name_list )
 
     for index in 0 .. count
     {
         size = start + index * step;
 
-        MakeHeight( size, unit_value, unit_name, media_query_name_list, media_query_map );
+        MakeHeight( size, unit_value, unit_name, media_query_name_list );
     }
 
 // ~~
 
-MakeMinHeight( size, unit_value, unit_name, media_query_name_list, media_query_map )
+MakeMinHeight( size, unit_value, unit_name, media_query_name_list )
 
     .min-height-{size}{unit_name}
     {
@@ -60,7 +60,7 @@ MakeMinHeight( size, unit_value, unit_name, media_query_name_list, media_query_m
 
     for media_query_name in media_query_name_list
     {
-        @media media_query_map[ media_query_name ]
+        @media MediaQueryMap[ media_query_name ]
         {
             .min-height-{size}{unit_name}-{media_query_name}
             {
@@ -71,18 +71,18 @@ MakeMinHeight( size, unit_value, unit_name, media_query_name_list, media_query_m
 
 // ~~
 
-MakeMinHeightRange( start, step, count, unit_value, unit_name, media_query_name_list, media_query_map )
+MakeMinHeightRange( start, step, count, unit_value, unit_name, media_query_name_list )
 
     for index in 0 .. count
     {
         size = start + index * step;
 
-        MakeHeight( size, unit_value, unit_name, media_query_name_list, media_query_map );
+        MakeHeight( size, unit_value, unit_name, media_query_name_list );
     }
 
 // ~~
 
-MakeMaxHeight( size, unit_value, unit_name, media_query_name_list, media_query_map )
+MakeMaxHeight( size, unit_value, unit_name, media_query_name_list )
 
     .max-height-{size}{unit_name}
     {
@@ -91,7 +91,7 @@ MakeMaxHeight( size, unit_value, unit_name, media_query_name_list, media_query_m
 
     for media_query_name in media_query_name_list
     {
-        @media media_query_map[ media_query_name ]
+        @media MediaQueryMap[ media_query_name ]
         {
             .max-height-{size}{unit_name}-{media_query_name}
             {
@@ -102,18 +102,18 @@ MakeMaxHeight( size, unit_value, unit_name, media_query_name_list, media_query_m
 
 // ~~
 
-MakeMaxHeightRange( start, step, count, unit_value, unit_name, media_query_name_list, media_query_map )
+MakeMaxHeightRange( start, step, count, unit_value, unit_name, media_query_name_list )
 
     for index in 0 .. count
     {
         size = start + index * step;
 
-        MakeHeight( size, unit_value, unit_name, media_query_name_list, media_query_map );
+        MakeHeight( size, unit_value, unit_name, media_query_name_list );
     }
 
 // ~~
 
-MakeFractionalHeight( column_count, media_query_name_list, media_query_map )
+MakeFractionalHeight( column_count, media_query_name_list )
 
     for column_index in 1 .. column_count
     {
@@ -124,7 +124,7 @@ MakeFractionalHeight( column_count, media_query_name_list, media_query_map )
 
         for media_query_name in media_query_name_list
         {
-            @media media_query_map[ media_query_name ]
+            @media MediaQueryMap[ media_query_name ]
             {
                 .height-{column_index}_{column_count}-{media_query_name}
                 {
@@ -136,16 +136,16 @@ MakeFractionalHeight( column_count, media_query_name_list, media_query_map )
 
 // ~~
 
-MakeFractionalHeightRange( first_column_count, last_column_count, media_query_name_list, media_query_map )
+MakeFractionalHeightRange( first_column_count, last_column_count, media_query_name_list )
 
     for column_count in first_column_count .. last_column_count
     {
-        MakeFractionalHeight( column_count, media_query_name_list, media_query_map );
+        MakeFractionalHeight( column_count, media_query_name_list );
     }
 
 // ~~
 
-MakeMinFractionalHeight( column_count, media_query_name_list, media_query_map )
+MakeMinFractionalHeight( column_count, media_query_name_list )
 
     for column_index in 1 .. column_count
     {
@@ -156,7 +156,7 @@ MakeMinFractionalHeight( column_count, media_query_name_list, media_query_map )
 
         for media_query_name in media_query_name_list
         {
-            @media media_query_map[ media_query_name ]
+            @media MediaQueryMap[ media_query_name ]
             {
                 .min-height-{column_index}_{column_count}-{media_query_name}
                 {
@@ -168,16 +168,16 @@ MakeMinFractionalHeight( column_count, media_query_name_list, media_query_map )
 
 // ~~
 
-MakeMinFractionalHeightRange( first_column_count, last_column_count, media_query_name_list, media_query_map )
+MakeMinFractionalHeightRange( first_column_count, last_column_count, media_query_name_list )
 
     for column_count in first_column_count .. last_column_count
     {
-        MakeMinFractionalHeight( column_count, media_query_name_list, media_query_map );
+        MakeMinFractionalHeight( column_count, media_query_name_list );
     }
 
 // ~~
 
-MakeMaxFractionalHeight( column_count, media_query_name_list, media_query_map )
+MakeMaxFractionalHeight( column_count, media_query_name_list )
 
     for column_index in 1 .. column_count
     {
@@ -188,7 +188,7 @@ MakeMaxFractionalHeight( column_count, media_query_name_list, media_query_map )
 
         for media_query_name in media_query_name_list
         {
-            @media media_query_map[ media_query_name ]
+            @media MediaQueryMap[ media_query_name ]
             {
                 .max-height-{column_index}_{column_count}-{media_query_name}
                 {
@@ -200,9 +200,9 @@ MakeMaxFractionalHeight( column_count, media_query_name_list, media_query_map )
 
 // ~~
 
-MakeMaxFractionalHeightRange( first_column_count, last_column_count, media_query_name_list, media_query_map )
+MakeMaxFractionalHeightRange( first_column_count, last_column_count, media_query_name_list )
 
     for column_count in first_column_count .. last_column_count
     {
-        MakeMaxFractionalHeight( column_count, media_query_name_list, media_query_map );
+        MakeMaxFractionalHeight( column_count, media_query_name_list );
     }

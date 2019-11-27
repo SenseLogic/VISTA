@@ -25,11 +25,11 @@
 
 // ~~
 
-MakeJustify( media_query_name_list, media_query_map )
+MakeJustify( media_query_name_list )
 
     for media_query_name in media_query_name_list
     {
-        @media media_query_map[ media_query_name ]
+        @media MediaQueryMap[ media_query_name ]
         {
             .justify-left-{media_query_name}
             {
@@ -87,11 +87,11 @@ MakeJustify( media_query_name_list, media_query_map )
 
 // ~~
 
-MakeJustifySelf( media_query_name_list, media_query_map )
+MakeJustifySelf( media_query_name_list )
 
     for media_query_name in media_query_name_list
     {
-        @media media_query_map[ media_query_name ]
+        @media MediaQueryMap[ media_query_name ]
         {
             .justify-self-left-{media_query_name}
             {

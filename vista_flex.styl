@@ -30,11 +30,11 @@
 
 // ~~
 
-MakeFlex( media_query_name_list, media_query_map )
+MakeFlex( media_query_name_list )
 
     for media_query_name in media_query_name_list
     {
-        @media media_query_map[ media_query_name ]
+        @media MediaQueryMap[ media_query_name ]
         {
             .flex-direction-row-{media_query_name}
             {
@@ -70,7 +70,7 @@ MakeFlex( media_query_name_list, media_query_map )
 
 // ~~
 
-MakeFlexBasis( column_count, media_query_name_list, media_query_map )
+MakeFlexBasis( column_count, media_query_name_list )
 
     for column_index in 1 .. column_count
 
@@ -82,7 +82,7 @@ MakeFlexBasis( column_count, media_query_name_list, media_query_map )
 
     for media_query_name in media_query_name_list
     {
-        @media media_query_map[ media_query_name ]
+        @media MediaQueryMap[ media_query_name ]
         {
             .flex-basis-{column_index}_{column_count}-{media_query_name}
             {
@@ -94,16 +94,16 @@ MakeFlexBasis( column_count, media_query_name_list, media_query_map )
 
 // ~~
 
-MakeFlexBasisRange( first_column_count, last_column_count, media_query_name_list, media_query_map )
+MakeFlexBasisRange( first_column_count, last_column_count, media_query_name_list )
 
     for column_count in first_column_count .. last_column_count
     {
-        MakeFlexBasis( column_count, media_query_name_list, media_query_map )
+        MakeFlexBasis( column_count, media_query_name_list )
     }
 
 // ~~
 
-MakeFlexShrink( minimum_factor, maximum_factor, media_query_name_list, media_query_map )
+MakeFlexShrink( minimum_factor, maximum_factor, media_query_name_list )
 
     for factor in minimum_factor .. maximum_factor
 
@@ -114,7 +114,7 @@ MakeFlexShrink( minimum_factor, maximum_factor, media_query_name_list, media_que
 
     for media_query_name in media_query_name_list
     {
-        @media media_query_map[ media_query_name ]
+        @media MediaQueryMap[ media_query_name ]
         {
             .flex-shrink-{factor}-{media_query_name}
             {
@@ -125,7 +125,7 @@ MakeFlexShrink( minimum_factor, maximum_factor, media_query_name_list, media_que
 
 // ~~
 
-MakeFlexGrow( minimum_factor, maximum_factor, media_query_name_list, media_query_map )
+MakeFlexGrow( minimum_factor, maximum_factor, media_query_name_list )
 
     for factor in minimum_factor .. maximum_factor
 
@@ -136,7 +136,7 @@ MakeFlexGrow( minimum_factor, maximum_factor, media_query_name_list, media_query
 
     for media_query_name in media_query_name_list
     {
-        @media media_query_map[ media_query_name ]
+        @media MediaQueryMap[ media_query_name ]
         {
             .flex-grow-{factor}-{media_query_name}
             {

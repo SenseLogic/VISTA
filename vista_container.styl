@@ -7,7 +7,7 @@
 
 // ~~
 
-MakeContainerCentered( max_width, max_width_map, media_query_name_list, media_query_map )
+MakeContainerCentered( max_width, max_width_map, media_query_name_list )
 
     .container-centered
     {
@@ -18,7 +18,7 @@ MakeContainerCentered( max_width, max_width_map, media_query_name_list, media_qu
 
     for media_query_name in media_query_name_list
     {
-        @media media_query_map[ media_query_name ]
+        @media MediaQueryMap[ media_query_name ]
         {
             .container-centered
             {

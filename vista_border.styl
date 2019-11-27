@@ -6,7 +6,7 @@
 
 // ~~
 
-MakeBorderRadius( size, unit_value, unit_name, media_query_name_list, media_query_map )
+MakeBorderRadius( size, unit_value, unit_name, media_query_name_list )
 
     .border-radius-{size}{unit_name}
     {
@@ -15,7 +15,7 @@ MakeBorderRadius( size, unit_value, unit_name, media_query_name_list, media_quer
 
     for media_query_name in media_query_name_list
     {
-        @media media_query_map[ media_query_name ]
+        @media MediaQueryMap[ media_query_name ]
         {
             .border-radius-{size}{unit_name}-{media_query_name}
             {
@@ -26,18 +26,18 @@ MakeBorderRadius( size, unit_value, unit_name, media_query_name_list, media_quer
 
 // ~~
 
-MakeBorderRadiusRange( start, step, count, unit_value, unit_name, media_query_name_list, media_query_map )
+MakeBorderRadiusRange( start, step, count, unit_value, unit_name, media_query_name_list )
 
     for index in 0 .. count
     {
         size = start + index * step;
 
-        MakeBorderRadius( size, unit_value, unit_name, media_query_name_list, media_query_map );
+        MakeBorderRadius( size, unit_value, unit_name, media_query_name_list );
     }
 
 // ~~
 
-MakeBorderColor( name, value, media_query_name_list, media_query_map )
+MakeBorderColor( name, value, media_query_name_list )
 
     .border-color-{name}
     {
@@ -46,7 +46,7 @@ MakeBorderColor( name, value, media_query_name_list, media_query_map )
 
     for media_query_name in media_query_name_list
     {
-        @media media_query_map[ media_query_name ]
+        @media MediaQueryMap[ media_query_name ]
         {
             .border-color-{name}-{media_query_name}
             {

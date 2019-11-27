@@ -1,6 +1,8 @@
 @require "../vista.styl"
 
-+Media( at-20em at-40em, MediaQueryMap )
+// ~~
+
++Media( at-20em at-40em )
 {
     html
     {
@@ -8,46 +10,52 @@
     }
 }
 
-MakeWidthAuto( MediaQueryNameList, MediaQueryMap );
-MakeWidthRange( 10, 10, 5, Pxm, "pxm", MediaQueryNameList, MediaQueryMap );
-MakeMinWidthRange( 10, 10, 5, Pxm, "pxm", MediaQueryNameList, MediaQueryMap );
-MakeMaxWidthRange( 10, 10, 5, Pxm, "pxm", MediaQueryNameList, MediaQueryMap );
-MakeFractionalWidthRange( 12, 12, MediaQueryNameList, MediaQueryMap );
-MakeMinFractionalWidthRange( 12, 12, MediaQueryNameList, MediaQueryMap );
-MakeMaxFractionalWidthRange( 12, 12, MediaQueryNameList, MediaQueryMap );
-MakeHeightAuto( MediaQueryNameList, MediaQueryMap );
-MakeHeightRange( 10, 10, 5, Pxm, "pxm", MediaQueryNameList, MediaQueryMap );
-MakeMinHeightRange( 10, 10, 5, Pxm, "pxm", MediaQueryNameList, MediaQueryMap );
-MakeMaxHeightRange( 10, 10, 5, Pxm, "pxm", MediaQueryNameList, MediaQueryMap );
-MakeFractionalHeightRange( 12, 12, MediaQueryNameList, MediaQueryMap );
-MakeMinFractionalHeightRange( 12, 12, MediaQueryNameList, MediaQueryMap );
-MakeMaxFractionalHeightRange( 12, 12, MediaQueryNameList, MediaQueryMap );
-MakePaddingRange( 10, 10, 5, Pxm, "pxm", MediaQueryNameList, MediaQueryMap );
-MakePaddingLateralRange( 10, 10, 5, Pxm, "pxm", MediaQueryNameList, MediaQueryMap );
-MakePaddingVerticalRange( 10, 10, 5, Pxm, "pxm", MediaQueryNameList, MediaQueryMap );
-MakePaddingLeftRange( 10, 10, 5, Pxm, "pxm", MediaQueryNameList, MediaQueryMap );
-MakePaddingRightRange( 10, 10, 5, Pxm, "pxm", MediaQueryNameList, MediaQueryMap );
-MakePaddingTopRange( 10, 10, 5, Pxm, "pxm", MediaQueryNameList, MediaQueryMap );
-MakePaddingBottomRange( 10, 10, 5, Pxm, "pxm", MediaQueryNameList, MediaQueryMap );
-MakeMarginAuto( MediaQueryNameList, MediaQueryMap );
-MakeMarginLateralAuto( MediaQueryNameList, MediaQueryMap );
-MakeMarginLateralRange( 10, 10, 5, Pxm, "pxm", MediaQueryNameList, MediaQueryMap );
-MakeMarginVerticalAuto( MediaQueryNameList, MediaQueryMap );
-MakeMarginVerticalRange( 10, 10, 5, Pxm, "pxm", MediaQueryNameList, MediaQueryMap );
-MakeMarginLeftAuto( MediaQueryNameList, MediaQueryMap );
-MakeMarginLeftRange( 10, 10, 5, Pxm, "pxm", MediaQueryNameList, MediaQueryMap );
-MakeMarginRightAuto( MediaQueryNameList, MediaQueryMap );
-MakeMarginRightRange( 10, 10, 5, Pxm, "pxm", MediaQueryNameList, MediaQueryMap );
-MakeMarginTopAuto( MediaQueryNameList, MediaQueryMap );
-MakeMarginTopRange( 10, 10, 5, Pxm, "pxm", MediaQueryNameList, MediaQueryMap );
-MakeMarginBottomAuto( MediaQueryNameList, MediaQueryMap );
-MakeMarginBottomRange( 10, 10, 5, Pxm, "pxm", MediaQueryNameList, MediaQueryMap );
-MakeFractionalMarginLeftRange( 12, 12, MediaQueryNameList, MediaQueryMap );
-MakeFractionalMarginRightRange( 12, 12, MediaQueryNameList, MediaQueryMap );
-MakeGutterRange( 10, 10, 5, Pxm, "pxm", MediaQueryNameList, MediaQueryMap );
-MakeDisplay( MediaQueryNameList, MediaQueryMap );
-MakeFlex( MediaQueryNameList, MediaQueryMap );
-MakeFlexBasisRange( 12, 12, MediaQueryNameList, MediaQueryMap );
-MakeFlexShrink( 1, 12, MediaQueryNameList, MediaQueryMap );
-MakeFlexGrow( 1, 12, MediaQueryNameList, MediaQueryMap );
-MakeFontSizeRange( 10, 10, 5, Pxm, "pxm", MediaQueryNameList, MediaQueryMap );
+// ~~
+
+MediaQueryNameList = above-20em, above-30em, above-40em, above-60em, above-80em;
+
+// ~~
+
+MakeWidthAuto( MediaQueryNameList );
+MakeWidthRange( 10, 10, 5, Pxm, "pxm", MediaQueryNameList );
+MakeMinWidthRange( 10, 10, 5, Pxm, "pxm", MediaQueryNameList );
+MakeMaxWidthRange( 10, 10, 5, Pxm, "pxm", MediaQueryNameList );
+MakeFractionalWidthRange( 12, 12, MediaQueryNameList );
+MakeMinFractionalWidthRange( 12, 12, MediaQueryNameList );
+MakeMaxFractionalWidthRange( 12, 12, MediaQueryNameList );
+MakeHeightAuto( MediaQueryNameList );
+MakeHeightRange( 10, 10, 5, Pxm, "pxm", MediaQueryNameList );
+MakeMinHeightRange( 10, 10, 5, Pxm, "pxm", MediaQueryNameList );
+MakeMaxHeightRange( 10, 10, 5, Pxm, "pxm", MediaQueryNameList );
+MakeFractionalHeightRange( 12, 12, MediaQueryNameList );
+MakeMinFractionalHeightRange( 12, 12, MediaQueryNameList );
+MakeMaxFractionalHeightRange( 12, 12, MediaQueryNameList );
+MakePaddingRange( 10, 10, 5, Pxm, "pxm", MediaQueryNameList );
+MakePaddingLateralRange( 10, 10, 5, Pxm, "pxm", MediaQueryNameList );
+MakePaddingVerticalRange( 10, 10, 5, Pxm, "pxm", MediaQueryNameList );
+MakePaddingLeftRange( 10, 10, 5, Pxm, "pxm", MediaQueryNameList );
+MakePaddingRightRange( 10, 10, 5, Pxm, "pxm", MediaQueryNameList );
+MakePaddingTopRange( 10, 10, 5, Pxm, "pxm", MediaQueryNameList );
+MakePaddingBottomRange( 10, 10, 5, Pxm, "pxm", MediaQueryNameList );
+MakeMarginAuto( MediaQueryNameList );
+MakeMarginLateralAuto( MediaQueryNameList );
+MakeMarginLateralRange( 10, 10, 5, Pxm, "pxm", MediaQueryNameList );
+MakeMarginVerticalAuto( MediaQueryNameList );
+MakeMarginVerticalRange( 10, 10, 5, Pxm, "pxm", MediaQueryNameList );
+MakeMarginLeftAuto( MediaQueryNameList );
+MakeMarginLeftRange( 10, 10, 5, Pxm, "pxm", MediaQueryNameList );
+MakeMarginRightAuto( MediaQueryNameList );
+MakeMarginRightRange( 10, 10, 5, Pxm, "pxm", MediaQueryNameList );
+MakeMarginTopAuto( MediaQueryNameList );
+MakeMarginTopRange( 10, 10, 5, Pxm, "pxm", MediaQueryNameList );
+MakeMarginBottomAuto( MediaQueryNameList );
+MakeMarginBottomRange( 10, 10, 5, Pxm, "pxm", MediaQueryNameList );
+MakeFractionalMarginLeftRange( 12, 12, MediaQueryNameList );
+MakeFractionalMarginRightRange( 12, 12, MediaQueryNameList );
+MakeGutterRange( 10, 10, 5, Pxm, "pxm", MediaQueryNameList );
+MakeDisplay( MediaQueryNameList );
+MakeFlex( MediaQueryNameList );
+MakeFlexBasisRange( 12, 12, MediaQueryNameList );
+MakeFlexShrink( 1, 12, MediaQueryNameList );
+MakeFlexGrow( 1, 12, MediaQueryNameList );
+MakeFontSizeRange( 10, 10, 5, Pxm, "pxm", MediaQueryNameList );

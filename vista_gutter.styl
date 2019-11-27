@@ -1,4 +1,4 @@
-MakeGutter( size, unit_value, unit_name, media_query_name_list, media_query_map )
+MakeGutter( size, unit_value, unit_name, media_query_name_list )
 
     .gutter-{size}{unit_name}
     {
@@ -14,7 +14,7 @@ MakeGutter( size, unit_value, unit_name, media_query_name_list, media_query_map 
 
     for media_query_name in media_query_name_list
     {
-        @media media_query_map[ media_query_name ]
+        @media MediaQueryMap[ media_query_name ]
         {
             .gutter-{size}{unit_name}-{media_query_name}
             {
@@ -32,11 +32,11 @@ MakeGutter( size, unit_value, unit_name, media_query_name_list, media_query_map 
 
 // ~~
 
-MakeGutterRange( start, step, count, unit_value, unit_name, media_query_name_list, media_query_map )
+MakeGutterRange( start, step, count, unit_value, unit_name, media_query_name_list )
 
     for index in 0 .. count
     {
         size = start + index * step;
 
-        MakeGutter( size, unit_value, unit_name, media_query_name_list, media_query_map );
+        MakeGutter( size, unit_value, unit_name, media_query_name_list );
     }

@@ -5,11 +5,11 @@
 
 // ~~
 
-MakeWidthAuto( media_query_name_list, media_query_map )
+MakeWidthAuto( media_query_name_list )
 
     for media_query_name in media_query_name_list
     {
-        @media media_query_map[ media_query_name ]
+        @media MediaQueryMap[ media_query_name ]
         {
             .width-auto-{media_query_name}
             {
@@ -20,7 +20,7 @@ MakeWidthAuto( media_query_name_list, media_query_map )
 
 // ~~
 
-MakeWidth( size, unit_value, unit_name, media_query_name_list, media_query_map )
+MakeWidth( size, unit_value, unit_name, media_query_name_list )
 
     .width-{size}{unit_name}
     {
@@ -29,7 +29,7 @@ MakeWidth( size, unit_value, unit_name, media_query_name_list, media_query_map )
 
     for media_query_name in media_query_name_list
     {
-        @media media_query_map[ media_query_name ]
+        @media MediaQueryMap[ media_query_name ]
         {
             .width-{size}{unit_name}-{media_query_name}
             {
@@ -40,18 +40,18 @@ MakeWidth( size, unit_value, unit_name, media_query_name_list, media_query_map )
 
 // ~~
 
-MakeWidthRange( start, step, count, unit_value, unit_name, media_query_name_list, media_query_map )
+MakeWidthRange( start, step, count, unit_value, unit_name, media_query_name_list )
 
     for index in 0 .. count
     {
         size = start + index * step;
 
-        MakeWidth( size, unit_value, unit_name, media_query_name_list, media_query_map );
+        MakeWidth( size, unit_value, unit_name, media_query_name_list );
     }
 
 // ~~
 
-MakeMinWidth( size, unit_value, unit_name, media_query_name_list, media_query_map )
+MakeMinWidth( size, unit_value, unit_name, media_query_name_list )
 
     .min-width-{size}{unit_name}
     {
@@ -60,7 +60,7 @@ MakeMinWidth( size, unit_value, unit_name, media_query_name_list, media_query_ma
 
     for media_query_name in media_query_name_list
     {
-        @media media_query_map[ media_query_name ]
+        @media MediaQueryMap[ media_query_name ]
         {
             .min-width-{size}{unit_name}-{media_query_name}
             {
@@ -71,18 +71,18 @@ MakeMinWidth( size, unit_value, unit_name, media_query_name_list, media_query_ma
 
 // ~~
 
-MakeMinWidthRange( start, step, count, unit_value, unit_name, media_query_name_list, media_query_map )
+MakeMinWidthRange( start, step, count, unit_value, unit_name, media_query_name_list )
 
     for index in 0 .. count
     {
         size = start + index * step;
 
-        MakeMinWidth( size, unit_value, unit_name, media_query_name_list, media_query_map );
+        MakeMinWidth( size, unit_value, unit_name, media_query_name_list );
     }
 
 // ~~
 
-MakeMaxWidth( size, unit_value, unit_name, media_query_name_list, media_query_map )
+MakeMaxWidth( size, unit_value, unit_name, media_query_name_list )
 
     .max-width-{size}{unit_name}
     {
@@ -91,7 +91,7 @@ MakeMaxWidth( size, unit_value, unit_name, media_query_name_list, media_query_ma
 
     for media_query_name in media_query_name_list
     {
-        @media media_query_map[ media_query_name ]
+        @media MediaQueryMap[ media_query_name ]
         {
             .max-width-{size}{unit_name}-{media_query_name}
             {
@@ -102,18 +102,18 @@ MakeMaxWidth( size, unit_value, unit_name, media_query_name_list, media_query_ma
 
 // ~~
 
-MakeMaxWidthRange( start, step, count, unit_value, unit_name, media_query_name_list, media_query_map )
+MakeMaxWidthRange( start, step, count, unit_value, unit_name, media_query_name_list )
 
     for index in 0 .. count
     {
         size = start + index * step;
 
-        MakeMaxWidth( size, unit_value, unit_name, media_query_name_list, media_query_map );
+        MakeMaxWidth( size, unit_value, unit_name, media_query_name_list );
     }
 
 // ~~
 
-MakeFractionalWidth( column_count, media_query_name_list, media_query_map )
+MakeFractionalWidth( column_count, media_query_name_list )
 
     for column_index in 1 .. column_count
     {
@@ -124,7 +124,7 @@ MakeFractionalWidth( column_count, media_query_name_list, media_query_map )
 
         for media_query_name in media_query_name_list
         {
-            @media media_query_map[ media_query_name ]
+            @media MediaQueryMap[ media_query_name ]
             {
                 .width-{column_index}_{column_count}-{media_query_name}
                 {
@@ -136,16 +136,16 @@ MakeFractionalWidth( column_count, media_query_name_list, media_query_map )
 
 // ~~
 
-MakeFractionalWidthRange( first_column_count, last_column_count, media_query_name_list, media_query_map )
+MakeFractionalWidthRange( first_column_count, last_column_count, media_query_name_list )
 
     for column_count in first_column_count .. last_column_count
     {
-        MakeFractionalWidth( column_count, media_query_name_list, media_query_map );
+        MakeFractionalWidth( column_count, media_query_name_list );
     }
 
 // ~~
 
-MakeMinFractionalWidth( column_count, media_query_name_list, media_query_map )
+MakeMinFractionalWidth( column_count, media_query_name_list )
 
     for column_index in 1 .. column_count
     {
@@ -156,7 +156,7 @@ MakeMinFractionalWidth( column_count, media_query_name_list, media_query_map )
 
         for media_query_name in media_query_name_list
         {
-            @media media_query_map[ media_query_name ]
+            @media MediaQueryMap[ media_query_name ]
             {
                 .min-width-{column_index}_{column_count}-{media_query_name}
                 {
@@ -168,16 +168,16 @@ MakeMinFractionalWidth( column_count, media_query_name_list, media_query_map )
 
 // ~~
 
-MakeMinFractionalWidthRange( first_column_count, last_column_count, media_query_name_list, media_query_map )
+MakeMinFractionalWidthRange( first_column_count, last_column_count, media_query_name_list )
 
     for column_count in first_column_count .. last_column_count
     {
-        MakeMinFractionalWidth( column_count, media_query_name_list, media_query_map );
+        MakeMinFractionalWidth( column_count, media_query_name_list );
     }
 
 // ~~
 
-MakeMaxFractionalWidth( column_count, media_query_name_list, media_query_map )
+MakeMaxFractionalWidth( column_count, media_query_name_list )
 
     for column_index in 1 .. column_count
     {
@@ -188,7 +188,7 @@ MakeMaxFractionalWidth( column_count, media_query_name_list, media_query_map )
 
         for media_query_name in media_query_name_list
         {
-            @media media_query_map[ media_query_name ]
+            @media MediaQueryMap[ media_query_name ]
             {
                 .max-width-{column_index}_{column_count}-{media_query_name}
                 {
@@ -200,9 +200,9 @@ MakeMaxFractionalWidth( column_count, media_query_name_list, media_query_map )
 
 // ~~
 
-MakeMaxFractionalWidthRange( first_column_count, last_column_count, media_query_name_list, media_query_map )
+MakeMaxFractionalWidthRange( first_column_count, last_column_count, media_query_name_list )
 
     for column_count in first_column_count .. last_column_count
     {
-        MakeMaxFractionalWidth( column_count, media_query_name_list, media_query_map );
+        MakeMaxFractionalWidth( column_count, media_query_name_list );
     }

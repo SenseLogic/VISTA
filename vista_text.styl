@@ -35,7 +35,7 @@
 
 // ~~
 
-MakeTextColor( name, value, media_query_name_list, media_query_map )
+MakeTextColor( name, value, media_query_name_list )
 
     .text-color-{name}
     {
@@ -44,7 +44,7 @@ MakeTextColor( name, value, media_query_name_list, media_query_map )
 
     for media_query_name in media_query_name_list
     {
-        @media media_query_map[ media_query_name ]
+        @media MediaQueryMap[ media_query_name ]
         {
             .text-color-{name}-{media_query_name}
             {
