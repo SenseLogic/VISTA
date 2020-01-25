@@ -6,7 +6,7 @@ MakeGutter( size, unit_value, unit_name, media_query_name_list )
         margin-left: -( size * unit_value );
     }
 
-    .gutter-{size}{unit_name} > [class*="flex-item"]
+    .gutter-{size}{unit_name} > *
     {
         padding-top: size * unit_value;
         padding-left: size * unit_value;
@@ -22,7 +22,7 @@ MakeGutter( size, unit_value, unit_name, media_query_name_list )
                 margin-left: -( size * unit_value );
             }
 
-            .gutter-{size}{unit_name}-{media_query_name} > [class*="flex-item"]
+            .gutter-{size}{unit_name}-{media_query_name} > *
             {
                 padding-top: size * unit_value;
                 padding-left: size * unit_value;

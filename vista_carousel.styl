@@ -1,0 +1,109 @@
+.carousel-container
+{
+    overflow: hidden;
+}
+
+MakeKeyframe( value )
+
+    {value}
+        {block}
+
+MakeCarousel( slide_count, slide_duration )
+
+    .carousel-{slide_count}
+    {
+        position: relative;
+        left: 0;
+        margin: 0;
+        width: ( slide_count + 1 ) * 100%;
+        font-size: 0;
+        text-align: left;
+        animation: slide_count * slide_duration carousel-animation- + slide_count infinite;
+    }
+
+    .carousel-slide-{slide_count}
+    {
+        float: left;
+        width: ( 100% / ( slide_count + 1 ) );
+        height: auto;
+    }
+
+    vendors = official
+
+    @keyframes carousel-animation-{slide_count}
+
+        0%
+        {
+            left: 0%;
+        }
+
+        if slide_count == 3
+        {
+            26.666666666666667%    // 100% / 3 * 0.8
+            {
+                left: 0%;
+            }
+
+            33.333333333333333%    // 100% / 3 * 1
+            {
+                left: -100%;
+            }
+
+            60.000000000000000%    // 100% / 3 * 1.8
+            {
+                left: -100%;
+            }
+
+            66.666666666666667%    // 100% / 3 * 2
+            {
+                left: -200%;
+            }
+
+            93.333333333333333%    // 100% / 3 * 2.8
+            {
+                left: -200%;
+            }
+        }
+
+        if slide_count == 4
+        {
+            20%    // 100% / 4 * 0.8
+            {
+                left: 0%;
+            }
+
+            25%    // 100% / 4 * 1
+            {
+                left: -100%;
+            }
+
+            45%    // 100% / 4 * 1.8
+            {
+                left: -100%;
+            }
+
+            50%    // 100% / 4 * 2
+            {
+                left: -200%;
+            }
+
+            70%    // 100% / 4 * 2.8
+            {
+                left: -200%;
+            }
+
+            75%    // 100% / 4 * 3
+            {
+                left: -300%;
+            }
+
+            95%    // 100% / 4 * 3.8
+            {
+                left: -300%;
+            }
+        }
+
+        100%
+        {
+            left: -100% * slide_count;
+        }

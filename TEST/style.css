@@ -557,6 +557,9 @@ a:hover {
 .not-clickable[onclick] {
   cursor: default;
 }
+.carousel-container {
+  overflow: hidden;
+}
 @media only screen and (min-width: 20em) and (max-width: 29.98em), only screen and (min-width: 40em) and (max-width: 49.98em) {
   html {
     background-color: #ff0;
@@ -6825,7 +6828,7 @@ a:hover {
   margin-top: -0.625rem;
   margin-left: -0.625rem;
 }
-.gutter-10pxm > [class*="flex-item"] {
+.gutter-10pxm > * {
   padding-top: 0.625rem;
   padding-left: 0.625rem;
 }
@@ -6834,7 +6837,7 @@ a:hover {
     margin-top: -0.625rem;
     margin-left: -0.625rem;
   }
-  .gutter-10pxm-above-20em > [class*="flex-item"] {
+  .gutter-10pxm-above-20em > * {
     padding-top: 0.625rem;
     padding-left: 0.625rem;
   }
@@ -6844,7 +6847,7 @@ a:hover {
     margin-top: -0.625rem;
     margin-left: -0.625rem;
   }
-  .gutter-10pxm-above-30em > [class*="flex-item"] {
+  .gutter-10pxm-above-30em > * {
     padding-top: 0.625rem;
     padding-left: 0.625rem;
   }
@@ -6854,7 +6857,7 @@ a:hover {
     margin-top: -0.625rem;
     margin-left: -0.625rem;
   }
-  .gutter-10pxm-above-40em > [class*="flex-item"] {
+  .gutter-10pxm-above-40em > * {
     padding-top: 0.625rem;
     padding-left: 0.625rem;
   }
@@ -6864,7 +6867,7 @@ a:hover {
     margin-top: -0.625rem;
     margin-left: -0.625rem;
   }
-  .gutter-10pxm-above-60em > [class*="flex-item"] {
+  .gutter-10pxm-above-60em > * {
     padding-top: 0.625rem;
     padding-left: 0.625rem;
   }
@@ -6874,7 +6877,7 @@ a:hover {
     margin-top: -0.625rem;
     margin-left: -0.625rem;
   }
-  .gutter-10pxm-above-80em > [class*="flex-item"] {
+  .gutter-10pxm-above-80em > * {
     padding-top: 0.625rem;
     padding-left: 0.625rem;
   }
@@ -6883,7 +6886,7 @@ a:hover {
   margin-top: -1.25rem;
   margin-left: -1.25rem;
 }
-.gutter-20pxm > [class*="flex-item"] {
+.gutter-20pxm > * {
   padding-top: 1.25rem;
   padding-left: 1.25rem;
 }
@@ -6892,7 +6895,7 @@ a:hover {
     margin-top: -1.25rem;
     margin-left: -1.25rem;
   }
-  .gutter-20pxm-above-20em > [class*="flex-item"] {
+  .gutter-20pxm-above-20em > * {
     padding-top: 1.25rem;
     padding-left: 1.25rem;
   }
@@ -6902,7 +6905,7 @@ a:hover {
     margin-top: -1.25rem;
     margin-left: -1.25rem;
   }
-  .gutter-20pxm-above-30em > [class*="flex-item"] {
+  .gutter-20pxm-above-30em > * {
     padding-top: 1.25rem;
     padding-left: 1.25rem;
   }
@@ -6912,7 +6915,7 @@ a:hover {
     margin-top: -1.25rem;
     margin-left: -1.25rem;
   }
-  .gutter-20pxm-above-40em > [class*="flex-item"] {
+  .gutter-20pxm-above-40em > * {
     padding-top: 1.25rem;
     padding-left: 1.25rem;
   }
@@ -6922,7 +6925,7 @@ a:hover {
     margin-top: -1.25rem;
     margin-left: -1.25rem;
   }
-  .gutter-20pxm-above-60em > [class*="flex-item"] {
+  .gutter-20pxm-above-60em > * {
     padding-top: 1.25rem;
     padding-left: 1.25rem;
   }
@@ -6932,7 +6935,7 @@ a:hover {
     margin-top: -1.25rem;
     margin-left: -1.25rem;
   }
-  .gutter-20pxm-above-80em > [class*="flex-item"] {
+  .gutter-20pxm-above-80em > * {
     padding-top: 1.25rem;
     padding-left: 1.25rem;
   }
@@ -6941,7 +6944,7 @@ a:hover {
   margin-top: -1.875rem;
   margin-left: -1.875rem;
 }
-.gutter-30pxm > [class*="flex-item"] {
+.gutter-30pxm > * {
   padding-top: 1.875rem;
   padding-left: 1.875rem;
 }
@@ -6950,7 +6953,7 @@ a:hover {
     margin-top: -1.875rem;
     margin-left: -1.875rem;
   }
-  .gutter-30pxm-above-20em > [class*="flex-item"] {
+  .gutter-30pxm-above-20em > * {
     padding-top: 1.875rem;
     padding-left: 1.875rem;
   }
@@ -6960,7 +6963,7 @@ a:hover {
     margin-top: -1.875rem;
     margin-left: -1.875rem;
   }
-  .gutter-30pxm-above-30em > [class*="flex-item"] {
+  .gutter-30pxm-above-30em > * {
     padding-top: 1.875rem;
     padding-left: 1.875rem;
   }
@@ -6970,7 +6973,7 @@ a:hover {
     margin-top: -1.875rem;
     margin-left: -1.875rem;
   }
-  .gutter-30pxm-above-40em > [class*="flex-item"] {
+  .gutter-30pxm-above-40em > * {
     padding-top: 1.875rem;
     padding-left: 1.875rem;
   }
@@ -6980,7 +6983,7 @@ a:hover {
     margin-top: -1.875rem;
     margin-left: -1.875rem;
   }
-  .gutter-30pxm-above-60em > [class*="flex-item"] {
+  .gutter-30pxm-above-60em > * {
     padding-top: 1.875rem;
     padding-left: 1.875rem;
   }
@@ -6990,7 +6993,7 @@ a:hover {
     margin-top: -1.875rem;
     margin-left: -1.875rem;
   }
-  .gutter-30pxm-above-80em > [class*="flex-item"] {
+  .gutter-30pxm-above-80em > * {
     padding-top: 1.875rem;
     padding-left: 1.875rem;
   }
@@ -6999,7 +7002,7 @@ a:hover {
   margin-top: -2.5rem;
   margin-left: -2.5rem;
 }
-.gutter-40pxm > [class*="flex-item"] {
+.gutter-40pxm > * {
   padding-top: 2.5rem;
   padding-left: 2.5rem;
 }
@@ -7008,7 +7011,7 @@ a:hover {
     margin-top: -2.5rem;
     margin-left: -2.5rem;
   }
-  .gutter-40pxm-above-20em > [class*="flex-item"] {
+  .gutter-40pxm-above-20em > * {
     padding-top: 2.5rem;
     padding-left: 2.5rem;
   }
@@ -7018,7 +7021,7 @@ a:hover {
     margin-top: -2.5rem;
     margin-left: -2.5rem;
   }
-  .gutter-40pxm-above-30em > [class*="flex-item"] {
+  .gutter-40pxm-above-30em > * {
     padding-top: 2.5rem;
     padding-left: 2.5rem;
   }
@@ -7028,7 +7031,7 @@ a:hover {
     margin-top: -2.5rem;
     margin-left: -2.5rem;
   }
-  .gutter-40pxm-above-40em > [class*="flex-item"] {
+  .gutter-40pxm-above-40em > * {
     padding-top: 2.5rem;
     padding-left: 2.5rem;
   }
@@ -7038,7 +7041,7 @@ a:hover {
     margin-top: -2.5rem;
     margin-left: -2.5rem;
   }
-  .gutter-40pxm-above-60em > [class*="flex-item"] {
+  .gutter-40pxm-above-60em > * {
     padding-top: 2.5rem;
     padding-left: 2.5rem;
   }
@@ -7048,7 +7051,7 @@ a:hover {
     margin-top: -2.5rem;
     margin-left: -2.5rem;
   }
-  .gutter-40pxm-above-80em > [class*="flex-item"] {
+  .gutter-40pxm-above-80em > * {
     padding-top: 2.5rem;
     padding-left: 2.5rem;
   }
@@ -7057,7 +7060,7 @@ a:hover {
   margin-top: -3.125rem;
   margin-left: -3.125rem;
 }
-.gutter-50pxm > [class*="flex-item"] {
+.gutter-50pxm > * {
   padding-top: 3.125rem;
   padding-left: 3.125rem;
 }
@@ -7066,7 +7069,7 @@ a:hover {
     margin-top: -3.125rem;
     margin-left: -3.125rem;
   }
-  .gutter-50pxm-above-20em > [class*="flex-item"] {
+  .gutter-50pxm-above-20em > * {
     padding-top: 3.125rem;
     padding-left: 3.125rem;
   }
@@ -7076,7 +7079,7 @@ a:hover {
     margin-top: -3.125rem;
     margin-left: -3.125rem;
   }
-  .gutter-50pxm-above-30em > [class*="flex-item"] {
+  .gutter-50pxm-above-30em > * {
     padding-top: 3.125rem;
     padding-left: 3.125rem;
   }
@@ -7086,7 +7089,7 @@ a:hover {
     margin-top: -3.125rem;
     margin-left: -3.125rem;
   }
-  .gutter-50pxm-above-40em > [class*="flex-item"] {
+  .gutter-50pxm-above-40em > * {
     padding-top: 3.125rem;
     padding-left: 3.125rem;
   }
@@ -7096,7 +7099,7 @@ a:hover {
     margin-top: -3.125rem;
     margin-left: -3.125rem;
   }
-  .gutter-50pxm-above-60em > [class*="flex-item"] {
+  .gutter-50pxm-above-60em > * {
     padding-top: 3.125rem;
     padding-left: 3.125rem;
   }
@@ -7106,7 +7109,7 @@ a:hover {
     margin-top: -3.125rem;
     margin-left: -3.125rem;
   }
-  .gutter-50pxm-above-80em > [class*="flex-item"] {
+  .gutter-50pxm-above-80em > * {
     padding-top: 3.125rem;
     padding-left: 3.125rem;
   }
@@ -7115,7 +7118,7 @@ a:hover {
   margin-top: -3.75rem;
   margin-left: -3.75rem;
 }
-.gutter-60pxm > [class*="flex-item"] {
+.gutter-60pxm > * {
   padding-top: 3.75rem;
   padding-left: 3.75rem;
 }
@@ -7124,7 +7127,7 @@ a:hover {
     margin-top: -3.75rem;
     margin-left: -3.75rem;
   }
-  .gutter-60pxm-above-20em > [class*="flex-item"] {
+  .gutter-60pxm-above-20em > * {
     padding-top: 3.75rem;
     padding-left: 3.75rem;
   }
@@ -7134,7 +7137,7 @@ a:hover {
     margin-top: -3.75rem;
     margin-left: -3.75rem;
   }
-  .gutter-60pxm-above-30em > [class*="flex-item"] {
+  .gutter-60pxm-above-30em > * {
     padding-top: 3.75rem;
     padding-left: 3.75rem;
   }
@@ -7144,7 +7147,7 @@ a:hover {
     margin-top: -3.75rem;
     margin-left: -3.75rem;
   }
-  .gutter-60pxm-above-40em > [class*="flex-item"] {
+  .gutter-60pxm-above-40em > * {
     padding-top: 3.75rem;
     padding-left: 3.75rem;
   }
@@ -7154,7 +7157,7 @@ a:hover {
     margin-top: -3.75rem;
     margin-left: -3.75rem;
   }
-  .gutter-60pxm-above-60em > [class*="flex-item"] {
+  .gutter-60pxm-above-60em > * {
     padding-top: 3.75rem;
     padding-left: 3.75rem;
   }
@@ -7164,7 +7167,7 @@ a:hover {
     margin-top: -3.75rem;
     margin-left: -3.75rem;
   }
-  .gutter-60pxm-above-80em > [class*="flex-item"] {
+  .gutter-60pxm-above-80em > * {
     padding-top: 3.75rem;
     padding-left: 3.75rem;
   }
