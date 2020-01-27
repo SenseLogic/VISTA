@@ -75,16 +75,6 @@ MakeJustify( media_query_name_list )
     justify-self: flex-end;
 }
 
-.justify-self-between
-{
-    justify-self: space-between;
-}
-
-.justify-self-around
-{
-    justify-self: space-around;
-}
-
 // ~~
 
 MakeJustifySelf( media_query_name_list )
@@ -106,16 +96,6 @@ MakeJustifySelf( media_query_name_list )
             .justify-self-right-{media_query_name}
             {
                 justify-self: flex-end;
-            }
-
-            .justify-self-between-{media_query_name}
-            {
-                justify-self: space-between;
-            }
-
-            .justify-self-around-{media_query_name}
-            {
-                justify-self: space-around;
             }
         }
     }

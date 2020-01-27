@@ -448,12 +448,6 @@ a:hover {
 .justify-self-right {
   justify-self: flex-end;
 }
-.justify-self-between {
-  justify-self: space-between;
-}
-.justify-self-around {
-  justify-self: space-around;
-}
 .width-auto {
   width: auto;
 }
@@ -571,7 +565,8 @@ a:hover {
   left: 0;
   margin: 0;
   width: 300%;
-  text-align: left;
+}
+.carousel-strip-animation-2 {
   animation: 10s carousel-animation-2 infinite;
   animation-timing-function: ease;
 }
@@ -602,7 +597,8 @@ a:hover {
   left: 0;
   margin: 0;
   width: 400%;
-  text-align: left;
+}
+.carousel-strip-animation-3 {
   animation: 15s carousel-animation-3 infinite;
   animation-timing-function: ease;
 }
@@ -639,7 +635,8 @@ a:hover {
   left: 0;
   margin: 0;
   width: 500%;
-  text-align: left;
+}
+.carousel-strip-animation-4 {
   animation: 20s carousel-animation-4 infinite;
   animation-timing-function: ease;
 }
@@ -682,7 +679,8 @@ a:hover {
   left: 0;
   margin: 0;
   width: 600%;
-  text-align: left;
+}
+.carousel-strip-animation-5 {
   animation: 25s carousel-animation-5 infinite;
   animation-timing-function: ease;
 }
@@ -731,7 +729,8 @@ a:hover {
   left: 0;
   margin: 0;
   width: 700%;
-  text-align: left;
+}
+.carousel-strip-animation-6 {
   animation: 30s carousel-animation-6 infinite;
   animation-timing-function: ease;
 }

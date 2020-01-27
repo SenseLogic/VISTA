@@ -448,12 +448,6 @@ a:hover {
 .justify-self-right {
   justify-self: flex-end;
 }
-.justify-self-between {
-  justify-self: space-between;
-}
-.justify-self-around {
-  justify-self: space-around;
-}
 .width-auto {
   width: auto;
 }
@@ -557,7 +551,7 @@ a:hover {
 .not-clickable[onclick] {
   cursor: default;
 }
-.carousel-container {
+.carousel {
   overflow: hidden;
 }
 .container-centered {

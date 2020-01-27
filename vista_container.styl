@@ -22,9 +22,31 @@ MakeContainerCentered( max_width, max_width_map, media_query_name_list )
         {
             .container-centered
             {
-                max-width: max_width_map[ breakpoint_name ];
+                max-width: max_width_map[ media_query_name ];
                 margin-left: auto;
                 margin-right: auto;
+            }
+        }
+    }
+
+// ~~
+
+MakeContainerMargined( margin, margin_map, media_query_name_list )
+
+    .container-margined
+    {
+        margin-left: margin;
+        margin-right: margin;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .container-margined
+            {
+                margin-left: margin_map[ media_query_name ];
+                margin-right: margin_map[ media_query_name ];
             }
         }
     }

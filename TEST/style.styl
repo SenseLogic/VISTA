@@ -14,8 +14,26 @@
 
 MediaQueryNameList = above-20em, above-30em, above-40em, above-60em, above-80em;
 
+ContainerMaxWidthMap = {
+    above-20em: 15em,
+    above-30em: 25em,
+    above-40em: 35em,
+    above-60em: 55em,
+    above-80em: 75em
+};
+
+ContainerMarginMap = {
+    above-20em: 2em,
+    above-30em: 3em,
+    above-40em: 4em,
+    above-60em: 6em,
+    above-80em: 8em
+};
+
 // ~~
 
+MakeContainerCentered( 10em, ContainerMaxWidthMap, MediaQueryNameList );
+MakeContainerMargined( 1em, ContainerMarginMap, MediaQueryNameList );
 MakeWidthAuto( MediaQueryNameList );
 MakeWidthRange( 10, 10, 5, Pxm, "pxm", MediaQueryNameList );
 MakeMinWidthRange( 10, 10, 5, Pxm, "pxm", MediaQueryNameList );
@@ -58,4 +76,8 @@ MakeFlex( MediaQueryNameList );
 MakeFlexBasisRange( 12, 12, MediaQueryNameList );
 MakeFlexShrink( 1, 12, MediaQueryNameList );
 MakeFlexGrow( 1, 12, MediaQueryNameList );
-MakeFontSizeRange( 10, 10, 5, Pxm, "pxm", MediaQueryNameList );
+MakeFontSizeRange( 10, 10, 5, Pxm, "pxm", MediaQueryNameList );MakeCarousel( 2 );
+MakeCarousel( 3 );
+MakeCarousel( 4 );
+MakeCarousel( 5 );
+MakeCarousel( 6 );

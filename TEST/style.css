@@ -448,12 +448,6 @@ a:hover {
 .justify-self-right {
   justify-self: flex-end;
 }
-.justify-self-between {
-  justify-self: space-between;
-}
-.justify-self-around {
-  justify-self: space-around;
-}
 .width-auto {
   width: auto;
 }
@@ -557,12 +551,86 @@ a:hover {
 .not-clickable[onclick] {
   cursor: default;
 }
-.carousel-container {
+.carousel {
   overflow: hidden;
 }
 @media only screen and (min-width: 20em) and (max-width: 29.98em), only screen and (min-width: 40em) and (max-width: 49.98em) {
   html {
     background-color: #ff0;
+  }
+}
+.container-centered {
+  max-width: 10em;
+  margin-left: auto;
+  margin-right: auto;
+}
+@media only screen and (min-width: 20em) {
+  .container-centered {
+    max-width: 15em;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+@media only screen and (min-width: 30em) {
+  .container-centered {
+    max-width: 25em;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+@media only screen and (min-width: 40em) {
+  .container-centered {
+    max-width: 35em;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+@media only screen and (min-width: 60em) {
+  .container-centered {
+    max-width: 55em;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+@media only screen and (min-width: 80em) {
+  .container-centered {
+    max-width: 75em;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+.container-margined {
+  margin-left: 1em;
+  margin-right: 1em;
+}
+@media only screen and (min-width: 20em) {
+  .container-margined {
+    margin-left: 2em;
+    margin-right: 2em;
+  }
+}
+@media only screen and (min-width: 30em) {
+  .container-margined {
+    margin-left: 3em;
+    margin-right: 3em;
+  }
+}
+@media only screen and (min-width: 40em) {
+  .container-margined {
+    margin-left: 4em;
+    margin-right: 4em;
+  }
+}
+@media only screen and (min-width: 60em) {
+  .container-margined {
+    margin-left: 6em;
+    margin-right: 6em;
+  }
+}
+@media only screen and (min-width: 80em) {
+  .container-margined {
+    margin-left: 8em;
+    margin-right: 8em;
   }
 }
 @media only screen and (min-width: 20em) {
@@ -7723,5 +7791,225 @@ a:hover {
 @media only screen and (min-width: 80em) {
   .font-size-60pxm-above-80em {
     font-size: 3.75rem;
+  }
+}
+.carousel-strip-2 {
+  display: flex;
+  position: relative;
+  left: 0;
+  margin: 0;
+  width: 300%;
+}
+.carousel-strip-animation-2 {
+  animation: 10s carousel-animation-2 infinite;
+  animation-timing-function: ease;
+}
+.carousel-slide-2 {
+  width: 33.333333333333336%;
+  height: auto;
+}
+@keyframes carousel-animation-2 {
+  0% {
+    left: 0%;
+  }
+  40.000000000000000% {
+    left: 0%;
+  }
+  50.000000000000000% {
+    left: -100%;
+  }
+  90.000000000000000% {
+    left: -100%;
+  }
+  100% {
+    left: -200%;
+  }
+}
+.carousel-strip-3 {
+  display: flex;
+  position: relative;
+  left: 0;
+  margin: 0;
+  width: 400%;
+}
+.carousel-strip-animation-3 {
+  animation: 15s carousel-animation-3 infinite;
+  animation-timing-function: ease;
+}
+.carousel-slide-3 {
+  width: 25%;
+  height: auto;
+}
+@keyframes carousel-animation-3 {
+  0% {
+    left: 0%;
+  }
+  26.666666666666667% {
+    left: 0%;
+  }
+  33.333333333333333% {
+    left: -100%;
+  }
+  60.000000000000000% {
+    left: -100%;
+  }
+  66.666666666666667% {
+    left: -200%;
+  }
+  93.333333333333333% {
+    left: -200%;
+  }
+  100% {
+    left: -300%;
+  }
+}
+.carousel-strip-4 {
+  display: flex;
+  position: relative;
+  left: 0;
+  margin: 0;
+  width: 500%;
+}
+.carousel-strip-animation-4 {
+  animation: 20s carousel-animation-4 infinite;
+  animation-timing-function: ease;
+}
+.carousel-slide-4 {
+  width: 20%;
+  height: auto;
+}
+@keyframes carousel-animation-4 {
+  0% {
+    left: 0%;
+  }
+  20.000000000000000% {
+    left: 0%;
+  }
+  25.000000000000000% {
+    left: -100%;
+  }
+  45.000000000000000% {
+    left: -100%;
+  }
+  50.000000000000000% {
+    left: -200%;
+  }
+  70.000000000000000% {
+    left: -200%;
+  }
+  75.000000000000000% {
+    left: -300%;
+  }
+  95.000000000000000% {
+    left: -300%;
+  }
+  100% {
+    left: -400%;
+  }
+}
+.carousel-strip-5 {
+  display: flex;
+  position: relative;
+  left: 0;
+  margin: 0;
+  width: 600%;
+}
+.carousel-strip-animation-5 {
+  animation: 25s carousel-animation-5 infinite;
+  animation-timing-function: ease;
+}
+.carousel-slide-5 {
+  width: 16.666666666666668%;
+  height: auto;
+}
+@keyframes carousel-animation-5 {
+  0% {
+    left: 0%;
+  }
+  16.000000000000000% {
+    left: 0%;
+  }
+  20.000000000000000% {
+    left: -100%;
+  }
+  36.000000000000000% {
+    left: -100%;
+  }
+  40.000000000000000% {
+    left: -200%;
+  }
+  56.000000000000000% {
+    left: -200%;
+  }
+  60.000000000000000% {
+    left: -300%;
+  }
+  76.000000000000000% {
+    left: -300%;
+  }
+  80.000000000000000% {
+    left: -400%;
+  }
+  96.000000000000000% {
+    left: -400%;
+  }
+  100% {
+    left: -500%;
+  }
+}
+.carousel-strip-6 {
+  display: flex;
+  position: relative;
+  left: 0;
+  margin: 0;
+  width: 700%;
+}
+.carousel-strip-animation-6 {
+  animation: 30s carousel-animation-6 infinite;
+  animation-timing-function: ease;
+}
+.carousel-slide-6 {
+  width: 14.285714285714286%;
+  height: auto;
+}
+@keyframes carousel-animation-6 {
+  0% {
+    left: 0%;
+  }
+  13.333333333333333% {
+    left: 0%;
+  }
+  16.666666666666667% {
+    left: -100%;
+  }
+  30.000000000000000% {
+    left: -100%;
+  }
+  33.333333333333333% {
+    left: -200%;
+  }
+  46.666666666666667% {
+    left: -200%;
+  }
+  50.000000000000000% {
+    left: -300%;
+  }
+  63.333333333333333% {
+    left: -300%;
+  }
+  66.666666666666667% {
+    left: -400%;
+  }
+  80.000000000000000% {
+    left: -400%;
+  }
+  83.333333333333333% {
+    left: -500%;
+  }
+  96.666666666666667% {
+    left: -500%;
+  }
+  100% {
+    left: -600%;
   }
 }
