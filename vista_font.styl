@@ -18,9 +18,36 @@ MakeFontSize( size, unit_value, unit_name, media_query_name_list )
 
 MakeFontSizeRange( start, step, count, unit_value, unit_name, media_query_name_list )
 
-    for index in 0 .. count
+    for index in 0 .. count - 1
     {
         size = start + index * step;
 
         MakeFontSize( size, unit_value, unit_name, media_query_name_list );
+    }
+
+MakeFontWeight( weight, media_query_name_list )
+
+    .font-weight-{weight}
+    {
+        font-weight: weight;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .font-weight-{weight}-{media_query_name}
+            {
+                font-weight: weight;
+            }
+        }
+    }
+
+MakeFontWeightRange( start, step, count, media_query_name_list )
+
+    for index in 0 .. count - 1
+    {
+        weight = start + index * step;
+
+        MakeFontWeight( weight, media_query_name_list );
     }

@@ -798,34 +798,6 @@ a:hover {
     width: 3.125rem;
   }
 }
-.width-60pxm {
-  width: 3.75rem;
-}
-@media only screen and (min-width: 20em) {
-  .width-60pxm-above-20em {
-    width: 3.75rem;
-  }
-}
-@media only screen and (min-width: 30em) {
-  .width-60pxm-above-30em {
-    width: 3.75rem;
-  }
-}
-@media only screen and (min-width: 40em) {
-  .width-60pxm-above-40em {
-    width: 3.75rem;
-  }
-}
-@media only screen and (min-width: 60em) {
-  .width-60pxm-above-60em {
-    width: 3.75rem;
-  }
-}
-@media only screen and (min-width: 80em) {
-  .width-60pxm-above-80em {
-    width: 3.75rem;
-  }
-}
 .min-width-10pxm {
   min-width: 0.625rem;
 }
@@ -966,34 +938,6 @@ a:hover {
     min-width: 3.125rem;
   }
 }
-.min-width-60pxm {
-  min-width: 3.75rem;
-}
-@media only screen and (min-width: 20em) {
-  .min-width-60pxm-above-20em {
-    min-width: 3.75rem;
-  }
-}
-@media only screen and (min-width: 30em) {
-  .min-width-60pxm-above-30em {
-    min-width: 3.75rem;
-  }
-}
-@media only screen and (min-width: 40em) {
-  .min-width-60pxm-above-40em {
-    min-width: 3.75rem;
-  }
-}
-@media only screen and (min-width: 60em) {
-  .min-width-60pxm-above-60em {
-    min-width: 3.75rem;
-  }
-}
-@media only screen and (min-width: 80em) {
-  .min-width-60pxm-above-80em {
-    min-width: 3.75rem;
-  }
-}
 .max-width-10pxm {
   max-width: 0.625rem;
 }
@@ -1132,34 +1076,6 @@ a:hover {
 @media only screen and (min-width: 80em) {
   .max-width-50pxm-above-80em {
     max-width: 3.125rem;
-  }
-}
-.max-width-60pxm {
-  max-width: 3.75rem;
-}
-@media only screen and (min-width: 20em) {
-  .max-width-60pxm-above-20em {
-    max-width: 3.75rem;
-  }
-}
-@media only screen and (min-width: 30em) {
-  .max-width-60pxm-above-30em {
-    max-width: 3.75rem;
-  }
-}
-@media only screen and (min-width: 40em) {
-  .max-width-60pxm-above-40em {
-    max-width: 3.75rem;
-  }
-}
-@media only screen and (min-width: 60em) {
-  .max-width-60pxm-above-60em {
-    max-width: 3.75rem;
-  }
-}
-@media only screen and (min-width: 80em) {
-  .max-width-60pxm-above-80em {
-    max-width: 3.75rem;
   }
 }
 .width-1_12 {
@@ -2335,34 +2251,6 @@ a:hover {
     height: 3.125rem;
   }
 }
-.height-60pxm {
-  height: 3.75rem;
-}
-@media only screen and (min-width: 20em) {
-  .height-60pxm-above-20em {
-    height: 3.75rem;
-  }
-}
-@media only screen and (min-width: 30em) {
-  .height-60pxm-above-30em {
-    height: 3.75rem;
-  }
-}
-@media only screen and (min-width: 40em) {
-  .height-60pxm-above-40em {
-    height: 3.75rem;
-  }
-}
-@media only screen and (min-width: 60em) {
-  .height-60pxm-above-60em {
-    height: 3.75rem;
-  }
-}
-@media only screen and (min-width: 80em) {
-  .height-60pxm-above-80em {
-    height: 3.75rem;
-  }
-}
 .height-10pxm {
   height: 0.625rem;
 }
@@ -2503,34 +2391,6 @@ a:hover {
     height: 3.125rem;
   }
 }
-.height-60pxm {
-  height: 3.75rem;
-}
-@media only screen and (min-width: 20em) {
-  .height-60pxm-above-20em {
-    height: 3.75rem;
-  }
-}
-@media only screen and (min-width: 30em) {
-  .height-60pxm-above-30em {
-    height: 3.75rem;
-  }
-}
-@media only screen and (min-width: 40em) {
-  .height-60pxm-above-40em {
-    height: 3.75rem;
-  }
-}
-@media only screen and (min-width: 60em) {
-  .height-60pxm-above-60em {
-    height: 3.75rem;
-  }
-}
-@media only screen and (min-width: 80em) {
-  .height-60pxm-above-80em {
-    height: 3.75rem;
-  }
-}
 .height-10pxm {
   height: 0.625rem;
 }
@@ -2669,34 +2529,6 @@ a:hover {
 @media only screen and (min-width: 80em) {
   .height-50pxm-above-80em {
     height: 3.125rem;
-  }
-}
-.height-60pxm {
-  height: 3.75rem;
-}
-@media only screen and (min-width: 20em) {
-  .height-60pxm-above-20em {
-    height: 3.75rem;
-  }
-}
-@media only screen and (min-width: 30em) {
-  .height-60pxm-above-30em {
-    height: 3.75rem;
-  }
-}
-@media only screen and (min-width: 40em) {
-  .height-60pxm-above-40em {
-    height: 3.75rem;
-  }
-}
-@media only screen and (min-width: 60em) {
-  .height-60pxm-above-60em {
-    height: 3.75rem;
-  }
-}
-@media only screen and (min-width: 80em) {
-  .height-60pxm-above-80em {
-    height: 3.75rem;
   }
 }
 .height-1_12 {
@@ -3847,34 +3679,6 @@ a:hover {
     padding: 3.125rem;
   }
 }
-.padding-60pxm {
-  padding: 3.75rem;
-}
-@media only screen and (min-width: 20em) {
-  .padding-60pxm-above-20em {
-    padding: 3.75rem;
-  }
-}
-@media only screen and (min-width: 30em) {
-  .padding-60pxm-above-30em {
-    padding: 3.75rem;
-  }
-}
-@media only screen and (min-width: 40em) {
-  .padding-60pxm-above-40em {
-    padding: 3.75rem;
-  }
-}
-@media only screen and (min-width: 60em) {
-  .padding-60pxm-above-60em {
-    padding: 3.75rem;
-  }
-}
-@media only screen and (min-width: 80em) {
-  .padding-60pxm-above-80em {
-    padding: 3.75rem;
-  }
-}
 .padding-lateral-10pxm {
   padding-left: 0.625rem;
   padding-right: 0.625rem;
@@ -4043,40 +3847,6 @@ a:hover {
   .padding-lateral-50pxm-above-80em {
     padding-left: 3.125rem;
     padding-right: 3.125rem;
-  }
-}
-.padding-lateral-60pxm {
-  padding-left: 3.75rem;
-  padding-right: 3.75rem;
-}
-@media only screen and (min-width: 20em) {
-  .padding-lateral-60pxm-above-20em {
-    padding-left: 3.75rem;
-    padding-right: 3.75rem;
-  }
-}
-@media only screen and (min-width: 30em) {
-  .padding-lateral-60pxm-above-30em {
-    padding-left: 3.75rem;
-    padding-right: 3.75rem;
-  }
-}
-@media only screen and (min-width: 40em) {
-  .padding-lateral-60pxm-above-40em {
-    padding-left: 3.75rem;
-    padding-right: 3.75rem;
-  }
-}
-@media only screen and (min-width: 60em) {
-  .padding-lateral-60pxm-above-60em {
-    padding-left: 3.75rem;
-    padding-right: 3.75rem;
-  }
-}
-@media only screen and (min-width: 80em) {
-  .padding-lateral-60pxm-above-80em {
-    padding-left: 3.75rem;
-    padding-right: 3.75rem;
   }
 }
 .padding-vertical-10pxm {
@@ -4249,40 +4019,6 @@ a:hover {
     padding-bottom: 3.125rem;
   }
 }
-.padding-vertical-60pxm {
-  padding-top: 3.75rem;
-  padding-bottom: 3.75rem;
-}
-@media only screen and (min-width: 20em) {
-  .padding-vertical-60pxm-above-20em {
-    padding-top: 3.75rem;
-    padding-bottom: 3.75rem;
-  }
-}
-@media only screen and (min-width: 30em) {
-  .padding-vertical-60pxm-above-30em {
-    padding-top: 3.75rem;
-    padding-bottom: 3.75rem;
-  }
-}
-@media only screen and (min-width: 40em) {
-  .padding-vertical-60pxm-above-40em {
-    padding-top: 3.75rem;
-    padding-bottom: 3.75rem;
-  }
-}
-@media only screen and (min-width: 60em) {
-  .padding-vertical-60pxm-above-60em {
-    padding-top: 3.75rem;
-    padding-bottom: 3.75rem;
-  }
-}
-@media only screen and (min-width: 80em) {
-  .padding-vertical-60pxm-above-80em {
-    padding-top: 3.75rem;
-    padding-bottom: 3.75rem;
-  }
-}
 .padding-left-10pxm {
   padding-left: 0.625rem;
 }
@@ -4421,34 +4157,6 @@ a:hover {
 @media only screen and (min-width: 80em) {
   .padding-left-50pxm-above-80em {
     padding-left: 3.125rem;
-  }
-}
-.padding-left-60pxm {
-  padding-left: 3.75rem;
-}
-@media only screen and (min-width: 20em) {
-  .padding-left-60pxm-above-20em {
-    padding-left: 3.75rem;
-  }
-}
-@media only screen and (min-width: 30em) {
-  .padding-left-60pxm-above-30em {
-    padding-left: 3.75rem;
-  }
-}
-@media only screen and (min-width: 40em) {
-  .padding-left-60pxm-above-40em {
-    padding-left: 3.75rem;
-  }
-}
-@media only screen and (min-width: 60em) {
-  .padding-left-60pxm-above-60em {
-    padding-left: 3.75rem;
-  }
-}
-@media only screen and (min-width: 80em) {
-  .padding-left-60pxm-above-80em {
-    padding-left: 3.75rem;
   }
 }
 .padding-right-10pxm {
@@ -4591,34 +4299,6 @@ a:hover {
     padding-right: 3.125rem;
   }
 }
-.padding-right-60pxm {
-  padding-right: 3.75rem;
-}
-@media only screen and (min-width: 20em) {
-  .padding-right-60pxm-above-20em {
-    padding-right: 3.75rem;
-  }
-}
-@media only screen and (min-width: 30em) {
-  .padding-right-60pxm-above-30em {
-    padding-right: 3.75rem;
-  }
-}
-@media only screen and (min-width: 40em) {
-  .padding-right-60pxm-above-40em {
-    padding-right: 3.75rem;
-  }
-}
-@media only screen and (min-width: 60em) {
-  .padding-right-60pxm-above-60em {
-    padding-right: 3.75rem;
-  }
-}
-@media only screen and (min-width: 80em) {
-  .padding-right-60pxm-above-80em {
-    padding-right: 3.75rem;
-  }
-}
 .padding-top-10pxm {
   padding-top: 0.625rem;
 }
@@ -4759,34 +4439,6 @@ a:hover {
     padding-top: 3.125rem;
   }
 }
-.padding-top-60pxm {
-  padding-top: 3.75rem;
-}
-@media only screen and (min-width: 20em) {
-  .padding-top-60pxm-above-20em {
-    padding-top: 3.75rem;
-  }
-}
-@media only screen and (min-width: 30em) {
-  .padding-top-60pxm-above-30em {
-    padding-top: 3.75rem;
-  }
-}
-@media only screen and (min-width: 40em) {
-  .padding-top-60pxm-above-40em {
-    padding-top: 3.75rem;
-  }
-}
-@media only screen and (min-width: 60em) {
-  .padding-top-60pxm-above-60em {
-    padding-top: 3.75rem;
-  }
-}
-@media only screen and (min-width: 80em) {
-  .padding-top-60pxm-above-80em {
-    padding-top: 3.75rem;
-  }
-}
 .padding-bottom-10pxm {
   padding-bottom: 0.625rem;
 }
@@ -4925,34 +4577,6 @@ a:hover {
 @media only screen and (min-width: 80em) {
   .padding-bottom-50pxm-above-80em {
     padding-bottom: 3.125rem;
-  }
-}
-.padding-bottom-60pxm {
-  padding-bottom: 3.75rem;
-}
-@media only screen and (min-width: 20em) {
-  .padding-bottom-60pxm-above-20em {
-    padding-bottom: 3.75rem;
-  }
-}
-@media only screen and (min-width: 30em) {
-  .padding-bottom-60pxm-above-30em {
-    padding-bottom: 3.75rem;
-  }
-}
-@media only screen and (min-width: 40em) {
-  .padding-bottom-60pxm-above-40em {
-    padding-bottom: 3.75rem;
-  }
-}
-@media only screen and (min-width: 60em) {
-  .padding-bottom-60pxm-above-60em {
-    padding-bottom: 3.75rem;
-  }
-}
-@media only screen and (min-width: 80em) {
-  .padding-bottom-60pxm-above-80em {
-    padding-bottom: 3.75rem;
   }
 }
 @media only screen and (min-width: 20em) {
@@ -5180,40 +4804,6 @@ a:hover {
     margin-right: 3.125rem;
   }
 }
-.margin-lateral-60pxm {
-  margin-left: 3.75rem;
-  margin-right: 3.75rem;
-}
-@media only screen and (min-width: 20em) {
-  .margin-lateral-60pxm-above-20em {
-    margin-left: 3.75rem;
-    margin-right: 3.75rem;
-  }
-}
-@media only screen and (min-width: 30em) {
-  .margin-lateral-60pxm-above-30em {
-    margin-left: 3.75rem;
-    margin-right: 3.75rem;
-  }
-}
-@media only screen and (min-width: 40em) {
-  .margin-lateral-60pxm-above-40em {
-    margin-left: 3.75rem;
-    margin-right: 3.75rem;
-  }
-}
-@media only screen and (min-width: 60em) {
-  .margin-lateral-60pxm-above-60em {
-    margin-left: 3.75rem;
-    margin-right: 3.75rem;
-  }
-}
-@media only screen and (min-width: 80em) {
-  .margin-lateral-60pxm-above-80em {
-    margin-left: 3.75rem;
-    margin-right: 3.75rem;
-  }
-}
 @media only screen and (min-width: 20em) {
   .margin-vertical-auto-above-20em {
     margin-top: auto;
@@ -5414,40 +5004,6 @@ a:hover {
     margin-bottom: 3.125rem;
   }
 }
-.margin-vertical-60pxm {
-  margin-top: 3.75rem;
-  margin-bottom: 3.75rem;
-}
-@media only screen and (min-width: 20em) {
-  .margin-vertical-60pxm-above-20em {
-    margin-top: 3.75rem;
-    margin-bottom: 3.75rem;
-  }
-}
-@media only screen and (min-width: 30em) {
-  .margin-vertical-60pxm-above-30em {
-    margin-top: 3.75rem;
-    margin-bottom: 3.75rem;
-  }
-}
-@media only screen and (min-width: 40em) {
-  .margin-vertical-60pxm-above-40em {
-    margin-top: 3.75rem;
-    margin-bottom: 3.75rem;
-  }
-}
-@media only screen and (min-width: 60em) {
-  .margin-vertical-60pxm-above-60em {
-    margin-top: 3.75rem;
-    margin-bottom: 3.75rem;
-  }
-}
-@media only screen and (min-width: 80em) {
-  .margin-vertical-60pxm-above-80em {
-    margin-top: 3.75rem;
-    margin-bottom: 3.75rem;
-  }
-}
 @media only screen and (min-width: 20em) {
   .margin-left-auto-above-20em {
     margin-left: auto;
@@ -5611,34 +5167,6 @@ a:hover {
 @media only screen and (min-width: 80em) {
   .margin-left-50pxm-above-80em {
     margin-left: 3.125rem;
-  }
-}
-.margin-left-60pxm {
-  margin-left: 3.75rem;
-}
-@media only screen and (min-width: 20em) {
-  .margin-left-60pxm-above-20em {
-    margin-left: 3.75rem;
-  }
-}
-@media only screen and (min-width: 30em) {
-  .margin-left-60pxm-above-30em {
-    margin-left: 3.75rem;
-  }
-}
-@media only screen and (min-width: 40em) {
-  .margin-left-60pxm-above-40em {
-    margin-left: 3.75rem;
-  }
-}
-@media only screen and (min-width: 60em) {
-  .margin-left-60pxm-above-60em {
-    margin-left: 3.75rem;
-  }
-}
-@media only screen and (min-width: 80em) {
-  .margin-left-60pxm-above-80em {
-    margin-left: 3.75rem;
   }
 }
 @media only screen and (min-width: 20em) {
@@ -5806,34 +5334,6 @@ a:hover {
     margin-right: 3.125rem;
   }
 }
-.margin-right-60pxm {
-  margin-right: 3.75rem;
-}
-@media only screen and (min-width: 20em) {
-  .margin-right-60pxm-above-20em {
-    margin-right: 3.75rem;
-  }
-}
-@media only screen and (min-width: 30em) {
-  .margin-right-60pxm-above-30em {
-    margin-right: 3.75rem;
-  }
-}
-@media only screen and (min-width: 40em) {
-  .margin-right-60pxm-above-40em {
-    margin-right: 3.75rem;
-  }
-}
-@media only screen and (min-width: 60em) {
-  .margin-right-60pxm-above-60em {
-    margin-right: 3.75rem;
-  }
-}
-@media only screen and (min-width: 80em) {
-  .margin-right-60pxm-above-80em {
-    margin-right: 3.75rem;
-  }
-}
 @media only screen and (min-width: 20em) {
   .margin-top-auto-above-20em {
     margin-top: auto;
@@ -5999,34 +5499,6 @@ a:hover {
     margin-top: 3.125rem;
   }
 }
-.margin-top-60pxm {
-  margin-top: 3.75rem;
-}
-@media only screen and (min-width: 20em) {
-  .margin-top-60pxm-above-20em {
-    margin-top: 3.75rem;
-  }
-}
-@media only screen and (min-width: 30em) {
-  .margin-top-60pxm-above-30em {
-    margin-top: 3.75rem;
-  }
-}
-@media only screen and (min-width: 40em) {
-  .margin-top-60pxm-above-40em {
-    margin-top: 3.75rem;
-  }
-}
-@media only screen and (min-width: 60em) {
-  .margin-top-60pxm-above-60em {
-    margin-top: 3.75rem;
-  }
-}
-@media only screen and (min-width: 80em) {
-  .margin-top-60pxm-above-80em {
-    margin-top: 3.75rem;
-  }
-}
 @media only screen and (min-width: 20em) {
   .margin-bottom-auto-above-20em {
     margin-bottom: auto;
@@ -6190,34 +5662,6 @@ a:hover {
 @media only screen and (min-width: 80em) {
   .margin-bottom-50pxm-above-80em {
     margin-bottom: 3.125rem;
-  }
-}
-.margin-bottom-60pxm {
-  margin-bottom: 3.75rem;
-}
-@media only screen and (min-width: 20em) {
-  .margin-bottom-60pxm-above-20em {
-    margin-bottom: 3.75rem;
-  }
-}
-@media only screen and (min-width: 30em) {
-  .margin-bottom-60pxm-above-30em {
-    margin-bottom: 3.75rem;
-  }
-}
-@media only screen and (min-width: 40em) {
-  .margin-bottom-60pxm-above-40em {
-    margin-bottom: 3.75rem;
-  }
-}
-@media only screen and (min-width: 60em) {
-  .margin-bottom-60pxm-above-60em {
-    margin-bottom: 3.75rem;
-  }
-}
-@media only screen and (min-width: 80em) {
-  .margin-bottom-60pxm-above-80em {
-    margin-bottom: 3.75rem;
   }
 }
 .margin-left-1_12 {
@@ -7182,64 +6626,6 @@ a:hover {
     padding-left: 3.125rem;
   }
 }
-.gutter-60pxm {
-  margin-top: -3.75rem;
-  margin-left: -3.75rem;
-}
-.gutter-60pxm > * {
-  padding-top: 3.75rem;
-  padding-left: 3.75rem;
-}
-@media only screen and (min-width: 20em) {
-  .gutter-60pxm-above-20em {
-    margin-top: -3.75rem;
-    margin-left: -3.75rem;
-  }
-  .gutter-60pxm-above-20em > * {
-    padding-top: 3.75rem;
-    padding-left: 3.75rem;
-  }
-}
-@media only screen and (min-width: 30em) {
-  .gutter-60pxm-above-30em {
-    margin-top: -3.75rem;
-    margin-left: -3.75rem;
-  }
-  .gutter-60pxm-above-30em > * {
-    padding-top: 3.75rem;
-    padding-left: 3.75rem;
-  }
-}
-@media only screen and (min-width: 40em) {
-  .gutter-60pxm-above-40em {
-    margin-top: -3.75rem;
-    margin-left: -3.75rem;
-  }
-  .gutter-60pxm-above-40em > * {
-    padding-top: 3.75rem;
-    padding-left: 3.75rem;
-  }
-}
-@media only screen and (min-width: 60em) {
-  .gutter-60pxm-above-60em {
-    margin-top: -3.75rem;
-    margin-left: -3.75rem;
-  }
-  .gutter-60pxm-above-60em > * {
-    padding-top: 3.75rem;
-    padding-left: 3.75rem;
-  }
-}
-@media only screen and (min-width: 80em) {
-  .gutter-60pxm-above-80em {
-    margin-top: -3.75rem;
-    margin-left: -3.75rem;
-  }
-  .gutter-60pxm-above-80em > * {
-    padding-top: 3.75rem;
-    padding-left: 3.75rem;
-  }
-}
 @media only screen and (min-width: 20em) {
   .display-none-above-20em {
     display: none;
@@ -7765,32 +7151,256 @@ a:hover {
     font-size: 3.125rem;
   }
 }
-.font-size-60pxm {
-  font-size: 3.75rem;
+.font-weight-100 {
+  font-weight: 100;
 }
 @media only screen and (min-width: 20em) {
-  .font-size-60pxm-above-20em {
-    font-size: 3.75rem;
+  .font-weight-100-above-20em {
+    font-weight: 100;
   }
 }
 @media only screen and (min-width: 30em) {
-  .font-size-60pxm-above-30em {
-    font-size: 3.75rem;
+  .font-weight-100-above-30em {
+    font-weight: 100;
   }
 }
 @media only screen and (min-width: 40em) {
-  .font-size-60pxm-above-40em {
-    font-size: 3.75rem;
+  .font-weight-100-above-40em {
+    font-weight: 100;
   }
 }
 @media only screen and (min-width: 60em) {
-  .font-size-60pxm-above-60em {
-    font-size: 3.75rem;
+  .font-weight-100-above-60em {
+    font-weight: 100;
   }
 }
 @media only screen and (min-width: 80em) {
-  .font-size-60pxm-above-80em {
-    font-size: 3.75rem;
+  .font-weight-100-above-80em {
+    font-weight: 100;
+  }
+}
+.font-weight-200 {
+  font-weight: 200;
+}
+@media only screen and (min-width: 20em) {
+  .font-weight-200-above-20em {
+    font-weight: 200;
+  }
+}
+@media only screen and (min-width: 30em) {
+  .font-weight-200-above-30em {
+    font-weight: 200;
+  }
+}
+@media only screen and (min-width: 40em) {
+  .font-weight-200-above-40em {
+    font-weight: 200;
+  }
+}
+@media only screen and (min-width: 60em) {
+  .font-weight-200-above-60em {
+    font-weight: 200;
+  }
+}
+@media only screen and (min-width: 80em) {
+  .font-weight-200-above-80em {
+    font-weight: 200;
+  }
+}
+.font-weight-300 {
+  font-weight: 300;
+}
+@media only screen and (min-width: 20em) {
+  .font-weight-300-above-20em {
+    font-weight: 300;
+  }
+}
+@media only screen and (min-width: 30em) {
+  .font-weight-300-above-30em {
+    font-weight: 300;
+  }
+}
+@media only screen and (min-width: 40em) {
+  .font-weight-300-above-40em {
+    font-weight: 300;
+  }
+}
+@media only screen and (min-width: 60em) {
+  .font-weight-300-above-60em {
+    font-weight: 300;
+  }
+}
+@media only screen and (min-width: 80em) {
+  .font-weight-300-above-80em {
+    font-weight: 300;
+  }
+}
+.font-weight-400 {
+  font-weight: 400;
+}
+@media only screen and (min-width: 20em) {
+  .font-weight-400-above-20em {
+    font-weight: 400;
+  }
+}
+@media only screen and (min-width: 30em) {
+  .font-weight-400-above-30em {
+    font-weight: 400;
+  }
+}
+@media only screen and (min-width: 40em) {
+  .font-weight-400-above-40em {
+    font-weight: 400;
+  }
+}
+@media only screen and (min-width: 60em) {
+  .font-weight-400-above-60em {
+    font-weight: 400;
+  }
+}
+@media only screen and (min-width: 80em) {
+  .font-weight-400-above-80em {
+    font-weight: 400;
+  }
+}
+.font-weight-500 {
+  font-weight: 500;
+}
+@media only screen and (min-width: 20em) {
+  .font-weight-500-above-20em {
+    font-weight: 500;
+  }
+}
+@media only screen and (min-width: 30em) {
+  .font-weight-500-above-30em {
+    font-weight: 500;
+  }
+}
+@media only screen and (min-width: 40em) {
+  .font-weight-500-above-40em {
+    font-weight: 500;
+  }
+}
+@media only screen and (min-width: 60em) {
+  .font-weight-500-above-60em {
+    font-weight: 500;
+  }
+}
+@media only screen and (min-width: 80em) {
+  .font-weight-500-above-80em {
+    font-weight: 500;
+  }
+}
+.font-weight-600 {
+  font-weight: 600;
+}
+@media only screen and (min-width: 20em) {
+  .font-weight-600-above-20em {
+    font-weight: 600;
+  }
+}
+@media only screen and (min-width: 30em) {
+  .font-weight-600-above-30em {
+    font-weight: 600;
+  }
+}
+@media only screen and (min-width: 40em) {
+  .font-weight-600-above-40em {
+    font-weight: 600;
+  }
+}
+@media only screen and (min-width: 60em) {
+  .font-weight-600-above-60em {
+    font-weight: 600;
+  }
+}
+@media only screen and (min-width: 80em) {
+  .font-weight-600-above-80em {
+    font-weight: 600;
+  }
+}
+.font-weight-700 {
+  font-weight: 700;
+}
+@media only screen and (min-width: 20em) {
+  .font-weight-700-above-20em {
+    font-weight: 700;
+  }
+}
+@media only screen and (min-width: 30em) {
+  .font-weight-700-above-30em {
+    font-weight: 700;
+  }
+}
+@media only screen and (min-width: 40em) {
+  .font-weight-700-above-40em {
+    font-weight: 700;
+  }
+}
+@media only screen and (min-width: 60em) {
+  .font-weight-700-above-60em {
+    font-weight: 700;
+  }
+}
+@media only screen and (min-width: 80em) {
+  .font-weight-700-above-80em {
+    font-weight: 700;
+  }
+}
+.font-weight-800 {
+  font-weight: 800;
+}
+@media only screen and (min-width: 20em) {
+  .font-weight-800-above-20em {
+    font-weight: 800;
+  }
+}
+@media only screen and (min-width: 30em) {
+  .font-weight-800-above-30em {
+    font-weight: 800;
+  }
+}
+@media only screen and (min-width: 40em) {
+  .font-weight-800-above-40em {
+    font-weight: 800;
+  }
+}
+@media only screen and (min-width: 60em) {
+  .font-weight-800-above-60em {
+    font-weight: 800;
+  }
+}
+@media only screen and (min-width: 80em) {
+  .font-weight-800-above-80em {
+    font-weight: 800;
+  }
+}
+.font-weight-900 {
+  font-weight: 900;
+}
+@media only screen and (min-width: 20em) {
+  .font-weight-900-above-20em {
+    font-weight: 900;
+  }
+}
+@media only screen and (min-width: 30em) {
+  .font-weight-900-above-30em {
+    font-weight: 900;
+  }
+}
+@media only screen and (min-width: 40em) {
+  .font-weight-900-above-40em {
+    font-weight: 900;
+  }
+}
+@media only screen and (min-width: 60em) {
+  .font-weight-900-above-60em {
+    font-weight: 900;
+  }
+}
+@media only screen and (min-width: 80em) {
+  .font-weight-900-above-80em {
+    font-weight: 900;
   }
 }
 .carousel-strip-2 {

@@ -70,7 +70,7 @@ MakeGridHeights( size, unit_value, unit_name, media_query_name_list )
 
 MakeGridHeightsRange( start, step, count, unit_value, unit_name, media_query_name_list )
 
-    for index in 0 .. count
+    for index in 0 .. count - 1
     {
         size = start + index * step;
 
@@ -118,7 +118,7 @@ MakeGridWidths( size, unit_value, unit_name, media_query_name_list )
 
 MakeGridWidthsRange( start, step, count, unit_value, unit_name, media_query_name_list )
 
-    for index in 0 .. count
+    for index in 0 .. count - 1
     {
         size = start + index * step;
 
@@ -251,7 +251,7 @@ MakeGridRowGap( size, unit_value, unit_name, media_query_name_list )
 
 MakeGridRowGapRange( start, step, count, unit_value, unit_name, media_query_name_list )
 
-    for index in 0 .. count
+    for index in 0 .. count - 1
     {
         size = start + index * step;
 
@@ -282,7 +282,7 @@ MakeGridColumnGap( size, unit_value, unit_name, media_query_name_list )
 
 MakeGridColumnGapRange( start, step, count, unit_value, unit_name, media_query_name_list )
 
-    for index in 0 .. count
+    for index in 0 .. count - 1
     {
         size = start + index * step;
 

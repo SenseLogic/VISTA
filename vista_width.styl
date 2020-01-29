@@ -42,7 +42,7 @@ MakeWidth( size, unit_value, unit_name, media_query_name_list )
 
 MakeWidthRange( start, step, count, unit_value, unit_name, media_query_name_list )
 
-    for index in 0 .. count
+    for index in 0 .. count - 1
     {
         size = start + index * step;
 
@@ -73,7 +73,7 @@ MakeMinWidth( size, unit_value, unit_name, media_query_name_list )
 
 MakeMinWidthRange( start, step, count, unit_value, unit_name, media_query_name_list )
 
-    for index in 0 .. count
+    for index in 0 .. count - 1
     {
         size = start + index * step;
 
@@ -104,7 +104,7 @@ MakeMaxWidth( size, unit_value, unit_name, media_query_name_list )
 
 MakeMaxWidthRange( start, step, count, unit_value, unit_name, media_query_name_list )
 
-    for index in 0 .. count
+    for index in 0 .. count - 1
     {
         size = start + index * step;
 
