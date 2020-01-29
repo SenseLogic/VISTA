@@ -7416,7 +7416,6 @@ a:hover {
 }
 .carousel-slide-2 {
   width: 33.333333333333336%;
-  height: auto;
 }
 @keyframes carousel-animation-2 {
   0% {
@@ -7448,7 +7447,6 @@ a:hover {
 }
 .carousel-slide-3 {
   width: 25%;
-  height: auto;
 }
 @keyframes carousel-animation-3 {
   0% {
@@ -7486,7 +7484,6 @@ a:hover {
 }
 .carousel-slide-4 {
   width: 20%;
-  height: auto;
 }
 @keyframes carousel-animation-4 {
   0% {
@@ -7530,7 +7527,6 @@ a:hover {
 }
 .carousel-slide-5 {
   width: 16.666666666666668%;
-  height: auto;
 }
 @keyframes carousel-animation-5 {
   0% {
@@ -7580,7 +7576,6 @@ a:hover {
 }
 .carousel-slide-6 {
   width: 14.285714285714286%;
-  height: auto;
 }
 @keyframes carousel-animation-6 {
   0% {
