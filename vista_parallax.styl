@@ -1,0 +1,29 @@
+.parallax-background
+{
+    position : relative;
+    background-attachment : fixed;
+    background-position : center 0;
+    background-repeat : no-repeat;
+    background-size : cover;
+    height : 100vh;
+}
+
+// ~~
+
+MakeParallaxBackground( media_query_name_list )
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .parallax-background-{media_query_name}
+            {
+                position : relative;
+                background-attachment : fixed;
+                background-position : center 0;
+                background-repeat : no-repeat;
+                background-size : cover;
+                height : 100vh;
+            }
+        }
+    }
