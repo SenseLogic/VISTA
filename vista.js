@@ -6,9 +6,6 @@ function GetDump(
     value
     )
 {
-    var
-        text;
-
     if ( value === undefined )
     {
         return "undefined";
@@ -39,14 +36,6 @@ function Dump(
 
 // ~~
 
-Array.prototype.Dump = function(
-    )
-{
-    Dump( this );
-}
-
-// ~~
-
 Array.prototype.Call = function(
     node_function
     )
@@ -58,27 +47,40 @@ Array.prototype.Call = function(
 
 // ~~
 
-Array.prototype.GetAscendantNodes = function(
-    node_selector,
-    node_function
+Array.prototype.DumpNodes = function(
+    )
+{
+    var
+        node;
+
+    for ( node of this )
+    {
+        console.dir( node );
+    }
+}
+
+// ~~
+
+Array.prototype.GetUpperNodes = function(
+    node_selector
     )
 {
     var
         node,
-        parent_node,
-        parent_node_array;
+        upper_node,
+        upper_node_array;
 
-    parent_node_array = [];
+    upper_node_array = [];
 
     if ( node_selector === undefined )
     {
         for ( node of this )
         {
-            for ( parent_node = node.parent;
-                  parent_node != null;
-                  parent_node = parent_node.parent )
+            for ( upper_node = node.parent;
+                  upper_node != null;
+                  upper_node = upper_node.parent )
             {
-                parent_node_array.push( parent_node );
+                upper_node_array.push( upper_node );
             }
         }
     }
@@ -86,39 +88,32 @@ Array.prototype.GetAscendantNodes = function(
     {
         for ( node of this )
         {
-            for ( parent_node = node.parent;
-                  parent_node != null;
-                  parent_node = parent_node.parent )
+            for ( upper_node = node.parent;
+                  upper_node != null;
+                  upper_node = upper_node.parent )
             {
-                if ( parent_node.matches( node_selector );
+                if ( upper_node.matches( node_selector );
                 {
-                    parent_node_array.push( parent_node );
+                    upper_node_array.push( upper_node );
                 }
             }
         }
     }
 
-    if ( node_function !== undefined )
-    {
-        parent_node_array.forEach( node_function );
-    }
-
-    return parent_node_array;
+    return upper_node_array;
 }
-
 
 // ~~
 
-Array.prototype.GetParentNodes = function(
-    node_selector,
-    node_function
+Array.prototype.GetSuperNodes = function(
+    node_selector
     )
 {
     var
         node,
-        parent_node_array;
+        super_node_array;
 
-    parent_node_array = [];
+    super_node_array = [];
 
     if ( node_selector === undefined )
     {
@@ -126,7 +121,7 @@ Array.prototype.GetParentNodes = function(
         {
             if ( node.parent != null )
             {
-                parent_node_array.push( node.parent );
+                super_node_array.push( node.parent );
             }
         }
     }
@@ -137,40 +132,66 @@ Array.prototype.GetParentNodes = function(
             if ( node.parent != null
                  && node.parent.matches( node_selector );
             {
-                parent_node_array.push( node.parent );
+                super_node_array.push( node.parent );
             }
         }
     }
 
-    if ( node_function !== undefined )
-    {
-        parent_node_array.forEach( node_function );
-    }
-
-    return parent_node_array;
+    return super_node_array;
 }
 
 // ~~
 
-Array.prototype.GetChildNodes = function(
-    node_selector,
-    node_function
+Array.prototype.GetAllPriorNodes = function(
+    node_selector
+    )
+{
+}
+
+// ~~
+
+Array.prototype.GetPriorNodes = function(
+    node_selector
+    )
+{
+}
+
+// ~~
+
+Array.prototype.GetNextNodes = function(
+    node_selector
+    )
+{
+}
+
+// ~~
+
+Array.prototype.GetAllNextNodes = function(
+    node_selector
+    )
+{
+}
+
+// ~~
+
+Array.prototype.GetSubNodes = function(
+    node_selector
     )
 {
     var
         node,
-        child_node,
-        child_node_array;
+        sub_node,
+        sub_node_array;
 
-    child_node_array = [];
+    sub_node_array = [];
 
     if ( node_selector === undefined )
     {
         for ( node of this )
         {
-            for ( child_node of node.children )
+            for ( sub_node of node.children )
             {
-                child_node_array.push( child_node );
+                sub_node_array.push( sub_node );
             }
         }
     }
@@ -178,39 +199,33 @@ Array.prototype.GetChildNodes = function(
     {
         for ( node of this )
         {
-            for ( child_node of node.children )
+            for ( sub_node of node.children )
             {
-                if ( child_node.matches( node_selector );
+                if ( sub_node.matches( node_selector );
                 {
-                    child_node_array.push( child_node );
+                    sub_node_array.push( sub_node );
                 }
             }
         }
     }
 
-    if ( node_function !== undefined )
-    {
-        child_node_array.forEach( node_function );
-    }
-
-    return child_node_array;
+    return sub_node_array;
 }
 
 // ~~
 
-Array.prototype.GetDescendantNodes = function(
-    node_selector,
-    node_function
+Array.prototype.GetLowerNodes = function(
+    node_selector
     )
 {
     var
         node,
-        child_node,
-        descendant_node,
-        descendant_node_array,
-        descendant_node_list;
+        lower_node,
+        lower_node_array,
+        lower_node_list,
+        sub_node;
 
-    descendant_node_array = [];
+    lower_node_array = [];
 
     if ( node_selector === undefined )
     {
@@ -219,58 +234,38 @@ Array.prototype.GetDescendantNodes = function(
 
     for ( node of this )
     {
-        for ( child_node of node.children )
+        for ( sub_node of node.children )
         {
-            descendant_node_list = node.querySelectorAll( node_selector );
+            lower_node_list = sub_node.querySelectorAll( node_selector );
 
-            for ( descendant_node of descendant_node_list )
+            for ( lower_node of lower_node_list )
             {
-                descendant_node_array.push( descendant_node );
+                lower_node_array.push( lower_node );
             }
         }
     }
 
-    if ( node_function !== undefined )
-    {
-        descendant_node_array.forEach( node_function );
-    }
-
-    return descendant_node_array;
+    return lower_node_array;
 }
 
 // ~~
 
-Array.prototype.GetNodes = function(
-    node_selector,
-    node_function
+Array.prototype.GetMatchingNodes = function(
+    node_selector
     )
 {
     var
-        matching_node,
         matching_node_array,
-        matching_node_list,
         node;
 
     matching_node_array = [];
 
-    if ( node_selector === undefined )
-    {
-        node_selector = "*";
-    }
-
     for ( node of this )
     {
-        matching_node_list = node.querySelectorAll( node_selector );
-
-        for ( matching_node of matching_node_list )
+        if ( node.matches( node_selector ) )
         {
-            matching_node_array.push( matching_node );
+            matching_node_array.push( node );
         }
-    }
-
-    if ( node_function !== undefined )
-    {
-        matching_node_array.forEach( node_function );
     }
 
     return matching_node_array;
@@ -278,23 +273,43 @@ Array.prototype.GetNodes = function(
 
 // ~~
 
-function GetNodes(
-    node
+Array.prototype.GetNodes = function(
+    node_selector
     )
 {
-    if ( node === undefined
-         || node === null )
+    var
+        found_node,
+        found_node_array,
+        found_node_list,
+        node;
+
+    found_node_array = [];
+
+    if ( node_selector === undefined )
     {
-        return [];
+        node_selector = "*";
     }
-    else if ( node.nodeName )
+
+    for ( node of this )
     {
-        return [ node ];
+        found_node_list = node.querySelectorAll( node_selector );
+
+        for ( found_node of found_node_list )
+        {
+            found_node_array.push( found_node );
+        }
     }
-    else
-    {
-        return Array.from( document.QuerySelectorAll( node_or_node_selector ) );
-    }
+
+    return found_node_array;
+}
+
+// ~~
+
+function GetNodes(
+    node_selector
+    )
+{
+    return Array.from( document.QuerySelectorAll( node_selector ) );
 }
 
 // ~~
@@ -318,10 +333,10 @@ function CallWhenReady(
 
 function IsNodeInViewport(
     node,
-    bottom_offset,
-    top_offset,
-    left_offset,
-    right_offset
+    bottom_offset = 0,
+    top_offset = 0,
+    left_offset = 0,
+    right_offset = 0
     )
 {
     var
