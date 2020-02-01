@@ -1,4 +1,4 @@
-.invisible
+.hidden
 {
     visibility: hidden;
 }
@@ -6,6 +6,11 @@
 .visible
 {
     visibility: visible;
+}
+
+.collapse
+{
+    visibility: collapse;
 }
 
 // ~~
@@ -16,7 +21,7 @@ MakeVisibility( media_query_name_list )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .invisible-{media_query_name}
+            .hidden-{media_query_name}
             {
                 visibility: hidden;
             }
@@ -24,6 +29,11 @@ MakeVisibility( media_query_name_list )
             .visible-{media_query_name}
             {
                 visibility: visible;
+            }
+
+            .collapse-{media_query_name}
+            {
+                visibility: collapse;
             }
         }
     }
