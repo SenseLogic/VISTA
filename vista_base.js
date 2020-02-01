@@ -86,3 +86,12 @@ function IsVisibleNode(
         && bounding_client_rectangle.left + left_offset <= ( window.innerWidth || document.documentElement.clientWidth )
         );
 }
+
+// ~~
+
+function GetNodes(
+    node_selector
+    )
+{
+    return Array.from( document.QuerySelectorAll( node_selector ) );
+}

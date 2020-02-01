@@ -270,12 +270,3 @@ Array.prototype.GetNodes = function(
 
     return found_node_array;
 }
-
-// ~~
-
-function GetNodes(
-    node_selector
-    )
-{
-    return Array.from( document.QuerySelectorAll( node_selector ) );
-}
