@@ -1,3 +1,96 @@
+// -- TYPES
+
+class PROPERTY_ANIMATION
+{
+    // -- CONSTRUCTORS
+
+    constructor(
+        node,
+        property_name,
+        property_value,
+        animation_duration,
+        animation_configuration
+        )
+    {
+        this.Node = node;
+        this.FirstValue = node.style[ property_name ];
+        this.Value = this.FirstValue;
+        this.LastValue = property_value;
+        this.Time = 0.0;
+        this.Duration = animation_duration;
+        this.Delay = animation_configuration.Delay;
+        this.StartFunction = animation_configuration.StartFunction;
+        this.PauseFunction = animation_configuration.PauseFunction;
+        this.StopFunction = animation_configuration.StopFunction;
+        this.EndFunction = animation_configuration.EndFunction;
+        this.TimeFunction = animation_configuration.TimeFunction;
+        this.ValueFunction = animation_configuration.ValueFunction;
+        this.StepFunction = animation_configuration.StepFunction;
+        this.State = 0;
+    }
+
+    // -- OPERATIONS
+
+    Start(
+        )
+    {
+        this.State = 0;
+
+        if ( this.StartFunction !== undefined )
+        {
+            this.StartFunction( this );
+        }
+    }
+
+    // ~~
+
+    Pause(
+        )
+    {
+        this.State = 1;
+
+        if ( this.PauseFunction !== undefined )
+        {
+            this.PauseFunction( this );
+        }
+    }
+
+    // ~~
+
+    Stop(
+        )
+    {
+        this.State = 2;
+
+        if ( this.StopFunction !== undefined )
+        {
+            this.StopFunction( this );
+        }
+    }
+
+    // ~~
+
+    End(
+        )
+    {
+        if ( this.EndFunction !== undefined )
+        {
+            this.EndFunction( this );
+        }
+    }
+
+    // ~~
+
+    Step(
+        )
+    {
+        if ( this.StepFunction !== undefined )
+        {
+            this.StepFunction( this );
+        }
+    }
+}
+
 // -- FUNCTIONS
 
 function GetJsonValue(
@@ -92,6 +185,147 @@ function GetNodes(
     )
 {
     return Array.from( document.QuerySelectorAll( node_selector ) );
+}
+
+// ~~
+
+function AnimateProperty(
+    node,
+    property_name,
+    property_value,
+    animation_duration,
+    animation_configuration
+    )
+{
+    if ( node.PropertyAnimationMap === undefined )
+    {
+        node.PropertyAnimationMap = new Map();
+    }
+
+    if ( node.PropertyAnimationMap.has( property_name ) )
+    {
+        node.PropertyAnimationMap.get( property_name ).Stop();
+    }
+
+    property_animation
+        = new PROPERTY_ANIMATION(
+              node,
+              property_name,
+              property_value,
+              animation_duration,
+              animation_configuration
+              );
+
+}
+
+// ~~
+
+function AnimateProperties(
+    node,
+    property_map,
+    animation_duration,
+    animation_configuration
+    )
+{
+    var
+        property_name;
+
+    for ( property_name in property_map )
+    {
+        AnimateProperty(
+            property_name,
+            property_map[ property_name ],
+            animation_duration,
+            animation_configuration
+            );
+    }
+}
+
+// ~~
+
+function PauseProperty(
+    node,
+    property_name
+    )
+{
+    if ( node.PropertyAnimationMap !== undefined
+         && node.PropertyAnimationMap.has( property_name ) )
+    {
+        node.PropertyAnimationMap.get( property_name ).Pause();
+    }
+}
+
+// ~~
+
+function PauseProperties(
+    node,
+    property_name_array
+    )
+{
+    var
+        property_name;
+
+    if ( property_name_array === undefined )
+    {
+        if ( node.PropertyAnimationMap !== undefined )
+        {
+            for ( property_animation of  PropertyAnimationMap.values() )
+            {
+                property_animation.Pause();
+            }
+        }
+    }
+    else
+    {
+        for ( property_name of property_name_array )
+        {
+            PauseProperty( node, property_name );
+        }
+    }
+}
+
+// ~~
+
+function StopProperty(
+    node,
+    property_name
+    )
+{
+    if ( node.PropertyAnimationMap !== undefined
+         && node.PropertyAnimationMap.has( property_name ) )
+    {
+        node.PropertyAnimationMap.get( property_name ).Stop();
+    }
+}
+
+// ~~
+
+function StopProperties(
+    node,
+    property_name_array
+    )
+{
+    var
+        property_animation,
+        property_name;
+
+    if ( property_name_array === undefined )
+    {
+        if ( node.PropertyAnimationMap !== undefined )
+        {
+            for ( property_animation of  PropertyAnimationMap.values() )
+            {
+                property_animation.Stop();
+            }
+        }
+    }
+    else
+    {
+        for ( property_name of property_name_array )
+        {
+            StopProperty( node, property_name );
+        }
+    }
 }
 
 // ~~
@@ -422,6 +656,23 @@ Array.prototype.GetNodes = function(
 
 // ~~
 
+Array.prototype.AddClass = function(
+    class_name
+    )
+{
+    var
+        node;
+
+    for ( node of this )
+    {
+        node.classList.add( class_name );
+    }
+
+    return this;
+}
+
+// ~~
+
 Array.prototype.AddClasses = function(
     class_name_array
     )
@@ -436,6 +687,23 @@ Array.prototype.AddClasses = function(
         {
             node.classList.add( class_name );
         }
+    }
+
+    return this;
+}
+
+// ~~
+
+Array.prototype.RemoveClass = function(
+    class_name
+    )
+{
+    var
+        node;
+
+    for ( node of this )
+    {
+        node.classList.remove( class_name );
     }
 
     return this;
@@ -464,6 +732,24 @@ Array.prototype.RemoveClasses = function(
 
 // ~~
 
+Array.prototype.SetProperty = function(
+    property_name,
+    property_value
+    )
+{
+    var
+        node;
+
+    for ( node of this )
+    {
+        node.style[ property_name ] = property_value;
+    }
+
+    return this;
+}
+
+// ~~
+
 Array.prototype.SetProperties = function(
     property_map
     )
@@ -474,10 +760,129 @@ Array.prototype.SetProperties = function(
 
     for ( node of this )
     {
-        for ( property_name in property_array )
+        for ( property_name in property_map )
         {
             node.style[ property_name ] = property_map[ property_name ];
         }
+    }
+
+    return this;
+}
+
+// ~~
+
+Array.prototype.AnimateProperty = function(
+    property_name,
+    property_value,
+    animation_duration,
+    animation_configuration
+    )
+{
+    var
+        node;
+
+    for ( node of this )
+    {
+        AnimateProperty(
+            node,
+            property_name,
+            property_value,
+            animation_duration,
+            animation_configuration
+            );
+    }
+
+    return this;
+}
+
+// ~~
+
+Array.prototype.AnimateProperties = function(
+    property_map,
+    animation_duration,
+    animation_configuration
+    )
+{
+    var
+        node;
+
+    for ( node of this )
+    {
+        AnimateProperties(
+            node,
+            property_map,
+            animation_duration,
+            animation_configuration
+            );
+    }
+
+    return this;
+}
+
+
+// ~~
+
+Array.prototype.PauseProperty = function(
+    property_name
+    )
+{
+    var
+        node;
+
+    for ( node of this )
+    {
+        PauseProperty( node, property_name );
+    }
+
+    return this;
+}
+
+// ~~
+
+Array.prototype.PauseProperties = function(
+    property_name_array
+    )
+{
+    var
+        node;
+
+    for ( node of this )
+    {
+        PauseProperties( node, property_name_array );
+    }
+
+    return this;
+}
+
+// ~~
+
+Array.prototype.StopProperty = function(
+    property_name
+    )
+{
+    var
+        node;
+
+    for ( node of this )
+    {
+        StopProperty( node, property_name );
+    }
+
+    return this;
+}
+
+// ~~
+
+Array.prototype.StopProperties = function(
+    property_name_array
+    )
+{
+    var
+        node;
+
+    for ( node of this )
+    {
+        StopProperties( node, property_name_array );
     }
 
     return this;
