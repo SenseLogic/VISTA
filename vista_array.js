@@ -1,5 +1,3 @@
-"use strict";
-
 // -- FUNCTIONS
 
 Array.prototype.Apply = function(
@@ -30,14 +28,13 @@ Array.prototype.DumpNodes = function(
 // ~~
 
 Array.prototype.GetAncestorNodes = function(
-    node_selector,
-    node_type = 1
+    node_selector
     )
 {
     var
-        node,
         ancestor_node,
-        ancestor_node_array;
+        ancestor_node_array,
+        node;
 
     ancestor_node_array = [];
 
@@ -47,7 +44,7 @@ Array.prototype.GetAncestorNodes = function(
               ancestor_node != null;
               ancestor_node = ancestor_node.parent )
         {
-            if ( ancestor_node.nodeType === node_type
+            if ( ancestor_node.nodeType === 1
                  && ( node_selector === undefined
                       || ancestor_node.matches( node_selector ) ) )
             {
@@ -62,8 +59,7 @@ Array.prototype.GetAncestorNodes = function(
 // ~~
 
 Array.prototype.GetParentNodes = function(
-    node_selector,
-    node_type = 1
+    node_selector
     )
 {
     var
@@ -75,7 +71,7 @@ Array.prototype.GetParentNodes = function(
     for ( node of this )
     {
         if ( node.parent != null
-             && node.parent.nodeType == node_type
+             && node.parent.nodeType == 1
              && ( node_selector === undefined
                   || node.parent.matches( node_selector ) ) )
         {
@@ -89,8 +85,7 @@ Array.prototype.GetParentNodes = function(
 // ~~
 
 Array.prototype.GetPrecedingNodes = function(
-    node_selector,
-    node_type = 1
+    node_selector
     )
 {
     var
@@ -106,7 +101,7 @@ Array.prototype.GetPrecedingNodes = function(
               preceding_node != null;
               preceding_node = preceding_node.previousSibling )
         {
-            if ( preceding_node.nodeType === node_type
+            if ( preceding_node.nodeType === 1
                  && ( node_selector === undefined
                       || preceding_node.matches( node_selector ) ) )
             {
@@ -121,8 +116,7 @@ Array.prototype.GetPrecedingNodes = function(
 // ~~
 
 Array.prototype.GetPriorNodes = function(
-    node_selector,
-    node_type = 1
+    node_selector
     )
 {
     var
@@ -134,7 +128,7 @@ Array.prototype.GetPriorNodes = function(
     for ( node of this )
     {
         if ( node.previousSibling != null
-             && node.previousSibling.nodeType == node_type
+             && node.previousSibling.nodeType == 1
              && ( node_selector === undefined
                   || node.previousSibling.matches( node_selector ) ) )
         {
@@ -148,20 +142,19 @@ Array.prototype.GetPriorNodes = function(
 // ~~
 
 Array.prototype.GetNextNodes = function(
-    node_selector,
-    node_type = 1
+    node_selector
     )
 {
     var
-        node,
-        next_node_array;
+        next_node_array,
+        node;
 
     next_node_array = [];
 
     for ( node of this )
     {
         if ( node.nextSibling != null
-             && node.nextSibling.nodeType == node_type
+             && node.nextSibling.nodeType == 1
              && ( node_selector === undefined
                   || node.nextSibling.matches( node_selector ) ) )
         {
@@ -175,14 +168,13 @@ Array.prototype.GetNextNodes = function(
 // ~~
 
 Array.prototype.GetFollowingNodes = function(
-    node_selector,
-    node_type = 1
+    node_selector
     )
 {
     var
-        node,
         following_node,
-        following_node_array;
+        following_node_array,
+        node;
 
     following_node_array = [];
 
@@ -192,7 +184,7 @@ Array.prototype.GetFollowingNodes = function(
               following_node != null;
               following_node = following_node.nextSibling )
         {
-            if ( following_node.nodeType === node_type
+            if ( following_node.nodeType === 1
                  && ( node_selector === undefined
                       || following_node.matches( node_selector ) ) )
             {
@@ -207,14 +199,13 @@ Array.prototype.GetFollowingNodes = function(
 // ~~
 
 Array.prototype.GetChildNodes = function(
-    node_selector,
-    node_type = 1
+    node_selector
     )
 {
     var
-        node,
         child_node,
-        child_node_array;
+        child_node_array,
+        node;
 
     child_node_array = [];
 
@@ -222,7 +213,7 @@ Array.prototype.GetChildNodes = function(
     {
         for ( child_node of node.children )
         {
-            if ( child_node.nodeType == node_type
+            if ( child_node.nodeType == 1
                  && ( node_selector === undefined
                       || child_node.matches( node_selector ) ) )
             {
@@ -237,16 +228,15 @@ Array.prototype.GetChildNodes = function(
 // ~~
 
 Array.prototype.GetDescendantNodes = function(
-    node_selector,
-    node_type = 1
+    node_selector
     )
 {
     var
-        node,
+        child_node,
         descendant_node,
         descendant_node_array,
         descendant_node_list,
-        child_node;
+        node;
 
     descendant_node_array = [];
 
@@ -263,7 +253,7 @@ Array.prototype.GetDescendantNodes = function(
 
             for ( descendant_node of descendant_node_list )
             {
-                if ( descendant_node.nodeType == node_type )
+                if ( descendant_node.nodeType == 1 )
                 {
                     descendant_node_array.push( descendant_node );
                 }
@@ -277,8 +267,7 @@ Array.prototype.GetDescendantNodes = function(
 // ~~
 
 Array.prototype.GetMatchingNodes = function(
-    node_selector,
-    node_type = 1
+    node_selector
     )
 {
     var
@@ -289,7 +278,7 @@ Array.prototype.GetMatchingNodes = function(
 
     for ( node of this )
     {
-        if ( node.nodeType == node_type
+        if ( node.nodeType == 1
              && ( node_selector === undefined
                   || node.matches( node_selector ) ) )
         {
@@ -303,8 +292,7 @@ Array.prototype.GetMatchingNodes = function(
 // ~~
 
 Array.prototype.GetNodes = function(
-    node_selector,
-    node_type = 1
+    node_selector
     )
 {
     var
@@ -326,7 +314,7 @@ Array.prototype.GetNodes = function(
 
         for ( found_node of found_node_list )
         {
-            if ( found_node.nodeType == node_type )
+            if ( found_node.nodeType == 1 )
             {
                 found_node_array.push( found_node );
             }
