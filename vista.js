@@ -12,6 +12,7 @@ class PROPERTY_ANIMATION
         animation_configuration
         )
     {
+        this.Identifier = GetPropertyAnimationIdentifier();
         this.Node = node;
         this.FirstValue = node.style[ property_name ];
         this.Value = this.FirstValue;
@@ -25,7 +26,7 @@ class PROPERTY_ANIMATION
         this.EndFunction = animation_configuration.EndFunction;
         this.TimeFunction = animation_configuration.TimeFunction;
         this.ValueFunction = animation_configuration.ValueFunction;
-        this.StepFunction = animation_configuration.StepFunction;
+        this.UpdateFunction = animation_configuration.UpdateFunction;
         this.State = 0;
     }
 
@@ -40,6 +41,24 @@ class PROPERTY_ANIMATION
         {
             this.StartFunction( this );
         }
+
+        PropertyAnimationMap.set( this.id, this );
+
+        if ( PropertyAnimationMap.size === 1 )
+        {
+            StartAnimation();
+        }
+    }
+
+    // ~~
+
+    Update(
+        )
+    {
+        if ( this.UpdateFunction !== undefined )
+        {
+            this.UpdateFunction( this );
+        }
     }
 
     // ~~
@@ -53,6 +72,8 @@ class PROPERTY_ANIMATION
         {
             this.PauseFunction( this );
         }
+
+        PropertyAnimationMap.delete( this.id );
     }
 
     // ~~
@@ -66,6 +87,13 @@ class PROPERTY_ANIMATION
         {
             this.StopFunction( this );
         }
+
+        PropertyAnimationMap.delete( this.id );
+
+        if ( PropertyAnimationMap.size === 0 )
+        {
+            StopAnimation();
+        }
     }
 
     // ~~
@@ -77,19 +105,22 @@ class PROPERTY_ANIMATION
         {
             this.EndFunction( this );
         }
-    }
 
-    // ~~
+        PropertyAnimationMap.delete( this.id );
 
-    Step(
-        )
-    {
-        if ( this.StepFunction !== undefined )
+        if ( PropertyAnimationMap.size === 0 )
         {
-            this.StepFunction( this );
+            StopAnimation();
         }
     }
 }
+
+// -- VARIABLES
+
+var
+    PropertyAnimationIdentifier = 0,
+    PropertyAnimationInterval = null,
+    PropertyAnimationMap = new Map();
 
 // -- FUNCTIONS
 
@@ -189,6 +220,49 @@ function GetNodes(
 
 // ~~
 
+function GetPropertyAnimationIdentifier(
+    )
+{
+    return ++PropertyAnimationIdentifier;
+}
+
+// ~~
+
+function StartAnimation(
+    )
+{
+    if ( PropertyAnimationInterval === null )
+    {
+        PropertyAnimationInterval = setInterval( UpdateAnimation, 50 );
+    }
+}
+
+// ~~
+
+function UpdateAnimation(
+    )
+{
+    for ( property_animation of PropertyAnimationMap.values() )
+    {
+        property_animation.Update();
+    }
+}
+
+// ~~
+
+function StopAnimation(
+    )
+{
+    if ( PropertyAnimationInterval !== null )
+    {
+        clearInterval( PropertyAnimationInterval );
+
+        PropertyAnimationInterval = null;
+    }
+}
+
+// ~~
+
 function AnimateProperty(
     node,
     property_name,
@@ -216,6 +290,9 @@ function AnimateProperty(
               animation_configuration
               );
 
+    node.PropertyAnimationMap.set( property_name, property_animation );
+
+    property_animation.Start();
 }
 
 // ~~
