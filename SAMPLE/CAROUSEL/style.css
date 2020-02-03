@@ -340,11 +340,14 @@ a:hover {
   display: -ms-inline-grid;
   display: inline-grid;
 }
-.invisible {
+.hidden {
   visibility: hidden;
 }
 .visible {
   visibility: visible;
+}
+.collapse {
+  visibility: collapse;
 }
 .flex-direction-row {
   flex-direction: row;
@@ -567,72 +570,35 @@ a:hover {
   margin-left: auto;
   margin-right: auto;
 }
-.carousel-strip-2 {
+.carousel-strip-3 {
   display: flex;
   position: relative;
   left: 0;
   margin: 0;
   width: 300%;
 }
-.carousel-strip-animation-2 {
-  animation: 10s carousel-animation-2 infinite;
-  animation-timing-function: ease;
-}
-.carousel-slide-2 {
+.carousel-slide-3 {
   width: 33.333333333333336%;
 }
-@keyframes carousel-animation-2 {
+.carousel-strip-looping-animation-3 {
+  animation: 7s carousel-strip-looping-animation-3 infinite;
+  animation-timing-function: ease;
+}
+@keyframes carousel-strip-looping-animation-3 {
   0% {
     left: 0%;
   }
-  40% {
+  42.85714285714286% {
     left: 0%;
   }
   50% {
     left: -100%;
   }
-  90% {
+  92.85714285714286% {
     left: -100%;
   }
   100% {
     left: -200%;
-  }
-}
-.carousel-strip-3 {
-  display: flex;
-  position: relative;
-  left: 0;
-  margin: 0;
-  width: 400%;
-}
-.carousel-strip-animation-3 {
-  animation: 15s carousel-animation-3 infinite;
-  animation-timing-function: ease;
-}
-.carousel-slide-3 {
-  width: 25%;
-}
-@keyframes carousel-animation-3 {
-  0% {
-    left: 0%;
-  }
-  26.666666666666668% {
-    left: 0%;
-  }
-  33.33333333333333% {
-    left: -100%;
-  }
-  60% {
-    left: -100%;
-  }
-  66.66666666666666% {
-    left: -200%;
-  }
-  93.33333333333333% {
-    left: -200%;
-  }
-  100% {
-    left: -300%;
   }
 }
 .carousel-strip-4 {
@@ -640,42 +606,36 @@ a:hover {
   position: relative;
   left: 0;
   margin: 0;
-  width: 500%;
-}
-.carousel-strip-animation-4 {
-  animation: 20s carousel-animation-4 infinite;
-  animation-timing-function: ease;
+  width: 400%;
 }
 .carousel-slide-4 {
-  width: 20%;
+  width: 25%;
 }
-@keyframes carousel-animation-4 {
+.carousel-strip-looping-animation-4 {
+  animation: 10.5s carousel-strip-looping-animation-4 infinite;
+  animation-timing-function: ease;
+}
+@keyframes carousel-strip-looping-animation-4 {
   0% {
     left: 0%;
   }
-  20% {
+  28.571428571428577% {
     left: 0%;
   }
-  25% {
+  33.33333333333333% {
     left: -100%;
   }
-  45% {
+  61.904761904761905% {
     left: -100%;
   }
-  50% {
+  66.66666666666666% {
     left: -200%;
   }
-  70% {
+  95.23809523809524% {
     left: -200%;
-  }
-  75% {
-    left: -300%;
-  }
-  95% {
-    left: -300%;
   }
   100% {
-    left: -400%;
+    left: -300%;
   }
 }
 .carousel-strip-5 {
@@ -683,48 +643,42 @@ a:hover {
   position: relative;
   left: 0;
   margin: 0;
-  width: 600%;
-}
-.carousel-strip-animation-5 {
-  animation: 25s carousel-animation-5 infinite;
-  animation-timing-function: ease;
+  width: 500%;
 }
 .carousel-slide-5 {
-  width: 16.666666666666668%;
+  width: 20%;
 }
-@keyframes carousel-animation-5 {
+.carousel-strip-looping-animation-5 {
+  animation: 14s carousel-strip-looping-animation-5 infinite;
+  animation-timing-function: ease;
+}
+@keyframes carousel-strip-looping-animation-5 {
   0% {
     left: 0%;
   }
-  16% {
+  21.42857142857143% {
     left: 0%;
   }
-  20% {
+  25% {
     left: -100%;
   }
-  36% {
+  46.42857142857143% {
     left: -100%;
   }
-  40% {
+  50% {
     left: -200%;
   }
-  55.99999999999999% {
+  71.42857142857143% {
     left: -200%;
   }
-  60% {
+  75% {
     left: -300%;
   }
-  76% {
+  96.42857142857143% {
     left: -300%;
-  }
-  80% {
-    left: -400%;
-  }
-  96% {
-    left: -400%;
   }
   100% {
-    left: -500%;
+    left: -400%;
   }
 }
 .carousel-strip-6 {
@@ -732,54 +686,48 @@ a:hover {
   position: relative;
   left: 0;
   margin: 0;
-  width: 700%;
-}
-.carousel-strip-animation-6 {
-  animation: 30s carousel-animation-6 infinite;
-  animation-timing-function: ease;
+  width: 600%;
 }
 .carousel-slide-6 {
-  width: 14.285714285714286%;
+  width: 16.666666666666668%;
 }
-@keyframes carousel-animation-6 {
+.carousel-strip-looping-animation-6 {
+  animation: 17.5s carousel-strip-looping-animation-6 infinite;
+  animation-timing-function: ease;
+}
+@keyframes carousel-strip-looping-animation-6 {
   0% {
     left: 0%;
   }
-  13.333333333333334% {
+  17.142857142857142% {
     left: 0%;
   }
-  16.666666666666664% {
+  20% {
     left: -100%;
   }
-  30% {
+  37.142857142857146% {
     left: -100%;
   }
-  33.33333333333333% {
+  40% {
     left: -200%;
   }
-  46.666666666666664% {
+  57.14285714285714% {
     left: -200%;
   }
-  50% {
+  60% {
     left: -300%;
   }
-  63.33333333333333% {
+  77.14285714285715% {
     left: -300%;
-  }
-  66.66666666666666% {
-    left: -400%;
   }
   80% {
     left: -400%;
   }
-  83.33333333333334% {
-    left: -500%;
-  }
-  96.66666666666667% {
-    left: -500%;
+  97.14285714285715% {
+    left: -400%;
   }
   100% {
-    left: -600%;
+    left: -500%;
   }
 }
 html {

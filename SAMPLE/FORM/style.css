@@ -340,11 +340,14 @@ a:hover {
   display: -ms-inline-grid;
   display: inline-grid;
 }
-.invisible {
+.hidden {
   visibility: hidden;
 }
 .visible {
   visibility: visible;
+}
+.collapse {
+  visibility: collapse;
 }
 .flex-direction-row {
   flex-direction: row;
