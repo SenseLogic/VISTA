@@ -7,26 +7,56 @@ class PROPERTY_ANIMATION
     constructor(
         node,
         property_name,
-        property_value,
-        animation_duration,
+        property_value_array,
+        property_time_array,
         animation_configuration
         )
     {
         this.Identifier = GetPropertyAnimationIdentifier();
         this.Node = node;
-        this.FirstValue = node.style[ property_name ];
-        this.Value = this.FirstValue;
-        this.LastValue = property_value;
-        this.Time = 0.0;
-        this.Duration = animation_duration;
-        this.Delay = animation_configuration.Delay;
+        this.Name = property_name;
+
+        if ( property_value_array instanceof Array )
+        {
+            this.ValueArray = property_value_array;
+        }
+        else
+        {
+            this.ValueArray = [ property_value_array ];
+        }
+
+        if ( property_time_array instanceof Array )
+        {
+            this.TimeArray = property_time_array;
+        }
+        else
+        {
+            this.TimeArray = [ property_time_array ];
+        }
+
+        this.Time = animation_configuration.Time;
+
+        if ( this.Time === undefined )
+        {
+            this.Time = 0.0;
+        }
+
+        this.Speed = animation_configuration.Speed;
+
+        if ( this.Speed === undefined )
+        {
+            this.Speed = 1.0;
+        }
+
         this.StartFunction = animation_configuration.StartFunction;
         this.PauseFunction = animation_configuration.PauseFunction;
         this.StopFunction = animation_configuration.StopFunction;
         this.EndFunction = animation_configuration.EndFunction;
-        this.TimeFunction = animation_configuration.TimeFunction;
-        this.ValueFunction = animation_configuration.ValueFunction;
+        this.TimeInterpolationFunction = animation_configuration.TimeInterpolationFunction;
+        this.ValueInterpolationFunction = animation_configuration.ValueInterpolationFunction;
         this.UpdateFunction = animation_configuration.UpdateFunction;
+
+        this.Value = node.style[ property_name ];
         this.State = 0;
     }
 
@@ -266,9 +296,9 @@ function StopAnimation(
 function AnimateProperty(
     node,
     property_name,
-    property_value,
-    animation_duration,
-    animation_configuration
+    property_value_array,
+    property_time_array,
+    animation_configuration = {}
     )
 {
     if ( node.PropertyAnimationMap === undefined )
@@ -285,8 +315,8 @@ function AnimateProperty(
         = new PROPERTY_ANIMATION(
               node,
               property_name,
-              property_value,
-              animation_duration,
+              property_value_array,
+              property_time_array,
               animation_configuration
               );
 
@@ -299,20 +329,20 @@ function AnimateProperty(
 
 function AnimateProperties(
     node,
-    property_map,
-    animation_duration,
-    animation_configuration
+    property_value_array_map,
+    property_time_array,
+    animation_configuration = {}
     )
 {
     var
         property_name;
 
-    for ( property_name in property_map )
+    for ( property_name in property_value_array_map )
     {
         AnimateProperty(
             property_name,
-            property_map[ property_name ],
-            animation_duration,
+            property_value_array_map[ property_name ],
+            property_time_array,
             animation_configuration
             );
     }
@@ -828,7 +858,7 @@ Array.prototype.SetProperty = function(
 // ~~
 
 Array.prototype.SetProperties = function(
-    property_map
+    property_value_map
     )
 {
     var
@@ -837,9 +867,9 @@ Array.prototype.SetProperties = function(
 
     for ( node of this )
     {
-        for ( property_name in property_map )
+        for ( property_name in property_value_map )
         {
-            node.style[ property_name ] = property_map[ property_name ];
+            node.style[ property_name ] = property_value_map[ property_name ];
         }
     }
 
@@ -850,9 +880,9 @@ Array.prototype.SetProperties = function(
 
 Array.prototype.AnimateProperty = function(
     property_name,
-    property_value,
-    animation_duration,
-    animation_configuration
+    property_value_array,
+    property_time_array,
+    animation_configuration = {}
     )
 {
     var
@@ -863,8 +893,8 @@ Array.prototype.AnimateProperty = function(
         AnimateProperty(
             node,
             property_name,
-            property_value,
-            animation_duration,
+            property_value_array,
+            property_time_array,
             animation_configuration
             );
     }
@@ -875,9 +905,9 @@ Array.prototype.AnimateProperty = function(
 // ~~
 
 Array.prototype.AnimateProperties = function(
-    property_map,
-    animation_duration,
-    animation_configuration
+    property_value_array_map,
+    property_time_array,
+    animation_configuration = {}
     )
 {
     var
@@ -887,8 +917,8 @@ Array.prototype.AnimateProperties = function(
     {
         AnimateProperties(
             node,
-            property_map,
-            animation_duration,
+            property_value_array_map,
+            property_time_array,
             animation_configuration
             );
     }
