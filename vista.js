@@ -198,7 +198,7 @@ function GetJsonText(
 
 // ~~
 
-function Log(
+function Print(
     value
     )
 {
@@ -207,7 +207,7 @@ function Log(
 
 // ~~
 
-function Dump(
+function Log(
     value
     )
 {
@@ -216,11 +216,11 @@ function Dump(
 
 // ~~
 
-function DumpNode(
+function LogNode(
     node
     )
 {
-    Dump(
+    Log(
         {
             tagName : node.tagName,
             nodeType : node.nodeType,
@@ -236,17 +236,17 @@ function DumpNode(
             offsetHeight : node.offsetHeight,
             offsetLeft : node.offsetLeft,
             offsetTop : node.offsetTop,
-            scrollWith : node.scrollWidth,
+            scrollWidth : node.scrollWidth,
             scrollHeight : node.scrollHeight,
             scrollLeft : node.scrollLeft,
-            scrollTop : node.scrollTop,
+            scrollTop : node.scrollTop
         }
         );
 }
 
 // ~~
 
-function DebugNode(
+function DumpNode(
     node
     )
 {
@@ -255,19 +255,39 @@ function DebugNode(
 
 // ~~
 
-function Postpone(
-    start_function
+function DelayCall(
+    called_function,
+    delay_time
     )
 {
-    if ( document.readyState === "complete"
-         || document.readyState === "interactive" )
+    if ( delay_time === undefined )
     {
-        setTimeout( start_function, 1 );
+        if ( document.readyState === "complete"
+             || document.readyState === "interactive" )
+        {
+            return setTimeout( called_function, 1 );
+        }
+        else
+        {
+            document.addEventListener( "DOMContentLoaded", called_function );
+
+            return null;
+        }
     }
     else
     {
-        document.addEventListener( "DOMContentLoaded", start_function );
+        return setTimeout( called_function, delay_time * 1000 );
     }
+}
+
+// ~~
+
+function RepeatCall(
+    called_function,
+    delay_time
+    )
+{
+    return setInterval( called_function, delay_time * 1000 );
 }
 
 // ~~
@@ -540,17 +560,33 @@ Array.prototype.Apply = function(
     node_function
     )
 {
-    this.forEach( element_function );
+    this.forEach( node_function );
 
     return this;
 }
 
 // ~~
 
-Array.prototype.Dump = function(
+Array.prototype.Log = function(
     )
 {
-    Dump( this );
+    Log( this );
+
+    return this;
+}
+
+// ~~
+
+Array.prototype.LogNodes = function(
+    )
+{
+    var
+        node;
+
+    for ( node of this )
+    {
+        LogNode( node );
+    }
 
     return this;
 }
