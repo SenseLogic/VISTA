@@ -984,17 +984,200 @@ Array.prototype.RemoveClasses = function(
 
 // ~~
 
-Array.prototype.SetProperty = function(
-    property_name,
-    property_value
+Array.prototype.GetAttribute = function(
+    attribute_name
     )
 {
     var
+        attribute_value_array,
         node;
+
+    attribute_value_array = [];
 
     for ( node of this )
     {
-        node.style[ property_name ] = property_value;
+        attribute_value_array.push( node[ attribute_name ] );
+    }
+
+    return attribute_value_array;
+}
+
+// ~~
+
+Array.prototype.GetAttributes = function(
+    attribute_name_array
+    )
+{
+    var
+        attribute_value_array,
+        attribute_value_array_array,
+        node;
+
+    attribute_value_array_array = [];
+
+    for ( node of this )
+    {
+        attribute_value_array = [];
+
+        for ( attribute_name of attribute_name_array )
+        {
+            attribute_value_array.push( node[ attribute_name ] );
+        }
+
+        attribute_value_array_array.push( attribute_value_array );
+    }
+
+    return attribute_value_array_array;
+}
+
+// ~~
+
+Array.prototype.SetAttribute = function(
+    attribute_name,
+    attribute_value_array
+    )
+{
+    var
+        attribute_value_index,
+        node;
+
+    if ( attribute_value_array instanceof Array )
+    {
+        attribute_value_index = 0;
+
+        for ( node of this )
+        {
+            node[ attribute_name ] = attribute_value_array[ attribute_value_index ];
+
+            ++attribute_value_index;
+        }
+    }
+    else
+    {
+        for ( node of this )
+        {
+            node[ attribute_name ] = attribute_value_array;
+        }
+    }
+
+    return this;
+}
+
+// ~~
+
+Array.prototype.SetAttributes = function(
+    attribute_value_map
+    )
+{
+    var
+        node,
+        attribute_name,
+        attribute_value_array,
+        attribute_value_index;
+
+    for ( attribute_name in attribute_value_map )
+    {
+        attribute_value_array = attribute_value_map[ attribute_name ];
+
+        if ( attribute_value_array instanceof Array )
+        {
+            attribute_value_index = 0;
+
+            for ( node of this )
+            {
+                node.style[ attribute_name ] = attribute_value_array[ attribute_value_index ];
+
+                ++attribute_value_index;
+            }
+        }
+        else
+        {
+            for ( node of this )
+            {
+                node.style[ attribute_name ] = attribute_value_array;
+            }
+        }
+    }
+
+    return this;
+}
+
+// ~~
+
+Array.prototype.GetProperty = function(
+    property_name
+    )
+{
+    var
+        property_value_array,
+        node;
+
+    property_value_array = [];
+
+    for ( node of this )
+    {
+        property_value_array.push( node.style[ property_name ] );
+    }
+
+    return property_value_array;
+}
+
+// ~~
+
+Array.prototype.GetProperties = function(
+    property_name_array
+    )
+{
+    var
+        property_value_array,
+        property_value_array_array,
+        node;
+
+    property_value_array_array = [];
+
+    for ( node of this )
+    {
+        property_value_array = [];
+
+        for ( property_name of property_name_array )
+        {
+            property_value_array.push( node.style[ property_name ] );
+        }
+
+        property_value_array_array.push( property_value_array );
+    }
+
+    return property_value_array_array;
+}
+
+// ~~
+
+Array.prototype.SetProperty = function(
+    property_name,
+    property_value_array
+    )
+{
+    var
+        property_value_index,
+        node;
+
+    if ( property_value_array instanceof Array )
+    {
+        property_value_index = 0;
+
+        for ( node of this )
+        {
+            node[ property_name ] = property_value_array[ property_value_index ];
+
+            ++property_value_index;
+        }
+    }
+    else
+    {
+        for ( node of this )
+        {
+            node[ property_name ] = property_value_array;
+        }
     }
 
     return this;
@@ -1008,13 +1191,31 @@ Array.prototype.SetProperties = function(
 {
     var
         node,
-        property_name;
+        property_name,
+        property_value_array,
+        property_value_index;
 
-    for ( node of this )
+    for ( property_name in property_value_map )
     {
-        for ( property_name in property_value_map )
+        property_value_array = property_value_map[ property_name ];
+
+        if ( property_value_array instanceof Array )
         {
-            node.style[ property_name ] = property_value_map[ property_name ];
+            property_value_index = 0;
+
+            for ( node of this )
+            {
+                node.style[ property_name ] = property_value_array[ property_value_index ];
+
+                ++property_value_index;
+            }
+        }
+        else
+        {
+            for ( node of this )
+            {
+                node.style[ property_name ] = property_value_array;
+            }
         }
     }
 
