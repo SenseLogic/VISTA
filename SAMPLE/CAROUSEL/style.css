@@ -577,14 +577,11 @@ a:hover {
   margin: 0;
   width: 300%;
 }
-.carousel-slide-3 {
-  width: 33.333333333333336%;
-}
-.carousel-strip-looping-animation-3 {
-  animation: 7s carousel-strip-looping-animation-3 infinite;
+.carousel-strip-animation-3-3000-500 {
+  animation: 7s carousel-strip-animation-3-3000-500 infinite;
   animation-timing-function: ease;
 }
-@keyframes carousel-strip-looping-animation-3 {
+@keyframes carousel-strip-animation-3-3000-500 {
   0% {
     left: 0%;
   }
@@ -601,6 +598,9 @@ a:hover {
     left: -200%;
   }
 }
+.carousel-slide-3 {
+  width: 33.333333333333336%;
+}
 .carousel-strip-4 {
   display: flex;
   position: relative;
@@ -608,14 +608,11 @@ a:hover {
   margin: 0;
   width: 400%;
 }
-.carousel-slide-4 {
-  width: 25%;
-}
-.carousel-strip-looping-animation-4 {
-  animation: 10.5s carousel-strip-looping-animation-4 infinite;
+.carousel-strip-animation-4-3000-500 {
+  animation: 10.5s carousel-strip-animation-4-3000-500 infinite;
   animation-timing-function: ease;
 }
-@keyframes carousel-strip-looping-animation-4 {
+@keyframes carousel-strip-animation-4-3000-500 {
   0% {
     left: 0%;
   }
@@ -638,6 +635,9 @@ a:hover {
     left: -300%;
   }
 }
+.carousel-slide-4 {
+  width: 25%;
+}
 .carousel-strip-5 {
   display: flex;
   position: relative;
@@ -645,14 +645,11 @@ a:hover {
   margin: 0;
   width: 500%;
 }
-.carousel-slide-5 {
-  width: 20%;
-}
-.carousel-strip-looping-animation-5 {
-  animation: 14s carousel-strip-looping-animation-5 infinite;
+.carousel-strip-animation-5-3000-500 {
+  animation: 14s carousel-strip-animation-5-3000-500 infinite;
   animation-timing-function: ease;
 }
-@keyframes carousel-strip-looping-animation-5 {
+@keyframes carousel-strip-animation-5-3000-500 {
   0% {
     left: 0%;
   }
@@ -681,6 +678,9 @@ a:hover {
     left: -400%;
   }
 }
+.carousel-slide-5 {
+  width: 20%;
+}
 .carousel-strip-6 {
   display: flex;
   position: relative;
@@ -688,14 +688,11 @@ a:hover {
   margin: 0;
   width: 600%;
 }
-.carousel-slide-6 {
-  width: 16.666666666666668%;
-}
-.carousel-strip-looping-animation-6 {
-  animation: 17.5s carousel-strip-looping-animation-6 infinite;
+.carousel-strip-animation-6-3000-500 {
+  animation: 17.5s carousel-strip-animation-6-3000-500 infinite;
   animation-timing-function: ease;
 }
-@keyframes carousel-strip-looping-animation-6 {
+@keyframes carousel-strip-animation-6-3000-500 {
   0% {
     left: 0%;
   }
@@ -729,6 +726,9 @@ a:hover {
   100% {
     left: -500%;
   }
+}
+.carousel-slide-6 {
+  width: 16.666666666666668%;
 }
 html {
   background: #fff;

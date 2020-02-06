@@ -5,9 +5,7 @@
 
 // ~~
 
-MakeCarousel( slide_count, pause_duration = 4s, translation_duration = 1s )
-
-    slide_duration = pause_duration + translation_duration
+MakeCarouselStrip( slide_count, pause_duration = 0, translation_duration = 0 )
 
     .carousel-strip-{slide_count}
     {
@@ -18,35 +16,43 @@ MakeCarousel( slide_count, pause_duration = 4s, translation_duration = 1s )
         width: slide_count * 100%;
     }
 
+    if pause_duration > 0
+
+        slide_duration = pause_duration + translation_duration
+
+        vendors = official
+
+        @keyframes carousel-strip-animation-{slide_count}-{pause_duration}-{translation_duration}
+
+            for slide_index in 0 .. slide_count - 2
+
+                show_time = slide_index / ( slide_count - 1 )
+                move_time = ( slide_index + ( 1.0 - translation_duration / slide_duration ) ) / ( slide_count - 1 )
+
+                {100% * show_time}
+
+                    left: -100% * slide_index;
+
+                {100% * move_time}
+
+                    left: -100% * slide_index;
+
+            100%
+            {
+                left: -100% * ( slide_count - 1 );
+            }
+
+        .carousel-strip-animation-{slide_count}-{pause_duration}-{translation_duration}
+        {
+            animation: ( slide_count - 1 ) * slide_duration * 0.001s carousel-strip-animation- + slide_count + "-" + pause_duration + "-" + translation_duration infinite;
+            animation-timing-function: ease;
+        }
+
+// ~~
+
+MakeCarouselSlide( slide_count )
+
     .carousel-slide-{slide_count}
     {
         width: ( 100% / slide_count );
-    }
-
-    vendors = official
-
-    @keyframes carousel-strip-looping-animation-{slide_count}
-
-        for slide_index in 0 .. slide_count - 2
-
-            show_time = slide_index / ( slide_count - 1 )
-            move_time = ( slide_index + ( 1.0 - translation_duration / slide_duration ) ) / ( slide_count - 1 )
-
-            {100% * show_time}
-
-                left: -100% * slide_index;
-
-            {100% * move_time}
-
-                left: -100% * slide_index;
-
-        100%
-        {
-            left: -100% * ( slide_count - 1 );
-        }
-
-    .carousel-strip-looping-animation-{slide_count}
-    {
-        animation: ( slide_count - 1 ) * slide_duration carousel-strip-looping-animation- + slide_count infinite;
-        animation-timing-function: ease;
     }
