@@ -34,6 +34,12 @@ class PROPERTY_ANIMATION
             this.TimeArray = [ property_time_array ];
         }
 
+        if ( this.TimeArray[ 1 ] > 0.0 )
+        {
+            this.ValueArray.unshift( node.style[ property_name ] );
+            this.TimeArray.unshift( 0.0 );
+        }
+
         this.Time = animation_configuration.Time;
 
         if ( this.Time === undefined )
