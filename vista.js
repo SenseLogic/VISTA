@@ -15,6 +15,44 @@ class PROPERTY_ANIMATION
         this.Identifier = GetPropertyAnimationIdentifier();
         this.Node = node;
         this.Name = property_name;
+        this.State = 0;
+
+        this.Time = animation_configuration.Time;
+
+        if ( this.Time === undefined )
+        {
+            this.Time = 0.0;
+        }
+
+        this.Speed = animation_configuration.Speed;
+
+        if ( this.Speed === undefined )
+        {
+            this.Speed = 1.0;
+        }
+
+        this.Unit = animation_configuration.Unit;
+
+        if ( this.Unit === undefined )
+        {
+            this.Unit = "";
+        }
+
+        this.IsLooping = animation_configuration.StartFunction;
+
+        if ( this.IsLooping === undefined )
+        {
+            this.IsLooping = false;
+        }
+
+        this.StartFunction = animation_configuration.StartFunction;
+        this.PauseFunction = animation_configuration.PauseFunction;
+        this.ResumeFunction = animation_configuration.ResumeFunction;
+        this.StopFunction = animation_configuration.StopFunction;
+        this.FinishFunction = animation_configuration.FinishFunction;
+        this.TimeInterpolationFunction = animation_configuration.TimeInterpolationFunction;
+        this.ValueInterpolationFunction = animation_configuration.ValueInterpolationFunction;
+        this.UpdateFunction = animation_configuration.UpdateFunction;
 
         if ( property_value_array instanceof Array )
         {
@@ -34,37 +72,19 @@ class PROPERTY_ANIMATION
             this.TimeArray = [ property_time_array ];
         }
 
-        if ( this.TimeArray[ 1 ] > 0.0 )
+        if ( this.TimeArray.length == 0
+             || this.TimeArray[ 0 ] > 0.0 )
         {
             this.ValueArray.unshift( node.style[ property_name ] );
             this.TimeArray.unshift( 0.0 );
         }
-
-        this.Time = animation_configuration.Time;
-
-        if ( this.Time === undefined )
+        else
         {
-            this.Time = 0.0;
+            node.style[ property_name ] = this.ValueArray[ 0 ] + Unit;
         }
 
-        this.Speed = animation_configuration.Speed;
-
-        if ( this.Speed === undefined )
-        {
-            this.Speed = 1.0;
-        }
-
-        this.StartFunction = animation_configuration.StartFunction;
-        this.PauseFunction = animation_configuration.PauseFunction;
-        this.ResumeFunction = animation_configuration.ResumeFunction;
-        this.StopFunction = animation_configuration.StopFunction;
-        this.FinishFunction = animation_configuration.FinishFunction;
-        this.TimeInterpolationFunction = animation_configuration.TimeInterpolationFunction;
-        this.ValueInterpolationFunction = animation_configuration.ValueInterpolationFunction;
-        this.UpdateFunction = animation_configuration.UpdateFunction;
-
-        this.Value = node.style[ property_name ];
-        this.State = 0;
+        this.Duration = this.TimeArray[ this.TimeArray.length - 1 ];
+        this.ValueIndex = 0;
     }
 
     // -- OPERATIONS
@@ -168,11 +188,103 @@ class PROPERTY_ANIMATION
     // ~~
 
     Update(
+        step_time
         )
     {
+        var
+            prior_time,
+            prior_value,
+            prior_value_index,
+            next_time,
+            next_value,
+            next_value_index,
+            value,
+            value_count,
+            value_duration,
+            value_time;
+
+        this.Time += step_time;
+
+        if ( this.Time >= this.Duration )
+        {
+            if ( this.IsLooping )
+            {
+                while ( this.Time >= this.Duration )
+                {
+                    this.Time -= this.Duration;
+                }
+            }
+            else
+            {
+                this.Time = this.Duration;
+            }
+        }
+
+        value_count = this.ValueArray.length;
+
+        prior_value_index = this.PriorValueIndex;
+
+        while ( prior_value_index - 1 >= 0
+                && this.TimeArray[ prior_value_index - 1 ] > this.Time )
+        {
+            --prior_value_index;
+        }
+
+        while ( prior_value_index + 1 < value_count
+                && this.TimeArray[ prior_value_index + 1 ] <= this.Time )
+        {
+            ++prior_value_index;
+        }
+
+        this.PriorValueIndex = prior_value_index;
+
+        next_value_index = prior_value_index + 1;
+
+        if ( next_value_index >= this.ValueCount )
+        {
+            if ( this.IsLooping )
+            {
+                next_value_index = 0;
+            }
+            else
+            {
+                next_value_index = ValueCount;
+            }
+        }
+
+        prior_time = this.TimeArray[ prior_value_index ];
+        prior_value = this.ValueArray[ prior_value_index ];
+
+        next_time = this.TimeArray[ next_value_index ];
+        next_value = this.ValueArray[ next_value_index ];
+
+        value_time = Time - prior_time;
+        value_duration = next_time - prior_value;
+
+        if ( value_time === 0.0
+             || value_duration === 0.0 )
+        {
+            value = prior_value;
+        }
+        else
+        {
+            value
+                = prior_value
+                  + ( next_value - prior_value )
+                    * ( value_time / value_duration );
+        }
+
+        node.style[ property_name ] = value + Unit;
+
         if ( this.UpdateFunction !== undefined )
         {
             this.UpdateFunction( this );
+        }
+
+        if ( this.Time === this.Duration
+             && !this.IsLooping )
+        {
+            Stop();
         }
     }
 }
@@ -343,6 +455,9 @@ function GetPropertyAnimationIdentifier(
 function StartAnimation(
     )
 {
+    AnimationPriorTime = new Date();
+    AnimationStepTime = 0;
+
     if ( PropertyAnimationInterval === null )
     {
         PropertyAnimationInterval = setInterval( UpdateAnimation, 50 );
@@ -354,9 +469,17 @@ function StartAnimation(
 function UpdateAnimation(
     )
 {
+    var
+        animation_time;
+
+    animation_time = new Date();
+
+    AnimationStepTime = animation_time - AnimationPriorTime;
+    AnimationPriorTime = animation_time;
+
     for ( property_animation of PropertyAnimationMap.values() )
     {
-        property_animation.Update();
+        property_animation.Update( AnimationStepTime );
     }
 }
 
