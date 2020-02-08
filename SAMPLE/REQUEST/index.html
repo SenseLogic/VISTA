@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>Sample</title>
+    </head>
+    <body>
+        <main>
+            <div id="get-response">
+            </div>
+            <div id="post-response">
+            </div>
+        </main>
+    </body>
+    <script src="../../vista.js"></script>
+    <script>
+        SendRequest(
+            "GET",
+            "https://jsonplaceholder.typicode.com/todos/1",
+            null,
+            {},
+            function (
+                request
+                )
+            {
+                GetElementById( "get-response" ).innerHTML
+                    = request.status
+                      + ", "
+                      + request.statusText
+                      + ", "
+                      + request.responseText;
+            }
+            );
+
+        SendRequest(
+            "POST",
+            "https://jsonplaceholder.typicode.com/posts",
+            GetJsonText(
+                {
+                    title: 'foo',
+                    body: 'bar',
+                    userId: 1
+                }
+                ),
+            {
+                "Content-type": "application/json; charset=UTF-8"
+            },
+            function (
+                request
+                )
+            {
+                GetElementById( "post-response" ).innerHTML
+                    = request.status
+                      + ", "
+                      + request.statusText
+                      + ", "
+                      + request.responseText;
+            }
+            );
+
+
+    </script>
+</html>

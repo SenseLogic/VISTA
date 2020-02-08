@@ -5,7 +5,7 @@ class PROPERTY_ANIMATION
     // -- CONSTRUCTORS
 
     constructor(
-        node,
+        element,
         property_name,
         property_value_array,
         property_time_array,
@@ -13,7 +13,7 @@ class PROPERTY_ANIMATION
         )
     {
         this.Identifier = GetPropertyAnimationIdentifier();
-        this.Node = node;
+        this.Element = element;
         this.Name = property_name;
         this.State = 0;
 
@@ -31,13 +31,6 @@ class PROPERTY_ANIMATION
             this.Speed = 1.0;
         }
 
-        this.Unit = animation_configuration.Unit;
-
-        if ( this.Unit === undefined )
-        {
-            this.Unit = "";
-        }
-
         this.IsLooping = animation_configuration.StartFunction;
 
         if ( this.IsLooping === undefined )
@@ -50,9 +43,13 @@ class PROPERTY_ANIMATION
         this.ResumeFunction = animation_configuration.ResumeFunction;
         this.StopFunction = animation_configuration.StopFunction;
         this.FinishFunction = animation_configuration.FinishFunction;
-        this.TimeInterpolationFunction = animation_configuration.TimeInterpolationFunction;
-        this.ValueInterpolationFunction = animation_configuration.ValueInterpolationFunction;
         this.UpdateFunction = animation_configuration.UpdateFunction;
+        this.InterpolationFunction = animation_configuration.InterpolationFunction;
+
+        if ( this.InterpolationFunction === undefined )
+        {
+            this.InterpolationFunction = GetLinearInterpolation;
+        }
 
         if ( property_value_array instanceof Array )
         {
@@ -72,15 +69,22 @@ class PROPERTY_ANIMATION
             this.TimeArray = [ property_time_array ];
         }
 
+        this.Unit = animation_configuration.Unit;
+
+        if ( this.Unit === undefined )
+        {
+            this.Unit = "";
+        }
+
         if ( this.TimeArray.length == 0
              || this.TimeArray[ 0 ] > 0.0 )
         {
-            this.ValueArray.unshift( node.style[ property_name ] );
+            this.ValueArray.unshift( parseFloat( element.style[ property_name ] ) );
             this.TimeArray.unshift( 0.0 );
         }
         else
         {
-            node.style[ property_name ] = this.ValueArray[ 0 ] + Unit;
+            element.style[ property_name ] = this.ValueArray[ 0 ] + Unit;
         }
 
         this.Duration = this.TimeArray[ this.TimeArray.length - 1 ];
@@ -269,12 +273,14 @@ class PROPERTY_ANIMATION
         else
         {
             value
-                = prior_value
-                  + ( next_value - prior_value )
-                    * ( value_time / value_duration );
+                = this.InterpolationFunction(
+                    prior_value,
+                    next_value,
+                    value_time / value_duration
+                    );
         }
 
-        node.style[ property_name ] = value + Unit;
+        element.style[ property_name ] = value + Unit;
 
         if ( this.UpdateFunction !== undefined )
         {
@@ -298,6 +304,17 @@ var
 
 // -- FUNCTIONS
 
+function GetLinearInterpolation(
+    prior_value,
+    next_value,
+    next_value_ratio
+    )
+{
+    return prior_value + ( next_value - prior_value ) * next_value_ratio;
+}
+
+// ~~
+
 function GetJsonValue(
     json_text
     )
@@ -312,6 +329,21 @@ function GetJsonText(
     )
 {
     return JSON.stringify( value );
+}
+
+// ~~
+
+function GetUnescapedHtml(
+    html_text
+    )
+{
+    var
+        text_area_element;
+
+    text_area_element = document.createElement( "textarea" );
+    text_area_element.innerHTML = html_text;
+
+    return text_area_element.value;
 }
 
 // ~~
@@ -334,41 +366,111 @@ function Log(
 
 // ~~
 
-function LogNode(
-    node
+function LogElement(
+    element
     )
 {
     Log(
         {
-            tagName : node.tagName,
-            nodeType : node.nodeType,
-            id : node.id,
-            classList : node.classList,
-            style : node.style,
-            dataset : node.dataset,
-            clientWidth : node.clientWidth,
-            clientHeight : node.clientHeight,
-            clientLeft : node.clientLeft,
-            clientTop : node.clientTop,
-            offsetWidth : node.offsetWidth,
-            offsetHeight : node.offsetHeight,
-            offsetLeft : node.offsetLeft,
-            offsetTop : node.offsetTop,
-            scrollWidth : node.scrollWidth,
-            scrollHeight : node.scrollHeight,
-            scrollLeft : node.scrollLeft,
-            scrollTop : node.scrollTop
+            tagName : element.tagName,
+            elementType : element.elementType,
+            id : element.id,
+            classList : element.classList,
+            style : element.style,
+            dataset : element.dataset,
+            clientWidth : element.clientWidth,
+            clientHeight : element.clientHeight,
+            clientLeft : element.clientLeft,
+            clientTop : element.clientTop,
+            offsetWidth : element.offsetWidth,
+            offsetHeight : element.offsetHeight,
+            offsetLeft : element.offsetLeft,
+            offsetTop : element.offsetTop,
+            scrollWidth : element.scrollWidth,
+            scrollHeight : element.scrollHeight,
+            scrollLeft : element.scrollLeft,
+            scrollTop : element.scrollTop
         }
         );
 }
 
 // ~~
 
-function DumpNode(
-    node
+function DumpElement(
+    element
     )
 {
-    console.dir( node );
+    console.dir( element );
+}
+
+// ~~
+
+function IsVisibleElement(
+    element,
+    bottom_offset = 0,
+    top_offset = 0,
+    left_offset = 0,
+    right_offset = 0
+    )
+{
+    var
+        bounding_client_rectangle;
+
+    bounding_client_rectangle = element.getBoundingClientRect();
+
+    return (
+        ( bounding_client_rectangle.height > 0
+          || bounding_client_rectangle.width > 0 )
+        && bounding_client_rectangle.bottom >= bottom_offset
+        && bounding_client_rectangle.right >= right_offset
+        && bounding_client_rectangle.top + top_offset <= ( window.innerHeight || document.documentElement.clientHeight )
+        && bounding_client_rectangle.left + left_offset <= ( window.innerWidth || document.documentElement.clientWidth )
+        );
+}
+
+// ~~
+
+function GetElementById(
+    element_id
+    )
+{
+    return document.getElementById( element_id );
+}
+
+// ~~
+
+function GetElementsByClasses(
+    element_classes
+    )
+{
+    return document.getElementsByClassName( element_classes );
+}
+
+// ~~
+
+function GetElementsByName(
+    element_name
+    )
+{
+    return document.getElementsByName( element_name );
+}
+
+// ~~
+
+function GetElement(
+    element_selector
+    )
+{
+    return document.querySelector( element_selector );
+}
+
+// ~~
+
+function GetElements(
+    element_selector
+    )
+{
+    return Array.from( document.querySelectorAll( element_selector ) );
 }
 
 // ~~
@@ -410,36 +512,43 @@ function RepeatCall(
 
 // ~~
 
-function IsVisibleNode(
-    node,
-    bottom_offset = 0,
-    top_offset = 0,
-    left_offset = 0,
-    right_offset = 0
+function SendRequest(
+    method,
+    url,
+    body,
+    header_map,
+    callback_function
     )
 {
     var
-        bounding_client_rectangle;
+        header_name,
+        request;
 
-    bounding_client_rectangle = node.getBoundingClientRect();
+    request = new XMLHttpRequest();
+    request.open( method, url, true );
+    request.onreadystatechange
+        = function()
+          {
+              if ( this.readyState == 4
+                   && callback_function !== undefined )
+              {
+                  callback_function( request );
+              }
+          };
 
-    return (
-        ( bounding_client_rectangle.height > 0
-          || bounding_client_rectangle.width > 0 )
-        && bounding_client_rectangle.bottom >= bottom_offset
-        && bounding_client_rectangle.right >= right_offset
-        && bounding_client_rectangle.top + top_offset <= ( window.innerHeight || document.documentElement.clientHeight )
-        && bounding_client_rectangle.left + left_offset <= ( window.innerWidth || document.documentElement.clientWidth )
-        );
-}
+    if ( header_map !== undefined )
+    {
+        for ( header_name in header_map )
+        {
+            request.setRequestHeader( header_name, header_map[ header_name ] );
+        }
+    }
+    else if ( method == "POST" )
+    {
+        request.setRequestHeader( "Content-type", "application/x-www-form-urlencoded" );
+    }
 
-// ~~
-
-function GetNodes(
-    node_selector
-    )
-{
-    return Array.from( document.querySelectorAll( node_selector ) );
+    request.send( body );
 }
 
 // ~~
@@ -499,33 +608,33 @@ function StopAnimation(
 // ~~
 
 function StartProperty(
-    node,
+    element,
     property_name,
     property_value_array,
     property_time_array,
     animation_configuration = {}
     )
 {
-    if ( node.PropertyAnimationMap === undefined )
+    if ( element.PropertyAnimationMap === undefined )
     {
-        node.PropertyAnimationMap = new Map();
+        element.PropertyAnimationMap = new Map();
     }
 
-    if ( node.PropertyAnimationMap.has( property_name ) )
+    if ( element.PropertyAnimationMap.has( property_name ) )
     {
-        node.PropertyAnimationMap.get( property_name ).Stop();
+        element.PropertyAnimationMap.get( property_name ).Stop();
     }
 
     property_animation
         = new PROPERTY_ANIMATION(
-              node,
+              element,
               property_name,
               property_value_array,
               property_time_array,
               animation_configuration
               );
 
-    node.PropertyAnimationMap.set( property_name, property_animation );
+    element.PropertyAnimationMap.set( property_name, property_animation );
 
     property_animation.Start();
 }
@@ -533,7 +642,7 @@ function StartProperty(
 // ~~
 
 function StartProperties(
-    node,
+    element,
     property_value_array_map,
     property_time_array,
     animation_configuration = {}
@@ -556,21 +665,21 @@ function StartProperties(
 // ~~
 
 function PauseProperty(
-    node,
+    element,
     property_name
     )
 {
-    if ( node.PropertyAnimationMap !== undefined
-         && node.PropertyAnimationMap.has( property_name ) )
+    if ( element.PropertyAnimationMap !== undefined
+         && element.PropertyAnimationMap.has( property_name ) )
     {
-        node.PropertyAnimationMap.get( property_name ).Pause();
+        element.PropertyAnimationMap.get( property_name ).Pause();
     }
 }
 
 // ~~
 
 function PauseProperties(
-    node,
+    element,
     property_name_array
     )
 {
@@ -579,9 +688,9 @@ function PauseProperties(
 
     if ( property_name_array === undefined )
     {
-        if ( node.PropertyAnimationMap !== undefined )
+        if ( element.PropertyAnimationMap !== undefined )
         {
-            for ( property_animation of node.PropertyAnimationMap.values() )
+            for ( property_animation of element.PropertyAnimationMap.values() )
             {
                 property_animation.Pause();
             }
@@ -591,7 +700,7 @@ function PauseProperties(
     {
         for ( property_name of property_name_array )
         {
-            PauseProperty( node, property_name );
+            PauseProperty( element, property_name );
         }
     }
 }
@@ -599,21 +708,21 @@ function PauseProperties(
 // ~~
 
 function ResumeProperty(
-    node,
+    element,
     property_name
     )
 {
-    if ( node.PropertyAnimationMap !== undefined
-         && node.PropertyAnimationMap.has( property_name ) )
+    if ( element.PropertyAnimationMap !== undefined
+         && element.PropertyAnimationMap.has( property_name ) )
     {
-        node.PropertyAnimationMap.get( property_name ).Resume();
+        element.PropertyAnimationMap.get( property_name ).Resume();
     }
 }
 
 // ~~
 
 function ResumeProperties(
-    node,
+    element,
     property_name_array
     )
 {
@@ -622,9 +731,9 @@ function ResumeProperties(
 
     if ( property_name_array === undefined )
     {
-        if ( node.PropertyAnimationMap !== undefined )
+        if ( element.PropertyAnimationMap !== undefined )
         {
-            for ( property_animation of node.PropertyAnimationMap.values() )
+            for ( property_animation of element.PropertyAnimationMap.values() )
             {
                 property_animation.Resume();
             }
@@ -634,7 +743,7 @@ function ResumeProperties(
     {
         for ( property_name of property_name_array )
         {
-            ResumeProperty( node, property_name );
+            ResumeProperty( element, property_name );
         }
     }
 }
@@ -642,21 +751,21 @@ function ResumeProperties(
 // ~~
 
 function StopProperty(
-    node,
+    element,
     property_name
     )
 {
-    if ( node.PropertyAnimationMap !== undefined
-         && node.PropertyAnimationMap.has( property_name ) )
+    if ( element.PropertyAnimationMap !== undefined
+         && element.PropertyAnimationMap.has( property_name ) )
     {
-        node.PropertyAnimationMap.get( property_name ).Stop();
+        element.PropertyAnimationMap.get( property_name ).Stop();
     }
 }
 
 // ~~
 
 function StopProperties(
-    node,
+    element,
     property_name_array
     )
 {
@@ -666,9 +775,9 @@ function StopProperties(
 
     if ( property_name_array === undefined )
     {
-        if ( node.PropertyAnimationMap !== undefined )
+        if ( element.PropertyAnimationMap !== undefined )
         {
-            for ( property_animation of node.PropertyAnimationMap.values() )
+            for ( property_animation of element.PropertyAnimationMap.values() )
             {
                 property_animation.Stop();
             }
@@ -678,18 +787,91 @@ function StopProperties(
     {
         for ( property_name of property_name_array )
         {
-            StopProperty( node, property_name );
+            StopProperty( element, property_name );
         }
     }
 }
 
 // ~~
 
-Array.prototype.Apply = function(
-    node_function
+function GetTemplateTextFunction(
+    template_text,
+    template_argument_list
     )
 {
-    this.forEach( node_function );
+    var
+        code,
+        part_array,
+        section_array,
+        section_count,
+        template_text,
+        text;
+
+    section_array = template_text.split( "\r" ).join( "" ).split( "<%" );
+    section_count = section_array.length;
+
+    template_function_code = "(";
+
+    if ( template_argument_list !== undefined )
+    {
+        template_function_code += template_argument_list;
+    }
+
+    template_function_code += ") => {\nvar result = " + JSON.stringify( section_array[ 0 ] ) + ";\n";
+
+    for ( section_index = 1;
+          section_index < section_count;
+          ++section_index )
+    {
+        section_part_array = section_array[ section_index ].split( "%>" );
+        section_code = section_part_array.shift();
+        section_text = section_part_array.join( "%>" );
+
+        if ( section_code.startsWith( "=" ) )
+        {
+            template_function_code += "result += " + section_code.substring( 1 ).trim() + ";\n";
+        }
+        else
+        {
+            template_function_code += section_code;
+        }
+
+        if ( section_text.length > 0 )
+        {
+            template_function_code += "result += " + JSON.stringify( section_text ) + ";\n";
+        }
+    }
+
+    template_function_code += "return result;\n}";
+
+    return eval( template_function_code );
+}
+
+// ~~
+
+function GetTemplateElementFunction(
+    template_element,
+    template_argument_list
+    )
+{
+    if ( template_argument_list === undefined )
+    {
+        template_argument_list = template_element.dataset.argumentList;
+    }
+
+    return GetTemplateTextFunction(
+        GetUnescapedHtml( template_element.innerHTML ),
+        template_argument_list
+        );
+}
+
+// ~~
+
+Array.prototype.Apply = function(
+    element_function
+    )
+{
+    this.forEach( element_function );
 
     return this;
 }
@@ -706,15 +888,15 @@ Array.prototype.Log = function(
 
 // ~~
 
-Array.prototype.LogNodes = function(
+Array.prototype.LogElements = function(
     )
 {
     var
-        node;
+        element;
 
-    for ( node of this )
+    for ( element of this )
     {
-        LogNode( node );
+        LogElement( element );
     }
 
     return this;
@@ -722,15 +904,15 @@ Array.prototype.LogNodes = function(
 
 // ~~
 
-Array.prototype.DumpNodes = function(
+Array.prototype.DumpElements = function(
     )
 {
     var
-        node;
+        element;
 
-    for ( node of this )
+    for ( element of this )
     {
-        DumpNode( node );
+        DumpElement( element );
     }
 
     return this;
@@ -738,301 +920,301 @@ Array.prototype.DumpNodes = function(
 
 // ~~
 
-Array.prototype.GetAncestorNodes = function(
-    node_selector
+Array.prototype.GetAncestorElements = function(
+    element_selector
     )
 {
     var
-        ancestor_node,
-        ancestor_node_array,
-        node;
+        ancestor_element,
+        ancestor_element_array,
+        element;
 
-    ancestor_node_array = [];
+    ancestor_element_array = [];
 
-    for ( node of this )
+    for ( element of this )
     {
-        for ( ancestor_node = node.parent;
-              ancestor_node != null;
-              ancestor_node = ancestor_node.parent )
+        for ( ancestor_element = element.parent;
+              ancestor_element != null;
+              ancestor_element = ancestor_element.parent )
         {
-            if ( ancestor_node.nodeType === 1
-                 && ( node_selector === undefined
-                      || ancestor_node.matches( node_selector ) ) )
+            if ( ancestor_element.elementType === 1
+                 && ( element_selector === undefined
+                      || ancestor_element.matches( element_selector ) ) )
             {
-                ancestor_node_array.push( ancestor_node );
+                ancestor_element_array.push( ancestor_element );
             }
         }
     }
 
-    return ancestor_node_array;
+    return ancestor_element_array;
 }
 
 // ~~
 
-Array.prototype.GetParentNodes = function(
-    node_selector
+Array.prototype.GetParentElements = function(
+    element_selector
     )
 {
     var
-        node,
-        parent_node_array;
+        element,
+        parent_element_array;
 
-    parent_node_array = [];
+    parent_element_array = [];
 
-    for ( node of this )
+    for ( element of this )
     {
-        if ( node.parent != null
-             && node.parent.nodeType == 1
-             && ( node_selector === undefined
-                  || node.parent.matches( node_selector ) ) )
+        if ( element.parent != null
+             && element.parent.elementType == 1
+             && ( element_selector === undefined
+                  || element.parent.matches( element_selector ) ) )
         {
-            parent_node_array.push( node.parent );
+            parent_element_array.push( element.parent );
         }
     }
 
-    return parent_node_array;
+    return parent_element_array;
 }
 
 // ~~
 
-Array.prototype.GetPrecedingNodes = function(
-    node_selector
+Array.prototype.GetPrecedingElements = function(
+    element_selector
     )
 {
     var
-        node,
-        preceding_node,
-        preceding_node_array;
+        element,
+        preceding_element,
+        preceding_element_array;
 
-    preceding_node_array = [];
+    preceding_element_array = [];
 
-    for ( node of this )
+    for ( element of this )
     {
-        for ( preceding_node = node.previousSibling;
-              preceding_node != null;
-              preceding_node = preceding_node.previousSibling )
+        for ( preceding_element = element.previousSibling;
+              preceding_element != null;
+              preceding_element = preceding_element.previousSibling )
         {
-            if ( preceding_node.nodeType === 1
-                 && ( node_selector === undefined
-                      || preceding_node.matches( node_selector ) ) )
+            if ( preceding_element.elementType === 1
+                 && ( element_selector === undefined
+                      || preceding_element.matches( element_selector ) ) )
             {
-                preceding_node_array.push( preceding_node );
+                preceding_element_array.push( preceding_element );
             }
         }
     }
 
-    return preceding_node_array;
+    return preceding_element_array;
 }
 
 // ~~
 
-Array.prototype.GetPriorNodes = function(
-    node_selector
+Array.prototype.GetPriorElements = function(
+    element_selector
     )
 {
     var
-        node,
-        prior_node_array;
+        element,
+        prior_element_array;
 
-    prior_node_array = [];
+    prior_element_array = [];
 
-    for ( node of this )
+    for ( element of this )
     {
-        if ( node.previousSibling != null
-             && node.previousSibling.nodeType == 1
-             && ( node_selector === undefined
-                  || node.previousSibling.matches( node_selector ) ) )
+        if ( element.previousSibling != null
+             && element.previousSibling.elementType == 1
+             && ( element_selector === undefined
+                  || element.previousSibling.matches( element_selector ) ) )
         {
-            prior_node_array.push( node.previousSibling );
+            prior_element_array.push( element.previousSibling );
         }
     }
 
-    return prior_node_array;
+    return prior_element_array;
 }
 
 // ~~
 
-Array.prototype.GetNextNodes = function(
-    node_selector
+Array.prototype.GetNextElements = function(
+    element_selector
     )
 {
     var
-        next_node_array,
-        node;
+        next_element_array,
+        element;
 
-    next_node_array = [];
+    next_element_array = [];
 
-    for ( node of this )
+    for ( element of this )
     {
-        if ( node.nextSibling != null
-             && node.nextSibling.nodeType == 1
-             && ( node_selector === undefined
-                  || node.nextSibling.matches( node_selector ) ) )
+        if ( element.nextSibling != null
+             && element.nextSibling.elementType == 1
+             && ( element_selector === undefined
+                  || element.nextSibling.matches( element_selector ) ) )
         {
-            next_node_array.push( node.nextSibling );
+            next_element_array.push( element.nextSibling );
         }
     }
 
-    return next_node_array;
+    return next_element_array;
 }
 
 // ~~
 
-Array.prototype.GetFollowingNodes = function(
-    node_selector
+Array.prototype.GetFollowingElements = function(
+    element_selector
     )
 {
     var
-        following_node,
-        following_node_array,
-        node;
+        following_element,
+        following_element_array,
+        element;
 
-    following_node_array = [];
+    following_element_array = [];
 
-    for ( node of this )
+    for ( element of this )
     {
-        for ( following_node = node.nextSibling;
-              following_node != null;
-              following_node = following_node.nextSibling )
+        for ( following_element = element.nextSibling;
+              following_element != null;
+              following_element = following_element.nextSibling )
         {
-            if ( following_node.nodeType === 1
-                 && ( node_selector === undefined
-                      || following_node.matches( node_selector ) ) )
+            if ( following_element.elementType === 1
+                 && ( element_selector === undefined
+                      || following_element.matches( element_selector ) ) )
             {
-                following_node_array.push( following_node );
+                following_element_array.push( following_element );
             }
         }
     }
 
-    return following_node_array;
+    return following_element_array;
 }
 
 // ~~
 
-Array.prototype.GetChildNodes = function(
-    node_selector
+Array.prototype.GetChildElements = function(
+    element_selector
     )
 {
     var
-        child_node,
-        child_node_array,
-        node;
+        child_element,
+        child_element_array,
+        element;
 
-    child_node_array = [];
+    child_element_array = [];
 
-    for ( node of this )
+    for ( element of this )
     {
-        for ( child_node of node.children )
+        for ( child_element of element.children )
         {
-            if ( child_node.nodeType == 1
-                 && ( node_selector === undefined
-                      || child_node.matches( node_selector ) ) )
+            if ( child_element.elementType == 1
+                 && ( element_selector === undefined
+                      || child_element.matches( element_selector ) ) )
             {
-                child_node_array.push( child_node );
+                child_element_array.push( child_element );
             }
         }
     }
 
-    return child_node_array;
+    return child_element_array;
 }
 
 // ~~
 
-Array.prototype.GetDescendantNodes = function(
-    node_selector
+Array.prototype.GetDescendantElements = function(
+    element_selector
     )
 {
     var
-        child_node,
-        descendant_node,
-        descendant_node_array,
-        descendant_node_list,
-        node;
+        child_element,
+        descendant_element,
+        descendant_element_array,
+        descendant_element_list,
+        element;
 
-    descendant_node_array = [];
+    descendant_element_array = [];
 
-    if ( node_selector === undefined )
+    if ( element_selector === undefined )
     {
-        node_selector = "*";
+        element_selector = "*";
     }
 
-    for ( node of this )
+    for ( element of this )
     {
-        for ( child_node of node.children )
+        for ( child_element of element.children )
         {
-            descendant_node_list = child_node.querySelectorAll( node_selector );
+            descendant_element_list = child_element.querySelectorAll( element_selector );
 
-            for ( descendant_node of descendant_node_list )
+            for ( descendant_element of descendant_element_list )
             {
-                if ( descendant_node.nodeType == 1 )
+                if ( descendant_element.elementType == 1 )
                 {
-                    descendant_node_array.push( descendant_node );
+                    descendant_element_array.push( descendant_element );
                 }
             }
         }
     }
 
-    return descendant_node_array;
+    return descendant_element_array;
 }
 
 // ~~
 
-Array.prototype.GetMatchingNodes = function(
-    node_selector
+Array.prototype.GetMatchingElements = function(
+    element_selector
     )
 {
     var
-        matching_node_array,
-        node;
+        matching_element_array,
+        element;
 
-    matching_node_array = [];
+    matching_element_array = [];
 
-    for ( node of this )
+    for ( element of this )
     {
-        if ( node.nodeType == 1
-             && ( node_selector === undefined
-                  || node.matches( node_selector ) ) )
+        if ( element.elementType == 1
+             && ( element_selector === undefined
+                  || element.matches( element_selector ) ) )
         {
-            matching_node_array.push( node );
+            matching_element_array.push( element );
         }
     }
 
-    return matching_node_array;
+    return matching_element_array;
 }
 
 // ~~
 
-Array.prototype.GetNodes = function(
-    node_selector
+Array.prototype.GetElements = function(
+    element_selector
     )
 {
     var
-        found_node,
-        found_node_array,
-        found_node_list,
-        node;
+        found_element,
+        found_element_array,
+        found_element_list,
+        element;
 
-    found_node_array = [];
+    found_element_array = [];
 
-    if ( node_selector === undefined )
+    if ( element_selector === undefined )
     {
-        node_selector = "*";
+        element_selector = "*";
     }
 
-    for ( node of this )
+    for ( element of this )
     {
-        found_node_list = node.querySelectorAll( node_selector );
+        found_element_list = element.querySelectorAll( element_selector );
 
-        for ( found_node of found_node_list )
+        for ( found_element of found_element_list )
         {
-            if ( found_node.nodeType == 1 )
+            if ( found_element.elementType == 1 )
             {
-                found_node_array.push( found_node );
+                found_element_array.push( found_element );
             }
         }
     }
 
-    return found_node_array;
+    return found_element_array;
 }
 
 // ~~
@@ -1042,11 +1224,11 @@ Array.prototype.AddClass = function(
     )
 {
     var
-        node;
+        element;
 
-    for ( node of this )
+    for ( element of this )
     {
-        node.classList.add( class_name );
+        element.classList.add( class_name );
     }
 
     return this;
@@ -1060,13 +1242,13 @@ Array.prototype.AddClasses = function(
 {
     var
         class_name,
-        node;
+        element;
 
-    for ( node of this )
+    for ( element of this )
     {
         for ( class_name of class_name_array )
         {
-            node.classList.add( class_name );
+            element.classList.add( class_name );
         }
     }
 
@@ -1080,11 +1262,11 @@ Array.prototype.RemoveClass = function(
     )
 {
     var
-        node;
+        element;
 
-    for ( node of this )
+    for ( element of this )
     {
-        node.classList.remove( class_name );
+        element.classList.remove( class_name );
     }
 
     return this;
@@ -1098,13 +1280,13 @@ Array.prototype.RemoveClasses = function(
 {
     var
         class_name,
-        node;
+        element;
 
-    for ( node of this )
+    for ( element of this )
     {
         for ( class_name of class_name_array )
         {
-            node.classList.remove( class_name );
+            element.classList.remove( class_name );
         }
     }
 
@@ -1119,13 +1301,13 @@ Array.prototype.GetAttribute = function(
 {
     var
         attribute_value_array,
-        node;
+        element;
 
     attribute_value_array = [];
 
-    for ( node of this )
+    for ( element of this )
     {
-        attribute_value_array.push( node[ attribute_name ] );
+        attribute_value_array.push( element[ attribute_name ] );
     }
 
     return attribute_value_array;
@@ -1140,17 +1322,17 @@ Array.prototype.GetAttributes = function(
     var
         attribute_value_array,
         attribute_value_array_array,
-        node;
+        element;
 
     attribute_value_array_array = [];
 
-    for ( node of this )
+    for ( element of this )
     {
         attribute_value_array = [];
 
         for ( attribute_name of attribute_name_array )
         {
-            attribute_value_array.push( node[ attribute_name ] );
+            attribute_value_array.push( element[ attribute_name ] );
         }
 
         attribute_value_array_array.push( attribute_value_array );
@@ -1168,24 +1350,24 @@ Array.prototype.SetAttribute = function(
 {
     var
         attribute_value_index,
-        node;
+        element;
 
     if ( attribute_value_array instanceof Array )
     {
         attribute_value_index = 0;
 
-        for ( node of this )
+        for ( element of this )
         {
-            node[ attribute_name ] = attribute_value_array[ attribute_value_index ];
+            element[ attribute_name ] = attribute_value_array[ attribute_value_index ];
 
             ++attribute_value_index;
         }
     }
     else
     {
-        for ( node of this )
+        for ( element of this )
         {
-            node[ attribute_name ] = attribute_value_array;
+            element[ attribute_name ] = attribute_value_array;
         }
     }
 
@@ -1199,7 +1381,7 @@ Array.prototype.SetAttributes = function(
     )
 {
     var
-        node,
+        element,
         attribute_name,
         attribute_value_array,
         attribute_value_index;
@@ -1212,18 +1394,18 @@ Array.prototype.SetAttributes = function(
         {
             attribute_value_index = 0;
 
-            for ( node of this )
+            for ( element of this )
             {
-                node.style[ attribute_name ] = attribute_value_array[ attribute_value_index ];
+                element.style[ attribute_name ] = attribute_value_array[ attribute_value_index ];
 
                 ++attribute_value_index;
             }
         }
         else
         {
-            for ( node of this )
+            for ( element of this )
             {
-                node.style[ attribute_name ] = attribute_value_array;
+                element.style[ attribute_name ] = attribute_value_array;
             }
         }
     }
@@ -1239,13 +1421,13 @@ Array.prototype.GetProperty = function(
 {
     var
         property_value_array,
-        node;
+        element;
 
     property_value_array = [];
 
-    for ( node of this )
+    for ( element of this )
     {
-        property_value_array.push( node.style[ property_name ] );
+        property_value_array.push( element.style[ property_name ] );
     }
 
     return property_value_array;
@@ -1260,17 +1442,17 @@ Array.prototype.GetProperties = function(
     var
         property_value_array,
         property_value_array_array,
-        node;
+        element;
 
     property_value_array_array = [];
 
-    for ( node of this )
+    for ( element of this )
     {
         property_value_array = [];
 
         for ( property_name of property_name_array )
         {
-            property_value_array.push( node.style[ property_name ] );
+            property_value_array.push( element.style[ property_name ] );
         }
 
         property_value_array_array.push( property_value_array );
@@ -1288,24 +1470,24 @@ Array.prototype.SetProperty = function(
 {
     var
         property_value_index,
-        node;
+        element;
 
     if ( property_value_array instanceof Array )
     {
         property_value_index = 0;
 
-        for ( node of this )
+        for ( element of this )
         {
-            node[ property_name ] = property_value_array[ property_value_index ];
+            element[ property_name ] = property_value_array[ property_value_index ];
 
             ++property_value_index;
         }
     }
     else
     {
-        for ( node of this )
+        for ( element of this )
         {
-            node[ property_name ] = property_value_array;
+            element[ property_name ] = property_value_array;
         }
     }
 
@@ -1319,7 +1501,7 @@ Array.prototype.SetProperties = function(
     )
 {
     var
-        node,
+        element,
         property_name,
         property_value_array,
         property_value_index;
@@ -1332,18 +1514,18 @@ Array.prototype.SetProperties = function(
         {
             property_value_index = 0;
 
-            for ( node of this )
+            for ( element of this )
             {
-                node.style[ property_name ] = property_value_array[ property_value_index ];
+                element.style[ property_name ] = property_value_array[ property_value_index ];
 
                 ++property_value_index;
             }
         }
         else
         {
-            for ( node of this )
+            for ( element of this )
             {
-                node.style[ property_name ] = property_value_array;
+                element.style[ property_name ] = property_value_array;
             }
         }
     }
@@ -1361,12 +1543,12 @@ Array.prototype.StartProperty = function(
     )
 {
     var
-        node;
+        element;
 
-    for ( node of this )
+    for ( element of this )
     {
         StartProperty(
-            node,
+            element,
             property_name,
             property_value_array,
             property_time_array,
@@ -1386,12 +1568,12 @@ Array.prototype.StartProperties = function(
     )
 {
     var
-        node;
+        element;
 
-    for ( node of this )
+    for ( element of this )
     {
         StartProperties(
-            node,
+            element,
             property_value_array_map,
             property_time_array,
             animation_configuration
@@ -1408,11 +1590,11 @@ Array.prototype.PauseProperty = function(
     )
 {
     var
-        node;
+        element;
 
-    for ( node of this )
+    for ( element of this )
     {
-        PauseProperty( node, property_name );
+        PauseProperty( element, property_name );
     }
 
     return this;
@@ -1425,11 +1607,11 @@ Array.prototype.PauseProperties = function(
     )
 {
     var
-        node;
+        element;
 
-    for ( node of this )
+    for ( element of this )
     {
-        PauseProperties( node, property_name_array );
+        PauseProperties( element, property_name_array );
     }
 
     return this;
@@ -1442,11 +1624,11 @@ Array.prototype.ResumeProperty = function(
     )
 {
     var
-        node;
+        element;
 
-    for ( node of this )
+    for ( element of this )
     {
-        ResumeProperty( node, property_name );
+        ResumeProperty( element, property_name );
     }
 
     return this;
@@ -1459,11 +1641,11 @@ Array.prototype.ResumeProperties = function(
     )
 {
     var
-        node;
+        element;
 
-    for ( node of this )
+    for ( element of this )
     {
-        ResumeProperties( node, property_name_array );
+        ResumeProperties( element, property_name_array );
     }
 
     return this;
@@ -1476,11 +1658,11 @@ Array.prototype.StopProperty = function(
     )
 {
     var
-        node;
+        element;
 
-    for ( node of this )
+    for ( element of this )
     {
-        StopProperty( node, property_name );
+        StopProperty( element, property_name );
     }
 
     return this;
@@ -1493,11 +1675,11 @@ Array.prototype.StopProperties = function(
     )
 {
     var
-        node;
+        element;
 
-    for ( node of this )
+    for ( element of this )
     {
-        StopProperties( node, property_name_array );
+        StopProperties( element, property_name_array );
     }
 
     return this;

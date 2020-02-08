@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>Sample</title>
+    </head>
+    <body>
+        <template id="movie-list-template">
+            <ul>
+                <% for ( var movie of movie_array ) { %>
+                    <li style="color:<%= line_color %>">
+                        <%= movie.Name %> : <%= movie.Rating %>
+                    </li>
+                <% } %>
+            </ul>
+        </template>
+        <main id="main">
+        </main>
+    </body>
+    <script src="../../vista.js"></script>
+    <script>
+        var
+            line_color,
+            movie_array,
+            movie_list_template_function;
+
+        movie_array =
+            [
+                {
+                    Name : "Blade Runner",
+                    Rating : 5
+                },
+                {
+                    Name : "The Chronicles of Riddick",
+                    Rating : 4
+                },
+                {
+                    Name : "The Matrix",
+                    Rating : 3
+                }
+            ];
+
+        line_color = "#0000FF";
+
+        movie_list_template_function = GetTemplateElementFunction( GetElementById( "movie-list-template" ) );
+        GetElementById( "main" ).innerHTML = movie_list_template_function();
+    </script>
+</html>

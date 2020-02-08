@@ -2,11 +2,24 @@
 
 # Vista
 
-Lightweight CSS framework generator.
+Lightweight Stylus and JavaScript library.
+
+## Features
+
+*   Stylus
+    *   media queries
+    *   class generators
+    *   carousel
+    *   parallax
+*   JavaScript
+    *   traversal
+    *   animation
+    *   templating
+    *   requests
 
 ## Version
 
-0.2
+0.3
 
 ## Author
 
