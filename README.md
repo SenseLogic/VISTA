@@ -2,20 +2,20 @@
 
 # Vista
 
-Lightweight Stylus and JavaScript library.
+Lightweight CSS and JavaScript library.
 
 ## Features
 
 *   Stylus
     *   media queries
     *   class generators
-    *   carousel
-    *   parallax
 *   JavaScript
-    *   traversal
-    *   animation
-    *   templating
-    *   requests
+    *   server requests
+    *   HTML templating
+    *   document manipulation
+    *   property animation
+    *   perpetual carousel
+    *   parallax effect
 
 ## Version
 
