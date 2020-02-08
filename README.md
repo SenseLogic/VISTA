@@ -15,7 +15,7 @@ Lightweight CSS and JavaScript library.
     *   document manipulation
     *   property animation
     *   perpetual carousel
-    *   parallax effect
+    *   parallax background
 
 ## Version
 
