@@ -7,13 +7,14 @@
     </head>
     <body>
         <template id="movie-list-template">
-            <ul>
+            <ul ignored="<\% ignored %\>">
                 <% for ( var movie of movie_array ) { %>
                     <li style="color:<%= line_color %>">
-                        <%= movie.Name %> : <%= movie.Rating %>
+                        <%= movie.Name %> : <%# movie.Rating %>
                     </li>
                 <% } %>
             </ul>
+            <% var ignored = "<\% ignored %\>"; %>
         </template>
         <main id="main">
         </main>
@@ -28,22 +29,24 @@
         movie_array =
             [
                 {
-                    Name : "Blade Runner",
+                    Name : "<Blade Runner>",
                     Rating : 5
                 },
                 {
-                    Name : "The Chronicles of Riddick",
+                    Name : "<The Chronicles of Riddick>",
                     Rating : 4
                 },
                 {
-                    Name : "The Matrix",
+                    Name : "<The Matrix>",
                     Rating : 3
                 }
             ];
 
         line_color = "#0000FF";
 
-        movie_list_template_function = GetTemplateElementFunction( GetElementById( "movie-list-template" ) );
+        movie_list_template_function
+            = GetTemplateFunction( GetElementById( "movie-list-template" ) );
+
         GetElementById( "main" ).innerHTML = movie_list_template_function();
     </script>
 </html>

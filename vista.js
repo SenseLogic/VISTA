@@ -315,8 +315,8 @@ function GetLinearInterpolation(
 
 // ~~
 
-function GetJsonValue(
-    json_text
+function GetValue(
+    text
     )
 {
     return JSON.parse( json_text );
@@ -324,7 +324,7 @@ function GetJsonValue(
 
 // ~~
 
-function GetJsonText(
+function GetText(
     value
     )
 {
@@ -333,15 +333,30 @@ function GetJsonText(
 
 // ~~
 
-function GetUnescapedHtml(
-    html_text
+function GetEncodedHtml(
+    text
+    )
+{
+    var
+        div_element;
+
+    div_element = document.createElement( "div" );
+    div_element.appendChild( document.createTextNode( text ) );
+
+    return div_element.innerHTML;
+}
+
+// ~~
+
+function GetDecodedHtml(
+    text
     )
 {
     var
         text_area_element;
 
     text_area_element = document.createElement( "textarea" );
-    text_area_element.innerHTML = html_text;
+    text_area_element.innerHTML = text;
 
     return text_area_element.value;
 }
@@ -513,10 +528,10 @@ function RepeatCall(
 // ~~
 
 function SendRequest(
-    method,
     url,
-    body,
+    method,
     header_map,
+    body,
     callback_function
     )
 {
@@ -794,9 +809,9 @@ function StopProperties(
 
 // ~~
 
-function GetTemplateTextFunction(
+function GetTemplateFunction(
     template_text,
-    template_argument_list
+    parameter_list
     )
 {
     var
@@ -807,14 +822,19 @@ function GetTemplateTextFunction(
         template_text,
         text;
 
+    if ( template_text instanceof HTMLElement )
+    {
+        template_text = GetDecodedHtml( template_text.innerHTML );
+    }
+
     section_array = template_text.split( "\r" ).join( "" ).split( "<%" );
     section_count = section_array.length;
 
     template_function_code = "(";
 
-    if ( template_argument_list !== undefined )
+    if ( parameter_list !== undefined )
     {
-        template_function_code += template_argument_list;
+        template_function_code += parameter_list;
     }
 
     template_function_code += ") => {\nvar result = " + JSON.stringify( section_array[ 0 ] ) + ";\n";
@@ -828,6 +848,10 @@ function GetTemplateTextFunction(
         section_text = section_part_array.join( "%>" );
 
         if ( section_code.startsWith( "=" ) )
+        {
+            template_function_code += "result += GetEncodedHtml( " +  section_code.substring( 1 ).trim() + " );\n";
+        }
+        else if ( section_code.startsWith( "#" ) )
         {
             template_function_code += "result += " + section_code.substring( 1 ).trim() + ";\n";
         }
@@ -844,24 +868,12 @@ function GetTemplateTextFunction(
 
     template_function_code += "return result;\n}";
 
-    return eval( template_function_code );
-}
-
-// ~~
-
-function GetTemplateElementFunction(
-    template_element,
-    template_argument_list
-    )
-{
-    if ( template_argument_list === undefined )
-    {
-        template_argument_list = template_element.dataset.argumentList;
-    }
-
-    return GetTemplateTextFunction(
-        GetUnescapedHtml( template_element.innerHTML ),
-        template_argument_list
+    return eval(
+        template_function_code
+              .split( "<\\%" ).join( "<%" )
+              .split( "%\\>" ).join( "%>" )
+              .split( "<\\\\%" ).join( "<%" )
+              .split( "%\\\\>" ).join( "%>" )
         );
 }
 

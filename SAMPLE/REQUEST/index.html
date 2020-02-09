@@ -16,10 +16,10 @@
     <script src="../../vista.js"></script>
     <script>
         SendRequest(
-            "GET",
             "https://jsonplaceholder.typicode.com/todos/1",
-            null,
+            "GET",
             {},
+            null,
             function (
                 request
                 )
@@ -34,18 +34,18 @@
             );
 
         SendRequest(
-            "POST",
             "https://jsonplaceholder.typicode.com/posts",
-            GetJsonText(
-                {
-                    title: 'foo',
-                    body: 'bar',
-                    userId: 1
-                }
-                ),
+            "POST",
             {
                 "Content-type": "application/json; charset=UTF-8"
             },
+            GetText(
+                {
+                    title : 'foo',
+                    body : 'bar',
+                    userId : 1
+                }
+                ),
             function (
                 request
                 )
@@ -58,7 +58,5 @@
                       + request.responseText;
             }
             );
-
-
     </script>
 </html>
