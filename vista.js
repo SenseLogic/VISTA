@@ -1,4 +1,65 @@
+// -- VARIABLES
+
+var
+    UnitArray = [ "%", "px", "em", "rem", "vw", "vh", "vmin", "vmax" ];
+
 // -- FUNCTIONS
+
+function RemoveStart(
+    text,
+    start
+    )
+{
+    if ( start !== ""
+         && text.startsWith( start ) )
+    {
+        return text.substring( start.length );
+    }
+    else
+    {
+        return text;
+    }
+}
+
+// ~~
+
+function RemoveEnd(
+    text,
+    end
+    )
+{
+    if ( end !== ""
+         && text.endsWith( end ) )
+    {
+        return text.substring( 0, text.length - end.length );
+    }
+    else
+    {
+        return text;
+    }
+}
+
+// ~~
+
+function GetUnit(
+    value
+    )
+{
+    if ( typeof value === "string" )
+    {
+        for ( unit of UnitArray )
+        {
+            if ( value.endsWith( unit ) )
+            {
+                return unit;
+            }
+        }
+    }
+
+    return "";
+}
+
+// ~~
 
 function GetValue(
     text

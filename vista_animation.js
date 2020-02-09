@@ -19,7 +19,7 @@ class PROPERTY_ANIMATION
 
         if ( property_value_array instanceof Array )
         {
-            this.ValueArray = property_value_array;
+            this.ValueArray = property_value_array.slice();
         }
         else
         {
@@ -28,7 +28,7 @@ class PROPERTY_ANIMATION
 
         if ( property_time_array instanceof Array )
         {
-            this.TimeArray = property_time_array;
+            this.TimeArray = property_time_array.slice();
         }
         else
         {
@@ -44,9 +44,8 @@ class PROPERTY_ANIMATION
         this.StopFunction = animation_configuration.StopFunction;
         this.FinishFunction = animation_configuration.FinishFunction;
         this.UpdateFunction = animation_configuration.UpdateFunction;
-        this.TimeFunction = animation_configuration.TimeFunction;
-        this.ValueFunction = animation_configuration.ValueFunction;
-        this.Unit = animation_configuration.Unit;
+        this.RatioFunction = animation_configuration.RatioFunction;
+        this.InterpolationFunction = animation_configuration.InterpolationFunction;
 
         if ( this.Time === undefined )
         {
@@ -63,37 +62,66 @@ class PROPERTY_ANIMATION
             this.IsLooping = false;
         }
 
-        if ( this.TimeFunction === undefined )
+        if ( this.RatioFunction === undefined )
         {
-            this.TimeFunction = GetLinearTime;
+            this.RatioFunction = GetLinearRatio;
         }
 
-        if ( this.ValueFunction === undefined )
+        if ( this.InterpolationFunction === undefined )
         {
-            this.ValueFunction = GetLinearValue;
-        }
-
-        if ( this.Unit === undefined )
-        {
-            this.Unit = "";
+            this.InterpolationFunction = GetLinearInterpolation;
         }
 
         if ( this.TimeArray.length == 0
              || this.TimeArray[ 0 ] > 0.0 )
         {
-            this.ValueArray.unshift( parseFloat( element.style[ property_name ] ) );
+            this.ValueArray.unshift( element.style[ property_name ] );
             this.TimeArray.unshift( 0.0 );
         }
         else
         {
-            element.style[ property_name ] = this.ValueArray[ 0 ] + Unit;
+            element.style[ property_name ] = this.ValueArray[ 0 ];
         }
 
         this.Duration = this.TimeArray[ this.TimeArray.length - 1 ];
-        this.ValueIndex = 0;
+        this.PriorValueIndex = 0;
+
+        this.ExtractUnits();
     }
 
     // -- OPERATIONS
+
+    ExtractUnits(
+        )
+    {
+        var
+            unit,
+            value,
+            value_index;
+
+        this.UnitArray = [];
+
+        for ( value_index = 0;
+              value_index < this.ValueArray.length;
+              ++value_index )
+        {
+            value = this.ValueArray[ value_index ];
+            unit = GetUnit( value );
+
+            this.UnitArray.push( unit );
+
+            if ( unit === "" )
+            {
+                this.ValueArray[ value_index ] = value * 1.0;
+            }
+            else
+            {
+                this.ValueArray[ value_index ] = RemoveEnd( value, unit ) * 1.0;
+            }
+        }
+    }
+
+    // ~~
 
     Start(
         )
@@ -105,7 +133,7 @@ class PROPERTY_ANIMATION
             this.StartFunction( this );
         }
 
-        PropertyAnimationMap.set( this.id, this );
+        PropertyAnimationMap.set( this.Identifier, this );
 
         if ( PropertyAnimationMap.size === 1 )
         {
@@ -125,7 +153,7 @@ class PROPERTY_ANIMATION
             this.PauseFunction( this );
         }
 
-        PropertyAnimationMap.delete( this.id );
+        PropertyAnimationMap.delete( this.Identifier );
 
         if ( PropertyAnimationMap.size === 0 )
         {
@@ -145,7 +173,7 @@ class PROPERTY_ANIMATION
             this.ResumeFunction( this );
         }
 
-        PropertyAnimationMap.set( this.id, this );
+        PropertyAnimationMap.set( this.Identifier, this );
 
         if ( PropertyAnimationMap.size === 1 )
         {
@@ -165,7 +193,7 @@ class PROPERTY_ANIMATION
             this.StopFunction( this );
         }
 
-        PropertyAnimationMap.delete( this.id );
+        PropertyAnimationMap.delete( this.Identifier );
 
         if ( PropertyAnimationMap.size === 0 )
         {
@@ -183,7 +211,7 @@ class PROPERTY_ANIMATION
             this.FinishFunction( this );
         }
 
-        PropertyAnimationMap.delete( this.id );
+        PropertyAnimationMap.delete( this.Identifier );
 
         if ( PropertyAnimationMap.size === 0 )
         {
@@ -199,17 +227,20 @@ class PROPERTY_ANIMATION
     {
         var
             prior_time,
+            prior_unit,
             prior_value,
             prior_value_index,
             next_time,
+            next_unit,
             next_value,
             next_value_index,
+            next_value_ratio,
             value,
             value_count,
             value_duration,
             value_time;
 
-        this.Time += step_time;
+        this.Time += step_time * this.Speed;
 
         if ( this.Time >= this.Duration )
         {
@@ -246,7 +277,7 @@ class PROPERTY_ANIMATION
 
         next_value_index = prior_value_index + 1;
 
-        if ( next_value_index >= this.ValueCount )
+        if ( next_value_index >= value_count )
         {
             if ( this.IsLooping )
             {
@@ -254,18 +285,20 @@ class PROPERTY_ANIMATION
             }
             else
             {
-                next_value_index = ValueCount;
+                next_value_index = value_count - 1;
             }
         }
 
         prior_time = this.TimeArray[ prior_value_index ];
         prior_value = this.ValueArray[ prior_value_index ];
+        prior_unit = this.UnitArray[ prior_value_index ];
 
         next_time = this.TimeArray[ next_value_index ];
         next_value = this.ValueArray[ next_value_index ];
+        next_unit= this.UnitArray[ next_value_index ];
 
-        value_time = Time - prior_time;
-        value_duration = next_time - prior_value;
+        value_time = this.Time - prior_time;
+        value_duration = next_time - prior_time;
 
         if ( value_duration === 0.0 )
         {
@@ -273,15 +306,28 @@ class PROPERTY_ANIMATION
         }
         else
         {
-            value
-                = this.ValueFunction(
-                      prior_value,
-                      next_value,
-                      this.TimeFunction( value_time / value_duration )
-                      );
+            next_value_ratio = value_time / value_duration;
+
+            if ( next_value_ratio <= 0.0 )
+            {
+                value = prior_value;
+            }
+            else if ( next_value_ratio >= 1.0 )
+            {
+                value = next_value;
+            }
+            else
+            {
+                value
+                    = this.InterpolationFunction(
+                          prior_value,
+                          next_value,
+                          this.RatioFunction( next_value_ratio )
+                          );
+            }
         }
 
-        element.style[ property_name ] = value + Unit;
+        this.Element.style[ this.Name ] = value + next_unit;
 
         if ( this.UpdateFunction !== undefined )
         {
@@ -291,7 +337,7 @@ class PROPERTY_ANIMATION
         if ( this.Time === this.Duration
              && !this.IsLooping )
         {
-            Stop();
+            this.Stop();
         }
     }
 }
@@ -305,171 +351,171 @@ var
 
 // -- FUNCTIONS
 
-function GetLinearTime(
-    time
+function GetLinearRatio(
+    ratio
     )
 {
-    return time;
+    return ratio;
 }
 
 // ~~
 
-function GetEaseInOutTime(
-    time
+function GetEaseInOutRatio(
+    ratio
     )
 {
-    return ( 3.0 - 2.0 * time ) * time * time;
+    return ( 3.0 - 2.0 * ratio ) * ratio * ratio;
 }
 
 // ~~
 
-function GetQuadraticEaseInTime(
-    time
+function GetQuadraticEaseInRatio(
+    ratio
     )
 {
-    return time * time;
+    return ratio * ratio;
 }
 
 // ~~
 
-function GetQuadraticEaseOutTime(
-    time
+function GetQuadraticEaseOutRatio(
+    ratio
     )
 {
-    return time * ( 2.0 - time );
+    return ratio * ( 2.0 - ratio );
 }
 
 // ~~
 
-function GetQuadraticEaseInOutTime(
-    time
+function GetQuadraticEaseInOutRatio(
+    ratio
     )
 {
-    if ( time < 0.5 )
+    if ( ratio < 0.5 )
     {
-        return 2.0 * time * time;
+        return 2.0 * ratio * ratio;
     }
     else
     {
-        return ( 4.0 - 2.0 * time ) * time - 1.0;
+        return ( 4.0 - 2.0 * ratio ) * ratio - 1.0;
     }
 }
 
 // ~~
 
-function GetCubicEaseInTime(
-    time
+function GetCubicEaseInRatio(
+    ratio
     )
 {
-    return time * time * time;
+    return ratio * ratio * ratio;
 }
 
 // ~~
 
-function GetCubicEaseOutTime(
-    time
+function GetCubicEaseOutRatio(
+    ratio
     )
 {
-    time -= 1.0;
+    ratio -= 1.0;
 
-    return time * time * time + 1.0;
+    return ratio * ratio * ratio + 1.0;
 }
 
 // ~~
 
-function GetCubicEaseInOutTime(
-    time
+function GetCubicEaseInOutRatio(
+    ratio
     )
 {
-    if ( time < 0.5 )
+    if ( ratio < 0.5 )
     {
-        return 4.0 * time * time * time ;
+        return 4.0 * ratio * ratio * ratio ;
     }
     else
     {
-        return ( time - 1.0 ) * ( 2.0 * time - 2.0 ) * ( 2.0 * time - 2.0 ) + 1.0;
+        return ( ratio - 1.0 ) * ( 2.0 * ratio - 2.0 ) * ( 2.0 * ratio - 2.0 ) + 1.0;
     }
 }
 
 // ~~
 
-function GetQuarticEaseInTime(
-    time
+function GetQuarticEaseInRatio(
+    ratio
     )
 {
-    return time * time * time * time;
+    return ratio * ratio * ratio * ratio;
 }
 
 // ~~
 
-function GetQuarticEaseOutTime(
-    time
+function GetQuarticEaseOutRatio(
+    ratio
     )
 {
-    time -= 1.0;
+    ratio -= 1.0;
 
-    return 1.0 - time * time * time * time;
+    return 1.0 - ratio * ratio * ratio * ratio;
 }
 
 // ~~
 
-function GetQuarticEaseInOutTime(
-    time
+function GetQuarticEaseInOutRatio(
+    ratio
     )
 {
-    if ( time < 0.5 )
+    if ( ratio < 0.5 )
     {
-        return 8.0 * time * time * time * time;
+        return 8.0 * ratio * ratio * ratio * ratio;
     }
     else
     {
-        time -= 1.0;
+        ratio -= 1.0;
 
-        return 1.0 - 8.0 * time * time * time * time;
+        return 1.0 - 8.0 * ratio * ratio * ratio * ratio;
     }
 }
 
 // ~~
 
-function GetQuinticEaseInTime(
-    time
+function GetQuinticEaseInRatio(
+    ratio
     )
 {
-    return time * time * time * time * time;
+    return ratio * ratio * ratio * ratio * ratio;
 }
 
 // ~~
 
-function GetQuinticEaseOutTime(
-    time
+function GetQuinticEaseOutRatio(
+    ratio
     )
 {
-    time -= 1.0;
+    ratio -= 1.0;
 
-    return time * time * time * time * time + 1;
+    return ratio * ratio * ratio * ratio * ratio + 1;
 }
 
 // ~~
 
-function GetQuinticEaseInOutTime(
-    time
+function GetQuinticEaseInOutRatio(
+    ratio
     )
 {
-    if ( time < 0.5 )
+    if ( ratio < 0.5 )
     {
-        return 16.0 * time * time * time * time * time;
+        return 16.0 * ratio * ratio * ratio * ratio * ratio;
     }
     else
     {
-        time -= 1.0;
+        ratio -= 1.0;
 
-        return 16.0 * time * time * time * time * time + 1;
+        return 16.0 * ratio * ratio * ratio * ratio * ratio + 1;
     }
 }
 
 // ~~
 
-function GetLinearValue(
+function GetLinearInterpolation(
     initial_value,
     final_value,
     final_value_ratio
@@ -510,7 +556,7 @@ function UpdateAnimation(
 
     animation_time = new Date();
 
-    AnimationStepTime = animation_time - AnimationPriorTime;
+    AnimationStepTime = ( animation_time - AnimationPriorTime ) * 0.001;
     AnimationPriorTime = animation_time;
 
     for ( property_animation of PropertyAnimationMap.values() )
@@ -581,6 +627,7 @@ function StartProperties(
     for ( property_name in property_value_array_map )
     {
         StartProperty(
+            element,
             property_name,
             property_value_array_map[ property_name ],
             property_time_array,
