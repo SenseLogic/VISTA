@@ -109,6 +109,32 @@ function GetElements(
 
 // ~~
 
+function GetElementText(
+    element
+    )
+{
+    if ( element.textContent === null )
+    {
+        return "";
+    }
+    else
+    {
+        return element.textContent;
+    }
+}
+
+// ~~
+
+function SetElementText(
+    element,
+    text
+    )
+{
+    element.textContent = text;
+}
+
+// ~~
+
 Array.prototype.LogElements = function(
     )
 {
@@ -749,6 +775,81 @@ Array.prototype.SetProperties = function(
                 element.style[ property_name ] = property_value_array;
             }
         }
+    }
+
+    return this;
+}
+
+// ~~
+
+Array.prototype.GetTextContent = function(
+    )
+{
+    var
+        text,
+        element;
+
+    text = "";
+
+    for ( element of this )
+    {
+        if ( element.textContent !== null )
+        {
+            text += element.textContent;
+        }
+    }
+
+    return text;
+}
+
+// ~~
+
+Array.prototype.SetTextContent = function(
+    text
+    )
+{
+    var
+        element;
+
+    for ( element of this )
+    {
+        element.textContent = text;
+    }
+
+    return this;
+}
+
+// ~~
+
+Array.prototype.AddEventListener = function(
+    event_name,
+    event_function
+    )
+{
+    var
+        element;
+
+    for ( element of this )
+    {
+        element.addEventListener( event_name, event_function );
+    }
+
+    return this;
+}
+
+// ~~
+
+Array.prototype.RemoveEventListener = function(
+    event_name,
+    event_function
+    )
+{
+    var
+        element;
+
+    for ( element of this )
+    {
+        element.removeEventListener( event_name, event_function );
     }
 
     return this;

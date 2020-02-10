@@ -42,7 +42,6 @@ class PROPERTY_ANIMATION
         this.PauseFunction = animation_configuration.PauseFunction;
         this.ResumeFunction = animation_configuration.ResumeFunction;
         this.StopFunction = animation_configuration.StopFunction;
-        this.FinishFunction = animation_configuration.FinishFunction;
         this.UpdateFunction = animation_configuration.UpdateFunction;
         this.RatioFunction = animation_configuration.RatioFunction;
         this.InterpolationFunction = animation_configuration.InterpolationFunction;
@@ -203,24 +202,6 @@ class PROPERTY_ANIMATION
 
     // ~~
 
-    Finish(
-        )
-    {
-        if ( this.FinishFunction !== undefined )
-        {
-            this.FinishFunction( this );
-        }
-
-        PropertyAnimationMap.delete( this.Identifier );
-
-        if ( PropertyAnimationMap.size === 0 )
-        {
-            StopAnimation();
-        }
-    }
-
-    // ~~
-
     Update(
         step_time
         )
@@ -338,10 +319,10 @@ class PROPERTY_ANIMATION
 // -- VARIABLES
 
 var
+    PropertyAnimationFrame = null,
     PropertyAnimationIdentifier = 0,
-    PropertyAnimationInterval = null,
     PropertyAnimationMap = new Map(),
-    PropertyAnimationTimeStep = 0.04;
+    PropertyAnimationTimestamp = null;
 
 // -- FUNCTIONS
 
@@ -531,32 +512,38 @@ function GetPropertyAnimationIdentifier(
 function StartAnimation(
     )
 {
-    AnimationPriorTime = new Date();
-    AnimationStepTime = 0;
-
-    if ( PropertyAnimationInterval === null )
+    if ( PropertyAnimationFrame === null )
     {
-        PropertyAnimationInterval = setInterval( UpdateAnimation, PropertyAnimationTimeStep * 1000.0 );
+        PropertyAnimationFrame = window.requestAnimationFrame( UpdateAnimation );
     }
 }
 
 // ~~
 
 function UpdateAnimation(
+    timestamp
     )
 {
     var
-        animation_time;
+        step_time;
 
-    animation_time = new Date();
+    if ( PropertyAnimationTimestamp === null )
+    {
+        step_time = 0.0;
+    }
+    else
+    {
+        step_time = ( timestamp - PropertyAnimationTimestamp ) * 0.001;
+    }
 
-    AnimationStepTime = ( animation_time - AnimationPriorTime ) * 0.001;
-    AnimationPriorTime = animation_time;
+    PropertyAnimationTimestamp = timestamp;
 
     for ( property_animation of PropertyAnimationMap.values() )
     {
-        property_animation.Update( AnimationStepTime );
+        property_animation.Update( step_time );
     }
+
+    PropertyAnimationFrame = window.requestAnimationFrame( UpdateAnimation );
 }
 
 // ~~
@@ -564,11 +551,11 @@ function UpdateAnimation(
 function StopAnimation(
     )
 {
-    if ( PropertyAnimationInterval !== null )
+    if ( PropertyAnimationFrame !== null )
     {
-        clearInterval( PropertyAnimationInterval );
+        window.cancelAnimationFrame( PropertyAnimationFrame );
 
-        PropertyAnimationInterval = null;
+        PropertyAnimationFrame = null;
     }
 }
 
