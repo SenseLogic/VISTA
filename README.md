@@ -2,7 +2,7 @@
 
 # Vista
 
-Lightweight CSS and JavaScript library.
+Lightweight Stylus and JavaScript framework.
 
 ## Features
 
