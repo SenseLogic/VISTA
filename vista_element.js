@@ -109,32 +109,6 @@ function GetElements(
 
 // ~~
 
-function GetElementText(
-    element
-    )
-{
-    if ( element.textContent === null )
-    {
-        return "";
-    }
-    else
-    {
-        return element.textContent;
-    }
-}
-
-// ~~
-
-function SetElementText(
-    element,
-    text
-    )
-{
-    element.textContent = text;
-}
-
-// ~~
-
 Array.prototype.LogElements = function(
     )
 {
