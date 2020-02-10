@@ -148,7 +148,7 @@ function DelayCall(
     }
     else
     {
-        return setTimeout( called_function, delay_time * 1000 );
+        return setTimeout( called_function, delay_time * 1000.0 );
     }
 }
 
@@ -159,7 +159,7 @@ function RepeatCall(
     delay_time
     )
 {
-    return setInterval( called_function, delay_time * 1000 );
+    return setInterval( called_function, delay_time * 1000.0 );
 }
 
 // ~~
@@ -243,13 +243,13 @@ function GetTemplateFunction(
         section_code = section_part_array.shift();
         section_text = section_part_array.join( "%>" );
 
-        if ( section_code.startsWith( "=" ) )
-        {
-            template_function_code += "result += GetEncodedHtml( " +  section_code.substring( 1 ).trim() + " );\n";
-        }
-        else if ( section_code.startsWith( "#" ) )
+        if ( section_code.startsWith( "#" ) )
         {
             template_function_code += "result += " + section_code.substring( 1 ).trim() + ";\n";
+        }
+        else if ( section_code.startsWith( "=" ) )
+        {
+            template_function_code += "result += GetEncodedHtml( " +  section_code.substring( 1 ).trim() + " );\n";
         }
         else
         {

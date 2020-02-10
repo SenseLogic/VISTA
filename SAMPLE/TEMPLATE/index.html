@@ -9,7 +9,7 @@
         <template id="movie-list-template">
             <ul ignored="<\% ignored %\>">
                 <% for ( var movie of movie_array ) { %>
-                    <li style="color:<%= line_color %>">
+                    <li style="color:<%# line_color %>">
                         <%= movie.Name %> : <%# movie.Rating %>
                     </li>
                 <% } %>

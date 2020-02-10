@@ -37,7 +37,7 @@ class PROPERTY_ANIMATION
 
         this.Time = animation_configuration.Time;
         this.Speed = animation_configuration.Speed;
-        this.IsLooping = animation_configuration.StartFunction;
+        this.IsLooping = animation_configuration.IsLooping;
         this.StartFunction = animation_configuration.StartFunction;
         this.PauseFunction = animation_configuration.PauseFunction;
         this.ResumeFunction = animation_configuration.ResumeFunction;
@@ -261,14 +261,14 @@ class PROPERTY_ANIMATION
 
         prior_value_index = this.PriorValueIndex;
 
-        while ( prior_value_index - 1 >= 0
-                && this.TimeArray[ prior_value_index - 1 ] > this.Time )
+        while ( prior_value_index >= 1
+                && this.Time < this.TimeArray[ prior_value_index ] )
         {
             --prior_value_index;
         }
 
         while ( prior_value_index + 1 < value_count
-                && this.TimeArray[ prior_value_index + 1 ] <= this.Time )
+                && this.Time > this.TimeArray[ prior_value_index + 1 ] )
         {
             ++prior_value_index;
         }
@@ -279,14 +279,7 @@ class PROPERTY_ANIMATION
 
         if ( next_value_index >= value_count )
         {
-            if ( this.IsLooping )
-            {
-                next_value_index = 0;
-            }
-            else
-            {
-                next_value_index = value_count - 1;
-            }
+            next_value_index = prior_value_index;
         }
 
         prior_time = this.TimeArray[ prior_value_index ];
@@ -347,7 +340,8 @@ class PROPERTY_ANIMATION
 var
     PropertyAnimationIdentifier = 0,
     PropertyAnimationInterval = null,
-    PropertyAnimationMap = new Map();
+    PropertyAnimationMap = new Map(),
+    PropertyAnimationTimeStep = 0.04;
 
 // -- FUNCTIONS
 
@@ -542,7 +536,7 @@ function StartAnimation(
 
     if ( PropertyAnimationInterval === null )
     {
-        PropertyAnimationInterval = setInterval( UpdateAnimation, 50 );
+        PropertyAnimationInterval = setInterval( UpdateAnimation, PropertyAnimationTimeStep * 1000.0 );
     }
 }
 
