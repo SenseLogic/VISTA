@@ -45,6 +45,8 @@ class PROPERTY_ANIMATION
         this.UpdateFunction = animation_configuration.UpdateFunction;
         this.RatioFunction = animation_configuration.RatioFunction;
         this.InterpolationFunction = animation_configuration.InterpolationFunction;
+        this.SetValueFunction = animation_configuration.GetValueFunction;
+        this.GetValueFunction = animation_configuration.GetValueFunction;
 
         if ( this.Time === undefined )
         {
@@ -84,6 +86,7 @@ class PROPERTY_ANIMATION
 
         this.Duration = this.TimeArray[ this.TimeArray.length - 1 ];
         this.PriorValueIndex = 0;
+        this.NextValueIndex = 0;
 
         this.ExtractUnits();
     }
@@ -238,70 +241,83 @@ class PROPERTY_ANIMATION
             }
         }
 
-        value_count = this.ValueArray.length;
-
-        prior_value_index = this.PriorValueIndex;
-
-        while ( prior_value_index >= 1
-                && this.Time < this.TimeArray[ prior_value_index ] )
+        if ( this.SetValueFunction !== undefined )
         {
-            --prior_value_index;
+            this.SetValueFunction( this );
         }
-
-        while ( prior_value_index + 1 < value_count
-                && this.Time > this.TimeArray[ prior_value_index + 1 ] )
+        else if ( this.GetValueFunction !== undefined )
         {
-            ++prior_value_index;
-        }
-
-        this.PriorValueIndex = prior_value_index;
-
-        next_value_index = prior_value_index + 1;
-
-        if ( next_value_index >= value_count )
-        {
-            next_value_index = prior_value_index;
-        }
-
-        prior_time = this.TimeArray[ prior_value_index ];
-        prior_value = this.ValueArray[ prior_value_index ];
-        prior_unit = this.UnitArray[ prior_value_index ];
-
-        next_time = this.TimeArray[ next_value_index ];
-        next_value = this.ValueArray[ next_value_index ];
-        next_unit= this.UnitArray[ next_value_index ];
-
-        value_time = this.Time - prior_time;
-        value_duration = next_time - prior_time;
-
-        if ( value_duration === 0.0 )
-        {
-            value = next_value;
+            this.Element.style[ this.Name ] = this.GetValueFunction( this );
         }
         else
         {
-            next_value_ratio = value_time / value_duration;
+            value_count = this.ValueArray.length;
 
-            if ( next_value_ratio <= 0.0 )
+            prior_value_index = this.PriorValueIndex;
+
+            while ( prior_value_index >= 1
+                    && this.Time < this.TimeArray[ prior_value_index ] )
             {
-                value = prior_value;
+                --prior_value_index;
             }
-            else if ( next_value_ratio >= 1.0 )
+
+            while ( prior_value_index + 1 < value_count
+                    && this.Time > this.TimeArray[ prior_value_index + 1 ] )
+            {
+                ++prior_value_index;
+            }
+
+            this.PriorValueIndex = prior_value_index;
+
+            next_value_index = prior_value_index + 1;
+
+            if ( next_value_index >= value_count )
+            {
+                next_value_index = prior_value_index;
+            }
+
+            this.NextValueIndex = next_value_index;
+
+            prior_time = this.TimeArray[ prior_value_index ];
+            prior_value = this.ValueArray[ prior_value_index ];
+            prior_unit = this.UnitArray[ prior_value_index ];
+
+            next_time = this.TimeArray[ next_value_index ];
+            next_value = this.ValueArray[ next_value_index ];
+            next_unit= this.UnitArray[ next_value_index ];
+
+            value_time = this.Time - prior_time;
+            value_duration = next_time - prior_time;
+
+            if ( value_duration === 0.0 )
             {
                 value = next_value;
             }
             else
             {
-                value
-                    = this.InterpolationFunction(
-                          prior_value,
-                          next_value,
-                          this.RatioFunction( next_value_ratio )
-                          );
-            }
-        }
+                next_value_ratio = value_time / value_duration;
 
-        this.Element.style[ this.Name ] = value + next_unit;
+                if ( next_value_ratio <= 0.0 )
+                {
+                    value = prior_value;
+                }
+                else if ( next_value_ratio >= 1.0 )
+                {
+                    value = next_value;
+                }
+                else
+                {
+                    value
+                        = this.InterpolationFunction(
+                              prior_value,
+                              next_value,
+                              this.RatioFunction( next_value_ratio )
+                              );
+                }
+            }
+
+            this.Element.style[ this.Name ] = value + next_unit;
+        }
 
         if ( this.UpdateFunction !== undefined )
         {
@@ -561,7 +577,7 @@ function StopAnimation(
 
 // ~~
 
-function StartProperty(
+function AnimateProperty(
     element,
     property_name,
     property_value_array,
@@ -595,7 +611,7 @@ function StartProperty(
 
 // ~~
 
-function StartProperties(
+function AnimateProperties(
     element,
     property_value_array_map,
     property_time_array,
@@ -607,7 +623,7 @@ function StartProperties(
 
     for ( property_name in property_value_array_map )
     {
-        StartProperty(
+        AnimateProperty(
             element,
             property_name,
             property_value_array_map[ property_name ],
@@ -749,7 +765,7 @@ function StopProperties(
 
 // ~~
 
-Array.prototype.StartProperty = function(
+Array.prototype.AnimateProperty = function(
     property_name,
     property_value_array,
     property_time_array,
@@ -761,7 +777,7 @@ Array.prototype.StartProperty = function(
 
     for ( element of this )
     {
-        StartProperty(
+        AnimateProperty(
             element,
             property_name,
             property_value_array,
@@ -775,7 +791,7 @@ Array.prototype.StartProperty = function(
 
 // ~~
 
-Array.prototype.StartProperties = function(
+Array.prototype.AnimateProperties = function(
     property_value_array_map,
     property_time_array,
     animation_configuration = {}
@@ -786,7 +802,7 @@ Array.prototype.StartProperties = function(
 
     for ( element of this )
     {
-        StartProperties(
+        AnimateProperties(
             element,
             property_value_array_map,
             property_time_array,

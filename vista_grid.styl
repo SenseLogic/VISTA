@@ -10,7 +10,7 @@
 
 // ~~
 
-MakeGridFlow( media_query_name_list )
+MakeGridFlow( media_query_name_list = {} )
 
     for media_query_name in media_query_name_list
     {
@@ -48,7 +48,7 @@ MakeGridFlow( media_query_name_list )
 
 // ~~
 
-MakeGridHeights( size, unit_value, unit_name, media_query_name_list )
+MakeGridHeights( size, unit_value, unit_name, media_query_name_list = {} )
 
     .grid-auto-rows-{size}{unit_name}
     {
@@ -68,7 +68,7 @@ MakeGridHeights( size, unit_value, unit_name, media_query_name_list )
 
 // ~~
 
-MakeGridHeightsRange( start, step, count, unit_value, unit_name, media_query_name_list )
+MakeGridHeightsRange( start, step, count, unit_value, unit_name, media_query_name_list = {} )
 
     for index in 0 .. count - 1
     {
@@ -96,7 +96,7 @@ MakeGridHeightsRange( start, step, count, unit_value, unit_name, media_query_nam
 
 // ~~
 
-MakeGridWidths( size, unit_value, unit_name, media_query_name_list )
+MakeGridWidths( size, unit_value, unit_name, media_query_name_list = {} )
 
     .grid-auto-columns-{size}{unit_name}
     {
@@ -116,7 +116,7 @@ MakeGridWidths( size, unit_value, unit_name, media_query_name_list )
 
 // ~~
 
-MakeGridWidthsRange( start, step, count, unit_value, unit_name, media_query_name_list )
+MakeGridWidthsRange( start, step, count, unit_value, unit_name, media_query_name_list = {} )
 
     for index in 0 .. count - 1
     {
@@ -127,7 +127,7 @@ MakeGridWidthsRange( start, step, count, unit_value, unit_name, media_query_name
 
 // ~~
 
-MakeGridRowSpan( row_count, media_query_name_list )
+MakeGridRowSpan( row_count, media_query_name_list = {} )
 
     .grid-row-span-{row_count}
     {
@@ -147,7 +147,7 @@ MakeGridRowSpan( row_count, media_query_name_list )
 
 // ~~
 
-MakeGridRowSpanRange( first_row_count, last_row_count, media_query_name_list )
+MakeGridRowSpanRange( first_row_count, last_row_count, media_query_name_list = {} )
 
     for row_count in first_row_count .. last_row_count
     {
@@ -156,7 +156,7 @@ MakeGridRowSpanRange( first_row_count, last_row_count, media_query_name_list )
 
 // ~~
 
-MakeGridColumnSpan( column_count, media_query_name_list )
+MakeGridColumnSpan( column_count, media_query_name_list = {} )
 
     .grid-column-span-{column_count}
     {
@@ -176,7 +176,7 @@ MakeGridColumnSpan( column_count, media_query_name_list )
 
 // ~~
 
-MakeGridColumnSpanRange( first_column_count, last_column_count, media_query_name_list )
+MakeGridColumnSpanRange( first_column_count, last_column_count, media_query_name_list = {} )
 
     for column_count in first_column_count .. last_column_count
     {
@@ -192,7 +192,7 @@ MakeGridColumnSpanRange( first_column_count, last_column_count, media_query_name
 
 // ~~
 
-MakeGridRowSpanAll( media_query_name_list )
+MakeGridRowSpanAll( media_query_name_list = {} )
 
     for media_query_name in media_query_name_list
     {
@@ -214,7 +214,7 @@ MakeGridRowSpanAll( media_query_name_list )
 
 // ~~
 
-MakeGridColumnSpanAll( media_query_name_list )
+MakeGridColumnSpanAll( media_query_name_list = {} )
 
     for media_query_name in media_query_name_list
     {
@@ -229,7 +229,7 @@ MakeGridColumnSpanAll( media_query_name_list )
 
 // ~~
 
-MakeGridRowGap( size, unit_value, unit_name, media_query_name_list )
+MakeGridRowGap( size, unit_value, unit_name, media_query_name_list = {} )
 
     .grid-row-gap-{size}{unit_name}
     {
@@ -249,7 +249,7 @@ MakeGridRowGap( size, unit_value, unit_name, media_query_name_list )
 
 // ~~
 
-MakeGridRowGapRange( start, step, count, unit_value, unit_name, media_query_name_list )
+MakeGridRowGapRange( start, step, count, unit_value, unit_name, media_query_name_list = {} )
 
     for index in 0 .. count - 1
     {
@@ -260,7 +260,7 @@ MakeGridRowGapRange( start, step, count, unit_value, unit_name, media_query_name
 
 // ~~
 
-MakeGridColumnGap( size, unit_value, unit_name, media_query_name_list )
+MakeGridColumnGap( size, unit_value, unit_name, media_query_name_list = {} )
 
     .grid-column-gap-{size}{unit_name}
     {
@@ -280,7 +280,7 @@ MakeGridColumnGap( size, unit_value, unit_name, media_query_name_list )
 
 // ~~
 
-MakeGridColumnGapRange( start, step, count, unit_value, unit_name, media_query_name_list )
+MakeGridColumnGapRange( start, step, count, unit_value, unit_name, media_query_name_list = {} )
 
     for index in 0 .. count - 1
     {
@@ -291,7 +291,7 @@ MakeGridColumnGapRange( start, step, count, unit_value, unit_name, media_query_n
 
 // ~~
 
-MakeGridColumns( column_count, media_query_name_list )
+MakeGridColumns( column_count, media_query_name_list = {} )
 
     .grid-columns-{column_count}
     {
@@ -313,7 +313,7 @@ MakeGridColumns( column_count, media_query_name_list )
 
 // ~~
 
-MakeGridColumnsRange( first_column_count, last_column_count, media_query_name_list )
+MakeGridColumnsRange( first_column_count, last_column_count, media_query_name_list = {} )
 
     for column_count in first_column_count .. last_column_count
     {

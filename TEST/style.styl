@@ -32,8 +32,13 @@ ContainerMarginMap = {
 
 // ~~
 
-MakeContainerCentered( 10em, ContainerMaxWidthMap, MediaQueryNameList );
-MakeContainerMargined( 1em, ContainerMarginMap, MediaQueryNameList );
+
++Prefix( test- )
+{
+    MakeContainerCentered( 10rem, ContainerMaxWidthMap, MediaQueryNameList );
+    MakeContainerMargined( 1rem, ContainerMarginMap, MediaQueryNameList );
+}
+
 MakeWidthAuto( MediaQueryNameList );
 MakeWidthRange( 10, 10, 5, Pxm, "pxm", MediaQueryNameList );
 MakeMinWidthRange( 10, 10, 5, Pxm, "pxm", MediaQueryNameList );

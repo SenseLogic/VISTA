@@ -5,7 +5,7 @@
 
 // ~~
 
-MakeMarginAuto( media_query_name_list )
+MakeMarginAuto( media_query_name_list = {} )
 
     for media_query_name in media_query_name_list
     {
@@ -20,7 +20,7 @@ MakeMarginAuto( media_query_name_list )
 
 // ~~
 
-MakeMargin( size, unit_value, unit_name, media_query_name_list )
+MakeMargin( size, unit_value, unit_name, media_query_name_list = {} )
 
     .margin-{size}{unit_name}
     {
@@ -40,7 +40,7 @@ MakeMargin( size, unit_value, unit_name, media_query_name_list )
 
 // ~~
 
-MakeMarginRange( start, step, count, unit_value, unit_name, media_query_name_list )
+MakeMarginRange( start, step, count, unit_value, unit_name, media_query_name_list = {} )
 
     for index in 0 .. count - 1
     {
@@ -59,7 +59,7 @@ MakeMarginRange( start, step, count, unit_value, unit_name, media_query_name_lis
 
 // ~~
 
-MakeMarginLateralAuto( media_query_name_list )
+MakeMarginLateralAuto( media_query_name_list = {} )
 
     for media_query_name in media_query_name_list
     {
@@ -75,7 +75,7 @@ MakeMarginLateralAuto( media_query_name_list )
 
 // ~~
 
-MakeMarginLateral( size, unit_value, unit_name, media_query_name_list )
+MakeMarginLateral( size, unit_value, unit_name, media_query_name_list = {} )
 
     .margin-lateral-{size}{unit_name}
     {
@@ -97,7 +97,7 @@ MakeMarginLateral( size, unit_value, unit_name, media_query_name_list )
 
 // ~~
 
-MakeMarginLateralRange( start, step, count, unit_value, unit_name, media_query_name_list )
+MakeMarginLateralRange( start, step, count, unit_value, unit_name, media_query_name_list = {} )
 
     for index in 0 .. count - 1
     {
@@ -116,7 +116,7 @@ MakeMarginLateralRange( start, step, count, unit_value, unit_name, media_query_n
 
 // ~~
 
-MakeMarginVerticalAuto( media_query_name_list )
+MakeMarginVerticalAuto( media_query_name_list = {} )
 
     for media_query_name in media_query_name_list
     {
@@ -132,7 +132,7 @@ MakeMarginVerticalAuto( media_query_name_list )
 
 // ~~
 
-MakeMarginVertical( size, unit_value, unit_name, media_query_name_list )
+MakeMarginVertical( size, unit_value, unit_name, media_query_name_list = {} )
 
     .margin-vertical-{size}{unit_name}
     {
@@ -154,7 +154,7 @@ MakeMarginVertical( size, unit_value, unit_name, media_query_name_list )
 
 // ~~
 
-MakeMarginVerticalRange( start, step, count, unit_value, unit_name, media_query_name_list )
+MakeMarginVerticalRange( start, step, count, unit_value, unit_name, media_query_name_list = {} )
 
     for index in 0 .. count - 1
     {
@@ -172,7 +172,7 @@ MakeMarginVerticalRange( start, step, count, unit_value, unit_name, media_query_
 
 // ~~
 
-MakeMarginLeftAuto( media_query_name_list )
+MakeMarginLeftAuto( media_query_name_list = {} )
 
     for media_query_name in media_query_name_list
     {
@@ -187,7 +187,7 @@ MakeMarginLeftAuto( media_query_name_list )
 
 // ~~
 
-MakeMarginLeft( size, unit_value, unit_name, media_query_name_list )
+MakeMarginLeft( size, unit_value, unit_name, media_query_name_list = {} )
 
     .margin-left-{size}{unit_name}
     {
@@ -207,7 +207,7 @@ MakeMarginLeft( size, unit_value, unit_name, media_query_name_list )
 
 // ~~
 
-MakeMarginLeftRange( start, step, count, unit_value, unit_name, media_query_name_list )
+MakeMarginLeftRange( start, step, count, unit_value, unit_name, media_query_name_list = {} )
 
     for index in 0 .. count - 1
     {
@@ -225,7 +225,7 @@ MakeMarginLeftRange( start, step, count, unit_value, unit_name, media_query_name
 
 // ~~
 
-MakeMarginRightAuto( media_query_name_list )
+MakeMarginRightAuto( media_query_name_list = {} )
 
     for media_query_name in media_query_name_list
     {
@@ -240,7 +240,7 @@ MakeMarginRightAuto( media_query_name_list )
 
 // ~~
 
-MakeMarginRight( size, unit_value, unit_name, media_query_name_list )
+MakeMarginRight( size, unit_value, unit_name, media_query_name_list = {} )
 
     .margin-right-{size}{unit_name}
     {
@@ -260,7 +260,7 @@ MakeMarginRight( size, unit_value, unit_name, media_query_name_list )
 
 // ~~
 
-MakeMarginRightRange( start, step, count, unit_value, unit_name, media_query_name_list )
+MakeMarginRightRange( start, step, count, unit_value, unit_name, media_query_name_list = {} )
 
     for index in 0 .. count - 1
     {
@@ -278,7 +278,7 @@ MakeMarginRightRange( start, step, count, unit_value, unit_name, media_query_nam
 
 // ~~
 
-MakeMarginTopAuto( media_query_name_list )
+MakeMarginTopAuto( media_query_name_list = {} )
 
     for media_query_name in media_query_name_list
     {
@@ -293,7 +293,7 @@ MakeMarginTopAuto( media_query_name_list )
 
 // ~~
 
-MakeMarginTop( size, unit_value, unit_name, media_query_name_list )
+MakeMarginTop( size, unit_value, unit_name, media_query_name_list = {} )
 
     .margin-top-{size}{unit_name}
     {
@@ -313,7 +313,7 @@ MakeMarginTop( size, unit_value, unit_name, media_query_name_list )
 
 // ~~
 
-MakeMarginTopRange( start, step, count, unit_value, unit_name, media_query_name_list )
+MakeMarginTopRange( start, step, count, unit_value, unit_name, media_query_name_list = {} )
 
     for index in 0 .. count - 1
     {
@@ -331,7 +331,7 @@ MakeMarginTopRange( start, step, count, unit_value, unit_name, media_query_name_
 
 // ~~
 
-MakeMarginBottomAuto( media_query_name_list )
+MakeMarginBottomAuto( media_query_name_list = {} )
 
     for media_query_name in media_query_name_list
     {
@@ -346,7 +346,7 @@ MakeMarginBottomAuto( media_query_name_list )
 
 // ~~
 
-MakeMarginBottom( size, unit_value, unit_name, media_query_name_list )
+MakeMarginBottom( size, unit_value, unit_name, media_query_name_list = {} )
 
     .margin-bottom-{size}{unit_name}
     {
@@ -366,7 +366,7 @@ MakeMarginBottom( size, unit_value, unit_name, media_query_name_list )
 
 // ~~
 
-MakeMarginBottomRange( start, step, count, unit_value, unit_name, media_query_name_list )
+MakeMarginBottomRange( start, step, count, unit_value, unit_name, media_query_name_list = {} )
 
     for index in 0 .. count - 1
     {
@@ -377,7 +377,7 @@ MakeMarginBottomRange( start, step, count, unit_value, unit_name, media_query_na
 
 // ~~
 
-MakeFractionalMarginLeft( column_count, media_query_name_list )
+MakeFractionalMarginLeft( column_count, media_query_name_list = {} )
 
     for column_index in 1 .. column_count
 
@@ -399,7 +399,7 @@ MakeFractionalMarginLeft( column_count, media_query_name_list )
 
 // ~~
 
-MakeFractionalMarginLeftRange( first_column_count, last_column_count, media_query_name_list )
+MakeFractionalMarginLeftRange( first_column_count, last_column_count, media_query_name_list = {} )
 
     for column_count in first_column_count .. last_column_count
     {
@@ -408,7 +408,7 @@ MakeFractionalMarginLeftRange( first_column_count, last_column_count, media_quer
 
 // ~~
 
-MakeFractionalMarginRight( column_count, media_query_name_list )
+MakeFractionalMarginRight( column_count, media_query_name_list = {} )
 
     for column_index in 1 .. column_count
 
@@ -430,7 +430,7 @@ MakeFractionalMarginRight( column_count, media_query_name_list )
 
 // ~~
 
-MakeFractionalMarginRightRange( first_column_count, last_column_count, media_query_name_list )
+MakeFractionalMarginRightRange( first_column_count, last_column_count, media_query_name_list = {} )
 
     for column_count in first_column_count .. last_column_count
     {

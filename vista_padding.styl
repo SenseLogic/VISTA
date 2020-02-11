@@ -1,4 +1,4 @@
-MakePadding( size, unit_value, unit_name, media_query_name_list )
+MakePadding( size, unit_value, unit_name, media_query_name_list = {} )
 
     .padding-{size}{unit_name}
     {
@@ -18,7 +18,7 @@ MakePadding( size, unit_value, unit_name, media_query_name_list )
 
 // ~~
 
-MakePaddingRange( start, step, count, unit_value, unit_name, media_query_name_list )
+MakePaddingRange( start, step, count, unit_value, unit_name, media_query_name_list = {} )
 
     for index in 0 .. count - 1
     {
@@ -29,7 +29,7 @@ MakePaddingRange( start, step, count, unit_value, unit_name, media_query_name_li
 
 // ~~
 
-MakePaddingLateral( size, unit_value, unit_name, media_query_name_list )
+MakePaddingLateral( size, unit_value, unit_name, media_query_name_list = {} )
 
     .padding-lateral-{size}{unit_name}
     {
@@ -51,7 +51,7 @@ MakePaddingLateral( size, unit_value, unit_name, media_query_name_list )
 
 // ~~
 
-MakePaddingLateralRange( start, step, count, unit_value, unit_name, media_query_name_list )
+MakePaddingLateralRange( start, step, count, unit_value, unit_name, media_query_name_list = {} )
 
     for index in 0 .. count - 1
     {
@@ -62,7 +62,7 @@ MakePaddingLateralRange( start, step, count, unit_value, unit_name, media_query_
 
 // ~~
 
-MakePaddingVertical( size, unit_value, unit_name, media_query_name_list )
+MakePaddingVertical( size, unit_value, unit_name, media_query_name_list = {} )
 
     .padding-vertical-{size}{unit_name}
     {
@@ -84,7 +84,7 @@ MakePaddingVertical( size, unit_value, unit_name, media_query_name_list )
 
 // ~~
 
-MakePaddingVerticalRange( start, step, count, unit_value, unit_name, media_query_name_list )
+MakePaddingVerticalRange( start, step, count, unit_value, unit_name, media_query_name_list = {} )
 
     for index in 0 .. count - 1
     {
@@ -95,7 +95,7 @@ MakePaddingVerticalRange( start, step, count, unit_value, unit_name, media_query
 
 // ~~
 
-MakePaddingLeft( size, unit_value, unit_name, media_query_name_list )
+MakePaddingLeft( size, unit_value, unit_name, media_query_name_list = {} )
 
     .padding-left-{size}{unit_name}
     {
@@ -115,7 +115,7 @@ MakePaddingLeft( size, unit_value, unit_name, media_query_name_list )
 
 // ~~
 
-MakePaddingLeftRange( start, step, count, unit_value, unit_name, media_query_name_list )
+MakePaddingLeftRange( start, step, count, unit_value, unit_name, media_query_name_list = {} )
 
     for index in 0 .. count - 1
     {
@@ -126,7 +126,7 @@ MakePaddingLeftRange( start, step, count, unit_value, unit_name, media_query_nam
 
 // ~~
 
-MakePaddingRight( size, unit_value, unit_name, media_query_name_list )
+MakePaddingRight( size, unit_value, unit_name, media_query_name_list = {} )
 
     .padding-right-{size}{unit_name}
     {
@@ -146,7 +146,7 @@ MakePaddingRight( size, unit_value, unit_name, media_query_name_list )
 
 // ~~
 
-MakePaddingRightRange( start, step, count, unit_value, unit_name, media_query_name_list )
+MakePaddingRightRange( start, step, count, unit_value, unit_name, media_query_name_list = {} )
 
     for index in 0 .. count - 1
     {
@@ -157,7 +157,7 @@ MakePaddingRightRange( start, step, count, unit_value, unit_name, media_query_na
 
 // ~~
 
-MakePaddingTop( size, unit_value, unit_name, media_query_name_list )
+MakePaddingTop( size, unit_value, unit_name, media_query_name_list = {} )
 
     .padding-top-{size}{unit_name}
     {
@@ -177,7 +177,7 @@ MakePaddingTop( size, unit_value, unit_name, media_query_name_list )
 
 // ~~
 
-MakePaddingTopRange( start, step, count, unit_value, unit_name, media_query_name_list )
+MakePaddingTopRange( start, step, count, unit_value, unit_name, media_query_name_list = {} )
 
     for index in 0 .. count - 1
     {
@@ -188,7 +188,7 @@ MakePaddingTopRange( start, step, count, unit_value, unit_name, media_query_name
 
 // ~~
 
-MakePaddingBottom( size, unit_value, unit_name, media_query_name_list )
+MakePaddingBottom( size, unit_value, unit_name, media_query_name_list = {} )
 
     .padding-bottom-{size}{unit_name}
     {
@@ -208,7 +208,7 @@ MakePaddingBottom( size, unit_value, unit_name, media_query_name_list )
 
 // ~~
 
-MakePaddingBottomRange( start, step, count, unit_value, unit_name, media_query_name_list )
+MakePaddingBottomRange( start, step, count, unit_value, unit_name, media_query_name_list = {} )
 
     for index in 0 .. count - 1
     {

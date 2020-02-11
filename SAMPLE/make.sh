@@ -6,4 +6,6 @@ cd ../FORM
 stylus style.styl
 cd ../PAGE
 stylus style.styl
+cd ../PARALLAX
+stylus style.styl
 cd ..

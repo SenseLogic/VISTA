@@ -30,7 +30,7 @@
 
 // ~~
 
-MakeFlex( media_query_name_list )
+MakeFlex( media_query_name_list = {} )
 
     for media_query_name in media_query_name_list
     {
@@ -70,7 +70,7 @@ MakeFlex( media_query_name_list )
 
 // ~~
 
-MakeFlexBasis( column_count, media_query_name_list )
+MakeFlexBasis( column_count, media_query_name_list = {} )
 
     for column_index in 1 .. column_count
 
@@ -94,7 +94,7 @@ MakeFlexBasis( column_count, media_query_name_list )
 
 // ~~
 
-MakeFlexBasisRange( first_column_count, last_column_count, media_query_name_list )
+MakeFlexBasisRange( first_column_count, last_column_count, media_query_name_list = {} )
 
     for column_count in first_column_count .. last_column_count
     {
@@ -103,7 +103,7 @@ MakeFlexBasisRange( first_column_count, last_column_count, media_query_name_list
 
 // ~~
 
-MakeFlexShrink( minimum_factor, maximum_factor, media_query_name_list )
+MakeFlexShrink( minimum_factor, maximum_factor, media_query_name_list = {} )
 
     for factor in minimum_factor .. maximum_factor
 
@@ -125,7 +125,7 @@ MakeFlexShrink( minimum_factor, maximum_factor, media_query_name_list )
 
 // ~~
 
-MakeFlexGrow( minimum_factor, maximum_factor, media_query_name_list )
+MakeFlexGrow( minimum_factor, maximum_factor, media_query_name_list = {} )
 
     for factor in minimum_factor .. maximum_factor
 
