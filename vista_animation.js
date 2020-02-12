@@ -12,20 +12,104 @@ class PROPERTY_ANIMATION
         animation_configuration
         )
     {
+        var
+            property_value;
+
         this.Identifier = GetPropertyAnimationIdentifier();
         this.Element = element;
         this.Name = property_name;
         this.IsColor = property_name.endsWith( "color" );
-        this.IsTransform = property_name.startsWith( "transform" );
+        this.IsTransform = ( PropertyTransformNameArray.indexOf( property_name ) >= 0 );
+        this.IsNumeric = !this.IsColor && !this.IsTransform;
         this.State = 0;
+
+        this.ParseValueFunction = animation_configuration.ParseValueFunction;
+        this.GetRatioFunction = animation_configuration.GetRatioFunction;
+        this.GetPropertyFunction = animation_configuration.GetPropertyFunction;
+        this.SetPropertyFunction = animation_configuration.SetPropertyFunction;
+        this.GetInterpolationFunction = animation_configuration.GetInterpolationFunction;
+
+        if ( this.GetRatioFunction === undefined )
+        {
+            this.GetRatioFunction = GetLinearRatio;
+        }
+
+        if ( this.ParseValueFunction === undefined )
+        {
+            if ( this.IsNumeric )
+            {
+                this.ParseValueFunction = ParseNumericText;
+            }
+            else if ( this.IsColor )
+            {
+                this.ParseValueFunction = ParseColorText;
+            }
+            else if ( this.IsTransform )
+            {
+                this.ParseValueFunction = ParseTransformText;
+            }
+        }
+
+        if ( this.GetPropertyFunction === undefined )
+        {
+            if ( this.IsNumeric )
+            {
+                this.GetPropertyFunction = GetNumericProperty;
+            }
+            else if ( this.IsColor )
+            {
+                this.GetPropertyFunction = GetColorProperty;
+            }
+            else if ( this.IsTransform )
+            {
+                this.GetPropertyFunction = GetTransformProperty;
+            }
+        }
+
+        if ( this.SetPropertyFunction === undefined )
+        {
+            if ( this.IsNumeric )
+            {
+                this.SetPropertyFunction = SetNumericProperty;
+            }
+            else if ( this.IsColor )
+            {
+                this.SetPropertyFunction = SetColorProperty;
+            }
+            else if ( this.IsTransform )
+            {
+                this.SetPropertyFunction = SetTransformProperty;
+            }
+        }
+
+        if ( this.GetInterpolationFunction === undefined )
+        {
+            if ( this.IsNumeric )
+            {
+                this.GetInterpolationFunction = GetNumericInterpolation;
+            }
+            else if ( this.IsColor )
+            {
+                this.GetInterpolationFunction = GetColorInterpolation;
+            }
+            else if ( this.IsTransform )
+            {
+                this.GetInterpolationFunction = GetTransformInterpolation;
+            }
+        }
+
+        this.ValueArray = [];
 
         if ( property_value_array instanceof Array )
         {
-            this.ValueArray = property_value_array.slice();
+            for ( property_value of property_value_array )
+            {
+                this.ValueArray.push( this.ParseValueFunction( property_value ) );
+            }
         }
         else
         {
-            this.ValueArray = [ property_value_array ];
+            this.ValueArray = [ this.ParseValueFunction( property_value_array ) ];
         }
 
         if ( property_time_array instanceof Array )
@@ -45,10 +129,6 @@ class PROPERTY_ANIMATION
         this.ResumeFunction = animation_configuration.ResumeFunction;
         this.StopFunction = animation_configuration.StopFunction;
         this.UpdateFunction = animation_configuration.UpdateFunction;
-        this.GetPropertyFunction = animation_configuration.GetPropertyFunction;
-        this.SetPropertyFunction = animation_configuration.SetPropertyFunction;
-        this.GetRatioFunction = animation_configuration.GetRatioFunction;
-        this.GetInterpolatedValueFunction = animation_configuration.GetInterpolatedValueFunction;
 
         if ( this.Time === undefined )
         {
@@ -65,110 +145,24 @@ class PROPERTY_ANIMATION
             this.IsLooping = false;
         }
 
-        if ( this.GetRatioFunction === undefined )
-        {
-            this.GetRatioFunction = GetLinearRatio;
-        }
-
-        if ( this.GetPropertyFunction === undefined )
-        {
-            if ( this.IsColor )
-            {
-                this.GetPropertyFunction = GetColorProperty;
-            }
-            else if ( this.IsTransform )
-            {
-                this.GetPropertyFunction = GetTransformProperty;
-            }
-            else
-            {
-                this.GetPropertyFunction = GetNumericProperty;
-            }
-        }
-
-        if ( this.SetPropertyFunction === undefined )
-        {
-            if ( this.IsColor )
-            {
-                this.SetPropertyFunction = SetColorProperty;
-            }
-            else if ( this.IsTransform )
-            {
-                this.SetPropertyFunction = SetTransformProperty;
-            }
-            else
-            {
-                this.SetPropertyFunction = SetNumericProperty;
-            }
-        }
-
-        if ( this.GetInterpolatedValueFunction === undefined )
-        {
-            if ( this.IsColor )
-            {
-                this.GetInterpolatedValueFunction = GetInterpolatedColor;
-            }
-            else if ( this.IsTransform )
-            {
-                this.GetInterpolatedValueFunction = GetInterpolatedTransform;
-            }
-            else
-            {
-                this.GetInterpolatedValueFunction = GetInterpolatedNumber;
-            }
-        }
 
         if ( this.TimeArray.length == 0
              || this.TimeArray[ 0 ] > 0.0 )
         {
-            this.ValueArray.unshift( element.style[ property_name ] );
+            this.ValueArray.unshift( this.GetPropertyFunction( element, property_name ) );
             this.TimeArray.unshift( 0.0 );
         }
         else
         {
-            element.style[ property_name ] = this.ValueArray[ 0 ];
+            this.SetPropertyFunction( element, property_name, this.ValueArray[ 0 ] );
         }
 
         this.Duration = this.TimeArray[ this.TimeArray.length - 1 ];
         this.PriorValueIndex = 0;
         this.NextValueIndex = 0;
-
-        this.ExtractUnits();
     }
 
     // -- OPERATIONS
-
-    ExtractUnits(
-        )
-    {
-        var
-            unit,
-            value,
-            value_index;
-
-        this.UnitArray = [];
-
-        for ( value_index = 0;
-              value_index < this.ValueArray.length;
-              ++value_index )
-        {
-            value = this.ValueArray[ value_index ];
-            unit = GetUnit( value );
-
-            this.UnitArray.push( unit );
-
-            if ( unit === "" )
-            {
-                this.ValueArray[ value_index ] = parseFloat( value );
-            }
-            else
-            {
-                this.ValueArray[ value_index ] = parseFloat( RemoveEnd( value, unit ) );
-            }
-        }
-    }
-
-    // ~~
 
     Start(
         )
@@ -256,11 +250,9 @@ class PROPERTY_ANIMATION
     {
         var
             prior_time,
-            prior_unit,
             prior_value,
             prior_value_index,
             next_time,
-            next_unit,
             next_value,
             next_value_index,
             next_value_ratio,
@@ -315,11 +307,9 @@ class PROPERTY_ANIMATION
 
         prior_time = this.TimeArray[ prior_value_index ];
         prior_value = this.ValueArray[ prior_value_index ];
-        prior_unit = this.UnitArray[ prior_value_index ];
 
         next_time = this.TimeArray[ next_value_index ];
         next_value = this.ValueArray[ next_value_index ];
-        next_unit= this.UnitArray[ next_value_index ];
 
         value_time = this.Time - prior_time;
         value_duration = next_time - prior_time;
@@ -343,7 +333,7 @@ class PROPERTY_ANIMATION
             else
             {
                 value
-                    = this.GetInterpolatedValueFunction(
+                    = this.GetInterpolationFunction(
                           prior_value,
                           next_value,
                           this.GetRatioFunction( next_value_ratio )
@@ -351,7 +341,11 @@ class PROPERTY_ANIMATION
             }
         }
 
-        this.Element.style[ this.Name ] = value + next_unit;
+        this.SetPropertyFunction(
+            this.Element,
+            this.Name,
+            value
+            );
 
         if ( this.UpdateFunction !== undefined )
         {
@@ -372,12 +366,51 @@ var
     PropertyAnimationFrame = null,
     PropertyAnimationIdentifier = 0,
     PropertyAnimationMap = new Map(),
-    PropertyAnimationTimestamp = null;
+    PropertyAnimationTimestamp = null,
+    PropertyTransformNameArray = [
+        "translateX",
+        "translateY",
+        "translateZ",
+        "rotateX",
+        "rotateY",
+        "rotateZ",
+        "scaleX",
+        "scaleY",
+        "scaleZ",
+        "perspective"
+        ];
 
 // -- FUNCTIONS
 
-function GetHexadecimalValue(
-    hexadecimal_text,
+function ParseNumericText(
+    text
+    )
+{
+    var
+        amount,
+        unit;
+
+    unit = GetUnit( text );
+
+    if ( unit === "" )
+    {
+        amount = parseFloat( text );
+    }
+    else
+    {
+        amount = parseFloat( RemoveEnd( text, unit ) );
+    }
+
+    return {
+        Amount : amount,
+        Unit : unit
+        };
+}
+
+// ~~
+
+function ParseHexadecimalText(
+    text,
     first_character_index = 0,
     last_character_index = -1,
     digits_are_repeated = false
@@ -391,7 +424,7 @@ function GetHexadecimalValue(
 
     if ( last_character_index < 0 )
     {
-        last_character_index += hexadecimal_text.length;
+        last_character_index += text.length;
     }
 
     integer = 0;
@@ -400,7 +433,7 @@ function GetHexadecimalValue(
           character_index <= last_character_index;
           ++character_index )
     {
-        character_code = hexadecimal_text.charCodeAt( character_index );
+        character_code = text.charCodeAt( character_index );
 
         if ( character_code >= 97 )
         {
@@ -426,128 +459,136 @@ function GetHexadecimalValue(
 
 // ~~
 
-function GetColorComponentArray(
-    value
+function ParseColorText(
+    text
     )
 {
     var
         component_array;
 
-    value = value.split( " " ).join( "" );
+    text = text.split( " " ).join( "" );
 
-    if ( value.startsWith( "#" ) )
+    if ( text.startsWith( "#" ) )
     {
-        if ( value.length == 4 )
+        if ( text.length == 4 )
         {
-            return [
-                GetHexadecimalValue( value, 1, 1, true ),
-                GetHexadecimalValue( value, 2, 2, true ),
-                GetHexadecimalValue( value, 3, 3, true ),
-                1.0
-                ];
+            return {
+                Red : ParseHexadecimalText( text, 1, 1, true ),
+                Green : ParseHexadecimalText( text, 2, 2, true ),
+                Blue : ParseHexadecimalText( text, 3, 3, true ),
+                Opacity : 1.0
+                };
         }
         else
         {
-            return [
-                GetHexadecimalValue( value, 1, 2 ),
-                GetHexadecimalValue( value, 3, 4 ),
-                GetHexadecimalValue( value, 5, 6 ),
-                1.0
-                ];
+            return {
+                Red : ParseHexadecimalText( text, 1, 2 ),
+                Green : ParseHexadecimalText( text, 3, 4 ),
+                Blue : ParseHexadecimalText( text, 5, 6 ),
+                Opacity : 1.0
+                };
         }
     }
-    else if ( value.endsWith( ")" ) )
+    else if ( text.endsWith( ")" ) )
     {
-        if ( value.startsWith( "rgb(" ) )
+        if ( text.startsWith( "rgb(" ) )
         {
-            component_array = value.substring( 4, value.length - 1 ).split( "," );
+            component_array = text.substring( 4, text.length - 1 ).split( "," );
 
-            return [
-                parseFloat( component_array[ 0 ] ),
-                parseFloat( component_array[ 1 ] ),
-                parseFloat( component_array[ 2 ] ),
-                1.0
-                ];
+            return {
+                Red : parseFloat( component_array[ 0 ] ),
+                Green : parseFloat( component_array[ 1 ] ),
+                Blue : parseFloat( component_array[ 2 ] ),
+                Opacity : 1.0
+                };
         }
-        else if ( value.startsWith( "rgba(" ) )
+        else if ( text.startsWith( "rgba(" ) )
         {
-            component_array = value.substring( 5, value.length - 1 ).split( "," );
+            component_array = text.substring( 5, text.length - 1 ).split( "," );
 
-            return [
-                parseFloat( component_array[ 0 ] ),
-                parseFloat( component_array[ 1 ] ),
-                parseFloat( component_array[ 2 ] ),
-                parseFloat( component_array[ 3 ] )
-                ];
-        }
-        else
-        {
-            return [
-                parseFloat( value.substring( value.indexOf( '(' ) + 1, value.length - 1 ) )
-                ];
-
+            return {
+                Red : parseFloat( component_array[ 0 ] ),
+                Green : parseFloat( component_array[ 1 ] ),
+                Blue : parseFloat( component_array[ 2 ] ),
+                Opacity : parseFloat( component_array[ 3 ] )
+                };
         }
     }
 
-    return [];
+    return {};
 }
 
 // ~~
 
-function GetInterpolatedNumber(
+function GetNumericProperty(
+    element,
+    property_name
+    )
+{
+    return ParseNumericText( element.style[ property_name ] );
+}
+
+// ~~
+
+function GetColorProperty(
+    element,
+    property_name
+    )
+{
+    return ParseColorText( element.style[ property_name ] );
+}
+
+// ~~
+
+function SetNumericProperty(
+    element,
+    property_name,
+    number
+    )
+{
+    element.style[ property_name ] = number.Amount + number.Unit;
+}
+
+// ~~
+
+function SetColorProperty(
+    element,
+    property_name,
+    color
+    )
+{
+    element.style[ property_name ]
+        = "rgba(" + color.Red + "," + color.Green + "," + color.Blue + "," + color.Opacity + ")";
+}
+
+// ~~
+
+function GetNumericInterpolation(
     initial_number,
     final_number,
     final_number_ratio
     )
 {
-    return initial_number + ( final_number - initial_number ) * final_number_ratio;
+    return {
+        Amount : initial_number.Amount + ( final_number.Amount - initial_number.Amount ) * final_number_ratio,
+        Unit : final_number.Unit
+        };
 }
 
 // ~~
 
-function GetInterpolatedArray(
-    initial_array,
-    final_array,
-    final_array_ratio
-    )
-{
-    var
-        element_index,
-        interpolated_array;
-
-    interpolated_array = [];
-
-    for ( element_index = 0;
-          element_index < initial_array.length;
-          ++element_index )
-    {
-        interpolated_array.push(
-            initial_array[ element_index ]
-            + ( final_array[ element_index ] - initial_array[ element_index ] )
-              * final_array_ratio
-            );
-    }
-
-    return interpolated_array;
-}
-
-// ~~
-
-function GetInterpolatedColor(
+function GetColorInterpolation(
     initial_color,
     final_color,
     final_color_ratio
     )
 {
-    return (
-        GetColorFromComponentArray(
-            GetInterpolatedArray(
-                GetColorComponentArray( initial_color ),
-                GetColorComponentArray( final_color ),
-                final_color_ratio
-                )
-            )
-        );
+    return {
+        Red : ( initial_color.Red + ( final_color.Red - initial_color.Red ) * final_color_ratio ),
+        Green : ( initial_color.Green + ( final_color.Green - initial_color.Green ) * final_color_ratio ),
+        Blue : ( initial_color.Blue + ( final_color.Blue - initial_color.Blue ) * final_color_ratio ),
+        Opacity : ( initial_color.Opacity + ( final_color.Opacity - initial_color.Opacity ) * final_color_ratio )
+        };
 }
 
 // ~~
@@ -712,27 +753,6 @@ function GetQuinticEaseInOutRatio(
 
         return 16.0 * ratio * ratio * ratio * ratio * ratio + 1;
     }
-}
-
-// ~~
-
-function GetNumericProperty(
-    element,
-    property_name
-    )
-{
-    return element.style[ property_name ];
-}
-
-// ~~
-
-function SetNumericProperty(
-    element,
-    property_name,
-    property_value
-    )
-{
-    element.style[ property_name ] = property_value;
 }
 
 // ~~
