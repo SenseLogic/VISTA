@@ -4,22 +4,6 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width,initial-scale=1">
         <title>Sample</title>
-        <style>
-            .red-block
-            {
-                background-color: #FF0000;
-            }
-
-            .green-block
-            {
-                background-color: #00FF00;
-            }
-
-            .blue-block
-            {
-                background-color: #0000FF;
-            }
-        </style>
     </head>
     <body>
         <main>
@@ -46,23 +30,30 @@
                 {
                     "margin-top" : "2vw",
                     "width" : "100%",
-                    "height" : "5vw"
+                    "height" : "5vw",
+                    "background-color" : "#EEE"
                 }
                 );
         GetElements( ".block" )
             .SetProperties(
                 {
-                    "position" : "relative",
                     "width" : "5vw",
-                    "height" : "5vw"
+                    "height" : "5vw",
+                    "background-color" : "#FF8888"
                 }
                 )
             .AnimateProperties(
                 {
-                    "left" : [ "0vw", "10vw", "50vw", "60vw" ],
+                    "transform" : [ "translateX(0vw)", "translateX(30vw)", "translateX(70vw)", "translateX(90vw)" ],
                     "opacity" : [ "1.0", "0.5", "0.1", "1.0" ]
                 },
                 [ 0.0, 2.0, 4.0, 6.0 ]
+                )
+            .AnimateProperties(
+                {
+                    "background-color" : [ "#FFFF00", "#00FFFF", "#FF00FF" ]
+                },
+                [ 4.0, 5.0, 6.0 ]
                 )
             .AnimateProperties(
                 {
