@@ -64,6 +64,28 @@ function IsVisibleElement(
 
 // ~~
 
+function GetElementProperty(
+    element,
+    property_name
+    )
+{
+    var
+        property;
+
+    property = element.style[ property_name ];
+
+    if ( property.length > 0 )
+    {
+        return property;
+    }
+    else
+    {
+        return window.getComputedStyle( element, null ).getPropertyValue( property_name );
+    }
+}
+
+// ~~
+
 function GetElementById(
     element_id
     )

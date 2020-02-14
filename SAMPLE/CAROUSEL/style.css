@@ -10,11 +10,7 @@ body {
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
-  -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0,0,0,0);
-}
-[tabindex="-1"]:focus:not(:focus-visible) {
-  outline: 0 !important;
 }
 hr {
   margin: 1rem 0;
@@ -511,6 +507,13 @@ a:hover {
 .overflow-x-auto {
   overflow-x: auto;
 }
+.overflow-scrollbar-hidden {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.overflow-scrollbar-hidden::-webkit-scrollbar {
+  display: none;
+}
 .position-fixed-top {
   position: fixed;
   top: 0;
@@ -565,19 +568,14 @@ a:hover {
   background-size: cover;
   height: 100vh;
 }
-.container-centered {
-  max-width: 60rem;
-  margin-left: auto;
-  margin-right: auto;
-}
-.carousel-strip-3 {
+.test-carousel-strip-3 {
   display: flex;
   position: relative;
   left: 0;
   margin: 0;
   width: 300%;
 }
-.carousel-strip-animation-3-3000-500 {
+.test-carousel-strip-animation-3-3000-500 {
   animation: 7s carousel-strip-animation-3-3000-500 infinite;
   animation-timing-function: ease;
 }
@@ -598,17 +596,17 @@ a:hover {
     left: -200%;
   }
 }
-.carousel-slide-3 {
+.test-carousel-slide-3 {
   width: 33.333333333333336%;
 }
-.carousel-strip-4 {
+.test-carousel-strip-4 {
   display: flex;
   position: relative;
   left: 0;
   margin: 0;
   width: 400%;
 }
-.carousel-strip-animation-4-3000-500 {
+.test-carousel-strip-animation-4-3000-500 {
   animation: 10.5s carousel-strip-animation-4-3000-500 infinite;
   animation-timing-function: ease;
 }
@@ -635,17 +633,17 @@ a:hover {
     left: -300%;
   }
 }
-.carousel-slide-4 {
+.test-carousel-slide-4 {
   width: 25%;
 }
-.carousel-strip-5 {
+.test-carousel-strip-5 {
   display: flex;
   position: relative;
   left: 0;
   margin: 0;
   width: 500%;
 }
-.carousel-strip-animation-5-3000-500 {
+.test-carousel-strip-animation-5-3000-500 {
   animation: 14s carousel-strip-animation-5-3000-500 infinite;
   animation-timing-function: ease;
 }
@@ -678,17 +676,17 @@ a:hover {
     left: -400%;
   }
 }
-.carousel-slide-5 {
+.test-carousel-slide-5 {
   width: 20%;
 }
-.carousel-strip-6 {
+.test-carousel-strip-6 {
   display: flex;
   position: relative;
   left: 0;
   margin: 0;
   width: 600%;
 }
-.carousel-strip-animation-6-3000-500 {
+.test-carousel-strip-animation-6-3000-500 {
   animation: 17.5s carousel-strip-animation-6-3000-500 infinite;
   animation-timing-function: ease;
 }
@@ -727,9 +725,29 @@ a:hover {
     left: -500%;
   }
 }
-.carousel-slide-6 {
+.test-carousel-slide-6 {
   width: 16.666666666666668%;
 }
 html {
   background: #fff;
+}
+.slide {
+  height: 100vh;
+  background-position: center center;
+  background-size: cover;
+}
+.slide-1 {
+  background-image: url("slide_1.jpg");
+}
+.slide-2 {
+  background-image: url("slide_2.jpg");
+}
+.slide-3 {
+  background-image: url("slide_3.jpg");
+}
+.slide-4 {
+  background-image: url("slide_4.jpg");
+}
+.slide-5 {
+  background-image: url("slide_5.jpg");
 }

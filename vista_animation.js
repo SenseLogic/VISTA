@@ -20,6 +20,46 @@ var
 
 // -- FUNCTIONS
 
+function IsNumericText(
+    text
+    )
+{
+    if ( text.length > 0 )
+    {
+        character_code = text.charCodeAt( 0 );
+
+        if ( character_code === 45
+             && text.length >= 1 )
+        {
+            character_code = text.charCodeAt( 1 );
+        }
+
+        return (
+            character_code >= 48
+            && character_code <= 57
+            );
+    }
+    else
+    {
+        return false;
+    }
+}
+
+// ~~
+
+function IsColorText(
+    text
+    )
+{
+    return (
+        text.startsWith( "#" )
+        || text.startsWith( "rgb(" )
+        || text.startsWith( "rgba(" )
+        );
+}
+
+// ~~
+
 function ParseNumericText(
     text
     )
@@ -196,12 +236,21 @@ function ParseTransformText(
 
 // ~~
 
+function ParseConstantText(
+    text
+    )
+{
+    return text;
+}
+
+// ~~
+
 function GetNumericProperty(
     element,
     property_name
     )
 {
-    return ParseNumericText( element.style[ property_name ] );
+    return ParseNumericText( GetElementProperty( element, property_name ) );
 }
 
 // ~~
@@ -211,7 +260,7 @@ function GetColorProperty(
     property_name
     )
 {
-    return ParseColorText( element.style[ property_name ] );
+    return ParseColorText( GetElementProperty( element, property_name ) );
 }
 
 // ~~
@@ -222,6 +271,16 @@ function GetTransformProperty(
     )
 {
     return ParseTransformText( element.style[ property_name ] );
+}
+
+// ~~
+
+function GetConstantProperty(
+    element,
+    property_name
+    )
+{
+    return GetElementProperty( element, property_name );
 }
 
 // ~~
@@ -269,6 +328,17 @@ function SetTransformProperty(
     }
 
     element.style[ property_name ] = style;
+}
+
+// ~~
+
+function SetConstantProperty(
+    element,
+    property_name,
+    constant
+    )
+{
+    element.style[ property_name ] = constant;
 }
 
 // ~~
@@ -337,6 +407,24 @@ function GetTransformInterpolation(
         }
 
         return interpolated_transform;
+    }
+}
+
+// ~~
+
+function GetConstantInterpolation(
+    initial_constant,
+    final_constant,
+    final_constant_ratio
+    )
+{
+    if ( final_constant_ratio < 1.0 )
+    {
+        return initial_constant;
+    }
+    else
+    {
+        return final_constant;
     }
 }
 
@@ -580,8 +668,10 @@ function PROPERTY_ANIMATION(
     this.Identifier = GetPropertyAnimationIdentifier();
     this.Element = element;
     this.Name = property_name;
-    this.IsColor = property_name.endsWith( "color" );
+    this.IsNumeric = IsNumericText( property_value_array[ 0 ] );
+    this.IsColor = IsColorText( property_value_array[ 0 ] );
     this.IsTransform = ( property_name == "transform" );
+    this.IsConstant = ( !this.IsNumeric && !this.IsColor && !this.IsTransform );
     this.State = 0;
 
     this.ParseValueFunction = animation_configuration.ParseValueFunction;
@@ -597,7 +687,11 @@ function PROPERTY_ANIMATION(
 
     if ( this.ParseValueFunction === undefined )
     {
-        if ( this.IsColor )
+        if ( this.IsNumeric )
+        {
+            this.ParseValueFunction = ParseNumericText;
+        }
+        else if ( this.IsColor )
         {
             this.ParseValueFunction = ParseColorText;
         }
@@ -607,13 +701,17 @@ function PROPERTY_ANIMATION(
         }
         else
         {
-            this.ParseValueFunction = ParseNumericText;
+            this.ParseValueFunction = ParseConstantText;
         }
     }
 
     if ( this.GetPropertyFunction === undefined )
     {
-        if ( this.IsColor )
+        if ( this.IsNumeric )
+        {
+            this.GetPropertyFunction = GetNumericProperty;
+        }
+        else if ( this.IsColor )
         {
             this.GetPropertyFunction = GetColorProperty;
         }
@@ -623,13 +721,17 @@ function PROPERTY_ANIMATION(
         }
         else
         {
-            this.GetPropertyFunction = GetNumericProperty;
+            this.GetPropertyFunction = GetConstantProperty;
         }
     }
 
     if ( this.SetPropertyFunction === undefined )
     {
-        if ( this.IsColor )
+        if ( this.IsNumeric )
+        {
+            this.SetPropertyFunction = SetNumericProperty;
+        }
+        else if ( this.IsColor )
         {
             this.SetPropertyFunction = SetColorProperty;
         }
@@ -639,13 +741,17 @@ function PROPERTY_ANIMATION(
         }
         else
         {
-            this.SetPropertyFunction = SetNumericProperty;
+            this.SetPropertyFunction = SetConstantProperty;
         }
     }
 
     if ( this.GetInterpolationFunction === undefined )
     {
-        if ( this.IsColor )
+        if ( this.IsNumeric )
+        {
+            this.GetInterpolationFunction = GetNumericInterpolation;
+        }
+        else if ( this.IsColor )
         {
             this.GetInterpolationFunction = GetColorInterpolation;
         }
@@ -655,7 +761,7 @@ function PROPERTY_ANIMATION(
         }
         else
         {
-            this.GetInterpolationFunction = GetNumericInterpolation;
+            this.GetInterpolationFunction = GetConstantInterpolation;
         }
     }
 
@@ -696,18 +802,12 @@ function PROPERTY_ANIMATION(
         this.Time = 0.0;
     }
 
-    if ( this.Speed === undefined )
-    {
-        this.Speed = 1.0;
-    }
-
     if ( this.IsLooping === undefined )
     {
         this.IsLooping = false;
     }
 
-    if ( this.TimeArray.length == 0
-         || this.TimeArray[ 0 ] > 0.0 )
+    if ( this.TimeArray[ 0 ] > 0.0 )
     {
         this.ValueArray.unshift( this.GetPropertyFunction( element, property_name ) );
         this.TimeArray.unshift( 0.0 );
@@ -717,7 +817,20 @@ function PROPERTY_ANIMATION(
         this.SetPropertyFunction( element, property_name, this.ValueArray[ 0 ] );
     }
 
-    this.Duration = this.TimeArray[ this.TimeArray.length - 1 ];
+    if ( this.Duration === undefined )
+    {
+        this.Duration = this.TimeArray[ this.TimeArray.length - 1 ];
+
+        if ( this.Speed === undefined )
+        {
+            this.Speed = 1.0;
+        }
+    }
+    else
+    {
+        this.Speed = this.TimeArray[ this.TimeArray.length - 1 ] / this.Duration;
+    }
+
     this.PriorValueIndex = 0;
     this.NextValueIndex = 0;
 }

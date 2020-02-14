@@ -2,23 +2,56 @@
 
 // ~~
 
-MakeContainerCentered( 960 * Pxm );
++Prefix( test- )
+{
+    MakeCarouselStrip( 3, 3000, 500 );
+    MakeCarouselSlide( 3 );
 
-MakeCarouselStrip( 3, 3000, 500 );
-MakeCarouselSlide( 3 );
+    MakeCarouselStrip( 4, 3000, 500 );
+    MakeCarouselSlide( 4 );
 
-MakeCarouselStrip( 4, 3000, 500 );
-MakeCarouselSlide( 4 );
+    MakeCarouselStrip( 5, 3000, 500 );
+    MakeCarouselSlide( 5 );
 
-MakeCarouselStrip( 5, 3000, 500 );
-MakeCarouselSlide( 5 );
-
-MakeCarouselStrip( 6, 3000, 500 );
-MakeCarouselSlide( 6 );
+    MakeCarouselStrip( 6, 3000, 500 );
+    MakeCarouselSlide( 6 );
+}
 
 // ~~
 
 html
 {
     background: #FFFFFF;
+}
+
+.slide
+{
+    height: 100vh;
+    background-position: center center;
+    background-size: cover;
+}
+
+.slide-1
+{
+    background-image: url(slide_1.jpg);
+}
+
+.slide-2
+{
+    background-image: url(slide_2.jpg);
+}
+
+.slide-3
+{
+    background-image: url(slide_3.jpg);
+}
+
+.slide-4
+{
+    background-image: url(slide_4.jpg);
+}
+
+.slide-5
+{
+    background-image: url(slide_5.jpg);
 }
