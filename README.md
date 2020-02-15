@@ -12,10 +12,11 @@ Lightweight Stylus and JavaScript framework.
 *   JavaScript
     *   server requests
     *   HTML templating
-    *   document manipulation
-    *   property animation
-    *   perpetual carousel
-    *   parallax background
+    *   document queries
+    *   property animations
+    *   reactive components
+    *   graphic shaders
+    *   scene graph
 
 ## Version
 

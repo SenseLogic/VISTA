@@ -164,6 +164,25 @@ function RepeatCall(
 
 // ~~
 
+function IsMobileBrowser()
+{
+    var
+        user_agent;
+
+    user_agent = navigator.userAgent.toLowerCase();
+
+    return (
+        user_agent.indexOf( 'android' ) >= 0
+        || user_agent.indexOf( 'iphone' ) >= 0
+        || user_agent.indexOf( 'ipad' ) >= 0
+        || user_agent.indexOf( 'ipod' ) >= 0
+        || user_agent.indexOf( 'blackberry' ) >= 0
+        || user_agent.indexOf( 'phone' ) >= 0
+        );
+}
+
+// ~~
+
 function SendRequest(
     url,
     method,
