@@ -9,6 +9,11 @@ class TEXTURE
         image_url
         )
     {
+        var
+            self;
+
+        self = this;
+
         this.Context = context;
         this.Level = 0;
         this.InternalFormat = context.RGBA;
@@ -20,7 +25,16 @@ class TEXTURE
         this.HorizontalWrap = context.CLAMP_TO_EDGE;
         this.VerticalWrap = context.CLAMP_TO_EDGE;
         this.Initialize();
-        this.Image = LoadImage( image_url, this.SetImage );
+        this.Image = new Image();
+        this.Image.crossOrigin = "anonymous";
+        this.Image.src = image_url;
+        this.Image.addEventListener(
+            "load",
+            function ()
+            {
+                self.SetImage();
+            }
+            );
     }
 
     // -- OPERATIONS
@@ -54,7 +68,7 @@ class TEXTURE
         context = this.Context;
 
         context.bindTexture( this.Target, this.Texture );
-        context.texImage2D( this.Target, this.Level, this.InternalFormat, this.Format, this.Type, this.Image.Image );
+        context.texImage2D( this.Target, this.Level, this.InternalFormat, this.Format, this.Type, this.Image );
         context.bindTexture( this.Target, null);
     }
 

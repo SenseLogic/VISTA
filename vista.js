@@ -192,23 +192,6 @@ function IsMobileBrowser()
 
 // ~~
 
-function LoadImage(
-    image_url,
-    callback_function
-    )
-{
-    var
-        image;
-
-    image = new Image();
-    image.src = image_url;
-    image.addEventListener( "load", callback_function );
-
-    return image;
-}
-
-// ~~
-
 function SendRequest(
     request_url,
     request_method,
