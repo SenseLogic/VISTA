@@ -15,11 +15,23 @@
     </body>
     <script src="../../vista.js"></script>
     <script src="../../vista_element.js"></script>
+    <script src="../../vista_math.js"></script>
     <script src="../../vista_shader.js"></script>
     <script id="vertex_shader" type="x-shader/x-vertex">
     </script>
     <script id="fragment_shader" type="x-shader/x-fragment">
     </script>
     <script>
+        var
+            canvas,
+            texture_array;
+
+        canvas = new CANVAS( GetElementById( "canvas" ) );
+
+        texture_array = [
+            canvas.CreateTexture( "texture_1.jpg" ),
+            canvas.CreateTexture( "texture_2.jpg" ),
+            canvas.CreateTexture( "texture_3.jpg" )
+            ];
     </script>
 </html>

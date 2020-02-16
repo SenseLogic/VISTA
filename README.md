@@ -2,7 +2,7 @@
 
 # Vista
 
-Lightweight Stylus and JavaScript framework.
+Modular CSS and JavaScript framework.
 
 ## Features
 
@@ -14,9 +14,13 @@ Lightweight Stylus and JavaScript framework.
     *   HTML templating
     *   document queries
     *   property animations
+    *   parallax backgrounds
+    *   carousel strips
     *   reactive components
+    *   mathematical types
     *   graphic shaders
-    *   scene graph
+    *   model loaders
+    *   scene renderers
 
 ## Version
 

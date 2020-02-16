@@ -5,6 +5,15 @@ var
 
 // -- FUNCTIONS
 
+function IsPowerOf2(
+    integer
+    )
+{
+    return ( integer & ( integer - 1 ) ) == 0;
+}
+
+// ~~
+
 function RemoveStart(
     text,
     start
@@ -183,20 +192,37 @@ function IsMobileBrowser()
 
 // ~~
 
-function SendRequest(
-    url,
-    method,
-    header_map,
-    body,
+function LoadImage(
+    image_url,
     callback_function
     )
 {
     var
-        header_name,
+        image;
+
+    image = new Image();
+    image.src = image_url;
+    image.addEventListener( "load", callback_function );
+
+    return image;
+}
+
+// ~~
+
+function SendRequest(
+    request_url,
+    request_method,
+    request_header_map,
+    request_body,
+    callback_function
+    )
+{
+    var
+        request_header_name,
         request;
 
     request = new XMLHttpRequest();
-    request.open( method, url, true );
+    request.open( request_method, request_url, true );
     request.onreadystatechange
         = function()
           {
@@ -207,19 +233,19 @@ function SendRequest(
               }
           };
 
-    if ( header_map !== undefined )
+    if ( request_header_map !== undefined )
     {
-        for ( header_name in header_map )
+        for ( request_header_name in request_header_map )
         {
-            request.setRequestHeader( header_name, header_map[ header_name ] );
+            request.setRequestHeader( request_header_name, request_header_map[ request_header_name ] );
         }
     }
-    else if ( method == "POST" )
+    else if ( request_method == "POST" )
     {
         request.setRequestHeader( "Content-type", "application/x-www-form-urlencoded" );
     }
 
-    request.send( body );
+    request.send( request_body );
 }
 
 // ~~
