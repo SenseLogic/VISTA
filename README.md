@@ -7,15 +7,35 @@ Modular CSS and JavaScript framework.
 ## Features
 
 *   Stylus
+    *   reset
+    *   units
     *   media queries
-    *   class generators
+    *   prefixes
+    *   containers
+    *   displays
+    *   visibilities
+    *   flexboxes
+    *   grids
+    *   gutters
+    *   alignments
+    *   widths
+    *   heights
+    *   borders
+    *   margins
+    *   paddings
+    *   overflows
+    *   positions
+    *   backgrounds
+    *   fonts
+    *   texts
+    *   cursors
+    *   carousels
+    *   parallaxes
 *   JavaScript
     *   server requests
     *   HTML templating
     *   document queries
     *   property animations
-    *   parallax backgrounds
-    *   carousel strips
     *   reactive components
     *   mathematical types
     *   graphic shaders
