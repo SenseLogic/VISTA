@@ -36,11 +36,11 @@ Modular CSS and JavaScript framework.
     *   HTML templating
     *   document queries
     *   property animations
-    *   reactive components
     *   mathematical types
     *   graphic shaders
     *   model loaders
     *   scene renderers
+    *   reactive components
 
 ## Version
 

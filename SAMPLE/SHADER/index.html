@@ -9,7 +9,7 @@
     </head>
     <body>
         <main>
-            <canvas id="canvas">
+            <canvas id="canvas" width="640" height="480">
             </canvas>
         </main>
     </body>
@@ -17,14 +17,37 @@
     <script src="../../CODE/JAVASCRIPT/vista_element.js"></script>
     <script src="../../CODE/JAVASCRIPT/vista_math.js"></script>
     <script src="../../CODE/JAVASCRIPT/vista_shader.js"></script>
-    <script id="vertex_shader" type="x-shader/x-vertex">
+    <script id="vertex-shader" type="x-shader/x-vertex">
+        attribute vec4 PositionAttribute;
+        attribute vec4 ColorAttribute;
+        varying vec4 ColorVarying;
+
+        void main()
+        {
+            gl_Position = PositionAttribute;
+            ColorVarying = ColorAttribute;
+        }
     </script>
-    <script id="fragment_shader" type="x-shader/x-fragment">
+    <script id="fragment-shader" type="x-shader/x-fragment">
+        precision mediump float;
+
+        varying vec4 ColorVarying;
+
+        void main()
+        {
+            gl_FragColor = ColorVarying;
+        }
     </script>
     <script>
         var
             canvas,
-            texture_array;
+            color_attribute,
+            fragment_shader,
+            position_attribute,
+            program,
+            texture_array,
+            vertex_position_color_buffer,
+            vertex_shader;
 
         canvas = new CANVAS( GetElementById( "canvas" ) );
 
@@ -33,5 +56,27 @@
             canvas.CreateTexture( "texture_2.jpg" ),
             canvas.CreateTexture( "texture_3.jpg" )
             ];
+
+        vertex_position_color_buffer
+            = canvas.CreateReal32Buffer(
+                [
+                    0.0, 0.5, 1.0, 0.0, 0.0,
+                    -0.5, -0.5, 0.0, 1.0, 0.0,
+                    0.5, -0.5, 0.0, 0.0, 1.0,
+                ]
+                );
+
+        vertex_shader = canvas.CreateVertexShader( "vertex-shader", GetElementById( "vertex-shader" ).text );
+        fragment_shader = canvas.CreateFragmentShader( "fragment-shader", GetElementById( "fragment-shader" ).text );
+        program = canvas.CreateProgram( vertex_shader, fragment_shader );
+        program.Use();
+
+        position_attribute = program.GetAttribute( "PositionAttribute" );
+        position_attribute.EnableReal32Array( 2, 5, 0 );
+
+        color_attribute = program.GetAttribute( "ColorAttribute" );
+        color_attribute.EnableReal32Array( 3, 5, 2 );
+
+        canvas.DrawTriangles( 0, 3 );
     </script>
 </html>

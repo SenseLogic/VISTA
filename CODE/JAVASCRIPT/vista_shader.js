@@ -1,40 +1,64 @@
 // -- TYPES
 
+class REAL_32_BUFFER
+{
+    constructor(
+        vertex_real_array
+        )
+    {
+        this.VertexFloat32Array = new Float32Array( vertex_real_array );
+        this.ElementByteCount = this.VertexFloat32Array.BYTES_PER_ELEMENT;
+
+        this.Initialize();
+    }
+
+    // ~~
+
+    Initialize(
+        )
+    {
+        this.Buffer = CanvasContext.createBuffer();
+
+        CanvasContext.bindBuffer( CanvasContext.ARRAY_BUFFER, this.Buffer );
+        CanvasContext.bufferData( CanvasContext.ARRAY_BUFFER, this.VertexFloat32Array, CanvasContext.STATIC_DRAW );
+    }
+}
+
+// ~~
+
 class TEXTURE
 {
     // -- CONSTRUCTORS
 
     constructor(
-        context,
         image_url
         )
     {
         var
-            self;
+            texture;
 
-        self = this;
+        texture = this;
 
-        this.Context = context;
         this.Level = 0;
-        this.InternalFormat = context.RGBA;
-        this.Format = context.RGBA;
-        this.Type = context.UNSIGNED_BYTE;
-        this.Target = context.TEXTURE_2D;
-        this.MinificationFilter = context.LINEAR;
-        this.MagnificationFilter = context.LINEAR;
-        this.HorizontalWrap = context.CLAMP_TO_EDGE;
-        this.VerticalWrap = context.CLAMP_TO_EDGE;
+        this.InternalFormat = CanvasContext.RGBA;
+        this.Format = CanvasContext.RGBA;
+        this.Type = CanvasContext.UNSIGNED_BYTE;
+        this.Target = CanvasContext.TEXTURE_2D;
+        this.MinificationFilter = CanvasContext.LINEAR;
+        this.MagnificationFilter = CanvasContext.LINEAR;
+        this.HorizontalWrap = CanvasContext.CLAMP_TO_EDGE;
+        this.VerticalWrap = CanvasContext.CLAMP_TO_EDGE;
         this.Initialize();
         this.Image = new Image();
         this.Image.crossOrigin = "anonymous";
-        this.Image.src = image_url;
         this.Image.addEventListener(
             "load",
             function ()
             {
-                self.SetImage();
+                texture.SetImage();
             }
             );
+        this.Image.src = image_url;
     }
 
     // -- OPERATIONS
@@ -42,19 +66,14 @@ class TEXTURE
     Initialize(
         )
     {
-        var
-            context;
+        this.Texture = CanvasContext.createTexture();
 
-        context = this.Context;
-
-        this.Texture = context.createTexture();
-
-        context.bindTexture( this.Target, this.Texture );
-        context.texParameteri( this.Target, context.TEXTURE_MIN_FILTER, this.MinificationFilter );
-        context.texParameteri( this.Target, context.TEXTURE_MAG_FILTER, this.MagnificationFilter );
-        context.texParameteri( this.Target, context.TEXTURE_WRAP_S, this.HorizontalWrap );
-        context.texParameteri( this.Target, context.TEXTURE_WRAP_T, this.VerticalWrap );
-        context.bindTexture( this.Target, null );
+        CanvasContext.bindTexture( this.Target, this.Texture );
+        CanvasContext.texParameteri( this.Target, CanvasContext.TEXTURE_MIN_FILTER, this.MinificationFilter );
+        CanvasContext.texParameteri( this.Target, CanvasContext.TEXTURE_MAG_FILTER, this.MagnificationFilter );
+        CanvasContext.texParameteri( this.Target, CanvasContext.TEXTURE_WRAP_S, this.HorizontalWrap );
+        CanvasContext.texParameteri( this.Target, CanvasContext.TEXTURE_WRAP_T, this.VerticalWrap );
+        CanvasContext.bindTexture( this.Target, null );
     }
 
     // ~~
@@ -62,14 +81,9 @@ class TEXTURE
     SetImage(
         )
     {
-        var
-            context;
-
-        context = this.Context;
-
-        context.bindTexture( this.Target, this.Texture );
-        context.texImage2D( this.Target, this.Level, this.InternalFormat, this.Format, this.Type, this.Image );
-        context.bindTexture( this.Target, null);
+        CanvasContext.bindTexture( this.Target, this.Texture );
+        CanvasContext.texImage2D( this.Target, this.Level, this.InternalFormat, this.Format, this.Type, this.Image );
+        CanvasContext.bindTexture( this.Target, null);
     }
 
     // ~~
@@ -77,7 +91,7 @@ class TEXTURE
     Finalize(
         )
     {
-        this.Context.deleteTexture( this.Texture );
+        CanvasContext.deleteTexture( this.Texture );
     }
 
     // ~~
@@ -94,7 +108,7 @@ class TEXTURE
     Bind(
         )
     {
-        this.Context.bindTexture( this.Target, this.Texture );
+        CanvasContext.bindTexture( this.Target, this.Texture );
     }
 
     // ~~
@@ -102,7 +116,7 @@ class TEXTURE
     Unbind(
         )
     {
-        this.Context.bindTexture( this.Target, null );
+        CanvasContext.bindTexture( this.Target, null );
     }
 }
 
@@ -113,13 +127,11 @@ class SHADER
     // -- CONSTRUCTORS
 
     constructor(
-        context,
         name,
         code,
         type
         )
     {
-        this.Context = context;
         this.Name = name;
         this.Code = code;
         this.Type = type;
@@ -131,18 +143,13 @@ class SHADER
     Initialize(
         )
     {
-        var
-            context;
+        this.Shader = CanvasContext.createShader( this.Type );
+        CanvasContext.shaderSource( this.Shader, this.Code );
+        CanvasContext.compileShader( this.Shader );
 
-        context = this.Context;
-
-        this.Shader = context.createShader( this.Type );
-        context.shaderSource( this.Shader, this.Code );
-        context.compileShader( this.Shader );
-
-        if ( !context.getShaderParameter( this.Shader, context.COMPILE_STATUS ) )
+        if ( !CanvasContext.getShaderParameter( this.Shader, CanvasContext.COMPILE_STATUS ) )
         {
-            console.log( context.getShaderInfoLog( this.Shader ) );
+            console.log( CanvasContext.getShaderInfoLog( this.Shader ) );
         }
     }
 
@@ -151,7 +158,7 @@ class SHADER
     Finalize(
         )
     {
-        this.Context.deleteShader( this.Shader );
+        CanvasContext.deleteShader( this.Shader );
         this.Shader = null;
     }
 }
@@ -163,15 +170,13 @@ class PROGRAM_UNIFORM
     // -- CONSTRUCTORS
 
     constructor(
-        context,
         program,
         uniform_name
         )
     {
-        this.Context = context;
         this.Program = program;
         this.Name = uniform_name;
-        this.Location = context.getUniformLocation( program.Program, name );
+        this.Location = CanvasContext.getUniformLocation( program.Program, name );
     }
 }
 
@@ -182,15 +187,33 @@ class PROGRAM_ATTRIBUTE
     // -- CONSTRUCTORS
 
     constructor(
-        context,
         program,
         attribute_name
         )
     {
-        this.Context = context;
         this.Program = program;
         this.Name = attribute_name;
-        this.Location = context.getAttribLocation( program.Program, name );
+        this.Attribute = CanvasContext.getAttribLocation( program.Program, attribute_name );
+    }
+
+    // -- OPERATIONS
+
+    EnableReal32Array(
+        first_real_index,
+        real_count,
+        real_step
+        )
+    {
+        CanvasContext.vertexAttribPointer(
+            this.Attribute,
+            first_real_index,
+            CanvasContext.FLOAT,
+            false,
+            4 * real_step,
+            4 * real_count
+            );
+
+        CanvasContext.enableVertexAttribArray( this.Attribute );
     }
 }
 
@@ -201,12 +224,10 @@ class PROGRAM
     // -- CONSTRUCTORS
 
     constructor(
-        context,
         vertex_shader,
         fragment_shader
         )
     {
-        this.Context = context;
         this.VertexShader = vertex_shader;
         this.FragmentShader = fragment_shader;
         this.Initialize();
@@ -218,7 +239,7 @@ class PROGRAM
         uniform_name
         )
     {
-        return new PROGRAM_UNIFORM( this.Context, this, uniform_name );
+        return new PROGRAM_UNIFORM( this, uniform_name );
     }
 
     // ~~
@@ -227,7 +248,7 @@ class PROGRAM
         attribute_name
         )
     {
-        return new PROGRAM_ATTRIBUTE( this.Context, this, attribute_name );
+        return new PROGRAM_ATTRIBUTE( this, attribute_name );
     }
 
     // -- OPERATIONS
@@ -235,20 +256,15 @@ class PROGRAM
     Initialize(
         )
     {
-        var
-            context;
+        this.Program = CanvasContext.createProgram();
 
-        context = this.Context;
+        CanvasContext.attachShader( this.Program, this.VertexShader.Shader );
+        CanvasContext.attachShader( this.Program, this.FragmentShader.Shader );
+        CanvasContext.linkProgram( this.Program );
 
-        this.Program = context.createProgram();
-
-        context.attachShader( this.Program, this.VertexShader );
-        context.attachShader( this.Program, this.FragmentShader );
-        context.linkProgram( this.Program );
-
-        if ( !context.getProgramParameter( this.Program, context.LINK_STATUS ) )
+        if ( !CanvasContext.getProgramParameter( this.Program, CanvasContext.LINK_STATUS ) )
         {
-            console.log( context.getProgramInfoLog( this.Program ) );
+            console.log( CanvasContext.getProgramInfoLog( this.Program ) );
         }
     }
 
@@ -257,7 +273,7 @@ class PROGRAM
     Finalize(
         )
     {
-        this.Context.deleteProgram( this.Program );
+        CanvasContext.deleteProgram( this.Program );
     }
 
     // ~~
@@ -265,7 +281,7 @@ class PROGRAM
     Use(
         )
     {
-        this.Context.useProgram( this.Program );
+        CanvasContext.useProgram( this.Program );
     }
 }
 
@@ -289,15 +305,34 @@ class CANVAS
         {
             this.Context = undefined;
         }
+
+        CanvasContext = this.Context;
     }
 
     // -- OPERATIONS
+
+    SetContext(
+        )
+    {
+        CanvasContext = this.Context;
+    }
+
+    // ~~
 
     CreateTexture(
         image_url
         )
     {
-        return new TEXTURE( this.Context, image_url );
+        return new TEXTURE( image_url );
+    }
+
+    // ~~
+
+    CreateReal32Buffer(
+        real_array
+        )
+    {
+        return new REAL_32_BUFFER( real_array );
     }
 
     // ~~
@@ -307,7 +342,7 @@ class CANVAS
         shader_code
         )
     {
-        return new SHADER( this.Context, shader_name, shader_code, this.Context.VERTEX_SHADER );
+        return new SHADER( shader_name, shader_code, CanvasContext.VERTEX_SHADER );
     }
 
     // ~~
@@ -317,7 +352,7 @@ class CANVAS
         shader_code
         )
     {
-        return new SHADER( this.Context, shader_name, shader_code, this.Context.FRAGMENT_SHADER );
+        return new SHADER( shader_name, shader_code, CanvasContext.FRAGMENT_SHADER );
     }
 
     // ~~
@@ -327,6 +362,31 @@ class CANVAS
         fragment_shader
         )
     {
-        return new PROGRAM( this.Context, vertex_shader, fragment_shader );
+        return new PROGRAM( vertex_shader, fragment_shader );
+    }
+
+    // ~~
+
+    ClearColor(
+        color
+        )
+    {
+        CanvasContext.clearColor( color[ 0 ], color[ 1 ], color[ 2 ], color[ 3 ] );
+        CanvasContext.clear( CanvasContext.COLOR_BUFFER_BIT );
+    }
+
+    // ~~
+
+    DrawTriangles(
+        first_triangle_index,
+        triangle_count
+        )
+    {
+        CanvasContext.drawArrays( CanvasContext.TRIANGLES, first_triangle_index, triangle_count );
     }
 }
+
+// -- VARIABLES
+
+var
+    CanvasContext;
