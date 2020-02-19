@@ -206,11 +206,11 @@ class PROGRAM_ATTRIBUTE
     {
         CanvasContext.vertexAttribPointer(
             this.Attribute,
-            first_real_index,
+            real_count,
             CanvasContext.FLOAT,
             false,
-            4 * real_step,
-            4 * real_count
+            real_step * 4,
+            first_real_index * 4
             );
 
         CanvasContext.enableVertexAttribArray( this.Attribute );
