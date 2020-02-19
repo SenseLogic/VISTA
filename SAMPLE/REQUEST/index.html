@@ -15,9 +15,10 @@
     </body>
     <script src="../../CODE/JAVASCRIPT/vista.js"></script>
     <script src="../../CODE/JAVASCRIPT/vista_element.js"></script>
+    <script src="../../CODE/JAVASCRIPT/vista_request.js"></script>
     <script>
         SendRequest(
-            "https://jsonplaceholder.typicode.com/todos/1",
+            "https://reqres.in/api/users/2",
             "GET",
             {},
             null,
@@ -35,16 +36,15 @@
             );
 
         SendRequest(
-            "https://jsonplaceholder.typicode.com/posts",
+            "https://reqres.in/api/users",
             "POST",
             {
                 "Content-type": "application/json; charset=UTF-8"
             },
             GetText(
                 {
-                    title : 'foo',
-                    body : 'bar',
-                    userId : 1
+                    "name" : "Morpheus",
+                    "job" : "leader"
                 }
                 ),
             function (

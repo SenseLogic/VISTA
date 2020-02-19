@@ -558,7 +558,7 @@ a:hover {
   cursor: default;
 }
 .carousel {
-  overflow: hidden;
+  overflow-x: hidden;
 }
 .parallax-background {
   position: relative;

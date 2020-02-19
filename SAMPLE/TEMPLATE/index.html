@@ -7,20 +7,21 @@
     </head>
     <body>
         <template id="movie-list-template">
-            <ul ignored="<\% ignored %\>">
-                <% for ( var movie of movie_array ) { %>
-                    <li style="color:<%# line_color %>">
-                        <%= movie.Name %> : <%# movie.Rating %>
+            <ul ignored="<\: ignored :\>">
+                <: for ( var movie of movie_array ) { :>
+                    <li style="color:<:# line_color :>">
+                        <:% movie.Name :> : <:# movie.Rating :>
                     </li>
-                <% } %>
+                <: } :>
             </ul>
-            <% var ignored = "<\% ignored %\>"; %>
+            <: var ignored = "<\: ignored :\>"; :>
         </template>
         <main id="main">
         </main>
     </body>
     <script src="../../CODE/JAVASCRIPT/vista.js"></script>
     <script src="../../CODE/JAVASCRIPT/vista_element.js"></script>
+    <script src="../../CODE/JAVASCRIPT/vista_template.js"></script>
     <script>
         var
             line_color,
