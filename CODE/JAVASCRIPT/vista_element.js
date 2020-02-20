@@ -173,7 +173,7 @@ Array.prototype.DumpElements = function(
 
 // ~~
 
-Array.prototype.PrependElement = function(
+Array.prototype.PrependChild = function(
 	child_element
     )
 {
@@ -188,7 +188,7 @@ Array.prototype.PrependElement = function(
 
 // ~~
 
-Array.prototype.PrependElements = function(
+Array.prototype.PrependChildren = function(
 	child_element_array
     )
 {
@@ -207,7 +207,7 @@ Array.prototype.PrependElements = function(
 
 // ~~
 
-Array.prototype.AppendElement = function(
+Array.prototype.AppendChild = function(
     child_element
     )
 {
@@ -222,7 +222,7 @@ Array.prototype.AppendElement = function(
 
 // ~~
 
-Array.prototype.AppendElements = function(
+Array.prototype.AppendChildren = function(
     child_element_array
     )
 {
