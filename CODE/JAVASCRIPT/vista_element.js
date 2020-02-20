@@ -39,49 +39,12 @@ function DumpElement(
 
 // ~~
 
-function IsVisibleElement(
-    element,
-    bottom_offset = 0,
-    top_offset = 0,
-    left_offset = 0,
-    right_offset = 0
-    )
+function CreateElement(
+	element_type,
+	options
+	)
 {
-    var
-        bounding_client_rectangle;
-
-    bounding_client_rectangle = element.getBoundingClientRect();
-
-    return (
-        ( bounding_client_rectangle.height > 0
-          || bounding_client_rectangle.width > 0 )
-        && bounding_client_rectangle.bottom >= bottom_offset
-        && bounding_client_rectangle.right >= right_offset
-        && bounding_client_rectangle.top + top_offset <= ( window.innerHeight || document.documentElement.clientHeight )
-        && bounding_client_rectangle.left + left_offset <= ( window.innerWidth || document.documentElement.clientWidth )
-        );
-}
-
-// ~~
-
-function GetElementProperty(
-    element,
-    property_name
-    )
-{
-    var
-        property;
-
-    property = element.style[ property_name ];
-
-    if ( property.length > 0 )
-    {
-        return property;
-    }
-    else
-    {
-        return window.getComputedStyle( element, null ).getPropertyValue( property_name );
-    }
+	return document.createElement( element_type, options );
 }
 
 // ~~
@@ -131,6 +94,53 @@ function GetElements(
 
 // ~~
 
+function IsVisibleElement(
+    element,
+    bottom_offset = 0,
+    top_offset = 0,
+    left_offset = 0,
+    right_offset = 0
+    )
+{
+    var
+        bounding_client_rectangle;
+
+    bounding_client_rectangle = element.getBoundingClientRect();
+
+    return (
+        ( bounding_client_rectangle.height > 0
+          || bounding_client_rectangle.width > 0 )
+        && bounding_client_rectangle.bottom >= bottom_offset
+        && bounding_client_rectangle.right >= right_offset
+        && bounding_client_rectangle.top + top_offset <= ( window.innerHeight || document.documentElement.clientHeight )
+        && bounding_client_rectangle.left + left_offset <= ( window.innerWidth || document.documentElement.clientWidth )
+        );
+}
+
+// ~~
+
+function GetElementProperty(
+    element,
+    property_name
+    )
+{
+    var
+        property;
+
+    property = element.style[ property_name ];
+
+    if ( property.length > 0 )
+    {
+        return property;
+    }
+    else
+    {
+        return window.getComputedStyle( element, null ).getPropertyValue( property_name );
+    }
+}
+
+// ~~
+
 Array.prototype.LogElements = function(
     )
 {
@@ -159,6 +169,44 @@ Array.prototype.DumpElements = function(
     }
 
     return this;
+}
+
+// ~~
+
+Array.prototype.PrependElements = function(
+	child_element_array
+    )
+{
+    var
+		child_element,
+        element;
+
+	for ( element of this )
+	{
+		for ( child_element of child_element_array )
+		{
+			element.prependChild( child_element );
+		}
+	}
+}
+
+// ~~
+
+Array.prototype.AppendElements = function(
+    child_element_array
+    )
+{
+    var
+		child_element,
+        element;
+
+	for ( element of this )
+	{
+		for ( child_element of child_element_array )
+		{
+			element.appendChild( child_element );
+		}
+	}
 }
 
 // ~~
