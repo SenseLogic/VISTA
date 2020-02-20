@@ -173,6 +173,21 @@ Array.prototype.DumpElements = function(
 
 // ~~
 
+Array.prototype.PrependElement = function(
+	child_element
+    )
+{
+    var
+        element;
+
+	for ( element of this )
+	{
+		element.prependChild( child_element );
+	}
+}
+
+// ~~
+
 Array.prototype.PrependElements = function(
 	child_element_array
     )
@@ -187,6 +202,21 @@ Array.prototype.PrependElements = function(
 		{
 			element.prependChild( child_element );
 		}
+	}
+}
+
+// ~~
+
+Array.prototype.AppendElement = function(
+    child_element
+    )
+{
+    var
+        element;
+
+	for ( element of this )
+	{
+		element.appendChild( child_element );
 	}
 }
 
