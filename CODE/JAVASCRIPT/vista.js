@@ -70,20 +70,20 @@ function GetUnit(
 
 // ~~
 
-function GetValue(
-    text
-    )
-{
-    return JSON.parse( json_text );
-}
-
-// ~~
-
-function GetText(
+function GetEncodedJson(
     value
     )
 {
     return JSON.stringify( value );
+}
+
+// ~~
+
+function GetDecodedJson(
+    text
+    )
+{
+    return JSON.parse( json_text );
 }
 
 // ~~
