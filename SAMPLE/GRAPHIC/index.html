@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>Sample</title>
+        <style>
+        </style>
+    </head>
+    <body>
+        <main>
+            <canvas id="triangle-canvas" width="640" height="480">
+            </canvas>
+            <canvas id="cube-canvas" width="640" height="480">
+            </canvas>
+        </main>
+    </body>
+    <script src="../../CODE/JAVASCRIPT/vista_base.js"></script>
+    <script src="../../CODE/JAVASCRIPT/vista_element.js"></script>
+    <script src="../../CODE/JAVASCRIPT/vista_math.js"></script>
+    <script src="../../CODE/JAVASCRIPT/vista_graphic.js"></script>
+    <script id="triangle-vertex-shader" type="x-shader/x-vertex">
+        attribute vec4 PositionAttribute;
+        attribute vec4 ColorAttribute;
+        varying vec4 ColorVarying;
+
+        void main()
+        {
+            gl_Position = PositionAttribute;
+            ColorVarying = ColorAttribute;
+        }
+    </script>
+    <script id="triangle-fragment-shader" type="x-shader/x-fragment">
+        precision mediump float;
+
+        varying vec4 ColorVarying;
+
+        void main()
+        {
+            gl_FragColor = ColorVarying;
+        }
+    </script>
+    <script id="cube-vertex-shader" type="x-shader/x-vertex">
+    </script>
+    <script id="cube-fragment-shader" type="x-shader/x-fragment">
+    </script>
+    <script>
+        // -- FUNCTIONS
+
+        function RenderTriangle(
+            )
+        {
+            var
+                canvas,
+                color_attribute,
+                fragment_shader,
+                position_attribute,
+                program,
+                vertex_position_color_buffer,
+                vertex_shader;
+
+            canvas = new GRAPHIC_CANVAS( GetElementById( "triangle-canvas" ) );
+
+            vertex_position_color_buffer
+                = canvas.CreateReal32Buffer(
+                    [
+                        0.0, 0.5, 1.0, 0.0, 0.0,
+                        -0.5, -0.5, 0.0, 1.0, 0.0,
+                        0.5, -0.5, 0.0, 0.0, 1.0
+                    ]
+                    );
+
+            vertex_shader = canvas.CreateVertexShader( "triangle-vertex-shader", GetElementById( "triangle-vertex-shader" ).text );
+            fragment_shader = canvas.CreateFragmentShader( "triangle-fragment-shader", GetElementById( "triangle-fragment-shader" ).text );
+            program = canvas.CreateProgram( vertex_shader, fragment_shader );
+            program.Use();
+
+            position_attribute = program.GetAttribute( "PositionAttribute" );
+            position_attribute.EnableReal32Array( 0, 2, 5 );
+
+            color_attribute = program.GetAttribute( "ColorAttribute" );
+            color_attribute.EnableReal32Array( 2, 3, 5 );
+
+            canvas.ClearColor( [ 0.9, 0.9, 0.9, 1.0 ] );
+            canvas.DrawTriangles( 0, 3 );
+        }
+
+        // ~~
+
+        function RenderCube(
+            )
+        {
+            var
+                canvas,
+                texture_array;
+
+            canvas = new GRAPHIC_CANVAS( GetElementById( "cube-canvas" ) );
+
+            texture_array = [
+                canvas.CreateTexture( "texture_1.jpg" ),
+                canvas.CreateTexture( "texture_2.jpg" ),
+                canvas.CreateTexture( "texture_3.jpg" )
+                ];
+
+            canvas.ClearColor( [ 0.9, 0.9, 0.9, 1.0 ] );
+        }
+
+        // -- STATEMENTS
+
+        RenderTriangle();
+        RenderCube();
+    </script>
+</html>
