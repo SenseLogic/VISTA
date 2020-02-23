@@ -70,7 +70,7 @@ function GetUnit(
 
 // ~~
 
-function GetEncodedJson(
+function GetJsonText(
     value
     )
 {
@@ -79,7 +79,7 @@ function GetEncodedJson(
 
 // ~~
 
-function GetDecodedJson(
+function GetJsonValue(
     text
     )
 {
