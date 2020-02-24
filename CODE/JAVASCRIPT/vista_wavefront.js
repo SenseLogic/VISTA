@@ -1,33 +1,5 @@
 // -- TYPES
 
-class WAVEFRONT_OBJECT
-{
-    // -- CONSTRUCTORS
-
-    constructor(
-        name
-        )
-    {
-        this.Name = name;
-    }
-}
-
-// ~~
-
-class WAVEFRONT_GROUP
-{
-    // -- CONSTRUCTORS
-
-    constructor(
-        name
-        )
-    {
-        this.Name = name;
-    }
-}
-
-// ~~
-
 class WAVEFRONT_MATERIAL
 {
     // -- CONSTRUCTORS
@@ -330,12 +302,12 @@ class WAVEFRONT_MODEL
             else if ( line.startsWith( "o " ) )
             {
                 this.ObjectIndex = this.ObjectArray.length;
-                this.ObjectArray.push( new WAVEFRONT_OBJECT( line.substring( 2 ) ) );
+                this.ObjectArray.push( line.substring( 2 ) );
             }
             else if ( line.startsWith( "g " ) )
             {
                 this.GroupIndex = this.GroupArray.length;
-                this.GroupArray.push( new WAVEFRONT_GROUP( line.substring( 2 ) ) );
+                this.GroupArray.push( line.substring( 2 ) );
             }
             else if ( line.startsWith( "usemtl " ) )
             {
