@@ -358,23 +358,32 @@ function GetOrthographicMatrix4(
     far_z
     )
 {
+    var
+        x_offset,
+        y_offset,
+        z_offset;
+
+    x_offset = right_x - left_x;
+    y_offset = top_y - bottom_y;
+    z_offset = near_z - far_z;
+
     return [
-        2.0 / ( right_x - left_x ),
+        2.0 / x_offset,
         0.0,
         0.0,
         0.0,
         0.0,
-        2.0 / ( top_y - bottom_y ),
+        2.0 / y_offset,
         0.0,
         0.0,
         0.0,
         0.0,
-        -1.0 / ( far_z - near_z ),
+        1.0 / z_offset,
         0.0,
-        ( left_x + right_x ) / ( left_x - right_x ),
-        ( bottom_y + top_y ) / ( bottom_y - top_y ),
-        near_z / ( far_z - near_z ),
-        1
+        ( left_x + right_x ) / -x_offset,
+        ( bottom_y + top_y ) / -y_offset,
+        -near_z / z_offset,
+        1.0
         ];
 }
 
