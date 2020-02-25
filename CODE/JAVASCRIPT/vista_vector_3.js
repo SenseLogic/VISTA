@@ -92,6 +92,28 @@ function GetVector3DotProduct(
 
 // ~~
 
+function GetCrossProductVector3(
+    first_vector,
+    second_vector
+    )
+{
+    var
+        first_x = first_vector[ 0 ],
+        first_y = first_vector[ 1 ],
+        first_z = first_vector[ 2 ],
+        second_x = second_vector[ 0 ],
+        second_y = second_vector[ 1 ],
+        second_z = second_vector[ 2 ];
+
+    return [
+        first_y * second_z - first_z * second_y,
+        first_z * second_x - first_x * second_z,
+        first_x * second_y - first_y * second_x
+        ];
+}
+
+// ~~
+
 function GetVector3AxisAngle(
     first_vector,
     second_vector

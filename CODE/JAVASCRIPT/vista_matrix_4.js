@@ -271,3 +271,145 @@ function GetZxyRotationMatrix4(
         1.0
         ];
 }
+
+// ~~
+
+function GetLookMatrix4(
+    position_vector,
+    z_axis_vector,
+    y_axis_vector
+    )
+{
+    var
+        x_axis_vector,
+        y_axis_vector;
+
+    x_axis_vector = GetNormalizedVector3( GetCrossProductVector3( y_axis_vector, z_axis_vector ) );
+    y_axis_vector = GetNormalizedVector3( GetCrossProductVector3( z_axis_vector, x_axis_vector ) );
+
+    return [
+        x_axis_vector[ 0 ],
+        x_axis_vector[ 1 ],
+        x_axis_vector[ 2 ],
+        0.0,
+        y_axis_vector[ 0 ],
+        y_axis_vector[ 1 ],
+        y_axis_vector[ 2 ],
+        0.0,
+        z_axis_vector[ 0 ],
+        z_axis_vector[ 1 ],
+        z_axis_vector[ 2 ],
+        0.0,
+        position_vector[ 0 ],
+        position_vector[ 1 ],
+        position_vector[ 2 ],
+        1,
+        ];
+}
+
+// ~~
+
+function GetFrustumMatrix4(
+    left_x,
+    right_x,
+    bottom_y,
+    top_y,
+    near_z,
+    far_z
+    )
+{
+    var
+        x_offset,
+        y_offset,
+        z_offset;
+
+    x_offset = right_x - left_x;
+    y_offset = top_y - bottom_y;
+    z_offset = near_z - far_z;
+
+    return [
+        2.0 * near_z / x_offset,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        2.0 * near_z / y_offset,
+        0.0,
+        0.0,
+        ( left_x + right_x ) / x_offset,
+        ( bottom_y + top_y ) / y_offset,
+        far_z / z_offset,
+        -1.0,
+        0.0,
+        0.0,
+        near_z * far_z / z_offset,
+        0
+        ];
+}
+
+// ~~
+
+function GetOrthographicMatrix4(
+    left_x,
+    right_x,
+    bottom_y,
+    top_y,
+    near_z,
+    far_z
+    )
+{
+    return [
+        2.0 / ( right_x - left_x ),
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        2.0 / ( top_y - bottom_y ),
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        -1.0 / ( far_z - near_z ),
+        0.0,
+        ( left_x + right_x ) / ( left_x - right_x ),
+        ( bottom_y + top_y ) / ( bottom_y - top_y ),
+        near_z / ( far_z - near_z ),
+        1
+        ];
+}
+
+// ~~
+
+function GetPerspectiveMatrix4(
+    y_angle,
+    aspect_ratio,
+    near_z,
+    far_z
+    )
+{
+    var
+        y_scaling,
+        rangeInv;
+
+    y_scaling = Math.tan( Math.PI * 0.5 - 0.5 * y_angle );
+    one_over_z_offset = 1.0 / ( near_z - far_z );
+
+    return [
+        y_scaling / aspect_ratio,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        y_scaling,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        ( near_z + far_z ) * one_over_z_offset,
+        -1.0,
+        0.0,
+        0.0,
+        near_z * far_z * one_over_z_offset * 2.0,
+        0.0
+        ];
+  }
