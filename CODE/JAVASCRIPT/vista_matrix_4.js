@@ -319,30 +319,30 @@ function GetFrustumMatrix4(
     )
 {
     var
-        x_offset,
-        y_offset,
-        z_offset;
+        one_over_x_offset,
+        one_over_y_offset,
+        one_over_z_offset;
 
-    x_offset = right_x - left_x;
-    y_offset = top_y - bottom_y;
-    z_offset = near_z - far_z;
+    one_over_x_offset = 1.0 / ( right_x - left_x );
+    one_over_y_offset = 1.0 / ( top_y - bottom_y );
+    one_over_z_offset = 1.0 / ( near_z - far_z );
 
     return [
-        2.0 * near_z / x_offset,
+        2.0 * near_z * one_over_x_offset,
         0.0,
         0.0,
         0.0,
         0.0,
-        2.0 * near_z / y_offset,
+        2.0 * near_z * one_over_y_offset,
         0.0,
         0.0,
-        ( left_x + right_x ) / x_offset,
-        ( bottom_y + top_y ) / y_offset,
-        far_z / z_offset,
+        ( left_x + right_x ) * one_over_x_offset,
+        ( bottom_y + top_y ) * one_over_y_offset,
+        ( near_z + far_z ) * one_over_z_offset,
         -1.0,
         0.0,
         0.0,
-        near_z * far_z / z_offset,
+        near_z * far_z * one_over_z_offset,
         0
         ];
 }
@@ -359,30 +359,30 @@ function GetOrthographicMatrix4(
     )
 {
     var
-        x_offset,
-        y_offset,
-        z_offset;
+        one_over_x_offset,
+        one_over_y_offset,
+        one_over_z_offset;
 
-    x_offset = right_x - left_x;
-    y_offset = top_y - bottom_y;
-    z_offset = near_z - far_z;
+    one_over_x_offset = 1.0 / ( right_x - left_x );
+    one_over_y_offset = 1.0 / ( top_y - bottom_y );
+    one_over_z_offset = 1.0 / ( near_z - far_z );
 
     return [
-        2.0 / x_offset,
+        2.0 * one_over_x_offset,
         0.0,
         0.0,
         0.0,
         0.0,
-        2.0 / y_offset,
+        2.0 * one_over_y_offset,
         0.0,
         0.0,
         0.0,
         0.0,
-        1.0 / z_offset,
+        2.0 * one_over_z_offset,
         0.0,
-        ( left_x + right_x ) / -x_offset,
-        ( bottom_y + top_y ) / -y_offset,
-        -near_z / z_offset,
+        ( left_x + right_x ) * -one_over_x_offset,
+        ( bottom_y + top_y ) * -one_over_y_offset,
+        ( near_z + far_z ) * one_over_z_offset,
         1.0
         ];
 }
@@ -390,21 +390,32 @@ function GetOrthographicMatrix4(
 // ~~
 
 function GetPerspectiveMatrix4(
+    x_angle,
     y_angle,
-    aspect_ratio,
     near_z,
     far_z
     )
 {
     var
-        y_scaling,
-        rangeInv;
+        one_over_z_offset,
+        x_scaling,
+        y_scaling;
 
-    y_scaling = Math.tan( Math.PI * 0.5 - 0.5 * y_angle );
     one_over_z_offset = 1.0 / ( near_z - far_z );
 
+    x_scaling = Math.tan( ( Math.PI - x_angle ) * 0.5 );
+
+    if ( y_angle === x_angle )
+    {
+        y_scaling = x_scaling;
+    }
+    else
+    {
+        y_scaling = Math.tan( ( Math.PI - y_angle ) * 0.5 );
+    }
+
     return [
-        y_scaling / aspect_ratio,
+        x_scaling,
         0.0,
         0.0,
         0.0,
@@ -418,7 +429,7 @@ function GetPerspectiveMatrix4(
         -1.0,
         0.0,
         0.0,
-        near_z * far_z * one_over_z_offset * 2.0,
+        2.0 * near_z * far_z * one_over_z_offset,
         0.0
         ];
-  }
+}
