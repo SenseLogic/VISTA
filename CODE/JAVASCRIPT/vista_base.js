@@ -83,7 +83,7 @@ function GetJsonValue(
     text
     )
 {
-    return JSON.parse( json_text );
+    return JSON.parse( text );
 }
 
 // ~~
