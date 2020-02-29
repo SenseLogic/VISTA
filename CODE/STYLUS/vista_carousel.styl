@@ -5,48 +5,50 @@
 
 // ~~
 
-MakeCarouselStrip( slide_count, pause_duration = 0, translation_duration = 0 )
+MakeCarouselStrip( slide_count, visible_slide_count = 1 )
 
-    .carousel-strip-{slide_count}
+    .carousel-strip-{slide_count}-{visible_slide_count}
     {
         display: flex;
         position: relative;
         left: 0;
         margin: 0;
-        width: slide_count * 100%;
+        width: ( slide_count / visible_slide_count ) * 100%;
     }
 
-    if pause_duration > 0
+// ~~
 
-        slide_duration = pause_duration + translation_duration
+MakeCarouselStripPerpetualAnimation( slide_count, visible_slide_count = 1, pause_duration = 3000, translation_duration = 500 )
 
-        vendors = official
+    slide_duration = pause_duration + translation_duration
 
-        @keyframes carousel-strip-animation-{slide_count}-{pause_duration}-{translation_duration}
+    vendors = official
 
-            for slide_index in 0 .. slide_count - 2
+    @keyframes carousel-strip-perpetual-animation-{slide_count}-{visible_slide_count}-{pause_duration}-{translation_duration}
 
-                show_time = slide_index / ( slide_count - 1 )
-                move_time = ( slide_index + ( 1.0 - translation_duration / slide_duration ) ) / ( slide_count - 1 )
+        for slide_index in 0 .. slide_count - 1 - visible_slide_count
 
-                {100% * show_time}
+            show_time = slide_index / ( slide_count - visible_slide_count )
+            move_time = ( slide_index + ( 1.0 - translation_duration / slide_duration ) ) / ( slide_count - visible_slide_count )
 
-                    left: -100% * slide_index;
+            {100% * show_time}
 
-                {100% * move_time}
+                left: -100% * slide_index * ( 1.0 / visible_slide_count );
 
-                    left: -100% * slide_index;
+            {100% * move_time}
 
-            100%
-            {
-                left: -100% * ( slide_count - 1 );
-            }
+                left: -100% * slide_index * ( 1.0 / visible_slide_count );
 
-        .carousel-strip-animation-{slide_count}-{pause_duration}-{translation_duration}
+        100%
         {
-            animation: ( slide_count - 1 ) * slide_duration * 0.001s carousel-strip-animation- + slide_count + "-" + pause_duration + "-" + translation_duration infinite;
-            animation-timing-function: ease;
+            left: -100% * ( slide_count - visible_slide_count ) * ( 1.0 / visible_slide_count );
         }
+
+    .carousel-strip-perpetual-animation-{slide_count}-{visible_slide_count}-{pause_duration}-{translation_duration}
+    {
+        animation: ( slide_count - visible_slide_count ) * slide_duration * 0.001s carousel-strip-perpetual-animation- + slide_count + "-" + visible_slide_count + "-" + pause_duration + "-" + translation_duration infinite;
+        animation-timing-function: ease;
+    }
 
 // ~~
 

@@ -4,17 +4,17 @@
 
 +Prefix( test- )
 {
-    MakeCarouselStrip( 3, 3000, 500 );
-    MakeCarouselSlide( 3 );
+    MakeCarouselStrip( 7, 1 );
+    MakeCarouselStripPerpetualAnimation( 7, 1, 3000, 500 );
+    MakeCarouselSlide( 7 );
 
-    MakeCarouselStrip( 4, 3000, 500 );
-    MakeCarouselSlide( 4 );
+    MakeCarouselStrip( 8, 2 );
+    MakeCarouselStripPerpetualAnimation( 8, 2, 3000, 500 );
+    MakeCarouselSlide( 8 );
 
-    MakeCarouselStrip( 5, 3000, 500 );
-    MakeCarouselSlide( 5 );
-
-    MakeCarouselStrip( 6, 3000, 500 );
-    MakeCarouselSlide( 6 );
+    MakeCarouselStrip( 9, 3 );
+    MakeCarouselStripPerpetualAnimation( 9, 3, 3000, 500 );
+    MakeCarouselSlide( 9 );
 }
 
 // ~~
@@ -54,4 +54,9 @@ html
 .slide-5
 {
     background-image: url(slide_5.jpg);
+}
+
+.slide-6
+{
+    background-image: url(slide_6.jpg);
 }

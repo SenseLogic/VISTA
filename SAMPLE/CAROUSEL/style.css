@@ -568,165 +568,170 @@ a:hover {
   background-size: cover;
   height: 100vh;
 }
-.test-carousel-strip-3 {
+.test-carousel-strip-7-1 {
   display: flex;
   position: relative;
   left: 0;
   margin: 0;
-  width: 300%;
+  width: 700%;
 }
-.test-carousel-strip-animation-3-3000-500 {
-  animation: 7s carousel-strip-animation-3-3000-500 infinite;
+.test-carousel-strip-perpetual-animation-7-1-3000-500 {
+  animation: 21s carousel-strip-perpetual-animation-7-1-3000-500 infinite;
   animation-timing-function: ease;
 }
-@keyframes carousel-strip-animation-3-3000-500 {
+@keyframes carousel-strip-perpetual-animation-7-1-3000-500 {
   0% {
     left: 0%;
   }
-  42.85714285714286% {
+  14.285714285714288% {
     left: 0%;
   }
-  50% {
+  16.666666666666664% {
     left: -100%;
   }
-  92.85714285714286% {
+  30.952380952380953% {
     left: -100%;
   }
-  100% {
+  33.33333333333333% {
     left: -200%;
   }
+  47.61904761904762% {
+    left: -200%;
+  }
+  50% {
+    left: -300%;
+  }
+  64.28571428571429% {
+    left: -300%;
+  }
+  66.66666666666666% {
+    left: -400%;
+  }
+  80.95238095238096% {
+    left: -400%;
+  }
+  83.33333333333334% {
+    left: -500%;
+  }
+  97.61904761904762% {
+    left: -500%;
+  }
+  100% {
+    left: -600%;
+  }
 }
-.test-carousel-slide-3 {
-  width: 33.333333333333336%;
+.test-carousel-slide-7 {
+  width: 14.285714285714286%;
 }
-.test-carousel-strip-4 {
+.test-carousel-strip-8-2 {
   display: flex;
   position: relative;
   left: 0;
   margin: 0;
   width: 400%;
 }
-.test-carousel-strip-animation-4-3000-500 {
-  animation: 10.5s carousel-strip-animation-4-3000-500 infinite;
+.test-carousel-strip-perpetual-animation-8-2-3000-500 {
+  animation: 21s carousel-strip-perpetual-animation-8-2-3000-500 infinite;
   animation-timing-function: ease;
 }
-@keyframes carousel-strip-animation-4-3000-500 {
+@keyframes carousel-strip-perpetual-animation-8-2-3000-500 {
   0% {
     left: 0%;
   }
-  28.571428571428577% {
+  14.285714285714288% {
     left: 0%;
+  }
+  16.666666666666664% {
+    left: -50%;
+  }
+  30.952380952380953% {
+    left: -50%;
   }
   33.33333333333333% {
     left: -100%;
   }
-  61.904761904761905% {
+  47.61904761904762% {
     left: -100%;
+  }
+  50% {
+    left: -150%;
+  }
+  64.28571428571429% {
+    left: -150%;
   }
   66.66666666666666% {
     left: -200%;
   }
-  95.23809523809524% {
+  80.95238095238096% {
     left: -200%;
+  }
+  83.33333333333334% {
+    left: -250%;
+  }
+  97.61904761904762% {
+    left: -250%;
   }
   100% {
     left: -300%;
   }
 }
-.test-carousel-slide-4 {
-  width: 25%;
+.test-carousel-slide-8 {
+  width: 12.5%;
 }
-.test-carousel-strip-5 {
+.test-carousel-strip-9-3 {
   display: flex;
   position: relative;
   left: 0;
   margin: 0;
-  width: 500%;
+  width: 300%;
 }
-.test-carousel-strip-animation-5-3000-500 {
-  animation: 14s carousel-strip-animation-5-3000-500 infinite;
+.test-carousel-strip-perpetual-animation-9-3-3000-500 {
+  animation: 21s carousel-strip-perpetual-animation-9-3-3000-500 infinite;
   animation-timing-function: ease;
 }
-@keyframes carousel-strip-animation-5-3000-500 {
+@keyframes carousel-strip-perpetual-animation-9-3-3000-500 {
   0% {
     left: 0%;
   }
-  21.42857142857143% {
+  14.285714285714288% {
     left: 0%;
   }
-  25% {
-    left: -100%;
+  16.666666666666664% {
+    left: -33.33333333333333%;
   }
-  46.42857142857143% {
-    left: -100%;
+  30.952380952380953% {
+    left: -33.33333333333333%;
+  }
+  33.33333333333333% {
+    left: -66.66666666666666%;
+  }
+  47.61904761904762% {
+    left: -66.66666666666666%;
   }
   50% {
-    left: -200%;
-  }
-  71.42857142857143% {
-    left: -200%;
-  }
-  75% {
-    left: -300%;
-  }
-  96.42857142857143% {
-    left: -300%;
-  }
-  100% {
-    left: -400%;
-  }
-}
-.test-carousel-slide-5 {
-  width: 20%;
-}
-.test-carousel-strip-6 {
-  display: flex;
-  position: relative;
-  left: 0;
-  margin: 0;
-  width: 600%;
-}
-.test-carousel-strip-animation-6-3000-500 {
-  animation: 17.5s carousel-strip-animation-6-3000-500 infinite;
-  animation-timing-function: ease;
-}
-@keyframes carousel-strip-animation-6-3000-500 {
-  0% {
-    left: 0%;
-  }
-  17.142857142857142% {
-    left: 0%;
-  }
-  20% {
     left: -100%;
   }
-  37.142857142857146% {
+  64.28571428571429% {
     left: -100%;
   }
-  40% {
-    left: -200%;
+  66.66666666666666% {
+    left: -133.33333333333331%;
   }
-  57.14285714285714% {
-    left: -200%;
+  80.95238095238096% {
+    left: -133.33333333333331%;
   }
-  60% {
-    left: -300%;
+  83.33333333333334% {
+    left: -166.66666666666666%;
   }
-  77.14285714285715% {
-    left: -300%;
-  }
-  80% {
-    left: -400%;
-  }
-  97.14285714285715% {
-    left: -400%;
+  97.61904761904762% {
+    left: -166.66666666666666%;
   }
   100% {
-    left: -500%;
+    left: -200%;
   }
 }
-.test-carousel-slide-6 {
-  width: 16.666666666666668%;
+.test-carousel-slide-9 {
+  width: 11.11111111111111%;
 }
 html {
   background: #fff;
@@ -750,4 +755,7 @@ html {
 }
 .slide-5 {
   background-image: url("slide_5.jpg");
+}
+.slide-6 {
+  background-image: url("slide_6.jpg");
 }
