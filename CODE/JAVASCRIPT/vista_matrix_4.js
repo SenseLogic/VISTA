@@ -104,6 +104,71 @@ function GetScalingMatrix4(x, y, z)
 
 // ~~
 
+function GetMatrix4XVector3(
+    matrix
+    )
+{
+    return [
+        matrix[ 0 ],
+        matrix[ 1 ],
+        matrix[ 2 ]
+        ];
+}
+
+// ~~
+
+function GetMatrix4YVector3(
+    matrix
+    )
+{
+    return [
+        matrix[ 4 ],
+        matrix[ 5 ],
+        matrix[ 6 ]
+        ];
+}
+
+// ~~
+
+function GetMatrix4ZVector3(
+    matrix
+    )
+{
+    return [
+        matrix[ 8 ],
+        matrix[ 9 ],
+        matrix[ 10 ]
+        ];
+}
+
+// ~~
+
+function GetMatrix4WVector3(
+    matrix
+    )
+{
+    return [
+        matrix[ 12 ],
+        matrix[ 13 ],
+        matrix[ 14 ]
+        ];
+}
+
+// ~~
+
+function GetMatrix4ScalingVector3(
+    matrix
+    )
+{
+    return [
+        GetVector3Length( [ matrix[ 0 ], matrix[ 0 ], matrix[ 0 ] ] ),
+        GetVector3Length( [ matrix[ 4 ], matrix[ 5 ], matrix[ 6 ] ] ),
+        GetVector3Length( [ matrix[ 8 ], matrix[ 9 ], matrix[ 10 ] ] )
+        ];
+}
+
+// ~~
+
 function GetMatrix4TransformedVector3(
     matrix,
     vector
@@ -268,6 +333,102 @@ function GetZxyRotationMatrix4(
         0.0,
         0.0,
         0.0,
+        1.0
+        ];
+}
+
+// ~~
+
+function GetScalingZxyRotationTranslationMatrix4(
+    scaling_vector,
+    z_angle,
+    x_angle,
+    y_angle,
+    translation_vector
+    )
+{
+    var
+        x_scaling = scaling_vector[ 0 ],
+        y_scaling = scaling_vector[ 1 ],
+        z_scaling = scaling_vector[ 2 ],
+        z_cosinus = GetCosinus( z_angle ),
+        z_sinus = GetSinus( z_angle ),
+        x_cosinus = GetCosinus( x_angle ),
+        x_sinus = GetSinus( x_angle ),
+        y_cosinus = GetCosinus( y_angle ),
+        y_sinus = GetSinus( y_angle ),
+        x_translation = translation_vector[ 0 ],
+        y_translation = translation_vector[ 1 ],
+        z_translation = translation_vector[ 2 ];
+
+    return [
+        z_cosinus * y_cosinus * x_scaling + z_sinus * x_sinus * y_sinus * x_scaling,
+        z_sinus * x_cosinus * y_scaling,
+        -z_cosinus * y_sinus * z_scaling + z_sinus * x_sinus * y_cosinus * z_scaling,
+        0.0,
+        -z_sinus * y_cosinus * x_scaling + z_cosinus * x_sinus * y_sinus * x_scaling,
+        z_cosinus * x_cosinus * y_scaling,
+        z_sinus * y_sinus * z_scaling + z_cosinus * x_sinus * y_cosinus * z_scaling,
+        0.0,
+        x_cosinus * y_sinus * x_scaling,
+        -x_sinus * y_scaling,
+        x_cosinus * y_cosinus * z_scaling,
+        0.0,
+        x_translation,
+        y_translation,
+        z_translation,
+        1.0
+        ];
+}
+
+// ~~
+
+function GetScalingRotationTranslationMatrix4(
+    scaling_vector,
+    rotation_quaternion,
+    translation_vector
+    )
+{
+    var
+        x_scaling = scaling_vector[ 0 ],
+        y_scaling = scaling_vector[ 1 ],
+        z_scaling = scaling_vector[ 2 ],
+        quaternion_x = quaternion[ 0 ],
+        quaternion_y = quaternion[ 1 ],
+        quaternion_z = quaternion[ 2 ],
+        quaternion_w = quaternion[ 3 ],
+        quaternion_x2 = quaternion_x + quaternion_x,
+        quaternion_y2 = quaternion_y + quaternion_y,
+        quaternion_z2 = quaternion_z + quaternion_z,
+        quaternion_xx2 = quaternion_x * quaternion_x2,
+        quaternion_xy2 = quaternion_x * quaternion_y2,
+        quaternion_xz2 = quaternion_x * quaternion_z2,
+        quaternion_yy2 = quaternion_y * quaternion_y2,
+        quaternion_yz2 = quaternion_y * quaternion_z2,
+        quaternion_zz2 = quaternion_z * quaternion_z2,
+        quaternion_wx2 = quaternion_w * quaternion_x2,
+        quaternion_wy2 = quaternion_w * quaternion_y2,
+        quaternion_wz2 = quaternion_w * quaternion_z2,
+        x_translation = translation_vector[ 0 ],
+        y_translation = translation_vector[ 1 ],
+        z_translation = translation_vector[ 2 ];
+
+    return [
+        x_scaling * ( 1.0 - quaternion_yy2 - quaternion_zz2 ),
+        x_scaling * ( quaternion_xy2 + quaternion_wz2 ),
+        x_scaling * ( quaternion_xz2 - quaternion_wy2 ),
+        0.0,
+        y_scaling * ( quaternion_xy2 - quaternion_wz2 ),
+        y_scaling * ( 1.0 - quaternion_xx2 - quaternion_zz2 ),
+        y_scaling * ( quaternion_yz2 + quaternion_wx2 ),
+        0.0,
+        z_scaling * ( quaternion_xz2 + quaternion_wy2 ),
+        z_scaling * ( quaternion_yz2 - quaternion_wx2 ),
+        z_scaling * ( 1.0 - quaternion_xx2 - quaternion_yy2 ),
+        0.0,
+        x_translation,
+        y_translation,
+        z_translation,
         1.0
         ];
 }

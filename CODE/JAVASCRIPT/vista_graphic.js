@@ -385,6 +385,171 @@ class GRAPHIC_CANVAS
     }
 }
 
+// ~~
+
+class GRAPHIC_MATERIAL
+{
+    // -- CONSTRUCTORS
+
+    constructor(
+        )
+    {
+        this.VertexShader = null;
+        this.FragmentShader = null;
+        this.Program = null;
+    }
+}
+
+// ~~
+
+class GRAPHIC_MESH
+{
+    // -- CONSTRUCTORS
+
+    constructor(
+        )
+    {
+        this.UniformArray = [];
+        this.AttributeArray = [];
+        this.Material = null;
+    }
+}
+
+// ~~
+
+class GRAPHIC_NODE
+{
+    // -- CONSTRUCTORS
+
+    constructor(
+        )
+    {
+        this.ParentNode = null;
+        this.ChildNodeArray = [];
+        this.MeshArray = [];
+        this.LocalScalingVector = [ 0.0, 0.0, 0.0 ];
+        this.LocalRotationQuaternion = [ 0.0, 0.0, 0.0, 1.0 ];
+        this.LocalTranslationVector = [ 0.0, 0.0, 0.0 ];
+        this.LocalTransformMatrix = GetMatrix4();
+        this.GlobalRotationQuaternion = [ 0.0, 0.0, 0.0, 1.0 ];
+        this.GlobalTranslationVector = [ 0.0, 0.0, 0.0 ];
+        this.GlobalTransformMatrix = GetMatrix4();
+        this.HasChanged = false;
+    }
+
+    // -- OPERATIONS
+
+    SetParentNode(
+        parent_node
+        )
+    {
+        var
+            child_node_index;
+
+        if ( this.ParentNode !== parent_node )
+        {
+            if ( this.ParentNode !== null )
+            {
+                for ( child_node_index = 0;
+                      child_node_index < this.ParentNode.ChildNodeArray.length;
+                      ++child_node_index )
+                {
+                    if ( this.ParentNode.ChildNodeArray[ child_node_index ] === this )
+                    {
+                        this.ParentNode.ChildNodeArray.splice( child_node_index, 1 );
+
+                        break;
+                    }
+                }
+            }
+
+            this.ParentNode = parent_node;
+            this.ChildNodeArray.push( this );
+        }
+    }
+
+    // ~~
+
+    SetChanged(
+        )
+    {
+        if ( !this.HasChanged )
+        {
+            this.HasChanged = true;
+
+            for ( child_node of this.ChildNodeArray )
+            {
+                child_node.SetChanged();
+            }
+        }
+    }
+
+    // ~~
+
+    Update(
+        )
+    {
+        if ( this.HasChanged )
+        {
+            this.LocalTransformMatrix
+                = GetScalingRotationTranslationMatrix4(
+                      this.LocalScalingVector,
+                      this.LocalRotationQuaternion,
+                      this.LocalTranslationVector
+                      );
+
+            if ( this.ParentNode === null )
+            {
+                this.GlobalTransformMatrix = this.LocalTransformMatrix.slice();
+                this.GlobalRotationQuaternion = this.LocalRotationQuaternion.slice();
+                this.GlobalTranslationVector = this.LocalTranslationVector.slice();
+            }
+            else
+            {
+                this.ParentNode.Update();
+
+                this.GlobalTransformMatrix = GetProductMatrix4( this.LocalTransformMatrix, this.ParentNode.GlobalTransformMatrix );
+                this.GlobalRotationQuaternion = GetProductQuaternion( this.LocalRotationQuaternion, this.ParentNode.GlobalRotationQuaternion );
+                this.GlobalTranslationVector = GetMatrix4WVector3( this.GlobalTransformMatrix );
+            }
+
+            this.HasChanged = false;
+        }
+    }
+}
+
+// ~~
+
+class GRAPHIC_CAMERA
+{
+    // -- CONSTRUCTORS
+
+    constructor(
+        )
+    {
+        this.Node = null;
+        this.XAngle = 70.0;
+        this.YAngle = 70.0;
+        this.GlobalTransformMatrix = GetMatrix4();
+    }
+}
+
+// ~~
+
+class GRAPHIC_SCENE
+{
+    // -- CONSTRUCTORS
+
+    constructor(
+        )
+    {
+        this.MaterialArray = [];
+        this.BufferArray = [];
+        this.NodeArray = [];
+        this.CameraArray = [];
+    }
+}
+
 // -- VARIABLES
 
 var

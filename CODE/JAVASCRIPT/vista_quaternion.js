@@ -227,7 +227,7 @@ function GetQuaternionMatrix4(
     quaternion
     )
 {
-    var
+   var
         x = quaternion[ 0 ],
         y = quaternion[ 1 ],
         z = quaternion[ 2 ],
@@ -235,28 +235,28 @@ function GetQuaternionMatrix4(
         x2 = x + x,
         y2 = y + y,
         z2 = z + z,
-        xx = x * x2,
-        xy = x * y2,
-        xz = x * z2,
-        yy = y * y2,
-        yz = y * z2,
-        zz = z * z2,
-        wx = w * x2,
-        wy = w * y2,
-        wz = w * z2;
+        xx2 = x * x2,
+        xy2 = x * y2,
+        xz2 = x * z2,
+        yy2 = y * y2,
+        yz2 = y * z2,
+        zz2 = z * z2,
+        wx2 = w * x2,
+        wy2 = w * y2,
+        wz2 = w * z2;
 
     return [
-        1.0 - yy - zz,
-        xy + wz,
-        xz - wy,
+        1.0 - yy2 - zz2,
+        xy2 + wz2,
+        xz2 - wy2,
         0.0,
-        xy - wz,
-        1.0 - xx - zz,
-        yz + wx,
+        xy2 - wz2,
+        1.0 - xx2 - zz2,
+        yz2 + wx2,
         0.0,
-        xz + wy,
-        yz - wx,
-        1.0 - xx - yy,
+        xz2 + wy2,
+        yz2 - wx2,
+        1.0 - xx2 - yy2,
         0.0,
         0.0,
         0.0,
