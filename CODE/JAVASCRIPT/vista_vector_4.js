@@ -7,7 +7,12 @@ function GetVector4(
     w = 0.0
     )
 {
-    return [ x, y, z, w ];
+    return Float32Array.of(
+        x,
+        y,
+        z,
+        w
+        );
 }
 
 
@@ -86,12 +91,12 @@ function GetNegatedVector4(
     vector
     )
 {
-    return [
+    return Float32Array.of(
         -vector[ 0 ],
         -vector[ 1 ],
         -vector[ 2 ],
         -vector[ 3 ]
-        ];
+        );
 }
 
 // ~~
@@ -101,12 +106,12 @@ function GetScaledVector4(
     scale
     )
 {
-    return [
+    return Float32Array.of(
         vector[ 0 ] * scale,
         vector[ 1 ] * scale,
         vector[ 2 ] * scale,
         vector[ 3 ] * scale
-        ];
+        );
 }
 
 // ~~
@@ -116,12 +121,12 @@ function GetSumVector4(
     second_vector
     )
 {
-    return [
+    return Float32Array.of(
         first_vector[ 0 ] + second_vector[ 0 ],
         first_vector[ 1 ] + second_vector[ 1 ],
         first_vector[ 2 ] + second_vector[ 2 ],
         first_vector[ 3 ] + second_vector[ 3 ]
-        ];
+        );
 }
 
 // ~~
@@ -131,12 +136,12 @@ function GetDifferenceVector4(
     second_vector
     )
 {
-    return [
+    return Float32Array.of(
         first_vector[ 0 ] - second_vector[ 0 ],
         first_vector[ 1 ] - second_vector[ 1 ],
         first_vector[ 2 ] - second_vector[ 2 ],
         first_vector[ 3 ] - second_vector[ 3 ]
-        ];
+        );
 }
 
 // ~~
@@ -158,17 +163,22 @@ function GetNormalizedVector4(
 
     if ( square_length <= precision )
     {
-        return [ 0.0, 0.0, 0.0, 0.0 ];
+        return Float32Array.of(
+            0.0,
+            0.0,
+            0.0,
+            0.0
+            );
     }
     else
     {
         one_over_length = 1.0 / GetSquareRoot( square_length );
 
-        return [
+        return Float32Array.of(
             x * one_over_length,
             y * one_over_length,
             z * one_over_length,
             w * one_over_length
-            ];
+            );
     }
 }

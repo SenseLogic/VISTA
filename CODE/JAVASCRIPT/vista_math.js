@@ -35,3 +35,21 @@ function GetClamp(
         return value;
     }
 }
+
+// ~~
+
+function GetRadianAngle(
+    degree_angle
+    )
+{
+    return degree_angle * ( Math.PI / 180.0 );
+}
+
+// ~~
+
+function GetDegreeAngle(
+    radian_angle
+    )
+{
+    return radian_angle * ( 180.0 / Math.PI );
+}

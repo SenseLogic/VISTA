@@ -439,38 +439,7 @@ class GRAPHIC_NODE
 
     // -- OPERATIONS
 
-    SetParentNode(
-        parent_node
-        )
-    {
-        var
-            child_node_index;
-
-        if ( this.ParentNode !== parent_node )
-        {
-            if ( this.ParentNode !== null )
-            {
-                for ( child_node_index = 0;
-                      child_node_index < this.ParentNode.ChildNodeArray.length;
-                      ++child_node_index )
-                {
-                    if ( this.ParentNode.ChildNodeArray[ child_node_index ] === this )
-                    {
-                        this.ParentNode.ChildNodeArray.splice( child_node_index, 1 );
-
-                        break;
-                    }
-                }
-            }
-
-            this.ParentNode = parent_node;
-            this.ChildNodeArray.push( this );
-        }
-    }
-
-    // ~~
-
-    SetChanged(
+    Invalidate(
         )
     {
         if ( !this.HasChanged )
@@ -479,7 +448,7 @@ class GRAPHIC_NODE
 
             for ( child_node of this.ChildNodeArray )
             {
-                child_node.SetChanged();
+                child_node.Invalidate();
             }
         }
     }
@@ -516,6 +485,68 @@ class GRAPHIC_NODE
             this.HasChanged = false;
         }
     }
+
+    // ~~
+
+    SetParentNode(
+        parent_node
+        )
+    {
+        var
+            child_node_index;
+
+        if ( this.ParentNode !== parent_node )
+        {
+            if ( this.ParentNode !== null )
+            {
+                for ( child_node_index = 0;
+                      child_node_index < this.ParentNode.ChildNodeArray.length;
+                      ++child_node_index )
+                {
+                    if ( this.ParentNode.ChildNodeArray[ child_node_index ] === this )
+                    {
+                        this.ParentNode.ChildNodeArray.splice( child_node_index, 1 );
+
+                        break;
+                    }
+                }
+            }
+
+            this.ParentNode = parent_node;
+            this.ChildNodeArray.push( this );
+            this.Invalidate();
+        }
+    }
+
+    // ~~
+
+    SetLocalTranslationVector(
+        local_translation_vector
+        )
+    {
+        this.LocalTranslationVector = local_translation_vector;
+        this.Invalidate();
+    }
+
+    // ~~
+
+    SetLocalRotationQuaternion(
+        local_rotation_quaternion
+        )
+    {
+        this.LocalRotationQuaternion = local_rotation_quaternion;
+        this.Invalidate();
+    }
+
+    // ~~
+
+    SetLocalScalingVector(
+        local_scaling_vector
+        )
+    {
+        this.LocalScalingVector = local_scaling_vector;
+        this.Invalidate();
+    }
 }
 
 // ~~
@@ -528,8 +559,8 @@ class GRAPHIC_CAMERA
         )
     {
         this.Node = null;
-        this.XAngle = 70.0;
-        this.YAngle = 70.0;
+        this.XAngle = 90.0;
+        this.YAngle = 90.0;
         this.GlobalTransformMatrix = GetMatrix4();
     }
 }

@@ -8,13 +8,129 @@
         </style>
     </head>
     <body>
-        <main>
-        </main>
         <script src="../../CODE/JAVASCRIPT/vista_base.js"></script>
         <script src="../../CODE/JAVASCRIPT/vista_math.js"></script>
         <script src="../../CODE/JAVASCRIPT/vista_vector_3.js"></script>
         <script src="../../CODE/JAVASCRIPT/vista_vector_4.js"></script>
         <script src="../../CODE/JAVASCRIPT/vista_matrix_4.js"></script>
         <script src="../../CODE/JAVASCRIPT/vista_quaternion.js"></script>
+        <script>
+            var
+                left_product_transform_matrix,
+                left_product_transform_matrix_point_vector,
+                point_vector,
+                right_product_transform_matrix,
+                right_product_transform_matrix_point_vector,
+                rotation_matrix,
+                rotation_quaternion,
+                scaling_matrix,
+                scaling_vector,
+                step_degree_angle,
+                transform_matrix,
+                translation_vector,
+                transform_matrix,
+                transform_matrix_point_vector,
+                x_angle,
+                x_degree_angle,
+                x_rotation_matrix,
+                y_angle,
+                y_degree_angle,
+                y_rotation_matrix,
+                z_angle,
+                z_degree_angle,
+                z_rotation_matrix,
+                zxy_transform_matrix,
+                zxy_transform_matrix_point_vector;
+
+            scaling_vector = GetVector3( 1.0, 2.0, 3.0 );
+            scaling_matrix = GetScalingMatrix4( scaling_vector );
+
+            translation_vector = GetVector3( 1.0, 2.0, 3.0 );
+            translation_matrix = GetTranslationMatrix4( translation_vector );
+
+            point_vector = GetVector3( 1.0, 2.0, 3.0 );
+
+            step_degree_angle = 120;
+
+            for ( z_degree_angle = 0;
+                  z_degree_angle < 360;
+                  z_degree_angle += step_degree_angle )
+            {
+                z_angle = GetRadianAngle( z_degree_angle );
+                z_rotation_matrix = GetZRotationMatrix4( z_angle );
+
+                for ( x_degree_angle = 0;
+                      x_degree_angle < 360;
+                      x_degree_angle += step_degree_angle )
+                {
+                    x_angle = GetRadianAngle( x_degree_angle );
+                    x_rotation_matrix = GetXRotationMatrix4( x_angle );
+
+                    for ( y_degree_angle = 0;
+                          y_degree_angle < 360;
+                          y_degree_angle += step_degree_angle )
+                    {
+                        y_angle = GetRadianAngle( y_degree_angle );
+                        y_rotation_matrix = GetYRotationMatrix4( y_angle );
+
+                        rotation_quaternion = GetZxyRotationQuaternion( z_angle, x_angle, y_angle );
+                        rotation_matrix = GetZxyRotationMatrix4( z_angle, x_angle, y_angle );
+
+                        transform_matrix = GetTransformMatrix4( scaling_vector, rotation_quaternion, translation_vector );
+                        zxy_transform_matrix = GetZxyTransformMatrix4( scaling_vector, z_angle, x_angle, y_angle, translation_vector );
+
+                        left_product_transform_matrix
+                            = GetProductMatrix4(
+                                  GetProductMatrix4(
+                                      GetProductMatrix4(
+                                          GetProductMatrix4(
+                                              scaling_matrix,
+                                              z_rotation_matrix
+                                              ),
+                                          x_rotation_matrix
+                                          ),
+                                      y_rotation_matrix,
+                                      ),
+                                  translation_matrix
+                                  );
+
+                        right_product_transform_matrix
+                            = GetProductMatrix4(
+                                  scaling_matrix,
+                                  GetProductMatrix4(
+                                      z_rotation_matrix,
+                                      GetProductMatrix4(
+                                          x_rotation_matrix,
+                                          GetProductMatrix4(
+                                              y_rotation_matrix,
+                                              translation_matrix
+                                              )
+                                          )
+                                      )
+                                  );
+
+                        transform_matrix_point_vector = GetMatrix4TransformedVector3( transform_matrix, point_vector );
+                        zxy_transform_matrix_point_vector = GetMatrix4TransformedVector3( zxy_transform_matrix, point_vector );
+                        left_product_transform_matrix_point_vector = GetMatrix4TransformedVector3( left_product_transform_matrix, point_vector );
+                        right_product_transform_matrix_point_vector = GetMatrix4TransformedVector3( right_product_transform_matrix, point_vector );
+
+                        console.log( z_degree_angle, x_degree_angle, y_degree_angle );
+                        console.log( z_angle, x_angle, y_angle );
+
+                        Log( scaling_vector );
+                        Log( rotation_quaternion );
+                        Log( translation_vector );
+                        Log( transform_matrix );
+                        Log( zxy_transform_matrix );
+                        Log( left_product_transform_matrix );
+                        Log( right_product_transform_matrix );
+                        Log( transform_matrix_point_vector );
+                        Log( zxy_transform_matrix_point_vector );
+                        Log( left_product_transform_matrix_point_vector );
+                        Log( right_product_transform_matrix_point_vector );
+                    }
+                }
+            }
+        </script>
     </body>
 </html>

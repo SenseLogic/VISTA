@@ -19,12 +19,12 @@ function GetMatrix4(
     ww = 1.0
     )
 {
-    return [
+    return Float32Array.of(
         xx, xy, xz, xw,
         yx, yy, yz, xw,
         zx, zy, zz, xw,
         wx, wy, wz, xw
-        ];
+        );
 }
 
 // ~~
@@ -32,74 +32,94 @@ function GetMatrix4(
 function GetIdentityMatrix4(
     )
 {
-    return [
+    return Float32Array.of(
         1.0, 0.0, 0.0, 0.0,
         0.0, 1.0, 0.0, 0.0,
         0.0, 0.0, 1.0, 0.0,
         0.0, 0.0, 0.0, 1.0
-        ];
+        );
+}
+
+// ~~
+
+function GetScalingMatrix4(
+    scaling_vector
+    )
+{
+    return Float32Array.of(
+        scaling_vector[ 0 ], 0.0, 0.0, 0.0,
+        0.0, scaling_vector[ 1 ], 0.0, 0.0,
+        0.0, 0.0, scaling_vector [ 2 ], 0.0,
+        0.0, 0.0, 0.0, 1.0
+        );
 }
 
 // ~~
 
 function GetXRotationMatrix4(
-    angle
+    x_angle
     )
 {
-    return [
+    var
+        x_cosinus = GetCosinus( x_angle ),
+        x_sinus = GetSinus( x_angle );
+
+    return Float32Array.of(
         1.0, 0.0, 0.0, 0.0,
-        0.0, GetCosinus( angle ), -GetSinus( angle ), 0.0,
-        0.0, GetSinus( angle ), GetCosinus( angle ), 0.0,
+        0.0, x_cosinus, x_sinus, 0.0,
+        0.0, -x_sinus, x_cosinus, 0.0,
         0.0, 0.0, 0.0, 1.0
-        ];
+        );
 }
 
 // ~~
 
-function GetYRotationMatrix4( angle )
+function GetYRotationMatrix4(
+    y_angle
+    )
 {
-    return [
-        GetCosinus( angle ), 0.0, GetSinus( angle ), 0.0,
+    var
+        y_cosinus = GetCosinus( y_angle ),
+        y_sinus = GetSinus( y_angle );
+
+    return Float32Array.of(
+        y_cosinus, 0.0, -y_sinus, 0.0,
         0.0, 1.0, 0.0, 0.0,
-        -GetSinus( angle ), 0.0, GetCosinus( angle ), 0.0,
+        y_sinus, 0.0, y_cosinus, 0.0,
         0.0, 0.0, 0.0, 1.0
-        ];
+        );
 }
 
 // ~~
 
-function GetZRotationMatrix4( angle )
+function GetZRotationMatrix4(
+    z_angle
+    )
 {
-    return [
-        GetCosinus( angle ), -GetSinus( angle ), 0.0, 0.0,
-        GetSinus( angle ), GetCosinus( angle ), 0.0, 0.0,
+    var
+        z_cosinus = GetCosinus( z_angle ),
+        z_sinus = GetSinus( z_angle );
+
+    return Float32Array.of(
+        z_cosinus, z_sinus, 0.0, 0.0,
+        -z_sinus, z_cosinus, 0.0, 0.0,
         0.0, 0.0, 1.0, 0.0,
         0.0, 0.0, 0.0, 1.0
-        ];
+        );
 }
 
 // ~~
 
-function GetTranslationMatrix4(x, y, z)
+function GetTranslationMatrix4(
+    translation_vector
+    )
 {
-    return [
+    return Float32Array.of(
         1.0, 0.0, 0.0, 0.0,
         0.0, 1.0, 0.0, 0.0,
         0.0, 0.0, 1.0, 0.0,
-        x, y, z, 1.0
-        ];
-}
-
-// ~~
-
-function GetScalingMatrix4(x, y, z)
-{
-    return [
-        x, 0.0, 0.0, 0.0,
-        0.0, y, 0.0, 0.0,
-        0.0, 0.0, z, 0.0,
-        0.0, 0.0, 0.0, 1.0
-        ];
+        translation_vector[ 0 ], translation_vector[ 1 ], translation_vector[ 2 ], 1.0
+        );
 }
 
 // ~~
@@ -108,11 +128,11 @@ function GetMatrix4XVector3(
     matrix
     )
 {
-    return [
+    return Float32Array.of(
         matrix[ 0 ],
         matrix[ 1 ],
         matrix[ 2 ]
-        ];
+        );
 }
 
 // ~~
@@ -121,11 +141,11 @@ function GetMatrix4YVector3(
     matrix
     )
 {
-    return [
+    return Float32Array.of(
         matrix[ 4 ],
         matrix[ 5 ],
         matrix[ 6 ]
-        ];
+        );
 }
 
 // ~~
@@ -134,11 +154,11 @@ function GetMatrix4ZVector3(
     matrix
     )
 {
-    return [
+    return Float32Array.of(
         matrix[ 8 ],
         matrix[ 9 ],
         matrix[ 10 ]
-        ];
+        );
 }
 
 // ~~
@@ -147,11 +167,11 @@ function GetMatrix4WVector3(
     matrix
     )
 {
-    return [
+    return Float32Array.of(
         matrix[ 12 ],
         matrix[ 13 ],
         matrix[ 14 ]
-        ];
+        );
 }
 
 // ~~
@@ -160,11 +180,11 @@ function GetMatrix4ScalingVector3(
     matrix
     )
 {
-    return [
+    return Float32Array.of(
         GetVector3Length( [ matrix[ 0 ], matrix[ 0 ], matrix[ 0 ] ] ),
         GetVector3Length( [ matrix[ 4 ], matrix[ 5 ], matrix[ 6 ] ] ),
         GetVector3Length( [ matrix[ 8 ], matrix[ 9 ], matrix[ 10 ] ] )
-        ];
+        );
 }
 
 // ~~
@@ -196,11 +216,11 @@ function GetMatrix4TransformedVector3(
         z = vector[ 2 ],
         one_over_w = 1.0 / ( x * xw + y * yw + z * zw + ww );
 
-    return [
+    return Float32Array.of(
         ( x * xx + y * yx + z * zx + wx ) * one_over_w,
         ( x * xy + y * yy + z * zy + wy ) * one_over_w,
         ( x * xz + y * yz + z * zz + wz ) * one_over_w
-        ]
+        );
 }
 
 // ~~
@@ -232,12 +252,12 @@ function GetMatrix4TransformedVector4(
         z = vector[ 2 ],
         w = vector[ 3 ];
 
-    return [
+    return Float32Array.of(
         x * xx + y * yx + z * zx + w * wx,
         x * xy + y * yy + z * zy + w * wy,
         x * xz + y * yz + z * zz + w * wz,
         x * xw + y * yw + z * zw + w * ww
-        ]
+        );
 }
 
 // ~~
@@ -281,7 +301,7 @@ function GetProductMatrix4(
         second_wz = second_matrix[ 14 ],
         second_ww = second_matrix[ 15 ];
 
-    return [
+    return Float32Array.of(
         first_xx * second_xx + first_xy * second_yx + first_xz * second_zx + first_xw * second_wx,
         first_xx * second_xy + first_xy * second_yy + first_xz * second_zy + first_xw * second_wy,
         first_xx * second_xz + first_xy * second_yz + first_xz * second_zz + first_xw * second_wz,
@@ -298,7 +318,7 @@ function GetProductMatrix4(
         first_wx * second_xy + first_wy * second_yy + first_wz * second_zy + first_ww * second_wy,
         first_wx * second_xz + first_wy * second_yz + first_wz * second_zz + first_ww * second_wz,
         first_wx * second_xw + first_wy * second_yw + first_wz * second_zw + first_ww * second_ww
-        ];
+        );
 }
 
 // ~~
@@ -317,7 +337,7 @@ function GetZxyRotationMatrix4(
         y_cosinus = GetCosinus( y_angle ),
         y_sinus = GetSinus( y_angle );
 
-    return [
+    return Float32Array.of(
         z_cosinus * y_cosinus + z_sinus * x_sinus * y_sinus,
         z_sinus * x_cosinus,
         -z_cosinus * y_sinus + z_sinus * x_sinus * y_cosinus,
@@ -334,12 +354,12 @@ function GetZxyRotationMatrix4(
         0.0,
         0.0,
         1.0
-        ];
+        );
 }
 
 // ~~
 
-function GetScalingZxyRotationTranslationMatrix4(
+function GetZxyTransformMatrix4(
     scaling_vector,
     z_angle,
     x_angle,
@@ -361,29 +381,29 @@ function GetScalingZxyRotationTranslationMatrix4(
         y_translation = translation_vector[ 1 ],
         z_translation = translation_vector[ 2 ];
 
-    return [
-        z_cosinus * y_cosinus * x_scaling + z_sinus * x_sinus * y_sinus * x_scaling,
-        z_sinus * x_cosinus * y_scaling,
-        -z_cosinus * y_sinus * z_scaling + z_sinus * x_sinus * y_cosinus * z_scaling,
+    return Float32Array.of(
+        x_scaling * ( z_cosinus * y_cosinus + z_sinus * x_sinus * y_sinus ),
+        x_scaling * ( z_sinus * x_cosinus ),
+        x_scaling * ( -z_cosinus * y_sinus + z_sinus * x_sinus * y_cosinus ),
         0.0,
-        -z_sinus * y_cosinus * x_scaling + z_cosinus * x_sinus * y_sinus * x_scaling,
-        z_cosinus * x_cosinus * y_scaling,
-        z_sinus * y_sinus * z_scaling + z_cosinus * x_sinus * y_cosinus * z_scaling,
+        y_scaling * ( -z_sinus * y_cosinus + z_cosinus * x_sinus * y_sinus ),
+        y_scaling * ( z_cosinus * x_cosinus ),
+        y_scaling * ( z_sinus * y_sinus + z_cosinus * x_sinus * y_cosinus ),
         0.0,
-        x_cosinus * y_sinus * x_scaling,
-        -x_sinus * y_scaling,
-        x_cosinus * y_cosinus * z_scaling,
+        z_scaling * ( x_cosinus * y_sinus ),
+        z_scaling * ( -x_sinus ),
+        z_scaling * ( x_cosinus * y_cosinus ),
         0.0,
         x_translation,
         y_translation,
         z_translation,
         1.0
-        ];
+        );
 }
 
 // ~~
 
-function GetScalingRotationTranslationMatrix4(
+function GetTransformMatrix4(
     scaling_vector,
     rotation_quaternion,
     translation_vector
@@ -393,10 +413,10 @@ function GetScalingRotationTranslationMatrix4(
         x_scaling = scaling_vector[ 0 ],
         y_scaling = scaling_vector[ 1 ],
         z_scaling = scaling_vector[ 2 ],
-        quaternion_x = quaternion[ 0 ],
-        quaternion_y = quaternion[ 1 ],
-        quaternion_z = quaternion[ 2 ],
-        quaternion_w = quaternion[ 3 ],
+        quaternion_x = rotation_quaternion[ 0 ],
+        quaternion_y = rotation_quaternion[ 1 ],
+        quaternion_z = rotation_quaternion[ 2 ],
+        quaternion_w = rotation_quaternion[ 3 ],
         quaternion_x2 = quaternion_x + quaternion_x,
         quaternion_y2 = quaternion_y + quaternion_y,
         quaternion_z2 = quaternion_z + quaternion_z,
@@ -413,7 +433,7 @@ function GetScalingRotationTranslationMatrix4(
         y_translation = translation_vector[ 1 ],
         z_translation = translation_vector[ 2 ];
 
-    return [
+    return Float32Array.of(
         x_scaling * ( 1.0 - quaternion_yy2 - quaternion_zz2 ),
         x_scaling * ( quaternion_xy2 + quaternion_wz2 ),
         x_scaling * ( quaternion_xz2 - quaternion_wy2 ),
@@ -430,7 +450,7 @@ function GetScalingRotationTranslationMatrix4(
         y_translation,
         z_translation,
         1.0
-        ];
+        );
 }
 
 // ~~
@@ -448,7 +468,7 @@ function GetLookMatrix4(
     x_axis_vector = GetNormalizedVector3( GetCrossProductVector3( y_axis_vector, z_axis_vector ) );
     y_axis_vector = GetNormalizedVector3( GetCrossProductVector3( z_axis_vector, x_axis_vector ) );
 
-    return [
+    return Float32Array.of(
         x_axis_vector[ 0 ],
         x_axis_vector[ 1 ],
         x_axis_vector[ 2 ],
@@ -464,8 +484,8 @@ function GetLookMatrix4(
         position_vector[ 0 ],
         position_vector[ 1 ],
         position_vector[ 2 ],
-        1,
-        ];
+        1.0
+        );
 }
 
 // ~~
@@ -488,7 +508,7 @@ function GetFrustumMatrix4(
     one_over_y_offset = 1.0 / ( top_y - bottom_y );
     one_over_z_offset = 1.0 / ( near_z - far_z );
 
-    return [
+    return Float32Array.of(
         2.0 * near_z * one_over_x_offset,
         0.0,
         0.0,
@@ -504,8 +524,8 @@ function GetFrustumMatrix4(
         0.0,
         0.0,
         near_z * far_z * one_over_z_offset,
-        0
-        ];
+        0.0
+        );
 }
 
 // ~~
@@ -528,7 +548,7 @@ function GetOrthographicMatrix4(
     one_over_y_offset = 1.0 / ( top_y - bottom_y );
     one_over_z_offset = 1.0 / ( near_z - far_z );
 
-    return [
+    return Float32Array.of(
         2.0 * one_over_x_offset,
         0.0,
         0.0,
@@ -545,7 +565,7 @@ function GetOrthographicMatrix4(
         ( bottom_y + top_y ) * -one_over_y_offset,
         ( near_z + far_z ) * one_over_z_offset,
         1.0
-        ];
+        );
 }
 
 // ~~
@@ -575,7 +595,7 @@ function GetPerspectiveMatrix4(
         y_scaling = Math.tan( ( Math.PI - y_angle ) * 0.5 );
     }
 
-    return [
+    return Float32Array.of(
         x_scaling,
         0.0,
         0.0,
@@ -592,5 +612,5 @@ function GetPerspectiveMatrix4(
         0.0,
         2.0 * near_z * far_z * one_over_z_offset,
         0.0
-        ];
+        );
 }

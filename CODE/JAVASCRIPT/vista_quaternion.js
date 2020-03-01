@@ -7,7 +7,11 @@ function GetQuaternion(
     w = 1.0
     )
 {
-    return [ x, y, z ];
+    return Float32Array.of(
+        x,
+        y,
+        z
+        );
 }
 
 // ~~
@@ -22,11 +26,11 @@ function GetQuaternionXAxis(
         z = quaternion[ 2 ],
         w = quaternion[ 3 ];
 
-    return [
+    return Float32Array.of(
         ( y * y ) * -2.0 + ( z * z ) * -2.0 + 1.0,
         ( x * y + w * z ) * 2.0,
         ( x * z - w * y ) * 2.0
-        ];
+        );
 }
 
 // ~~
@@ -41,11 +45,11 @@ function GetQuaternionYAxis(
         z = quaternion[ 2 ],
         w = quaternion[ 3 ];
 
-    return [
+    return Float32Array.of(
         ( x * y - w * z ) * 2.0,
         ( x * x ) * -2.0 + ( z * z ) * -2.0 + 1.0,
         ( y * z + w * x ) * 2.0
-        ]
+        );
 }
 
 // ~~
@@ -60,11 +64,11 @@ function GetQuaternionZAxis(
         z = quaternion[ 2 ],
         w = quaternion[ 3 ];
 
-    return [
+    return Float32Array.of(
         ( x * z + w * y ) * 2.0,
         ( y * z - w * x ) * 2.0,
         ( x * x ) * -2.0 + ( y * y ) * -2.0 + 1.0
-        ];
+        );
 }
 
 // ~~
@@ -87,23 +91,23 @@ function GetXRotationQuaternion(
 
     if ( x_angle == 0.0 )
     {
-        return [
+        return Float32Array.of(
             0.0,
             0.0,
             0.0,
             1.0
-            ];
+            );
     }
     else
     {
         half_x_angle = x_angle * 0.5;
 
-        return [
+        return Float32Array.of(
             GetSinus( half_x_angle ),
             0.0,
             0.0,
             GetCosinus( half_x_angle )
-            ];
+            );
     }
 }
 
@@ -118,23 +122,23 @@ function GetYRotationQuaternion(
 
     if ( y_angle == 0.0 )
     {
-        return [
+        return Float32Array.of(
             0.0,
             0.0,
             0.0,
             1.0
-            ];
+            );
     }
     else
     {
         half_y_angle = y_angle * 0.5;
 
-        return [
+        return Float32Array.of(
             0.0,
             GetSinus( half_y_angle ),
             0.0,
             GetCosinus( half_y_angle )
-            ];
+            );
     }
 }
 
@@ -149,23 +153,23 @@ function GetZRotationQuaternion(
 
     if ( z_angle == 0.0 )
     {
-        return [
+        return Float32Array.of(
             0.0,
             0.0,
             0.0,
             1.0
-            ];
+            );
     }
     else
     {
         half_z_angle = z_angle * 0.5;
 
-        return [
+        return Float32Array.of(
             0.0,
             0.0,
             GetSinus( half_z_angle ),
             GetCosinus( half_z_angle )
-            ];
+            );
     }
 }
 
@@ -188,12 +192,12 @@ function GetZxyRotationQuaternion(
         half_y_cosinus = GetCosinus( half_y_angle ),
         half_y_sinus = GetSinus( half_y_angle );
 
-    return [
+    return Float32Array.of(
         half_y_cosinus * half_x_sinus * half_z_cosinus + half_y_sinus * half_x_cosinus * half_z_sinus,
         -half_y_cosinus * half_x_sinus * half_z_sinus + half_y_sinus * half_x_cosinus * half_z_cosinus,
         half_y_cosinus * half_x_cosinus * half_z_sinus - half_y_sinus * half_x_sinus * half_z_cosinus,
         half_y_cosinus * half_x_cosinus * half_z_cosinus + half_y_sinus * half_x_sinus * half_z_sinus
-        ];
+        );
 }
 
 // ~~
@@ -213,12 +217,12 @@ function GetProductQuaternion(
         second_z = second_quaternion[ 2 ],
         second_w = second_quaternion[ 3 ];
 
-    return [
+    return Float32Array.of(
         first_w * second_x + first_x * second_w + first_y * second_z - first_z * second_y,
         first_w * second_y - first_x * second_z + first_y * second_w + first_z * second_x,
         first_w * second_z + first_x * second_y - first_y * second_x + first_z * second_w,
         first_w * second_w - first_x * second_x - first_y * second_y - first_z * second_z
-        ];
+        );
 }
 
 // ~~
@@ -245,7 +249,7 @@ function GetQuaternionMatrix4(
         wy2 = w * y2,
         wz2 = w * z2;
 
-    return [
+    return Float32Array.of(
         1.0 - yy2 - zz2,
         xy2 + wz2,
         xz2 - wy2,
@@ -262,5 +266,5 @@ function GetQuaternionMatrix4(
         0.0,
         0.0,
         1.0
-        ];
+        );
 }

@@ -6,7 +6,11 @@ function GetVector3(
     z = 0.0
     )
 {
-    return [ x, y, z ];
+    return Float32Array.of(
+        x,
+        y,
+        z
+        );
 }
 
 // ~~
@@ -105,11 +109,11 @@ function GetCrossProductVector3(
         second_y = second_vector[ 1 ],
         second_z = second_vector[ 2 ];
 
-    return [
+    return Float32Array.of(
         first_y * second_z - first_z * second_y,
         first_z * second_x - first_x * second_z,
         first_x * second_y - first_y * second_x
-        ];
+        );
 }
 
 // ~~
@@ -142,11 +146,11 @@ function GetNegatedVector3(
     vector
     )
 {
-    return [
+    return Float32Array.of(
         -vector[ 0 ],
         -vector[ 1 ],
         -vector[ 2 ]
-        ];
+        );
 }
 
 // ~~
@@ -156,11 +160,11 @@ function GetScaledVector3(
     scale
     )
 {
-    return [
+    return Float32Array.of(
         vector[ 0 ] * scale,
         vector[ 1 ] * scale,
         vector[ 2 ] * scale
-        ];
+        );
 }
 
 // ~~
@@ -170,11 +174,11 @@ function GetSumVector3(
     second_vector
     )
 {
-    return [
+    return Float32Array.of(
         first_vector[ 0 ] + second_vector[ 0 ],
         first_vector[ 1 ] + second_vector[ 1 ],
         first_vector[ 2 ] + second_vector[ 2 ]
-        ];
+        );
 }
 
 // ~~
@@ -184,11 +188,11 @@ function GetDifferenceVector3(
     second_vector
     )
 {
-    return [
+    return Float32Array.of(
         first_vector[ 0 ] - second_vector[ 0 ],
         first_vector[ 1 ] - second_vector[ 1 ],
         first_vector[ 2 ] - second_vector[ 2 ]
-        ];
+        );
 }
 
 // ~~
@@ -209,16 +213,20 @@ function GetNormalizedVector3(
 
     if ( square_length <= precision )
     {
-        return [ 0.0, 0.0, 0.0 ];
+        return Float32Array.of(
+            0.0,
+            0.0,
+            0.0
+            );
     }
     else
     {
         one_over_length = 1.0 / GetSquareRoot( square_length );
 
-        return [
+        return Float32Array.of(
             x * one_over_length,
             y * one_over_length,
             z * one_over_length
-            ];
+            );
     }
 }
