@@ -1,5 +1,7 @@
 // -- FUNCTIONS
 
+var DefaultPrecision = 0.00001;
+var Pi = Math.PI;
 var GetPositive = Math.abs;
 var GetSign = Math.sign;
 var GetFloor = Math.floor;
@@ -13,6 +15,36 @@ var GetArcCosinus = Math.acos;
 var GetArcSinus = Math.asin;
 var GetArcTangent = Math.atan;
 var GetRandom = Math.random;
+
+// ~~
+
+function IsRoughlyNull(
+    value,
+    precision = DefaultPrecision
+    )
+{
+    return (
+        value >= -precision
+        && value <= precision
+        );
+}
+
+// ~~
+
+function IsRoughlySame(
+    first_value,
+    second_value,
+    precision = DefaultPrecision
+    )
+{
+    var
+        value = first_value - second_value;
+
+    return (
+        value >= -precision
+        && value <= precision
+        );
+}
 
 // ~~
 
@@ -42,7 +74,7 @@ function GetRadianAngle(
     degree_angle
     )
 {
-    return degree_angle * ( Math.PI / 180.0 );
+    return degree_angle * ( Pi / 180.0 );
 }
 
 // ~~
@@ -51,5 +83,5 @@ function GetDegreeAngle(
     radian_angle
     )
 {
-    return radian_angle * ( 180.0 / Math.PI );
+    return radian_angle * ( 180.0 / Pi );
 }

@@ -5,6 +5,37 @@ var
 
 // -- FUNCTIONS
 
+function Assert(
+    condition
+    )
+{
+    if ( !condition )
+    {
+        console.trace();
+        console.error( ...arguments );
+    }
+}
+
+// ~~
+
+function Print(
+    value
+    )
+{
+    console.log( value );
+}
+
+// ~~
+
+function Log(
+    value
+    )
+{
+    console.log( JSON.stringify( value ) );
+}
+
+// ~~
+
 function IsPowerOf2(
     integer
     )
@@ -114,24 +145,6 @@ function GetDecodedHtml(
     text_area_element.innerHTML = text;
 
     return text_area_element.value;
-}
-
-// ~~
-
-function Print(
-    value
-    )
-{
-    console.log( value );
-}
-
-// ~~
-
-function Log(
-    value
-    )
-{
-    console.log( JSON.stringify( value ) );
 }
 
 // ~~

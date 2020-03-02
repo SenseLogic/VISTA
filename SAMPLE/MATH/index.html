@@ -10,17 +10,20 @@
     <body>
         <script src="../../CODE/JAVASCRIPT/vista_base.js"></script>
         <script src="../../CODE/JAVASCRIPT/vista_math.js"></script>
+        <script src="../../CODE/JAVASCRIPT/vista_vector_2.js"></script>
         <script src="../../CODE/JAVASCRIPT/vista_vector_3.js"></script>
         <script src="../../CODE/JAVASCRIPT/vista_vector_4.js"></script>
         <script src="../../CODE/JAVASCRIPT/vista_matrix_4.js"></script>
         <script src="../../CODE/JAVASCRIPT/vista_quaternion.js"></script>
         <script>
             var
-                left_product_transform_matrix,
-                left_product_transform_matrix_point_vector,
+                left_transform_matrix,
+                left_zxy_transform_matrix,
+                left_zxy_transform_matrix_point_vector,
                 point_vector,
-                right_product_transform_matrix,
-                right_product_transform_matrix_point_vector,
+                right_transform_matrix,
+                right_zxy_transform_matrix,
+                right_zxy_transform_matrix_point_vector,
                 rotation_matrix,
                 rotation_quaternion,
                 scaling_matrix,
@@ -39,6 +42,7 @@
                 z_angle,
                 z_degree_angle,
                 z_rotation_matrix,
+                zxy_rotation_vector,
                 zxy_transform_matrix,
                 zxy_transform_matrix_point_vector;
 
@@ -50,7 +54,7 @@
 
             point_vector = GetVector3( 1.0, 2.0, 3.0 );
 
-            step_degree_angle = 120;
+            step_degree_angle = 45;
 
             for ( z_degree_angle = 0;
                   z_degree_angle < 360;
@@ -73,13 +77,32 @@
                         y_angle = GetRadianAngle( y_degree_angle );
                         y_rotation_matrix = GetYRotationMatrix4( y_angle );
 
-                        rotation_quaternion = GetZxyRotationQuaternion( z_angle, x_angle, y_angle );
-                        rotation_matrix = GetZxyRotationMatrix4( z_angle, x_angle, y_angle );
+                        zxy_rotation_vector = GetVector3( x_angle, y_angle, z_angle );
+                        rotation_quaternion = GetZxyRotationQuaternion( zxy_rotation_vector  );
+                        rotation_matrix = GetZxyRotationMatrix4( zxy_rotation_vector );
 
                         transform_matrix = GetTransformMatrix4( scaling_vector, rotation_quaternion, translation_vector );
-                        zxy_transform_matrix = GetZxyTransformMatrix4( scaling_vector, z_angle, x_angle, y_angle, translation_vector );
+                        zxy_transform_matrix = GetZxyTransformMatrix4( scaling_vector, zxy_rotation_vector, translation_vector );
 
-                        left_product_transform_matrix
+                        left_transform_matrix
+                            = GetProductMatrix4(
+                                  GetProductMatrix4(
+                                      scaling_matrix,
+                                      rotation_matrix
+                                      ),
+                                  translation_matrix
+                                  );
+
+                        right_transform_matrix
+                            = GetProductMatrix4(
+                                  scaling_matrix,
+                                  GetProductMatrix4(
+                                      rotation_matrix,
+                                      translation_matrix
+                                      )
+                                  );
+
+                        left_zxy_transform_matrix
                             = GetProductMatrix4(
                                   GetProductMatrix4(
                                       GetProductMatrix4(
@@ -94,7 +117,7 @@
                                   translation_matrix
                                   );
 
-                        right_product_transform_matrix
+                        right_zxy_transform_matrix
                             = GetProductMatrix4(
                                   scaling_matrix,
                                   GetProductMatrix4(
@@ -111,23 +134,59 @@
 
                         transform_matrix_point_vector = GetMatrix4TransformedVector3( transform_matrix, point_vector );
                         zxy_transform_matrix_point_vector = GetMatrix4TransformedVector3( zxy_transform_matrix, point_vector );
-                        left_product_transform_matrix_point_vector = GetMatrix4TransformedVector3( left_product_transform_matrix, point_vector );
-                        right_product_transform_matrix_point_vector = GetMatrix4TransformedVector3( right_product_transform_matrix, point_vector );
+                        left_zxy_transform_matrix_point_vector = GetMatrix4TransformedVector3( left_zxy_transform_matrix, point_vector );
+                        right_zxy_transform_matrix_point_vector = GetMatrix4TransformedVector3( right_zxy_transform_matrix, point_vector );
 
                         console.log( z_degree_angle, x_degree_angle, y_degree_angle );
-                        console.log( z_angle, x_angle, y_angle );
-
-                        Log( scaling_vector );
-                        Log( rotation_quaternion );
-                        Log( translation_vector );
                         Log( transform_matrix );
-                        Log( zxy_transform_matrix );
-                        Log( left_product_transform_matrix );
-                        Log( right_product_transform_matrix );
-                        Log( transform_matrix_point_vector );
-                        Log( zxy_transform_matrix_point_vector );
-                        Log( left_product_transform_matrix_point_vector );
-                        Log( right_product_transform_matrix_point_vector );
+
+                        Assert(
+                            IsRoughlySameMatrix4( zxy_transform_matrix, transform_matrix ),
+                            zxy_transform_matrix,
+                            transform_matrix
+                            );
+
+                        Assert(
+                            IsRoughlySameMatrix4( left_transform_matrix, transform_matrix ),
+                            left_transform_matrix,
+                            transform_matrix
+                            );
+
+                        Assert(
+                            IsRoughlySameMatrix4( right_transform_matrix, transform_matrix ),
+                            right_transform_matrix,
+                            transform_matrix
+                            );
+
+                        Assert(
+                            IsRoughlySameMatrix4( left_zxy_transform_matrix, transform_matrix ),
+                            left_zxy_transform_matrix,
+                            transform_matrix
+                            );
+
+                        Assert(
+                            IsRoughlySameMatrix4( right_zxy_transform_matrix, transform_matrix ),
+                            right_zxy_transform_matrix,
+                            transform_matrix
+                            );
+
+                        Assert(
+                            IsRoughlySameVector3( zxy_transform_matrix_point_vector, transform_matrix_point_vector ),
+                            zxy_transform_matrix_point_vector,
+                            transform_matrix_point_vector
+                            );
+
+                        Assert(
+                            IsRoughlySameVector3( left_zxy_transform_matrix_point_vector, transform_matrix_point_vector ),
+                            left_zxy_transform_matrix_point_vector,
+                            transform_matrix_point_vector
+                            );
+
+                        Assert(
+                            IsRoughlySameVector3( right_zxy_transform_matrix_point_vector, transform_matrix_point_vector ),
+                            right_zxy_transform_matrix_point_vector,
+                            transform_matrix_point_vector
+                            );
                     }
                 }
             }

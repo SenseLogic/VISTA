@@ -15,7 +15,6 @@ function GetVector4(
         );
 }
 
-
 // ~~
 
 function IsNullVector4(
@@ -34,7 +33,7 @@ function IsNullVector4(
 
 function IsRoughlyNullVector4(
     vector,
-    precision = 0.000001
+    precision = DefaultPrecision
     )
 {
     var
@@ -42,6 +41,32 @@ function IsRoughlyNullVector4(
         y = vector[ 1 ],
         z = vector[ 2 ],
         w = vector[ 3 ];
+
+    return (
+        x >= -precision
+        && x <= precision
+        && y >= -precision
+        && y <= precision
+        && z >= -precision
+        && z <= precision
+        && w >= -precision
+        && w <= precision
+        );
+}
+
+// ~~
+
+function IsRoughlySameVector4(
+    first_vector,
+    second_vector,
+    precision = DefaultPrecision
+    )
+{
+    var
+        x = first_vector[ 0 ] - second_vector[ 0 ],
+        y = first_vector[ 1 ] - second_vector[ 1 ],
+        z = first_vector[ 2 ] - second_vector[ 2 ],
+        w = first_vector[ 3 ] - second_vector[ 3 ];
 
     return (
         x >= -precision
@@ -148,7 +173,7 @@ function GetDifferenceVector4(
 
 function GetNormalizedVector4(
     vector,
-    precision = 0.000001
+    precision = DefaultPrecision
     )
 {
     var

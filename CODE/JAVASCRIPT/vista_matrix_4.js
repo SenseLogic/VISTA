@@ -42,6 +42,156 @@ function GetIdentityMatrix4(
 
 // ~~
 
+function IsIdentityMatrix4(
+    matrix
+    )
+{
+    return (
+        matrix[ 0 ] == 1.0
+        && matrix[ 1 ] == 0.0
+        && matrix[ 2 ] == 0.0
+        && matrix[ 3 ] == 0.0
+        && matrix[ 4 ] == 0.0
+        && matrix[ 5 ] == 1.0
+        && matrix[ 6 ] == 0.0
+        && matrix[ 7 ] == 0.0
+        && matrix[ 8 ] == 0.0
+        && matrix[ 9 ] == 0.0
+        && matrix[ 10 ] == 1.0
+        && matrix[ 11 ] == 0.0
+        && matrix[ 12 ] == 0.0
+        && matrix[ 13 ] == 0.0
+        && matrix[ 14 ] == 0.0
+        && matrix[ 15 ] == 1.0
+        );
+}
+
+// ~~
+
+function IsRoughlyIdentityMatrix4(
+    matrix,
+    precision = DefaultPrecision
+    )
+{
+    var
+        xx = matrix[ 0 ],
+        xy = matrix[ 1 ],
+        xz = matrix[ 2 ],
+        xw = matrix[ 3 ],
+        yx = matrix[ 4 ],
+        yy = matrix[ 5 ],
+        yz = matrix[ 6 ],
+        yw = matrix[ 7 ],
+        zx = matrix[ 8 ],
+        zy = matrix[ 9 ],
+        zz = matrix[ 10 ],
+        zw = matrix[ 11 ],
+        wx = matrix[ 12 ],
+        wy = matrix[ 13 ],
+        wz = matrix[ 14 ],
+        ww = matrix[ 15 ];
+
+    return (
+        xx >= 1.0 - precision
+        && xx <= 1.0 + precision
+        && xy >= -precision
+        && xy <= precision
+        && xz >= -precision
+        && xz <= precision
+        && xw >= -precision
+        && xw <= precision
+        && yx >= -precision
+        && yx <= precision
+        && yy >= 1.0 - precision
+        && yy <= 1.0 + precision
+        && yz >= -precision
+        && yz <= precision
+        && yw >= -precision
+        && yw <= precision
+        && zx >= -precision
+        && zx <= precision
+        && zy >= -precision
+        && zy <= precision
+        && zz >= 1.0 - precision
+        && zz <= 1.0 + precision
+        && zw >= -precision
+        && zw <= precision
+        && wx >= -precision
+        && wx <= precision
+        && wy >= -precision
+        && wy <= precision
+        && wz >= -precision
+        && wz <= precision
+        && ww >= 1.0 - precision
+        && ww <= 1.0 + precision
+        );
+}
+
+
+// ~~
+
+function IsRoughlySameMatrix4(
+    first_matrix,
+    second_matrix,
+    precision = DefaultPrecision
+    )
+{
+    var
+        xx = first_matrix[ 0 ] - second_matrix[ 0 ],
+        xy = first_matrix[ 1 ] - second_matrix[ 1 ],
+        xz = first_matrix[ 2 ] - second_matrix[ 2 ],
+        xw = first_matrix[ 3 ] - second_matrix[ 3 ],
+        yx = first_matrix[ 4 ] - second_matrix[ 4 ],
+        yy = first_matrix[ 5 ] - second_matrix[ 5 ],
+        yz = first_matrix[ 6 ] - second_matrix[ 6 ],
+        yw = first_matrix[ 7 ] - second_matrix[ 7 ],
+        zx = first_matrix[ 8 ] - second_matrix[ 8 ],
+        zy = first_matrix[ 9 ] - second_matrix[ 9 ],
+        zz = first_matrix[ 10 ] - second_matrix[ 10 ],
+        zw = first_matrix[ 11 ] - second_matrix[ 11 ],
+        wx = first_matrix[ 12 ] - second_matrix[ 12 ],
+        wy = first_matrix[ 13 ] - second_matrix[ 13 ],
+        wz = first_matrix[ 14 ] - second_matrix[ 14 ],
+        ww = first_matrix[ 15 ] - second_matrix[ 15 ];
+
+    return (
+        xx >= -precision
+        && xx <= precision
+        && xy >= -precision
+        && xy <= precision
+        && xz >= -precision
+        && xz <= precision
+        && xw >= -precision
+        && xw <= precision
+        && yx >= -precision
+        && yx <= precision
+        && yy >= -precision
+        && yy <= precision
+        && yz >= -precision
+        && yz <= precision
+        && yw >= -precision
+        && yw <= precision
+        && zx >= -precision
+        && zx <= precision
+        && zy >= -precision
+        && zy <= precision
+        && zz >= -precision
+        && zz <= precision
+        && zw >= -precision
+        && zw <= precision
+        && wx >= -precision
+        && wx <= precision
+        && wy >= -precision
+        && wy <= precision
+        && wz >= -precision
+        && wz <= precision
+        && ww >= -precision
+        && ww <= precision
+        );
+}
+
+// ~~
+
 function GetScalingMatrix4(
     scaling_vector
     )
@@ -324,18 +474,19 @@ function GetProductMatrix4(
 // ~~
 
 function GetZxyRotationMatrix4(
-    z_angle,
-    x_angle,
-    y_angle
+    zxy_rotation_vector
     )
 {
     var
-        z_cosinus = GetCosinus( z_angle ),
-        z_sinus = GetSinus( z_angle ),
+        x_angle = zxy_rotation_vector[ 0 ],
+        y_angle = zxy_rotation_vector[ 1 ],
+        z_angle = zxy_rotation_vector[ 2 ],
         x_cosinus = GetCosinus( x_angle ),
         x_sinus = GetSinus( x_angle ),
         y_cosinus = GetCosinus( y_angle ),
-        y_sinus = GetSinus( y_angle );
+        y_sinus = GetSinus( y_angle ),
+        z_cosinus = GetCosinus( z_angle ),
+        z_sinus = GetSinus( z_angle );
 
     return Float32Array.of(
         z_cosinus * y_cosinus + z_sinus * x_sinus * y_sinus,
@@ -361,9 +512,7 @@ function GetZxyRotationMatrix4(
 
 function GetZxyTransformMatrix4(
     scaling_vector,
-    z_angle,
-    x_angle,
-    y_angle,
+    zxy_rotation_vector,
     translation_vector
     )
 {
@@ -371,12 +520,15 @@ function GetZxyTransformMatrix4(
         x_scaling = scaling_vector[ 0 ],
         y_scaling = scaling_vector[ 1 ],
         z_scaling = scaling_vector[ 2 ],
-        z_cosinus = GetCosinus( z_angle ),
-        z_sinus = GetSinus( z_angle ),
+        x_angle = zxy_rotation_vector[ 0 ],
+        y_angle = zxy_rotation_vector[ 1 ],
+        z_angle = zxy_rotation_vector[ 2 ],
         x_cosinus = GetCosinus( x_angle ),
         x_sinus = GetSinus( x_angle ),
         y_cosinus = GetCosinus( y_angle ),
         y_sinus = GetSinus( y_angle ),
+        z_cosinus = GetCosinus( z_angle ),
+        z_sinus = GetSinus( z_angle ),
         x_translation = translation_vector[ 0 ],
         y_translation = translation_vector[ 1 ],
         z_translation = translation_vector[ 2 ];
@@ -584,7 +736,7 @@ function GetPerspectiveMatrix4(
 
     one_over_z_offset = 1.0 / ( near_z - far_z );
 
-    x_scaling = Math.tan( ( Math.PI - x_angle ) * 0.5 );
+    x_scaling = GetTangent( ( Pi - x_angle ) * 0.5 );
 
     if ( y_angle === x_angle )
     {
@@ -592,7 +744,7 @@ function GetPerspectiveMatrix4(
     }
     else
     {
-        y_scaling = Math.tan( ( Math.PI - y_angle ) * 0.5 );
+        y_scaling = GetTangent( ( Pi - y_angle ) * 0.5 );
     }
 
     return Float32Array.of(

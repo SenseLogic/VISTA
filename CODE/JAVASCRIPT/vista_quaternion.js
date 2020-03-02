@@ -16,6 +16,71 @@ function GetQuaternion(
 
 // ~~
 
+function IsIdentityQuaternion(
+    quaternion
+    )
+{
+    return (
+        quaternion[ 0 ] === 0.0
+        && quaternion[ 1 ] === 0.0
+        && quaternion[ 2 ] === 0.0
+        && quaternion[ 3 ] === 1.0
+        );
+}
+
+// ~~
+
+function IsRoughlyIdentityQuaternion(
+    quaternion,
+    precision = DefaultPrecision
+    )
+{
+    var
+        x = quaternion[ 0 ],
+        y = quaternion[ 1 ],
+        z = quaternion[ 2 ],
+        w = quaternion[ 3 ];
+
+    return (
+        x >= -precision
+        && x <= precision
+        && y >= -precision
+        && y <= precision
+        && z >= -precision
+        && z <= precision
+        && w >= 1.0 - precision
+        && w <= 1.0 + precision
+        );
+}
+
+// ~~
+
+function IsRoughlySameQuaternion(
+    first_quaternion,
+    second_quaternion,
+    precision = DefaultPrecision
+    )
+{
+    var
+        x = first_quaternion[ 0 ] - second_quaternion[ 0 ],
+        y = first_quaternion[ 1 ] - second_quaternion[ 1 ],
+        z = first_quaternion[ 2 ] - second_quaternion[ 2 ],
+        w = first_quaternion[ 3 ] - second_quaternion[ 3 ];
+
+    return (
+        x >= -precision
+        && x <= precision
+        && y >= -precision
+        && y <= precision
+        && z >= -precision
+        && z <= precision
+        && w >= -precision
+        && w <= precision
+        );
+}
+
+// ~~
+
 function GetQuaternionXAxis(
     quaternion
     )
@@ -176,21 +241,19 @@ function GetZRotationQuaternion(
 // ~~
 
 function GetZxyRotationQuaternion(
-    z_angle,
-    x_angle,
-    y_angle
+    zxy_rotation_vector
     )
 {
     var
-        half_z_angle = z_angle * 0.5,
-        half_x_angle = x_angle * 0.5,
-        half_y_angle = y_angle * 0.5,
-        half_z_cosinus = GetCosinus( half_z_angle ),
-        half_z_sinus = GetSinus( half_z_angle ),
+        half_x_angle = zxy_rotation_vector[ 0 ] * 0.5,
+        half_y_angle = zxy_rotation_vector[ 1 ] * 0.5,
+        half_z_angle = zxy_rotation_vector[ 2 ] * 0.5,
         half_x_cosinus = GetCosinus( half_x_angle ),
         half_x_sinus = GetSinus( half_x_angle ),
         half_y_cosinus = GetCosinus( half_y_angle ),
-        half_y_sinus = GetSinus( half_y_angle );
+        half_y_sinus = GetSinus( half_y_angle ),
+        half_z_cosinus = GetCosinus( half_z_angle ),
+        half_z_sinus = GetSinus( half_z_angle );
 
     return Float32Array.of(
         half_y_cosinus * half_x_sinus * half_z_cosinus + half_y_sinus * half_x_cosinus * half_z_sinus,

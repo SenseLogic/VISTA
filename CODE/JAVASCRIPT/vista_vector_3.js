@@ -30,13 +30,36 @@ function IsNullVector3(
 
 function IsRoughlyNullVector3(
     vector,
-    precision = 0.000001
+    precision = DefaultPrecision
     )
 {
     var
         x = vector[ 0 ],
         y = vector[ 1 ],
         z = vector[ 2 ];
+
+    return (
+        x >= -precision
+        && x <= precision
+        && y >= -precision
+        && y <= precision
+        && z >= -precision
+        && z <= precision
+        );
+}
+
+// ~~
+
+function IsRoughlySameVector3(
+    first_vector,
+    second_vector,
+    precision = DefaultPrecision
+    )
+{
+    var
+        x = first_vector[ 0 ] - second_vector[ 0 ],
+        y = first_vector[ 1 ] - second_vector[ 1 ],
+        z = first_vector[ 2 ] - second_vector[ 2 ];
 
     return (
         x >= -precision
@@ -199,7 +222,7 @@ function GetDifferenceVector3(
 
 function GetNormalizedVector3(
     vector,
-    precision = 0.000001
+    precision = DefaultPrecision
     )
 {
     var
