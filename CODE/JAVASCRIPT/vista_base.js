@@ -5,33 +5,53 @@ var
 
 // -- FUNCTIONS
 
-function Assert(
-    condition
-    )
-{
-    if ( !condition )
-    {
-        console.trace();
-        console.error( ...arguments );
-    }
-}
-
-// ~~
-
 function Print(
-    value
     )
 {
-    console.log( value );
+    console.log( ...arguments );
 }
 
 // ~~
 
 function Log(
-    value
     )
 {
-    console.log( JSON.stringify( value ) );
+    for ( argument of arguments )
+    {
+        console.log( JSON.stringify( argument ) );
+    }
+
+    console.log( ...arguments );
+}
+
+// ~~
+
+function LogWarning(
+    )
+{
+    console.trace();
+
+    for ( argument of arguments )
+    {
+        console.log( JSON.stringify( argument ) );
+    }
+
+    console.warn( ...arguments );
+}
+
+// ~~
+
+function LogError(
+    )
+{
+    console.trace();
+
+    for ( argument of arguments )
+    {
+        console.log( JSON.stringify( argument ) );
+    }
+
+    console.error( ...arguments );
 }
 
 // ~~

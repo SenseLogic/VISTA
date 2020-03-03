@@ -148,7 +148,7 @@ class GRAPHIC_SHADER
 
         if ( !GraphicContext.getShaderParameter( this.Shader, GraphicContext.COMPILE_STATUS ) )
         {
-            console.log( GraphicContext.getShaderInfoLog( this.Shader ) );
+            LogError( GraphicContext.getShaderInfoLog( this.Shader ) );
         }
     }
 
@@ -263,7 +263,7 @@ class GRAPHIC_PROGRAM
 
         if ( !GraphicContext.getProgramParameter( this.Program, GraphicContext.LINK_STATUS ) )
         {
-            console.log( GraphicContext.getProgramInfoLog( this.Program ) );
+            LogError( GraphicContext.getProgramInfoLog( this.Program ) );
         }
     }
 

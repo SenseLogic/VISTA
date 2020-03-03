@@ -137,56 +137,32 @@
                         left_zxy_transform_matrix_point_vector = GetMatrix4TransformedVector3( left_zxy_transform_matrix, point_vector );
                         right_zxy_transform_matrix_point_vector = GetMatrix4TransformedVector3( right_zxy_transform_matrix, point_vector );
 
-                        console.log( z_degree_angle, x_degree_angle, y_degree_angle );
+                        Print( z_degree_angle, x_degree_angle, y_degree_angle );
                         Log( transform_matrix );
 
-                        Assert(
-                            IsRoughlySameMatrix4( zxy_transform_matrix, transform_matrix ),
-                            zxy_transform_matrix,
-                            transform_matrix
-                            );
+                        IsRoughlySameMatrix4( zxy_transform_matrix, transform_matrix )
+                        || LogError( zxy_transform_matrix, transform_matrix );
 
-                        Assert(
-                            IsRoughlySameMatrix4( left_transform_matrix, transform_matrix ),
-                            left_transform_matrix,
-                            transform_matrix
-                            );
+                        IsRoughlySameMatrix4( left_transform_matrix, transform_matrix )
+                        || LogError( left_transform_matrix, transform_matrix );
 
-                        Assert(
-                            IsRoughlySameMatrix4( right_transform_matrix, transform_matrix ),
-                            right_transform_matrix,
-                            transform_matrix
-                            );
+                        IsRoughlySameMatrix4( right_transform_matrix, transform_matrix )
+                        || LogError( right_transform_matrix, transform_matrix );
 
-                        Assert(
-                            IsRoughlySameMatrix4( left_zxy_transform_matrix, transform_matrix ),
-                            left_zxy_transform_matrix,
-                            transform_matrix
-                            );
+                        IsRoughlySameMatrix4( left_zxy_transform_matrix, transform_matrix )
+                        || LogError( left_zxy_transform_matrix, transform_matrix );
 
-                        Assert(
-                            IsRoughlySameMatrix4( right_zxy_transform_matrix, transform_matrix ),
-                            right_zxy_transform_matrix,
-                            transform_matrix
-                            );
+                        IsRoughlySameMatrix4( right_zxy_transform_matrix, transform_matrix )
+                        || LogError( right_zxy_transform_matrix, transform_matrix );
 
-                        Assert(
-                            IsRoughlySameVector3( zxy_transform_matrix_point_vector, transform_matrix_point_vector ),
-                            zxy_transform_matrix_point_vector,
-                            transform_matrix_point_vector
-                            );
+                        IsRoughlySameVector3( zxy_transform_matrix_point_vector, transform_matrix_point_vector )
+                        || LogError( zxy_transform_matrix_point_vector, transform_matrix_point_vector );
 
-                        Assert(
-                            IsRoughlySameVector3( left_zxy_transform_matrix_point_vector, transform_matrix_point_vector ),
-                            left_zxy_transform_matrix_point_vector,
-                            transform_matrix_point_vector
-                            );
+                        IsRoughlySameVector3( left_zxy_transform_matrix_point_vector, transform_matrix_point_vector )
+                        || LogError( left_zxy_transform_matrix_point_vector, transform_matrix_point_vector );
 
-                        Assert(
-                            IsRoughlySameVector3( right_zxy_transform_matrix_point_vector, transform_matrix_point_vector ),
-                            right_zxy_transform_matrix_point_vector,
-                            transform_matrix_point_vector
-                            );
+                        IsRoughlySameVector3( right_zxy_transform_matrix_point_vector, transform_matrix_point_vector )
+                        || LogError( right_zxy_transform_matrix_point_vector, transform_matrix_point_vector );
                     }
                 }
             }
