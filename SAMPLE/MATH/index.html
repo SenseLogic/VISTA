@@ -137,7 +137,7 @@
                         left_zxy_transform_matrix_point_vector = GetMatrix4TransformedVector3( left_zxy_transform_matrix, point_vector );
                         right_zxy_transform_matrix_point_vector = GetMatrix4TransformedVector3( right_zxy_transform_matrix, point_vector );
 
-                        Print( z_degree_angle, x_degree_angle, y_degree_angle );
+                        Log( z_degree_angle, x_degree_angle, y_degree_angle );
                         Log( transform_matrix );
 
                         IsRoughlySameMatrix4( zxy_transform_matrix, transform_matrix )

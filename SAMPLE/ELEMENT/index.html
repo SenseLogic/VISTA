@@ -23,8 +23,32 @@
         </main>
         <script src="../../CODE/JAVASCRIPT/vista_base.js"></script>
         <script src="../../CODE/JAVASCRIPT/vista_element.js"></script>
-        <script src="../../CODE/JAVASCRIPT/vista_animation.js"></script>
         <script>
+            GetElements( "div" )
+                .Iterate(
+                    function (
+                        element,
+                        element_index
+                        )
+                    {
+                        Log( element_index, element.classList );
+                    }
+                    )
+                .Process(
+                    function (
+                        element_array
+                        )
+                    {
+                        var
+                            element;
+
+                        for ( element of element_array )
+                        {
+                            LogElement( element );
+                        }
+                    }
+                    );
+
             GetElements( ".line" )
                 .SetProperties(
                     {
@@ -41,44 +65,7 @@
                         "width" : "5vw",
                         "height" : "5vw"
                     }
-                    )
-                .AnimateProperties(
-                    {
-                        "transform" : [ "translateX(0vw)", "translateX(30vw)", "translateX(70vw)", "translateX(90vw)" ],
-                        "opacity" : [ "1.0", "0.5", "0.1", "1.0" ]
-                    },
-                    [ 0.0, 2.0, 4.0, 6.0 ]
-                    )
-                .AnimateProperties(
-                    {
-                        "background-color" : [ "#FF8888", "#FFFF00", "#00FFFF", "#FF00FF" ]
-                    },
-                    [ 2.0, 4.0, 5.0, 6.0 ]
-                    )
-                .AnimateProperties(
-                    {
-                        "display" : [ "none", "block" ]
-                    },
-                    [ 2.5, 2.75 ]
-                    )
-                .AnimateProperties(
-                    {
-                        "width" : [ "2vw", "5vw" ]
-                    },
-                    [ 0.5, 1.0 ],
-                    {
-                        IsLooping : true,
-                        Speed : 0.5
-                    }
                     );
-
-            DelayCall(
-                function ()
-                {
-                    GetElements( ".block" ).StopProperties();
-                },
-                6.0
-                );
         </script>
     </body>
 </html>

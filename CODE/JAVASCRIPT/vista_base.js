@@ -5,10 +5,13 @@ var
 
 // -- FUNCTIONS
 
-function Print(
+function Dump(
     )
 {
-    console.log( ...arguments );
+    for ( argument of arguments )
+    {
+        console.log( JSON.stringify( argument ) );
+    }
 }
 
 // ~~
@@ -16,11 +19,6 @@ function Print(
 function Log(
     )
 {
-    for ( argument of arguments )
-    {
-        console.log( JSON.stringify( argument ) );
-    }
-
     console.log( ...arguments );
 }
 
@@ -30,12 +28,6 @@ function LogWarning(
     )
 {
     console.trace();
-
-    for ( argument of arguments )
-    {
-        console.log( JSON.stringify( argument ) );
-    }
-
     console.warn( ...arguments );
 }
 
@@ -45,12 +37,6 @@ function LogError(
     )
 {
     console.trace();
-
-    for ( argument of arguments )
-    {
-        console.log( JSON.stringify( argument ) );
-    }
-
     console.error( ...arguments );
 }
 
@@ -235,11 +221,32 @@ Array.prototype.Log = function(
 
 // ~~
 
-Array.prototype.Apply = function(
-    element_function
+Array.prototype.Iterate = function(
+    element_function,
+    ...argument_array
     )
 {
-    this.forEach( element_function );
+    var
+        element_index;
+
+    for ( element_index = 0;
+          element_index < this.length;
+          ++element_index )
+    {
+        element_function( this[ element_index ], element_index, ...argument_array );
+    }
+
+    return this;
+}
+
+// ~~
+
+Array.prototype.Process = function(
+    array_function,
+    ...argument_array
+    )
+{
+    array_function( this, ...argument_array );
 
     return this;
 }
