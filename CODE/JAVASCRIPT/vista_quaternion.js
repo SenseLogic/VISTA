@@ -55,6 +55,21 @@ function IsRoughlyIdentityQuaternion(
 
 // ~~
 
+function IsSameQuaternion(
+    first_quaternion,
+    second_quaternion
+    )
+{
+    return (
+        first_quaternion[ 0 ] === second_quaternion[ 0 ]
+        && first_quaternion[ 1 ] === second_quaternion[ 1 ]
+        && first_quaternion[ 2 ] === second_quaternion[ 2 ]
+        && first_quaternion[ 3 ] === second_quaternion[ 3 ]
+        );
+}
+
+// ~~
+
 function IsRoughlySameQuaternion(
     first_quaternion,
     second_quaternion,
@@ -81,7 +96,111 @@ function IsRoughlySameQuaternion(
 
 // ~~
 
-function GetQuaternionXAxis(
+function IsEquivalent(
+    first_quaternion,
+    second_quaternion
+    )
+{
+    var
+        first_x = first_quaternion[ 0 ],
+        first_y = first_quaternion[ 1 ],
+        first_z = first_quaternion[ 2 ],
+        first_w = first_quaternion[ 3 ],
+        second_x = second_quaternion[ 0 ],
+        second_y = second_quaternion[ 1 ],
+        second_z = second_quaternion[ 2 ],
+        second_w = second_quaternion[ 3 ];
+
+    return (
+        ( first_x == second_x
+          && first_y == second_y
+          && first_z == second_z
+          && first_w == second_w )
+        || ( first_x == -second_x
+             && first_y == -second_y
+             && first_z == -second_z
+             && first_w == -second_w )
+        );
+}
+
+// ~~
+
+function IsRoughlyEquivalent(
+    first_quaternion,
+    second_quaternion,
+    precision = DefaultPrecision
+    )
+{
+    return (
+        ( IsRoughlyEqual( first_x, second_x, precision )
+          && IsRoughlyEqual( first_y, second_y, precision )
+          && IsRoughlyEqual( first_z, second_z, precision )
+          && IsRoughlyEqual( first_w, second_w, precision ) )
+        || ( IsRoughlyEqual( first_x, -second_x, precision )
+             && IsRoughlyEqual( first_y, -second_y, precision )
+             && IsRoughlyEqual( first_z, -second_z, precision )
+             && IsRoughlyEqual( first_w, -second_w, precision ) )
+        );
+}
+
+// ~~
+
+function GetInverseQuaternion(
+    quaternion
+    )
+{
+    return Float32Array.of(
+        -quaternion[ 0 ],
+        -quaternion[ 1 ],
+        -quaternion[ 2 ],
+        quaternion[ 3 ]
+        );
+}
+// ~~
+
+function GetQuaternionAngle(
+    quaternion
+    )
+{
+    return GetArcCosinus( quaternion[ 3 ] ) * 2.0;
+}
+
+// ~~
+
+function GetQuaternionAxisVector(
+    quaternion
+    )
+{
+    var
+        x = first_quaternion[ 0 ],
+        y = first_quaternion[ 1 ],
+        z = first_quaternion[ 2 ];
+
+    square_length = x * x + y * y + z * z;
+
+    if ( IsRoughlyZero( square_length ) )
+    {
+        return Float32Array.of(
+            0.0,
+            0.0,
+            0.0
+            );
+    }
+    else
+    {
+        one_over_length = 1.0 / GetSquareRoot( square_length );
+
+        return Float32Array.of(
+            x * one_over_length,
+            y * one_over_length,
+            z * one_over_length
+            );
+    }
+}
+
+// ~~
+
+function GetQuaternionXAxisVector(
     quaternion
     )
 {
@@ -100,7 +219,7 @@ function GetQuaternionXAxis(
 
 // ~~
 
-function GetQuaternionYAxis(
+function GetQuaternionYAxisVector(
     quaternion
     )
 {
@@ -119,7 +238,7 @@ function GetQuaternionYAxis(
 
 // ~~
 
-function GetQuaternionZAxis(
+function GetQuaternionZAxisVector(
     quaternion
     )
 {
@@ -134,15 +253,6 @@ function GetQuaternionZAxis(
         ( y * z - w * x ) * 2.0,
         ( x * x ) * -2.0 + ( y * y ) * -2.0 + 1.0
         );
-}
-
-// ~~
-
-function GetQuaternionAngle(
-    quaternion
-    )
-{
-    return GetArcCosinus( quaternion[ 3 ] ) * 2.0;
 }
 
 // ~~
@@ -330,4 +440,65 @@ function GetQuaternionMatrix4(
         0.0,
         1.0
         );
+}
+
+// ~~
+
+function GetQuaternionRotationVector(
+    quaternion
+    )
+{
+    var
+        rotated_quaternion,
+        x_axis_vector,
+        z_axis_vector;
+
+    rotated_quaternion = quaternion.slice();
+    z_axis_vector = GetQuaternionZAxisVector( rotated_quaternion );
+
+    if ( IsRoughlyZero( z_axis_vector[ 2 ] )
+         && IsRoughlyZero( z_axis_vector[ 0 ] ) )
+    {
+        y_angle = 0.0;
+    }
+    else
+    {
+        y_angle = GetVectorAngle( z_axis_vector[ 2 ], z_axis_vector[ 0 ] );
+
+        rotated_quaternion
+            = GetProductQuaternion(
+                  rotated_quaternion,
+                  GetYRotationQuaternion( -y_angle )
+                  );
+    }
+
+    z_axis_vector = GetQuaternionZAxisVector( rotated_quaternion );
+
+    if ( IsRoughlyZero( z_axis_vector[ 2 ] )
+         && IsRoughlyZero( z_axis_vector[ 1 ] ) )
+    {
+        x_angle = 0.0;
+    }
+    else
+    {
+        x_angle = -GetVectorAngle( z_axis_vector[ 2 ], z_axis_vector[ 1 ] );
+
+        rotated_quaternion
+            = GetProductQuaternion(
+                  rotated_quaternion,
+                  GetXRotationQuaternion( -x_angle )
+                  );
+    }
+
+    x_axis_vector = GetQuaternionXAxisVector( rotated_quaternion );
+
+    if ( IsRoughlyZero( x_axis_vector[ 0 ] )
+         && IsRoughlyZero( x_axis_vector[ 1 ] ) )
+    {
+        z_angle = 0.0;
+    }
+    else
+    {
+        z_angle = GetVectorAngle( x_axis_vector[ 0 ], x_axis_vector[ 1 ] );
+    }
 }

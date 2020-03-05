@@ -428,12 +428,14 @@ class GRAPHIC_NODE
         this.ChildNodeArray = [];
         this.MeshArray = [];
         this.LocalScalingVector = [ 0.0, 0.0, 0.0 ];
+        this.LocalRotationVector = [ 0.0, 0.0, 0.0 ];
         this.LocalRotationQuaternion = [ 0.0, 0.0, 0.0, 1.0 ];
         this.LocalTranslationVector = [ 0.0, 0.0, 0.0 ];
         this.LocalTransformMatrix = GetMatrix4();
         this.GlobalRotationQuaternion = [ 0.0, 0.0, 0.0, 1.0 ];
         this.GlobalTranslationVector = [ 0.0, 0.0, 0.0 ];
         this.GlobalTransformMatrix = GetMatrix4();
+        this.HasRotationVector = false;
         this.HasChanged = false;
     }
 
@@ -461,7 +463,7 @@ class GRAPHIC_NODE
         if ( this.HasChanged )
         {
             this.LocalTransformMatrix
-                = GetScalingRotationTranslationMatrix4(
+                = GetTransformMatrix4(
                       this.LocalScalingVector,
                       this.LocalRotationQuaternion,
                       this.LocalTranslationVector
@@ -469,9 +471,9 @@ class GRAPHIC_NODE
 
             if ( this.ParentNode === null )
             {
-                this.GlobalTransformMatrix = this.LocalTransformMatrix.slice();
-                this.GlobalRotationQuaternion = this.LocalRotationQuaternion.slice();
-                this.GlobalTranslationVector = this.LocalTranslationVector.slice();
+                this.GlobalTransformMatrix.set( this.LocalTransformMatrix );
+                this.GlobalRotationQuaternion.set( this.LocalRotationQuaternion );
+                this.GlobalTranslationVector.set( this.LocalTranslationVector );
             }
             else
             {
@@ -524,8 +526,26 @@ class GRAPHIC_NODE
         local_translation_vector
         )
     {
-        this.LocalTranslationVector = local_translation_vector;
-        this.Invalidate();
+        if ( !IsSameVector3( local_translation_vector, this.LocalTranslationVector ) )
+        {
+            this.LocalTranslationVector = local_translation_vector;
+            this.Invalidate();
+        }
+    }
+
+    // ~~
+
+    SetLocalRotationVector(
+        local_rotation_vector
+        )
+    {
+        if ( !IsSameVector3( local_rotation_vector, this.LocalRotationVector ) )
+        {
+            this.LocalRotationVector = local_rotation_vector;
+            this.LocalRotationQuaternion = GetZxyRotationQuaternion( local_rotation_vector );
+            this.HasRotationVector = true;
+            this.Invalidate();
+        }
     }
 
     // ~~
@@ -534,8 +554,12 @@ class GRAPHIC_NODE
         local_rotation_quaternion
         )
     {
-        this.LocalRotationQuaternion = local_rotation_quaternion;
-        this.Invalidate();
+        if ( !IsSameQuaternion( local_rotation_quaternion, this.LocalRotationQuaternion ) )
+        {
+            this.LocalRotationQuaternion = local_rotation_quaternion;
+            this.HasRotationVector = false;
+            this.Invalidate();
+        }
     }
 
     // ~~
@@ -544,8 +568,11 @@ class GRAPHIC_NODE
         local_scaling_vector
         )
     {
-        this.LocalScalingVector = local_scaling_vector;
-        this.Invalidate();
+        if ( !IsSameVector3( local_scaling_vector, this.LocalScalingVector ) )
+        {
+            this.LocalScalingVector = local_scaling_vector;
+            this.Invalidate();
+        }
     }
 }
 

@@ -56,6 +56,21 @@ function IsRoughlyNullVector4(
 
 // ~~
 
+function IsSameVector4(
+    first_vector,
+    second_vector
+    )
+{
+    return (
+        first_vector[ 0 ] === second_vector[ 0 ]
+        && first_vector[ 1 ] === second_vector[ 1 ]
+        && first_vector[ 2 ] === second_vector[ 2 ]
+        && first_vector[ 3 ] === second_vector[ 3 ]
+        );
+}
+
+// ~~
+
 function IsRoughlySameVector4(
     first_vector,
     second_vector,

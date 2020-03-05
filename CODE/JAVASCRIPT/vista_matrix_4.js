@@ -512,7 +512,7 @@ function GetZxyRotationMatrix4(
 
 function GetZxyTransformMatrix4(
     scaling_vector,
-    zxy_rotation_vector,
+    rotation_vector,
     translation_vector
     )
 {
@@ -520,9 +520,9 @@ function GetZxyTransformMatrix4(
         x_scaling = scaling_vector[ 0 ],
         y_scaling = scaling_vector[ 1 ],
         z_scaling = scaling_vector[ 2 ],
-        x_angle = zxy_rotation_vector[ 0 ],
-        y_angle = zxy_rotation_vector[ 1 ],
-        z_angle = zxy_rotation_vector[ 2 ],
+        x_angle = rotation_vector[ 0 ],
+        y_angle = rotation_vector[ 1 ],
+        z_angle = rotation_vector[ 2 ],
         x_cosinus = GetCosinus( x_angle ),
         x_sinus = GetSinus( x_angle ),
         y_cosinus = GetCosinus( y_angle ),
