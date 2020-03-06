@@ -444,7 +444,7 @@ function GetQuaternionMatrix4(
 
 // ~~
 
-function GetQuaternionRotationVector(
+function GetQuaternionZxyRotationVector(
     quaternion
     )
 {

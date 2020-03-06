@@ -432,10 +432,10 @@ class GRAPHIC_NODE
         this.LocalRotationQuaternion = [ 0.0, 0.0, 0.0, 1.0 ];
         this.LocalTranslationVector = [ 0.0, 0.0, 0.0 ];
         this.LocalTransformMatrix = GetMatrix4();
+        this.GlobalTransformMatrix = GetMatrix4();
         this.GlobalRotationQuaternion = [ 0.0, 0.0, 0.0, 1.0 ];
         this.GlobalTranslationVector = [ 0.0, 0.0, 0.0 ];
-        this.GlobalTransformMatrix = GetMatrix4();
-        this.HasRotationVector = false;
+        this.HasLocalRotationVector = false;
         this.HasChanged = false;
     }
 
@@ -452,39 +452,6 @@ class GRAPHIC_NODE
             {
                 child_node.Invalidate();
             }
-        }
-    }
-
-    // ~~
-
-    Update(
-        )
-    {
-        if ( this.HasChanged )
-        {
-            this.LocalTransformMatrix
-                = GetTransformMatrix4(
-                      this.LocalScalingVector,
-                      this.LocalRotationQuaternion,
-                      this.LocalTranslationVector
-                      );
-
-            if ( this.ParentNode === null )
-            {
-                this.GlobalTransformMatrix.set( this.LocalTransformMatrix );
-                this.GlobalRotationQuaternion.set( this.LocalRotationQuaternion );
-                this.GlobalTranslationVector.set( this.LocalTranslationVector );
-            }
-            else
-            {
-                this.ParentNode.Update();
-
-                this.GlobalTransformMatrix = GetProductMatrix4( this.LocalTransformMatrix, this.ParentNode.GlobalTransformMatrix );
-                this.GlobalRotationQuaternion = GetProductQuaternion( this.LocalRotationQuaternion, this.ParentNode.GlobalRotationQuaternion );
-                this.GlobalTranslationVector = GetMatrix4WVector3( this.GlobalTransformMatrix );
-            }
-
-            this.HasChanged = false;
         }
     }
 
@@ -543,7 +510,7 @@ class GRAPHIC_NODE
         {
             this.LocalRotationVector = local_rotation_vector;
             this.LocalRotationQuaternion = GetZxyRotationQuaternion( local_rotation_vector );
-            this.HasRotationVector = true;
+            this.HasLocalRotationVector = true;
             this.Invalidate();
         }
     }
@@ -557,7 +524,7 @@ class GRAPHIC_NODE
         if ( !IsSameQuaternion( local_rotation_quaternion, this.LocalRotationQuaternion ) )
         {
             this.LocalRotationQuaternion = local_rotation_quaternion;
-            this.HasRotationVector = false;
+            this.HasLocalRotationVector = false;
             this.Invalidate();
         }
     }
@@ -573,6 +540,83 @@ class GRAPHIC_NODE
             this.LocalScalingVector = local_scaling_vector;
             this.Invalidate();
         }
+    }
+
+    // ~~
+
+    Update(
+        )
+    {
+        if ( this.HasChanged )
+        {
+            this.LocalTransformMatrix
+                = GetTransformMatrix4(
+                      this.LocalScalingVector,
+                      this.LocalRotationQuaternion,
+                      this.LocalTranslationVector
+                      );
+
+            if ( this.ParentNode === null )
+            {
+                this.GlobalTransformMatrix.set( this.LocalTransformMatrix );
+                this.GlobalRotationQuaternion.set( this.LocalRotationQuaternion );
+                this.GlobalTranslationVector.set( this.LocalTranslationVector );
+            }
+            else
+            {
+                this.ParentNode.Update();
+
+                this.GlobalTransformMatrix = GetProductMatrix4( this.LocalTransformMatrix, this.ParentNode.GlobalTransformMatrix );
+                this.GlobalRotationQuaternion = GetProductQuaternion( this.LocalRotationQuaternion, this.ParentNode.GlobalRotationQuaternion );
+                this.GlobalTranslationVector = GetMatrix4WVector3( this.GlobalTransformMatrix );
+            }
+
+            this.HasChanged = false;
+        }
+    }
+
+    // ~~
+
+    GetLocalRotationVector(
+        )
+    {
+        if ( !HasLocalRotationVector )
+        {
+            this.LocalRotationVector = GetQuaternionZxyRotationVector( this.LocalRotationQuaternion );
+            this.HasLocalRotationVector = true;
+        }
+
+        return this.LocalRotationQuaternion;
+    }
+
+    // ~~
+
+    GetGlobalScalingVector(
+        )
+    {
+        Update();
+
+        return GetMatrix4ScalingVector3( this.GlobalTransformMatrix );
+    }
+
+    // ~~
+
+    GetGlobalRotationQuaternion(
+        )
+    {
+        Update();
+
+        return this.GlobalRotationQuaternion;
+    }
+
+    // ~~
+
+    GetGlobalTranslationVector(
+        )
+    {
+        Update();
+
+        return GetMatrix4WVector3( this.GlobalTransformMatrix );
     }
 }
 
