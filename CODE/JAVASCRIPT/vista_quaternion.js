@@ -96,7 +96,7 @@ function IsRoughlySameQuaternion(
 
 // ~~
 
-function IsEquivalent(
+function IsSimilarQuaternion(
     first_quaternion,
     second_quaternion
     )
@@ -125,21 +125,31 @@ function IsEquivalent(
 
 // ~~
 
-function IsRoughlyEquivalent(
+function IsRoughlySimilarQuaternion(
     first_quaternion,
     second_quaternion,
     precision = DefaultPrecision
     )
 {
+    var
+        first_x = first_quaternion[ 0 ],
+        first_y = first_quaternion[ 1 ],
+        first_z = first_quaternion[ 2 ],
+        first_w = first_quaternion[ 3 ],
+        second_x = second_quaternion[ 0 ],
+        second_y = second_quaternion[ 1 ],
+        second_z = second_quaternion[ 2 ],
+        second_w = second_quaternion[ 3 ];
+
     return (
-        ( IsRoughlyEqual( first_x, second_x, precision )
-          && IsRoughlyEqual( first_y, second_y, precision )
-          && IsRoughlyEqual( first_z, second_z, precision )
-          && IsRoughlyEqual( first_w, second_w, precision ) )
-        || ( IsRoughlyEqual( first_x, -second_x, precision )
-             && IsRoughlyEqual( first_y, -second_y, precision )
-             && IsRoughlyEqual( first_z, -second_z, precision )
-             && IsRoughlyEqual( first_w, -second_w, precision ) )
+        ( IsRoughlySame( first_x, second_x, precision )
+          && IsRoughlySame( first_y, second_y, precision )
+          && IsRoughlySame( first_z, second_z, precision )
+          && IsRoughlySame( first_w, second_w, precision ) )
+        || ( IsRoughlySame( first_x, -second_x, precision )
+             && IsRoughlySame( first_y, -second_y, precision )
+             && IsRoughlySame( first_z, -second_z, precision )
+             && IsRoughlySame( first_w, -second_w, precision ) )
         );
 }
 
@@ -450,7 +460,10 @@ function GetQuaternionZxyRotationVector(
 {
     var
         rotated_quaternion,
+        x_angle,
         x_axis_vector,
+        y_angle,
+        z_angle,
         z_axis_vector;
 
     rotated_quaternion = quaternion.slice();
@@ -467,8 +480,8 @@ function GetQuaternionZxyRotationVector(
 
         rotated_quaternion
             = GetProductQuaternion(
-                  rotated_quaternion,
-                  GetYRotationQuaternion( -y_angle )
+                  GetYRotationQuaternion( -y_angle ),
+                  rotated_quaternion
                   );
     }
 
@@ -485,8 +498,8 @@ function GetQuaternionZxyRotationVector(
 
         rotated_quaternion
             = GetProductQuaternion(
-                  rotated_quaternion,
-                  GetXRotationQuaternion( -x_angle )
+                  GetXRotationQuaternion( -x_angle ),
+                  rotated_quaternion
                   );
     }
 
@@ -501,4 +514,6 @@ function GetQuaternionZxyRotationVector(
     {
         z_angle = GetVectorAngle( x_axis_vector[ 0 ], x_axis_vector[ 1 ] );
     }
+
+    return Float32Array.of( x_angle, y_angle, z_angle );
 }
