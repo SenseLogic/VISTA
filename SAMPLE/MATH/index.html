@@ -25,27 +25,31 @@
                 right_product_transform_matrix,
                 right_product_transform_matrix_point_vector,
                 rotation_matrix,
+                rotation_vector,
                 rotation_vector_quaternion,
+                rotation_vector_quaternion_transform_matrix,
+                rotation_vector_quaternion_transform_matrix_point_vector,
                 rotation_vector_quaternion_vector,
+                rotation_vector_quaternion_vector_quaternion,
+                rotation_vector_transform_matrix,
+                rotation_vector_transform_matrix_point_vector,
                 scaling_matrix,
                 scaling_vector,
                 step_degree_angle,
-                rotation_vector_quaternion_transform_matrix,
+                translation_matrix,
                 translation_vector,
-                rotation_vector_quaternion_transform_matrix,
-                transform_matrix_point_vector,
                 x_angle,
                 x_degree_angle,
                 x_rotation_matrix,
+                x_rotation_quaternion,
                 y_angle,
                 y_degree_angle,
                 y_rotation_matrix,
+                y_rotation_quaternion,
                 z_angle,
                 z_degree_angle,
                 z_rotation_matrix,
-                rotation_vector,
-                rotation_vector_transform_matrix,
-                product_transform_matrix_point_vector;
+                z_rotation_quaternion;
 
             scaling_vector = GetVector3( 1.0, 2.0, 3.0 );
             scaling_matrix = GetScalingMatrix4( scaling_vector );
@@ -168,7 +172,7 @@
                                               ),
                                           x_rotation_matrix
                                           ),
-                                      y_rotation_matrix,
+                                      y_rotation_matrix
                                       ),
                                   translation_matrix
                                   );
@@ -194,21 +198,21 @@
                         IsRoughlySameMatrix4( right_product_transform_matrix, rotation_vector_quaternion_transform_matrix )
                         || LogError( right_product_transform_matrix, rotation_vector_quaternion_transform_matrix );
 
-                        transform_matrix_point_vector = GetMatrix4TransformedVector3( rotation_vector_quaternion_transform_matrix, point_vector );
-                        product_transform_matrix_point_vector = GetMatrix4TransformedVector3( rotation_vector_transform_matrix, point_vector );
+                        rotation_vector_transform_matrix_point_vector = GetMatrix4TransformedVector3( rotation_vector_transform_matrix, point_vector );
+                        rotation_vector_quaternion_transform_matrix_point_vector = GetMatrix4TransformedVector3( rotation_vector_quaternion_transform_matrix, point_vector );
 
-                        IsRoughlySameVector3( product_transform_matrix_point_vector, transform_matrix_point_vector )
-                        || LogError( product_transform_matrix_point_vector, transform_matrix_point_vector );
+                        IsRoughlySameVector3( rotation_vector_transform_matrix_point_vector, rotation_vector_quaternion_transform_matrix_point_vector )
+                        || LogError( rotation_vector_transform_matrix_point_vector, rotation_vector_quaternion_transform_matrix_point_vector );
 
                         left_product_transform_matrix_point_vector = GetMatrix4TransformedVector3( left_product_transform_matrix, point_vector );
 
-                        IsRoughlySameVector3( left_product_transform_matrix_point_vector, transform_matrix_point_vector )
-                        || LogError( left_product_transform_matrix_point_vector, transform_matrix_point_vector );
+                        IsRoughlySameVector3( left_product_transform_matrix_point_vector, rotation_vector_quaternion_transform_matrix_point_vector )
+                        || LogError( left_product_transform_matrix_point_vector, rotation_vector_quaternion_transform_matrix_point_vector );
 
                         right_product_transform_matrix_point_vector = GetMatrix4TransformedVector3( right_product_transform_matrix, point_vector );
 
-                        IsRoughlySameVector3( right_product_transform_matrix_point_vector, transform_matrix_point_vector )
-                        || LogError( right_product_transform_matrix_point_vector, transform_matrix_point_vector );
+                        IsRoughlySameVector3( right_product_transform_matrix_point_vector, rotation_vector_quaternion_transform_matrix_point_vector )
+                        || LogError( right_product_transform_matrix_point_vector, rotation_vector_quaternion_transform_matrix_point_vector );
                     }
                 }
             }
