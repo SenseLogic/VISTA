@@ -76,21 +76,6 @@ class GRAPHIC_TEXTURE
         this.VerticalWrap = is_repeated ? GraphicContext.REPEAT : GraphicContext.CLAMP_TO_EDGE;
         this.HasMipmap = has_mipmap;
         this.Initialize();
-        this.Image = new Image();
-        this.Image.crossOrigin = "anonymous";
-        this.Image.addEventListener(
-            "load",
-            function ()
-            {
-                texture.SetImage();
-
-                if ( callback_function !== null )
-                {
-                    callback_function();
-                }
-            }
-            );
-        this.Image.src = image_url;
     }
 
     // -- OPERATIONS
@@ -128,19 +113,41 @@ class GRAPHIC_TEXTURE
 
     // ~~
 
-    Finalize(
+    LoadImage(
+        image_file_path,
+        callback_function = null
         )
     {
-        GraphicContext.deleteTexture( this.Texture );
+        var
+            texture;
+
+        texture = this;
+        texture.Image = new Image();
+        texture.Image.crossOrigin = "anonymous";
+        texture.Image.addEventListener(
+            "load",
+            function (
+                )
+            {
+                texture.SetImage();
+
+                if ( callback_function !== null )
+                {
+                    console.log( "Loaded", image_file_path );
+                    callback_function( texture );
+                }
+            }
+            );
+
+        texture.Image.src = image_file_path;
     }
 
     // ~~
 
-    LoadImage(
-        image_file_path
+    Finalize(
         )
     {
-        this.Image = LoadImage( image_file_path, Initialize );
+        GraphicContext.deleteTexture( this.Texture );
     }
 
     // ~~
@@ -455,13 +462,11 @@ class GRAPHIC_CANVAS
     // ~~
 
     CreateTexture(
-        image_url,
-        callback_function = null,
         is_repeated = false,
         has_mipmap = true
         )
     {
-        return new GRAPHIC_TEXTURE( image_url, callback_function, is_repeated, has_mipmap );
+        return new GRAPHIC_TEXTURE( is_repeated, has_mipmap );
     }
 
     // ~~

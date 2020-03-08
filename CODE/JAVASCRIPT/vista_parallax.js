@@ -45,7 +45,8 @@ function SetBackgroundParallax(
 
     window.addEventListener(
         "scroll",
-        function ()
+        function (
+            )
         {
             UpdateBackgroundParallax(
                 element,
