@@ -114,32 +114,36 @@ class GRAPHIC_TEXTURE
     // ~~
 
     LoadImage(
-        image_file_path,
-        callback_function = null
+        image_file_path
         )
     {
         var
             texture;
 
         texture = this;
-        texture.Image = new Image();
-        texture.Image.crossOrigin = "anonymous";
-        texture.Image.addEventListener(
-            "load",
+
+        return new Promise(
             function (
+                resolve_function,
+                reject_function
                 )
             {
-                texture.SetImage();
+                texture.Image = new Image();
+                texture.Image.crossOrigin = "anonymous";
+                texture.Image.addEventListener(
+                    "load",
+                    function (
+                        )
+                    {
+                        texture.SetImage();
 
-                if ( callback_function !== null )
-                {
-                    console.log( "Loaded", image_file_path );
-                    callback_function( texture );
-                }
+                        resolve_function( texture );
+                    }
+                    );
+
+                texture.Image.src = image_file_path;
             }
             );
-
-        texture.Image.src = image_file_path;
     }
 
     // ~~
