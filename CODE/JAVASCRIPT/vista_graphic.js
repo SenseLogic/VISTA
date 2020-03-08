@@ -56,8 +56,9 @@ class GRAPHIC_TEXTURE
 
     constructor(
         image_url,
+        callback_function = null,
         is_repeated = false,
-        has_mipmap = false
+        has_mipmap = true
         )
     {
         var
@@ -65,7 +66,6 @@ class GRAPHIC_TEXTURE
 
         texture = this;
 
-        this.Level = 0;
         this.InternalFormat = GraphicContext.RGBA;
         this.Format = GraphicContext.RGBA;
         this.Type = GraphicContext.UNSIGNED_BYTE;
@@ -83,6 +83,11 @@ class GRAPHIC_TEXTURE
             function ()
             {
                 texture.SetImage();
+
+                if ( callback_function !== null )
+                {
+                    callback_function();
+                }
             }
             );
         this.Image.src = image_url;
@@ -141,8 +146,10 @@ class GRAPHIC_TEXTURE
     // ~~
 
     Bind(
+        unit_index
         )
     {
+        GraphicContext.activeTexture( GraphicContext.TEXTURE0 + unit_index );
         GraphicContext.bindTexture( this.Target, this.Texture );
     }
 
@@ -292,7 +299,7 @@ class GRAPHIC_PROGRAM_UNIFORM
         real_matrix
         )
     {
-        GraphicContext.uniformMatrix4f( this.Location, false, real_matrix );
+        GraphicContext.uniformMatrix4fv( this.Location, false, real_matrix );
     }
 }
 
@@ -316,9 +323,9 @@ class GRAPHIC_PROGRAM_ATTRIBUTE
 
     SetReal32ArrayBuffer(
         array_buffer,
-        first_real_index = 0,
-        real_count = 0,
-        real_step = 0
+        first_real_index,
+        real_count,
+        real_step
         )
     {
         GraphicContext.bindBuffer( GraphicContext.ARRAY_BUFFER, array_buffer.Buffer );
@@ -448,10 +455,13 @@ class GRAPHIC_CANVAS
     // ~~
 
     CreateTexture(
-        image_url
+        image_url,
+        callback_function = null,
+        is_repeated = false,
+        has_mipmap = true
         )
     {
-        return new GRAPHIC_TEXTURE( image_url );
+        return new GRAPHIC_TEXTURE( image_url, callback_function, is_repeated, has_mipmap );
     }
 
     // ~~

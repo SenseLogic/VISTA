@@ -614,7 +614,7 @@ function GetLookMatrix4(
     )
 {
     var
-        x_axis_vector = GetNormalizedVector3( GetCrossProductVector3( y_axis_vector, z_axis_vector ) ,
+        x_axis_vector = GetNormalizedVector3( GetCrossProductVector3( y_axis_vector, z_axis_vector ) ),
         y_axis_vector = GetNormalizedVector3( GetCrossProductVector3( z_axis_vector, x_axis_vector ) );
 
     return Float32Array.of(

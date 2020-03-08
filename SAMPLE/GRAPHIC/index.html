@@ -14,7 +14,10 @@
             <canvas id="textured-cube-canvas" width="640" height="480">
             </canvas>
         </main>
-        <script src="../../CODE/JAVASCRIPT/vista_base.js"></script>
+        <script src="../../CODE/JAVASCRIPT/vista_base.js"></script>>
+        <script src="../../CODE/JAVASCRIPT/vista_math.js"></script>
+        <script src="../../CODE/JAVASCRIPT/vista_vector_3.js"></script>
+        <script src="../../CODE/JAVASCRIPT/vista_matrix_4.js"></script>
         <script src="../../CODE/JAVASCRIPT/vista_element.js"></script>
         <script src="../../CODE/JAVASCRIPT/vista_graphic.js"></script>
         <script id="colored-triangle-vertex-shader" type="x-shader/x-vertex">
@@ -61,12 +64,12 @@
 
             varying highp vec2 VertexMappingVarying;
 
-            uniform sampler2D SamplerUniform;
+            uniform sampler2D TextureSamplerUniform;
 
             void main(
                 )
             {
-                gl_FragColor = texture2D( SamplerUniform, VertexMappingVarying );
+                gl_FragColor = texture2D( TextureSamplerUniform, VertexMappingVarying );
             }
         </script>
         <script>
@@ -127,75 +130,100 @@
             {
                 var
                     canvas,
-                    texture_array;
+                    element_array_buffer,
+                    fragment_shader,
+                    model_view_matrix,
+                    perspective_matrix,
+                    program,
+                    texture,
+                    texture_is_loaded,
+                    vertex_mapping_array_buffer,
+                    vertex_mapping_attribute,
+                    vertex_position_array_buffer,
+                    vertex_position_attribute,
+                    vertex_shader;
 
                 canvas = new GRAPHIC_CANVAS( GetElementById( "textured-cube-canvas" ) );
 
-                texture_array = [
-                    canvas.CreateTexture( "texture_1.jpg" ),
-                    canvas.CreateTexture( "texture_2.jpg" ),
-                    canvas.CreateTexture( "texture_3.jpg" )
-                    ];
+                texture
+                    = canvas.CreateTexture(
+                        "texture_1.png",
+                        function (
+                            )
+                        {
+                            vertex_shader
+                                = canvas.CreateVertexShader(
+                                      "textured-cube-vertex-shader",
+                                      GetElementById( "textured-cube-vertex-shader" ).text
+                                      );
 
-                vertex_shader
-                    = canvas.CreateVertexShader(
-                          "textured-cube-vertex-shader",
-                          GetElementById( "textured-cube-vertex-shader" ).text
-                          );
+                            fragment_shader
+                                = canvas.CreateFragmentShader(
+                                      "textured-cube-fragment-shader",
+                                      GetElementById( "textured-cube-fragment-shader" ).text
+                                      );
 
-                fragment_shader
-                    = canvas.CreateFragmentShader(
-                          "textured-cube-fragment-shader",
-                          GetElementById( "textured-cube-fragment-shader" ).text
-                          );
+                            program = canvas.CreateProgram( vertex_shader, fragment_shader );
+                            program.Use();
 
-                program = canvas.CreateProgram( vertex_shader, fragment_shader );
-                program.Use();
+                            vertex_position_array_buffer
+                                = canvas.CreateReal32ArrayBuffer(
+                                      [
+                                          -1.0, -1.0, 1.0, 1.0, -1.0, 1.0, 1.0, 1.0, 1.0, -1.0, 1.0, 1.0,
+                                          -1.0, -1.0, -1.0, -1.0, 1.0, -1.0, 1.0, 1.0, -1.0,1.0, -1.0, -1.0,
+                                          -1.0, 1.0, -1.0, -1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, -1.0,
+                                          -1.0, -1.0, -1.0, 1.0, -1.0, -1.0, 1.0, -1.0, 1.0, -1.0, -1.0, 1.0,
+                                          1.0, -1.0, -1.0, 1.0, 1.0, -1.0, 1.0, 1.0, 1.0, 1.0, -1.0, 1.0,
+                                          -1.0, -1.0, -1.0, -1.0, -1.0, 1.0, -1.0, 1.0, 1.0, -1.0, 1.0, -1.0
+                                      ]
+                                      );
 
-                vertex_position_array_buffer
-                    = canvas.CreateReal32ArrayBuffer(
-                          [
-                              -1.0, -1.0, 1.0, 1.0, -1.0, 1.0, 1.0, 1.0, 1.0, -1.0, 1.0, 1.0,
-                              -1.0, -1.0, -1.0, -1.0, 1.0, -1.0, 1.0, 1.0, -1.0,1.0, -1.0, -1.0,
-                              -1.0, 1.0, -1.0, -1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, -1.0,
-                              -1.0, -1.0, -1.0, 1.0, -1.0, -1.0, 1.0, -1.0, 1.0, -1.0, -1.0, 1.0,
-                              1.0, -1.0, -1.0, 1.0, 1.0, -1.0, 1.0, 1.0, 1.0, 1.0, -1.0, 1.0,
-                              -1.0, -1.0, -1.0, -1.0, -1.0, 1.0, -1.0, 1.0, 1.0, -1.0, 1.0, -1.0
-                          ]
-                          );
+                            vertex_mapping_array_buffer
+                                = canvas.CreateReal32ArrayBuffer(
+                                      [
+                                          0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0,
+                                          0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0,
+                                          0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0,
+                                          0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0,
+                                          0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0,
+                                          0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0
+                                      ]
+                                      );
 
-                vertex_mapping_array_buffer
-                    = canvas.CreateReal32ArrayBuffer(
-                          [
-                              0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0,
-                              0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0,
-                              0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0,
-                              0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0,
-                              0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0,
-                              0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0
-                          ]
-                          );
+                            element_array_buffer
+                                = canvas.CreateNatural16ElementArrayBuffer(
+                                      [
+                                          0, 1, 2, 0, 2, 3,
+                                          4, 5, 6, 4, 6, 7,
+                                          8, 9, 10, 8, 10, 11,
+                                          12, 13, 14, 12, 14, 15,
+                                          16, 17, 18, 16, 18, 19,
+                                          20, 21, 22, 20, 22, 23
+                                      ]
+                                      );
 
-                element_array_buffer
-                    = canvas.CreateNatural16ElementArrayBuffer(
-                          [
-                              0, 1, 2, 0, 2, 3,
-                              4, 5, 6, 4, 6, 7,
-                              8, 9, 10, 8, 10, 11,
-                              12, 13, 14, 12, 14, 15,
-                              16, 17, 18, 16, 18, 19,
-                              20, 21, 22, 20, 22, 23
-                          ]
-                          );
+                            vertex_position_attribute = program.GetAttribute( "VertexPositionAttribute" );
+                            vertex_position_attribute.SetReal32ArrayBuffer( vertex_position_array_buffer, 0, 3, 3 );
 
-                vertex_position_attribute = program.GetAttribute( "VertexPositionAttribute" );
-                vertex_position_attribute.SetReal32ArrayBuffer( vertex_position_array_buffer );
+                            vertex_mapping_attribute = program.GetAttribute( "VertexMappingAttribute" );
+                            vertex_mapping_attribute.SetReal32ArrayBuffer( vertex_mapping_array_buffer, 0, 2, 2 );
 
-                vertex_mapping_attribute = program.GetAttribute( "VertexMappingAttribute" );
-                vertex_mapping_attribute.SetReal32ArrayBuffer( vertex_mapping_array_buffer );
+                            texture.Bind( 0 );
+                            texture_sampler_uniform = program.GetUniform( "TextureSamplerUniform" );
+                            texture_sampler_uniform.SetInteger( 0 );
 
-                canvas.Clear( [ 0.9, 0.9, 0.9, 1.0 ] );
-                canvas.DrawIndexedTriangles( 24,0, 3 );
+                            model_view_matrix = GetTranslationMatrix4( GetVector3( 0.0, 0.0, -7.0 ) );
+                            model_view_matrix_uniform = program.GetUniform( "ModelViewMatrixUniform" );
+                            model_view_matrix_uniform.SetRealMatrix4( model_view_matrix );
+
+                            projection_matrix = GetPerspectiveMatrix4( 45.0 * DegreeRadians, 45.0 * DegreeRadians, 0.1, 100.0 );
+                            projection_matrix_uniform = program.GetUniform( "ProjectionMatrixUniform" );
+                            projection_matrix_uniform.SetRealMatrix4( projection_matrix );
+
+                            canvas.Clear( [ 0.9, 0.9, 0.9, 1.0 ] );
+                            canvas.DrawIndexedTriangles( 12, 0, 3 );
+                        }
+                        );
             }
 
             // -- STATEMENTS
