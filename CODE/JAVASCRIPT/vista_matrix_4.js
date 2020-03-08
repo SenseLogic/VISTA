@@ -614,11 +614,8 @@ function GetLookMatrix4(
     )
 {
     var
-        x_axis_vector,
-        y_axis_vector;
-
-    x_axis_vector = GetNormalizedVector3( GetCrossProductVector3( y_axis_vector, z_axis_vector ) );
-    y_axis_vector = GetNormalizedVector3( GetCrossProductVector3( z_axis_vector, x_axis_vector ) );
+        x_axis_vector = GetNormalizedVector3( GetCrossProductVector3( y_axis_vector, z_axis_vector ) ,
+        y_axis_vector = GetNormalizedVector3( GetCrossProductVector3( z_axis_vector, x_axis_vector ) );
 
     return Float32Array.of(
         x_axis_vector[ 0 ],
@@ -652,13 +649,9 @@ function GetFrustumMatrix4(
     )
 {
     var
-        one_over_x_offset,
-        one_over_y_offset,
-        one_over_z_offset;
-
-    one_over_x_offset = 1.0 / ( right_x - left_x );
-    one_over_y_offset = 1.0 / ( top_y - bottom_y );
-    one_over_z_offset = 1.0 / ( near_z - far_z );
+        one_over_x_offset = 1.0 / ( right_x - left_x ),
+        one_over_y_offset = 1.0 / ( top_y - bottom_y ),
+        one_over_z_offset = 1.0 / ( near_z - far_z );
 
     return Float32Array.of(
         2.0 * near_z * one_over_x_offset,
@@ -692,13 +685,9 @@ function GetOrthographicMatrix4(
     )
 {
     var
-        one_over_x_offset,
-        one_over_y_offset,
-        one_over_z_offset;
-
-    one_over_x_offset = 1.0 / ( right_x - left_x );
-    one_over_y_offset = 1.0 / ( top_y - bottom_y );
-    one_over_z_offset = 1.0 / ( near_z - far_z );
+        one_over_x_offset = 1.0 / ( right_x - left_x ),
+        one_over_y_offset = 1.0 / ( top_y - bottom_y ),
+        one_over_z_offset = 1.0 / ( near_z - far_z );
 
     return Float32Array.of(
         2.0 * one_over_x_offset,
@@ -765,4 +754,87 @@ function GetPerspectiveMatrix4(
         2.0 * near_z * far_z * one_over_z_offset,
         0.0
         );
+}
+
+// ~~
+
+function GetTransposeMatrix4(
+    matrix
+    )
+{
+    return Float32Array.of(
+        matrix[ 0 ],
+        matrix[ 4 ],
+        matrix[ 8 ],
+        matrix[ 12 ],
+        matrix[ 1 ],
+        matrix[ 5 ],
+        matrix[ 9 ],
+        matrix[ 13 ],
+        matrix[ 2 ],
+        matrix[ 6 ],
+        matrix[ 10 ],
+        matrix[ 14 ],
+        matrix[ 3 ],
+        matrix[ 7 ],
+        matrix[ 11 ],
+        matrix[ 15 ]
+        );
+}
+
+// ~~
+
+function GetInverseMatrix4(
+    matrix
+    )
+{
+    var
+        a00 = matrix[ 0 ],
+        a01 = matrix[ 1 ],
+        a02 = matrix[ 2 ],
+        a03 = matrix[ 3 ],
+        a10 = matrix[ 4 ],
+        a11 = matrix[ 5 ],
+        a12 = matrix[ 6 ],
+        a13 = matrix[ 7 ],
+        a20 = matrix[ 8 ],
+        a21 = matrix[ 9 ],
+        a22 = matrix[ 10 ],
+        a23 = matrix[ 11 ],
+        a30 = matrix[ 12 ],
+        a31 = matrix[ 13 ],
+        a32 = matrix[ 14 ],
+        a33 = matrix[ 15 ],
+        b00 = a00 * a11 - a01 * a10,
+        b01 = a00 * a12 - a02 * a10,
+        b02 = a00 * a13 - a03 * a10,
+        b03 = a01 * a12 - a02 * a11,
+        b04 = a01 * a13 - a03 * a11,
+        b05 = a02 * a13 - a03 * a12,
+        b06 = a20 * a31 - a21 * a30,
+        b07 = a20 * a32 - a22 * a30,
+        b08 = a20 * a33 - a23 * a30,
+        b09 = a21 * a32 - a22 * a31,
+        b10 = a21 * a33 - a23 * a31,
+        b11 = a22 * a33 - a23 * a32,
+        one_over_determinant = 1.0 / ( b00 * b11 - b01 * b10 + b02 * b09 + b03 * b08 - b04 * b07 + b05 * b06 );
+
+    return Float32Array.of(
+         ( a11 * b11 - a12 * b10 + a13 * b09 ) * one_over_determinant,
+         ( a02 * b10 - a01 * b11 - a03 * b09 ) * one_over_determinant,
+         ( a31 * b05 - a32 * b04 + a33 * b03 ) * one_over_determinant,
+         ( a22 * b04 - a21 * b05 - a23 * b03 ) * one_over_determinant,
+         ( a12 * b08 - a10 * b11 - a13 * b07 ) * one_over_determinant,
+         ( a00 * b11 - a02 * b08 + a03 * b07 ) * one_over_determinant,
+         ( a32 * b02 - a30 * b05 - a33 * b01 ) * one_over_determinant,
+         ( a20 * b05 - a22 * b02 + a23 * b01 ) * one_over_determinant,
+         ( a10 * b10 - a11 * b08 + a13 * b06 ) * one_over_determinant,
+         ( a01 * b08 - a00 * b10 - a03 * b06 ) * one_over_determinant,
+         ( a30 * b04 - a31 * b02 + a33 * b00 ) * one_over_determinant,
+         ( a21 * b02 - a20 * b04 - a23 * b00 ) * one_over_determinant,
+         ( a11 * b07 - a10 * b09 - a12 * b06 ) * one_over_determinant,
+         ( a00 * b09 - a01 * b07 + a02 * b06 ) * one_over_determinant,
+         ( a31 * b01 - a30 * b03 - a32 * b00 ) * one_over_determinant,
+         ( a20 * b03 - a21 * b01 + a22 * b00 ) * one_over_determinant
+         );
 }

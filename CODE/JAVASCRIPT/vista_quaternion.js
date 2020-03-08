@@ -182,6 +182,8 @@ function GetQuaternionAxisVector(
     )
 {
     var
+        one_over_length,
+        square_length,
         x = first_quaternion[ 0 ],
         y = first_quaternion[ 1 ],
         z = first_quaternion[ 2 ];

@@ -1,13 +1,13 @@
 // -- TYPES
 
-class GRAPHIC_REAL_32_BUFFER
+class GRAPHIC_REAL_32_ARRAY_BUFFER
 {
     constructor(
-        vertex_real_array
+        real_array
         )
     {
-        this.VertexFloat32Array = new Float32Array( vertex_real_array );
-        this.ElementByteCount = this.VertexFloat32Array.BYTES_PER_ELEMENT;
+        this.Float32Array = new Float32Array( real_array );
+        this.ElementByteCount = this.Float32Array.BYTES_PER_ELEMENT;
         this.Initialize();
     }
 
@@ -19,7 +19,32 @@ class GRAPHIC_REAL_32_BUFFER
         this.Buffer = GraphicContext.createBuffer();
 
         GraphicContext.bindBuffer( GraphicContext.ARRAY_BUFFER, this.Buffer );
-        GraphicContext.bufferData( GraphicContext.ARRAY_BUFFER, this.VertexFloat32Array, GraphicContext.STATIC_DRAW );
+        GraphicContext.bufferData( GraphicContext.ARRAY_BUFFER, this.Float32Array, GraphicContext.STATIC_DRAW );
+    }
+}
+
+// ~~
+
+class GRAPHIC_NATURAL_16_ELEMENT_ARRAY_BUFFER
+{
+    constructor(
+        natural_array
+        )
+    {
+        this.Uint16Array = new Uint16Array( natural_array );
+        this.ElementByteCount = this.Uint16Array.BYTES_PER_ELEMENT;
+        this.Initialize();
+    }
+
+    // ~~
+
+    Initialize(
+        )
+    {
+        this.Buffer = GraphicContext.createBuffer();
+
+        GraphicContext.bindBuffer( GraphicContext.ELEMENT_ARRAY_BUFFER, this.Buffer );
+        GraphicContext.bufferData( GraphicContext.ELEMENT_ARRAY_BUFFER, this.Uint16Array, GraphicContext.STATIC_DRAW );
     }
 }
 
@@ -30,7 +55,9 @@ class GRAPHIC_TEXTURE
     // -- CONSTRUCTORS
 
     constructor(
-        image_url
+        image_url,
+        is_repeated = false,
+        has_mipmap = false
         )
     {
         var
@@ -45,8 +72,9 @@ class GRAPHIC_TEXTURE
         this.Target = GraphicContext.TEXTURE_2D;
         this.MinificationFilter = GraphicContext.LINEAR;
         this.MagnificationFilter = GraphicContext.LINEAR;
-        this.HorizontalWrap = GraphicContext.CLAMP_TO_EDGE;
-        this.VerticalWrap = GraphicContext.CLAMP_TO_EDGE;
+        this.HorizontalWrap = is_repeated ? GraphicContext.REPEAT : GraphicContext.CLAMP_TO_EDGE;
+        this.VerticalWrap = is_repeated ? GraphicContext.REPEAT : GraphicContext.CLAMP_TO_EDGE;
+        this.HasMipmap = has_mipmap;
         this.Initialize();
         this.Image = new Image();
         this.Image.crossOrigin = "anonymous";
@@ -82,6 +110,14 @@ class GRAPHIC_TEXTURE
     {
         GraphicContext.bindTexture( this.Target, this.Texture );
         GraphicContext.texImage2D( this.Target, this.Level, this.InternalFormat, this.Format, this.Type, this.Image );
+
+        if ( this.HasMipmap
+             && IsPowerOfTwo( this.Image.width )
+             && IsPowerOfTwo( this.Image.height ) )
+        {
+            GraphicContext.generateMipmap( this.Target );
+        }
+
         GraphicContext.bindTexture( this.Target, null);
     }
 
@@ -177,6 +213,87 @@ class GRAPHIC_PROGRAM_UNIFORM
         this.Name = uniform_name;
         this.Location = GraphicContext.getUniformLocation( program.Program, name );
     }
+
+    // -- OPERATIONS
+
+    SetInteger(
+        integer
+        )
+    {
+        GraphicContext.uniform1i( this.Location, integer );
+    }
+
+    // ~~
+
+    SetIntegerVector2(
+        integer_vector
+        )
+    {
+        GraphicContext.uniform2i( this.Location, integer_vector );
+    }
+
+    // ~~
+
+    SetIntegerVector3(
+        integer_vector
+        )
+    {
+        GraphicContext.uniform3i( this.Location, integer_vector );
+    }
+
+    // ~~
+
+    SetIntegerVector4(
+        integer_vector
+        )
+    {
+        GraphicContext.uniform4i( this.Location, integer_vector );
+    }
+
+    // ~~
+
+    SetReal(
+        real_vector
+        )
+    {
+        GraphicContext.uniform1f( this.Location, real_vector );
+    }
+
+    // ~~
+
+    SetRealVector2(
+        real_vector
+        )
+    {
+        GraphicContext.uniform2f( this.Location, real_vector );
+    }
+
+    // ~~
+
+    SetRealVector3(
+        real_vector
+        )
+    {
+        GraphicContext.uniform3f( this.Location, real_vector );
+    }
+
+    // ~~
+
+    SetRealVector4(
+        real_vector
+        )
+    {
+        GraphicContext.uniform4f( this.Location, real_vector );
+    }
+
+    // ~~
+
+    SetRealMatrix4(
+        real_matrix
+        )
+    {
+        GraphicContext.uniformMatrix4f( this.Location, false, real_matrix );
+    }
 }
 
 // ~~
@@ -197,22 +314,34 @@ class GRAPHIC_PROGRAM_ATTRIBUTE
 
     // -- OPERATIONS
 
-    EnableReal32Array(
-        first_real_index,
-        real_count,
-        real_step
+    SetReal32ArrayBuffer(
+        array_buffer,
+        first_real_index = 0,
+        real_count = 0,
+        real_step = 0
         )
     {
+        GraphicContext.bindBuffer( GraphicContext.ARRAY_BUFFER, array_buffer.Buffer );
+
         GraphicContext.vertexAttribPointer(
             this.Attribute,
             real_count,
             GraphicContext.FLOAT,
             false,
-            real_step * 4,
-            first_real_index * 4
+            real_step * array_buffer.ElementByteCount,
+            first_real_index * array_buffer.ElementByteCount
             );
 
         GraphicContext.enableVertexAttribArray( this.Attribute );
+    }
+
+    // ~~
+
+    SetNatural16ElementArrayBuffer(
+        element_array_buffer
+        )
+    {
+        GraphicContext.bindBuffer( GraphicContext.ELEMENT_ARRAY_BUFFER, array_buffer.Buffer );
     }
 }
 
@@ -327,11 +456,20 @@ class GRAPHIC_CANVAS
 
     // ~~
 
-    CreateReal32Buffer(
+    CreateReal32ArrayBuffer(
         real_array
         )
     {
-        return new GRAPHIC_REAL_32_BUFFER( real_array );
+        return new GRAPHIC_REAL_32_ARRAY_BUFFER( real_array );
+    }
+
+    // ~~
+
+    CreateNatural16ElementArrayBuffer(
+        natural_array
+        )
+    {
+        return new GRAPHIC_NATURAL_16_ELEMENT_ARRAY_BUFFER( natural_array );
     }
 
     // ~~
@@ -366,22 +504,49 @@ class GRAPHIC_CANVAS
 
     // ~~
 
-    ClearColor(
-        color
+    Clear(
+        color = [ 0.0, 0.0, 0.0, 1.0 ],
+        depth = 1.0
         )
     {
         GraphicContext.clearColor( color[ 0 ], color[ 1 ], color[ 2 ], color[ 3 ] );
-        GraphicContext.clear( GraphicContext.COLOR_BUFFER_BIT );
+        GraphicContext.clearDepth( 1.0 );
+        GraphicContext.enable( GraphicContext.DEPTH_TEST );
+        GraphicContext.depthFunc( GraphicContext.LEQUAL );
+
+        GraphicContext.clear(
+            GraphicContext.COLOR_BUFFER_BIT
+            | GraphicContext.DEPTH_BUFFER_BIT
+            );
     }
 
     // ~~
 
     DrawTriangles(
-        first_triangle_index,
-        triangle_count
+        first_vertex_index,
+        vertex_count
         )
     {
-        GraphicContext.drawArrays( GraphicContext.TRIANGLES, first_triangle_index, triangle_count );
+        GraphicContext.drawArrays(
+            GraphicContext.TRIANGLES,
+            first_vertex_index,
+            vertex_count
+            );
+    }
+
+    // ~~
+
+    DrawIndexedTriangles(
+        first_vertex_index,
+        vertex_count
+        )
+    {
+        GraphicContext.drawElements(
+            GraphicContext.TRIANGLES,
+            vertex_count,
+            GraphicContext.UNSIGNED_SHORT,
+            first_vertex_index
+            );
     }
 }
 

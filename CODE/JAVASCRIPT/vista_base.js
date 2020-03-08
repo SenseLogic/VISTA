@@ -42,7 +42,7 @@ function LogError(
 
 // ~~
 
-function IsPowerOf2(
+function IsPowerOfTwo(
     integer
     )
 {

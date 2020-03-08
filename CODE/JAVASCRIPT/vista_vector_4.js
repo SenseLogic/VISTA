@@ -192,7 +192,7 @@ function GetNormalizedVector4(
     )
 {
     var
-        length,
+        one_over_length,
         square_length,
         x = vector[ 0 ],
         y = vector[ 1 ],

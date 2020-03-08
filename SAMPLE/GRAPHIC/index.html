@@ -9,90 +9,127 @@
     </head>
     <body>
         <main>
-            <canvas id="triangle-canvas" width="640" height="480">
+            <canvas id="colored-triangle-canvas" width="640" height="480">
             </canvas>
-            <canvas id="cube-canvas" width="640" height="480">
+            <canvas id="textured-cube-canvas" width="640" height="480">
             </canvas>
         </main>
         <script src="../../CODE/JAVASCRIPT/vista_base.js"></script>
         <script src="../../CODE/JAVASCRIPT/vista_element.js"></script>
         <script src="../../CODE/JAVASCRIPT/vista_graphic.js"></script>
-        <script id="triangle-vertex-shader" type="x-shader/x-vertex">
-            attribute vec4 PositionAttribute;
-            attribute vec4 ColorAttribute;
-            varying vec4 ColorVarying;
+        <script id="colored-triangle-vertex-shader" type="x-shader/x-vertex">
+            attribute vec4 VertexPositionAttribute;
+            attribute vec4 VertexColorAttribute;
+            varying vec4 VertexColorVarying;
 
-            void main()
+            void main(
+                )
             {
-                gl_Position = PositionAttribute;
-                ColorVarying = ColorAttribute;
+                gl_Position = VertexPositionAttribute;
+                VertexColorVarying = VertexColorAttribute;
             }
         </script>
-        <script id="triangle-fragment-shader" type="x-shader/x-fragment">
+        <script id="colored-triangle-fragment-shader" type="x-shader/x-fragment">
             precision mediump float;
 
-            varying vec4 ColorVarying;
+            varying vec4 VertexColorVarying;
 
-            void main()
+            void main(
+                )
             {
-                gl_FragColor = ColorVarying;
+                gl_FragColor = VertexColorVarying;
             }
         </script>
-        <script id="cube-vertex-shader" type="x-shader/x-vertex">
+        <script id="textured-cube-vertex-shader" type="x-shader/x-vertex">
+            attribute vec4 VertexPositionAttribute;
+            attribute vec2 VertexMappingAttribute;
+
+            uniform mat4 ModelViewMatrixUniform;
+            uniform mat4 ProjectionMatrixUniform;
+
+            varying highp vec2 VertexMappingVarying;
+
+            void main(
+                )
+            {
+                gl_Position = ProjectionMatrixUniform * ModelViewMatrixUniform * VertexPositionAttribute;
+                VertexMappingVarying = VertexMappingAttribute;
+            }
         </script>
-        <script id="cube-fragment-shader" type="x-shader/x-fragment">
+        <script id="textured-cube-fragment-shader" type="x-shader/x-fragment">
+            precision mediump float;
+
+            varying highp vec2 VertexMappingVarying;
+
+            uniform sampler2D SamplerUniform;
+
+            void main(
+                )
+            {
+                gl_FragColor = texture2D( SamplerUniform, VertexMappingVarying );
+            }
         </script>
         <script>
             // -- FUNCTIONS
 
-            function RenderTriangle(
+            function RenderColoredTriangle(
                 )
             {
                 var
                     canvas,
-                    color_attribute,
+                    vertex_color_attribute,
                     fragment_shader,
-                    position_attribute,
+                    vertex_position_attribute,
                     program,
-                    vertex_position_color_buffer,
+                    vertex_position_color_array_buffer,
                     vertex_shader;
 
-                canvas = new GRAPHIC_CANVAS( GetElementById( "triangle-canvas" ) );
+                canvas = new GRAPHIC_CANVAS( GetElementById( "colored-triangle-canvas" ) );
 
-                vertex_position_color_buffer
-                    = canvas.CreateReal32Buffer(
-                        [
-                            0.0, 0.5, 1.0, 0.0, 0.0,
-                            -0.5, -0.5, 0.0, 1.0, 0.0,
-                            0.5, -0.5, 0.0, 0.0, 1.0
-                        ]
-                        );
+                vertex_shader
+                    = canvas.CreateVertexShader(
+                          "colored-triangle-vertex-shader",
+                          GetElementById( "colored-triangle-vertex-shader" ).text
+                          );
 
-                vertex_shader = canvas.CreateVertexShader( "triangle-vertex-shader", GetElementById( "triangle-vertex-shader" ).text );
-                fragment_shader = canvas.CreateFragmentShader( "triangle-fragment-shader", GetElementById( "triangle-fragment-shader" ).text );
+                fragment_shader
+                    = canvas.CreateFragmentShader(
+                          "colored-triangle-fragment-shader",
+                          GetElementById( "colored-triangle-fragment-shader" ).text
+                          );
+
                 program = canvas.CreateProgram( vertex_shader, fragment_shader );
                 program.Use();
 
-                position_attribute = program.GetAttribute( "PositionAttribute" );
-                position_attribute.EnableReal32Array( 0, 2, 5 );
+                vertex_position_color_array_buffer
+                    = canvas.CreateReal32ArrayBuffer(
+                          [
+                              0.0, 0.5, 1.0, 0.0, 0.0,
+                              -0.5, -0.5, 0.0, 1.0, 0.0,
+                              0.5, -0.5, 0.0, 0.0, 1.0
+                          ]
+                          );
 
-                color_attribute = program.GetAttribute( "ColorAttribute" );
-                color_attribute.EnableReal32Array( 2, 3, 5 );
+                vertex_position_attribute = program.GetAttribute( "VertexPositionAttribute" );
+                vertex_position_attribute.SetReal32ArrayBuffer( vertex_position_color_array_buffer, 0, 2, 5 );
 
-                canvas.ClearColor( [ 0.9, 0.9, 0.9, 1.0 ] );
+                vertex_color_attribute = program.GetAttribute( "VertexColorAttribute" );
+                vertex_color_attribute.SetReal32ArrayBuffer( vertex_position_color_array_buffer, 2, 3, 5 );
+
+                canvas.Clear( [ 0.9, 0.9, 0.9, 1.0 ] );
                 canvas.DrawTriangles( 0, 3 );
             }
 
             // ~~
 
-            function RenderCube(
+            function RenderTexturedCube(
                 )
             {
                 var
                     canvas,
                     texture_array;
 
-                canvas = new GRAPHIC_CANVAS( GetElementById( "cube-canvas" ) );
+                canvas = new GRAPHIC_CANVAS( GetElementById( "textured-cube-canvas" ) );
 
                 texture_array = [
                     canvas.CreateTexture( "texture_1.jpg" ),
@@ -100,13 +137,71 @@
                     canvas.CreateTexture( "texture_3.jpg" )
                     ];
 
-                canvas.ClearColor( [ 0.9, 0.9, 0.9, 1.0 ] );
+                vertex_shader
+                    = canvas.CreateVertexShader(
+                          "textured-cube-vertex-shader",
+                          GetElementById( "textured-cube-vertex-shader" ).text
+                          );
+
+                fragment_shader
+                    = canvas.CreateFragmentShader(
+                          "textured-cube-fragment-shader",
+                          GetElementById( "textured-cube-fragment-shader" ).text
+                          );
+
+                program = canvas.CreateProgram( vertex_shader, fragment_shader );
+                program.Use();
+
+                vertex_position_array_buffer
+                    = canvas.CreateReal32ArrayBuffer(
+                          [
+                              -1.0, -1.0, 1.0, 1.0, -1.0, 1.0, 1.0, 1.0, 1.0, -1.0, 1.0, 1.0,
+                              -1.0, -1.0, -1.0, -1.0, 1.0, -1.0, 1.0, 1.0, -1.0,1.0, -1.0, -1.0,
+                              -1.0, 1.0, -1.0, -1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, -1.0,
+                              -1.0, -1.0, -1.0, 1.0, -1.0, -1.0, 1.0, -1.0, 1.0, -1.0, -1.0, 1.0,
+                              1.0, -1.0, -1.0, 1.0, 1.0, -1.0, 1.0, 1.0, 1.0, 1.0, -1.0, 1.0,
+                              -1.0, -1.0, -1.0, -1.0, -1.0, 1.0, -1.0, 1.0, 1.0, -1.0, 1.0, -1.0
+                          ]
+                          );
+
+                vertex_mapping_array_buffer
+                    = canvas.CreateReal32ArrayBuffer(
+                          [
+                              0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0,
+                              0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0,
+                              0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0,
+                              0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0,
+                              0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0,
+                              0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0
+                          ]
+                          );
+
+                element_array_buffer
+                    = canvas.CreateNatural16ElementArrayBuffer(
+                          [
+                              0, 1, 2, 0, 2, 3,
+                              4, 5, 6, 4, 6, 7,
+                              8, 9, 10, 8, 10, 11,
+                              12, 13, 14, 12, 14, 15,
+                              16, 17, 18, 16, 18, 19,
+                              20, 21, 22, 20, 22, 23
+                          ]
+                          );
+
+                vertex_position_attribute = program.GetAttribute( "VertexPositionAttribute" );
+                vertex_position_attribute.SetReal32ArrayBuffer( vertex_position_array_buffer );
+
+                vertex_mapping_attribute = program.GetAttribute( "VertexMappingAttribute" );
+                vertex_mapping_attribute.SetReal32ArrayBuffer( vertex_mapping_array_buffer );
+
+                canvas.Clear( [ 0.9, 0.9, 0.9, 1.0 ] );
+                canvas.DrawIndexedTriangles( 24,0, 3 );
             }
 
             // -- STATEMENTS
 
-            RenderTriangle();
-            RenderCube();
+            RenderColoredTriangle();
+            RenderTexturedCube();
         </script>
     </body>
 </html>
