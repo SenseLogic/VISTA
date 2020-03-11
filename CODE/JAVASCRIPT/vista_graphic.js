@@ -292,73 +292,74 @@ class GRAPHIC_PROGRAM_UNIFORM
     // ~~
 
     SetIntegerVector2(
-        integer_vector
+        vector
         )
     {
-        GraphicContext.uniform2i( this.UniformLocation, integer_vector );
+        GraphicContext.uniform2iv( this.UniformLocation, vector );
     }
 
     // ~~
 
     SetIntegerVector3(
-        integer_vector
+        vector
         )
     {
-        GraphicContext.uniform3i( this.UniformLocation, integer_vector );
+        GraphicContext.uniform3iv( this.UniformLocation, vector );
     }
 
     // ~~
 
     SetIntegerVector4(
-        integer_vector
+        vector
         )
     {
-        GraphicContext.uniform4i( this.UniformLocation, integer_vector );
+        GraphicContext.uniform4iv( this.UniformLocation, vector );
     }
 
     // ~~
 
     SetReal(
-        real_vector
+        real
         )
     {
-        GraphicContext.uniform1f( this.UniformLocation, real_vector );
+        GraphicContext.uniform1f( this.UniformLocation, real );
     }
 
     // ~~
 
     SetRealVector2(
-        real_vector
+        vector
         )
     {
-        GraphicContext.uniform2f( this.UniformLocation, real_vector );
+        GraphicContext.uniform2fv( this.UniformLocation, vector );
     }
 
     // ~~
 
     SetRealVector3(
-        real_vector
+        vector
         )
     {
-        GraphicContext.uniform3f( this.UniformLocation, real_vector );
+        GraphicContext.uniform3fv( this.UniformLocation, vector );
     }
 
     // ~~
 
     SetRealVector4(
-        real_vector
+        vector
         )
     {
-        GraphicContext.uniform4f( this.UniformLocation, real_vector );
+        GraphicContext.uniform4fv( this.UniformLocation, vector );
     }
 
     // ~~
 
     SetRealMatrix4(
-        real_matrix
+        matrix,
+        matrix_is_transposed = false
         )
     {
-        GraphicContext.uniformMatrix4fv( this.UniformLocation, false, real_matrix );
+        GraphicContext.uniformMatrix4fv( this.UniformLocation, matrix_is_transposed, matrix );
     }
 
     // ~~
