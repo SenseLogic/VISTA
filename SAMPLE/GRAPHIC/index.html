@@ -34,7 +34,6 @@
         </script>
         <script id="colored-triangle-fragment-shader" type="x-shader/x-fragment">
             precision mediump float;
-
             varying vec4 VertexColorVarying;
 
             void main(
@@ -46,10 +45,8 @@
         <script id="textured-cube-vertex-shader" type="x-shader/x-vertex">
             attribute vec4 VertexPositionAttribute;
             attribute vec2 VertexMappingAttribute;
-
             uniform mat4 ModelViewMatrixUniform;
             uniform mat4 ProjectionMatrixUniform;
-
             varying highp vec2 VertexMappingVarying;
 
             void main(
@@ -61,9 +58,7 @@
         </script>
         <script id="textured-cube-fragment-shader" type="x-shader/x-fragment">
             precision mediump float;
-
             varying highp vec2 VertexMappingVarying;
-
             uniform sampler2D TextureSamplerUniform;
 
             void main(
@@ -114,10 +109,10 @@
                           );
 
                 vertex_position_attribute = program.GetAttribute( "VertexPositionAttribute" );
-                vertex_position_attribute.SetReal32ArrayBuffer( vertex_position_color_array_buffer, 0, 2, 5 );
+                vertex_position_attribute.SetReal32ArrayBuffer( vertex_position_color_array_buffer, 2, 5, 0 );
 
                 vertex_color_attribute = program.GetAttribute( "VertexColorAttribute" );
-                vertex_color_attribute.SetReal32ArrayBuffer( vertex_position_color_array_buffer, 2, 3, 5 );
+                vertex_color_attribute.SetReal32ArrayBuffer( vertex_position_color_array_buffer, 3, 5, 2 );
 
                 canvas.Clear( [ 0.9, 0.9, 0.9, 1.0 ] );
                 canvas.DrawTriangles( 0, 3 );
@@ -159,13 +154,17 @@
                           );
 
                 program = canvas.CreateProgram( vertex_shader, fragment_shader );
-                program.Use();
+                program.VertexPositionAttribute = program.GetAttribute( "VertexPositionAttribute" );
+                program.VertexMappingAttribute = program.GetAttribute( "VertexMappingAttribute" );
+                program.TextureSamplerUniform = program.GetUniform( "TextureSamplerUniform" );
+                program.ModelViewMatrixUniform = program.GetUniform( "ModelViewMatrixUniform" );
+                program.ProjectionMatrixUniform = program.GetUniform( "ProjectionMatrixUniform" );
 
                 vertex_position_array_buffer
                     = canvas.CreateReal32ArrayBuffer(
                           [
                               -1.0, -1.0, 1.0, 1.0, -1.0, 1.0, 1.0, 1.0, 1.0, -1.0, 1.0, 1.0,
-                              -1.0, -1.0, -1.0, -1.0, 1.0, -1.0, 1.0, 1.0, -1.0,1.0, -1.0, -1.0,
+                              -1.0, -1.0, -1.0, -1.0, 1.0, -1.0, 1.0, 1.0, -1.0, 1.0, -1.0, -1.0,
                               -1.0, 1.0, -1.0, -1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, -1.0,
                               -1.0, -1.0, -1.0, 1.0, -1.0, -1.0, 1.0, -1.0, 1.0, -1.0, -1.0, 1.0,
                               1.0, -1.0, -1.0, 1.0, 1.0, -1.0, 1.0, 1.0, 1.0, 1.0, -1.0, 1.0,
@@ -197,23 +196,15 @@
                           ]
                           );
 
-                vertex_position_attribute = program.GetAttribute( "VertexPositionAttribute" );
-                vertex_position_attribute.SetReal32ArrayBuffer( vertex_position_array_buffer, 0, 3, 3 );
-
-                vertex_mapping_attribute = program.GetAttribute( "VertexMappingAttribute" );
-                vertex_mapping_attribute.SetReal32ArrayBuffer( vertex_mapping_array_buffer, 0, 2, 2 );
-
-                texture.Bind( 0 );
-                texture_sampler_uniform = program.GetUniform( "TextureSamplerUniform" );
-                texture_sampler_uniform.SetInteger( 0 );
-
                 model_view_matrix = GetTranslationMatrix4( GetVector3( 0.0, 0.0, -7.0 ) );
-                model_view_matrix_uniform = program.GetUniform( "ModelViewMatrixUniform" );
-                model_view_matrix_uniform.SetRealMatrix4( model_view_matrix );
-
                 projection_matrix = GetPerspectiveMatrix4( 45.0 * DegreeRadians, 45.0 * DegreeRadians, 0.1, 100.0 );
-                projection_matrix_uniform = program.GetUniform( "ProjectionMatrixUniform" );
-                projection_matrix_uniform.SetRealMatrix4( projection_matrix );
+
+                program.Use();
+                program.VertexPositionAttribute.SetReal32ArrayBuffer( vertex_position_array_buffer, 3 );
+                program.VertexMappingAttribute.SetReal32ArrayBuffer( vertex_mapping_array_buffer, 2 );
+                program.TextureSamplerUniform.BindTexture( texture, 0 );
+                program.ModelViewMatrixUniform.SetRealMatrix4( model_view_matrix );
+                program.ProjectionMatrixUniform.SetRealMatrix4( projection_matrix );
 
                 canvas.Clear( [ 0.9, 0.9, 0.9, 1.0 ] );
                 canvas.DrawIndexedTriangles( 12, 0, 3 );

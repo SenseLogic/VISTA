@@ -7,7 +7,6 @@ class GRAPHIC_REAL_32_ARRAY_BUFFER
         )
     {
         this.Float32Array = new Float32Array( real_array );
-        this.ElementByteCount = this.Float32Array.BYTES_PER_ELEMENT;
         this.Initialize();
     }
 
@@ -32,7 +31,6 @@ class GRAPHIC_NATURAL_16_ELEMENT_ARRAY_BUFFER
         )
     {
         this.Uint16Array = new Uint16Array( natural_array );
-        this.ElementByteCount = this.Uint16Array.BYTES_PER_ELEMENT;
         this.Initialize();
     }
 
@@ -218,104 +216,6 @@ class GRAPHIC_SHADER
 
 // ~~
 
-class GRAPHIC_PROGRAM_UNIFORM
-{
-    // -- CONSTRUCTORS
-
-    constructor(
-        program,
-        uniform_name
-        )
-    {
-        this.Program = program;
-        this.Name = uniform_name;
-        this.Location = GraphicContext.getUniformLocation( program.Program, name );
-    }
-
-    // -- OPERATIONS
-
-    SetInteger(
-        integer
-        )
-    {
-        GraphicContext.uniform1i( this.Location, integer );
-    }
-
-    // ~~
-
-    SetIntegerVector2(
-        integer_vector
-        )
-    {
-        GraphicContext.uniform2i( this.Location, integer_vector );
-    }
-
-    // ~~
-
-    SetIntegerVector3(
-        integer_vector
-        )
-    {
-        GraphicContext.uniform3i( this.Location, integer_vector );
-    }
-
-    // ~~
-
-    SetIntegerVector4(
-        integer_vector
-        )
-    {
-        GraphicContext.uniform4i( this.Location, integer_vector );
-    }
-
-    // ~~
-
-    SetReal(
-        real_vector
-        )
-    {
-        GraphicContext.uniform1f( this.Location, real_vector );
-    }
-
-    // ~~
-
-    SetRealVector2(
-        real_vector
-        )
-    {
-        GraphicContext.uniform2f( this.Location, real_vector );
-    }
-
-    // ~~
-
-    SetRealVector3(
-        real_vector
-        )
-    {
-        GraphicContext.uniform3f( this.Location, real_vector );
-    }
-
-    // ~~
-
-    SetRealVector4(
-        real_vector
-        )
-    {
-        GraphicContext.uniform4f( this.Location, real_vector );
-    }
-
-    // ~~
-
-    SetRealMatrix4(
-        real_matrix
-        )
-    {
-        GraphicContext.uniformMatrix4fv( this.Location, false, real_matrix );
-    }
-}
-
-// ~~
-
 class GRAPHIC_PROGRAM_ATTRIBUTE
 {
     // -- CONSTRUCTORS
@@ -327,30 +227,31 @@ class GRAPHIC_PROGRAM_ATTRIBUTE
     {
         this.Program = program;
         this.Name = attribute_name;
-        this.Attribute = GraphicContext.getAttribLocation( program.Program, attribute_name );
+        this.AttributeLocation = GraphicContext.getAttribLocation( program, attribute_name );
     }
 
     // -- OPERATIONS
 
     SetReal32ArrayBuffer(
         array_buffer,
-        first_real_index,
         real_count,
-        real_step
+        stride_real_count = 0,
+        offset_real_count = 0,
+        it_is_normalized = false
         )
     {
         GraphicContext.bindBuffer( GraphicContext.ARRAY_BUFFER, array_buffer.Buffer );
 
         GraphicContext.vertexAttribPointer(
-            this.Attribute,
+            this.AttributeLocation,
             real_count,
             GraphicContext.FLOAT,
-            false,
-            real_step * array_buffer.ElementByteCount,
-            first_real_index * array_buffer.ElementByteCount
+            it_is_normalized,
+            stride_real_count * 4,
+            offset_real_count * 4
             );
 
-        GraphicContext.enableVertexAttribArray( this.Attribute );
+        GraphicContext.enableVertexAttribArray( this.AttributeLocation );
     }
 
     // ~~
@@ -360,6 +261,116 @@ class GRAPHIC_PROGRAM_ATTRIBUTE
         )
     {
         GraphicContext.bindBuffer( GraphicContext.ELEMENT_ARRAY_BUFFER, array_buffer.Buffer );
+    }
+}
+
+// ~~
+
+class GRAPHIC_PROGRAM_UNIFORM
+{
+    // -- CONSTRUCTORS
+
+    constructor(
+        program,
+        uniform_name
+        )
+    {
+        this.Program = program;
+        this.Name = uniform_name;
+        this.UniformLocation = GraphicContext.getUniformLocation( program, uniform_name );
+    }
+
+    // -- OPERATIONS
+
+    SetInteger(
+        integer
+        )
+    {
+        GraphicContext.uniform1i( this.UniformLocation, integer );
+    }
+
+    // ~~
+
+    SetIntegerVector2(
+        integer_vector
+        )
+    {
+        GraphicContext.uniform2i( this.UniformLocation, integer_vector );
+    }
+
+    // ~~
+
+    SetIntegerVector3(
+        integer_vector
+        )
+    {
+        GraphicContext.uniform3i( this.UniformLocation, integer_vector );
+    }
+
+    // ~~
+
+    SetIntegerVector4(
+        integer_vector
+        )
+    {
+        GraphicContext.uniform4i( this.UniformLocation, integer_vector );
+    }
+
+    // ~~
+
+    SetReal(
+        real_vector
+        )
+    {
+        GraphicContext.uniform1f( this.UniformLocation, real_vector );
+    }
+
+    // ~~
+
+    SetRealVector2(
+        real_vector
+        )
+    {
+        GraphicContext.uniform2f( this.UniformLocation, real_vector );
+    }
+
+    // ~~
+
+    SetRealVector3(
+        real_vector
+        )
+    {
+        GraphicContext.uniform3f( this.UniformLocation, real_vector );
+    }
+
+    // ~~
+
+    SetRealVector4(
+        real_vector
+        )
+    {
+        GraphicContext.uniform4f( this.UniformLocation, real_vector );
+    }
+
+    // ~~
+
+    SetRealMatrix4(
+        real_matrix
+        )
+    {
+        GraphicContext.uniformMatrix4fv( this.UniformLocation, false, real_matrix );
+    }
+
+    // ~~
+
+    BindTexture(
+        texture,
+        unit_index
+        )
+    {
+        texture.Bind( unit_index );
+
+        GraphicContext.uniform1i( this.UniformLocation, unit_index );
     }
 }
 
@@ -381,20 +392,20 @@ class GRAPHIC_PROGRAM
 
     // -- INQUIRIES
 
-    GetUniform(
-        uniform_name
-        )
-    {
-        return new GRAPHIC_PROGRAM_UNIFORM( this, uniform_name );
-    }
-
-    // ~~
-
     GetAttribute(
         attribute_name
         )
     {
-        return new GRAPHIC_PROGRAM_ATTRIBUTE( this, attribute_name );
+        return new GRAPHIC_PROGRAM_ATTRIBUTE( this.Program, attribute_name );
+    }
+
+    // ~~
+
+    GetUniform(
+        uniform_name
+        )
+    {
+        return new GRAPHIC_PROGRAM_UNIFORM( this.Program, uniform_name );
     }
 
     // -- OPERATIONS
