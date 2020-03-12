@@ -712,32 +712,18 @@ function GetOrthographicMatrix4(
 // ~~
 
 function GetPerspectiveMatrix4(
-    x_angle,
     y_angle,
+    aspect_ratio,
     near_z,
     far_z
     )
 {
     var
-        one_over_z_offset,
-        x_scaling,
-        y_scaling;
-
-    one_over_z_offset = 1.0 / ( near_z - far_z );
-
-    x_scaling = GetTangent( ( Pi - x_angle ) * 0.5 );
-
-    if ( y_angle === x_angle )
-    {
-        y_scaling = x_scaling;
-    }
-    else
-    {
-        y_scaling = GetTangent( ( Pi - y_angle ) * 0.5 );
-    }
+        one_over_z_offset = 1.0 / ( near_z - far_z ),
+        y_scaling = 1.0 / GetTangent( y_angle * 0.5 );
 
     return Float32Array.of(
-        x_scaling,
+        y_scaling / aspect_ratio,
         0.0,
         0.0,
         0.0,

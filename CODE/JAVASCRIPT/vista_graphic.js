@@ -450,14 +450,14 @@ class GRAPHIC_CANVAS
     // -- CONSTRUCTORS
 
     constructor(
-        canvas_element
+        canvas
         )
     {
-        this.Element = canvas_element;
+        this.Canvas = canvas;
 
         try
         {
-            this.Context = canvas_element.getContext( "webgl", { preserveDrawingBuffer : false } );
+            this.Context = canvas.getContext( "webgl", { preserveDrawingBuffer : false } );
         }
         catch ( error )
         {
@@ -465,6 +465,22 @@ class GRAPHIC_CANVAS
         }
 
         GraphicContext = this.Context;
+    }
+
+    // -- INQUIRIES
+
+    GetWidth(
+        )
+    {
+        return this.Canvas.clientWidth;
+    }
+
+    // ~~
+
+    GetHeight(
+        )
+    {
+        return this.Canvas.clientHeight;
     }
 
     // -- OPERATIONS
@@ -554,8 +570,8 @@ class GRAPHIC_CANVAS
     // ~~
 
     DrawTriangles(
-        first_vertex_index,
-        vertex_count
+        vertex_count,
+        first_vertex_index = 0
         )
     {
         GraphicContext.drawArrays(
@@ -568,8 +584,8 @@ class GRAPHIC_CANVAS
     // ~~
 
     DrawIndexedTriangles(
-        first_vertex_index,
-        vertex_count
+        vertex_count,
+        first_vertex_index = 0
         )
     {
         GraphicContext.drawElements(

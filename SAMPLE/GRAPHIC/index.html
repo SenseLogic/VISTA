@@ -14,7 +14,7 @@
             <canvas id="textured-cube-canvas" width="640" height="480">
             </canvas>
         </main>
-        <script src="../../CODE/JAVASCRIPT/vista_base.js"></script>>
+        <script src="../../CODE/JAVASCRIPT/vista_base.js"></script>
         <script src="../../CODE/JAVASCRIPT/vista_math.js"></script>
         <script src="../../CODE/JAVASCRIPT/vista_vector_3.js"></script>
         <script src="../../CODE/JAVASCRIPT/vista_matrix_4.js"></script>
@@ -115,7 +115,7 @@
                 vertex_color_attribute.SetReal32ArrayBuffer( vertex_position_color_array_buffer, 3, 5, 2 );
 
                 canvas.Clear( [ 0.9, 0.9, 0.9, 1.0 ] );
-                canvas.DrawTriangles( 0, 3 );
+                canvas.DrawTriangles( 3 );
             }
 
             // ~~
@@ -196,18 +196,44 @@
                           ]
                           );
 
-                model_view_matrix = GetTranslationMatrix4( GetVector3( 0.0, 0.0, -7.0 ) );
-                projection_matrix = GetPerspectiveMatrix4( 45.0 * DegreeRadians, 45.0 * DegreeRadians, 0.1, 100.0 );
+                rotation_vector = GetVector3( 30.0 * DegreeRadians, 40.0 * DegreeRadians, 10.0 * DegreeRadians );
 
-                program.Use();
-                program.VertexPositionAttribute.SetReal32ArrayBuffer( vertex_position_array_buffer, 3 );
-                program.VertexMappingAttribute.SetReal32ArrayBuffer( vertex_mapping_array_buffer, 2 );
-                program.TextureSamplerUniform.BindTexture( texture, 0 );
-                program.ModelViewMatrixUniform.SetRealMatrix4( model_view_matrix );
-                program.ProjectionMatrixUniform.SetRealMatrix4( projection_matrix );
+                function UpdateCanvas(
+                    )
+                {
+                    model_view_matrix
+                        = GetZxyTransformMatrix4(
+                              GetVector3( 1.0, 1.0, 1.0 ),
+                              rotation_vector,
+                              GetVector3( 0.0, 0.0, -6.0 )
+                              );
 
-                canvas.Clear( [ 0.9, 0.9, 0.9, 1.0 ] );
-                canvas.DrawIndexedTriangles( 12, 0, 3 );
+                    projection_matrix
+                        = GetPerspectiveMatrix4(
+                              45.0 * DegreeRadians,
+                              canvas.GetWidth() / canvas.GetHeight(),
+                              0.1,
+                              100.0
+                              );
+
+                    program.Use();
+                    program.VertexPositionAttribute.SetReal32ArrayBuffer( vertex_position_array_buffer, 3 );
+                    program.VertexMappingAttribute.SetReal32ArrayBuffer( vertex_mapping_array_buffer, 2 );
+                    program.TextureSamplerUniform.BindTexture( texture, 0 );
+                    program.ModelViewMatrixUniform.SetRealMatrix4( model_view_matrix );
+                    program.ProjectionMatrixUniform.SetRealMatrix4( projection_matrix );
+
+                    canvas.Clear( [ 0.9, 0.9, 0.9, 1.0 ] );
+                    canvas.DrawIndexedTriangles( 36 );
+
+                    rotation_vector[ 0 ] += 0.2 * DegreeRadians;
+                    rotation_vector[ 1 ] += 0.3 * DegreeRadians;
+                    rotation_vector[ 2 ] += 0.1 * DegreeRadians;
+
+                    requestAnimationFrame( UpdateCanvas );
+                }
+
+                requestAnimationFrame( UpdateCanvas );
             }
 
             // -- STATEMENTS
