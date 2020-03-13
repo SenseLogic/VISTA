@@ -196,11 +196,27 @@
                           ]
                           );
 
+                projection_matrix
+                    = GetPerspectiveMatrix4(
+                          45.0 * DegreeRadians,
+                          canvas.GetWidth() / canvas.GetHeight(),
+                          0.1,
+                          100.0
+                          );
+
+                program.Use();
+                program.VertexPositionAttribute.SetReal32ArrayBuffer( vertex_position_array_buffer, 3 );
+                program.VertexMappingAttribute.SetReal32ArrayBuffer( vertex_mapping_array_buffer, 2 );
+                program.TextureSamplerUniform.BindTexture( texture, 0 );
+                program.ProjectionMatrixUniform.SetRealMatrix4( projection_matrix );
+
                 rotation_vector = GetVector3( 30.0 * DegreeRadians, 40.0 * DegreeRadians, 10.0 * DegreeRadians );
 
                 function UpdateCanvas(
                     )
                 {
+                    canvas.Clear( [ 0.9, 0.9, 0.9, 1.0 ] );
+
                     model_view_matrix
                         = GetZxyTransformMatrix4(
                               GetVector3( 1.0, 1.0, 1.0 ),
@@ -208,22 +224,7 @@
                               GetVector3( 0.0, 0.0, -6.0 )
                               );
 
-                    projection_matrix
-                        = GetPerspectiveMatrix4(
-                              45.0 * DegreeRadians,
-                              canvas.GetWidth() / canvas.GetHeight(),
-                              0.1,
-                              100.0
-                              );
-
-                    program.Use();
-                    program.VertexPositionAttribute.SetReal32ArrayBuffer( vertex_position_array_buffer, 3 );
-                    program.VertexMappingAttribute.SetReal32ArrayBuffer( vertex_mapping_array_buffer, 2 );
-                    program.TextureSamplerUniform.BindTexture( texture, 0 );
                     program.ModelViewMatrixUniform.SetRealMatrix4( model_view_matrix );
-                    program.ProjectionMatrixUniform.SetRealMatrix4( projection_matrix );
-
-                    canvas.Clear( [ 0.9, 0.9, 0.9, 1.0 ] );
                     canvas.DrawIndexedTriangles( 36 );
 
                     rotation_vector[ 0 ] += 0.2 * DegreeRadians;
