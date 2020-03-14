@@ -671,6 +671,30 @@ function GetFrustumMatrix4(
         near_z * far_z * one_over_z_offset,
         0.0
         );
+
+
+function frustum(out, left, right, bottom, top, near, far) {
+  var rl = 1 / (right - left);
+  var tb = 1 / (top - bottom);
+  var nf = 1 / (near - far);
+  out[0] = near * 2 * rl;
+  out[1] = 0;
+  out[2] = 0;
+  out[3] = 0;
+  out[4] = 0;
+  out[5] = near * 2 * tb;
+  out[6] = 0;
+  out[7] = 0;
+  out[8] = (right + left) * rl;
+  out[9] = (top + bottom) * tb;
+  out[10] = (far + near) * nf;
+  out[11] = -1;
+  out[12] = 0;
+  out[13] = 0;
+  out[14] = far * near * 2 * nf;
+  out[15] = 0;
+  return out;
+}
 }
 
 // ~~
@@ -685,25 +709,25 @@ function GetOrthographicMatrix4(
     )
 {
     var
-        one_over_x_offset = 1.0 / ( right_x - left_x ),
-        one_over_y_offset = 1.0 / ( top_y - bottom_y ),
+        one_over_x_offset = 1.0 / ( left_x - right_x ),
+        one_over_y_offset = 1.0 / ( bottom_y - top_y ),
         one_over_z_offset = 1.0 / ( near_z - far_z );
 
     return Float32Array.of(
-        2.0 * one_over_x_offset,
+        -2.0 * one_over_x_offset,
         0.0,
         0.0,
         0.0,
         0.0,
-        2.0 * one_over_y_offset,
+        -2.0 * one_over_y_offset,
         0.0,
         0.0,
         0.0,
         0.0,
         2.0 * one_over_z_offset,
         0.0,
-        ( left_x + right_x ) * -one_over_x_offset,
-        ( bottom_y + top_y ) * -one_over_y_offset,
+        ( left_x + right_x ) * one_over_x_offset,
+        ( bottom_y + top_y ) * one_over_y_offset,
         ( near_z + far_z ) * one_over_z_offset,
         1.0
         );
@@ -719,8 +743,8 @@ function GetPerspectiveMatrix4(
     )
 {
     var
-        one_over_z_offset = 1.0 / ( near_z - far_z ),
-        y_scaling = 1.0 / GetTangent( y_angle * 0.5 );
+        y_scaling = 1.0 / GetTangent( y_angle * 0.5 ),
+        one_over_z_offset = 1.0 / ( near_z - far_z );
 
     return Float32Array.of(
         y_scaling / aspect_ratio,
@@ -737,7 +761,47 @@ function GetPerspectiveMatrix4(
         -1.0,
         0.0,
         0.0,
-        2.0 * near_z * far_z * one_over_z_offset,
+        2.0 * far_z * near_z * one_over_z_offset,
+        0.0
+        );
+}
+
+// ~~
+
+function GetFieldOfViewPerspectiveMatrix4(
+    left_angle,
+    right_angle,
+    left_angle,
+    right_angle,
+    near_z,
+    far_z
+    )
+{
+    var
+        up_tangent = Math.tan( up_angle ),
+        down_tangent = Math.tan( down_angle ),
+        left_tangent = Math.tan( left_angle ),
+        right_tangent = Math.tan( right_angle ),
+        x_scaling = 2.0 / ( left_tangent + right_tangent ),
+        y_scaling = 2.0 / ( up_tangent + down_tangent ),
+        one_over_z_offset = 1.0 / ( near_z - far_z );
+
+    return Float32Array.of(
+        x_scaling,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        y_scaling,
+        0.0,
+        0.0,
+        -0.5 * x_scaling * ( left_tangent - right_tangent ),
+        0.5 * y_scaling * ( up_tangent - down_tangent ),
+        far_z * one_over_z_offset,
+        -1.0,
+        0.0,
+        0.0,
+        far_z * near_z * one_over_z_offset,
         0.0
         );
 }

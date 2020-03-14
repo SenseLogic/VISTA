@@ -6,11 +6,23 @@ function GetVector3(
     z = 0.0
     )
 {
-    return Float32Array.of(
-        x,
-        y,
-        z
-        );
+    return Float32Array.of( x, y, z );
+}
+
+// ~~
+
+function GetNullVector3(
+    )
+{
+    return Float32Array.of( 0.0, 0.0, 0.0 );
+}
+
+// ~~
+
+function GetIdentityVector3(
+    )
+{
+    return Float32Array.of( 1.0, 1.0, 1.0 );
 }
 
 // ~~
@@ -194,13 +206,13 @@ function GetNegatedVector3(
 
 function GetScaledVector3(
     vector,
-    scale
+    factor
     )
 {
     return Float32Array.of(
-        vector[ 0 ] * scale,
-        vector[ 1 ] * scale,
-        vector[ 2 ] * scale
+        vector[ 0 ] * factor,
+        vector[ 1 ] * factor,
+        vector[ 2 ] * factor
         );
 }
 
@@ -215,6 +227,22 @@ function GetSumVector3(
         first_vector[ 0 ] + second_vector[ 0 ],
         first_vector[ 1 ] + second_vector[ 1 ],
         first_vector[ 2 ] + second_vector[ 2 ]
+        );
+}
+
+// ~~
+
+function GetScaledSumVector3(
+    first_vector,
+    second_vector,
+    first_vector_factor,
+    second_vector_factor
+    )
+{
+    return Float32Array.of(
+        first_vector[ 0 ] * first_vector_factor + second_vector[ 0 ] * second_vector_factor,
+        first_vector[ 1 ] * first_vector_factor + second_vector[ 1 ] * second_vector_factor,
+        first_vector[ 2 ] * first_vector_factor + second_vector[ 2 ] * second_vector_factor
         );
 }
 

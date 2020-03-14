@@ -7,12 +7,23 @@ function GetVector4(
     w = 0.0
     )
 {
-    return Float32Array.of(
-        x,
-        y,
-        z,
-        w
-        );
+    return Float32Array.of( x, z, z, w );
+}
+
+// ~~
+
+function GetNullVector4(
+    )
+{
+    return Float32Array.of( 0.0, 0.0, 0.0, 0.0 );
+}
+
+// ~~
+
+function GetIdentityVector4(
+    )
+{
+    return Float32Array.of( 1.0, 1.0, 1.0, 1.0 );
 }
 
 // ~~
@@ -143,14 +154,14 @@ function GetNegatedVector4(
 
 function GetScaledVector4(
     vector,
-    scale
+    factor
     )
 {
     return Float32Array.of(
-        vector[ 0 ] * scale,
-        vector[ 1 ] * scale,
-        vector[ 2 ] * scale,
-        vector[ 3 ] * scale
+        vector[ 0 ] * factor,
+        vector[ 1 ] * factor,
+        vector[ 2 ] * factor,
+        vector[ 3 ] * factor
         );
 }
 
@@ -166,6 +177,23 @@ function GetSumVector4(
         first_vector[ 1 ] + second_vector[ 1 ],
         first_vector[ 2 ] + second_vector[ 2 ],
         first_vector[ 3 ] + second_vector[ 3 ]
+        );
+}
+
+// ~~
+
+function GetScaledSumVector4(
+    first_vector,
+    second_vector,
+    first_vector_factor,
+    second_vector_factor
+    )
+{
+    return Float32Array.of(
+        first_vector[ 0 ] * first_vector_factor + second_vector[ 0 ] * second_vector_factor,
+        first_vector[ 1 ] * first_vector_factor + second_vector[ 1 ] * second_vector_factor,
+        first_vector[ 2 ] * first_vector_factor + second_vector[ 2 ] * second_vector_factor,
+        first_vector[ 3 ] * first_vector_factor + second_vector[ 3 ] * second_vector_factor
         );
 }
 

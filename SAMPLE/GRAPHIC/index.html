@@ -18,6 +18,7 @@
         <script src="../../CODE/JAVASCRIPT/vista_math.js"></script>
         <script src="../../CODE/JAVASCRIPT/vista_vector_3.js"></script>
         <script src="../../CODE/JAVASCRIPT/vista_matrix_4.js"></script>
+        <script src="../../CODE/JAVASCRIPT/vista_quaternion.js"></script>
         <script src="../../CODE/JAVASCRIPT/vista_element.js"></script>
         <script src="../../CODE/JAVASCRIPT/vista_graphic.js"></script>
         <script id="colored-triangle-vertex-shader" type="x-shader/x-vertex">
@@ -129,7 +130,10 @@
                     fragment_shader,
                     model_view_matrix,
                     perspective_matrix,
+                    prior_time_stamp,
                     program,
+                    rotation_speed_vector,
+                    rotation_vector,
                     texture,
                     vertex_mapping_array_buffer,
                     vertex_mapping_attribute,
@@ -163,36 +167,78 @@
                 vertex_position_array_buffer
                     = canvas.CreateReal32ArrayBuffer(
                           [
-                              -1.0, -1.0, 1.0, 1.0, -1.0, 1.0, 1.0, 1.0, 1.0, -1.0, 1.0, 1.0,
-                              -1.0, -1.0, -1.0, -1.0, 1.0, -1.0, 1.0, 1.0, -1.0, 1.0, -1.0, -1.0,
-                              -1.0, 1.0, -1.0, -1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, -1.0,
-                              -1.0, -1.0, -1.0, 1.0, -1.0, -1.0, 1.0, -1.0, 1.0, -1.0, -1.0, 1.0,
-                              1.0, -1.0, -1.0, 1.0, 1.0, -1.0, 1.0, 1.0, 1.0, 1.0, -1.0, 1.0,
-                              -1.0, -1.0, -1.0, -1.0, -1.0, 1.0, -1.0, 1.0, 1.0, -1.0, 1.0, -1.0
+                              -0.5, 0.5, -0.5,
+                              -0.5, 0.5, 0.5,
+                              -0.5, -0.5, 0.5,
+                              -0.5, -0.5, -0.5,
+                              -0.5, 0.5, 0.5,
+                              0.5, 0.5, 0.5,
+                              0.5, -0.5, 0.5,
+                              -0.5, -0.5, 0.5,
+                              0.5, 0.5, 0.5,
+                              0.5, 0.5, -0.5,
+                              0.5, -0.5, -0.5,
+                              0.5, -0.5, 0.5,
+                              0.5, 0.5, -0.5,
+                              -0.5, 0.5, -0.5,
+                              -0.5, -0.5, -0.5,
+                              0.5, -0.5, -0.5,
+                              -0.5, 0.5, -0.5,
+                              0.5, 0.5, -0.5,
+                              0.5, 0.5, 0.5,
+                              -0.5, 0.5, 0.5,
+                              -0.5, -0.5, -0.5,
+                              0.5, -0.5, -0.5,
+                              0.5, -0.5, 0.5,
+                              -0.5, -0.5, 0.5
                           ]
                           );
 
                 vertex_mapping_array_buffer
                     = canvas.CreateReal32ArrayBuffer(
                           [
-                              0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0,
-                              0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0,
-                              0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0,
-                              0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0,
-                              0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0,
-                              0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0
+                              0.0, 0.0,
+                              1.0, 0.0,
+                              1.0, 1.0,
+                              0.0, 1.0,
+                              0.0, 0.0,
+                              1.0, 0.0,
+                              1.0, 1.0,
+                              0.0, 1.0,
+                              0.0, 0.0,
+                              1.0, 0.0,
+                              1.0, 1.0,
+                              0.0, 1.0,
+                              0.0, 0.0,
+                              1.0, 0.0,
+                              1.0, 1.0,
+                              0.0, 1.0,
+                              0.0, 0.0,
+                              1.0, 0.0,
+                              1.0, 1.0,
+                              0.0, 1.0,
+                              1.0, 0.0,
+                              0.0, 0.0,
+                              0.0, 1.0,
+                              1.0, 1.0
                           ]
                           );
 
                 element_array_buffer
                     = canvas.CreateNatural16ElementArrayBuffer(
                           [
-                              0, 1, 2, 0, 2, 3,
-                              4, 5, 6, 4, 6, 7,
-                              8, 9, 10, 8, 10, 11,
-                              12, 13, 14, 12, 14, 15,
-                              16, 17, 18, 16, 18, 19,
-                              20, 21, 22, 20, 22, 23
+                              2, 1, 0,
+                              2, 0, 3,
+                              6, 5, 4,
+                              6, 4, 7,
+                              10, 9, 8,
+                              10, 8, 11,
+                              14, 13, 12,
+                              14, 12, 15,
+                              18, 17, 16,
+                              18, 16, 19,
+                              22, 21, 20,
+                              22, 20, 23
                           ]
                           );
 
@@ -210,26 +256,43 @@
                 program.TextureSamplerUniform.BindTexture( texture, 0 );
                 program.ProjectionMatrixUniform.SetRealMatrix4( projection_matrix );
 
-                rotation_vector = GetVector3( 30.0 * DegreeRadians, 40.0 * DegreeRadians, 10.0 * DegreeRadians );
+                rotation_vector
+                    = GetVector3(
+                          0.0 * DegreeRadians,
+                          0.0 * DegreeRadians,
+                          0.0 * DegreeRadians
+                          );
+
+                rotation_speed_vector
+                    = GetVector3(
+                          3.0 * DegreeRadians,
+                          30.0 * DegreeRadians,
+                          1.0 * DegreeRadians
+                          );
 
                 function UpdateCanvas(
+                    timestamp
                     )
                 {
+                    var
+                        time_step;
+
+                    time_step = prior_time_stamp ? ( timestamp - prior_time_stamp ) * 0.001 : 0.0;
+                    prior_time_stamp = timestamp;
+
+                    rotation_vector = GetScaledSumVector3( rotation_vector, rotation_speed_vector, 1.0, time_step );
+
                     canvas.Clear( [ 0.9, 0.9, 0.9, 1.0 ] );
 
                     model_view_matrix
                         = GetZxyTransformMatrix4(
                               GetVector3( 1.0, 1.0, 1.0 ),
                               rotation_vector,
-                              GetVector3( 0.0, 0.0, -6.0 )
+                              GetVector3( 0.0, 0.0, -3.0 )
                               );
 
                     program.ModelViewMatrixUniform.SetRealMatrix4( model_view_matrix );
                     canvas.DrawIndexedTriangles( 36 );
-
-                    rotation_vector[ 0 ] += 0.2 * DegreeRadians;
-                    rotation_vector[ 1 ] += 0.3 * DegreeRadians;
-                    rotation_vector[ 2 ] += 0.1 * DegreeRadians;
 
                     requestAnimationFrame( UpdateCanvas );
                 }

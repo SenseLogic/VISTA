@@ -7,11 +7,15 @@ function GetQuaternion(
     w = 1.0
     )
 {
-    return Float32Array.of(
-        x,
-        y,
-        z
-        );
+    return Float32Array.of( x, y, z, w );
+}
+
+// ~~
+
+function GetIdentityQuaternion(
+    )
+{
+    return Float32Array.of( 0.0, 0.0, 0.0, 1.0 );
 }
 
 // ~~
