@@ -5,8 +5,8 @@ var
     HalfPi = Math.PI * 0.5,
     Pi = Math.PI,
     TwoPi = Math.PI * 2.0,
-    DegreeRadians = Math.PI / 180.0,
-    RadianDegrees = 180.0 / Math.PI,
+    DegreesToRadians = Math.PI / 180.0,
+    RadiansToDegrees = 180.0 / Math.PI,
     GetPositive = Math.abs,
     GetSign = Math.sign,
     GetFloor = Math.floor,
@@ -105,7 +105,7 @@ function GetRadianAngle(
     degree_angle
     )
 {
-    return degree_angle * DegreeRadians;
+    return degree_angle * DegreesToRadians;
 }
 
 // ~~
@@ -114,7 +114,7 @@ function GetDegreeAngle(
     radian_angle
     )
 {
-    return radian_angle * RadianDegrees;
+    return radian_angle * RadiansToDegrees;
 }
 
 // ~~

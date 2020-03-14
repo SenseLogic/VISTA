@@ -46,14 +46,14 @@
         <script id="textured-cube-vertex-shader" type="x-shader/x-vertex">
             attribute vec4 VertexPositionAttribute;
             attribute vec2 VertexMappingAttribute;
-            uniform mat4 ModelViewMatrixUniform;
-            uniform mat4 ProjectionMatrixUniform;
+            uniform mat4 ModelMatrixUniform;
+            uniform mat4 ViewProjectionMatrixUniform;
             varying highp vec2 VertexMappingVarying;
 
             void main(
                 )
             {
-                gl_Position = ProjectionMatrixUniform * ModelViewMatrixUniform * VertexPositionAttribute;
+                gl_Position = ViewProjectionMatrixUniform * ModelMatrixUniform * VertexPositionAttribute;
                 VertexMappingVarying = VertexMappingAttribute;
             }
         </script>
@@ -161,8 +161,8 @@
                 program.VertexPositionAttribute = program.GetAttribute( "VertexPositionAttribute" );
                 program.VertexMappingAttribute = program.GetAttribute( "VertexMappingAttribute" );
                 program.TextureSamplerUniform = program.GetUniform( "TextureSamplerUniform" );
-                program.ModelViewMatrixUniform = program.GetUniform( "ModelViewMatrixUniform" );
-                program.ProjectionMatrixUniform = program.GetUniform( "ProjectionMatrixUniform" );
+                program.ModelMatrixUniform = program.GetUniform( "ModelMatrixUniform" );
+                program.ViewProjectionMatrixUniform = program.GetUniform( "ViewProjectionMatrixUniform" );
 
                 vertex_position_array_buffer
                     = canvas.CreateReal32ArrayBuffer(
@@ -242,33 +242,18 @@
                           ]
                           );
 
-                projection_matrix
-                    = GetPerspectiveMatrix4(
-                          45.0 * DegreeRadians,
-                          canvas.GetWidth() / canvas.GetHeight(),
-                          0.1,
-                          100.0
-                          );
+                projection_matrix = GetPerspectiveMatrix4( 45.0 * DegreesToRadians, canvas.GetWidth() / canvas.GetHeight(), 0.1, 100.0 );
+                view_matrix = GetTranslationMatrix4( GetVector3( 0.0, 0.0, -3.0 ) );
+                view_projection_matrix = GetProductMatrix4( view_matrix, projection_matrix );
 
                 program.Use();
                 program.VertexPositionAttribute.SetReal32ArrayBuffer( vertex_position_array_buffer, 3 );
                 program.VertexMappingAttribute.SetReal32ArrayBuffer( vertex_mapping_array_buffer, 2 );
                 program.TextureSamplerUniform.BindTexture( texture, 0 );
-                program.ProjectionMatrixUniform.SetRealMatrix4( projection_matrix );
+                program.ViewProjectionMatrixUniform.SetRealMatrix4( view_projection_matrix );
 
-                rotation_vector
-                    = GetVector3(
-                          0.0 * DegreeRadians,
-                          0.0 * DegreeRadians,
-                          0.0 * DegreeRadians
-                          );
-
-                rotation_speed_vector
-                    = GetVector3(
-                          3.0 * DegreeRadians,
-                          30.0 * DegreeRadians,
-                          1.0 * DegreeRadians
-                          );
+                rotation_vector = GetVector3( 0.0 * DegreesToRadians, 0.0 * DegreesToRadians, 0.0 * DegreesToRadians );
+                rotation_speed_vector = GetVector3( 3.0 * DegreesToRadians, 30.0 * DegreesToRadians, 1.0 * DegreesToRadians );
 
                 function UpdateCanvas(
                     timestamp
@@ -281,17 +266,11 @@
                     prior_time_stamp = timestamp;
 
                     rotation_vector = GetScaledSumVector3( rotation_vector, rotation_speed_vector, 1.0, time_step );
+                    model_matrix = GetZxyRotationMatrix4( rotation_vector );
 
                     canvas.Clear( [ 0.9, 0.9, 0.9, 1.0 ] );
 
-                    model_view_matrix
-                        = GetZxyTransformMatrix4(
-                              GetVector3( 1.0, 1.0, 1.0 ),
-                              rotation_vector,
-                              GetVector3( 0.0, 0.0, -3.0 )
-                              );
-
-                    program.ModelViewMatrixUniform.SetRealMatrix4( model_view_matrix );
+                    program.ModelMatrixUniform.SetRealMatrix4( model_matrix );
                     canvas.DrawIndexedTriangles( 36 );
 
                     requestAnimationFrame( UpdateCanvas );
