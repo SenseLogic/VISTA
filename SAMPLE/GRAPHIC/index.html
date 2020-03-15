@@ -44,28 +44,42 @@
             }
         </script>
         <script id="textured-cube-vertex-shader" type="x-shader/x-vertex">
-            attribute vec4 VertexPositionAttribute;
-            attribute vec2 VertexMappingAttribute;
             uniform mat4 ModelMatrixUniform;
             uniform mat4 ViewProjectionMatrixUniform;
-            varying highp vec2 VertexMappingVarying;
+            attribute vec4 VertexPositionAttribute;
+            attribute vec2 VertexMappingAttribute;
+            attribute float VertexWidthAttribute;
+            varying vec2 VertexMappingVarying;
+            varying float VertexWidthVarying;
 
             void main(
                 )
             {
                 gl_Position = ViewProjectionMatrixUniform * ModelMatrixUniform * VertexPositionAttribute;
                 VertexMappingVarying = VertexMappingAttribute;
+                VertexWidthVarying = VertexWidthAttribute;
             }
         </script>
         <script id="textured-cube-fragment-shader" type="x-shader/x-fragment">
             precision mediump float;
-            varying highp vec2 VertexMappingVarying;
             uniform sampler2D TextureSamplerUniform;
+            varying vec2 VertexMappingVarying;
+            varying float VertexWidthVarying;
 
             void main(
                 )
             {
-                gl_FragColor = texture2D( TextureSamplerUniform, VertexMappingVarying );
+                vec4 texture_color = texture2D( TextureSamplerUniform, VertexMappingVarying );
+
+                if ( VertexMappingVarying.x <= VertexWidthVarying
+                     || VertexMappingVarying.y <= VertexWidthVarying
+                     || VertexMappingVarying.x >= 1.0 - VertexWidthVarying
+                     || VertexMappingVarying.y >= 1.0 - VertexWidthVarying )
+                {
+                    texture_color.r = 1.0;
+                }
+
+                gl_FragColor = texture_color;
             }
         </script>
         <script>
@@ -135,11 +149,11 @@
                     rotation_speed_vector,
                     rotation_vector,
                     texture,
-                    vertex_mapping_array_buffer,
                     vertex_mapping_attribute,
-                    vertex_position_array_buffer,
                     vertex_position_attribute,
-                    vertex_shader;
+                    vertex_position_mapping_width_array_buffer,
+                    vertex_shader,
+                    vertex_width_attribute;
 
                 canvas = new GRAPHIC_CANVAS( GetElementById( "textured-cube-canvas" ) );
                 texture = canvas.CreateTexture();
@@ -158,69 +172,45 @@
                           );
 
                 program = canvas.CreateProgram( vertex_shader, fragment_shader );
+                program.ViewProjectionMatrixUniform = program.GetUniform( "ViewProjectionMatrixUniform" );
+                program.ModelMatrixUniform = program.GetUniform( "ModelMatrixUniform" );
+                program.TextureSamplerUniform = program.GetUniform( "TextureSamplerUniform" );
                 program.VertexPositionAttribute = program.GetAttribute( "VertexPositionAttribute" );
                 program.VertexMappingAttribute = program.GetAttribute( "VertexMappingAttribute" );
-                program.TextureSamplerUniform = program.GetUniform( "TextureSamplerUniform" );
-                program.ModelMatrixUniform = program.GetUniform( "ModelMatrixUniform" );
-                program.ViewProjectionMatrixUniform = program.GetUniform( "ViewProjectionMatrixUniform" );
+                program.VertexWidthAttribute = program.GetAttribute( "VertexWidthAttribute" );
 
-                vertex_position_array_buffer
+                vertex_position_mapping_width_array_buffer
                     = canvas.CreateReal32ArrayBuffer(
                           [
-                              -0.5, 0.5, -0.5,
-                              -0.5, 0.5, 0.5,
-                              -0.5, -0.5, 0.5,
-                              -0.5, -0.5, -0.5,
-                              -0.5, 0.5, 0.5,
-                              0.5, 0.5, 0.5,
-                              0.5, -0.5, 0.5,
-                              -0.5, -0.5, 0.5,
-                              0.5, 0.5, 0.5,
-                              0.5, 0.5, -0.5,
-                              0.5, -0.5, -0.5,
-                              0.5, -0.5, 0.5,
-                              0.5, 0.5, -0.5,
-                              -0.5, 0.5, -0.5,
-                              -0.5, -0.5, -0.5,
-                              0.5, -0.5, -0.5,
-                              -0.5, 0.5, -0.5,
-                              0.5, 0.5, -0.5,
-                              0.5, 0.5, 0.5,
-                              -0.5, 0.5, 0.5,
-                              -0.5, -0.5, -0.5,
-                              0.5, -0.5, -0.5,
-                              0.5, -0.5, 0.5,
-                              -0.5, -0.5, 0.5
-                          ]
-                          );
+                              -0.5, 0.5, -0.5, 0.0, 0.0, 0.2,
+                              -0.5, 0.5, 0.5, 1.0, 0.0, 0.2,
+                              -0.5, -0.5, 0.5, 1.0, 1.0, 0.2,
+                              -0.5, -0.5, -0.5, 0.0, 1.0, 0.2,
 
-                vertex_mapping_array_buffer
-                    = canvas.CreateReal32ArrayBuffer(
-                          [
-                              0.0, 0.0,
-                              1.0, 0.0,
-                              1.0, 1.0,
-                              0.0, 1.0,
-                              0.0, 0.0,
-                              1.0, 0.0,
-                              1.0, 1.0,
-                              0.0, 1.0,
-                              0.0, 0.0,
-                              1.0, 0.0,
-                              1.0, 1.0,
-                              0.0, 1.0,
-                              0.0, 0.0,
-                              1.0, 0.0,
-                              1.0, 1.0,
-                              0.0, 1.0,
-                              0.0, 0.0,
-                              1.0, 0.0,
-                              1.0, 1.0,
-                              0.0, 1.0,
-                              1.0, 0.0,
-                              0.0, 0.0,
-                              0.0, 1.0,
-                              1.0, 1.0
+                              -0.5, 0.5, 0.5, 0.0, 0.0, 0.2,
+                              0.5, 0.5, 0.5, 1.0, 0.0, 0.2,
+                              0.5, -0.5, 0.5, 1.0, 1.0, 0.2,
+                              -0.5, -0.5, 0.5, 0.0, 1.0, 0.2,
+
+                              0.5, 0.5, 0.5, 0.0, 0.0, 0.2,
+                              0.5, 0.5, -0.5, 1.0, 0.0, 0.2,
+                              0.5, -0.5, -0.5, 1.0, 1.0, 0.2,
+                              0.5, -0.5, 0.5, 0.0, 1.0, 0.2,
+
+                              0.5, 0.5, -0.5, 0.0, 0.0, 0.2,
+                              -0.5, 0.5, -0.5, 1.0, 0.0, 0.2,
+                              -0.5, -0.5, -0.5, 1.0, 1.0, 0.2,
+                              0.5, -0.5, -0.5, 0.0, 1.0, 0.2,
+
+                              -0.5, 0.5, -0.5, 0.0, 0.0, 0.2,
+                              0.5, 0.5, -0.5, 1.0, 0.0, 0.2,
+                              0.5, 0.5, 0.5, 1.0, 1.0, 0.2,
+                              -0.5, 0.5, 0.5, 0.0, 1.0, 0.2,
+
+                              -0.5, -0.5, -0.5, 1.0, 0.0, 0.2,
+                              0.5, -0.5, -0.5, 0.0, 0.0, 0.2,
+                              0.5, -0.5, 0.5, 0.0, 1.0, 0.2,
+                              -0.5, -0.5, 0.5, 1.0, 1.0, 0.2
                           ]
                           );
 
@@ -229,14 +219,19 @@
                           [
                               2, 1, 0,
                               2, 0, 3,
+
                               6, 5, 4,
                               6, 4, 7,
+
                               10, 9, 8,
                               10, 8, 11,
+
                               14, 13, 12,
                               14, 12, 15,
+
                               18, 17, 16,
                               18, 16, 19,
+
                               22, 21, 20,
                               22, 20, 23
                           ]
@@ -247,10 +242,11 @@
                 view_projection_matrix = GetProductMatrix4( view_matrix, projection_matrix );
 
                 program.Use();
-                program.VertexPositionAttribute.SetReal32ArrayBuffer( vertex_position_array_buffer, 3 );
-                program.VertexMappingAttribute.SetReal32ArrayBuffer( vertex_mapping_array_buffer, 2 );
                 program.TextureSamplerUniform.BindTexture( texture, 0 );
                 program.ViewProjectionMatrixUniform.SetRealMatrix4( view_projection_matrix );
+                program.VertexPositionAttribute.SetReal32ArrayBuffer( vertex_position_mapping_width_array_buffer, 3, 6, 0 );
+                program.VertexMappingAttribute.SetReal32ArrayBuffer( vertex_position_mapping_width_array_buffer, 2, 6, 3 );
+                program.VertexWidthAttribute.SetReal32ArrayBuffer( vertex_position_mapping_width_array_buffer, 1, 6, 5 );
 
                 rotation_vector = GetVector3( 0.0 * DegreesToRadians, 0.0 * DegreesToRadians, 0.0 * DegreesToRadians );
                 rotation_speed_vector = GetVector3( 3.0 * DegreesToRadians, 30.0 * DegreesToRadians, 1.0 * DegreesToRadians );
@@ -265,12 +261,12 @@
                     time_step = prior_time_stamp ? ( timestamp - prior_time_stamp ) * 0.001 : 0.0;
                     prior_time_stamp = timestamp;
 
-                    rotation_vector = GetScaledSumVector3( rotation_vector, rotation_speed_vector, 1.0, time_step );
-                    model_matrix = GetZxyRotationMatrix4( rotation_vector );
-
                     canvas.Clear( [ 0.9, 0.9, 0.9, 1.0 ] );
 
+                    rotation_vector = GetScaledSumVector3( rotation_vector, rotation_speed_vector, 1.0, time_step );
+                    model_matrix = GetZxyRotationMatrix4( rotation_vector );
                     program.ModelMatrixUniform.SetRealMatrix4( model_matrix );
+
                     canvas.DrawIndexedTriangles( 36 );
 
                     requestAnimationFrame( UpdateCanvas );
