@@ -216,56 +216,6 @@ class GRAPHIC_SHADER
 
 // ~~
 
-class GRAPHIC_PROGRAM_ATTRIBUTE
-{
-    // -- CONSTRUCTORS
-
-    constructor(
-        program,
-        attribute_name
-        )
-    {
-        this.Program = program;
-        this.Name = attribute_name;
-        this.AttributeLocation = GraphicContext.getAttribLocation( program, attribute_name );
-    }
-
-    // -- OPERATIONS
-
-    SetReal32ArrayBuffer(
-        array_buffer,
-        real_count,
-        stride_real_count = 0,
-        offset_real_count = 0,
-        it_is_normalized = false
-        )
-    {
-        GraphicContext.bindBuffer( GraphicContext.ARRAY_BUFFER, array_buffer.Buffer );
-
-        GraphicContext.vertexAttribPointer(
-            this.AttributeLocation,
-            real_count,
-            GraphicContext.FLOAT,
-            it_is_normalized,
-            stride_real_count * 4,
-            offset_real_count * 4
-            );
-
-        GraphicContext.enableVertexAttribArray( this.AttributeLocation );
-    }
-
-    // ~~
-
-    SetNatural16ElementArrayBuffer(
-        element_array_buffer
-        )
-    {
-        GraphicContext.bindBuffer( GraphicContext.ELEMENT_ARRAY_BUFFER, array_buffer.Buffer );
-    }
-}
-
-// ~~
-
 class GRAPHIC_PROGRAM_UNIFORM
 {
     // -- CONSTRUCTORS
@@ -278,6 +228,11 @@ class GRAPHIC_PROGRAM_UNIFORM
         this.Program = program;
         this.Name = uniform_name;
         this.UniformLocation = GraphicContext.getUniformLocation( program, uniform_name );
+
+        if ( this.AttributeLocation === -1 )
+        {
+            LogError( attribute_name );
+        }
     }
 
     // -- OPERATIONS
@@ -372,6 +327,61 @@ class GRAPHIC_PROGRAM_UNIFORM
         texture.Bind( unit_index );
 
         GraphicContext.uniform1i( this.UniformLocation, unit_index );
+    }
+}
+
+// ~~
+
+class GRAPHIC_PROGRAM_ATTRIBUTE
+{
+    // -- CONSTRUCTORS
+
+    constructor(
+        program,
+        attribute_name
+        )
+    {
+        this.Program = program;
+        this.Name = attribute_name;
+        this.AttributeLocation = GraphicContext.getAttribLocation( program, attribute_name );
+
+        if ( this.AttributeLocation === -1 )
+        {
+            LogError( attribute_name );
+        }
+    }
+
+    // -- OPERATIONS
+
+    SetReal32ArrayBuffer(
+        array_buffer,
+        real_count,
+        stride_real_count = 0,
+        offset_real_count = 0,
+        it_is_normalized = false
+        )
+    {
+        GraphicContext.bindBuffer( GraphicContext.ARRAY_BUFFER, array_buffer.Buffer );
+
+        GraphicContext.vertexAttribPointer(
+            this.AttributeLocation,
+            real_count,
+            GraphicContext.FLOAT,
+            it_is_normalized,
+            stride_real_count * 4,
+            offset_real_count * 4
+            );
+
+        GraphicContext.enableVertexAttribArray( this.AttributeLocation );
+    }
+
+    // ~~
+
+    SetNatural16ElementArrayBuffer(
+        element_array_buffer
+        )
+    {
+        GraphicContext.bindBuffer( GraphicContext.ELEMENT_ARRAY_BUFFER, array_buffer.Buffer );
     }
 }
 

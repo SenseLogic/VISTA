@@ -191,7 +191,7 @@ function GetVector3AxisAngle(
 
 // ~~
 
-function GetNegatedVector3(
+function GetOppositeVector3(
     vector
     )
 {

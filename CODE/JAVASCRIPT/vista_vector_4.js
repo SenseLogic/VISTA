@@ -138,7 +138,7 @@ function GetVector4Length(
 
 // ~~
 
-function GetNegatedVector4(
+function GetOppositeVector4(
     vector
     )
 {

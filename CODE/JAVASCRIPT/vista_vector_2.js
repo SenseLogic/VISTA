@@ -116,7 +116,7 @@ function GetVector2Length(
 
 // ~~
 
-function GetNegatedVector2(
+function GetOppositeVector2(
     vector
     )
 {

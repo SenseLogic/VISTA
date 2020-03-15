@@ -22,64 +22,83 @@
         <script src="../../CODE/JAVASCRIPT/vista_element.js"></script>
         <script src="../../CODE/JAVASCRIPT/vista_graphic.js"></script>
         <script id="colored-triangle-vertex-shader" type="x-shader/x-vertex">
-            attribute vec4 VertexPositionAttribute;
-            attribute vec4 VertexColorAttribute;
-            varying vec4 VertexColorVarying;
+            attribute vec4 VertexPositionVectorAttribute;
+            attribute vec4 VertexColorVectorAttribute;
+
+            varying vec4 VertexColorVectorVarying;
 
             void main(
                 )
             {
-                gl_Position = VertexPositionAttribute;
-                VertexColorVarying = VertexColorAttribute;
+                gl_Position = VertexPositionVectorAttribute;
+                VertexColorVectorVarying = VertexColorVectorAttribute;
             }
         </script>
         <script id="colored-triangle-fragment-shader" type="x-shader/x-fragment">
             precision mediump float;
-            varying vec4 VertexColorVarying;
+
+            varying vec4 VertexColorVectorVarying;
 
             void main(
                 )
             {
-                gl_FragColor = VertexColorVarying;
+                gl_FragColor = VertexColorVectorVarying;
             }
         </script>
         <script id="textured-cube-vertex-shader" type="x-shader/x-vertex">
-            uniform mat4 ModelMatrixUniform;
-            uniform mat4 ViewProjectionMatrixUniform;
-            attribute vec4 VertexPositionAttribute;
-            attribute vec2 VertexMappingAttribute;
+            attribute vec3 VertexPositionVectorAttribute;
+            attribute vec3 VertexNormalVectorAttribute;
+            attribute vec2 VertexMappingVectorAttribute;
             attribute float VertexWidthAttribute;
-            varying vec2 VertexMappingVarying;
+
+            uniform mat4 ProjectionMatrixUniform;
+            uniform mat4 ViewMatrixUniform;
+            uniform mat4 ModelMatrixUniform;
+
+            varying vec3 VertexPositionVectorVarying;
+            varying vec3 VertexNormalVectorVarying;
+            varying vec2 VertexMappingVectorVarying;
             varying float VertexWidthVarying;
 
             void main(
                 )
             {
-                gl_Position = ViewProjectionMatrixUniform * ModelMatrixUniform * VertexPositionAttribute;
-                VertexMappingVarying = VertexMappingAttribute;
+                gl_Position = ProjectionMatrixUniform * ViewMatrixUniform * ModelMatrixUniform * vec4( VertexPositionVectorAttribute, 1.0 );
+
+                VertexPositionVectorVarying = vec3( ModelMatrixUniform * vec4( VertexPositionVectorAttribute, 1.0 ) );
+                VertexNormalVectorVarying = normalize( vec3( ModelMatrixUniform * vec4( VertexNormalVectorAttribute, 0.0 ) ) );
+                VertexMappingVectorVarying = VertexMappingVectorAttribute;
                 VertexWidthVarying = VertexWidthAttribute;
             }
         </script>
         <script id="textured-cube-fragment-shader" type="x-shader/x-fragment">
             precision mediump float;
-            uniform sampler2D TextureSamplerUniform;
-            varying vec2 VertexMappingVarying;
+
+            varying vec3 VertexPositionVectorVarying;
+            varying vec3 VertexNormalVectorVarying;
+            varying vec2 VertexMappingVectorVarying;
             varying float VertexWidthVarying;
+
+            uniform vec3 CameraPositionVectorUniform;
+            uniform sampler2D TextureSamplerUniform;
 
             void main(
                 )
             {
-                vec4 texture_color = texture2D( TextureSamplerUniform, VertexMappingVarying );
+                vec4 color = texture2D( TextureSamplerUniform, VertexMappingVectorVarying );
 
-                if ( VertexMappingVarying.x <= VertexWidthVarying
-                     || VertexMappingVarying.y <= VertexWidthVarying
-                     || VertexMappingVarying.x >= 1.0 - VertexWidthVarying
-                     || VertexMappingVarying.y >= 1.0 - VertexWidthVarying )
+                if ( VertexMappingVectorVarying.x <= VertexWidthVarying
+                     || VertexMappingVectorVarying.y <= VertexWidthVarying
+                     || VertexMappingVectorVarying.x >= 1.0 - VertexWidthVarying
+                     || VertexMappingVectorVarying.y >= 1.0 - VertexWidthVarying )
                 {
-                    texture_color.r = 1.0;
+                    color.r = 1.0;
                 }
 
-                gl_FragColor = texture_color;
+                vec3 view_axis_vector = normalize( CameraPositionVectorUniform - VertexPositionVectorVarying );
+                float fresnel_factor = clamp( 1.0 - dot( view_axis_vector, VertexNormalVectorVarying ), 0.0, 1.0 );
+
+                gl_FragColor = vec4( color.xyz * ( 1.0 - fresnel_factor * 0.5 ), 1.0 );
             }
         </script>
         <script>
@@ -94,7 +113,7 @@
                     fragment_shader,
                     vertex_position_attribute,
                     program,
-                    vertex_position_color_array_buffer,
+                    vertex_array,
                     vertex_shader;
 
                 canvas = new GRAPHIC_CANVAS( GetElementById( "colored-triangle-canvas" ) );
@@ -114,7 +133,7 @@
                 program = canvas.CreateProgram( vertex_shader, fragment_shader );
                 program.Use();
 
-                vertex_position_color_array_buffer
+                vertex_array
                     = canvas.CreateReal32ArrayBuffer(
                           [
                               0.0, 0.5, 1.0, 0.0, 0.0,
@@ -123,11 +142,11 @@
                           ]
                           );
 
-                vertex_position_attribute = program.GetAttribute( "VertexPositionAttribute" );
-                vertex_position_attribute.SetReal32ArrayBuffer( vertex_position_color_array_buffer, 2, 5, 0 );
+                vertex_position_attribute = program.GetAttribute( "VertexPositionVectorAttribute" );
+                vertex_position_attribute.SetReal32ArrayBuffer( vertex_array, 2, 5, 0 );
 
-                vertex_color_attribute = program.GetAttribute( "VertexColorAttribute" );
-                vertex_color_attribute.SetReal32ArrayBuffer( vertex_position_color_array_buffer, 3, 5, 2 );
+                vertex_color_attribute = program.GetAttribute( "VertexColorVectorAttribute" );
+                vertex_color_attribute.SetReal32ArrayBuffer( vertex_array, 3, 5, 2 );
 
                 canvas.Clear( [ 0.9, 0.9, 0.9, 1.0 ] );
                 canvas.DrawTriangles( 3 );
@@ -139,6 +158,7 @@
                 )
             {
                 var
+                    camera_position_vector,
                     canvas,
                     element_array_buffer,
                     fragment_shader,
@@ -151,7 +171,7 @@
                     texture,
                     vertex_mapping_attribute,
                     vertex_position_attribute,
-                    vertex_position_mapping_width_array_buffer,
+                    vertex_array_buffer,
                     vertex_shader,
                     vertex_width_attribute;
 
@@ -172,45 +192,48 @@
                           );
 
                 program = canvas.CreateProgram( vertex_shader, fragment_shader );
-                program.ViewProjectionMatrixUniform = program.GetUniform( "ViewProjectionMatrixUniform" );
+                program.CameraPositionVectorUniform = program.GetUniform( "CameraPositionVectorUniform" );
+                program.ProjectionMatrixUniform = program.GetUniform( "ProjectionMatrixUniform" );
+                program.ViewMatrixUniform = program.GetUniform( "ViewMatrixUniform" );
                 program.ModelMatrixUniform = program.GetUniform( "ModelMatrixUniform" );
                 program.TextureSamplerUniform = program.GetUniform( "TextureSamplerUniform" );
-                program.VertexPositionAttribute = program.GetAttribute( "VertexPositionAttribute" );
-                program.VertexMappingAttribute = program.GetAttribute( "VertexMappingAttribute" );
+                program.VertexPositionVectorAttribute = program.GetAttribute( "VertexPositionVectorAttribute" );
+                program.VertexNormalVectorAttribute = program.GetAttribute( "VertexNormalVectorAttribute" );
+                program.VertexMappingVectorAttribute = program.GetAttribute( "VertexMappingVectorAttribute" );
                 program.VertexWidthAttribute = program.GetAttribute( "VertexWidthAttribute" );
 
-                vertex_position_mapping_width_array_buffer
+                vertex_array_buffer
                     = canvas.CreateReal32ArrayBuffer(
                           [
-                              -0.5, 0.5, -0.5, 0.0, 0.0, 0.2,
-                              -0.5, 0.5, 0.5, 1.0, 0.0, 0.2,
-                              -0.5, -0.5, 0.5, 1.0, 1.0, 0.2,
-                              -0.5, -0.5, -0.5, 0.0, 1.0, 0.2,
+                              -0.5, 0.5, -0.5, -1.0, 0.0, 0.0, 0.0, 0.0, 0.2,
+                              -0.5, 0.5, 0.5, -1.0, 0.0, 0.0, 1.0, 0.0, 0.2,
+                              -0.5, -0.5, 0.5, -1.0, 0.0, 0.0, 1.0, 1.0, 0.2,
+                              -0.5, -0.5, -0.5, -1.0, 0.0, 0.0, 0.0, 1.0, 0.2,
 
-                              -0.5, 0.5, 0.5, 0.0, 0.0, 0.2,
-                              0.5, 0.5, 0.5, 1.0, 0.0, 0.2,
-                              0.5, -0.5, 0.5, 1.0, 1.0, 0.2,
-                              -0.5, -0.5, 0.5, 0.0, 1.0, 0.2,
+                              -0.5, 0.5, 0.5, 0.0, 0.0, 1.0, 0.0, 0.0, 0.2,
+                              0.5, 0.5, 0.5, 0.0, 0.0, 1.0, 1.0, 0.0, 0.2,
+                              0.5, -0.5, 0.5, 0.0, 0.0, 1.0, 1.0, 1.0, 0.2,
+                              -0.5, -0.5, 0.5, 0.0, 0.0, 1.0, 0.0, 1.0, 0.2,
 
-                              0.5, 0.5, 0.5, 0.0, 0.0, 0.2,
-                              0.5, 0.5, -0.5, 1.0, 0.0, 0.2,
-                              0.5, -0.5, -0.5, 1.0, 1.0, 0.2,
-                              0.5, -0.5, 0.5, 0.0, 1.0, 0.2,
+                              0.5, 0.5, 0.5, 1.0, 0.0, 0.0, 0.0, 0.0, 0.2,
+                              0.5, 0.5, -0.5, 1.0, 0.0, 0.0, 1.0, 0.0, 0.2,
+                              0.5, -0.5, -0.5, 1.0, 0.0, 0.0, 1.0, 1.0, 0.2,
+                              0.5, -0.5, 0.5, 1.0, 0.0, 0.0, 0.0, 1.0, 0.2,
 
-                              0.5, 0.5, -0.5, 0.0, 0.0, 0.2,
-                              -0.5, 0.5, -0.5, 1.0, 0.0, 0.2,
-                              -0.5, -0.5, -0.5, 1.0, 1.0, 0.2,
-                              0.5, -0.5, -0.5, 0.0, 1.0, 0.2,
+                              0.5, 0.5, -0.5, 0.0, 0.0, -1.0, 0.0, 0.0, 0.2,
+                              -0.5, 0.5, -0.5, 0.0, 0.0, -1.0, 1.0, 0.0, 0.2,
+                              -0.5, -0.5, -0.5, 0.0, 0.0, -1.0, 1.0, 1.0, 0.2,
+                              0.5, -0.5, -0.5, 0.0, 0.0, -1.0, 0.0, 1.0, 0.2,
 
-                              -0.5, 0.5, -0.5, 0.0, 0.0, 0.2,
-                              0.5, 0.5, -0.5, 1.0, 0.0, 0.2,
-                              0.5, 0.5, 0.5, 1.0, 1.0, 0.2,
-                              -0.5, 0.5, 0.5, 0.0, 1.0, 0.2,
+                              -0.5, 0.5, -0.5, 0.0, 1.0, 0.0, 0.0, 0.0, 0.2,
+                              0.5, 0.5, -0.5, 0.0, 1.0, 0.0, 1.0, 0.0, 0.2,
+                              0.5, 0.5, 0.5, 0.0, 1.0, 0.0, 1.0, 1.0, 0.2,
+                              -0.5, 0.5, 0.5, 0.0, 1.0, 0.0, 0.0, 1.0, 0.2,
 
-                              -0.5, -0.5, -0.5, 1.0, 0.0, 0.2,
-                              0.5, -0.5, -0.5, 0.0, 0.0, 0.2,
-                              0.5, -0.5, 0.5, 0.0, 1.0, 0.2,
-                              -0.5, -0.5, 0.5, 1.0, 1.0, 0.2
+                              -0.5, -0.5, -0.5, 0.0, -1.0, 0.0, 1.0, 0.0, 0.2,
+                              0.5, -0.5, -0.5, 0.0, -1.0, 0.0, 0.0, 0.0, 0.2,
+                              0.5, -0.5, 0.5, 0.0, -1.0, 0.0, 0.0, 1.0, 0.2,
+                              -0.5, -0.5, 0.5, 0.0, -1.0, 0.0, 1.0, 1.0, 0.2
                           ]
                           );
 
@@ -237,16 +260,19 @@
                           ]
                           );
 
+                camera_position_vector = GetVector3( 0.0, 0.0, 3.0 );
                 projection_matrix = GetPerspectiveMatrix4( 45.0 * DegreesToRadians, canvas.GetWidth() / canvas.GetHeight(), 0.1, 100.0 );
-                view_matrix = GetTranslationMatrix4( GetVector3( 0.0, 0.0, -3.0 ) );
-                view_projection_matrix = GetProductMatrix4( view_matrix, projection_matrix );
+                view_matrix = GetTranslationMatrix4( GetOppositeVector3( camera_position_vector ) );
 
                 program.Use();
                 program.TextureSamplerUniform.BindTexture( texture, 0 );
-                program.ViewProjectionMatrixUniform.SetRealMatrix4( view_projection_matrix );
-                program.VertexPositionAttribute.SetReal32ArrayBuffer( vertex_position_mapping_width_array_buffer, 3, 6, 0 );
-                program.VertexMappingAttribute.SetReal32ArrayBuffer( vertex_position_mapping_width_array_buffer, 2, 6, 3 );
-                program.VertexWidthAttribute.SetReal32ArrayBuffer( vertex_position_mapping_width_array_buffer, 1, 6, 5 );
+                program.CameraPositionVectorUniform.SetRealVector3( camera_position_vector );
+                program.ProjectionMatrixUniform.SetRealMatrix4( projection_matrix );
+                program.ViewMatrixUniform.SetRealMatrix4( view_matrix );
+                program.VertexPositionVectorAttribute.SetReal32ArrayBuffer( vertex_array_buffer, 3, 9, 0 );
+                program.VertexNormalVectorAttribute.SetReal32ArrayBuffer( vertex_array_buffer, 3, 9, 3 );
+                program.VertexMappingVectorAttribute.SetReal32ArrayBuffer( vertex_array_buffer, 2, 9, 6 );
+                program.VertexWidthAttribute.SetReal32ArrayBuffer( vertex_array_buffer, 1, 9, 8 );
 
                 rotation_vector = GetVector3( 0.0 * DegreesToRadians, 0.0 * DegreesToRadians, 0.0 * DegreesToRadians );
                 rotation_speed_vector = GetVector3( 3.0 * DegreesToRadians, 30.0 * DegreesToRadians, 1.0 * DegreesToRadians );
