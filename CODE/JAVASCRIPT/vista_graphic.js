@@ -3,9 +3,11 @@
 class GRAPHIC_REAL_32_ARRAY_BUFFER
 {
     constructor(
+        context,
         real_array
         )
     {
+        this.Context = context;
         this.Float32Array = new Float32Array( real_array );
         this.Initialize();
     }
@@ -15,10 +17,10 @@ class GRAPHIC_REAL_32_ARRAY_BUFFER
     Initialize(
         )
     {
-        this.Buffer = GraphicContext.createBuffer();
+        this.Buffer = this.Context.createBuffer();
 
-        GraphicContext.bindBuffer( GraphicContext.ARRAY_BUFFER, this.Buffer );
-        GraphicContext.bufferData( GraphicContext.ARRAY_BUFFER, this.Float32Array, GraphicContext.STATIC_DRAW );
+        this.Context.bindBuffer( this.Context.ARRAY_BUFFER, this.Buffer );
+        this.Context.bufferData( this.Context.ARRAY_BUFFER, this.Float32Array, this.Context.STATIC_DRAW );
     }
 }
 
@@ -27,9 +29,11 @@ class GRAPHIC_REAL_32_ARRAY_BUFFER
 class GRAPHIC_NATURAL_16_ELEMENT_ARRAY_BUFFER
 {
     constructor(
+        context,
         natural_array
         )
     {
+        this.Context = context;
         this.Uint16Array = new Uint16Array( natural_array );
         this.Initialize();
     }
@@ -39,10 +43,10 @@ class GRAPHIC_NATURAL_16_ELEMENT_ARRAY_BUFFER
     Initialize(
         )
     {
-        this.Buffer = GraphicContext.createBuffer();
+        this.Buffer = this.Context.createBuffer();
 
-        GraphicContext.bindBuffer( GraphicContext.ELEMENT_ARRAY_BUFFER, this.Buffer );
-        GraphicContext.bufferData( GraphicContext.ELEMENT_ARRAY_BUFFER, this.Uint16Array, GraphicContext.STATIC_DRAW );
+        this.Context.bindBuffer( this.Context.ELEMENT_ARRAY_BUFFER, this.Buffer );
+        this.Context.bufferData( this.Context.ELEMENT_ARRAY_BUFFER, this.Uint16Array, this.Context.STATIC_DRAW );
     }
 }
 
@@ -53,6 +57,7 @@ class GRAPHIC_TEXTURE
     // -- CONSTRUCTORS
 
     constructor(
+        context,
         image_url,
         callback_function = null,
         is_repeated = false,
@@ -64,14 +69,15 @@ class GRAPHIC_TEXTURE
 
         texture = this;
 
-        this.InternalFormat = GraphicContext.RGBA;
-        this.Format = GraphicContext.RGBA;
-        this.Type = GraphicContext.UNSIGNED_BYTE;
-        this.Target = GraphicContext.TEXTURE_2D;
-        this.MinificationFilter = GraphicContext.LINEAR;
-        this.MagnificationFilter = GraphicContext.LINEAR;
-        this.HorizontalWrap = is_repeated ? GraphicContext.REPEAT : GraphicContext.CLAMP_TO_EDGE;
-        this.VerticalWrap = is_repeated ? GraphicContext.REPEAT : GraphicContext.CLAMP_TO_EDGE;
+        this.Context = context;
+        this.InternalFormat = this.Context.RGBA;
+        this.Format = this.Context.RGBA;
+        this.Type = this.Context.UNSIGNED_BYTE;
+        this.Target = this.Context.TEXTURE_2D;
+        this.MinificationFilter = this.Context.LINEAR;
+        this.MagnificationFilter = this.Context.LINEAR;
+        this.HorizontalWrap = is_repeated ? this.Context.REPEAT : this.Context.CLAMP_TO_EDGE;
+        this.VerticalWrap = is_repeated ? this.Context.REPEAT : this.Context.CLAMP_TO_EDGE;
         this.HasMipmap = has_mipmap;
         this.Initialize();
     }
@@ -81,14 +87,14 @@ class GRAPHIC_TEXTURE
     Initialize(
         )
     {
-        this.Texture = GraphicContext.createTexture();
+        this.Texture = this.Context.createTexture();
 
-        GraphicContext.bindTexture( this.Target, this.Texture );
-        GraphicContext.texParameteri( this.Target, GraphicContext.TEXTURE_MIN_FILTER, this.MinificationFilter );
-        GraphicContext.texParameteri( this.Target, GraphicContext.TEXTURE_MAG_FILTER, this.MagnificationFilter );
-        GraphicContext.texParameteri( this.Target, GraphicContext.TEXTURE_WRAP_S, this.HorizontalWrap );
-        GraphicContext.texParameteri( this.Target, GraphicContext.TEXTURE_WRAP_T, this.VerticalWrap );
-        GraphicContext.bindTexture( this.Target, null );
+        this.Context.bindTexture( this.Target, this.Texture );
+        this.Context.texParameteri( this.Target, this.Context.TEXTURE_MIN_FILTER, this.MinificationFilter );
+        this.Context.texParameteri( this.Target, this.Context.TEXTURE_MAG_FILTER, this.MagnificationFilter );
+        this.Context.texParameteri( this.Target, this.Context.TEXTURE_WRAP_S, this.HorizontalWrap );
+        this.Context.texParameteri( this.Target, this.Context.TEXTURE_WRAP_T, this.VerticalWrap );
+        this.Context.bindTexture( this.Target, null );
     }
 
     // ~~
@@ -96,17 +102,17 @@ class GRAPHIC_TEXTURE
     SetImage(
         )
     {
-        GraphicContext.bindTexture( this.Target, this.Texture );
-        GraphicContext.texImage2D( this.Target, this.Level, this.InternalFormat, this.Format, this.Type, this.Image );
+        this.Context.bindTexture( this.Target, this.Texture );
+        this.Context.texImage2D( this.Target, this.Level, this.InternalFormat, this.Format, this.Type, this.Image );
 
         if ( this.HasMipmap
              && IsPowerOfTwo( this.Image.width )
              && IsPowerOfTwo( this.Image.height ) )
         {
-            GraphicContext.generateMipmap( this.Target );
+            this.Context.generateMipmap( this.Target );
         }
 
-        GraphicContext.bindTexture( this.Target, null);
+        this.Context.bindTexture( this.Target, null);
     }
 
     // ~~
@@ -128,14 +134,26 @@ class GRAPHIC_TEXTURE
             {
                 texture.Image = new Image();
                 texture.Image.crossOrigin = "anonymous";
+
                 texture.Image.addEventListener(
                     "load",
                     function (
+                        event
                         )
                     {
                         texture.SetImage();
 
                         resolve_function( texture );
+                    }
+                    );
+
+                texture.Image.addEventListener(
+                    "error",
+                    function (
+                        event
+                        )
+                    {
+                        reject_function( image_file_path );
                     }
                     );
 
@@ -149,7 +167,7 @@ class GRAPHIC_TEXTURE
     Finalize(
         )
     {
-        GraphicContext.deleteTexture( this.Texture );
+        this.Context.deleteTexture( this.Texture );
     }
 
     // ~~
@@ -158,8 +176,8 @@ class GRAPHIC_TEXTURE
         unit_index
         )
     {
-        GraphicContext.activeTexture( GraphicContext.TEXTURE0 + unit_index );
-        GraphicContext.bindTexture( this.Target, this.Texture );
+        this.Context.activeTexture( this.Context.TEXTURE0 + unit_index );
+        this.Context.bindTexture( this.Target, this.Texture );
     }
 
     // ~~
@@ -167,7 +185,7 @@ class GRAPHIC_TEXTURE
     Unbind(
         )
     {
-        GraphicContext.bindTexture( this.Target, null );
+        this.Context.bindTexture( this.Target, null );
     }
 }
 
@@ -178,11 +196,13 @@ class GRAPHIC_SHADER
     // -- CONSTRUCTORS
 
     constructor(
+        context,
         name,
         code,
         type
         )
     {
+        this.Context = context;
         this.Name = name;
         this.Code = code;
         this.Type = type;
@@ -194,13 +214,13 @@ class GRAPHIC_SHADER
     Initialize(
         )
     {
-        this.Shader = GraphicContext.createShader( this.Type );
-        GraphicContext.shaderSource( this.Shader, this.Code );
-        GraphicContext.compileShader( this.Shader );
+        this.Shader = this.Context.createShader( this.Type );
+        this.Context.shaderSource( this.Shader, this.Code );
+        this.Context.compileShader( this.Shader );
 
-        if ( !GraphicContext.getShaderParameter( this.Shader, GraphicContext.COMPILE_STATUS ) )
+        if ( !this.Context.getShaderParameter( this.Shader, this.Context.COMPILE_STATUS ) )
         {
-            LogError( GraphicContext.getShaderInfoLog( this.Shader ) );
+            LogError( this.Context.getShaderInfoLog( this.Shader ) );
         }
     }
 
@@ -209,7 +229,7 @@ class GRAPHIC_SHADER
     Finalize(
         )
     {
-        GraphicContext.deleteShader( this.Shader );
+        this.Context.deleteShader( this.Shader );
         this.Shader = null;
     }
 }
@@ -221,13 +241,15 @@ class GRAPHIC_PROGRAM_UNIFORM
     // -- CONSTRUCTORS
 
     constructor(
+        context,
         program,
         uniform_name
         )
     {
+        this.Context = context;
         this.Program = program;
         this.Name = uniform_name;
-        this.UniformLocation = GraphicContext.getUniformLocation( program, uniform_name );
+        this.UniformLocation = this.Context.getUniformLocation( program, uniform_name );
 
         if ( this.AttributeLocation === -1 )
         {
@@ -241,7 +263,7 @@ class GRAPHIC_PROGRAM_UNIFORM
         integer
         )
     {
-        GraphicContext.uniform1i( this.UniformLocation, integer );
+        this.Context.uniform1i( this.UniformLocation, integer );
     }
 
     // ~~
@@ -250,7 +272,7 @@ class GRAPHIC_PROGRAM_UNIFORM
         vector
         )
     {
-        GraphicContext.uniform2iv( this.UniformLocation, vector );
+        this.Context.uniform2iv( this.UniformLocation, vector );
     }
 
     // ~~
@@ -259,7 +281,7 @@ class GRAPHIC_PROGRAM_UNIFORM
         vector
         )
     {
-        GraphicContext.uniform3iv( this.UniformLocation, vector );
+        this.Context.uniform3iv( this.UniformLocation, vector );
     }
 
     // ~~
@@ -268,7 +290,7 @@ class GRAPHIC_PROGRAM_UNIFORM
         vector
         )
     {
-        GraphicContext.uniform4iv( this.UniformLocation, vector );
+        this.Context.uniform4iv( this.UniformLocation, vector );
     }
 
     // ~~
@@ -277,7 +299,7 @@ class GRAPHIC_PROGRAM_UNIFORM
         real
         )
     {
-        GraphicContext.uniform1f( this.UniformLocation, real );
+        this.Context.uniform1f( this.UniformLocation, real );
     }
 
     // ~~
@@ -286,7 +308,7 @@ class GRAPHIC_PROGRAM_UNIFORM
         vector
         )
     {
-        GraphicContext.uniform2fv( this.UniformLocation, vector );
+        this.Context.uniform2fv( this.UniformLocation, vector );
     }
 
     // ~~
@@ -295,7 +317,7 @@ class GRAPHIC_PROGRAM_UNIFORM
         vector
         )
     {
-        GraphicContext.uniform3fv( this.UniformLocation, vector );
+        this.Context.uniform3fv( this.UniformLocation, vector );
     }
 
     // ~~
@@ -304,7 +326,7 @@ class GRAPHIC_PROGRAM_UNIFORM
         vector
         )
     {
-        GraphicContext.uniform4fv( this.UniformLocation, vector );
+        this.Context.uniform4fv( this.UniformLocation, vector );
     }
 
     // ~~
@@ -314,7 +336,7 @@ class GRAPHIC_PROGRAM_UNIFORM
         matrix_is_transposed = false
         )
     {
-        GraphicContext.uniformMatrix4fv( this.UniformLocation, matrix_is_transposed, matrix );
+        this.Context.uniformMatrix4fv( this.UniformLocation, matrix_is_transposed, matrix );
     }
 
     // ~~
@@ -326,7 +348,7 @@ class GRAPHIC_PROGRAM_UNIFORM
     {
         texture.Bind( unit_index );
 
-        GraphicContext.uniform1i( this.UniformLocation, unit_index );
+        this.Context.uniform1i( this.UniformLocation, unit_index );
     }
 }
 
@@ -337,13 +359,15 @@ class GRAPHIC_PROGRAM_ATTRIBUTE
     // -- CONSTRUCTORS
 
     constructor(
+        context,
         program,
         attribute_name
         )
     {
+        this.Context = context;
         this.Program = program;
         this.Name = attribute_name;
-        this.AttributeLocation = GraphicContext.getAttribLocation( program, attribute_name );
+        this.AttributeLocation = this.Context.getAttribLocation( program, attribute_name );
 
         if ( this.AttributeLocation === -1 )
         {
@@ -361,18 +385,18 @@ class GRAPHIC_PROGRAM_ATTRIBUTE
         it_is_normalized = false
         )
     {
-        GraphicContext.bindBuffer( GraphicContext.ARRAY_BUFFER, array_buffer.Buffer );
+        this.Context.bindBuffer( this.Context.ARRAY_BUFFER, array_buffer.Buffer );
 
-        GraphicContext.vertexAttribPointer(
+        this.Context.vertexAttribPointer(
             this.AttributeLocation,
             real_count,
-            GraphicContext.FLOAT,
+            this.Context.FLOAT,
             it_is_normalized,
             stride_real_count * 4,
             offset_real_count * 4
             );
 
-        GraphicContext.enableVertexAttribArray( this.AttributeLocation );
+        this.Context.enableVertexAttribArray( this.AttributeLocation );
     }
 
     // ~~
@@ -381,7 +405,7 @@ class GRAPHIC_PROGRAM_ATTRIBUTE
         element_array_buffer
         )
     {
-        GraphicContext.bindBuffer( GraphicContext.ELEMENT_ARRAY_BUFFER, array_buffer.Buffer );
+        this.Context.bindBuffer( this.Context.ELEMENT_ARRAY_BUFFER, array_buffer.Buffer );
     }
 }
 
@@ -392,10 +416,12 @@ class GRAPHIC_PROGRAM
     // -- CONSTRUCTORS
 
     constructor(
+        context,
         vertex_shader,
         fragment_shader
         )
     {
+        this.Context = context;
         this.VertexShader = vertex_shader;
         this.FragmentShader = fragment_shader;
         this.Initialize();
@@ -407,7 +433,7 @@ class GRAPHIC_PROGRAM
         attribute_name
         )
     {
-        return new GRAPHIC_PROGRAM_ATTRIBUTE( this.Program, attribute_name );
+        return new GRAPHIC_PROGRAM_ATTRIBUTE( this.Context, this.Program, attribute_name );
     }
 
     // ~~
@@ -416,7 +442,7 @@ class GRAPHIC_PROGRAM
         uniform_name
         )
     {
-        return new GRAPHIC_PROGRAM_UNIFORM( this.Program, uniform_name );
+        return new GRAPHIC_PROGRAM_UNIFORM( this.Context, this.Program, uniform_name );
     }
 
     // -- OPERATIONS
@@ -424,15 +450,15 @@ class GRAPHIC_PROGRAM
     Initialize(
         )
     {
-        this.Program = GraphicContext.createProgram();
+        this.Program = this.Context.createProgram();
 
-        GraphicContext.attachShader( this.Program, this.VertexShader.Shader );
-        GraphicContext.attachShader( this.Program, this.FragmentShader.Shader );
-        GraphicContext.linkProgram( this.Program );
+        this.Context.attachShader( this.Program, this.VertexShader.Shader );
+        this.Context.attachShader( this.Program, this.FragmentShader.Shader );
+        this.Context.linkProgram( this.Program );
 
-        if ( !GraphicContext.getProgramParameter( this.Program, GraphicContext.LINK_STATUS ) )
+        if ( !this.Context.getProgramParameter( this.Program, this.Context.LINK_STATUS ) )
         {
-            LogError( GraphicContext.getProgramInfoLog( this.Program ) );
+            LogError( this.Context.getProgramInfoLog( this.Program ) );
         }
     }
 
@@ -441,7 +467,7 @@ class GRAPHIC_PROGRAM
     Finalize(
         )
     {
-        GraphicContext.deleteProgram( this.Program );
+        this.Context.deleteProgram( this.Program );
     }
 
     // ~~
@@ -449,7 +475,7 @@ class GRAPHIC_PROGRAM
     Use(
         )
     {
-        GraphicContext.useProgram( this.Program );
+        this.Context.useProgram( this.Program );
     }
 }
 
@@ -474,7 +500,7 @@ class GRAPHIC_CANVAS
             this.Context = undefined;
         }
 
-        GraphicContext = this.Context;
+        this.Context = this.Context;
     }
 
     // -- INQUIRIES
@@ -498,7 +524,7 @@ class GRAPHIC_CANVAS
     SetContext(
         )
     {
-        GraphicContext = this.Context;
+        this.Context = this.Context;
     }
 
     // ~~
@@ -508,7 +534,7 @@ class GRAPHIC_CANVAS
         has_mipmap = true
         )
     {
-        return new GRAPHIC_TEXTURE( is_repeated, has_mipmap );
+        return new GRAPHIC_TEXTURE( this.Context, is_repeated, has_mipmap );
     }
 
     // ~~
@@ -517,7 +543,7 @@ class GRAPHIC_CANVAS
         real_array
         )
     {
-        return new GRAPHIC_REAL_32_ARRAY_BUFFER( real_array );
+        return new GRAPHIC_REAL_32_ARRAY_BUFFER( this.Context, real_array );
     }
 
     // ~~
@@ -526,7 +552,7 @@ class GRAPHIC_CANVAS
         natural_array
         )
     {
-        return new GRAPHIC_NATURAL_16_ELEMENT_ARRAY_BUFFER( natural_array );
+        return new GRAPHIC_NATURAL_16_ELEMENT_ARRAY_BUFFER( this.Context, natural_array );
     }
 
     // ~~
@@ -536,7 +562,7 @@ class GRAPHIC_CANVAS
         shader_code
         )
     {
-        return new GRAPHIC_SHADER( shader_name, shader_code, GraphicContext.VERTEX_SHADER );
+        return new GRAPHIC_SHADER( this.Context, shader_name, shader_code, this.Context.VERTEX_SHADER );
     }
 
     // ~~
@@ -546,7 +572,7 @@ class GRAPHIC_CANVAS
         shader_code
         )
     {
-        return new GRAPHIC_SHADER( shader_name, shader_code, GraphicContext.FRAGMENT_SHADER );
+        return new GRAPHIC_SHADER( this.Context, shader_name, shader_code, this.Context.FRAGMENT_SHADER );
     }
 
     // ~~
@@ -556,7 +582,7 @@ class GRAPHIC_CANVAS
         fragment_shader
         )
     {
-        return new GRAPHIC_PROGRAM( vertex_shader, fragment_shader );
+        return new GRAPHIC_PROGRAM( this.Context, vertex_shader, fragment_shader );
     }
 
     // ~~
@@ -566,14 +592,14 @@ class GRAPHIC_CANVAS
         depth = 1.0
         )
     {
-        GraphicContext.clearColor( color[ 0 ], color[ 1 ], color[ 2 ], color[ 3 ] );
-        GraphicContext.clearDepth( 1.0 );
-        GraphicContext.enable( GraphicContext.DEPTH_TEST );
-        GraphicContext.depthFunc( GraphicContext.LEQUAL );
+        this.Context.clearColor( color[ 0 ], color[ 1 ], color[ 2 ], color[ 3 ] );
+        this.Context.clearDepth( 1.0 );
+        this.Context.enable( this.Context.DEPTH_TEST );
+        this.Context.depthFunc( this.Context.LEQUAL );
 
-        GraphicContext.clear(
-            GraphicContext.COLOR_BUFFER_BIT
-            | GraphicContext.DEPTH_BUFFER_BIT
+        this.Context.clear(
+            this.Context.COLOR_BUFFER_BIT
+            | this.Context.DEPTH_BUFFER_BIT
             );
     }
 
@@ -584,8 +610,8 @@ class GRAPHIC_CANVAS
         first_vertex_index = 0
         )
     {
-        GraphicContext.drawArrays(
-            GraphicContext.TRIANGLES,
+        this.Context.drawArrays(
+            this.Context.TRIANGLES,
             first_vertex_index,
             vertex_count
             );
@@ -598,10 +624,10 @@ class GRAPHIC_CANVAS
         first_vertex_index = 0
         )
     {
-        GraphicContext.drawElements(
-            GraphicContext.TRIANGLES,
+        this.Context.drawElements(
+            this.Context.TRIANGLES,
             vertex_count,
-            GraphicContext.UNSIGNED_SHORT,
+            this.Context.UNSIGNED_SHORT,
             first_vertex_index
             );
     }
@@ -614,8 +640,10 @@ class GRAPHIC_MATERIAL
     // -- CONSTRUCTORS
 
     constructor(
+        context
         )
     {
+        this.Context = context;
         this.VertexShader = null;
         this.FragmentShader = null;
         this.Program = null;
@@ -629,8 +657,10 @@ class GRAPHIC_MESH
     // -- CONSTRUCTORS
 
     constructor(
+        context
         )
     {
+        this.Context = context;
         this.UniformArray = [];
         this.AttributeArray = [];
         this.Material = null;
@@ -644,8 +674,10 @@ class GRAPHIC_NODE
     // -- CONSTRUCTORS
 
     constructor(
+        context
         )
     {
+        this.Context = context;
         this.ParentNode = null;
         this.ChildNodeArray = [];
         this.MeshArray = [];
@@ -873,8 +905,3 @@ class GRAPHIC_SCENE
         this.CameraArray = [];
     }
 }
-
-// -- VARIABLES
-
-var
-    GraphicContext;
