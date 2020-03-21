@@ -669,6 +669,54 @@ class GRAPHIC_MESH
 
 // ~~
 
+class GRAPHIC_COMPONENT
+{
+    // -- CONSTRUCTORS
+
+    constructor(
+        context,
+        node
+        )
+    {
+        this.Context = context;
+        this.Node = node;
+        this.IsActive = true;
+        this.IsUpdated = false;
+        this.IsRendered = false;
+    }
+
+    // -- OPERATIONS
+
+    Initialize(
+        )
+    {
+    }
+
+    // ~~
+
+    Update(
+        time_step
+        )
+    {
+    }
+
+    // ~~
+
+    Render(
+        )
+    {
+    }
+
+    // ~~
+
+    Finalize(
+        )
+    {
+    }
+}
+
+// ~~
+
 class GRAPHIC_NODE
 {
     // -- CONSTRUCTORS
@@ -691,6 +739,10 @@ class GRAPHIC_NODE
         this.GlobalTranslationVector = [ 0.0, 0.0, 0.0 ];
         this.HasLocalRotationVector = false;
         this.HasChanged = false;
+        this.IsActive = true;
+        this.IsUpdated = true;
+        this.IsRendered = true;
+        this.ComponentArray = [];
     }
 
     // -- OPERATIONS
@@ -798,7 +850,7 @@ class GRAPHIC_NODE
 
     // ~~
 
-    Update(
+    UpdateTransform(
         )
     {
         if ( this.HasChanged )
@@ -818,7 +870,7 @@ class GRAPHIC_NODE
             }
             else
             {
-                this.ParentNode.Update();
+                this.ParentNode.UpdateTransform();
 
                 this.GlobalTransformMatrix = GetProductMatrix4( this.LocalTransformMatrix, this.ParentNode.GlobalTransformMatrix );
                 this.GlobalRotationQuaternion = GetProductQuaternion( this.LocalRotationQuaternion, this.ParentNode.GlobalRotationQuaternion );
@@ -848,7 +900,7 @@ class GRAPHIC_NODE
     GetGlobalScalingVector(
         )
     {
-        Update();
+        UpdateTransform();
 
         return GetMatrix4ScalingVector3( this.GlobalTransformMatrix );
     }
@@ -858,7 +910,7 @@ class GRAPHIC_NODE
     GetGlobalRotationQuaternion(
         )
     {
-        Update();
+        UpdateTransform();
 
         return this.GlobalRotationQuaternion;
     }
@@ -868,7 +920,7 @@ class GRAPHIC_NODE
     GetGlobalTranslationVector(
         )
     {
-        Update();
+        UpdateTransform();
 
         return GetMatrix4WVector3( this.GlobalTransformMatrix );
     }
@@ -900,7 +952,7 @@ class GRAPHIC_SCENE
         )
     {
         this.MaterialArray = [];
-        this.BufferArray = [];
+        this.MeshArray = [];
         this.NodeArray = [];
         this.CameraArray = [];
     }

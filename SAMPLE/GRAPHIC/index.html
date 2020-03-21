@@ -164,7 +164,7 @@
                     fragment_shader,
                     model_view_matrix,
                     perspective_matrix,
-                    prior_time_stamp,
+                    prior_time,
                     program,
                     rotation_speed_vector,
                     rotation_vector,
@@ -277,19 +277,17 @@
                 rotation_vector = GetVector3( 0.0 * DegreesToRadians, 0.0 * DegreesToRadians, 0.0 * DegreesToRadians );
                 rotation_speed_vector = GetVector3( 3.0 * DegreesToRadians, 30.0 * DegreesToRadians, 1.0 * DegreesToRadians );
 
+                clock = new CLOCK();
+
                 function UpdateCanvas(
-                    timestamp
+                    time
                     )
                 {
-                    var
-                        time_step;
-
-                    time_step = prior_time_stamp ? ( timestamp - prior_time_stamp ) * 0.001 : 0.0;
-                    prior_time_stamp = timestamp;
+                    clock.Set( time * 0.001 );
 
                     canvas.Clear( [ 0.9, 0.9, 0.9, 1.0 ] );
 
-                    rotation_vector = GetScaledSumVector3( rotation_vector, rotation_speed_vector, 1.0, time_step );
+                    rotation_vector = GetScaledSumVector3( rotation_vector, rotation_speed_vector, 1.0, clock.TimeStep );
                     model_matrix = GetZxyRotationMatrix4( rotation_vector );
                     program.ModelMatrixUniform.SetRealMatrix4( model_matrix );
 
