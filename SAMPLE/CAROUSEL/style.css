@@ -381,10 +381,10 @@ a:hover {
 .grid-widths-auto {
   grid-auto-columns: auto;
 }
-.grid-widths-auto {
+.grid-widths-min {
   grid-auto-columns: min-content;
 }
-.grid-widths-auto {
+.grid-widths-max {
   grid-auto-columns: max-content;
 }
 .grid-row-span-all {
@@ -450,8 +450,14 @@ a:hover {
 .width-auto {
   width: auto;
 }
+.width-full {
+  width: 100%;
+}
 .height-auto {
   height: auto;
+}
+.height-full {
+  height: 100%;
 }
 .border-debug,
 .border-debug * {

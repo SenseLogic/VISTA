@@ -119,22 +119,22 @@
                 canvas = new GRAPHIC_CANVAS( GetElementById( "colored-triangle-canvas" ) );
 
                 vertex_shader
-                    = canvas.CreateVertexShader(
+                    = canvas.MakeVertexShader(
                           "colored-triangle-vertex-shader",
                           GetElementById( "colored-triangle-vertex-shader" ).text
                           );
 
                 fragment_shader
-                    = canvas.CreateFragmentShader(
+                    = canvas.MakeFragmentShader(
                           "colored-triangle-fragment-shader",
                           GetElementById( "colored-triangle-fragment-shader" ).text
                           );
 
-                program = canvas.CreateProgram( vertex_shader, fragment_shader );
+                program = canvas.MakeProgram( vertex_shader, fragment_shader );
                 program.Use();
 
                 vertex_array
-                    = canvas.CreateReal32ArrayBuffer(
+                    = canvas.MakeReal32ArrayBuffer(
                           [
                               0.0, 0.5, 1.0, 0.0, 0.0,
                               -0.5, -0.5, 0.0, 1.0, 0.0,
@@ -143,10 +143,10 @@
                           );
 
                 vertex_position_attribute = program.GetAttribute( "VertexPositionVectorAttribute" );
-                vertex_position_attribute.SetReal32ArrayBuffer( vertex_array, 2, 5, 0 );
+                vertex_position_attribute.BindReal32ArrayBuffer( vertex_array, 2, 5, 0 );
 
                 vertex_color_attribute = program.GetAttribute( "VertexColorVectorAttribute" );
-                vertex_color_attribute.SetReal32ArrayBuffer( vertex_array, 3, 5, 2 );
+                vertex_color_attribute.BindReal32ArrayBuffer( vertex_array, 3, 5, 2 );
 
                 canvas.Clear( [ 0.9, 0.9, 0.9, 1.0 ] );
                 canvas.DrawTriangles( 3 );
@@ -176,22 +176,22 @@
                     vertex_width_attribute;
 
                 canvas = new GRAPHIC_CANVAS( GetElementById( "textured-cube-canvas" ) );
-                texture = canvas.CreateTexture();
+                texture = canvas.MakeTexture();
                 await texture.LoadImage( "texture_1.png" );
 
                 vertex_shader
-                    = canvas.CreateVertexShader(
+                    = canvas.MakeVertexShader(
                           "textured-cube-vertex-shader",
                           GetElementById( "textured-cube-vertex-shader" ).text
                           );
 
                 fragment_shader
-                    = canvas.CreateFragmentShader(
+                    = canvas.MakeFragmentShader(
                           "textured-cube-fragment-shader",
                           GetElementById( "textured-cube-fragment-shader" ).text
                           );
 
-                program = canvas.CreateProgram( vertex_shader, fragment_shader );
+                program = canvas.MakeProgram( vertex_shader, fragment_shader );
                 program.CameraPositionVectorUniform = program.GetUniform( "CameraPositionVectorUniform" );
                 program.ProjectionMatrixUniform = program.GetUniform( "ProjectionMatrixUniform" );
                 program.ViewMatrixUniform = program.GetUniform( "ViewMatrixUniform" );
@@ -203,42 +203,42 @@
                 program.VertexWidthAttribute = program.GetAttribute( "VertexWidthAttribute" );
 
                 vertex_array_buffer
-                    = canvas.CreateReal32ArrayBuffer(
+                    = canvas.MakeReal32ArrayBuffer(
                           [
-                              -0.5, 0.5, -0.5, -1.0, 0.0, 0.0, 0.0, 0.0, 0.2,
-                              -0.5, 0.5, 0.5, -1.0, 0.0, 0.0, 1.0, 0.0, 0.2,
-                              -0.5, -0.5, 0.5, -1.0, 0.0, 0.0, 1.0, 1.0, 0.2,
-                              -0.5, -0.5, -0.5, -1.0, 0.0, 0.0, 0.0, 1.0, 0.2,
+                              -0.5, 0.5, -0.5, 0.0, 0.0, -1.0, 0.0, 0.0, 0.2,
+                              -0.5, 0.5, 0.5, 1.0, 0.0, -1.0, 0.0, 0.0, 0.2,
+                              -0.5, -0.5, 0.5, 1.0, 1.0, -1.0, 0.0, 0.0, 0.2,
+                              -0.5, -0.5, -0.5, 0.0, 1.0, -1.0, 0.0, 0.0, 0.2,
 
-                              -0.5, 0.5, 0.5, 0.0, 0.0, 1.0, 0.0, 0.0, 0.2,
-                              0.5, 0.5, 0.5, 0.0, 0.0, 1.0, 1.0, 0.0, 0.2,
-                              0.5, -0.5, 0.5, 0.0, 0.0, 1.0, 1.0, 1.0, 0.2,
-                              -0.5, -0.5, 0.5, 0.0, 0.0, 1.0, 0.0, 1.0, 0.2,
+                              -0.5, 0.5, 0.5, 0.0, 0.0, 0.0, 0.0, 1.0, 0.2,
+                              0.5, 0.5, 0.5, 1.0, 0.0, 0.0, 0.0, 1.0, 0.2,
+                              0.5, -0.5, 0.5, 1.0, 1.0, 0.0, 0.0, 1.0, 0.2,
+                              -0.5, -0.5, 0.5, 0.0, 1.0, 0.0, 0.0, 1.0, 0.2,
 
-                              0.5, 0.5, 0.5, 1.0, 0.0, 0.0, 0.0, 0.0, 0.2,
+                              0.5, 0.5, 0.5, 0.0, 0.0, 1.0, 0.0, 0.0, 0.2,
+                              0.5, 0.5, -0.5, 1.0, 0.0, 1.0, 0.0, 0.0, 0.2,
+                              0.5, -0.5, -0.5, 1.0, 1.0, 1.0, 0.0, 0.0, 0.2,
+                              0.5, -0.5, 0.5, 0.0, 1.0, 1.0, 0.0, 0.0, 0.2,
+
+                              0.5, 0.5, -0.5, 0.0, 0.0, 0.0, 0.0, -1.0, 0.2,
+                              -0.5, 0.5, -0.5, 1.0, 0.0, 0.0, 0.0, -1.0, 0.2,
+                              -0.5, -0.5, -0.5, 1.0, 1.0, 0.0, 0.0, -1.0, 0.2,
+                              0.5, -0.5, -0.5, 0.0, 1.0, 0.0, 0.0, -1.0, 0.2,
+
+                              -0.5, 0.5, -0.5, 0.0, 0.0, 0.0, 1.0, 0.0, 0.2,
                               0.5, 0.5, -0.5, 1.0, 0.0, 0.0, 1.0, 0.0, 0.2,
-                              0.5, -0.5, -0.5, 1.0, 0.0, 0.0, 1.0, 1.0, 0.2,
-                              0.5, -0.5, 0.5, 1.0, 0.0, 0.0, 0.0, 1.0, 0.2,
+                              0.5, 0.5, 0.5, 1.0, 1.0, 0.0, 1.0, 0.0, 0.2,
+                              -0.5, 0.5, 0.5, 0.0, 1.0, 0.0, 1.0, 0.0, 0.2,
 
-                              0.5, 0.5, -0.5, 0.0, 0.0, -1.0, 0.0, 0.0, 0.2,
-                              -0.5, 0.5, -0.5, 0.0, 0.0, -1.0, 1.0, 0.0, 0.2,
-                              -0.5, -0.5, -0.5, 0.0, 0.0, -1.0, 1.0, 1.0, 0.2,
-                              0.5, -0.5, -0.5, 0.0, 0.0, -1.0, 0.0, 1.0, 0.2,
-
-                              -0.5, 0.5, -0.5, 0.0, 1.0, 0.0, 0.0, 0.0, 0.2,
-                              0.5, 0.5, -0.5, 0.0, 1.0, 0.0, 1.0, 0.0, 0.2,
-                              0.5, 0.5, 0.5, 0.0, 1.0, 0.0, 1.0, 1.0, 0.2,
-                              -0.5, 0.5, 0.5, 0.0, 1.0, 0.0, 0.0, 1.0, 0.2,
-
-                              -0.5, -0.5, -0.5, 0.0, -1.0, 0.0, 1.0, 0.0, 0.2,
-                              0.5, -0.5, -0.5, 0.0, -1.0, 0.0, 0.0, 0.0, 0.2,
-                              0.5, -0.5, 0.5, 0.0, -1.0, 0.0, 0.0, 1.0, 0.2,
-                              -0.5, -0.5, 0.5, 0.0, -1.0, 0.0, 1.0, 1.0, 0.2
+                              -0.5, -0.5, -0.5, 1.0, 0.0, 0.0, -1.0, 0.0, 0.2,
+                              0.5, -0.5, -0.5, 0.0, 0.0, 0.0, -1.0, 0.0, 0.2,
+                              0.5, -0.5, 0.5, 0.0, 1.0, 0.0, -1.0, 0.0, 0.2,
+                              -0.5, -0.5, 0.5, 1.0, 1.0, 0.0, -1.0, 0.0, 0.2
                           ]
                           );
 
                 element_array_buffer
-                    = canvas.CreateNatural16ElementArrayBuffer(
+                    = canvas.MakeNatural16ElementArrayBuffer(
                           [
                               2, 1, 0,
                               2, 0, 3,
@@ -269,10 +269,10 @@
                 program.CameraPositionVectorUniform.SetRealVector3( camera_position_vector );
                 program.ProjectionMatrixUniform.SetRealMatrix4( projection_matrix );
                 program.ViewMatrixUniform.SetRealMatrix4( view_matrix );
-                program.VertexPositionVectorAttribute.SetReal32ArrayBuffer( vertex_array_buffer, 3, 9, 0 );
-                program.VertexNormalVectorAttribute.SetReal32ArrayBuffer( vertex_array_buffer, 3, 9, 3 );
-                program.VertexMappingVectorAttribute.SetReal32ArrayBuffer( vertex_array_buffer, 2, 9, 6 );
-                program.VertexWidthAttribute.SetReal32ArrayBuffer( vertex_array_buffer, 1, 9, 8 );
+                program.VertexPositionVectorAttribute.BindReal32ArrayBuffer( vertex_array_buffer, 3, 9, 0 );
+                program.VertexMappingVectorAttribute.BindReal32ArrayBuffer( vertex_array_buffer, 2, 9, 3 );
+                program.VertexNormalVectorAttribute.BindReal32ArrayBuffer( vertex_array_buffer, 3, 9, 5 );
+                program.VertexWidthAttribute.BindReal32ArrayBuffer( vertex_array_buffer, 1, 9, 8 );
 
                 rotation_vector = GetVector3( 0.0 * DegreesToRadians, 0.0 * DegreesToRadians, 0.0 * DegreesToRadians );
                 rotation_speed_vector = GetVector3( 3.0 * DegreesToRadians, 30.0 * DegreesToRadians, 1.0 * DegreesToRadians );
