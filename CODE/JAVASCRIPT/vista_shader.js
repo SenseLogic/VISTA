@@ -646,14 +646,14 @@ const
 // -- VARIABLES
 
 var
-    ArrayBufferIdentifier = 0,
-    ElementArrayBufferIdentifier = 0,
-    TextureIdentifier = 0,
-    ShaderIdentifier = 0,
-    ProgramUniformIdentifier = 0,
-    ProgramAttributeIdentifier = 0,
-    ProgramIdentifier = 0,
-    CanvasIdentifier = 0;
+    ArrayBufferIdentifier = -1,
+    ElementArrayBufferIdentifier = -1,
+    TextureIdentifier = -1,
+    ShaderIdentifier = -1,
+    ProgramUniformIdentifier = -1,
+    ProgramAttributeIdentifier = -1,
+    ProgramIdentifier = -1,
+    CanvasIdentifier = -1;
 
 // -- TYPES
 
@@ -663,7 +663,7 @@ class REAL_32_ARRAY_BUFFER
         real_array
         )
     {
-        this.Identifier = ArrayBufferIdentifier++;
+        this.Identifier = ++ArrayBufferIdentifier;
         this.Float32Array = new Float32Array( real_array );
         this.BufferArray = [];
     }
@@ -689,7 +689,7 @@ class NATURAL_16_ELEMENT_ARRAY_BUFFER
         natural_array
         )
     {
-        this.Identifier = ElementArrayBufferIdentifier++;
+        this.Identifier = ++ElementArrayBufferIdentifier;
         this.Uint16Array = new Uint16Array( natural_array );
         this.BufferArray = [];
     }
@@ -720,7 +720,7 @@ class TEXTURE
         has_mipmap = true
         )
     {
-        this.Identifier = TextureIdentifier++;
+        this.Identifier = ++TextureIdentifier;
         this.InternalFormat = GL_Rgba;
         this.Format = GL_Rgba;
         this.Type = GL_UnsignedByte;
@@ -863,7 +863,7 @@ class SHADER
         type
         )
     {
-        this.Identifier = ShaderIdentifier++;
+        this.Identifier = ++ShaderIdentifier;
         this.Name = name;
         this.Code = code;
         this.Type = type;
@@ -945,7 +945,7 @@ class PROGRAM_UNIFORM
         uniform_name
         )
     {
-        this.Identifier = ProgramUniformIdentifier++;
+        this.Identifier = ++ProgramUniformIdentifier;
         this.Program = program;
         this.Name = uniform_name;
         this.UniformLocationArray = [];
@@ -1081,7 +1081,7 @@ class PROGRAM_ATTRIBUTE
         attribute_name
         )
     {
-        this.Identifier = ProgramAttributeIdentifier++;
+        this.Identifier = ++ProgramAttributeIdentifier;
         this.Program = program;
         this.Name = attribute_name;
         this.AttributeLocationArray = [];
@@ -1147,7 +1147,7 @@ class PROGRAM
         fragment_shader
         )
     {
-        this.Identifier = ProgramIdentifier++;
+        this.Identifier = ++ProgramIdentifier;
         this.VertexShader = vertex_shader;
         this.FragmentShader = fragment_shader;
         this.ProgramArray = [];
@@ -1245,7 +1245,7 @@ class CANVAS
         canvas
         )
     {
-        this.Identifier = CanvasIdentifier++;
+        this.Identifier = ++CanvasIdentifier;
         this.Canvas = canvas;
 
         try

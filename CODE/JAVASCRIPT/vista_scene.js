@@ -1,12 +1,12 @@
 // -- VARIABLES
 
 var
-    MaterialIdentifier = 0,
-    GeometryIdentifier = 0,
-    MeshIdentifier = 0,
-    ComponentIdentifier = 0,
-    NodeIdentifier = 0,
-    SceneIdentifier = 0;
+    MaterialIdentifier = -1,
+    GeometryIdentifier = -1,
+    MeshIdentifier = -1,
+    ComponentIdentifier = -1,
+    NodeIdentifier = -1,
+    SceneIdentifier = -1;
 
 // -- TYPES
 
@@ -24,7 +24,7 @@ class MATERIAL
         )
     {
         this.Canvas = canvas;
-        this.Identifier = MaterialIdentifier++;
+        this.Identifier = ++MaterialIdentifier;
         this.Name = name;
         this.PositionRealCount = 0;
         this.MappingRealCount = 0;
@@ -52,7 +52,7 @@ class GEOMETRY
         )
     {
         this.Canvas = canvas;
-        this.Identifier = GeometryIdentifier++;
+        this.Identifier = ++GeometryIdentifier;
         this.RealArray = real_array;
         this.VertexIndexArray = vertex_index_array;
         this.VertexCount = vertex_count;
@@ -72,7 +72,7 @@ class MESH
         )
     {
         this.Canvas = canvas;
-        this.Identifier = MeshIdentifier++;
+        this.Identifier = ++MeshIdentifier;
         this.Geometry = geometry;
         this.Material = material;
     }
@@ -88,7 +88,7 @@ class COMPONENT
         node
         )
     {
-        this.Identifier = ComponentIdentifier++;
+        this.Identifier = ++ComponentIdentifier;
         this.Node = node;
         this.IsActive = true;
         this.IsUpdated = false;
@@ -136,7 +136,7 @@ class NODE
         )
     {
         this.Canvas = canvas;
-        this.Identifier = NodeIdentifier++;
+        this.Identifier = ++NodeIdentifier;
         this.ParentNode = null;
         this.ChildNodeArray = [];
         this.MeshArray = [];
@@ -380,7 +380,7 @@ class SCENE
     constructor(
         )
     {
-        this.Identifier = SceneIdentifier++;
+        this.Identifier = ++SceneIdentifier;
         this.Canvas = canvas;
         this.MaterialArray = [];
         this.CameraArray = [];
