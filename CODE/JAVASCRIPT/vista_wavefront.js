@@ -16,6 +16,9 @@ class WAVEFRONT_MATERIAL
         this.EmissiveColor = [ 0.0, 0.0, 0.0 ];
         this.Density = 1.0;
         this.Opacity = 1.0;
+        this.PositionRealCount = 0;
+        this.MappingRealCount = 0;
+        this.NormalRealCount = 0;
     }
 }
 
@@ -31,7 +34,8 @@ class WAVEFRONT_FACE
         material_index,
         position_index_array,
         mapping_index_array,
-        normal_index_array
+        normal_index_array,
+        vertex_count
         )
     {
         this.ObjectIndex = object_index;
@@ -40,6 +44,7 @@ class WAVEFRONT_FACE
         this.PositionIndexArray = position_index_array;
         this.MappingIndexArray = mapping_index_array;
         this.NormalIndexArray = normal_index_array;
+        this.VertexCount = vertex_count;
     }
 }
 
@@ -129,11 +134,21 @@ class WAVEFRONT_MODEL
             part_index,
             part_array,
             position_index,
-            position_index_array;
+            position_index_array,
+            vertex_count;
+
+        if ( this.MaterialIndex < 0 )
+        {
+            this.MaterialIndex = 0;
+            this.MaterialArray.push( new WAVEFRONT_MATERIAL( "default" ) );
+        }
+
+        material = this.MaterialArray[ this.MaterialIndex ];
 
         position_index_array = [];
         mapping_index_array = [];
         normal_index_array = [];
+        vertex_count = 0;
 
         part_array = line.split( " " );
 
@@ -156,6 +171,8 @@ class WAVEFRONT_MODEL
                 {
                     --position_index;
                 }
+
+                material.PositionRealCount = 3;
             }
             else
             {
@@ -175,6 +192,8 @@ class WAVEFRONT_MODEL
                 {
                     --mapping_index;
                 }
+
+                material.MappingRealCount = 2;
             }
             else
             {
@@ -194,6 +213,8 @@ class WAVEFRONT_MODEL
                 {
                     --normal_index;
                 }
+
+                material.NormalRealCount = 3;
             }
             else
             {
@@ -201,8 +222,9 @@ class WAVEFRONT_MODEL
             }
 
             position_index_array.push( position_index );
-            mapping_index_array.push( mapping_index );
             normal_index_array.push( normal_index );
+            mapping_index_array.push( mapping_index );
+            ++vertex_count
         }
 
         return new WAVEFRONT_FACE(
@@ -211,7 +233,8 @@ class WAVEFRONT_MODEL
             this.MaterialIndex,
             position_index_array,
             mapping_index_array,
-            normal_index_array
+            normal_index_array,
+            vertex_count
             );
     }
 
@@ -287,13 +310,13 @@ class WAVEFRONT_MODEL
             {
                 this.PositionVectorArray.push( this.GetVector3( line ) );
             }
-            else if ( line.startsWith( "vt " ) )
-            {
-                this.MappingVectorArray.push( this.GetVector2( line ) );
-            }
             else if ( line.startsWith( "vn " ) )
             {
                 this.NormalVectorArray.push( this.GetVector3( line ) );
+            }
+            else if ( line.startsWith( "vt " ) )
+            {
+                this.MappingVectorArray.push( this.GetVector2( line ) );
             }
             else if ( line.startsWith( "f " ) )
             {
@@ -313,6 +336,90 @@ class WAVEFRONT_MODEL
             {
                 this.MaterialIndex = this.MaterialArray.indexOf( line.substring( 7 ) );
             }
+        }
+    }
+
+    // ~~
+
+    MakeScene(
+        )
+    {
+        var
+            face,
+            material,
+            material_index,
+            scene,
+            vertex_index;
+
+        scene = new SCENE();
+
+        for ( material_index = 0;
+              material_index < this.MaterialArray.length;
+              ++material_index )
+        {
+            material = this.MaterialArray[ material_index ];
+
+            scene_material
+                = scene.MakeMaterial(
+                      material.name,
+                      material.PositionRealCount,
+                      material.MappingRealCount,
+                      material.NormalRealCount,
+                      material.PositionRealCount + material.MappingRealCount + material.NormalRealCount
+                      );
+
+            real_array = [];
+            vertex_index_array = [];
+            vertex_count = 0;
+
+            for ( face of this.FaceArray )
+            {
+                if ( face.MaterialIndex === material_index )
+                {
+                    for ( face_vertex_index = 0;
+                          face_vertex_index < face.VertexCount;
+                          ++face_vertex_index )
+                    {
+                        if ( material.PositionRealCount > 0 )
+                        {
+                            position_index = face.PositionIndexArray[ face_vertex_index ];
+                            position_vector = this.PositionVectorArray[ position_index ];
+
+                            real_array.push( ...position_vector );
+                        }
+
+                        if ( material.MappingRealCount > 0 )
+                        {
+                            mapping_index = face.MappingIndexArray[ face_vertex_index ];
+                            mapping_vector = this.MappingVectorArray[ mapping_index ];
+
+                            real_array.push( ...mapping_vector );
+                        }
+
+                        if ( material.NormalRealCount > 0 )
+                        {
+                            normal_index = face.NormalIndexArray[ face_vertex_index ];
+                            normal_vector = this.NormalVectorArray[ normal_index ];
+
+                            real_array.push( ...normal_vector );
+                        }
+                    }
+
+                    for ( face_vertex_index = 1;
+                          face_vertex_index < face.VertexCount - 1;
+                          ++face_vertex_index )
+                    {
+                        vertex_index_array.push( vertex_count + 0 );
+                        vertex_index_array.push( vertex_count + face_vertex_index );
+                        vertex_index_array.push( vertex_count + face_vertex_index + 1 );
+                    }
+
+                    vertex_count += face.VertexCount;
+                }
+            }
+
+            scene_geometry = new GEOMETRY( real_array, vertex_index_array, vertex_count );
+            scene_mesh = new MESH( scene_material, scene_geometry );
         }
     }
 }
