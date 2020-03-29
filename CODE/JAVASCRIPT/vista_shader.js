@@ -646,6 +646,13 @@ const
 // -- VARIABLES
 
 var
+    ArrayBufferIdentifier = 0,
+    ElementArrayBufferIdentifier = 0,
+    TextureIdentifier = 0,
+    ShaderIdentifier = 0,
+    ProgramUniformIdentifier = 0,
+    ProgramAttributeIdentifier = 0,
+    ProgramIdentifier = 0,
     CanvasIdentifier = 0;
 
 // -- TYPES
@@ -656,8 +663,8 @@ class REAL_32_ARRAY_BUFFER
         real_array
         )
     {
+        this.Identifier = ArrayBufferIdentifier++;
         this.Float32Array = new Float32Array( real_array );
-        this.ContextArray = [];
         this.BufferArray = [];
     }
 
@@ -667,7 +674,6 @@ class REAL_32_ARRAY_BUFFER
         context
         )
     {
-        this.ContextArray[ context.Identifier ] = context;
         this.BufferArray[ context.Identifier ] = context.createBuffer();
 
         context.bindBuffer( GL_ArrayBuffer, this.BufferArray[ context.Identifier ] );
@@ -683,8 +689,8 @@ class NATURAL_16_ELEMENT_ARRAY_BUFFER
         natural_array
         )
     {
+        this.Identifier = ElementArrayBufferIdentifier++;
         this.Uint16Array = new Uint16Array( natural_array );
-        this.ContextArray = [];
         this.BufferArray = [];
     }
 
@@ -694,7 +700,6 @@ class NATURAL_16_ELEMENT_ARRAY_BUFFER
         context
         )
     {
-        this.ContextArray[ context.Identifier ] = context;
         this.BufferArray[ context.Identifier ] = context.createBuffer();
 
         context.bindBuffer( GL_ElementArrayBuffer, this.BufferArray[ context.Identifier ] );
@@ -715,11 +720,7 @@ class TEXTURE
         has_mipmap = true
         )
     {
-        var
-            texture;
-
-        texture = this;
-
+        this.Identifier = TextureIdentifier++;
         this.InternalFormat = GL_Rgba;
         this.Format = GL_Rgba;
         this.Type = GL_UnsignedByte;
@@ -729,7 +730,6 @@ class TEXTURE
         this.HorizontalWrap = is_repeated ? GL_Repeat : GL_ClampToEdge;
         this.VerticalWrap = is_repeated ? GL_Repeat : GL_ClampToEdge;
         this.HasMipmap = has_mipmap;
-        this.ContextArray = [];
         this.TextureArray = [];
     }
 
@@ -744,7 +744,6 @@ class TEXTURE
 
         texture = context.createTexture();
 
-        this.ContextArray[ context.Identifier ] = context;
         this.TextureArray[ context.Identifier ] = texture;
 
         context.bindTexture( this.Target, texture );
@@ -864,10 +863,10 @@ class SHADER
         type
         )
     {
+        this.Identifier = ShaderIdentifier++;
         this.Name = name;
         this.Code = code;
         this.Type = type;
-        this.ContextArray = [];
         this.ShaderArray = [];
     }
 
@@ -882,7 +881,6 @@ class SHADER
 
         shader = context.createShader( this.Type );
 
-        this.ContextArray[ context.Identifier ] = context;
         this.ShaderArray[ context.Identifier ] = shader;
 
         context.shaderSource( shader, this.Code );
@@ -947,9 +945,9 @@ class PROGRAM_UNIFORM
         uniform_name
         )
     {
+        this.Identifier = ProgramUniformIdentifier++;
         this.Program = program;
         this.Name = uniform_name;
-        this.ContextArray = [];
         this.UniformLocationArray = [];
     }
 
@@ -959,7 +957,6 @@ class PROGRAM_UNIFORM
         context
         )
     {
-        this.ContextArray[ context.Identifier ] = context;
         this.UniformLocationArray[ context.Identifier ] = context.getUniformLocation( program, uniform_name );
 
         if ( this.UniformLocationArray[ context.Identifier ] === -1 )
@@ -1084,9 +1081,9 @@ class PROGRAM_ATTRIBUTE
         attribute_name
         )
     {
+        this.Identifier = ProgramAttributeIdentifier++;
         this.Program = program;
         this.Name = attribute_name;
-        this.ContextArray = [];
         this.AttributeLocationArray = [];
     }
 
@@ -1096,7 +1093,6 @@ class PROGRAM_ATTRIBUTE
         context
         )
     {
-        this.ContextArray[ context.Identifier ] = context;
         this.AttributeLocationArray[ context.Identifier ] = context.getAttribLocation( this.Program, attribute_name );
 
         if ( this.AttributeLocationArray[ context.Identifier ] === -1 )
@@ -1151,9 +1147,9 @@ class PROGRAM
         fragment_shader
         )
     {
+        this.Identifier = ProgramIdentifier++;
         this.VertexShader = vertex_shader;
         this.FragmentShader = fragment_shader;
-        this.ContextArray = [];
         this.ProgramArray = [];
     }
 
@@ -1188,7 +1184,6 @@ class PROGRAM
 
         program = context.createProgram();
 
-        this.ContextArray[ context.Identifier ] = context;
         this.ProgramArray[ context.Identifier ] = program;
 
         context.attachShader( program, this.VertexShader.ShaderArray[ context.Identifier ] );
@@ -1250,18 +1245,19 @@ class CANVAS
         canvas
         )
     {
+        this.Identifier = CanvasIdentifier++;
         this.Canvas = canvas;
 
         try
         {
             this.Context = canvas.getContext( "webgl", { preserveDrawingBuffer : false } );
+            this.Context.Identifier = this.Identifier;
         }
         catch ( error )
         {
             this.Context = undefined;
         }
 
-        this.Context = this.Context;
     }
 
     // -- INQUIRIES
@@ -1291,11 +1287,7 @@ class CANVAS
         this.Context.clearDepth( 1.0 );
         this.Context.enable( GL_DepthTest );
         this.Context.depthFunc( GL_Lequal );
-
-        this.Context.clear(
-            GL_ColorBufferBit
-            | GL_DepthBufferBit
-            );
+        this.Context.clear( GL_ColorBufferBit | GL_DepthBufferBit );
     }
 
     // ~~
