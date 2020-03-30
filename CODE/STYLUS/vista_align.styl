@@ -1,14 +1,14 @@
-.align-top
+.align-start
 {
     align-items: flex-start;
 }
 
-.align-middle
+.align-center
 {
     align-items: center;
 }
 
-.align-bottom
+.align-end
 {
     align-items: flex-end;
 }
@@ -31,17 +31,17 @@ MakeAlign( media_query_name_list = {} )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .align-top-{media_query_name}
+            .align-start-{media_query_name}
             {
                 align-items: flex-start;
             }
 
-            .align-middle-{media_query_name}
+            .align-center-{media_query_name}
             {
                 align-items: center;
             }
 
-            .align-bottom-{media_query_name}
+            .align-end-{media_query_name}
             {
                 align-items: flex-end;
             }

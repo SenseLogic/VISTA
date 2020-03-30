@@ -1,4 +1,4 @@
-.justify-left
+.justify-start
 {
     justify-content: flex-start;
 }
@@ -8,7 +8,7 @@
     justify-content: center;
 }
 
-.justify-right
+.justify-end
 {
     justify-content: flex-end;
 }
@@ -31,7 +31,7 @@ MakeJustify( media_query_name_list = {} )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .justify-left-{media_query_name}
+            .justify-start-{media_query_name}
             {
                 justify-content: flex-start;
             }
@@ -41,7 +41,7 @@ MakeJustify( media_query_name_list = {} )
                 justify-content: center;
             }
 
-            .justify-right-{media_query_name}
+            .justify-end-{media_query_name}
             {
                 justify-content: flex-end;
             }

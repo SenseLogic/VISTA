@@ -393,13 +393,13 @@ a:hover {
 .grid-column-span-all {
   grid-column: 1/-1;
 }
-.align-top {
+.align-start {
   align-items: flex-start;
 }
-.align-middle {
+.align-center {
   align-items: center;
 }
-.align-bottom {
+.align-end {
   align-items: flex-end;
 }
 .align-stretch {
@@ -423,13 +423,13 @@ a:hover {
 .align-self-baseline {
   align-self: baseline;
 }
-.justify-left {
+.justify-start {
   justify-content: flex-start;
 }
 .justify-center {
   justify-content: center;
 }
-.justify-right {
+.justify-end {
   justify-content: flex-end;
 }
 .justify-between {
