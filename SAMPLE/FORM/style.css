@@ -408,13 +408,13 @@ a:hover {
 .align-baseline {
   align-items: baseline;
 }
-.align-self-top {
+.align-self-start {
   align-self: flex-start;
 }
-.align-self-middle {
+.align-self-center {
   align-self: center;
 }
-.align-self-bottom {
+.align-self-end {
   align-self: flex-end;
 }
 .align-self-stretch {
@@ -438,13 +438,13 @@ a:hover {
 .justify-around {
   justify-content: space-around;
 }
-.justify-self-left {
+.justify-self-start {
   justify-self: flex-start;
 }
 .justify-self-center {
   justify-self: center;
 }
-.justify-self-right {
+.justify-self-end {
   justify-self: flex-end;
 }
 .width-auto {

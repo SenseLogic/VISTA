@@ -60,17 +60,17 @@ MakeAlign( media_query_name_list = {} )
 
 // ~~
 
-.align-self-top
+.align-self-start
 {
     align-self: flex-start;
 }
 
-.align-self-middle
+.align-self-center
 {
     align-self: center;
 }
 
-.align-self-bottom
+.align-self-end
 {
     align-self: flex-end;
 }
@@ -93,17 +93,17 @@ MakeAlignSelf( media_query_name_list = {} )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .align-self-top-{media_query_name}
+            .align-self-start-{media_query_name}
             {
                 align-self: flex-start;
             }
 
-            .align-self-middle-{media_query_name}
+            .align-self-center-{media_query_name}
             {
                 align-self: center;
             }
 
-            .align-self-bottom-{media_query_name}
+            .align-self-end-{media_query_name}
             {
                 align-self: flex-end;
             }
