@@ -665,19 +665,19 @@ class REAL_32_ARRAY_BUFFER
     {
         this.Identifier = ++ArrayBufferIdentifier;
         this.Float32Array = new Float32Array( real_array );
-        this.BufferArray = [];
+        this.GraphicBuffer = null;
     }
 
     // ~~
 
     Bind(
-        context
+        graphic_context
         )
     {
-        this.BufferArray[ context.Identifier ] = context.createBuffer();
+        this.GraphicBuffer = graphic_context.createBuffer();
 
-        context.bindBuffer( GL_ArrayBuffer, this.BufferArray[ context.Identifier ] );
-        context.bufferData( GL_ArrayBuffer, this.Float32Array, GL_StaticDraw );
+        graphic_context.bindBuffer( GL_ArrayBuffer, this.GraphicBuffer );
+        graphic_context.bufferData( GL_ArrayBuffer, this.Float32Array, GL_StaticDraw );
     }
 }
 
@@ -691,19 +691,19 @@ class NATURAL_16_ELEMENT_ARRAY_BUFFER
     {
         this.Identifier = ++ElementArrayBufferIdentifier;
         this.Uint16Array = new Uint16Array( natural_array );
-        this.BufferArray = [];
+        this.GraphicBuffer = null;
     }
 
     // ~~
 
     Bind(
-        context
+        graphic_context
         )
     {
-        this.BufferArray[ context.Identifier ] = context.createBuffer();
+        this.GraphicBuffer = graphic_context.createBuffer();
 
-        context.bindBuffer( GL_ElementArrayBuffer, this.BufferArray[ context.Identifier ] );
-        context.bufferData( GL_ElementArrayBuffer, this.Uint16Array, GL_StaticDraw );
+        graphic_context.bindBuffer( GL_ElementArrayBuffer, this.GraphicBuffer );
+        graphic_context.bufferData( GL_ElementArrayBuffer, this.Uint16Array, GL_StaticDraw );
     }
 }
 
@@ -730,53 +730,53 @@ class TEXTURE
         this.HorizontalWrap = is_repeated ? GL_Repeat : GL_ClampToEdge;
         this.VerticalWrap = is_repeated ? GL_Repeat : GL_ClampToEdge;
         this.HasMipmap = has_mipmap;
-        this.TextureArray = [];
+        this.GraphicTexture = null;
     }
 
     // -- OPERATIONS
 
     Bind(
-        context
+        graphic_context
         )
     {
         var
             texture;
 
-        texture = context.createTexture();
+        texture = graphic_context.createTexture();
 
-        this.TextureArray[ context.Identifier ] = texture;
+        this.GraphicTexture = texture;
 
-        context.bindTexture( this.Target, texture );
-        context.texParameteri( this.Target, GL_TextureMinFilter, this.MinificationFilter );
-        context.texParameteri( this.Target, GL_TextureMagFilter, this.MagnificationFilter );
-        context.texParameteri( this.Target, GL_TextureWrapS, this.HorizontalWrap );
-        context.texParameteri( this.Target, GL_TextureWrapT, this.VerticalWrap );
-        context.bindTexture( this.Target, null );
+        graphic_context.bindTexture( this.Target, texture );
+        graphic_context.texParameteri( this.Target, GL_TextureMinFilter, this.MinificationFilter );
+        graphic_context.texParameteri( this.Target, GL_TextureMagFilter, this.MagnificationFilter );
+        graphic_context.texParameteri( this.Target, GL_TextureWrapS, this.HorizontalWrap );
+        graphic_context.texParameteri( this.Target, GL_TextureWrapT, this.VerticalWrap );
+        graphic_context.bindTexture( this.Target, null );
     }
 
     // ~~
 
     SetImage(
-        context
+        graphic_context
         )
     {
-        context.bindTexture( this.Target, this.TextureArray[ context.Identifier ] );
-        context.texImage2D( this.Target, this.Level, this.InternalFormat, this.Format, this.Type, this.Image );
+        graphic_context.bindTexture( this.Target, this.GraphicTexture );
+        graphic_context.texImage2D( this.Target, this.Level, this.InternalFormat, this.Format, this.Type, this.Image );
 
         if ( this.HasMipmap
              && IsPowerOfTwo( this.Image.width )
              && IsPowerOfTwo( this.Image.height ) )
         {
-            context.generateMipmap( this.Target );
+            graphic_context.generateMipmap( this.Target );
         }
 
-        context.bindTexture( this.Target, null);
+        graphic_context.bindTexture( this.Target, null);
     }
 
     // ~~
 
     LoadImage(
-        context,
+        graphic_context,
         image_file_path
         )
     {
@@ -800,7 +800,7 @@ class TEXTURE
                         event
                         )
                     {
-                        texture.SetImage( context );
+                        texture.SetImage( graphic_context );
 
                         resolve_function( texture );
                     }
@@ -824,30 +824,30 @@ class TEXTURE
     // ~~
 
     Unbind(
-        context
+        graphic_context
         )
     {
-        context.deleteTexture( this.Texture );
+        graphic_context.deleteTexture( this.Texture );
     }
 
     // ~~
 
     BindUnit(
-        context,
+        graphic_context,
         unit_index
         )
     {
-        context.activeTexture( GL_Texture0 + unit_index );
-        context.bindTexture( this.Target, this.Texture );
+        graphic_context.activeTexture( GL_Texture0 + unit_index );
+        graphic_context.bindTexture( this.Target, this.Texture );
     }
 
     // ~~
 
     UnbindUnit(
-        context
+        graphic_context
         )
     {
-        context.bindTexture( this.Target, null );
+        graphic_context.bindTexture( this.Target, null );
     }
 }
 
@@ -867,38 +867,38 @@ class SHADER
         this.Name = name;
         this.Code = code;
         this.Type = type;
-        this.ShaderArray = [];
+        this.GraphicShader = null;
     }
 
     // -- OPERATIONS
 
     Bind(
-        context
+        graphic_context
         )
     {
         var
             shader;
 
-        shader = context.createShader( this.Type );
+        shader = graphic_context.createShader( this.Type );
 
-        this.ShaderArray[ context.Identifier ] = shader;
+        this.GraphicShader = shader;
 
-        context.shaderSource( shader, this.Code );
-        context.compileShader( shader );
+        graphic_context.shaderSource( shader, this.Code );
+        graphic_context.compileShader( shader );
 
-        if ( !context.getShaderParameter( shader, GL_CompileStatus ) )
+        if ( !graphic_context.getShaderParameter( shader, GL_CompileStatus ) )
         {
-            LogError( context.getShaderInfoLog( shader ) );
+            LogError( graphic_context.getShaderInfoLog( shader ) );
         }
     }
 
     // ~~
 
     Unbind(
-        context
+        graphic_context
         )
     {
-        context.deleteShader( this.ShaderArray[ context.Identifier ] );
+        graphic_context.deleteShader( this.GraphicShader );
 
         this.Shader = null;
     }
@@ -948,18 +948,18 @@ class PROGRAM_UNIFORM
         this.Identifier = ++ProgramUniformIdentifier;
         this.Program = program;
         this.Name = uniform_name;
-        this.UniformLocationArray = [];
+        this.GraphicUniformLocation = null;
     }
 
     // -- OPERATIONS
 
     Bind(
-        context
+        graphic_context
         )
     {
-        this.UniformLocationArray[ context.Identifier ] = context.getUniformLocation( program, uniform_name );
+        this.GraphicUniformLocation = graphic_context.getUniformLocation( program, uniform_name );
 
-        if ( this.UniformLocationArray[ context.Identifier ] === -1 )
+        if ( this.GraphicUniformLocation === -1 )
         {
             LogError( attribute_name );
         }
@@ -968,105 +968,105 @@ class PROGRAM_UNIFORM
     // ~~
 
     SetInteger(
-        context,
+        graphic_context,
         integer
         )
     {
-        context.uniform1i( this.UniformLocationArray[ context.Identifier ], integer );
+        graphic_context.uniform1i( this.GraphicUniformLocation, integer );
     }
 
     // ~~
 
     SetIntegerVector2(
-        context,
+        graphic_context,
         vector
         )
     {
-        context.uniform2iv( this.UniformLocationArray[ context.Identifier ], vector );
+        graphic_context.uniform2iv( this.GraphicUniformLocation, vector );
     }
 
     // ~~
 
     SetIntegerVector3(
-        context,
+        graphic_context,
         vector
         )
     {
-        context.uniform3iv( this.UniformLocationArray[ context.Identifier ], vector );
+        graphic_context.uniform3iv( this.GraphicUniformLocation, vector );
     }
 
     // ~~
 
     SetIntegerVector4(
-        context,
+        graphic_context,
         vector
         )
     {
-        context.uniform4iv( this.UniformLocationArray[ context.Identifier ], vector );
+        graphic_context.uniform4iv( this.GraphicUniformLocation, vector );
     }
 
     // ~~
 
     SetReal(
-        context,
+        graphic_context,
         real
         )
     {
-        context.uniform1f( this.UniformLocationArray[ context.Identifier ], real );
+        graphic_context.uniform1f( this.GraphicUniformLocation, real );
     }
 
     // ~~
 
     SetRealVector2(
-        context,
+        graphic_context,
         vector
         )
     {
-        context.uniform2fv( this.UniformLocationArray[ context.Identifier ], vector );
+        graphic_context.uniform2fv( this.GraphicUniformLocation, vector );
     }
 
     // ~~
 
     SetRealVector3(
-        context,
+        graphic_context,
         vector
         )
     {
-        context.uniform3fv( this.UniformLocationArray[ context.Identifier ], vector );
+        graphic_context.uniform3fv( this.GraphicUniformLocation, vector );
     }
 
     // ~~
 
     SetRealVector4(
-        context,
+        graphic_context,
         vector
         )
     {
-        context.uniform4fv( this.UniformLocationArray[ context.Identifier ], vector );
+        graphic_context.uniform4fv( this.GraphicUniformLocation, vector );
     }
 
     // ~~
 
     SetRealMatrix4(
-        context,
+        graphic_context,
         matrix,
         matrix_is_transposed = false
         )
     {
-        context.uniformMatrix4fv( this.UniformLocationArray[ context.Identifier ], matrix_is_transposed, matrix );
+        graphic_context.uniformMatrix4fv( this.GraphicUniformLocation, matrix_is_transposed, matrix );
     }
 
     // ~~
 
     BindTextureUnit(
-        context,
+        graphic_context,
         texture,
         unit_index
         )
     {
         texture.BindUnit( unit_index );
 
-        context.uniform1i( this.UniformLocationArray[ context.Identifier ], unit_index );
+        graphic_context.uniform1i( this.GraphicUniformLocation, unit_index );
     }
 }
 
@@ -1084,18 +1084,18 @@ class PROGRAM_ATTRIBUTE
         this.Identifier = ++ProgramAttributeIdentifier;
         this.Program = program;
         this.Name = attribute_name;
-        this.AttributeLocationArray = [];
+        this.GraphicAttributeLocation = null;
     }
 
     // -- OPERATIONS
 
     Bind(
-        context
+        graphic_context
         )
     {
-        this.AttributeLocationArray[ context.Identifier ] = context.getAttribLocation( this.Program, attribute_name );
+        this.GraphicAttributeLocation = graphic_context.getAttribLocation( this.Program, attribute_name );
 
-        if ( this.AttributeLocationArray[ context.Identifier ] === -1 )
+        if ( this.GraphicAttributeLocation === -1 )
         {
             LogError( attribute_name );
         }
@@ -1104,7 +1104,7 @@ class PROGRAM_ATTRIBUTE
     // ~~
 
     BindReal32ArrayBuffer(
-        context,
+        graphic_context,
         array_buffer,
         real_count,
         stride_real_count = 0,
@@ -1112,10 +1112,10 @@ class PROGRAM_ATTRIBUTE
         it_is_normalized = false
         )
     {
-        context.bindBuffer( GL_ArrayBuffer, array_buffer.BufferArray[ context.Identifier ] );
+        graphic_context.bindBuffer( GL_ArrayBuffer, array_buffer.GraphicBuffer );
 
-        context.vertexAttribPointer(
-            this.AttributeLocationArray[ context.Identifier ],
+        graphic_context.vertexAttribPointer(
+            this.GraphicAttributeLocation,
             real_count,
             GL_Float,
             it_is_normalized,
@@ -1123,7 +1123,7 @@ class PROGRAM_ATTRIBUTE
             offset_real_count * 4
             );
 
-        context.enableVertexAttribArray( this.AttributeLocationArray[ context.Identifier ] );
+        graphic_context.enableVertexAttribArray( this.GraphicAttributeLocation );
     }
 
     // ~~
@@ -1132,7 +1132,7 @@ class PROGRAM_ATTRIBUTE
         element_array_buffer
         )
     {
-        context.bindBuffer( GL_ElementArrayBuffer, element_array_buffer.BufferArray[ context.Identifier ] );
+        graphic_context.bindBuffer( GL_ElementArrayBuffer, element_array_buffer.GraphicBuffer );
     }
 }
 
@@ -1150,88 +1150,68 @@ class PROGRAM
         this.Identifier = ++ProgramIdentifier;
         this.VertexShader = vertex_shader;
         this.FragmentShader = fragment_shader;
-        this.ProgramArray = [];
+        this.GraphicProgram = null;
     }
 
     // -- INQUIRIES
 
     GetAttribute(
-        context,
+        graphic_context,
         attribute_name
         )
     {
-        return new PROGRAM_ATTRIBUTE( context, this.ProgramArray[ context.Identifier ], attribute_name );
+        return new PROGRAM_ATTRIBUTE( graphic_context, this.GraphicProgram, attribute_name );
     }
 
     // ~~
 
     GetUniform(
-        context,
+        graphic_context,
         uniform_name
         )
     {
-        return new PROGRAM_UNIFORM( context, this.ProgramArray[ context.Identifier ], uniform_name );
+        return new PROGRAM_UNIFORM( graphic_context, this.GraphicProgram, uniform_name );
     }
 
     // -- OPERATIONS
 
     Bind(
-        context
+        graphic_context
         )
     {
         var
             program;
 
-        program = context.createProgram();
+        program = graphic_context.createProgram();
 
-        this.ProgramArray[ context.Identifier ] = program;
+        this.GraphicProgram = program;
 
-        context.attachShader( program, this.VertexShader.ShaderArray[ context.Identifier ] );
-        context.attachShader( program, this.FragmentShader.ShaderArray[ context.Identifier ] );
-        context.linkProgram( program );
+        graphic_context.attachShader( program, this.VertexShader.GraphicShader );
+        graphic_context.attachShader( program, this.FragmentShader.GraphicShader );
+        graphic_context.linkProgram( program );
 
-        if ( !context.getProgramParameter( program, GL_LinkStatus ) )
+        if ( !graphic_context.getProgramParameter( program, GL_LinkStatus ) )
         {
-            LogError( context.getProgramInfoLog( program ) );
+            LogError( graphic_context.getProgramInfoLog( program ) );
         }
     }
 
     // ~~
 
     Unbind(
-        context
+        graphic_context
         )
     {
-        context.deleteProgram( this.ProgramArray[ context.Identifier ] );
+        graphic_context.deleteProgram( this.GraphicProgram );
     }
 
     // ~~
 
     Use(
-        context
+        graphic_context
         )
     {
-        context.useProgram( this.ProgramArray[ context.Identifier ] );
-    }
-}
-
-// ~~
-
-class REAL_32_ARRAY_BUFFER_ATTRIBUTE
-{
-    // -- CONSTRUCTORS
-
-    constructor(
-        name,
-        stride_real_count = 0,
-        offset_real_count = 0,
-        it_is_normalized = false
-        )
-    {
-        this.Name = name;
-        this.StrideRealCount = stride_real_count;
-        this.OffsetRealCount = offset_real_count;
-        this.IsNormalized = it_is_normalized;
+        graphic_context.useProgram( this.GraphicProgram );
     }
 }
 
@@ -1242,22 +1222,22 @@ class CANVAS
     // -- CONSTRUCTORS
 
     constructor(
-        canvas
+        canvas_element,
+        context_name = "webgl"
         )
     {
         this.Identifier = ++CanvasIdentifier;
-        this.Canvas = canvas;
+        this.CanvasElement = canvas_element;
 
         try
         {
-            this.Context = canvas.getContext( "webgl", { preserveDrawingBuffer : false } );
-            this.Context.Identifier = this.Identifier;
+            this.GraphicContext = canvas_element.getContext( context_name, { preserveDrawingBuffer : false } );
+            this.GraphicContext.Identifier = this.Identifier;
         }
         catch ( error )
         {
-            this.Context = undefined;
+            this.GraphicContext = undefined;
         }
-
     }
 
     // -- INQUIRIES
@@ -1265,7 +1245,7 @@ class CANVAS
     GetWidth(
         )
     {
-        return this.Canvas.clientWidth;
+        return this.CanvasElement.clientWidth;
     }
 
     // ~~
@@ -1273,7 +1253,7 @@ class CANVAS
     GetHeight(
         )
     {
-        return this.Canvas.clientHeight;
+        return this.CanvasElement.clientHeight;
     }
 
     // -- OPERATIONS
@@ -1283,11 +1263,11 @@ class CANVAS
         depth = 1.0
         )
     {
-        this.Context.clearColor( color[ 0 ], color[ 1 ], color[ 2 ], color[ 3 ] );
-        this.Context.clearDepth( 1.0 );
-        this.Context.enable( GL_DepthTest );
-        this.Context.depthFunc( GL_Lequal );
-        this.Context.clear( GL_ColorBufferBit | GL_DepthBufferBit );
+        this.GraphicContext.clearColor( color[ 0 ], color[ 1 ], color[ 2 ], color[ 3 ] );
+        this.GraphicContext.clearDepth( depth );
+        this.GraphicContext.enable( GL_DepthTest );
+        this.GraphicContext.depthFunc( GL_Lequal );
+        this.GraphicContext.clear( GL_ColorBufferBit | GL_DepthBufferBit );
     }
 
     // ~~
@@ -1297,7 +1277,7 @@ class CANVAS
         first_vertex_index = 0
         )
     {
-        this.Context.drawArrays(
+        this.GraphicContext.drawArrays(
             GL_Triangles,
             first_vertex_index,
             vertex_count
@@ -1311,7 +1291,7 @@ class CANVAS
         first_vertex_index = 0
         )
     {
-        this.Context.drawElements(
+        this.GraphicContext.drawElements(
             GL_Triangles,
             vertex_count,
             GL_UnsignedShort,

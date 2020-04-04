@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>Sample</title>
+    </head>
+    <body>
+        <main>
+            <canvas id="canvas" width="640" height="480"></canvas>
+        </main>
+        <script src="../../CODE/JAVASCRIPT/vista_base.js"></script>
+        <script src="../../CODE/JAVASCRIPT/vista_math.js"></script>
+        <script src="../../CODE/JAVASCRIPT/vista_vector_3.js"></script>
+        <script src="../../CODE/JAVASCRIPT/vista_matrix_4.js"></script>
+        <script src="../../CODE/JAVASCRIPT/vista_quaternion.js"></script>
+        <script src="../../CODE/JAVASCRIPT/vista_element.js"></script>
+        <script src="../../CODE/JAVASCRIPT/vista_canvas.js"></script>
+        <script id="vertex-shader" type="x-shader/x-vertex">
+            attribute vec4 VertexPositionVectorAttribute;
+            attribute vec4 VertexColorVectorAttribute;
+
+            varying vec4 VertexColorVectorVarying;
+
+            void main(
+                )
+            {
+                gl_Position = VertexPositionVectorAttribute;
+                VertexColorVectorVarying = VertexColorVectorAttribute;
+            }
+        </script>
+        <script id="fragment-shader" type="x-shader/x-fragment">
+            precision mediump float;
+
+            varying vec4 VertexColorVectorVarying;
+
+            void main(
+                )
+            {
+                gl_FragColor = VertexColorVectorVarying;
+            }
+        </script>
+        <script>
+            // -- FUNCTIONS
+
+            async function RenderColoredTriangle(
+                )
+            {
+                var
+                    canvas,
+                    graphic_context,
+                    fragment_shader,
+                    program,
+                    vertex_real_array_buffer,
+                    vertex_color_attribute,
+                    vertex_position_attribute,
+                    vertex_shader;
+
+                canvas = new CANVAS( GetElementById( "canvas" ) );
+                graphic_context = canvas.GraphicContext;
+
+                vertex_shader
+                    = new VERTEX_SHADER(
+                          "vertex-shader",
+                          GetElementById( "vertex-shader" ).text
+                          );
+                vertex_shader.Bind( graphic_context );
+
+                fragment_shader
+                    = new FRAGMENT_SHADER(
+                          "fragment-shader",
+                          GetElementById( "fragment-shader" ).text
+                          );
+                fragment_shader.Bind( graphic_context );
+
+                program = new PROGRAM( vertex_shader, fragment_shader );
+                program.Bind( graphic_context );
+                program.Use( graphic_context );
+
+                vertex_real_array_buffer
+                    = new REAL_32_ARRAY_BUFFER(
+                          [
+                              0.0, 0.5, 1.0, 0.0, 0.0,
+                              -0.5, -0.5, 0.0, 1.0, 0.0,
+                              0.5, -0.5, 0.0, 0.0, 1.0
+                          ]
+                          );
+                vertex_real_array_buffer.Bind( graphic_context );
+
+                vertex_position_attribute = program.GetAttribute( graphic_context, "VertexPositionVectorAttribute" );
+                vertex_position_attribute.BindReal32ArrayBuffer( graphic_context, vertex_real_array_buffer, 2, 5, 0 );
+
+                vertex_color_attribute = program.GetAttribute( graphic_context, "VertexColorVectorAttribute" );
+                vertex_color_attribute.BindReal32ArrayBuffer( graphic_context, vertex_real_array_buffer, 3, 5, 2 );
+
+                canvas.Clear( [ 0.9, 0.9, 0.9, 1.0 ] );
+                canvas.DrawTriangles( 3 );
+            }
+
+            // -- STATEMENTS
+
+            RenderColoredTriangle();
+        </script>
+    </body>
+</html>

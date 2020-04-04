@@ -4,15 +4,10 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width,initial-scale=1">
         <title>Sample</title>
-        <style>
-        </style>
     </head>
     <body>
         <main>
-            <canvas id="colored-triangle-canvas" width="640" height="480">
-            </canvas>
-            <canvas id="textured-cube-canvas" width="640" height="480">
-            </canvas>
+            <canvas id="canvas" width="640" height="480"></canvas>
         </main>
         <script src="../../CODE/JAVASCRIPT/vista_base.js"></script>
         <script src="../../CODE/JAVASCRIPT/vista_math.js"></script>
@@ -20,32 +15,8 @@
         <script src="../../CODE/JAVASCRIPT/vista_matrix_4.js"></script>
         <script src="../../CODE/JAVASCRIPT/vista_quaternion.js"></script>
         <script src="../../CODE/JAVASCRIPT/vista_element.js"></script>
-        <script src="../../CODE/JAVASCRIPT/vista_shader.js"></script>
-        <script id="colored-triangle-vertex-shader" type="x-shader/x-vertex">
-            attribute vec4 VertexPositionVectorAttribute;
-            attribute vec4 VertexColorVectorAttribute;
-
-            varying vec4 VertexColorVectorVarying;
-
-            void main(
-                )
-            {
-                gl_Position = VertexPositionVectorAttribute;
-                VertexColorVectorVarying = VertexColorVectorAttribute;
-            }
-        </script>
-        <script id="colored-triangle-fragment-shader" type="x-shader/x-fragment">
-            precision mediump float;
-
-            varying vec4 VertexColorVectorVarying;
-
-            void main(
-                )
-            {
-                gl_FragColor = VertexColorVectorVarying;
-            }
-        </script>
-        <script id="textured-cube-vertex-shader" type="x-shader/x-vertex">
+        <script src="../../CODE/JAVASCRIPT/vista_canvas.js"></script>
+        <script id="vertex-shader" type="x-shader/x-vertex">
             attribute vec3 VertexPositionVectorAttribute;
             attribute vec3 VertexNormalVectorAttribute;
             attribute vec2 VertexMappingVectorAttribute;
@@ -71,7 +42,7 @@
                 VertexWidthVarying = VertexWidthAttribute;
             }
         </script>
-        <script id="textured-cube-fragment-shader" type="x-shader/x-fragment">
+        <script id="fragment-shader" type="x-shader/x-fragment">
             precision mediump float;
 
             varying vec3 VertexPositionVectorVarying;
@@ -104,69 +75,13 @@
         <script>
             // -- FUNCTIONS
 
-            async function RenderColoredTriangle(
-                )
-            {
-                var
-                    canvas,
-                    context,
-                    fragment_shader,
-                    program,
-                    vertex_array,
-                    vertex_color_attribute,
-                    vertex_position_attribute,
-                    vertex_shader;
-
-                canvas = new CANVAS( GetElementById( "colored-triangle-canvas" ) );
-                context = canvas.Context;
-
-                vertex_shader
-                    = new VERTEX_SHADER(
-                          "colored-triangle-vertex-shader",
-                          GetElementById( "colored-triangle-vertex-shader" ).text
-                          );
-                vertex_shader.Bind( context );
-
-                fragment_shader
-                    = new FRAGMENT_SHADER(
-                          "colored-triangle-fragment-shader",
-                          GetElementById( "colored-triangle-fragment-shader" ).text
-                          );
-                fragment_shader.Bind( context );
-
-                program = new PROGRAM( vertex_shader, fragment_shader );
-                program.Bind( context );
-                program.Use( context );
-
-                vertex_array
-                    = new REAL_32_ARRAY_BUFFER(
-                          [
-                              0.0, 0.5, 1.0, 0.0, 0.0,
-                              -0.5, -0.5, 0.0, 1.0, 0.0,
-                              0.5, -0.5, 0.0, 0.0, 1.0
-                          ]
-                          );
-                vertex_array.Bind( context );
-
-                vertex_position_attribute = program.GetAttribute( context, "VertexPositionVectorAttribute" );
-                vertex_position_attribute.BindReal32ArrayBuffer( context, vertex_array, 2, 5, 0 );
-
-                vertex_color_attribute = program.GetAttribute( context, "VertexColorVectorAttribute" );
-                vertex_color_attribute.BindReal32ArrayBuffer( context, vertex_array, 3, 5, 2 );
-
-                canvas.Clear( [ 0.9, 0.9, 0.9, 1.0 ] );
-                canvas.DrawTriangles( 3 );
-            }
-
-            // ~~
-
             async function RenderTexturedCube(
                 )
             {
                 var
                     camera_position_vector,
                     canvas,
-                    context,
+                    graphic_context,
                     element_array_buffer,
                     fragment_shader,
                     model_view_matrix,
@@ -182,39 +97,39 @@
                     vertex_shader,
                     vertex_width_attribute;
 
-                canvas = new CANVAS( GetElementById( "textured-cube-canvas" ) );
-                context = canvas.Context;
+                canvas = new CANVAS( GetElementById( "canvas" ) );
+                graphic_context = canvas.GraphicContext;
 
                 texture = new TEXTURE();
-                await texture.LoadImage( context, "texture_1.png" );
-                texture.Bind( context );
+                await texture.LoadImage( graphic_context, "texture_1.png" );
+                texture.Bind( graphic_context );
 
                 vertex_shader
                     = new VERTEX_SHADER(
-                          "textured-cube-vertex-shader",
-                          GetElementById( "textured-cube-vertex-shader" ).text
+                          "vertex-shader",
+                          GetElementById( "vertex-shader" ).text
                           );
-                vertex_shader.Bind( context );
+                vertex_shader.Bind( graphic_context );
 
                 fragment_shader
                     = new FRAGMENT_SHADER(
-                          "textured-cube-fragment-shader",
-                          GetElementById( "textured-cube-fragment-shader" ).text
+                          "fragment-shader",
+                          GetElementById( "fragment-shader" ).text
                           );
-                fragment_shader.Bind( context );
+                fragment_shader.Bind( graphic_context );
 
                 program = new PROGRAM( vertex_shader, fragment_shader );
-                program.Bind( context );
-                program.Use( context );
-                program.CameraPositionVectorUniform = program.GetUniform( context, "CameraPositionVectorUniform" );
-                program.ProjectionMatrixUniform = program.GetUniform( context, "ProjectionMatrixUniform" );
-                program.ViewMatrixUniform = program.GetUniform( context, "ViewMatrixUniform" );
-                program.ModelMatrixUniform = program.GetUniform( context, "ModelMatrixUniform" );
-                program.TextureSamplerUniform = program.GetUniform( context, "TextureSamplerUniform" );
-                program.VertexPositionVectorAttribute = program.GetAttribute( context, "VertexPositionVectorAttribute" );
-                program.VertexNormalVectorAttribute = program.GetAttribute( context, "VertexNormalVectorAttribute" );
-                program.VertexMappingVectorAttribute = program.GetAttribute( context, "VertexMappingVectorAttribute" );
-                program.VertexWidthAttribute = program.GetAttribute( context, "VertexWidthAttribute" );
+                program.Bind( graphic_context );
+                program.Use( graphic_context );
+                program.CameraPositionVectorUniform = program.GetUniform( graphic_context, "CameraPositionVectorUniform" );
+                program.ProjectionMatrixUniform = program.GetUniform( graphic_context, "ProjectionMatrixUniform" );
+                program.ViewMatrixUniform = program.GetUniform( graphic_context, "ViewMatrixUniform" );
+                program.ModelMatrixUniform = program.GetUniform( graphic_context, "ModelMatrixUniform" );
+                program.TextureSamplerUniform = program.GetUniform( graphic_context, "TextureSamplerUniform" );
+                program.VertexPositionVectorAttribute = program.GetAttribute( graphic_context, "VertexPositionVectorAttribute" );
+                program.VertexNormalVectorAttribute = program.GetAttribute( graphic_context, "VertexNormalVectorAttribute" );
+                program.VertexMappingVectorAttribute = program.GetAttribute( graphic_context, "VertexMappingVectorAttribute" );
+                program.VertexWidthAttribute = program.GetAttribute( graphic_context, "VertexWidthAttribute" );
 
                 vertex_array_buffer
                     = new REAL_32_ARRAY_BUFFER(
@@ -250,7 +165,7 @@
                               -0.5, -0.5, 0.5, 1.0, 1.0, 0.0, -1.0, 0.0, 0.2
                           ]
                           );
-                vertex_array_buffer.Bind( context );
+                vertex_array_buffer.Bind( graphic_context );
 
                 element_array_buffer
                     = new NATURAL_16_ELEMENT_ARRAY_BUFFER(
@@ -274,21 +189,21 @@
                               22, 20, 23
                           ]
                           );
-                element_array_buffer.Bind( context );
+                element_array_buffer.Bind( graphic_context );
 
                 camera_position_vector = GetVector3( 0.0, 0.0, 3.0 );
                 projection_matrix = GetPerspectiveMatrix4( 45.0 * DegreesToRadians, canvas.GetWidth() / canvas.GetHeight(), 0.1, 100.0 );
                 view_matrix = GetTranslationMatrix4( GetOppositeVector3( camera_position_vector ) );
 
-                program.Use( context );
-                program.TextureSamplerUniform.BindTexture( context, texture, 0 );
-                program.CameraPositionVectorUniform.SetRealVector3( context, camera_position_vector );
-                program.ProjectionMatrixUniform.SetRealMatrix4( context, projection_matrix );
-                program.ViewMatrixUniform.SetRealMatrix4( context, view_matrix );
-                program.VertexPositionVectorAttribute.BindReal32ArrayBuffer( context, vertex_array_buffer, 3, 9, 0 );
-                program.VertexMappingVectorAttribute.BindReal32ArrayBuffer( context, vertex_array_buffer, 2, 9, 3 );
-                program.VertexNormalVectorAttribute.BindReal32ArrayBuffer( context, vertex_array_buffer, 3, 9, 5 );
-                program.VertexWidthAttribute.BindReal32ArrayBuffer( context, vertex_array_buffer, 1, 9, 8 );
+                program.Use( graphic_context );
+                program.TextureSamplerUniform.BindTexture( graphic_context, texture, 0 );
+                program.CameraPositionVectorUniform.SetRealVector3( graphic_context, camera_position_vector );
+                program.ProjectionMatrixUniform.SetRealMatrix4( graphic_context, projection_matrix );
+                program.ViewMatrixUniform.SetRealMatrix4( graphic_context, view_matrix );
+                program.VertexPositionVectorAttribute.BindReal32ArrayBuffer( graphic_context, vertex_array_buffer, 3, 9, 0 );
+                program.VertexMappingVectorAttribute.BindReal32ArrayBuffer( graphic_context, vertex_array_buffer, 2, 9, 3 );
+                program.VertexNormalVectorAttribute.BindReal32ArrayBuffer( graphic_context, vertex_array_buffer, 3, 9, 5 );
+                program.VertexWidthAttribute.BindReal32ArrayBuffer( graphic_context, vertex_array_buffer, 1, 9, 8 );
 
                 rotation_vector = GetVector3( 0.0 * DegreesToRadians, 0.0 * DegreesToRadians, 0.0 * DegreesToRadians );
                 rotation_speed_vector = GetVector3( 3.0 * DegreesToRadians, 30.0 * DegreesToRadians, 1.0 * DegreesToRadians );
@@ -305,7 +220,7 @@
 
                     rotation_vector = GetScaledSumVector3( rotation_vector, rotation_speed_vector, 1.0, clock.TimeStep );
                     model_matrix = GetZxyRotationMatrix4( rotation_vector );
-                    program.ModelMatrixUniform.SetRealMatrix4( context, model_matrix );
+                    program.ModelMatrixUniform.SetRealMatrix4( graphic_context, model_matrix );
 
                     canvas.DrawIndexedTriangles( 36 );
 
@@ -317,7 +232,6 @@
 
             // -- STATEMENTS
 
-            RenderColoredTriangle();
             RenderTexturedCube();
         </script>
     </body>
