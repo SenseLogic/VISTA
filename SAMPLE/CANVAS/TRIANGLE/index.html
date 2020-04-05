@@ -52,36 +52,7 @@
                     fragment_shader,
                     program,
                     vertex_real_array_buffer,
-                    vertex_color_attribute,
-                    vertex_position_attribute,
                     vertex_shader;
-
-                canvas = new CANVAS( GetElementById( "canvas" ) );
-                graphic_context = canvas.GraphicContext;
-
-                vertex_shader
-                    = new VERTEX_SHADER(
-                          "vertex-shader",
-                          GetElementById( "vertex-shader" ).text
-                          );
-                vertex_shader.Bind( graphic_context );
-
-                fragment_shader
-                    = new FRAGMENT_SHADER(
-                          "fragment-shader",
-                          GetElementById( "fragment-shader" ).text
-                          );
-                fragment_shader.Bind( graphic_context );
-
-                program = new PROGRAM( vertex_shader, fragment_shader );
-                program.Bind( graphic_context );
-                program.Use( graphic_context );
-
-                vertex_position_attribute = program.GetAttribute( "VertexPositionVectorAttribute" );
-                vertex_color_attribute = program.GetAttribute( "VertexColorVectorAttribute" );
-
-                vertex_position_attribute.Bind( graphic_context );
-                vertex_color_attribute.Bind( graphic_context );
 
                 vertex_real_array_buffer
                     = new REAL_32_ARRAY_BUFFER(
@@ -91,10 +62,29 @@
                               0.5, -0.5, 0.0, 0.0, 1.0
                           ]
                           );
+
+                vertex_shader = new VERTEX_SHADER( "vertex-shader", GetElementById( "vertex-shader" ).text );
+                fragment_shader = new FRAGMENT_SHADER( "fragment-shader", GetElementById( "fragment-shader" ).text );
+
+                program = new PROGRAM( vertex_shader, fragment_shader );
+                program.VertexPositionVectorAttribute = program.GetAttribute( "VertexPositionVectorAttribute" );
+                program.VertexColorVectorAttribute = program.GetAttribute( "VertexColorVectorAttribute" );
+
+                canvas = new CANVAS( GetElementById( "canvas" ) );
+                graphic_context = canvas.GraphicContext;
+
                 vertex_real_array_buffer.Bind( graphic_context );
 
-                vertex_position_attribute.BindReal32ArrayBuffer( graphic_context, vertex_real_array_buffer, 2, 5, 0 );
-                vertex_color_attribute.BindReal32ArrayBuffer( graphic_context, vertex_real_array_buffer, 3, 5, 2 );
+                vertex_shader.Bind( graphic_context );
+                fragment_shader.Bind( graphic_context );
+
+                program.Bind( graphic_context );
+                program.VertexPositionVectorAttribute.Bind( graphic_context );
+                program.VertexColorVectorAttribute.Bind( graphic_context );
+
+                program.Use( graphic_context );
+                program.VertexPositionVectorAttribute.BindReal32ArrayBuffer( graphic_context, vertex_real_array_buffer, 2, 5, 0 );
+                program.VertexColorVectorAttribute.BindReal32ArrayBuffer( graphic_context, vertex_real_array_buffer, 3, 5, 2 );
 
                 canvas.Clear( [ 0.9, 0.9, 0.9, 1.0 ] );
                 canvas.DrawTriangles( 3 );

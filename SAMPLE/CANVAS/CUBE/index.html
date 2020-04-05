@@ -35,7 +35,6 @@
                 )
             {
                 gl_Position = ProjectionMatrixUniform * ViewMatrixUniform * ModelMatrixUniform * vec4( VertexPositionVectorAttribute, 1.0 );
-                //gl_Position = vec4( VertexPositionVectorAttribute, 1.0 );
 
                 VertexPositionVectorVarying = vec3( ModelMatrixUniform * vec4( VertexPositionVectorAttribute, 1.0 ) );
                 VertexNormalVectorVarying = normalize( vec3( ModelMatrixUniform * vec4( VertexNormalVectorAttribute, 0.0 ) ) );
@@ -69,8 +68,10 @@
 
                 vec3 view_axis_vector = normalize( CameraPositionVectorUniform - VertexPositionVectorVarying );
                 float fresnel_factor = clamp( 1.0 - dot( view_axis_vector, VertexNormalVectorVarying ), 0.0, 1.0 );
+                vec3 fresnel_color = color.xyz * ( 1.0 - fresnel_factor * 0.5 );
+                vec3 fresnel_tint = vec3( 0.0, 0.5, 0.0 );
 
-                gl_FragColor = vec4( color.xyz * ( 1.0 - fresnel_factor * 0.5 ), 1.0 );
+                gl_FragColor = vec4( mix( fresnel_color, fresnel_tint, fresnel_factor * fresnel_factor * fresnel_factor * 1.0 ), 1.0 );
             }
         </script>
         <script>
@@ -97,52 +98,6 @@
                     vertex_array_buffer,
                     vertex_shader,
                     vertex_width_attribute;
-
-                canvas = new CANVAS( GetElementById( "canvas" ) );
-                graphic_context = canvas.GraphicContext;
-
-                texture = new TEXTURE();
-                texture.Bind( graphic_context );
-                await texture.LoadImage( "texture_1.png" );
-                texture.BindImage( graphic_context );
-
-                vertex_shader
-                    = new VERTEX_SHADER(
-                          "vertex-shader",
-                          GetElementById( "vertex-shader" ).text
-                          );
-                vertex_shader.Bind( graphic_context );
-
-                fragment_shader
-                    = new FRAGMENT_SHADER(
-                          "fragment-shader",
-                          GetElementById( "fragment-shader" ).text
-                          );
-                fragment_shader.Bind( graphic_context );
-
-                program = new PROGRAM( vertex_shader, fragment_shader );
-                program.Bind( graphic_context );
-                program.Use( graphic_context );
-
-                program.CameraPositionVectorUniform = program.GetUniform( "CameraPositionVectorUniform" );
-                program.ProjectionMatrixUniform = program.GetUniform( "ProjectionMatrixUniform" );
-                program.ViewMatrixUniform = program.GetUniform( "ViewMatrixUniform" );
-                program.ModelMatrixUniform = program.GetUniform( "ModelMatrixUniform" );
-                program.TextureSamplerUniform = program.GetUniform( "TextureSamplerUniform" );
-                program.VertexPositionVectorAttribute = program.GetAttribute( "VertexPositionVectorAttribute" );
-                program.VertexNormalVectorAttribute = program.GetAttribute( "VertexNormalVectorAttribute" );
-                program.VertexMappingVectorAttribute = program.GetAttribute( "VertexMappingVectorAttribute" );
-                program.VertexWidthAttribute = program.GetAttribute( "VertexWidthAttribute" );
-
-                program.CameraPositionVectorUniform.Bind( graphic_context );
-                program.ProjectionMatrixUniform.Bind( graphic_context );
-                program.ViewMatrixUniform.Bind( graphic_context );
-                program.ModelMatrixUniform.Bind( graphic_context );
-                program.TextureSamplerUniform.Bind( graphic_context );
-                program.VertexPositionVectorAttribute.Bind( graphic_context );
-                program.VertexNormalVectorAttribute.Bind( graphic_context );
-                program.VertexMappingVectorAttribute.Bind( graphic_context );
-                program.VertexWidthAttribute.Bind( graphic_context );
 
                 vertex_array_buffer
                     = new REAL_32_ARRAY_BUFFER(
@@ -178,7 +133,44 @@
                               -0.5, -0.5, 0.5, 1.0, 1.0, 0.0, -1.0, 0.0, 0.2
                           ]
                           );
+
+                texture = new TEXTURE();
+                await texture.LoadImage( "texture_1.png" );
+
+                vertex_shader = new VERTEX_SHADER( "vertex-shader", GetElementById( "vertex-shader" ).text );
+                fragment_shader = new FRAGMENT_SHADER( "fragment-shader", GetElementById( "fragment-shader" ).text );
+                program = new PROGRAM( vertex_shader, fragment_shader );
+                program.CameraPositionVectorUniform = program.GetUniform( "CameraPositionVectorUniform" );
+                program.ProjectionMatrixUniform = program.GetUniform( "ProjectionMatrixUniform" );
+                program.ViewMatrixUniform = program.GetUniform( "ViewMatrixUniform" );
+                program.ModelMatrixUniform = program.GetUniform( "ModelMatrixUniform" );
+                program.TextureSamplerUniform = program.GetUniform( "TextureSamplerUniform" );
+                program.VertexPositionVectorAttribute = program.GetAttribute( "VertexPositionVectorAttribute" );
+                program.VertexNormalVectorAttribute = program.GetAttribute( "VertexNormalVectorAttribute" );
+                program.VertexMappingVectorAttribute = program.GetAttribute( "VertexMappingVectorAttribute" );
+                program.VertexWidthAttribute = program.GetAttribute( "VertexWidthAttribute" );
+
+                canvas = new CANVAS( GetElementById( "canvas" ) );
+                graphic_context = canvas.GraphicContext;
+
                 vertex_array_buffer.Bind( graphic_context );
+
+                texture.Bind( graphic_context );
+                texture.BindImage( graphic_context );
+
+                vertex_shader.Bind( graphic_context );
+                fragment_shader.Bind( graphic_context );
+
+                program.Bind( graphic_context );
+                program.CameraPositionVectorUniform.Bind( graphic_context );
+                program.ProjectionMatrixUniform.Bind( graphic_context );
+                program.ViewMatrixUniform.Bind( graphic_context );
+                program.ModelMatrixUniform.Bind( graphic_context );
+                program.TextureSamplerUniform.Bind( graphic_context );
+                program.VertexPositionVectorAttribute.Bind( graphic_context );
+                program.VertexNormalVectorAttribute.Bind( graphic_context );
+                program.VertexMappingVectorAttribute.Bind( graphic_context );
+                program.VertexWidthAttribute.Bind( graphic_context );
 
                 element_array_buffer
                     = new NATURAL_16_ELEMENT_ARRAY_BUFFER(
@@ -208,6 +200,7 @@
                 projection_matrix = GetPerspectiveMatrix4( 45.0 * DegreesToRadians, canvas.GetWidth() / canvas.GetHeight(), 0.1, 100.0 );
                 view_matrix = GetTranslationMatrix4( GetOppositeVector3( camera_position_vector ) );
 
+                program.Use( graphic_context );
                 program.TextureSamplerUniform.BindTextureUnit( graphic_context, texture, 0 );
                 program.CameraPositionVectorUniform.BindRealVector3( graphic_context, camera_position_vector );
                 program.ProjectionMatrixUniform.BindRealMatrix4( graphic_context, projection_matrix );

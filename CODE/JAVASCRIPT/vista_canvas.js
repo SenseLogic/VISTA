@@ -954,7 +954,7 @@ class PROGRAM_UNIFORM
         graphic_context
         )
     {
-        this.GraphicUniformLocation = graphic_context.getUniformLocation( this.Program, this.Name );
+        this.GraphicUniformLocation = graphic_context.getUniformLocation( this.Program.GraphicProgram, this.Name );
 
         if ( this.GraphicUniformLocation === -1 )
         {
@@ -1090,7 +1090,7 @@ class PROGRAM_ATTRIBUTE
         graphic_context
         )
     {
-        this.GraphicAttributeLocation = graphic_context.getAttribLocation( this.Program, this.Name );
+        this.GraphicAttributeLocation = graphic_context.getAttribLocation( this.Program.GraphicProgram, this.Name );
 
         if ( this.GraphicAttributeLocation === -1 )
         {
@@ -1156,7 +1156,7 @@ class PROGRAM
         uniform_name
         )
     {
-        return new PROGRAM_UNIFORM( this.GraphicProgram, uniform_name );
+        return new PROGRAM_UNIFORM( this, uniform_name );
     }
 
     // ~~
@@ -1165,7 +1165,7 @@ class PROGRAM
         attribute_name
         )
     {
-        return new PROGRAM_ATTRIBUTE( this.GraphicProgram, attribute_name );
+        return new PROGRAM_ATTRIBUTE( this, attribute_name );
     }
 
     // -- OPERATIONS
