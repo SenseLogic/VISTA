@@ -2,7 +2,7 @@
 
 var
     PropertyAnimationFrame = null,
-    PropertyAnimationIdentifier = 0,
+    PropertyAnimationIdentifier = -1,
     PropertyAnimationMap = new Map(),
     PropertyAnimationTimestamp = null,
     PropertyTransformNameArray = [
@@ -35,9 +35,9 @@ class PROPERTY_ANIMATION
         var
             property_value;
 
-        this.Identifier = GetPropertyAnimationIdentifier();
-        this.Element = element;
+        this.Identifier = ++PropertyAnimationIdentifier;
         this.Name = property_name;
+        this.Element = element;
         this.IsNumeric = IsNumericText( property_value_array[ 0 ] );
         this.IsColor = IsColorText( property_value_array[ 0 ] );
         this.IsTransform = ( property_name == "transform" );
@@ -975,14 +975,6 @@ function GetQuinticEaseInOutRatio(
 
         return 16.0 * ratio * ratio * ratio * ratio * ratio + 1;
     }
-}
-
-// ~~
-
-function GetPropertyAnimationIdentifier(
-    )
-{
-    return ++PropertyAnimationIdentifier;
 }
 
 // ~~

@@ -664,8 +664,13 @@ class REAL_32_ARRAY_BUFFER
         )
     {
         this.Identifier = ++ArrayBufferIdentifier;
+        this.Name = "";
         this.Float32Array = new Float32Array( real_array );
         this.GraphicBuffer = null;
+        this.PositionRealCount = 0;
+        this.MappingRealCount = 0;
+        this.NormalRealCount = 0;
+        this.VertexRealCount = 0;
     }
 
     // ~~
@@ -690,6 +695,7 @@ class NATURAL_16_ELEMENT_ARRAY_BUFFER
         )
     {
         this.Identifier = ++ElementArrayBufferIdentifier;
+        this.Name = "";
         this.Uint16Array = new Uint16Array( natural_array );
         this.GraphicBuffer = null;
     }
@@ -721,6 +727,7 @@ class TEXTURE
         )
     {
         this.Identifier = ++TextureIdentifier;
+        this.Name = "";
         this.InternalFormat = GL_Rgba;
         this.Format = GL_Rgba;
         this.Type = GL_UnsignedByte;
@@ -855,13 +862,12 @@ class SHADER
     // -- CONSTRUCTORS
 
     constructor(
-        name,
         code,
         type
         )
     {
         this.Identifier = ++ShaderIdentifier;
-        this.Name = name;
+        this.Name = "";
         this.Code = code;
         this.Type = type;
         this.GraphicShader = null;
@@ -908,11 +914,10 @@ class VERTEX_SHADER extends SHADER
     // -- CONSTRUCTORS
 
     constructor(
-        name,
         code
         )
     {
-        super( name, code, GL_VertexShader );
+        super( code, GL_VertexShader );
     }
 }
 
@@ -923,11 +928,10 @@ class FRAGMENT_SHADER extends SHADER
     // -- CONSTRUCTORS
 
     constructor(
-        name,
         code
         )
     {
-        super( name, code, GL_FragmentShader );
+        super( code, GL_FragmentShader );
     }
 }
 
@@ -939,7 +943,7 @@ class PROGRAM_UNIFORM
 
     constructor(
         program,
-        name
+        name = ""
         )
     {
         this.Identifier = ++ProgramUniformIdentifier;
@@ -1075,12 +1079,12 @@ class PROGRAM_ATTRIBUTE
 
     constructor(
         program,
-        name
+        name = ""
         )
     {
         this.Identifier = ++ProgramAttributeIdentifier;
-        this.Program = program;
         this.Name = name;
+        this.Program = program;
         this.GraphicAttributeLocation = null;
     }
 
@@ -1145,6 +1149,7 @@ class PROGRAM
         )
     {
         this.Identifier = ++ProgramIdentifier;
+        this.Name = "";
         this.VertexShader = vertex_shader;
         this.FragmentShader = fragment_shader;
         this.GraphicProgram = null;
@@ -1222,6 +1227,7 @@ class CANVAS
         )
     {
         this.Identifier = ++CanvasIdentifier;
+        this.Name = "";
         this.CanvasElement = canvas_element;
 
         try

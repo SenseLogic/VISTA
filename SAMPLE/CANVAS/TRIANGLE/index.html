@@ -63,8 +63,8 @@
                           ]
                           );
 
-                vertex_shader = new VERTEX_SHADER( "vertex-shader", GetElementById( "vertex-shader" ).text );
-                fragment_shader = new FRAGMENT_SHADER( "fragment-shader", GetElementById( "fragment-shader" ).text );
+                vertex_shader = new VERTEX_SHADER( GetElementById( "vertex-shader" ).text );
+                fragment_shader = new FRAGMENT_SHADER( GetElementById( "fragment-shader" ).text );
 
                 program = new PROGRAM( vertex_shader, fragment_shader );
                 program.VertexPositionVectorAttribute = program.GetAttribute( "VertexPositionVectorAttribute" );

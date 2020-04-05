@@ -1,29 +1,5 @@
 // -- TYPES
 
-class WAVEFRONT_MATERIAL
-{
-    // -- CONSTRUCTORS
-
-    constructor(
-        name
-        )
-    {
-        this.Name = name;
-        this.AmbientColor = [ 1.0, 1.0, 1.0 ];
-        this.DiffuseColor = [ 1.0, 1.0, 1.0 ];
-        this.SpecularColor = [ 1.0, 1.0, 1.0 ];
-        this.SpecularExponent = 0.0;
-        this.EmissiveColor = [ 0.0, 0.0, 0.0 ];
-        this.Density = 1.0;
-        this.Opacity = 1.0;
-        this.PositionRealCount = 0;
-        this.MappingRealCount = 0;
-        this.NormalRealCount = 0;
-    }
-}
-
-// ~~
-
 class WAVEFRONT_FACE
 {
     // -- CONSTRUCTORS
@@ -140,7 +116,7 @@ class WAVEFRONT_MODEL
         if ( this.MaterialIndex < 0 )
         {
             this.MaterialIndex = 0;
-            this.MaterialArray.push( new WAVEFRONT_MATERIAL( "default" ) );
+            this.MaterialArray.push( new MATERIAL( "default" ) );
         }
 
         material = this.MaterialArray[ this.MaterialIndex ];
@@ -257,7 +233,7 @@ class WAVEFRONT_MODEL
             if ( line.startsWith( "newmtl " ) )
             {
                 this.MaterialIndex = this.MaterialArray.length;
-                this.MaterialArray.push( new WAVEFRONT_MATERIAL( line.substring( 7 ) ) );
+                this.MaterialArray.push( new MATERIAL( line.substring( 7 ) ) );
             }
             else if ( line.startsWith( "Ka " ) )
             {
@@ -358,15 +334,7 @@ class WAVEFRONT_MODEL
               ++material_index )
         {
             material = this.MaterialArray[ material_index ];
-
-            scene_material
-                = scene.MakeMaterial(
-                      material.name,
-                      material.PositionRealCount,
-                      material.MappingRealCount,
-                      material.NormalRealCount,
-                      material.PositionRealCount + material.MappingRealCount + material.NormalRealCount
-                      );
+            material.RealCount = material.PositionRealCount + material.MappingRealCount + material.NormalRealCount;
 
             real_array = [];
             vertex_index_array = [];
@@ -418,8 +386,8 @@ class WAVEFRONT_MODEL
                 }
             }
 
-            scene_geometry = new GEOMETRY( real_array, vertex_index_array, vertex_count );
-            scene_mesh = new MESH( scene_material, scene_geometry );
+            geometry = new GEOMETRY( real_array, vertex_index_array, vertex_count );
+            mesh = new MESH( material, geometry );
         }
     }
 }
