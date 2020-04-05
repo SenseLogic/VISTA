@@ -756,7 +756,7 @@ class TEXTURE
 
     // ~~
 
-    SetImage(
+    BindImage(
         graphic_context
         )
     {
@@ -776,7 +776,6 @@ class TEXTURE
     // ~~
 
     LoadImage(
-        graphic_context,
         image_file_path
         )
     {
@@ -800,9 +799,7 @@ class TEXTURE
                         event
                         )
                     {
-                        texture.SetImage( graphic_context );
-
-                        resolve_function( texture );
+                        resolve_function( image_file_path );
                     }
                     );
 
@@ -838,7 +835,7 @@ class TEXTURE
         )
     {
         graphic_context.activeTexture( GL_Texture0 + unit_index );
-        graphic_context.bindTexture( this.Target, this.Texture );
+        graphic_context.bindTexture( this.Target, this.GraphicTexture );
     }
 
     // ~~
@@ -942,12 +939,12 @@ class PROGRAM_UNIFORM
 
     constructor(
         program,
-        uniform_name
+        name
         )
     {
         this.Identifier = ++ProgramUniformIdentifier;
         this.Program = program;
-        this.Name = uniform_name;
+        this.Name = name;
         this.GraphicUniformLocation = null;
     }
 
@@ -957,11 +954,11 @@ class PROGRAM_UNIFORM
         graphic_context
         )
     {
-        this.GraphicUniformLocation = graphic_context.getUniformLocation( program, uniform_name );
+        this.GraphicUniformLocation = graphic_context.getUniformLocation( this.Program, this.Name );
 
         if ( this.GraphicUniformLocation === -1 )
         {
-            LogError( attribute_name );
+            LogError( this.Name );
         }
     }
 
@@ -1007,7 +1004,7 @@ class PROGRAM_UNIFORM
 
     // ~~
 
-    SetReal(
+    BindReal(
         graphic_context,
         real
         )
@@ -1017,7 +1014,7 @@ class PROGRAM_UNIFORM
 
     // ~~
 
-    SetRealVector2(
+    BindRealVector2(
         graphic_context,
         vector
         )
@@ -1027,7 +1024,7 @@ class PROGRAM_UNIFORM
 
     // ~~
 
-    SetRealVector3(
+    BindRealVector3(
         graphic_context,
         vector
         )
@@ -1037,7 +1034,7 @@ class PROGRAM_UNIFORM
 
     // ~~
 
-    SetRealVector4(
+    BindRealVector4(
         graphic_context,
         vector
         )
@@ -1047,7 +1044,7 @@ class PROGRAM_UNIFORM
 
     // ~~
 
-    SetRealMatrix4(
+    BindRealMatrix4(
         graphic_context,
         matrix,
         matrix_is_transposed = false
@@ -1064,7 +1061,7 @@ class PROGRAM_UNIFORM
         unit_index
         )
     {
-        texture.BindUnit( unit_index );
+        texture.BindUnit( graphic_context, unit_index );
 
         graphic_context.uniform1i( this.GraphicUniformLocation, unit_index );
     }
@@ -1078,12 +1075,12 @@ class PROGRAM_ATTRIBUTE
 
     constructor(
         program,
-        attribute_name
+        name
         )
     {
         this.Identifier = ++ProgramAttributeIdentifier;
         this.Program = program;
-        this.Name = attribute_name;
+        this.Name = name;
         this.GraphicAttributeLocation = null;
     }
 
@@ -1093,11 +1090,11 @@ class PROGRAM_ATTRIBUTE
         graphic_context
         )
     {
-        this.GraphicAttributeLocation = graphic_context.getAttribLocation( this.Program, attribute_name );
+        this.GraphicAttributeLocation = graphic_context.getAttribLocation( this.Program, this.Name );
 
         if ( this.GraphicAttributeLocation === -1 )
         {
-            LogError( attribute_name );
+            LogError( this.Name );
         }
     }
 
@@ -1155,22 +1152,20 @@ class PROGRAM
 
     // -- INQUIRIES
 
-    GetAttribute(
-        graphic_context,
-        attribute_name
+    GetUniform(
+        uniform_name
         )
     {
-        return new PROGRAM_ATTRIBUTE( graphic_context, this.GraphicProgram, attribute_name );
+        return new PROGRAM_UNIFORM( this.GraphicProgram, uniform_name );
     }
 
     // ~~
 
-    GetUniform(
-        graphic_context,
-        uniform_name
+    GetAttribute(
+        attribute_name
         )
     {
-        return new PROGRAM_UNIFORM( graphic_context, this.GraphicProgram, uniform_name );
+        return new PROGRAM_ATTRIBUTE( this.GraphicProgram, attribute_name );
     }
 
     // -- OPERATIONS

@@ -9,13 +9,13 @@
         <main>
             <canvas id="canvas" width="640" height="480"></canvas>
         </main>
-        <script src="../../CODE/JAVASCRIPT/vista_base.js"></script>
-        <script src="../../CODE/JAVASCRIPT/vista_math.js"></script>
-        <script src="../../CODE/JAVASCRIPT/vista_vector_3.js"></script>
-        <script src="../../CODE/JAVASCRIPT/vista_matrix_4.js"></script>
-        <script src="../../CODE/JAVASCRIPT/vista_quaternion.js"></script>
-        <script src="../../CODE/JAVASCRIPT/vista_element.js"></script>
-        <script src="../../CODE/JAVASCRIPT/vista_canvas.js"></script>
+        <script src="../../../CODE/JAVASCRIPT/vista_base.js"></script>
+        <script src="../../../CODE/JAVASCRIPT/vista_math.js"></script>
+        <script src="../../../CODE/JAVASCRIPT/vista_vector_3.js"></script>
+        <script src="../../../CODE/JAVASCRIPT/vista_matrix_4.js"></script>
+        <script src="../../../CODE/JAVASCRIPT/vista_quaternion.js"></script>
+        <script src="../../../CODE/JAVASCRIPT/vista_element.js"></script>
+        <script src="../../../CODE/JAVASCRIPT/vista_canvas.js"></script>
         <script id="vertex-shader" type="x-shader/x-vertex">
             attribute vec3 VertexPositionVectorAttribute;
             attribute vec3 VertexNormalVectorAttribute;
@@ -35,6 +35,7 @@
                 )
             {
                 gl_Position = ProjectionMatrixUniform * ViewMatrixUniform * ModelMatrixUniform * vec4( VertexPositionVectorAttribute, 1.0 );
+                //gl_Position = vec4( VertexPositionVectorAttribute, 1.0 );
 
                 VertexPositionVectorVarying = vec3( ModelMatrixUniform * vec4( VertexPositionVectorAttribute, 1.0 ) );
                 VertexNormalVectorVarying = normalize( vec3( ModelMatrixUniform * vec4( VertexNormalVectorAttribute, 0.0 ) ) );
@@ -101,8 +102,9 @@
                 graphic_context = canvas.GraphicContext;
 
                 texture = new TEXTURE();
-                await texture.LoadImage( graphic_context, "texture_1.png" );
                 texture.Bind( graphic_context );
+                await texture.LoadImage( "texture_1.png" );
+                texture.BindImage( graphic_context );
 
                 vertex_shader
                     = new VERTEX_SHADER(
@@ -121,15 +123,26 @@
                 program = new PROGRAM( vertex_shader, fragment_shader );
                 program.Bind( graphic_context );
                 program.Use( graphic_context );
-                program.CameraPositionVectorUniform = program.GetUniform( graphic_context, "CameraPositionVectorUniform" );
-                program.ProjectionMatrixUniform = program.GetUniform( graphic_context, "ProjectionMatrixUniform" );
-                program.ViewMatrixUniform = program.GetUniform( graphic_context, "ViewMatrixUniform" );
-                program.ModelMatrixUniform = program.GetUniform( graphic_context, "ModelMatrixUniform" );
-                program.TextureSamplerUniform = program.GetUniform( graphic_context, "TextureSamplerUniform" );
-                program.VertexPositionVectorAttribute = program.GetAttribute( graphic_context, "VertexPositionVectorAttribute" );
-                program.VertexNormalVectorAttribute = program.GetAttribute( graphic_context, "VertexNormalVectorAttribute" );
-                program.VertexMappingVectorAttribute = program.GetAttribute( graphic_context, "VertexMappingVectorAttribute" );
-                program.VertexWidthAttribute = program.GetAttribute( graphic_context, "VertexWidthAttribute" );
+
+                program.CameraPositionVectorUniform = program.GetUniform( "CameraPositionVectorUniform" );
+                program.ProjectionMatrixUniform = program.GetUniform( "ProjectionMatrixUniform" );
+                program.ViewMatrixUniform = program.GetUniform( "ViewMatrixUniform" );
+                program.ModelMatrixUniform = program.GetUniform( "ModelMatrixUniform" );
+                program.TextureSamplerUniform = program.GetUniform( "TextureSamplerUniform" );
+                program.VertexPositionVectorAttribute = program.GetAttribute( "VertexPositionVectorAttribute" );
+                program.VertexNormalVectorAttribute = program.GetAttribute( "VertexNormalVectorAttribute" );
+                program.VertexMappingVectorAttribute = program.GetAttribute( "VertexMappingVectorAttribute" );
+                program.VertexWidthAttribute = program.GetAttribute( "VertexWidthAttribute" );
+
+                program.CameraPositionVectorUniform.Bind( graphic_context );
+                program.ProjectionMatrixUniform.Bind( graphic_context );
+                program.ViewMatrixUniform.Bind( graphic_context );
+                program.ModelMatrixUniform.Bind( graphic_context );
+                program.TextureSamplerUniform.Bind( graphic_context );
+                program.VertexPositionVectorAttribute.Bind( graphic_context );
+                program.VertexNormalVectorAttribute.Bind( graphic_context );
+                program.VertexMappingVectorAttribute.Bind( graphic_context );
+                program.VertexWidthAttribute.Bind( graphic_context );
 
                 vertex_array_buffer
                     = new REAL_32_ARRAY_BUFFER(
@@ -195,11 +208,10 @@
                 projection_matrix = GetPerspectiveMatrix4( 45.0 * DegreesToRadians, canvas.GetWidth() / canvas.GetHeight(), 0.1, 100.0 );
                 view_matrix = GetTranslationMatrix4( GetOppositeVector3( camera_position_vector ) );
 
-                program.Use( graphic_context );
-                program.TextureSamplerUniform.BindTexture( graphic_context, texture, 0 );
-                program.CameraPositionVectorUniform.SetRealVector3( graphic_context, camera_position_vector );
-                program.ProjectionMatrixUniform.SetRealMatrix4( graphic_context, projection_matrix );
-                program.ViewMatrixUniform.SetRealMatrix4( graphic_context, view_matrix );
+                program.TextureSamplerUniform.BindTextureUnit( graphic_context, texture, 0 );
+                program.CameraPositionVectorUniform.BindRealVector3( graphic_context, camera_position_vector );
+                program.ProjectionMatrixUniform.BindRealMatrix4( graphic_context, projection_matrix );
+                program.ViewMatrixUniform.BindRealMatrix4( graphic_context, view_matrix );
                 program.VertexPositionVectorAttribute.BindReal32ArrayBuffer( graphic_context, vertex_array_buffer, 3, 9, 0 );
                 program.VertexMappingVectorAttribute.BindReal32ArrayBuffer( graphic_context, vertex_array_buffer, 2, 9, 3 );
                 program.VertexNormalVectorAttribute.BindReal32ArrayBuffer( graphic_context, vertex_array_buffer, 3, 9, 5 );
@@ -220,7 +232,7 @@
 
                     rotation_vector = GetScaledSumVector3( rotation_vector, rotation_speed_vector, 1.0, clock.TimeStep );
                     model_matrix = GetZxyRotationMatrix4( rotation_vector );
-                    program.ModelMatrixUniform.SetRealMatrix4( graphic_context, model_matrix );
+                    program.ModelMatrixUniform.BindRealMatrix4( graphic_context, model_matrix );
 
                     canvas.DrawIndexedTriangles( 36 );
 

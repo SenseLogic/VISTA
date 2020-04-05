@@ -9,13 +9,13 @@
         <main>
             <canvas id="canvas" width="640" height="480"></canvas>
         </main>
-        <script src="../../CODE/JAVASCRIPT/vista_base.js"></script>
-        <script src="../../CODE/JAVASCRIPT/vista_math.js"></script>
-        <script src="../../CODE/JAVASCRIPT/vista_vector_3.js"></script>
-        <script src="../../CODE/JAVASCRIPT/vista_matrix_4.js"></script>
-        <script src="../../CODE/JAVASCRIPT/vista_quaternion.js"></script>
-        <script src="../../CODE/JAVASCRIPT/vista_element.js"></script>
-        <script src="../../CODE/JAVASCRIPT/vista_canvas.js"></script>
+        <script src="../../../CODE/JAVASCRIPT/vista_base.js"></script>
+        <script src="../../../CODE/JAVASCRIPT/vista_math.js"></script>
+        <script src="../../../CODE/JAVASCRIPT/vista_vector_3.js"></script>
+        <script src="../../../CODE/JAVASCRIPT/vista_matrix_4.js"></script>
+        <script src="../../../CODE/JAVASCRIPT/vista_quaternion.js"></script>
+        <script src="../../../CODE/JAVASCRIPT/vista_element.js"></script>
+        <script src="../../../CODE/JAVASCRIPT/vista_canvas.js"></script>
         <script id="vertex-shader" type="x-shader/x-vertex">
             attribute vec4 VertexPositionVectorAttribute;
             attribute vec4 VertexColorVectorAttribute;
@@ -77,6 +77,12 @@
                 program.Bind( graphic_context );
                 program.Use( graphic_context );
 
+                vertex_position_attribute = program.GetAttribute( "VertexPositionVectorAttribute" );
+                vertex_color_attribute = program.GetAttribute( "VertexColorVectorAttribute" );
+
+                vertex_position_attribute.Bind( graphic_context );
+                vertex_color_attribute.Bind( graphic_context );
+
                 vertex_real_array_buffer
                     = new REAL_32_ARRAY_BUFFER(
                           [
@@ -87,10 +93,7 @@
                           );
                 vertex_real_array_buffer.Bind( graphic_context );
 
-                vertex_position_attribute = program.GetAttribute( graphic_context, "VertexPositionVectorAttribute" );
                 vertex_position_attribute.BindReal32ArrayBuffer( graphic_context, vertex_real_array_buffer, 2, 5, 0 );
-
-                vertex_color_attribute = program.GetAttribute( graphic_context, "VertexColorVectorAttribute" );
                 vertex_color_attribute.BindReal32ArrayBuffer( graphic_context, vertex_real_array_buffer, 3, 5, 2 );
 
                 canvas.Clear( [ 0.9, 0.9, 0.9, 1.0 ] );
