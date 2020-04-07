@@ -53,12 +53,21 @@ class COMPONENT extends HTMLElement
 
     // ~~
 
+    RequestUpdate(
+        )
+    {
+        this.HasChanged = true;
+    }
+
+    // ~~
+
     ManageChangedAttribute(
         attribute,
         old_value,
         new_value
         )
     {
+        this.HasChanged = true;
     }
 
     // ~~
@@ -95,17 +104,11 @@ class COMPONENT extends HTMLElement
 
     // ~~
 
-    RequestUpdate(
+    UpdateContent(
         )
     {
-        this.HasChanged = true;
-    }
+        SetContent( MakeContent() );
 
-    // ~~
-
-    Update(
-        )
-    {
         this.HasChanged = false;
     }
 }
