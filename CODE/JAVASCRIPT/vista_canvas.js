@@ -657,7 +657,7 @@ var
 
 // -- TYPES
 
-class REAL_32_ARRAY_BUFFER
+class VISTA_REAL_32_ARRAY_BUFFER
 {
     constructor(
         real_array
@@ -688,7 +688,7 @@ class REAL_32_ARRAY_BUFFER
 
 // ~~
 
-class NATURAL_16_ELEMENT_ARRAY_BUFFER
+class VISTA_NATURAL_16_ELEMENT_ARRAY_BUFFER
 {
     constructor(
         natural_array
@@ -715,7 +715,7 @@ class NATURAL_16_ELEMENT_ARRAY_BUFFER
 
 // ~~
 
-class TEXTURE
+class VISTA_TEXTURE
 {
     // -- CONSTRUCTORS
 
@@ -857,7 +857,7 @@ class TEXTURE
 
 // ~~
 
-class SHADER
+class VISTA_SHADER
 {
     // -- CONSTRUCTORS
 
@@ -909,7 +909,7 @@ class SHADER
 
 // ~~
 
-class VERTEX_SHADER extends SHADER
+class VISTA_VERTEX_SHADER extends VISTA_SHADER
 {
     // -- CONSTRUCTORS
 
@@ -923,7 +923,7 @@ class VERTEX_SHADER extends SHADER
 
 // ~~
 
-class FRAGMENT_SHADER extends SHADER
+class VISTA_FRAGMENT_SHADER extends VISTA_SHADER
 {
     // -- CONSTRUCTORS
 
@@ -937,7 +937,7 @@ class FRAGMENT_SHADER extends SHADER
 
 // ~~
 
-class PROGRAM_UNIFORM
+class VISTA_PROGRAM_UNIFORM
 {
     // -- CONSTRUCTORS
 
@@ -1073,7 +1073,7 @@ class PROGRAM_UNIFORM
 
 // ~~
 
-class PROGRAM_ATTRIBUTE
+class VISTA_PROGRAM_ATTRIBUTE
 {
     // -- CONSTRUCTORS
 
@@ -1139,7 +1139,7 @@ class PROGRAM_ATTRIBUTE
 
 // ~~
 
-class PROGRAM
+class VISTA_PROGRAM
 {
     // -- CONSTRUCTORS
 
@@ -1161,7 +1161,7 @@ class PROGRAM
         uniform_name
         )
     {
-        return new PROGRAM_UNIFORM( this, uniform_name );
+        return new VISTA_PROGRAM_UNIFORM( this, uniform_name );
     }
 
     // ~~
@@ -1170,7 +1170,7 @@ class PROGRAM
         attribute_name
         )
     {
-        return new PROGRAM_ATTRIBUTE( this, attribute_name );
+        return new VISTA_PROGRAM_ATTRIBUTE( this, attribute_name );
     }
 
     // -- OPERATIONS
@@ -1217,7 +1217,7 @@ class PROGRAM
 
 // ~~
 
-class CANVAS
+class VISTA_CANVAS
 {
     // -- CONSTRUCTORS
 

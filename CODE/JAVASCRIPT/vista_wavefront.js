@@ -1,6 +1,6 @@
 // -- TYPES
 
-class WAVEFRONT_FACE
+class VISTA_WAVEFRONT_FACE
 {
     // -- CONSTRUCTORS
 
@@ -26,7 +26,7 @@ class WAVEFRONT_FACE
 
 // ~~
 
-class WAVEFRONT_MODEL
+class VISTA_WAVEFRONT_MODEL
 {
     // -- CONSTRUCTORS
 
@@ -116,7 +116,7 @@ class WAVEFRONT_MODEL
         if ( this.MaterialIndex < 0 )
         {
             this.MaterialIndex = 0;
-            this.MaterialArray.push( new MATERIAL( "default" ) );
+            this.MaterialArray.push( new VISTA_MATERIAL( "default" ) );
         }
 
         material = this.MaterialArray[ this.MaterialIndex ];
@@ -203,7 +203,7 @@ class WAVEFRONT_MODEL
             ++vertex_count
         }
 
-        return new WAVEFRONT_FACE(
+        return new VISTA_WAVEFRONT_FACE(
             this.ObjectIndex,
             this.GroupIndex,
             this.MaterialIndex,
@@ -233,7 +233,7 @@ class WAVEFRONT_MODEL
             if ( line.startsWith( "newmtl " ) )
             {
                 this.MaterialIndex = this.MaterialArray.length;
-                this.MaterialArray.push( new MATERIAL( line.substring( 7 ) ) );
+                this.MaterialArray.push( new VISTA_MATERIAL( line.substring( 7 ) ) );
             }
             else if ( line.startsWith( "Ka " ) )
             {
@@ -327,7 +327,7 @@ class WAVEFRONT_MODEL
             scene,
             vertex_index;
 
-        scene = new SCENE();
+        scene = new VISTA_SCENE();
 
         for ( material_index = 0;
               material_index < this.MaterialArray.length;
@@ -386,8 +386,8 @@ class WAVEFRONT_MODEL
                 }
             }
 
-            geometry = new GEOMETRY( real_array, vertex_index_array, vertex_count );
-            mesh = new MESH( material, geometry );
+            geometry = new VISTA_GEOMETRY( real_array, vertex_index_array, vertex_count );
+            mesh = new VISTA_MESH( material, geometry );
         }
     }
 }

@@ -55,7 +55,7 @@
                     vertex_shader;
 
                 vertex_real_array_buffer
-                    = new REAL_32_ARRAY_BUFFER(
+                    = new VISTA_REAL_32_ARRAY_BUFFER(
                           [
                               0.0, 0.5, 1.0, 0.0, 0.0,
                               -0.5, -0.5, 0.0, 1.0, 0.0,
@@ -63,14 +63,14 @@
                           ]
                           );
 
-                vertex_shader = new VERTEX_SHADER( GetElementById( "vertex-shader" ).text );
-                fragment_shader = new FRAGMENT_SHADER( GetElementById( "fragment-shader" ).text );
+                vertex_shader = new VISTA_VERTEX_SHADER( GetElementById( "vertex-shader" ).text );
+                fragment_shader = new VISTA_FRAGMENT_SHADER( GetElementById( "fragment-shader" ).text );
 
-                program = new PROGRAM( vertex_shader, fragment_shader );
+                program = new VISTA_PROGRAM( vertex_shader, fragment_shader );
                 program.VertexPositionVectorAttribute = program.GetAttribute( "VertexPositionVectorAttribute" );
                 program.VertexColorVectorAttribute = program.GetAttribute( "VertexColorVectorAttribute" );
 
-                canvas = new CANVAS( GetElementById( "canvas" ) );
+                canvas = new VISTA_CANVAS( GetElementById( "canvas" ) );
                 graphic_context = canvas.GraphicContext;
 
                 vertex_real_array_buffer.Bind( graphic_context );

@@ -1,28 +1,47 @@
 // -- TYPES
 
-class COMPONENT extends HTMLElement
+class VISTA_ELEMENT extends HTMLElement
 {
     // -- CONSTRUCTORS
 
     constructor(
-        template_element = null
         )
     {
         super();
 
         this.Data = {};
-        this.RootElement = this.attachShadow( { "mode", "open" } );
-        this.ContentElement = null;
-        this.HasChanged = true;
+        this.RootElement = this;
 
-        if ( template_element !== null )
-        {
-            this.ContentElement = template_element.content.cloneNode( true );
-            this.RootElement.appendChild( this.ContentElement );
-        }
+        this.TemplateFunction = null;
+        this.HasChanged = true;
+    }
+
+    // -- INQUIRIES
+
+    HasShadow(
+        )
+    {
+        return this.RootElement !== this;
     }
 
     // -- OPERATIONS
+
+    AttachShadow(
+        )
+    {
+        this.RootElement = this.attachShadow( { "mode", "open" } );
+    }
+
+    // ~~
+
+    SetTemplate(
+        template_text
+        )
+    {
+        this.TemplateFunction = GetTemplateFunction( template_text );
+    }
+
+    // ~~
 
     Initialize(
         )
@@ -53,7 +72,7 @@ class COMPONENT extends HTMLElement
 
     // ~~
 
-    RequestUpdate(
+    Invalidate(
         )
     {
         this.HasChanged = true;

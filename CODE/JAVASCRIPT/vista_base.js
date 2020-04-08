@@ -5,7 +5,7 @@ var
 
 // -- TYPES
 
-class CLOCK
+class VISTA_CLOCK
 {
     // -- CONSTRUCTORS
 

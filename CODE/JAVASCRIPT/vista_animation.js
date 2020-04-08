@@ -20,7 +20,7 @@ var
 
 // -- TYPES
 
-class PROPERTY_ANIMATION
+class VISTA_PROPERTY_ANIMATION
 {
     // -- CONSTRUCTORS
 
@@ -1050,7 +1050,7 @@ function AnimateProperty(
     }
 
     property_animation
-        = new PROPERTY_ANIMATION(
+        = new VISTA_PROPERTY_ANIMATION(
               element,
               property_name,
               property_value_array,

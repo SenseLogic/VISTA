@@ -100,7 +100,7 @@
                     vertex_width_attribute;
 
                 vertex_array_buffer
-                    = new REAL_32_ARRAY_BUFFER(
+                    = new VISTA_REAL_32_ARRAY_BUFFER(
                           [
                               -0.5, 0.5, -0.5, 0.0, 0.0, -1.0, 0.0, 0.0, 0.2,
                               -0.5, 0.5, 0.5, 1.0, 0.0, -1.0, 0.0, 0.0, 0.2,
@@ -135,7 +135,7 @@
                           );
 
                 element_array_buffer
-                    = new NATURAL_16_ELEMENT_ARRAY_BUFFER(
+                    = new VISTA_NATURAL_16_ELEMENT_ARRAY_BUFFER(
                           [
                               2, 1, 0,
                               2, 0, 3,
@@ -157,12 +157,12 @@
                           ]
                           );
 
-                texture = new TEXTURE( "" );
+                texture = new VISTA_TEXTURE( "" );
                 await texture.LoadImage( "texture_1.png" );
 
-                vertex_shader = new VERTEX_SHADER( GetElementById( "vertex-shader" ).text );
-                fragment_shader = new FRAGMENT_SHADER( GetElementById( "fragment-shader" ).text );
-                program = new PROGRAM( vertex_shader, fragment_shader );
+                vertex_shader = new VISTA_VERTEX_SHADER( GetElementById( "vertex-shader" ).text );
+                fragment_shader = new VISTA_FRAGMENT_SHADER( GetElementById( "fragment-shader" ).text );
+                program = new VISTA_PROGRAM( vertex_shader, fragment_shader );
                 program.CameraPositionVectorUniform = program.GetUniform( "CameraPositionVectorUniform" );
                 program.ProjectionMatrixUniform = program.GetUniform( "ProjectionMatrixUniform" );
                 program.ViewMatrixUniform = program.GetUniform( "ViewMatrixUniform" );
@@ -173,7 +173,7 @@
                 program.VertexMappingVectorAttribute = program.GetAttribute( "VertexMappingVectorAttribute" );
                 program.VertexWidthAttribute = program.GetAttribute( "VertexWidthAttribute" );
 
-                canvas = new CANVAS( GetElementById( "canvas" ) );
+                canvas = new VISTA_CANVAS( GetElementById( "canvas" ) );
                 graphic_context = canvas.GraphicContext;
 
                 vertex_array_buffer.Bind( graphic_context );
@@ -213,7 +213,7 @@
                 rotation_vector = GetVector3( 0.0 * DegreesToRadians, 0.0 * DegreesToRadians, 0.0 * DegreesToRadians );
                 rotation_speed_vector = GetVector3( 3.0 * DegreesToRadians, 30.0 * DegreesToRadians, 1.0 * DegreesToRadians );
 
-                clock = new CLOCK();
+                clock = new VISTA_CLOCK();
 
                 function UpdateCanvas(
                     time

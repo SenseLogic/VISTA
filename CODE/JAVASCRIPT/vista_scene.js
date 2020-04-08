@@ -12,7 +12,7 @@ var
 
 // -- TYPES
 
-class MATERIAL
+class VISTA_MATERIAL
 {
     // -- CONSTRUCTORS
 
@@ -35,7 +35,7 @@ class MATERIAL
 
 // ~~
 
-class GEOMETRY
+class VISTA_GEOMETRY
 {
     // -- CONSTRUCTORS
 
@@ -54,7 +54,7 @@ class GEOMETRY
 
 // ~~
 
-class MESH
+class VISTA_MESH
 {
     // -- CONSTRUCTORS
 
@@ -71,7 +71,7 @@ class MESH
 
 // ~~
 
-class COMPONENT
+class VISTA_NODE_COMPONENT
 {
     // -- CONSTRUCTORS
 
@@ -118,7 +118,7 @@ class COMPONENT
 
 // ~~
 
-class NODE
+class VISTA_NODE
 {
     // -- CONSTRUCTORS
 
@@ -330,7 +330,7 @@ class NODE
 
 // ~~
 
-class CAMERA
+class VISTA_CAMERA
 {
     // -- CONSTRUCTORS
 
@@ -348,7 +348,7 @@ class CAMERA
 
 // ~~
 
-class MODEL
+class VISTA_MODEL
 {
     // -- CONSTRUCTORS
 
@@ -357,13 +357,13 @@ class MODEL
     {
         this.Identifier = ModelIdentifier++;
         this.Name = "";
-        this.Node = new NODE( name, context );
+        this.Node = new VISTA_NODE( name, context );
     }
 }
 
 // ~~
 
-class SCENE
+class VISTA_SCENE
 {
     // -- CONSTRUCTORS
 
