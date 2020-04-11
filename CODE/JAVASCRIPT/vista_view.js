@@ -9,27 +9,27 @@ class VISTA_ELEMENT extends HTMLElement
     {
         super();
 
-        this.Data = {};
+        this.State = {};
         this.RootElement = this;
-
+        this.ShadowRootElement = null;
         this.TemplateFunction = null;
         this.HasChanged = true;
     }
 
     // -- INQUIRIES
 
-    HasShadow(
+    HasShadowRootElement(
         )
     {
-        return this.RootElement !== this;
+        return this.ShadowRootElement === null;
     }
 
     // -- OPERATIONS
 
-    AttachShadow(
+    AttachShadowRootElement(
         )
     {
-        this.RootElement = this.attachShadow( { "mode", "open" } );
+        this.ShadowRootElement = this.attachShadow( { "mode", "open" } );
     }
 
     // ~~
@@ -43,7 +43,7 @@ class VISTA_ELEMENT extends HTMLElement
 
     // ~~
 
-    Initialize(
+    OnMounted(
         )
     {
     }
@@ -53,12 +53,12 @@ class VISTA_ELEMENT extends HTMLElement
     connectedCallback(
         )
     {
-        Initialize();
+        OnMounted();
     }
 
     // ~~
 
-    Finalize(
+    OnUnmounted(
         )
     {
     }
@@ -67,7 +67,7 @@ class VISTA_ELEMENT extends HTMLElement
 
     disconnectedCallback()
     {
-        Finalize();
+        OnUnmounted();
     }
 
     // ~~
@@ -80,13 +80,12 @@ class VISTA_ELEMENT extends HTMLElement
 
     // ~~
 
-    ManageChangedAttribute(
+    OnAttributeChanged(
         attribute,
         old_value,
         new_value
         )
     {
-        this.HasChanged = true;
     }
 
     // ~~
@@ -97,7 +96,7 @@ class VISTA_ELEMENT extends HTMLElement
         new_value
         )
     {
-        ManageChangedAttribute(
+        OnAttributeChanged(
             attribute,
             old_value,
             new_value
@@ -106,7 +105,7 @@ class VISTA_ELEMENT extends HTMLElement
 
     // ~~
 
-    MakeContent(
+    GetContent(
         )
     {
         return "";
@@ -126,7 +125,7 @@ class VISTA_ELEMENT extends HTMLElement
     UpdateContent(
         )
     {
-        SetContent( MakeContent() );
+        SetContent( GetContent() );
 
         this.HasChanged = false;
     }
@@ -134,10 +133,10 @@ class VISTA_ELEMENT extends HTMLElement
 
 // -- FUNCTIONS
 
-function RegisterComponent(
-    component_tag,
-    component_class
+function RegisterTag(
+    tag,
+    element_class
     )
 {
-    window.customElements.define( component_tag, component_class );
+    window.customElements.define( tag, element_class );
 }

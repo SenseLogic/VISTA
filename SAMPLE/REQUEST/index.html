@@ -16,48 +16,53 @@
         <script src="../../CODE/JAVASCRIPT/vista_element.js"></script>
         <script src="../../CODE/JAVASCRIPT/vista_request.js"></script>
         <script>
-            SendRequest(
-                "https://reqres.in/api/users/2",
-                "GET",
-                {},
-                null,
-                function (
-                    request
-                    )
-                {
-                    GetElementById( "get-response" ).innerHTML
-                        = request.status
-                          + ", "
-                          + request.statusText
-                          + ", "
-                          + request.responseText;
-                }
-                );
+            // -- FUNCTIONS
 
-            SendRequest(
-                "https://reqres.in/api/users",
-                "POST",
-                {
-                    "Content-type": "application/json; charset=UTF-8"
-                },
-                GetJsonText(
+            async function Test(
+                )
+            {
+                var
+                    response;
+
+                response = await SendRequest(
+                    "https://reqres.in/api/users/2",
+                    "GET",
+                    {},
+                    null
+                    );
+
+                GetElementById( "get-response" ).innerHTML
+                    = response.status
+                      + "<br/>"
+                      + response.statusText
+                      + "<br/>"
+                      + response.responseText;
+
+                response = await SendRequest(
+                    "https://reqres.in/api/users",
+                    "POST",
                     {
-                        "name" : "Morpheus",
-                        "job" : "leader"
-                    }
-                    ),
-                function (
-                    request
-                    )
-                {
-                    GetElementById( "post-response" ).innerHTML
-                        = request.status
-                          + ", "
-                          + request.statusText
-                          + ", "
-                          + request.responseText;
-                }
-                );
+                        "Content-type": "application/json; charset=UTF-8"
+                    },
+                    GetJsonText(
+                        {
+                            "name" : "Morpheus",
+                            "job" : "leader"
+                        }
+                        )
+                    );
+
+                GetElementById( "post-response" ).innerHTML
+                    = response.status
+                      + "<br/>"
+                      + response.statusText
+                      + "<br/>"
+                      + response.responseText;
+            }
+
+            // -- STATEMENTS
+
+            Test();
         </script>
     </body>
 </html>
