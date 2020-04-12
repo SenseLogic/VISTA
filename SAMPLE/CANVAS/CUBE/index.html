@@ -10,10 +10,12 @@
             <canvas id="canvas" width="640" height="480"></canvas>
         </main>
         <script src="../../../CODE/JAVASCRIPT/vista_base.js"></script>
+        <script src="../../../CODE/JAVASCRIPT/vista_binary.js"></script>
         <script src="../../../CODE/JAVASCRIPT/vista_math.js"></script>
         <script src="../../../CODE/JAVASCRIPT/vista_vector_3.js"></script>
         <script src="../../../CODE/JAVASCRIPT/vista_matrix_4.js"></script>
         <script src="../../../CODE/JAVASCRIPT/vista_quaternion.js"></script>
+        <script src="../../../CODE/JAVASCRIPT/vista_time.js"></script>
         <script src="../../../CODE/JAVASCRIPT/vista_element.js"></script>
         <script src="../../../CODE/JAVASCRIPT/vista_canvas.js"></script>
         <script id="vertex-shader" type="x-shader/x-vertex">
@@ -69,9 +71,8 @@
                 vec3 view_axis_vector = normalize( CameraPositionVectorUniform - VertexPositionVectorVarying );
                 float fresnel_factor = clamp( 1.0 - dot( view_axis_vector, VertexNormalVectorVarying ), 0.0, 1.0 );
                 vec3 fresnel_color = color.xyz * ( 1.0 - fresnel_factor * 0.5 );
-                vec3 fresnel_tint = vec3( 0.0, 0.5, 0.0 );
-
-                gl_FragColor = vec4( mix( fresnel_color, fresnel_tint, fresnel_factor * fresnel_factor * fresnel_factor * 1.0 ), 1.0 );
+                vec3 fresnel_tint = vec3( 0.4, 0.0, 0.0 );
+                gl_FragColor = vec4( mix( fresnel_color, fresnel_tint, fresnel_factor * fresnel_factor * fresnel_factor ), 1.0 );
             }
         </script>
         <script>
