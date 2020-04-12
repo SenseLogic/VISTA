@@ -15,12 +15,16 @@
             var
                 uuid_index;
 
+            document.write( "<pre>" );
+
             for ( uuid_index = 0;
                   uuid_index < 32;
                   ++uuid_index )
             {
                 document.write( GetUuid() + "<br/>" );
             }
+
+            document.write( "</pre>" );
         </script>
     </body>
 </html>
