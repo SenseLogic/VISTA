@@ -4,7 +4,7 @@ function LogElement(
     element
     )
 {
-    Log(
+    console.log(
         {
             tagName : element.tagName,
             elementType : element.elementType,
@@ -40,11 +40,11 @@ function DumpElement(
 // ~~
 
 function CreateElement(
-	element_type,
-	options
-	)
+    element_type,
+    options
+    )
 {
-	return document.createElement( element_type, options );
+    return document.createElement( element_type, options );
 }
 
 // ~~
@@ -174,35 +174,35 @@ Array.prototype.DumpElements = function(
 // ~~
 
 Array.prototype.PrependChild = function(
-	child_element
+    child_element
     )
 {
     var
         element;
 
-	for ( element of this )
-	{
-		element.prependChild( child_element );
-	}
+    for ( element of this )
+    {
+        element.prependChild( child_element );
+    }
 }
 
 // ~~
 
 Array.prototype.PrependChildren = function(
-	child_element_array
+    child_element_array
     )
 {
     var
-		child_element,
+        child_element,
         element;
 
-	for ( element of this )
-	{
-		for ( child_element of child_element_array )
-		{
-			element.prependChild( child_element );
-		}
-	}
+    for ( element of this )
+    {
+        for ( child_element of child_element_array )
+        {
+            element.prependChild( child_element );
+        }
+    }
 }
 
 // ~~
@@ -214,10 +214,10 @@ Array.prototype.AppendChild = function(
     var
         element;
 
-	for ( element of this )
-	{
-		element.appendChild( child_element );
-	}
+    for ( element of this )
+    {
+        element.appendChild( child_element );
+    }
 }
 
 // ~~
@@ -227,16 +227,16 @@ Array.prototype.AppendChildren = function(
     )
 {
     var
-		child_element,
+        child_element,
         element;
 
-	for ( element of this )
-	{
-		for ( child_element of child_element_array )
-		{
-			element.appendChild( child_element );
-		}
-	}
+    for ( element of this )
+    {
+        for ( child_element of child_element_array )
+        {
+            element.appendChild( child_element );
+        }
+    }
 }
 
 // ~~
