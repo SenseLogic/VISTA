@@ -11,7 +11,7 @@ function IsPowerOfTwo(
 
 function GetPaddedNaturalText(
     natural_text,
-    minimum_digit_count
+    minimum_digit_count = 0
     )
 {
     var
@@ -21,6 +21,7 @@ function GetPaddedNaturalText(
 
     if ( digit_count < minimum_digit_count )
     {
+        console.log( natural_text, digit_count, minimum_digit_count );
         return (
             "00000000000000000000000000000000".slice( 0, minimum_digit_count - digit_count )
             + natural_text
@@ -39,7 +40,7 @@ function GetNaturalHexadecimalText(
     minimum_digit_count = 0
     )
 {
-    return GetPaddedNaturalText( natural.toString( 16 ) );
+    return GetPaddedNaturalText( natural.toString( 16 ), minimum_digit_count );
 }
 
 // ~~
