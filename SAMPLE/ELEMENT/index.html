@@ -8,6 +8,8 @@
     </head>
     <body>
         <main>
+            <test-element>
+            </test-element>
             <div class="line">
                 <div class="block red-block">
                 </div>
@@ -23,7 +25,31 @@
         </main>
         <script src="../../CODE/JAVASCRIPT/vista_base.js"></script>
         <script src="../../CODE/JAVASCRIPT/vista_element.js"></script>
+        <script src="../../CODE/JAVASCRIPT/vista_template.js"></script>
         <script>
+            // -- TYPES
+
+            class TEST_ELEMENT extends VISTA_ELEMENT
+            {
+                // -- CONSTRUCTORS
+
+                constructor(
+                    )
+                {
+                    super(
+                        `
+                        <h1>
+                            TEST ELEMENT
+                        </h1>
+                        `
+                        );
+                }
+            }
+
+            // -- STATEMENTS
+
+            RegisterElement( "test-element", TEST_ELEMENT );
+
             GetElements( "div" )
                 .Iterate(
                     function (

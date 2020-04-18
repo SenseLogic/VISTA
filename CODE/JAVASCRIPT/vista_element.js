@@ -1,4 +1,187 @@
+// -- TYPES
+
+class VISTA_ELEMENT extends HTMLElement
+{
+    // -- CONSTRUCTORS
+
+    constructor(
+        template_text
+        )
+    {
+        super();
+
+        this.RootElement = this;
+        this.TemplateText = template_text;
+        this.TemplateFunction = null;
+        this.HasChanged = true;
+    }
+
+    // -- INQUIRIES
+
+    GetContent(
+        )
+    {
+        if ( this.TemplateFunction === null )
+        {
+            this.TemplateFunction = GetTemplateFunction( this.TemplateText );
+        }
+
+        return this.TemplateFunction();
+    }
+
+    // -- OPERATIONS
+
+    AttachShadowElement(
+        )
+    {
+        this.RootElement = this.attachShadow( { mode : "open" } );
+    }
+
+    // ~~
+
+    SetTemplateText(
+        template_text
+        )
+    {
+        this.TemplateText = template_text;
+        this.TemplateFunction = null;
+    }
+
+    // ~~
+
+    InvalidateContent(
+        )
+    {
+        this.HasChanged = true;
+    }
+
+    // ~~
+
+    SetContent(
+        content
+        )
+    {
+        this.RootElement.innerHTML = content;
+        this.HasChanged = false;
+    }
+
+    // ~~
+
+    UpdateContent(
+        )
+    {
+        this.SetContent( this.GetContent() );
+    }
+
+    // ~~
+
+    Update(
+        )
+    {
+        if ( this.HasChanged )
+        {
+            this.UpdateContent();
+        }
+        else
+        {
+            UpdateChangedElements( this );
+        }
+    }
+
+    // -- EVENTS
+
+    OnMounted(
+        )
+    {
+        this.UpdateContent();
+    }
+
+    // ~~
+
+    connectedCallback(
+        )
+    {
+        this.OnMounted();
+    }
+
+    // ~~
+
+    OnUnmounted(
+        )
+    {
+    }
+
+    // ~~
+
+    disconnectedCallback(
+        )
+    {
+        this.OnUnmounted();
+    }
+
+    // ~~
+
+    OnAttributeChanged(
+        attribute,
+        old_value,
+        new_value
+        )
+    {
+    }
+
+    // ~~
+
+    attributeChangedCallback(
+        attribute_name,
+        old_value,
+        new_value
+        )
+    {
+        this.OnAttributeChanged(
+            attribute,
+            old_value,
+            new_value
+            );
+    }
+}
+
 // -- FUNCTIONS
+
+function UpdateChangedElements(
+    element
+    )
+{
+    var
+        child_element_index;
+
+    for ( child_element_index = 0;
+          child_element_index < element.children.length;
+          ++child_element_index )
+    {
+        child_element = element.children[ child_element_index ];
+
+        if ( child_element.HasChanged === true )
+        {
+            child_element.UpdateContent();
+        }
+        else if ( child_element.children.length > 0 )
+        {
+            UpdateChangedElements( element );
+        }
+    }
+}
+
+// ~~
+
+function RegisterElement(
+    element_tag,
+    element_class
+    )
+{
+    window.customElements.define( element_tag, element_class );
+}
+
+// ~~
 
 function LogElement(
     element
