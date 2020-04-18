@@ -7,9 +7,11 @@
     </head>
     <body>
         <main>
-            <div id="get-response">
+            <div id="get-request-response">
             </div>
-            <div id="post-response">
+            <div id="post-request-response">
+            </div>
+            <div id="json-post-request-response">
             </div>
         </main>
         <script src="../../CODE/JAVASCRIPT/vista_base.js"></script>
@@ -18,11 +20,27 @@
         <script>
             // -- FUNCTIONS
 
+            function SetResponseElement(
+                element_id,
+                response
+                )
+            {
+                GetElementById( element_id ).innerHTML
+                    = response.status
+                      + "<br/>"
+                      + response.statusText
+                      + "<br/>"
+                      + response.responseText;
+            }
+
+            // ~~
+
             async function Test(
                 )
             {
                 var
-                    response;
+                    response,
+                    response_object;
 
                 response = await SendRequest(
                     "https://reqres.in/api/users/2",
@@ -31,18 +49,13 @@
                     null
                     );
 
-                GetElementById( "get-response" ).innerHTML
-                    = response.status
-                      + "<br/>"
-                      + response.statusText
-                      + "<br/>"
-                      + response.responseText;
+                SetResponseElement( "get-request-response", response );
 
                 response = await SendRequest(
                     "https://reqres.in/api/users",
                     "POST",
                     {
-                        "Content-type": "application/json; charset=UTF-8"
+                        "Content-type" : "application/json; charset=UTF-8"
                     },
                     GetJsonText(
                         {
@@ -52,12 +65,18 @@
                         )
                     );
 
-                GetElementById( "post-response" ).innerHTML
-                    = response.status
-                      + "<br/>"
-                      + response.statusText
-                      + "<br/>"
-                      + response.responseText;
+                SetResponseElement( "post-request-response", response );
+
+                response_object = await SendJsonRequest(
+                    "https://reqres.in/api/users",
+                    "POST",
+                    {
+                        "name" : "Morpheus",
+                        "job" : "leader"
+                    }
+                    );
+
+                GetElementById( "json-post-request-response" ).innerHTML = GetJsonText( response_object );
             }
 
             // -- STATEMENTS

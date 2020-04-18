@@ -42,6 +42,25 @@ function LogError(
 
 // ~~
 
+function IsMobileBrowser()
+{
+    var
+        user_agent;
+
+    user_agent = navigator.userAgent.toLowerCase();
+
+    return (
+        user_agent.indexOf( 'android' ) >= 0
+        || user_agent.indexOf( 'iphone' ) >= 0
+        || user_agent.indexOf( 'ipad' ) >= 0
+        || user_agent.indexOf( 'ipod' ) >= 0
+        || user_agent.indexOf( 'blackberry' ) >= 0
+        || user_agent.indexOf( 'phone' ) >= 0
+        );
+}
+
+// ~~
+
 function RemoveStart(
     text,
     start
@@ -99,15 +118,15 @@ function GetUnit(
 // ~~
 
 function GetJsonText(
-    value
+    object
     )
 {
-    return JSON.stringify( value );
+    return JSON.stringify( object );
 }
 
 // ~~
 
-function GetJsonValue(
+function GetJsonObject(
     text
     )
 {
@@ -146,6 +165,21 @@ function GetDecodedHtml(
 
 // ~~
 
+function AwaitCall(
+    called_function,
+    ...argument_array
+    )
+{
+    var
+        result;
+
+    ( async () => { result = await called_function( ...argument_array ); } )();
+
+    return result;
+}
+
+// ~~
+
 function DelayCall(
     called_function,
     delay_time
@@ -179,25 +213,6 @@ function RepeatCall(
     )
 {
     return setInterval( called_function, delay_time * 1000.0 );
-}
-
-// ~~
-
-function IsMobileBrowser()
-{
-    var
-        user_agent;
-
-    user_agent = navigator.userAgent.toLowerCase();
-
-    return (
-        user_agent.indexOf( 'android' ) >= 0
-        || user_agent.indexOf( 'iphone' ) >= 0
-        || user_agent.indexOf( 'ipad' ) >= 0
-        || user_agent.indexOf( 'ipod' ) >= 0
-        || user_agent.indexOf( 'blackberry' ) >= 0
-        || user_agent.indexOf( 'phone' ) >= 0
-        );
 }
 
 // ~~
