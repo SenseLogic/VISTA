@@ -64,8 +64,6 @@ class VISTA_DATA
     // ~~
 
     NotifyDataChanged(
-        change_name,
-        detail_data
         )
     {
         var
@@ -251,8 +249,8 @@ class VISTA_STORE extends VISTA_DATA
         removed_data = this.DataMap.get( data_key );
         this.DataMap.delete( data_key );
 
-        removed_data.NotifyDataChanged( "RemoveData" );
-        this.NotifyDataChanged( "RemoveData" );
+        removed_data.NotifyDataChanged();
+        this.NotifyDataChanged();
     }
 
     // ~~
