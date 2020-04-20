@@ -90,6 +90,41 @@ class VISTA_ELEMENT extends HTMLElement
 
     // -- EVENTS
 
+    OnObservableChanged(
+        observable
+        )
+    {
+        InvalidateContent();
+    }
+
+    // ~~
+
+    OnAttributeChanged(
+        attribute,
+        old_value,
+        new_value
+        )
+    {
+        InvalidateContent();
+    }
+
+    // ~~
+
+    attributeChangedCallback(
+        attribute_name,
+        old_value,
+        new_value
+        )
+    {
+        this.OnAttributeChanged(
+            attribute,
+            old_value,
+            new_value
+            );
+    }
+
+    // ~~
+
     OnMounted(
         )
     {
@@ -117,31 +152,6 @@ class VISTA_ELEMENT extends HTMLElement
         )
     {
         this.OnUnmounted();
-    }
-
-    // ~~
-
-    OnAttributeChanged(
-        attribute,
-        old_value,
-        new_value
-        )
-    {
-    }
-
-    // ~~
-
-    attributeChangedCallback(
-        attribute_name,
-        old_value,
-        new_value
-        )
-    {
-        this.OnAttributeChanged(
-            attribute,
-            old_value,
-            new_value
-            );
     }
 }
 
