@@ -90,8 +90,8 @@ class VISTA_ELEMENT extends HTMLElement
 
     // -- EVENTS
 
-    OnObservableChanged(
-        observable
+    OnDataChanged(
+        data
         )
     {
         InvalidateContent();

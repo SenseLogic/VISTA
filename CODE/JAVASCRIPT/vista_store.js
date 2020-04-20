@@ -1,31 +1,31 @@
 // -- TYPES
 
-class VISTA_OBSERVABLE
+class VISTA_DATA
 {
     // -- CONSTRUCTORS
 
     constructor(
         )
     {
-        this.ObserverArray = [];
+        this.ListenerArray = [];
     }
 
     // -- INQUIRIES
 
-    FindObserverIndex(
-        observer
+    FindListenerIndex(
+        listener
         )
     {
         var
-            observer_index;
+            listener_index;
 
-        for ( observer_index = 0;
-              observer_index < this.ObserverArray.length;
-              ++observer_index )
+        for ( listener_index = 0;
+              listener_index < this.ListenerArray.length;
+              ++listener_index )
         {
-            if ( this.ObserverArray[ observer_index ] === observer )
+            if ( this.ListenerArray[ listener_index ] === listener )
             {
-                return observer_index;
+                return listener_index;
             }
         }
 
@@ -34,67 +34,67 @@ class VISTA_OBSERVABLE
 
     // -- OPERATIONS
 
-    AddObserver(
-        observer
+    AddListener(
+        listener
         )
     {
-        if ( this.FindObserverIndex( observer ) < 0 )
+        if ( this.FindListenerIndex( listener ) < 0 )
         {
-            this.ObserverArray.push( observer );
+            this.ListenerArray.push( listener );
         }
     }
 
     // ~~
 
-    RemoveObserver(
-        observer
+    RemoveListener(
+        listener
         )
     {
         var
-            observer_index;
+            listener_index;
 
-        observer_index = this.FindObserverIndex( observer );
+        listener_index = this.FindListenerIndex( listener );
 
-        if ( observer_index >= 0 )
+        if ( listener_index >= 0 )
         {
-            this.ObserverArray.splice( observer_index, 1 );
+            this.ListenerArray.splice( listener_index, 1 );
         }
     }
 
     // ~~
 
-    NotifyObservableChanged(
+    NotifyDataChanged(
         change_name,
-        detail_object
+        detail_data
         )
     {
         var
-            observer;
+            listener;
 
-        for ( observer of this.ObserverArray )
+        for ( listener of this.ListenerArray )
         {
-            observer.OnObservableChanged( this );
+            listener.OnDataChanged( this );
         }
     }
 }
 
 // ~~
 
-class VISTA_STORE extends VISTA_OBSERVABLE
+class VISTA_STORE extends VISTA_DATA
 {
     // -- CONSTRUCTORS
 
     constructor(
         name,
-        object_class,
+        data_class,
         key_property_name,
         remote_property_name_array,
         request_url
         )
     {
         this.Name = name;
-        this.ObjectClass = object_class;
-        this.ObjectMap = new Map();
+        this.DataClass = data_class;
+        this.DataMap = new Map();
         this.KeyPropertyName = key_property_name;
         this.RemotePropertyNameArray = remote_property_name_array;
         this.RequestUrl = request_url;
@@ -102,221 +102,221 @@ class VISTA_STORE extends VISTA_OBSERVABLE
 
     // -- OPERATIONS
 
-    CreateRemoteObject(
-        object
+    CreateRemoteData(
+        data
         )
     {
         var
-            remote_object,
+            remote_data,
             remote_property_name;
 
-        remote_object = {};
+        remote_data = {};
 
         for ( remote_property_name of this.RemotePropertyNameArray )
         {
-            remote_object[ remote_property_name ] = object[ remote_property_name ];
+            remote_data[ remote_property_name ] = data[ remote_property_name ];
         }
 
-        return remote_object;
+        return remote_data;
     }
 
     // ~~
 
-    CopyObject(
-        object,
-        other_object
+    CopyData(
+        data,
+        other_data
         )
     {
         var
             property_name;
 
-        for ( property_name of other_object )
+        for ( property_name of other_data )
         {
-            object[ property_name ] = other_object[ property_name ];
+            data[ property_name ] = other_data[ property_name ];
         }
     }
 
     // ~~
 
-    CreateObject(
-        other_object
+    CreateData(
+        other_data
         )
     {
         var
-            object;
+            data;
 
-        object = new this.ObjectClass();
+        data = new this.DataClass();
 
-        if ( other_object !== null )
+        if ( other_data !== null )
         {
-            CopyObject( object, other_object );
+            CopyData( data, other_data );
         }
 
-        return object;
+        return data;
     }
 
     // ~~
 
-    GetObject(
-        object_key
+    GetData(
+        data_key
         )
     {
         var
-            object;
+            data;
 
-        object = this.ObjectMap.get( object_key );
+        data = this.DataMap.get( data_key );
 
-        if ( object === undefined )
+        if ( data === undefined )
         {
             return null;
         }
         else
         {
-            return object;
+            return data;
         }
     }
 
     // ~~
 
-    SetObject(
-        object
+    SetData(
+        data
         )
     {
         var
-            object_key,
-            set_object;
+            data_key,
+            set_data;
 
-        object_key = object[ this.KeyPropertyName ];
-        set_object = this.ObjectMap.get( object_key );
+        data_key = data[ this.KeyPropertyName ];
+        set_data = this.DataMap.get( data_key );
 
-        if ( set_object === undefined )
+        if ( set_data === undefined )
         {
-            set_object = new this.ObjectClass();
+            set_data = new this.DataClass();
         }
 
-        if ( set_object !== object )
+        if ( set_data !== data )
         {
-            CopyObject( set_object, object );
-            this.ObjectMap.set( object_key, set_object );
+            CopyData( set_data, data );
+            this.DataMap.set( data_key, set_data );
         }
 
-        set_object.NotifyObservableChanged();
-        this.NotifyObservableChanged();
+        set_data.NotifyDataChanged();
+        this.NotifyDataChanged();
     }
 
     // ~~
 
-    ClearObjectArray(
+    ClearDataArray(
         )
     {
         var
-            removed_object,
-            removed_object_map;
+            removed_data,
+            removed_data_map;
 
-        removed_object_map = this.ObjectMap;
-        this.ObjectMap = new Map();
+        removed_data_map = this.DataMap;
+        this.DataMap = new Map();
 
-        for ( removed_object of removed_object_map.values() )
+        for ( removed_data of removed_data_map.values() )
         {
-            removed_object.NotifyObservableChanged();
+            removed_data.NotifyDataChanged();
         }
 
-        this.NotifyObservableChanged();
+        this.NotifyDataChanged();
     }
 
     // ~~
 
-    SetObjectArray(
-        object_array
+    SetDataArray(
+        data_array
         )
     {
         var
-            object;
+            data;
 
-        for ( object of object_array )
+        for ( data of data_array )
         {
-            SetObject( object );
+            SetData( data );
         }
     }
 
     // ~~
 
-    RemoveObject(
-        object_key
+    RemoveData(
+        data_key
         )
     {
         var
-            removed_object;
+            removed_data;
 
-        removed_object = this.ObjectMap.get( object_key );
-        this.ObjectMap.delete( object_key );
+        removed_data = this.DataMap.get( data_key );
+        this.DataMap.delete( data_key );
 
-        removed_object.NotifyObservableChanged( "RemoveObject" );
-        this.NotifyObservableChanged( "RemoveObject" );
+        removed_data.NotifyDataChanged( "RemoveData" );
+        this.NotifyDataChanged( "RemoveData" );
     }
 
     // ~~
 
-    async GetRemoteObjectArray(
+    async GetRemoteDataArray(
         )
     {
         var
-            object_array;
+            data_array;
 
-        await object_array = SendJsonRequest( request_url, "GET" );
+        await data_array = SendJsonRequest( request_url, "GET" );
 
-        ClearObjectArray();
-        SetObjectArray( object_array );
+        ClearDataArray();
+        SetDataArray( data_array );
 
-        return object_array;
+        return data_array;
     }
 
     // ~~
 
-    async GetRemoteObject(
-        object_key
+    async GetRemoteData(
+        data_key
         )
     {
         var
-            object;
+            data;
 
-        await object = SendJsonRequest( request_url + "/" + object_key, "GET" );
+        await data = SendJsonRequest( request_url + "/" + data_key, "GET" );
 
-        SetObject( object );
+        SetData( data );
 
-        return object;
+        return data;
     }
 
     // ~~
 
-    async AddRemoteObject(
-        object
+    async AddRemoteData(
+        data
         )
     {
-        await SendJsonRequest( request_url + "/" + object_key, "POST", CreateRemoteObject( object ) );
+        await SendJsonRequest( request_url + "/" + data_key, "POST", CreateRemoteData( data ) );
 
-        SetObject( object );
+        SetData( data );
     }
 
     // ~~
 
-    async SetRemoteObject(
-        object
+    async SetRemoteData(
+        data
         )
     {
-        await SendJsonRequest( request_url + "/" + object_key, "PUT", CreateRemoteObject( object ) );
+        await SendJsonRequest( request_url + "/" + data_key, "PUT", CreateRemoteData( data ) );
 
-        SetObject( object );
+        SetData( data );
     }
 
     // ~~
 
-    async RemoveRemoteObject(
-        object_key
+    async RemoveRemoteData(
+        data_key
         )
     {
-        await SendJsonRequest( request_url + "/" + object_key, "DELETE", null );
+        await SendJsonRequest( request_url + "/" + data_key, "DELETE", null );
 
-        RemoveObject( object_key );
+        RemoveData( data_key );
     }
 }
