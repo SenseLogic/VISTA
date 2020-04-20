@@ -7,16 +7,26 @@ class VISTA_TABLE
     constructor(
         name,
         key_name,
+        element_class,
         request_url
         )
     {
         this.Name = name;
         this.KeyName = key_name;
         this.RequestUrl = request_url;
+        this.ElementClass = element_class;
         this.ElementMap = new Map();
     }
 
     // -- OPERATIONS
+
+    CreateLocalElement(
+        )
+    {
+        return new this.ElementClass();
+    }
+
+    // ~~
 
     ClearLocalElementArray(
         )
@@ -128,7 +138,7 @@ class VISTA_TABLE
         element
         )
     {
-        await SendJsonRequest( request_url + "/" + element_key, "POST", element );
+        await SendJsonRequest( request_url + "/" + element_key, "POST", element.GetRemoteState() );
 
         SetLocalElement( element );
     }
@@ -139,7 +149,7 @@ class VISTA_TABLE
         element
         )
     {
-        await SendJsonRequest( request_url + "/" + element_key, "PUT", element );
+        await SendJsonRequest( request_url + "/" + element_key, "PUT", element.GetRemoteState() );
 
         SetLocalElement( element );
     }
@@ -150,9 +160,9 @@ class VISTA_TABLE
         element_key
         )
     {
-        await SendJsonRequest( request_url + "/" + element_key, "DELETE", element );
+        await SendJsonRequest( request_url + "/" + element_key, "DELETE", null );
 
-        RemoveLocalElement( element );
+        RemoveLocalElement( element_key );
     }
 }
 
