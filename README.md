@@ -2,7 +2,7 @@
 
 # Vista
 
-Modular CSS and JavaScript framework.
+Versatile CSS and JavaScript framework.
 
 ## Features
 
@@ -33,14 +33,15 @@ Modular CSS and JavaScript framework.
     *   parallaxes
 *   JavaScript
     *   server requests
-    *   HTML templating
     *   document queries
     *   property animations
+    *   HTML templating
+    *   custom elements
+    *   data stores
     *   mathematical types
     *   graphic shaders
     *   model loaders
     *   scene renderers
-    *   reactive components
 
 ## Version
 
