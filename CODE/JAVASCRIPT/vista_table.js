@@ -83,14 +83,12 @@ class VISTA_TABLE extends VISTA_DATA
     // -- CONSTRUCTORS
 
     constructor(
-        name,
         data_class,
         key_property_name,
         stored_property_name_array,
         request_url
         )
     {
-        this.Name = name;
         this.DataClass = data_class;
         this.DataMap = new Map();
         this.KeyPropertyName = key_property_name;
@@ -261,7 +259,7 @@ class VISTA_TABLE extends VISTA_DATA
         var
             data_array;
 
-        await data_array = SendJsonRequest( request_url, "GET" );
+        data_array = await SendJsonRequest( request_url, "GET" );
 
         ClearDataArray();
         SetDataArray( data_array );
@@ -278,7 +276,7 @@ class VISTA_TABLE extends VISTA_DATA
         var
             data;
 
-        await data = SendJsonRequest( request_url + "/" + data_key, "GET" );
+        data = await SendJsonRequest( request_url + "/" + data_key, "GET" );
 
         SetData( data );
 
