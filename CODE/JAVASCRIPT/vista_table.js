@@ -7,25 +7,25 @@ class VISTA_DATA
     constructor(
         )
     {
-        this.ListenerArray = [];
+        this.ObserverArray = [];
     }
 
     // -- INQUIRIES
 
-    FindListenerIndex(
-        listener
+    FindObserverIndex(
+        observer
         )
     {
         var
-            listener_index;
+            observer_index;
 
-        for ( listener_index = 0;
-              listener_index < this.ListenerArray.length;
-              ++listener_index )
+        for ( observer_index = 0;
+              observer_index < this.ObserverArray.length;
+              ++observer_index )
         {
-            if ( this.ListenerArray[ listener_index ] === listener )
+            if ( this.ObserverArray[ observer_index ] === observer )
             {
-                return listener_index;
+                return observer_index;
             }
         }
 
@@ -34,30 +34,30 @@ class VISTA_DATA
 
     // -- OPERATIONS
 
-    AddListener(
-        listener
+    AddObserver(
+        observer
         )
     {
-        if ( this.FindListenerIndex( listener ) < 0 )
+        if ( this.FindObserverIndex( observer ) < 0 )
         {
-            this.ListenerArray.push( listener );
+            this.ObserverArray.push( observer );
         }
     }
 
     // ~~
 
-    RemoveListener(
-        listener
+    RemoveObserver(
+        observer
         )
     {
         var
-            listener_index;
+            observer_index;
 
-        listener_index = this.FindListenerIndex( listener );
+        observer_index = this.FindObserverIndex( observer );
 
-        if ( listener_index >= 0 )
+        if ( observer_index >= 0 )
         {
-            this.ListenerArray.splice( listener_index, 1 );
+            this.ObserverArray.splice( observer_index, 1 );
         }
     }
 
@@ -67,18 +67,18 @@ class VISTA_DATA
         )
     {
         var
-            listener;
+            observer;
 
-        for ( listener of this.ListenerArray )
+        for ( observer of this.ObserverArray )
         {
-            listener.OnDataChanged( this );
+            observer.OnDataChanged( this );
         }
     }
 }
 
 // ~~
 
-class VISTA_STORE extends VISTA_DATA
+class VISTA_TABLE extends VISTA_DATA
 {
     // -- CONSTRUCTORS
 
@@ -86,7 +86,7 @@ class VISTA_STORE extends VISTA_DATA
         name,
         data_class,
         key_property_name,
-        remote_property_name_array,
+        stored_property_name_array,
         request_url
         )
     {
@@ -94,28 +94,28 @@ class VISTA_STORE extends VISTA_DATA
         this.DataClass = data_class;
         this.DataMap = new Map();
         this.KeyPropertyName = key_property_name;
-        this.RemotePropertyNameArray = remote_property_name_array;
+        this.StoredPropertyNameArray = stored_property_name_array;
         this.RequestUrl = request_url;
     }
 
     // -- OPERATIONS
 
-    CreateRemoteData(
+    CreateStoredData(
         data
         )
     {
         var
-            remote_data,
-            remote_property_name;
+            stored_data,
+            stored_property_name;
 
-        remote_data = {};
+        stored_data = {};
 
-        for ( remote_property_name of this.RemotePropertyNameArray )
+        for ( stored_property_name of this.StoredPropertyNameArray )
         {
-            remote_data[ remote_property_name ] = data[ remote_property_name ];
+            stored_data[ stored_property_name ] = data[ stored_property_name ];
         }
 
-        return remote_data;
+        return stored_data;
     }
 
     // ~~
@@ -255,7 +255,7 @@ class VISTA_STORE extends VISTA_DATA
 
     // ~~
 
-    async GetRemoteDataArray(
+    async GetStoredDataArray(
         )
     {
         var
@@ -271,7 +271,7 @@ class VISTA_STORE extends VISTA_DATA
 
     // ~~
 
-    async GetRemoteData(
+    async GetStoredData(
         data_key
         )
     {
@@ -287,29 +287,29 @@ class VISTA_STORE extends VISTA_DATA
 
     // ~~
 
-    async AddRemoteData(
+    async AddStoredData(
         data
         )
     {
-        await SendJsonRequest( request_url + "/" + data_key, "POST", CreateRemoteData( data ) );
+        await SendJsonRequest( request_url + "/" + data_key, "POST", CreateStoredData( data ) );
 
         SetData( data );
     }
 
     // ~~
 
-    async SetRemoteData(
+    async SetStoredData(
         data
         )
     {
-        await SendJsonRequest( request_url + "/" + data_key, "PUT", CreateRemoteData( data ) );
+        await SendJsonRequest( request_url + "/" + data_key, "PUT", CreateStoredData( data ) );
 
         SetData( data );
     }
 
     // ~~
 
-    async RemoveRemoteData(
+    async RemoveStoredData(
         data_key
         )
     {
