@@ -13,7 +13,7 @@ class VISTA_ELEMENT extends HTMLElement
         this.RootElement = this;
         this.TemplateText = template_text;
         this.TemplateFunction = null;
-        this.HasChanged = true;
+        this.Data = new VISTA_DATA();
     }
 
     // -- INQUIRIES
@@ -49,10 +49,10 @@ class VISTA_ELEMENT extends HTMLElement
 
     // ~~
 
-    InvalidateContent(
+    SetChanged(
         )
     {
-        this.HasChanged = true;
+        this.Data.HasChanged = true;
     }
 
     // ~~
@@ -78,7 +78,7 @@ class VISTA_ELEMENT extends HTMLElement
     Update(
         )
     {
-        if ( this.HasChanged )
+        if ( this.Data.HasChanged )
         {
             this.UpdateContent();
         }
@@ -90,22 +90,13 @@ class VISTA_ELEMENT extends HTMLElement
 
     // -- EVENTS
 
-    OnDataChanged(
-        data
-        )
-    {
-        InvalidateContent();
-    }
-
-    // ~~
-
     OnAttributeChanged(
         attribute,
         old_value,
         new_value
         )
     {
-        InvalidateContent();
+        this.Data.HasChanged = true;
     }
 
     // ~~
@@ -170,7 +161,8 @@ function UpdateChangedElements(
     {
         child_element = element.children[ child_element_index ];
 
-        if ( child_element.HasChanged === true )
+        if ( child_element.Data !== undefined
+             && child_element.Data.HasChanged )
         {
             child_element.UpdateContent();
         }

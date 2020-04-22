@@ -1,83 +1,5 @@
 // -- TYPES
 
-class VISTA_DATA
-{
-    // -- CONSTRUCTORS
-
-    constructor(
-        )
-    {
-        this.ObserverArray = [];
-    }
-
-    // -- INQUIRIES
-
-    FindObserverIndex(
-        observer
-        )
-    {
-        var
-            observer_index;
-
-        for ( observer_index = 0;
-              observer_index < this.ObserverArray.length;
-              ++observer_index )
-        {
-            if ( this.ObserverArray[ observer_index ] === observer )
-            {
-                return observer_index;
-            }
-        }
-
-        return -1;
-    }
-
-    // -- OPERATIONS
-
-    AddObserver(
-        observer
-        )
-    {
-        if ( this.FindObserverIndex( observer ) < 0 )
-        {
-            this.ObserverArray.push( observer );
-        }
-    }
-
-    // ~~
-
-    RemoveObserver(
-        observer
-        )
-    {
-        var
-            observer_index;
-
-        observer_index = this.FindObserverIndex( observer );
-
-        if ( observer_index >= 0 )
-        {
-            this.ObserverArray.splice( observer_index, 1 );
-        }
-    }
-
-    // ~~
-
-    NotifyDataChanged(
-        )
-    {
-        var
-            observer;
-
-        for ( observer of this.ObserverArray )
-        {
-            observer.OnDataChanged( this );
-        }
-    }
-}
-
-// ~~
-
 class VISTA_TABLE extends VISTA_DATA
 {
     // -- CONSTRUCTORS
@@ -196,8 +118,8 @@ class VISTA_TABLE extends VISTA_DATA
             this.DataMap.set( data_key, set_data );
         }
 
-        set_data.NotifyDataChanged();
-        this.NotifyDataChanged();
+        this.SetChanged();
+        set_data.SetChanged();
     }
 
     // ~~
@@ -210,14 +132,14 @@ class VISTA_TABLE extends VISTA_DATA
             removed_data_map;
 
         removed_data_map = this.DataMap;
-        this.DataMap = new Map();
 
         for ( removed_data of removed_data_map.values() )
         {
-            removed_data.NotifyDataChanged();
+            removed_data.SetChanged();
         }
 
-        this.NotifyDataChanged();
+        this.DataMap = new Map();
+        this.SetChanged();
     }
 
     // ~~
@@ -245,10 +167,10 @@ class VISTA_TABLE extends VISTA_DATA
             removed_data;
 
         removed_data = this.DataMap.get( data_key );
-        this.DataMap.delete( data_key );
+        removed_data.SetChanged();
 
-        removed_data.NotifyDataChanged();
-        this.NotifyDataChanged();
+        this.DataMap.delete( data_key );
+        this.SetChanged();
     }
 
     // ~~
