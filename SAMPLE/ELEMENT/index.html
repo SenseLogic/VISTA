@@ -24,9 +24,7 @@
             </div>
         </main>
         <script src="../../CODE/JAVASCRIPT/vista_base.js"></script>
-        <script src="../../CODE/JAVASCRIPT/vista_data.js"></script>
         <script src="../../CODE/JAVASCRIPT/vista_element.js"></script>
-        <script src="../../CODE/JAVASCRIPT/vista_template.js"></script>
         <script>
             // -- TYPES
 
@@ -38,18 +36,67 @@
                     )
                 {
                     super(
+                        html`
+                        <ul>
+                            <: for ( var movie of this.Data.MovieArray ) { :>
+                                <li style="color:<:# this.Data.LineColor :>">
+                                    <:% movie.Name :> : <:# movie.Rating :>
+                                </li>
+                            <: } :>
+                        </ul>
+                        <button id="button">
+                            <:# this.Data.LineColor :>
+                        </button>
+                        <div ignored="<\: ignored :\>">
+                            <: var ignored = "<\: ignored :\>"; :>
+                        </div>
                         `
-                        <h1>
-                            TEST ELEMENT
-                        </h1>
-                        `
+                        );
+
+                    this.Data.MovieArray =
+                        [
+                            {
+                                Name : "<Blade Runner>",
+                                Rating : 5
+                            },
+                            {
+                                Name : "<The Chronicles of Riddick>",
+                                Rating : 4
+                            },
+                            {
+                                Name : "<The Matrix>",
+                                Rating : 3
+                            }
+                        ];
+
+                    this.Data.LineColor = "#0000FF";
+                }
+
+                // -- OPERATIONS
+
+                ManageContentUpdated(
+                    )
+                {
+                    var
+                        self;
+
+                    self = this;
+
+                    [ this ].GetElements( "#button" ).AddEventListener(
+                        "click",
+                        function(
+                            )
+                        {
+                            self.Data.LineColor = "#FF0000";
+                            self.Data.SetChanged();
+                        }
                         );
                 }
             }
 
             // -- STATEMENTS
 
-            RegisterElement( "test-element", TEST_ELEMENT );
+            DefineElement( TEST_ELEMENT, "test-element" );
 
             GetElements( "div" )
                 .Iterate(

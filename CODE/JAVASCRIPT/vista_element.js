@@ -1,16 +1,130 @@
 // -- TYPES
 
+class VISTA_DATA
+{
+    // -- CONSTRUCTORS
+
+    constructor(
+        )
+    {
+        this.ConsumerArray = [];
+        this.HasChanged = true;
+    }
+
+    // -- INQUIRIES
+
+    FindConsumerIndex(
+        consumer
+        )
+    {
+        var
+            consumer_index;
+
+        for ( consumer_index = 0;
+              consumer_index < this.ConsumerArray.length;
+              ++consumer_index )
+        {
+            if ( this.ConsumerArray[ consumer_index ] === consumer )
+            {
+                return consumer_index;
+            }
+        }
+
+        return -1;
+    }
+
+    // -- OPERATIONS
+
+    AddConsumer(
+        consumer
+        )
+    {
+        if ( this.FindConsumerIndex( consumer ) < 0 )
+        {
+            this.ConsumerArray.push( consumer );
+        }
+    }
+
+    // ~~
+
+    RemoveConsumer(
+        consumer
+        )
+    {
+        var
+            consumer_index;
+
+        consumer_index = this.FindConsumerIndex( consumer );
+
+        if ( consumer_index >= 0 )
+        {
+            this.ConsumerArray.splice( consumer_index, 1 );
+        }
+    }
+
+    // ~~
+
+    SetChanged(
+        )
+    {
+        var
+            consumer;
+
+        if ( DataHasChanged === false
+             && UpdateChangedDocument !== undefined )
+        {
+            setInterval( UpdateChangedDocument, 0 );
+        }
+
+        DataHasChanged = true;
+        this.HasChanged = true;
+
+        for ( consumer of this.ConsumerArray )
+        {
+            consumer.ManageDataChanged( this );
+        }
+    }
+
+    // ~~
+
+    SetUpdated(
+        )
+    {
+        this.HasChanged = false;
+    }
+
+    // ~~
+
+    ManageDataChanged(
+        data
+        )
+    {
+        SetChanged();
+    }
+}
+
+// ~~
+
 class VISTA_ELEMENT extends HTMLElement
 {
     // -- CONSTRUCTORS
 
     constructor(
-        template_text
+        template_text = "",
+        it_has_shadow_root_element = false
         )
     {
         super();
 
-        this.RootElement = this;
+        if ( it_has_shadow_root_element )
+        {
+            this.RootElement = this.attachShadow( { mode : "open" } );
+        }
+        else
+        {
+            this.RootElement = this;
+        }
+
         this.TemplateText = template_text;
         this.TemplateFunction = null;
         this.Data = new VISTA_DATA();
@@ -18,26 +132,90 @@ class VISTA_ELEMENT extends HTMLElement
 
     // -- INQUIRIES
 
+    GetTemplateFunction(
+        template_text
+        )
+    {
+        var
+            section_array,
+            section_code,
+            section_count,
+            section_index,
+            section_part_array,
+            section_text,
+            function_code;
+
+        if ( template_text instanceof HTMLElement )
+        {
+            template_text = GetDecodedHtml( template_text.innerHTML );
+        }
+
+        section_array = template_text.split( "\r" ).join( "" ).split( "<:" );
+        section_count = section_array.length;
+
+        function_code = "() => {\nvar result = " + JSON.stringify( section_array[ 0 ] ) + ";\n";
+
+        for ( section_index = 1;
+              section_index < section_count;
+              ++section_index )
+        {
+            section_part_array = section_array[ section_index ].split( ":>" );
+            section_code = section_part_array.shift();
+            section_text = section_part_array.join( ":>" );
+
+            if ( section_code.startsWith( "#" ) )
+            {
+                function_code += "result += " + section_code.substring( 1 ).trim() + ";\n";
+            }
+            else if ( section_code.startsWith( "%" ) )
+            {
+                function_code += "result += GetEncodedHtml( " +  section_code.substring( 1 ).trim() + " );\n";
+            }
+            else
+            {
+                function_code += section_code;
+            }
+
+            if ( section_text.length > 0 )
+            {
+                function_code += "result += " + JSON.stringify( section_text ) + ";\n";
+            }
+        }
+
+        function_code += "return result;\n}";
+
+        function_code
+            = function_code
+                  .split( "<\\:" ).join( "<:" )
+                  .split( ":\\>" ).join( ":>" )
+                  .split( "<\\\\:" ).join( "<:" )
+                  .split( ":\\\\>" ).join( ":>" );
+
+        try
+        {
+            return eval( function_code );
+        }
+        catch ( error )
+        {
+            console.log( function_code );
+            console.error( error );
+        }
+    }
+
+    // ~~
+
     GetContent(
         )
     {
         if ( this.TemplateFunction === null )
         {
-            this.TemplateFunction = GetTemplateFunction( this.TemplateText );
+            this.TemplateFunction = this.GetTemplateFunction( this.TemplateText );
         }
 
         return this.TemplateFunction();
     }
 
     // -- OPERATIONS
-
-    AttachShadowElement(
-        )
-    {
-        this.RootElement = this.attachShadow( { mode : "open" } );
-    }
-
-    // ~~
 
     SetTemplateText(
         template_text
@@ -49,20 +227,13 @@ class VISTA_ELEMENT extends HTMLElement
 
     // ~~
 
-    SetChanged(
-        )
-    {
-        this.Data.HasChanged = true;
-    }
-
-    // ~~
-
     SetContent(
         content
         )
     {
         this.RootElement.innerHTML = content;
-        this.HasChanged = false;
+        this.Data.SetUpdated();
+        this.ManageContentUpdated();
     }
 
     // ~~
@@ -90,13 +261,13 @@ class VISTA_ELEMENT extends HTMLElement
 
     // -- EVENTS
 
-    OnAttributeChanged(
+    ManageElementAttributeChanged(
         attribute,
         old_value,
         new_value
         )
     {
-        this.Data.HasChanged = true;
+        this.Data.SetChanged();
     }
 
     // ~~
@@ -107,7 +278,7 @@ class VISTA_ELEMENT extends HTMLElement
         new_value
         )
     {
-        this.OnAttributeChanged(
+        this.ManageElementAttributeChanged(
             attribute,
             old_value,
             new_value
@@ -116,7 +287,7 @@ class VISTA_ELEMENT extends HTMLElement
 
     // ~~
 
-    OnMounted(
+    ManageElementMounted(
         )
     {
         this.UpdateContent();
@@ -127,12 +298,12 @@ class VISTA_ELEMENT extends HTMLElement
     connectedCallback(
         )
     {
-        this.OnMounted();
+        this.ManageElementMounted();
     }
 
     // ~~
 
-    OnUnmounted(
+    ManageElementUnmounted(
         )
     {
     }
@@ -142,11 +313,27 @@ class VISTA_ELEMENT extends HTMLElement
     disconnectedCallback(
         )
     {
-        this.OnUnmounted();
+        this.ManageElementUnmounted();
+    }
+
+    // ~~
+
+    ManageContentUpdated(
+        )
+    {
     }
 }
 
+// -- VARIABLES
+
+var
+    DataHasChanged = false;
+
 // -- FUNCTIONS
+
+var html = String.raw;
+
+// ~~
 
 function UpdateChangedElements(
     element
@@ -168,19 +355,40 @@ function UpdateChangedElements(
         }
         else if ( child_element.children.length > 0 )
         {
-            UpdateChangedElements( element );
+            UpdateChangedElements( child_element );
         }
     }
 }
 
 // ~~
 
-function RegisterElement(
-    element_tag,
-    element_class
+function UpdateChangedDocument(
     )
 {
-    window.customElements.define( element_tag, element_class );
+    if ( DataHasChanged )
+    {
+        UpdateChangedElements( document.body );
+
+        DataHasChanged = false;
+    }
+}
+
+// ~~
+
+function DefineElement(
+    element_class,
+    element_tag,
+    base_tag = undefined
+    )
+{
+    if ( base_tag === undefined )
+    {
+        window.customElements.define( element_tag, element_class );
+    }
+    else
+    {
+        window.customElements.define( element_tag, element_class, { extends: base_tag } );
+    }
 }
 
 // ~~
@@ -192,7 +400,7 @@ function LogElement(
     console.log(
         {
             tagName : element.tagName,
-            elementType : element.elementType,
+            nodeType : element.nodeType,
             id : element.id,
             classList : element.classList,
             style : element.style,
@@ -275,6 +483,31 @@ function GetElements(
     )
 {
     return Array.from( document.querySelectorAll( element_selector ) );
+}
+
+// ~~
+
+function GetAncestorElement(
+    element,
+    element_selector = undefined
+    )
+{
+    var
+        ancestor_element;
+
+    for ( ancestor_element = element.parent;
+          ancestor_element != null;
+          ancestor_element = ancestor_element.parent )
+    {
+        if ( ancestor_element.nodeType === 1
+             && ( element_selector === undefined
+                  || ancestor_element.matches( element_selector ) ) )
+        {
+            return ancestor_element;
+        }
+    }
+
+    return null;
 }
 
 // ~~
@@ -427,7 +660,7 @@ Array.prototype.AppendChildren = function(
 // ~~
 
 Array.prototype.GetAncestorElements = function(
-    element_selector
+    element_selector = undefined
     )
 {
     var
@@ -443,7 +676,7 @@ Array.prototype.GetAncestorElements = function(
               ancestor_element != null;
               ancestor_element = ancestor_element.parent )
         {
-            if ( ancestor_element.elementType === 1
+            if ( ancestor_element.nodeType === 1
                  && ( element_selector === undefined
                       || ancestor_element.matches( element_selector ) ) )
             {
@@ -458,7 +691,7 @@ Array.prototype.GetAncestorElements = function(
 // ~~
 
 Array.prototype.GetParentElements = function(
-    element_selector
+    element_selector = undefined
     )
 {
     var
@@ -470,7 +703,7 @@ Array.prototype.GetParentElements = function(
     for ( element of this )
     {
         if ( element.parent != null
-             && element.parent.elementType == 1
+             && element.parent.nodeType == 1
              && ( element_selector === undefined
                   || element.parent.matches( element_selector ) ) )
         {
@@ -484,7 +717,7 @@ Array.prototype.GetParentElements = function(
 // ~~
 
 Array.prototype.GetPrecedingElements = function(
-    element_selector
+    element_selector = undefined
     )
 {
     var
@@ -500,7 +733,7 @@ Array.prototype.GetPrecedingElements = function(
               preceding_element != null;
               preceding_element = preceding_element.previousSibling )
         {
-            if ( preceding_element.elementType === 1
+            if ( preceding_element.nodeType === 1
                  && ( element_selector === undefined
                       || preceding_element.matches( element_selector ) ) )
             {
@@ -515,7 +748,7 @@ Array.prototype.GetPrecedingElements = function(
 // ~~
 
 Array.prototype.GetPriorElements = function(
-    element_selector
+    element_selector = undefined
     )
 {
     var
@@ -527,7 +760,7 @@ Array.prototype.GetPriorElements = function(
     for ( element of this )
     {
         if ( element.previousSibling != null
-             && element.previousSibling.elementType == 1
+             && element.previousSibling.nodeType == 1
              && ( element_selector === undefined
                   || element.previousSibling.matches( element_selector ) ) )
         {
@@ -541,7 +774,7 @@ Array.prototype.GetPriorElements = function(
 // ~~
 
 Array.prototype.GetNextElements = function(
-    element_selector
+    element_selector = undefined
     )
 {
     var
@@ -553,7 +786,7 @@ Array.prototype.GetNextElements = function(
     for ( element of this )
     {
         if ( element.nextSibling != null
-             && element.nextSibling.elementType == 1
+             && element.nextSibling.nodeType == 1
              && ( element_selector === undefined
                   || element.nextSibling.matches( element_selector ) ) )
         {
@@ -567,7 +800,7 @@ Array.prototype.GetNextElements = function(
 // ~~
 
 Array.prototype.GetFollowingElements = function(
-    element_selector
+    element_selector = undefined
     )
 {
     var
@@ -583,7 +816,7 @@ Array.prototype.GetFollowingElements = function(
               following_element != null;
               following_element = following_element.nextSibling )
         {
-            if ( following_element.elementType === 1
+            if ( following_element.nodeType === 1
                  && ( element_selector === undefined
                       || following_element.matches( element_selector ) ) )
             {
@@ -598,7 +831,7 @@ Array.prototype.GetFollowingElements = function(
 // ~~
 
 Array.prototype.GetChildElements = function(
-    element_selector
+    element_selector = undefined
     )
 {
     var
@@ -612,7 +845,7 @@ Array.prototype.GetChildElements = function(
     {
         for ( child_element of element.children )
         {
-            if ( child_element.elementType == 1
+            if ( child_element.nodeType == 1
                  && ( element_selector === undefined
                       || child_element.matches( element_selector ) ) )
             {
@@ -627,11 +860,10 @@ Array.prototype.GetChildElements = function(
 // ~~
 
 Array.prototype.GetDescendantElements = function(
-    element_selector
+    element_selector = undefined
     )
 {
     var
-        child_element,
         descendant_element,
         descendant_element_array,
         descendant_element_list,
@@ -646,16 +878,13 @@ Array.prototype.GetDescendantElements = function(
 
     for ( element of this )
     {
-        for ( child_element of element.children )
-        {
-            descendant_element_list = child_element.querySelectorAll( element_selector );
+        descendant_element_list = element.querySelectorAll( element_selector );
 
-            for ( descendant_element of descendant_element_list )
+        for ( descendant_element of descendant_element_list )
+        {
+            if ( descendant_element.nodeType == 1 )
             {
-                if ( descendant_element.elementType == 1 )
-                {
-                    descendant_element_array.push( descendant_element );
-                }
+                descendant_element_array.push( descendant_element );
             }
         }
     }
@@ -666,7 +895,7 @@ Array.prototype.GetDescendantElements = function(
 // ~~
 
 Array.prototype.GetMatchingElements = function(
-    element_selector
+    element_selector = undefined
     )
 {
     var
@@ -677,7 +906,7 @@ Array.prototype.GetMatchingElements = function(
 
     for ( element of this )
     {
-        if ( element.elementType == 1
+        if ( element.nodeType == 1
              && ( element_selector === undefined
                   || element.matches( element_selector ) ) )
         {
@@ -691,7 +920,7 @@ Array.prototype.GetMatchingElements = function(
 // ~~
 
 Array.prototype.GetElements = function(
-    element_selector
+    element_selector = undefined
     )
 {
     var
@@ -709,11 +938,16 @@ Array.prototype.GetElements = function(
 
     for ( element of this )
     {
+        if ( element.matches( element_selector ) )
+        {
+            found_element_array.push( element );
+        }
+
         found_element_list = element.querySelectorAll( element_selector );
 
         for ( found_element of found_element_list )
         {
-            if ( found_element.elementType == 1 )
+            if ( found_element.nodeType == 1 )
             {
                 found_element_array.push( found_element );
             }
