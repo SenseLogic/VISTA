@@ -2,7 +2,7 @@
 
 # Vista
 
-Versatile CSS and JavaScript framework.
+Versatile front-end framework.
 
 ## Features
 
