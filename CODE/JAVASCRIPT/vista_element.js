@@ -81,7 +81,7 @@ class VISTA_DATA
 
         for ( consumer of this.ConsumerArray )
         {
-            consumer.ManageDataChanged( this );
+            consumer.HandleDataChanged( this );
         }
     }
 
@@ -95,7 +95,7 @@ class VISTA_DATA
 
     // ~~
 
-    ManageDataChanged(
+    HandleDataChanged(
         data
         )
     {
@@ -233,7 +233,7 @@ class VISTA_ELEMENT extends HTMLElement
     {
         this.RootElement.innerHTML = content;
         this.Data.SetUpdated();
-        this.ManageContentUpdated();
+        this.HandleContentUpdated();
     }
 
     // ~~
@@ -261,7 +261,7 @@ class VISTA_ELEMENT extends HTMLElement
 
     // -- EVENTS
 
-    ManageElementAttributeChanged(
+    HandleElementAttributeChanged(
         attribute,
         old_value,
         new_value
@@ -278,7 +278,7 @@ class VISTA_ELEMENT extends HTMLElement
         new_value
         )
     {
-        this.ManageElementAttributeChanged(
+        this.HandleElementAttributeChanged(
             attribute,
             old_value,
             new_value
@@ -287,7 +287,7 @@ class VISTA_ELEMENT extends HTMLElement
 
     // ~~
 
-    ManageElementMounted(
+    HandleElementMounted(
         )
     {
         this.UpdateContent();
@@ -298,12 +298,12 @@ class VISTA_ELEMENT extends HTMLElement
     connectedCallback(
         )
     {
-        this.ManageElementMounted();
+        this.HandleElementMounted();
     }
 
     // ~~
 
-    ManageElementUnmounted(
+    HandleElementUnmounted(
         )
     {
     }
@@ -313,12 +313,12 @@ class VISTA_ELEMENT extends HTMLElement
     disconnectedCallback(
         )
     {
-        this.ManageElementUnmounted();
+        this.HandleElementUnmounted();
     }
 
     // ~~
 
-    ManageContentUpdated(
+    HandleContentUpdated(
         )
     {
     }

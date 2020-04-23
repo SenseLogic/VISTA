@@ -23,6 +23,15 @@ var
 
 // ~~
 
+function IsPowerOfTwo(
+    integer
+    )
+{
+    return ( integer & ( integer - 1 ) ) == 0;
+}
+
+// ~~
+
 function IsRoughlyZero(
     value,
     precision = DefaultPrecision
@@ -204,4 +213,23 @@ function GetVectorAngle(
             return angle;
         }
     }
+}
+
+// ~~
+
+function GetRandomReal(
+    minimum_real,
+    excluded_maximum_real
+    )
+{
+    return minimum_integer + GetRandom() * ( excluded_maximum_real - minimum_real );
+}
+// ~~
+
+function GetRandomInteger(
+    minimum_integer,
+    maximum_integer
+    )
+{
+    return GetFloor( minimum_integer + GetRandom() * ( maximum_integer - minimum_integer + 1 ) );
 }

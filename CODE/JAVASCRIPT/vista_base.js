@@ -61,6 +61,89 @@ function IsMobileBrowser()
 
 // ~~
 
+function GetLeftPaddedText(
+    text,
+    minimum_character_count,
+    padding_character
+    )
+{
+    if ( text.length < minimum_character_count )
+    {
+        return padding_character.repeat( minimum_character_count - text.length ) + text;
+    }
+    else
+    {
+        return text;
+    }
+}
+
+// ~~
+
+function GetRightPaddedText(
+    text,
+    minimum_character_count,
+    padding_character
+    )
+{
+    if ( text.length < minimum_character_count )
+    {
+        return text + padding_character.repeat( minimum_character_count - text.length );
+    }
+    else
+    {
+        return text;
+    }
+}
+
+// ~~
+
+function GetNaturalHexadecimalText(
+    natural,
+    minimum_digit_count = 0
+    )
+{
+    return GetLeftPaddedText( natural.toString( 16 ), minimum_digit_count, '0' );
+}
+
+// ~~
+
+function GetByteArrayHexadecimalText(
+    byte_array
+    )
+{
+    var
+        byte_index,
+        hexadecimal_text;
+
+    hexadecimal_text = "";
+
+    for ( byte_index = 0;
+          byte_index < byte_array.length;
+          ++byte_index )
+    {
+        hexadecimal_text += GetNaturalHexadecimalText( byte_array[ byte_index ], 2 );
+    }
+
+    return hexadecimal_text;
+}
+
+// ~~
+
+function GetRandomByteArray(
+    byte_count
+    )
+{
+    var
+        byte_array;
+
+    byte_array = new Uint8Array( byte_count );
+    window.crypto.getRandomValues( byte_array );
+
+    return byte_array;
+}
+
+// ~~
+
 function RemoveStart(
     text,
     start

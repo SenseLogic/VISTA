@@ -37,13 +37,13 @@ Modular CSS and JavaScript framework.
     *   custom elements
     *   HTML templating
     *   server requests
-    *   relational tables
+    *   database tables
     *   mathematical types
     *   graphic shaders
     *   model loaders
     *   scene renderers
 
-## Sample
+## Samples
 
 ```html
 <!DOCTYPE html>
@@ -73,6 +73,7 @@ Modular CSS and JavaScript framework.
         </main>
         <script src="../../CODE/JAVASCRIPT/vista_base.js"></script>
         <script src="../../CODE/JAVASCRIPT/vista_element.js"></script>
+        <script src="../../CODE/JAVASCRIPT/vista_animation.js"></script>
         <script>
             // -- TYPES
 
@@ -117,25 +118,22 @@ Modular CSS and JavaScript framework.
                             }
                         ];
 
-                    this.Data.LineColor = "#0000FF";
+                    this.Data.LineColor = "#0000ff";
                 }
 
                 // -- OPERATIONS
 
-                ManageContentUpdated(
+                HandleContentUpdated(
                     )
                 {
-                    var
-                        self;
-
-                    self = this;
+                    const self = this;
 
                     [ this ].GetElements( "#button" ).AddEventListener(
                         "click",
                         function(
                             )
                         {
-                            self.Data.LineColor = "#FF0000";
+                            self.Data.LineColor = "#" + GetByteArrayHexadecimalText( GetRandomByteArray( 3 ) );
                             self.Data.SetChanged();
                         }
                         );
@@ -187,7 +185,110 @@ Modular CSS and JavaScript framework.
                         "width" : "5vw",
                         "height" : "5vw"
                     }
+                    )
+                .AnimateProperties(
+                    {
+                        "transform" : [ "translateX(0vw)", "translateX(30vw)", "translateX(70vw)", "translateX(90vw)" ],
+                        "opacity" : [ "1.0", "0.5", "0.1", "1.0" ]
+                    },
+                    [ 0.0, 2.0, 4.0, 6.0 ]
                     );
+        </script>
+    </body>
+</html>
+```
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>Sample</title>
+    </head>
+    <body>
+        <main>
+            <canvas id="canvas" width="640" height="480"></canvas>
+        </main>
+        <script src="../../../CODE/JAVASCRIPT/vista_element.js"></script>
+        <script src="../../../CODE/JAVASCRIPT/vista_canvas.js"></script>
+        <script id="vertex-shader" type="x-shader/x-vertex">
+            attribute vec4 VertexPositionVectorAttribute;
+            attribute vec4 VertexColorVectorAttribute;
+
+            varying vec4 VertexColorVectorVarying;
+
+            void main(
+                )
+            {
+                gl_Position = VertexPositionVectorAttribute;
+                VertexColorVectorVarying = VertexColorVectorAttribute;
+            }
+        </script>
+        <script id="fragment-shader" type="x-shader/x-fragment">
+            precision mediump float;
+
+            varying vec4 VertexColorVectorVarying;
+
+            void main(
+                )
+            {
+                gl_FragColor = VertexColorVectorVarying;
+            }
+        </script>
+        <script>
+            // -- FUNCTIONS
+
+            async function RenderColoredTriangle(
+                )
+            {
+                var
+                    canvas,
+                    graphic_context,
+                    fragment_shader,
+                    program,
+                    vertex_real_array_buffer,
+                    vertex_shader;
+
+                vertex_real_array_buffer
+                    = new VISTA_REAL_32_ARRAY_BUFFER(
+                          [
+                              0.0, 0.5, 1.0, 0.0, 0.0,
+                              -0.5, -0.5, 0.0, 1.0, 0.0,
+                              0.5, -0.5, 0.0, 0.0, 1.0
+                          ]
+                          );
+
+                vertex_shader = new VISTA_VERTEX_SHADER( GetElementById( "vertex-shader" ).text );
+                fragment_shader = new VISTA_FRAGMENT_SHADER( GetElementById( "fragment-shader" ).text );
+
+                program = new VISTA_PROGRAM( vertex_shader, fragment_shader );
+                program.VertexPositionVectorAttribute = program.GetAttribute( "VertexPositionVectorAttribute" );
+                program.VertexColorVectorAttribute = program.GetAttribute( "VertexColorVectorAttribute" );
+
+                canvas = new VISTA_CANVAS( GetElementById( "canvas" ) );
+                graphic_context = canvas.GraphicContext;
+
+                vertex_real_array_buffer.Bind( graphic_context );
+
+                vertex_shader.Bind( graphic_context );
+                fragment_shader.Bind( graphic_context );
+
+                program.Bind( graphic_context );
+                program.VertexPositionVectorAttribute.Bind( graphic_context );
+                program.VertexColorVectorAttribute.Bind( graphic_context );
+
+                program.Use( graphic_context );
+                program.VertexPositionVectorAttribute.BindReal32ArrayBuffer( graphic_context, vertex_real_array_buffer, 2, 5, 0 );
+                program.VertexColorVectorAttribute.BindReal32ArrayBuffer( graphic_context, vertex_real_array_buffer, 3, 5, 2 );
+
+                canvas.Clear( [ 0.9, 0.9, 0.9, 1.0 ] );
+                canvas.DrawTriangles( 3 );
+            }
+
+            // -- STATEMENTS
+
+            RenderColoredTriangle();
         </script>
     </body>
 </html>
