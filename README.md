@@ -2,7 +2,7 @@
 
 # Vista
 
-Versatile front-end framework.
+Lightweight front-end framework.
 
 ## Features
 
@@ -122,10 +122,12 @@ Versatile front-end framework.
 
                 // -- OPERATIONS
 
-                HandleContentUpdated(
+                UpdateContent(
                     )
                 {
                     const self = this;
+
+                    this.SetContent();
 
                     [ this ].GetElements( "#button" ).AddEventListener(
                         "click",

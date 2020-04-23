@@ -64,14 +64,31 @@ class VISTA_DATA
 
     // ~~
 
+    AddProducer(
+        producer
+        )
+    {
+        producer.AddConsumer( this );
+    }
+
+    // ~~
+
+    RemoveProducer(
+        producer
+        )
+    {
+        producer.RemoveConsumer( this );
+    }
+
+    // ~~
+
     SetChanged(
         )
     {
         var
             consumer;
 
-        if ( DataHasChanged === false
-             && UpdateChangedDocument !== undefined )
+        if ( DataHasChanged === false )
         {
             setInterval( UpdateChangedDocument, 0 );
         }
@@ -153,7 +170,7 @@ class VISTA_ELEMENT extends HTMLElement
         section_array = template_text.split( "\r" ).join( "" ).split( "<:" );
         section_count = section_array.length;
 
-        function_code = "() => {\nvar result = " + JSON.stringify( section_array[ 0 ] ) + ";\n";
+        function_code = "() => {\nvar result = " + GetJsonText( section_array[ 0 ] ) + ";\n";
 
         for ( section_index = 1;
               section_index < section_count;
@@ -178,7 +195,7 @@ class VISTA_ELEMENT extends HTMLElement
 
             if ( section_text.length > 0 )
             {
-                function_code += "result += " + JSON.stringify( section_text ) + ";\n";
+                function_code += "result += " + GetJsonText( section_text ) + ";\n";
             }
         }
 
@@ -197,8 +214,8 @@ class VISTA_ELEMENT extends HTMLElement
         }
         catch ( error )
         {
-            console.log( function_code );
-            console.error( error );
+            Log( function_code );
+            LogError( error );
         }
     }
 
@@ -228,12 +245,16 @@ class VISTA_ELEMENT extends HTMLElement
     // ~~
 
     SetContent(
-        content
+        content = undefined
         )
     {
+        if ( content === undefined )
+        {
+             content = this.GetContent()
+        }
+
         this.RootElement.innerHTML = content;
         this.Data.SetUpdated();
-        this.HandleContentUpdated();
     }
 
     // ~~
@@ -241,7 +262,7 @@ class VISTA_ELEMENT extends HTMLElement
     UpdateContent(
         )
     {
-        this.SetContent( this.GetContent() );
+        this.SetContent();
     }
 
     // ~~
@@ -314,13 +335,6 @@ class VISTA_ELEMENT extends HTMLElement
         )
     {
         this.HandleElementUnmounted();
-    }
-
-    // ~~
-
-    HandleContentUpdated(
-        )
-    {
     }
 }
 
@@ -397,7 +411,7 @@ function LogElement(
     element
     )
 {
-    console.log(
+    Log(
         {
             tagName : element.tagName,
             nodeType : element.nodeType,
@@ -427,7 +441,7 @@ function DumpElement(
     element
     )
 {
-    console.dir( element );
+    Dump( element );
 }
 
 // ~~

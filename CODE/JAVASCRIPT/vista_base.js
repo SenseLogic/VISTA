@@ -5,21 +5,22 @@ var
 
 // -- FUNCTIONS
 
+var
+    Log = console.log,
+    Dump = console.dir,
+    LogStack = console.trace,
+    GetJsonText = JSON.stringify,
+    GetJsonObject = JSON.parse;
+
+// ~~
+
 function Dump(
     )
 {
     for ( argument of arguments )
     {
-        console.log( JSON.stringify( argument ) );
+        Log( GetJsonObject( argument ) );
     }
-}
-
-// ~~
-
-function Log(
-    )
-{
-    console.log( ...arguments );
 }
 
 // ~~
@@ -27,7 +28,7 @@ function Log(
 function LogWarning(
     )
 {
-    console.trace();
+    LogStack();
     console.warn( ...arguments );
 }
 
@@ -36,7 +37,7 @@ function LogWarning(
 function LogError(
     )
 {
-    console.trace();
+    LogStack();
     console.error( ...arguments );
 }
 
@@ -196,24 +197,6 @@ function GetUnit(
     }
 
     return "";
-}
-
-// ~~
-
-function GetJsonText(
-    object
-    )
-{
-    return JSON.stringify( object );
-}
-
-// ~~
-
-function GetJsonObject(
-    text
-    )
-{
-    return JSON.parse( text );
 }
 
 // ~~

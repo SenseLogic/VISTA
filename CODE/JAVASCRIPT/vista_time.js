@@ -33,3 +33,43 @@ function GetMillisecondTimestamp(
 {
     return window.performance.timing.navigationStart + window.performance.now();
 }
+
+// ~~
+
+function GetLocalDateTime(
+    )
+{
+    var
+        date;
+
+    date = new Date();
+
+    return {
+        Year : date.getFullYear(),
+        Month : date.getMonth(),
+        Day : date.getDay(),
+        Hour : date.getHours(),
+        Minute : date.getMinutes(),
+        Second : date.getSeconds()
+        };
+}
+
+// ~~
+
+function GetUniversalDateTime(
+    )
+{
+    var
+        date;
+
+    date = new Date();
+
+    return {
+        Year : date.getUTCFullYear(),
+        Month : date.getUTCMonth(),
+        Day : date.getUTCDay(),
+        Hour : date.getUTCHours(),
+        Minute : date.getUTCMinutes(),
+        Second : date.getUTCSeconds()
+        };
+}
