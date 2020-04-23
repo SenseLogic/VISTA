@@ -6,42 +6,42 @@ Versatile front-end framework.
 
 ## Features
 
-*   Stylus
+*   CSS
     *   reset
-    *   units
-    *   media queries
-    *   prefixes
-    *   containers
-    *   displays
-    *   visibilities
-    *   flexboxes
-    *   grids
-    *   gutters
-    *   alignments
-    *   widths
-    *   heights
-    *   borders
-    *   margins
-    *   paddings
-    *   overflows
-    *   positions
-    *   backgrounds
-    *   fonts
-    *   texts
-    *   cursors
-    *   carousels
-    *   parallaxes
+    *   unit
+    *   media query
+    *   prefix
+    *   container
+    *   display
+    *   visibility
+    *   flexbox
+    *   grid
+    *   gutter
+    *   alignment
+    *   width
+    *   height
+    *   border
+    *   margin
+    *   padding
+    *   overflow
+    *   position
+    *   background
+    *   font
+    *   text
+    *   cursor
+    *   carousel
+    *   parallax
 *   JavaScript
-    *   document queries
-    *   property animations
-    *   custom elements
+    *   document query
+    *   property animation
+    *   custom element
     *   HTML templating
-    *   server requests
-    *   database tables
-    *   mathematical types
-    *   graphic shaders
-    *   model loaders
-    *   scene renderers
+    *   server request
+    *   database table
+    *   mathematical type
+    *   graphic shader
+    *   model loader
+    *   scene renderer
 
 ## Samples
 
@@ -293,6 +293,10 @@ Versatile front-end framework.
     </body>
 </html>
 ```
+
+## Dependencies
+
+*   Stylus
 
 ## Version
 
