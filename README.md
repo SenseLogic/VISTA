@@ -296,7 +296,7 @@ Versatile front-end framework.
 
 ## Dependencies
 
-*   Stylus
+*   Stylus CSS preprocessor
 
 ## Version
 
