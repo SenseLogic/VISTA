@@ -2,7 +2,7 @@
 
 # Vista
 
-Versatile front-end framework.
+Modular front-end framework.
 
 ## Features
 
