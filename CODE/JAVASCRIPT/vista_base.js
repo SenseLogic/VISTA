@@ -6,38 +6,47 @@ var
 // -- FUNCTIONS
 
 var
-    Log = console.log,
+    Print = console.log,
     Dump = console.dir,
-    LogStack = console.trace,
+    PrintTable = console.table,
+    PrintStack = console.trace,
+    GetReal = parseFloat,
+    GetInteger = parseInt,
+    GetNumber = Number,
+    GetText = String,
+    GetEscapedText = escape,
+    GetUnescapedText = unescape,
+    GetEncodedUri = encodeURI,
+    GetDecodedUri = decodeURI,
     GetJsonText = JSON.stringify,
     GetJsonObject = JSON.parse;
 
 // ~~
 
-function Dump(
+function PrintText(
     )
 {
     for ( argument of arguments )
     {
-        Log( GetJsonObject( argument ) );
+        Print( GetJsonText( argument ) );
     }
 }
 
 // ~~
 
-function LogWarning(
+function PrintWarning(
     )
 {
-    LogStack();
+    PrintStack();
     console.warn( ...arguments );
 }
 
 // ~~
 
-function LogError(
+function PrintError(
     )
 {
-    LogStack();
+    PrintStack();
     console.error( ...arguments );
 }
 
@@ -283,10 +292,10 @@ function RepeatCall(
 
 // ~~
 
-Array.prototype.Log = function(
+Array.prototype.Print = function(
     )
 {
-    Log( this );
+    Print( this );
 
     return this;
 }

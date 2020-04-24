@@ -86,20 +86,23 @@ class VISTA_DATA
         )
     {
         var
-            consumer;
+            consumer,
+            document_has_changed;
 
-        if ( DataHasChanged === false )
-        {
-            setInterval( UpdateChangedDocument, 0 );
-        }
-
+        document_has_changed = ( DataHasChanged === false );
         DataHasChanged = true;
         this.HasChanged = true;
 
         for ( consumer of this.ConsumerArray )
         {
-            consumer.HandleDataChanged( this );
+            consumer.SetChanged();
         }
+
+        if ( document_has_changed )
+        {
+            setInterval( UpdateChangedDocument, 50 );
+        }
+
     }
 
     // ~~
@@ -108,15 +111,6 @@ class VISTA_DATA
         )
     {
         this.HasChanged = false;
-    }
-
-    // ~~
-
-    HandleDataChanged(
-        data
-        )
-    {
-        SetChanged();
     }
 }
 
@@ -148,6 +142,23 @@ class VISTA_ELEMENT extends HTMLElement
     }
 
     // -- INQUIRIES
+
+    GetAttribute(
+        attribute_name,
+        default_value = ""
+        )
+    {
+        if ( this.hasAttribute( attribute_name ) )
+        {
+            return this.getAttribute( attribute_name );
+        }
+        else
+        {
+            return default_value;
+        }
+    }
+
+    // ~~
 
     GetTemplateFunction(
         template_text
@@ -214,8 +225,8 @@ class VISTA_ELEMENT extends HTMLElement
         }
         catch ( error )
         {
-            Log( function_code );
-            LogError( error );
+            Print( function_code );
+            PrintError( error );
         }
     }
 
@@ -244,7 +255,14 @@ class VISTA_ELEMENT extends HTMLElement
 
     // ~~
 
-    SetContent(
+    InitializeElement(
+        )
+    {
+    }
+
+    // ~~
+
+    UpdateContent(
         content = undefined
         )
     {
@@ -259,36 +277,36 @@ class VISTA_ELEMENT extends HTMLElement
 
     // ~~
 
-    UpdateContent(
+    UpdateElement(
         )
     {
-        this.SetContent();
+        this.UpdateContent();
     }
 
     // ~~
 
-    Update(
-        )
-    {
-        if ( this.Data.HasChanged )
-        {
-            this.UpdateContent();
-        }
-        else
-        {
-            UpdateChangedElements( this );
-        }
-    }
-
-    // -- EVENTS
-
-    HandleElementAttributeChanged(
+    UpdateAttribute(
         attribute,
         old_value,
         new_value
         )
     {
-        this.Data.SetChanged();
+    }
+
+    // ~~
+
+    FinalizeElement(
+        )
+    {
+    }
+
+    // ~~
+
+    connectedCallback(
+        )
+    {
+        this.InitializeElement();
+        this.UpdateElement();
     }
 
     // ~~
@@ -299,34 +317,7 @@ class VISTA_ELEMENT extends HTMLElement
         new_value
         )
     {
-        this.HandleElementAttributeChanged(
-            attribute,
-            old_value,
-            new_value
-            );
-    }
-
-    // ~~
-
-    HandleElementMounted(
-        )
-    {
-        this.UpdateContent();
-    }
-
-    // ~~
-
-    connectedCallback(
-        )
-    {
-        this.HandleElementMounted();
-    }
-
-    // ~~
-
-    HandleElementUnmounted(
-        )
-    {
+        this.UpdateAttribute( attribute, old_value, new_value );
     }
 
     // ~~
@@ -334,7 +325,7 @@ class VISTA_ELEMENT extends HTMLElement
     disconnectedCallback(
         )
     {
-        this.HandleElementUnmounted();
+        this.FinalizeElement();
     }
 }
 
@@ -354,22 +345,23 @@ function UpdateChangedElements(
     )
 {
     var
+        child_element_count,
         child_element_index;
 
-    for ( child_element_index = 0;
-          child_element_index < element.children.length;
-          ++child_element_index )
+    if ( element.Data !== undefined
+         && element.Data.HasChanged )
     {
-        child_element = element.children[ child_element_index ];
+        element.UpdateElement();
+    }
+    else
+    {
+        child_element_count = element.children.length;
 
-        if ( child_element.Data !== undefined
-             && child_element.Data.HasChanged )
+        for ( child_element_index = 0;
+              child_element_index < child_element_count;
+              ++child_element_index )
         {
-            child_element.UpdateContent();
-        }
-        else if ( child_element.children.length > 0 )
-        {
-            UpdateChangedElements( child_element );
+            UpdateChangedElements( element.children[ child_element_index ] );
         }
     }
 }
@@ -407,32 +399,39 @@ function DefineElement(
 
 // ~~
 
-function LogElement(
+function PrintElement(
     element
     )
 {
-    Log(
-        {
-            tagName : element.tagName,
-            nodeType : element.nodeType,
-            id : element.id,
-            classList : element.classList,
-            style : element.style,
-            dataset : element.dataset,
-            clientWidth : element.clientWidth,
-            clientHeight : element.clientHeight,
-            clientLeft : element.clientLeft,
-            clientTop : element.clientTop,
-            offsetWidth : element.offsetWidth,
-            offsetHeight : element.offsetHeight,
-            offsetLeft : element.offsetLeft,
-            offsetTop : element.offsetTop,
-            scrollWidth : element.scrollWidth,
-            scrollHeight : element.scrollHeight,
-            scrollLeft : element.scrollLeft,
-            scrollTop : element.scrollTop
-        }
-        );
+    if ( element )
+    {
+        Print(
+            {
+                tagName : element.tagName,
+                nodeType : element.nodeType,
+                id : element.id,
+                classList : element.classList,
+                style : element.style,
+                dataset : element.dataset,
+                clientWidth : element.clientWidth,
+                clientHeight : element.clientHeight,
+                clientLeft : element.clientLeft,
+                clientTop : element.clientTop,
+                offsetWidth : element.offsetWidth,
+                offsetHeight : element.offsetHeight,
+                offsetLeft : element.offsetLeft,
+                offsetTop : element.offsetTop,
+                scrollWidth : element.scrollWidth,
+                scrollHeight : element.scrollHeight,
+                scrollLeft : element.scrollLeft,
+                scrollTop : element.scrollTop
+            }
+            );
+    }
+    else
+    {
+        Print( element );
+    }
 }
 
 // ~~
@@ -465,11 +464,24 @@ function GetElementById(
 
 // ~~
 
+HTMLElement.prototype.GetElementById = HTMLElement.prototype.getElementById;
+
+// ~~
+
 function GetElementsByClasses(
     element_classes
     )
 {
-    return document.getElementsByClassName( element_classes );
+    return Array.from( document.getElementsByClassName( element_classes ) );
+}
+
+// ~~
+
+HTMLElement.prototype.GetElementsByClasses = function(
+    element_classes
+    )
+{
+    return Array.from( this.getElementsByClassName( element_classes ) );
 }
 
 // ~~
@@ -478,7 +490,16 @@ function GetElementsByName(
     element_name
     )
 {
-    return document.getElementsByName( element_name );
+    return Array.from( document.getElementsByName( element_name ) );
+}
+
+// ~~
+
+HTMLElement.prototype.GetElementsByName = function(
+    element_name
+    )
+{
+    return Array.from( this.getElementsByName( element_name ) );
 }
 
 // ~~
@@ -492,6 +513,10 @@ function GetElement(
 
 // ~~
 
+HTMLElement.prototype.GetElement = HTMLElement.prototype.querySelector;
+
+// ~~
+
 function GetElements(
     element_selector
     )
@@ -501,21 +526,28 @@ function GetElements(
 
 // ~~
 
-function GetAncestorElement(
-    element,
-    element_selector = undefined
+HTMLElement.prototype.GetElements = function(
+    element_selector
+    )
+{
+    return Array.from( this.querySelectorAll( element_selector ) );
+}
+
+// ~~
+
+HTMLElement.prototype.GetAncestorElement = function(
+    element_selector
     )
 {
     var
         ancestor_element;
 
-    for ( ancestor_element = element.parent;
-          ancestor_element != null;
-          ancestor_element = ancestor_element.parent )
+    for ( ancestor_element = this.parentElement;
+          ancestor_element;
+          ancestor_element = ancestor_element.parentElement )
     {
         if ( ancestor_element.nodeType === 1
-             && ( element_selector === undefined
-                  || ancestor_element.matches( element_selector ) ) )
+             && ancestor_element.matches( element_selector ) )
         {
             return ancestor_element;
         }
@@ -523,6 +555,14 @@ function GetAncestorElement(
 
     return null;
 }
+
+// ~~
+
+HTMLElement.prototype.AddEventListener = HTMLElement.prototype.addEventListener;
+
+// ~~
+
+HTMLElement.prototype.RemoveEventListener = HTMLElement.prototype.removeEventListener;
 
 // ~~
 
@@ -573,7 +613,7 @@ function GetElementProperty(
 
 // ~~
 
-Array.prototype.LogElements = function(
+Array.prototype.PrintElements = function(
     )
 {
     var
@@ -581,7 +621,7 @@ Array.prototype.LogElements = function(
 
     for ( element of this )
     {
-        LogElement( element );
+        PrintElement( element );
     }
 
     return this;
@@ -686,9 +726,9 @@ Array.prototype.GetAncestorElements = function(
 
     for ( element of this )
     {
-        for ( ancestor_element = element.parent;
-              ancestor_element != null;
-              ancestor_element = ancestor_element.parent )
+        for ( ancestor_element = element.parentElement;
+              ancestor_element;
+              ancestor_element = ancestor_element.parentElement )
         {
             if ( ancestor_element.nodeType === 1
                  && ( element_selector === undefined
@@ -716,12 +756,12 @@ Array.prototype.GetParentElements = function(
 
     for ( element of this )
     {
-        if ( element.parent != null
-             && element.parent.nodeType == 1
+        if ( element.parentElement
+             && element.parentElement.nodeType == 1
              && ( element_selector === undefined
-                  || element.parent.matches( element_selector ) ) )
+                  || element.parentElement.matches( element_selector ) ) )
         {
-            parent_element_array.push( element.parent );
+            parent_element_array.push( element.parentElement );
         }
     }
 
@@ -743,9 +783,9 @@ Array.prototype.GetPrecedingElements = function(
 
     for ( element of this )
     {
-        for ( preceding_element = element.previousSibling;
-              preceding_element != null;
-              preceding_element = preceding_element.previousSibling )
+        for ( preceding_element = element.previousElementSibling;
+              preceding_element;
+              preceding_element = preceding_element.previousElementSibling )
         {
             if ( preceding_element.nodeType === 1
                  && ( element_selector === undefined
@@ -773,12 +813,12 @@ Array.prototype.GetPriorElements = function(
 
     for ( element of this )
     {
-        if ( element.previousSibling != null
-             && element.previousSibling.nodeType == 1
+        if ( element.previousElementSibling
+             && element.previousElementSibling.nodeType == 1
              && ( element_selector === undefined
-                  || element.previousSibling.matches( element_selector ) ) )
+                  || element.previousElementSibling.matches( element_selector ) ) )
         {
-            prior_element_array.push( element.previousSibling );
+            prior_element_array.push( element.previousElementSibling );
         }
     }
 
@@ -799,12 +839,12 @@ Array.prototype.GetNextElements = function(
 
     for ( element of this )
     {
-        if ( element.nextSibling != null
-             && element.nextSibling.nodeType == 1
+        if ( element.nextElementSibling
+             && element.nextElementSibling.nodeType == 1
              && ( element_selector === undefined
-                  || element.nextSibling.matches( element_selector ) ) )
+                  || element.nextElementSibling.matches( element_selector ) ) )
         {
-            next_element_array.push( element.nextSibling );
+            next_element_array.push( element.nextElementSibling );
         }
     }
 
@@ -826,9 +866,9 @@ Array.prototype.GetFollowingElements = function(
 
     for ( element of this )
     {
-        for ( following_element = element.nextSibling;
-              following_element != null;
-              following_element = following_element.nextSibling )
+        for ( following_element = element.nextElementSibling;
+              following_element;
+              following_element = following_element.nextElementSibling )
         {
             if ( following_element.nodeType === 1
                  && ( element_selector === undefined
@@ -1330,7 +1370,8 @@ Array.prototype.SetTextContent = function(
 
 Array.prototype.AddEventListener = function(
     event_name,
-    event_function
+    event_function,
+    options
     )
 {
     var
@@ -1338,7 +1379,7 @@ Array.prototype.AddEventListener = function(
 
     for ( element of this )
     {
-        element.addEventListener( event_name, event_function );
+        element.addEventListener( event_name, event_function, options );
     }
 
     return this;
@@ -1348,7 +1389,8 @@ Array.prototype.AddEventListener = function(
 
 Array.prototype.RemoveEventListener = function(
     event_name,
-    event_function
+    event_function,
+    options
     )
 {
     var
@@ -1356,7 +1398,7 @@ Array.prototype.RemoveEventListener = function(
 
     for ( element of this )
     {
-        element.removeEventListener( event_name, event_function );
+        element.removeEventListener( event_name, event_function, options );
     }
 
     return this;

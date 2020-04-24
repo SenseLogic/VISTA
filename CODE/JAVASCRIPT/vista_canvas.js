@@ -891,7 +891,7 @@ class VISTA_SHADER
 
         if ( !graphic_context.getShaderParameter( shader, GL_CompileStatus ) )
         {
-            LogError( graphic_context.getShaderInfoLog( shader ) );
+            PrintError( graphic_context.getShaderInfoPrint( shader ) );
         }
     }
 
@@ -962,7 +962,7 @@ class VISTA_PROGRAM_UNIFORM
 
         if ( this.GraphicUniformLocation === -1 )
         {
-            LogError( this.Name );
+            PrintError( this.Name );
         }
     }
 
@@ -1098,7 +1098,7 @@ class VISTA_PROGRAM_ATTRIBUTE
 
         if ( this.GraphicAttributeLocation === -1 )
         {
-            LogError( this.Name );
+            PrintError( this.Name );
         }
     }
 
@@ -1192,7 +1192,7 @@ class VISTA_PROGRAM
 
         if ( !graphic_context.getProgramParameter( program, GL_LinkStatus ) )
         {
-            LogError( graphic_context.getProgramInfoLog( program ) );
+            PrintError( graphic_context.getProgramInfoPrint( program ) );
         }
     }
 

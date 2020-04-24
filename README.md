@@ -100,7 +100,23 @@ Lightweight front-end framework.
                         </div>
                         `
                         );
+                }
 
+                // -- OPERATIONS
+
+                SetLineColor(
+                    )
+                {
+                    this.Data.LineColor = "#" + GetByteArrayHexadecimalText( GetRandomByteArray( 3 ) );
+                    this.Data.SetChanged();
+                }
+
+                // ~~
+
+                InitializeElement(
+                    )
+                {
+                    this.Data.LineColor = "#0000ff";
                     this.Data.MovieArray =
                         [
                             {
@@ -117,27 +133,24 @@ Lightweight front-end framework.
                             }
                         ];
 
-                    this.Data.LineColor = "#0000ff";
+                    this.SetLineColor = this.SetLineColor.bind( this );
                 }
 
-                // -- OPERATIONS
+                // ~~
 
-                UpdateContent(
+                UpdateElement(
                     )
                 {
-                    const self = this;
+                    this.UpdateContent();
+                    this.GetElement( "#button" ).AddEventListener( "click", this.SetLineColor );
+                }
 
-                    this.SetContent();
+                // ~~
 
-                    [ this ].GetElements( "#button" ).AddEventListener(
-                        "click",
-                        function(
-                            )
-                        {
-                            self.Data.LineColor = "#" + GetByteArrayHexadecimalText( GetRandomByteArray( 3 ) );
-                            self.Data.SetChanged();
-                        }
-                        );
+                FinalizeElement(
+                    )
+                {
+                    this.GetElement( "#button" ).RemoveEventListener( "click", this.SetLineColor );
                 }
             }
 
@@ -152,7 +165,7 @@ Lightweight front-end framework.
                         element_index
                         )
                     {
-                        Log( element_index, element.classList );
+                        Print( element_index, element.classList );
                     }
                     )
                 .Process(
@@ -165,7 +178,7 @@ Lightweight front-end framework.
 
                         for ( element of element_array )
                         {
-                            LogElement( element );
+                            PrintElement( element );
                         }
                     }
                     );
