@@ -2,7 +2,7 @@
 
 # Vista
 
-Lightweight front-end framework.
+Versatile front-end framework.
 
 ## Features
 
