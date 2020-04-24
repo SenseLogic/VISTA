@@ -104,7 +104,7 @@ Versatile front-end framework.
 
                 // -- OPERATIONS
 
-                SetLineColor(
+                SetRandomLineColor(
                     )
                 {
                     this.Data.LineColor = "#" + GetByteArrayHexadecimalText( GetRandomByteArray( 3 ) );
@@ -133,7 +133,7 @@ Versatile front-end framework.
                             }
                         ];
 
-                    this.SetLineColor = this.SetLineColor.bind( this );
+                    this.SetRandomLineColor = this.SetRandomLineColor.bind( this );
                 }
 
                 // ~~
@@ -142,15 +142,7 @@ Versatile front-end framework.
                     )
                 {
                     this.UpdateContent();
-                    this.GetElement( "#button" ).AddEventListener( "click", this.SetLineColor );
-                }
-
-                // ~~
-
-                FinalizeElement(
-                    )
-                {
-                    this.GetElement( "#button" ).RemoveEventListener( "click", this.SetLineColor );
+                    this.GetElement( "#button" ).AddEventListener( "click", this.SetRandomLineColor );
                 }
             }
 

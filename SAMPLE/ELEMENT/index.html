@@ -56,7 +56,7 @@
 
                 // -- OPERATIONS
 
-                SetLineColor(
+                SetRandomLineColor(
                     )
                 {
                     this.Data.LineColor = "#" + GetByteArrayHexadecimalText( GetRandomByteArray( 3 ) );
@@ -85,7 +85,7 @@
                             }
                         ];
 
-                    this.SetLineColor = this.SetLineColor.bind( this );
+                    this.SetRandomLineColor = this.SetRandomLineColor.bind( this );
                 }
 
                 // ~~
@@ -94,15 +94,7 @@
                     )
                 {
                     this.UpdateContent();
-                    this.GetElement( "#button" ).AddEventListener( "click", this.SetLineColor );
-                }
-
-                // ~~
-
-                FinalizeElement(
-                    )
-                {
-                    this.GetElement( "#button" ).RemoveEventListener( "click", this.SetLineColor );
+                    this.GetElement( "#button" ).AddEventListener( "click", this.SetRandomLineColor );
                 }
             }
 
