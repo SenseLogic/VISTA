@@ -8,9 +8,9 @@ Lightweight front-end framework.
 
 *   CSS
     *   reset
-    *   unit
-    *   media query
-    *   prefix
+    *   units
+    *   media queries
+    *   prefixes
     *   container
     *   display
     *   visibility
@@ -32,15 +32,15 @@ Lightweight front-end framework.
     *   carousel
     *   parallax
 *   JavaScript
-    *   document query
+    *   document queries
     *   property animation
-    *   custom element
+    *   custom elements
     *   HTML templating
-    *   server request
-    *   database table
-    *   mathematical type
-    *   graphic shader
-    *   model loader
+    *   server requests
+    *   database proxy
+    *   mathematical types
+    *   graphic shaders
+    *   model loaders
     *   scene renderer
 
 ## Samples
