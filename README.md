@@ -32,7 +32,7 @@ Lightweight CSS and JavaScript framework.
     *   carousels
     *   parallaxes
 *   JavaScript
-    *   queries
+    *   traversals
     *   animations
     *   elements
     *   templates
