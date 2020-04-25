@@ -98,9 +98,6 @@ Lightweight CSS and JavaScript framework.
                         <button id="button">
                             <:# this.Data.TextColor :>
                         </button>
-                        <div ignored="<\: ignored :\>">
-                            <: var ignored = "<\: ignored :\>"; :>
-                        </div>
                         `
                         );
                 }
