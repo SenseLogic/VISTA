@@ -32,16 +32,19 @@ Lightweight CSS and JavaScript framework.
     *   carousels
     *   parallaxes
 *   JavaScript
-    *   document queries
-    *   property animation
-    *   custom elements
-    *   HTML templating
-    *   server requests
-    *   database proxy
-    *   mathematical types
-    *   graphic shaders
-    *   model loaders
-    *   scene renderer
+    *   queries
+    *   animations
+    *   elements
+    *   templating
+    *   requests
+    *   tables
+    *   proxies
+    *   vectors
+    *   matrices
+    *   quaternions
+    *   shaders
+    *   loaders
+    *   renderers
 
 ## Samples
 
