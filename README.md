@@ -11,26 +11,26 @@ Lightweight CSS and JavaScript framework.
     *   units
     *   media queries
     *   prefixes
-    *   container
-    *   display
-    *   visibility
-    *   flexbox
-    *   grid
-    *   gutter
-    *   alignment
-    *   width
-    *   height
-    *   border
-    *   margin
-    *   padding
-    *   overflow
-    *   position
-    *   background
-    *   font
-    *   text
-    *   cursor
-    *   carousel
-    *   parallax
+    *   containers
+    *   displays
+    *   visibilities
+    *   flexboxes
+    *   grids
+    *   gutters
+    *   alignments
+    *   widths
+    *   heights
+    *   borders
+    *   margins
+    *   paddings
+    *   overflows
+    *   positions
+    *   backgrounds
+    *   fonts
+    *   texts
+    *   cursors
+    *   carousels
+    *   parallaxes
 *   JavaScript
     *   document queries
     *   property animation
