@@ -100,7 +100,7 @@ class VISTA_DATA
 
         if ( document_has_changed )
         {
-            setInterval( UpdateChangedDocument, 50 );
+            setInterval( UpdateChangedDocument, DocumentUpdateDelay * 1000.0 );
         }
 
     }
@@ -332,7 +332,8 @@ class VISTA_ELEMENT extends HTMLElement
 // -- VARIABLES
 
 var
-    DataHasChanged = false;
+    DataHasChanged = false,
+    DocumentUpdateDelay = 0.05;
 
 // -- FUNCTIONS
 
