@@ -34,7 +34,7 @@ Lightweight CSS and JavaScript framework.
 *   JavaScript
     *   traversals
     *   animations
-    *   elements
+    *   components
     *   templates
     *   requests
     *   tables
