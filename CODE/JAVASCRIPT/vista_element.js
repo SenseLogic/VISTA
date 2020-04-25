@@ -566,6 +566,10 @@ HTMLElement.prototype.RemoveEventListener = HTMLElement.prototype.removeEventLis
 
 // ~~
 
+HTMLElement.prototype.SetAttribute = HTMLElement.prototype.setAttribute;
+
+// ~~
+
 function IsVisibleElement(
     element,
     bottom_offset = 0,

@@ -2,11 +2,11 @@
 
 # Vista
 
-Versatile front-end framework.
+Lightweight CSS and JavaScript framework.
 
 ## Features
 
-*   CSS
+*   Stylus
     *   reset
     *   units
     *   media queries
@@ -55,7 +55,7 @@ Versatile front-end framework.
     </head>
     <body>
         <main>
-            <test-element>
+            <test-element text-color="#0000ff">
             </test-element>
             <div class="line">
                 <div class="block red-block">
@@ -87,13 +87,13 @@ Versatile front-end framework.
                         html`
                         <ul>
                             <: for ( var movie of this.Data.MovieArray ) { :>
-                                <li style="color:<:# this.Data.LineColor :>">
+                                <li style="color:<:# this.Data.TextColor :>">
                                     <:% movie.Name :> : <:# movie.Rating :>
                                 </li>
                             <: } :>
                         </ul>
                         <button id="button">
-                            <:# this.Data.LineColor :>
+                            <:# this.Data.TextColor :>
                         </button>
                         <div ignored="<\: ignored :\>">
                             <: var ignored = "<\: ignored :\>"; :>
@@ -104,11 +104,12 @@ Versatile front-end framework.
 
                 // -- OPERATIONS
 
-                SetRandomLineColor(
+                SetRandomTextColor(
                     )
                 {
-                    this.Data.LineColor = "#" + GetByteArrayHexadecimalText( GetRandomByteArray( 3 ) );
+                    this.Data.TextColor = "#" + GetByteArrayHexadecimalText( GetRandomByteArray( 3 ) );
                     this.Data.SetChanged();
+                    this.SetAttribute( "text-color", this.Data.TextColor );
                 }
 
                 // ~~
@@ -116,7 +117,7 @@ Versatile front-end framework.
                 InitializeElement(
                     )
                 {
-                    this.Data.LineColor = "#0000ff";
+                    this.Data.TextColor = this.GetAttribute( "text-color", "#ff0000" );
                     this.Data.MovieArray =
                         [
                             {
@@ -133,7 +134,7 @@ Versatile front-end framework.
                             }
                         ];
 
-                    this.SetRandomLineColor = this.SetRandomLineColor.bind( this );
+                    this.SetRandomTextColor = this.SetRandomTextColor.bind( this );
                 }
 
                 // ~~
@@ -142,7 +143,7 @@ Versatile front-end framework.
                     )
                 {
                     this.UpdateContent();
-                    this.GetElement( "#button" ).AddEventListener( "click", this.SetRandomLineColor );
+                    this.GetElement( "#button" ).AddEventListener( "click", this.SetRandomTextColor );
                 }
             }
 
@@ -298,10 +299,6 @@ Versatile front-end framework.
     </body>
 </html>
 ```
-
-## Dependencies
-
-*   Stylus CSS preprocessor
 
 ## Version
 
