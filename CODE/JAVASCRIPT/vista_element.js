@@ -422,10 +422,6 @@ var
 
 // -- FUNCTIONS
 
-var html = String.raw;
-
-// ~~
-
 function UpdateChangedElements(
     element
     )

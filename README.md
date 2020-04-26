@@ -114,7 +114,7 @@ Lightweight CSS and JavaScript framework.
                     this.BindFunction( "SetRandomTextColor" );
                     this.BindShadow();
                     this.BindTemplate(
-                        html`
+                        Html`
                         <style>
                             :host #button
                             {

@@ -6,6 +6,7 @@ var
 // -- FUNCTIONS
 
 var
+    Html = String.raw,
     Print = console.log,
     Dump = console.dir,
     PrintTable = console.table,
@@ -20,6 +21,8 @@ var
     GetDecodedUri = decodeURI,
     GetJsonText = JSON.stringify,
     GetJsonObject = JSON.parse;
+
+// ~~;
 
 // ~~
 
