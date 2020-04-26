@@ -81,35 +81,12 @@ Lightweight CSS and JavaScript framework.
 
             class TEST_ELEMENT extends VISTA_ELEMENT
             {
-                // -- CONSTRUCTORS
-
-                constructor(
-                    )
-                {
-                    super(
-                        html`
-                        <ul>
-                            <: for ( var movie of this.Data.MovieArray ) { :>
-                                <li style="color:<:# this.Data.TextColor :>">
-                                    <:% movie.Name :> : <:# movie.Rating :>
-                                </li>
-                            <: } :>
-                        </ul>
-                        <button id="button">
-                            <:# this.Data.TextColor :>
-                        </button>
-                        `
-                        );
-                }
-
                 // -- OPERATIONS
 
                 SetRandomTextColor(
                     )
                 {
-                    this.Data.TextColor = "#" + GetByteArrayHexadecimalText( GetRandomByteArray( 3 ) );
-                    this.Data.SetChanged();
-                    this.SetAttribute( "text-color", this.Data.TextColor );
+                    this.SetProperty( "TextColor", "#" + GetByteArrayHexadecimalText( GetRandomByteArray( 3 ) ) );
                 }
 
                 // ~~
@@ -117,7 +94,6 @@ Lightweight CSS and JavaScript framework.
                 InitializeElement(
                     )
                 {
-                    this.Data.TextColor = this.GetAttribute( "text-color", "#ff0000" );
                     this.Data.MovieArray =
                         [
                             {
@@ -134,7 +110,33 @@ Lightweight CSS and JavaScript framework.
                             }
                         ];
 
-                    this.SetRandomTextColor = this.SetRandomTextColor.bind( this );
+                    this.BindProperty( "TextColor", "text-color", "#ff0000" );
+                    this.BindFunction( "SetRandomTextColor" );
+                    this.BindShadow();
+                    this.BindTemplate(
+                        html`
+                        <style>
+                            :host #button
+                            {
+                                border: none;
+                                border-radius: 0.5rem;
+                                padding: 0.5rem 1rem;
+                                background-color: <:# this.Data.TextColor :>;
+                                color: white;
+                            }
+                        </style>
+                        <button id="button">
+                            <:# this.Data.TextColor :>
+                        </button>
+                        <ul>
+                            <: for ( var movie of this.Data.MovieArray ) { :>
+                                <li style="color:<:# this.Data.TextColor :>">
+                                    <:% movie.Name :> : <:# movie.Rating :>
+                                </li>
+                            <: } :>
+                        </ul>
+                        `
+                        );
                 }
 
                 // ~~
@@ -142,39 +144,15 @@ Lightweight CSS and JavaScript framework.
                 UpdateElement(
                     )
                 {
-                    this.UpdateContent();
-                    this.GetElement( "#button" ).AddEventListener( "click", this.SetRandomTextColor );
+                    super.UpdateElement();
+
+                    this.BindEvent( this.RootElement.GetElement( "#button" ), "click", this.SetRandomTextColor );
                 }
             }
 
             // -- STATEMENTS
 
             DefineElement( TEST_ELEMENT, "test-element" );
-
-            GetElements( "div" )
-                .Iterate(
-                    function (
-                        element,
-                        element_index
-                        )
-                    {
-                        Print( element_index, element.classList );
-                    }
-                    )
-                .Process(
-                    function (
-                        element_array
-                        )
-                    {
-                        var
-                            element;
-
-                        for ( element of element_array )
-                        {
-                            PrintElement( element );
-                        }
-                    }
-                    );
 
             GetElements( ".line" )
                 .SetProperties(

@@ -122,45 +122,151 @@ class VISTA_ELEMENT extends HTMLElement
 
     constructor(
         template_text = "",
-        it_has_shadow_root_element = false
         )
     {
         super();
 
-        if ( it_has_shadow_root_element )
-        {
-            this.RootElement = this.attachShadow( { mode : "open" } );
-        }
-        else
-        {
-            this.RootElement = this;
-        }
-
-        this.TemplateText = template_text;
-        this.TemplateFunction = null;
         this.Data = new VISTA_DATA();
+        this.PropertyMap = new Map();
+        this.AttributeMap = new Map();
+        this.EventArray = [];
+        this.RootElement = this;
+        this.TemplateFunction = null;
     }
 
     // -- INQUIRIES
 
-    GetAttribute(
-        attribute_name,
-        default_value = ""
+    GetContent(
         )
     {
-        if ( this.hasAttribute( attribute_name ) )
+        return this.TemplateFunction();
+    }
+
+    // -- OPERATIONS
+
+    SetProperty(
+        property_name,
+        value
+        )
+    {
+        var
+            attribute;
+
+        attribute = this.AttributeMap.get( property_name );
+
+        if ( attribute.EncodingFunction === undefined )
         {
-            return this.getAttribute( attribute_name );
+            this.SetAttribute( attribute.Name, value );
         }
         else
         {
-            return default_value;
+            this.SetAttribute( attribute.Name, attribute.EncodingFunction( value ) );
+        }
+
+        this.Data[ property_name ] = value;
+        this.Data.SetChanged();
+    }
+
+    // ~~
+
+    BindProperty(
+        property_name,
+        attribute_name,
+        default_value,
+        decoding_function,
+        encoding_function
+        )
+    {
+        this.PropertyMap.set(
+            attribute_name,
+            {
+                Name : property_name,
+                EncodingFunction : encoding_function
+            }
+            );
+
+        this.AttributeMap.set(
+            property_name,
+            {
+                Name : attribute_name,
+                DecodingFunction : decoding_function
+            }
+            );
+
+        if ( this.hasAttribute( attribute_name ) )
+        {
+            if ( decoding_function === undefined )
+            {
+                this.Data[ property_name ] = this.getAttribute( attribute_name );
+            }
+            else
+            {
+                this.Data[ property_name ] = decoding_function( this.getAttribute( attribute_name ) );
+            }
+
+            this.Data.SetChanged();
+        }
+        else
+        {
+            SetProperty( property_name, default_value );
         }
     }
 
     // ~~
 
-    GetTemplateFunction(
+    BindFunction(
+        function_name
+        )
+    {
+        this[ function_name ] = this[ function_name ].bind( this );
+    }
+
+    // ~~
+
+    BindEvent(
+        element,
+        event_name,
+        event_function
+        )
+    {
+        this.EventArray.push(
+            {
+                Element : element,
+                Name : event_name,
+                Function : event_function
+            }
+            );
+
+        element.AddEventListener( event_name, event_function );
+    }
+
+    // ~~
+
+    UnbindEvents(
+        )
+    {
+        var
+            event;
+
+        for ( event of this.EventArray )
+        {
+            event.Element.RemoveEventListener( event.Name, event.Function );
+        }
+
+        this.EventArray = [];
+    }
+
+    // ~~
+
+    BindShadow(
+        )
+    {
+        this.RootElement = this.attachShadow( { mode : "open" } );
+    }
+
+    // ~~
+
+    BindTemplate(
         template_text
         )
     {
@@ -221,36 +327,13 @@ class VISTA_ELEMENT extends HTMLElement
 
         try
         {
-            return eval( function_code );
+            this.TemplateFunction = eval( function_code );
         }
         catch ( error )
         {
             Print( function_code );
             PrintError( error );
         }
-    }
-
-    // ~~
-
-    GetContent(
-        )
-    {
-        if ( this.TemplateFunction === null )
-        {
-            this.TemplateFunction = this.GetTemplateFunction( this.TemplateText );
-        }
-
-        return this.TemplateFunction();
-    }
-
-    // -- OPERATIONS
-
-    SetTemplateText(
-        template_text
-        )
-    {
-        this.TemplateText = template_text;
-        this.TemplateFunction = null;
     }
 
     // ~~
@@ -280,17 +363,8 @@ class VISTA_ELEMENT extends HTMLElement
     UpdateElement(
         )
     {
+        this.UnbindEvents();
         this.UpdateContent();
-    }
-
-    // ~~
-
-    UpdateAttribute(
-        attribute,
-        old_value,
-        new_value
-        )
-    {
     }
 
     // ~~
@@ -298,6 +372,7 @@ class VISTA_ELEMENT extends HTMLElement
     FinalizeElement(
         )
     {
+        this.UnbindEvents();
     }
 
     // ~~
@@ -317,7 +392,17 @@ class VISTA_ELEMENT extends HTMLElement
         new_value
         )
     {
-        this.UpdateAttribute( attribute, old_value, new_value );
+        var
+            property;
+
+        property = this.PropertyMap.get( attribute_name );
+
+        if ( property !== undefined )
+        {
+
+            this.Data[ property.Name ] = value;
+            this.Data.SetChanged();
+        }
     }
 
     // ~~
@@ -469,6 +554,10 @@ HTMLElement.prototype.GetElementById = HTMLElement.prototype.getElementById;
 
 // ~~
 
+ShadowRoot.prototype.GetElementById = ShadowRoot.prototype.getElementById;
+
+// ~~
+
 function GetElementsByClasses(
     element_classes
     )
@@ -516,6 +605,11 @@ function GetElement(
 
 HTMLElement.prototype.GetElement = HTMLElement.prototype.querySelector;
 
+
+// ~~
+
+ShadowRoot.prototype.GetElement = ShadowRoot.prototype.querySelector;
+
 // ~~
 
 function GetElements(
@@ -528,6 +622,15 @@ function GetElements(
 // ~~
 
 HTMLElement.prototype.GetElements = function(
+    element_selector
+    )
+{
+    return Array.from( this.querySelectorAll( element_selector ) );
+}
+
+// ~~
+
+ShadowRoot.prototype.GetElements = function(
     element_selector
     )
 {
@@ -564,6 +667,27 @@ HTMLElement.prototype.AddEventListener = HTMLElement.prototype.addEventListener;
 // ~~
 
 HTMLElement.prototype.RemoveEventListener = HTMLElement.prototype.removeEventListener;
+
+// ~~
+
+HTMLElement.prototype.HasAttribute = HTMLElement.prototype.hasAttribute;
+
+// ~~
+
+HTMLElement.prototype.GetAttribute = function(
+    attribute_name,
+    default_value = ""
+    )
+{
+    if ( this.hasAttribute( attribute_name ) )
+    {
+        return this.getAttribute( attribute_name );
+    }
+    else
+    {
+        return default_value;
+    }
+}
 
 // ~~
 
