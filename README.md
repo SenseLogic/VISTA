@@ -61,15 +61,15 @@ Lightweight CSS and JavaScript framework.
             <test-element text-color="#0000ff">
             </test-element>
             <div class="line">
-                <div class="block red-block">
+                <div class="background-red block">
                 </div>
             </div>
             <div class="line">
-                <div class="block green-block">
+                <div class="background-green block">
                 </div>
             </div>
             <div class="line">
-                <div class="block blue-block">
+                <div class="background-blue block">
                 </div>
             </div>
         </main>
