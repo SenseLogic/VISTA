@@ -58,7 +58,7 @@ Lightweight CSS and JavaScript framework.
     </head>
     <body>
         <main>
-            <test-element text-color="#0000ff">
+            <test-element click-count="1">
             </test-element>
             <div class="line">
                 <div class="background-red block">
@@ -81,12 +81,21 @@ Lightweight CSS and JavaScript framework.
 
             class TEST_ELEMENT extends VISTA_ELEMENT
             {
+                // -- INQUIRIES
+
+                static get observedAttributes(
+                    )
+                {
+                    return [ "text-color", "click-count" ];
+                }
+
                 // -- OPERATIONS
 
-                SetRandomTextColor(
+                ChangeData(
                     )
                 {
                     this.SetProperty( "TextColor", "#" + GetByteArrayHexadecimalText( GetRandomByteArray( 3 ) ) );
+                    this.SetAttribute( "click-count", this.Data.ClickCount + 1 );
                 }
 
                 // ~~
@@ -110,8 +119,9 @@ Lightweight CSS and JavaScript framework.
                             }
                         ];
 
-                    this.BindProperty( this.Data, "TextColor", "text-color", "#ff0000" );
-                    this.BindMethod( this, "SetRandomTextColor" );
+                    this.BindProperty( this.Data, "TextColor", "text-color", "#0000ff" );
+                    this.BindProperty( this.Data, "ClickCount", "click-count", 0 );
+                    this.BindMethod( this, "ChangeData" );
                     this.BindShadow();
                     this.BindTemplate(
                         Html`
@@ -126,7 +136,7 @@ Lightweight CSS and JavaScript framework.
                             }
                         </style>
                         <button id="button">
-                            <:# this.Data.TextColor :>
+                            <:# this.Data.TextColor :> : <:# this.Data.ClickCount :>
                         </button>
                         <ul>
                             <: for ( var movie of this.Data.MovieArray ) { :>
@@ -146,7 +156,7 @@ Lightweight CSS and JavaScript framework.
                 {
                     super.UpdateElement();
 
-                    this.BindEvent( this.RootElement.GetElement( "#button" ), "click", this.SetRandomTextColor );
+                    this.BindEvent( this.RootElement.GetElement( "#button" ), "click", this.ChangeData );
                 }
             }
 

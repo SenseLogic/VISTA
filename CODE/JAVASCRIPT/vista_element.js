@@ -183,6 +183,14 @@ class VISTA_ELEMENT extends HTMLElement
         property_watcher = undefined
         )
     {
+        if ( typeof default_value === "number"
+             && decoding_function === undefined
+             && encoding_function === undefined )
+        {
+            decoding_function = GetNumber;
+            encoding_function = GetText;
+        }
+
         if ( property_watcher === undefined
              && property_owner.SetChanged !== undefined )
         {
@@ -195,7 +203,7 @@ class VISTA_ELEMENT extends HTMLElement
                 Name : property_name,
                 Owner : property_owner,
                 Watcher : property_watcher,
-                EncodingFunction : encoding_function
+                DecodingFunction : decoding_function
             }
             );
 
@@ -205,7 +213,7 @@ class VISTA_ELEMENT extends HTMLElement
                 Name : attribute_name,
                 Owner : property_owner,
                 Watcher : property_watcher,
-                DecodingFunction : decoding_function
+                EncodingFunction : encoding_function
             }
             );
 
@@ -227,7 +235,7 @@ class VISTA_ELEMENT extends HTMLElement
         }
         else
         {
-            SetProperty( property_name, default_value );
+            this.SetProperty( property_name, default_value );
         }
     }
 
@@ -246,7 +254,14 @@ class VISTA_ELEMENT extends HTMLElement
 
         if ( property !== undefined )
         {
-            property.Owner[ property.Name ] = value;
+            if ( property.DecodingFunction === undefined )
+            {
+                property.Owner[ property.Name ] = new_value;
+            }
+            else
+            {
+                property.Owner[ property.Name ] = property.DecodingFunction( new_value );
+            }
 
             if ( property.Watcher )
             {
