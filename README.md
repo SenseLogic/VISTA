@@ -91,10 +91,25 @@ Lightweight CSS and JavaScript framework.
 
                 // -- OPERATIONS
 
-                ChangeData(
+                SetTextColorProperty(
                     )
                 {
                     this.SetProperty( "TextColor", "#" + GetByteArrayHexadecimalText( GetRandomByteArray( 3 ) ) );
+                }
+
+                // ~~
+
+                SetClickCountProperty(
+                    )
+                {
+                    this.SetProperty( "ClickCount", this.Data.ClickCount + 1 );
+                }
+
+                // ~~
+
+                SetClickCountAttribute(
+                    )
+                {
                     this.SetAttribute( "click-count", this.Data.ClickCount + 1 );
                 }
 
@@ -121,13 +136,15 @@ Lightweight CSS and JavaScript framework.
 
                     this.BindProperty( this.Data, "TextColor", "text-color", "#0000ff" );
                     this.BindProperty( this.Data, "ClickCount", "click-count", 0 );
-                    this.BindMethod( this, "ChangeData" );
+                    this.BindMethod( this, "SetTextColorProperty" );
+                    this.BindMethod( this, "SetClickCountProperty" );
+                    this.BindMethod( this, "SetClickCountAttribute" );
 
                     this.AttachShadow();
                     this.SetTemplate(
                         Html`
                         <style>
-                            :host #button
+                            :host .button
                             {
                                 border: none;
                                 border-radius: 0.5rem;
@@ -136,7 +153,10 @@ Lightweight CSS and JavaScript framework.
                                 color: white;
                             }
                         </style>
-                        <button id="button">
+                        <button id="property-button" class="button">
+                            <:# this.Data.TextColor :> : <:# this.Data.ClickCount :>
+                        </button>
+                        <button id="attribute-button" class="button">
                             <:# this.Data.TextColor :> : <:# this.Data.ClickCount :>
                         </button>
                         <ul>
@@ -157,7 +177,9 @@ Lightweight CSS and JavaScript framework.
                 {
                     super.UpdateElement();
 
-                    this.BindEvent( this.RootElement.GetElement( "#button" ), "click", this.ChangeData );
+                    this.BindEvent( this.RootElement.GetElements( ".button" ), "click", this.SetTextColorProperty );
+                    this.BindEvent( this.RootElement.GetElement( "#property-button" ), "click", this.SetClickCountProperty );
+                    this.BindEvent( this.RootElement.GetElement( "#attribute-button" ), "click", this.SetClickCountAttribute );
                 }
             }
 

@@ -192,7 +192,7 @@ class VISTA_ELEMENT extends HTMLElement
         }
 
         if ( property_watcher === undefined
-             && property_owner.SetChanged !== undefined )
+             && property_owner instanceof VISTA_DATA )
         {
             property_watcher = property_owner;
         }
@@ -283,20 +283,41 @@ class VISTA_ELEMENT extends HTMLElement
     // ~~
 
     BindEvent(
-        element,
+        element_array,
         event_name,
         called_function
         )
     {
-        this.EventArray.push(
-            {
-                Element : element,
-                Name : event_name,
-                CalledFunction : called_function
-            }
-            );
+        var
+            element;
 
-        element.AddEventListener( event_name, called_function );
+        if ( element_array instanceof HTMLElement )
+        {
+            this.EventArray.push(
+                {
+                    Element : element_array,
+                    Name : event_name,
+                    CalledFunction : called_function
+                }
+                );
+
+            element_array.AddEventListener( event_name, called_function );
+        }
+        else
+        {
+            for ( element of element_array )
+            {
+                this.EventArray.push(
+                    {
+                        Element : element,
+                        Name : event_name,
+                        CalledFunction : called_function
+                    }
+                    );
+
+                element.AddEventListener( event_name, called_function );
+            }
+        }
     }
 
     // ~~
