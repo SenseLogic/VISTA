@@ -226,18 +226,18 @@ class VISTA_ELEMENT extends HTMLElement
     BindEvent(
         element,
         event_name,
-        event_function
+        called_function
         )
     {
         this.EventArray.push(
             {
                 Element : element,
                 Name : event_name,
-                Function : event_function
+                CalledFunction : called_function
             }
             );
 
-        element.AddEventListener( event_name, event_function );
+        element.AddEventListener( event_name, called_function );
     }
 
     // ~~
@@ -250,7 +250,7 @@ class VISTA_ELEMENT extends HTMLElement
 
         for ( event of this.EventArray )
         {
-            event.Element.RemoveEventListener( event.Name, event.Function );
+            event.Element.RemoveEventListener( event.Name, event.CalledFunction );
         }
 
         this.EventArray = [];
