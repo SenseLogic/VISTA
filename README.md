@@ -110,8 +110,8 @@ Lightweight CSS and JavaScript framework.
                             }
                         ];
 
-                    this.BindProperty( "TextColor", "text-color", "#ff0000" );
-                    this.BindMethod( "SetRandomTextColor" );
+                    this.BindProperty( this.Data, "TextColor", "text-color", "#ff0000" );
+                    this.BindMethod( this, "SetRandomTextColor" );
                     this.BindShadow();
                     this.BindTemplate(
                         Html`

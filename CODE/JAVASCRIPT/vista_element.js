@@ -7,26 +7,26 @@ class VISTA_DATA
     constructor(
         )
     {
-        this.ConsumerArray = [];
+        this.WatcherArray = [];
         this.HasChanged = true;
     }
 
     // -- INQUIRIES
 
-    FindConsumerIndex(
-        consumer
+    FindWatcherIndex(
+        watcher
         )
     {
         var
-            consumer_index;
+            watcher_index;
 
-        for ( consumer_index = 0;
-              consumer_index < this.ConsumerArray.length;
-              ++consumer_index )
+        for ( watcher_index = 0;
+              watcher_index < this.WatcherArray.length;
+              ++watcher_index )
         {
-            if ( this.ConsumerArray[ consumer_index ] === consumer )
+            if ( this.WatcherArray[ watcher_index ] === watcher )
             {
-                return consumer_index;
+                return watcher_index;
             }
         }
 
@@ -35,49 +35,49 @@ class VISTA_DATA
 
     // -- OPERATIONS
 
-    AddConsumer(
-        consumer
+    AddWatcher(
+        watcher
         )
     {
-        if ( this.FindConsumerIndex( consumer ) < 0 )
+        if ( this.FindWatcherIndex( watcher ) < 0 )
         {
-            this.ConsumerArray.push( consumer );
+            this.WatcherArray.push( watcher );
         }
     }
 
     // ~~
 
-    RemoveConsumer(
-        consumer
+    RemoveWatcher(
+        watcher
         )
     {
         var
-            consumer_index;
+            watcher_index;
 
-        consumer_index = this.FindConsumerIndex( consumer );
+        watcher_index = this.FindWatcherIndex( watcher );
 
-        if ( consumer_index >= 0 )
+        if ( watcher_index >= 0 )
         {
-            this.ConsumerArray.splice( consumer_index, 1 );
+            this.WatcherArray.splice( watcher_index, 1 );
         }
     }
 
     // ~~
 
-    AddProducer(
-        producer
+    Watch(
+        data
         )
     {
-        producer.AddConsumer( this );
+        data.AddWatcher( this );
     }
 
     // ~~
 
-    RemoveProducer(
-        producer
+    Unwatch(
+        data
         )
     {
-        producer.RemoveConsumer( this );
+        data.RemoveWatcher( this );
     }
 
     // ~~
@@ -86,16 +86,16 @@ class VISTA_DATA
         )
     {
         var
-            consumer,
+            watcher,
             document_has_changed;
 
         document_has_changed = ( DataHasChanged === false );
         DataHasChanged = true;
         this.HasChanged = true;
 
-        for ( consumer of this.ConsumerArray )
+        for ( watcher of this.WatcherArray )
         {
-            consumer.SetChanged();
+            watcher.SetChanged();
         }
 
         if ( document_has_changed )
@@ -163,24 +163,38 @@ class VISTA_ELEMENT extends HTMLElement
             this.SetAttribute( attribute.Name, attribute.EncodingFunction( value ) );
         }
 
-        this.Data[ property_name ] = value;
-        this.Data.SetChanged();
+        attribute.Owner[ property_name ] = value;
+
+        if ( attribute.Watcher )
+        {
+            attribute.Watcher.SetChanged();
+        }
     }
 
     // ~~
 
     BindProperty(
+        property_owner,
         property_name,
         attribute_name,
         default_value,
-        decoding_function,
-        encoding_function
+        decoding_function = undefined,
+        encoding_function = undefined,
+        property_watcher = undefined
         )
     {
+        if ( property_watcher === undefined
+             && property_owner.SetChanged !== undefined )
+        {
+            property_watcher = property_owner;
+        }
+
         this.PropertyMap.set(
             attribute_name,
             {
                 Name : property_name,
+                Owner : property_owner,
+                Watcher : property_watcher,
                 EncodingFunction : encoding_function
             }
             );
@@ -189,6 +203,8 @@ class VISTA_ELEMENT extends HTMLElement
             property_name,
             {
                 Name : attribute_name,
+                Owner : property_owner,
+                Watcher : property_watcher,
                 DecodingFunction : decoding_function
             }
             );
@@ -197,14 +213,17 @@ class VISTA_ELEMENT extends HTMLElement
         {
             if ( decoding_function === undefined )
             {
-                this.Data[ property_name ] = this.getAttribute( attribute_name );
+                property_owner[ property_name ] = this.getAttribute( attribute_name );
             }
             else
             {
-                this.Data[ property_name ] = decoding_function( this.getAttribute( attribute_name ) );
+                property_owner[ property_name ] = decoding_function( this.getAttribute( attribute_name ) );
             }
 
-            this.Data.SetChanged();
+            if ( property_watcher )
+            {
+                property_watcher.SetChanged();
+            }
         }
         else
         {
@@ -214,11 +233,36 @@ class VISTA_ELEMENT extends HTMLElement
 
     // ~~
 
+    attributeChangedCallback(
+        attribute_name,
+        old_value,
+        new_value
+        )
+    {
+        var
+            property;
+
+        property = this.PropertyMap.get( attribute_name );
+
+        if ( property !== undefined )
+        {
+            property.Owner[ property.Name ] = value;
+
+            if ( property.Watcher )
+            {
+                property.Watcher.SetChanged();
+            }
+        }
+    }
+
+    // ~~
+
     BindMethod(
+        method_owner,
         method_name
         )
     {
-        this[ method_name ] = this[ method_name ].bind( this );
+        method_owner[ method_name ] = method_owner[ method_name ].bind( method_owner );
     }
 
     // ~~
@@ -369,14 +413,6 @@ class VISTA_ELEMENT extends HTMLElement
 
     // ~~
 
-    FinalizeElement(
-        )
-    {
-        this.UnbindEvents();
-    }
-
-    // ~~
-
     connectedCallback(
         )
     {
@@ -386,23 +422,10 @@ class VISTA_ELEMENT extends HTMLElement
 
     // ~~
 
-    attributeChangedCallback(
-        attribute_name,
-        old_value,
-        new_value
+    FinalizeElement(
         )
     {
-        var
-            property;
-
-        property = this.PropertyMap.get( attribute_name );
-
-        if ( property !== undefined )
-        {
-
-            this.Data[ property.Name ] = value;
-            this.Data.SetChanged();
-        }
+        this.UnbindEvents();
     }
 
     // ~~
