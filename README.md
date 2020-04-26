@@ -122,8 +122,9 @@ Lightweight CSS and JavaScript framework.
                     this.BindProperty( this.Data, "TextColor", "text-color", "#0000ff" );
                     this.BindProperty( this.Data, "ClickCount", "click-count", 0 );
                     this.BindMethod( this, "ChangeData" );
-                    this.BindShadow();
-                    this.BindTemplate(
+
+                    this.AttachShadow();
+                    this.SetTemplate(
                         Html`
                         <style>
                             :host #button

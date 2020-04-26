@@ -177,7 +177,7 @@ class VISTA_ELEMENT extends HTMLElement
         property_owner,
         property_name,
         attribute_name,
-        default_value,
+        default_value = "",
         decoding_function = undefined,
         encoding_function = undefined,
         property_watcher = undefined
@@ -317,7 +317,7 @@ class VISTA_ELEMENT extends HTMLElement
 
     // ~~
 
-    BindShadow(
+    AttachShadow(
         )
     {
         this.RootElement = this.attachShadow( { mode : "open" } );
@@ -325,7 +325,7 @@ class VISTA_ELEMENT extends HTMLElement
 
     // ~~
 
-    BindTemplate(
+    SetTemplate(
         template_text
         )
     {
