@@ -214,11 +214,11 @@ class VISTA_ELEMENT extends HTMLElement
 
     // ~~
 
-    BindFunction(
-        function_name
+    BindMethod(
+        method_name
         )
     {
-        this[ function_name ] = this[ function_name ].bind( this );
+        this[ method_name ] = this[ method_name ].bind( this );
     }
 
     // ~~
