@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Sample</title>
+    </head>
+    <body>
+        <main>
+            <test-element click-count="1">
+            </test-element>
+        </main>
+        <script src="../../CODE/JAVASCRIPT/vista_base.js"></script>
+        <script src="../../CODE/JAVASCRIPT/vista_element.js"></script>
+        <script>
+            // -- TYPES
+
+            class TEST_ELEMENT extends VISTA_ELEMENT
+            {
+                // -- INQUIRIES
+
+                static get observedAttributes(
+                    )
+                {
+                    return [ "text-color", "click-count" ];
+                }
+
+                // -- OPERATIONS
+
+                SetTextColorProperty(
+                    )
+                {
+                    this.SetProperty( "TextColor", "#" + GetByteArrayHexadecimalText( GetRandomByteArray( 3 ) ) );
+                }
+
+                // ~~
+
+                SetClickCountProperty(
+                    )
+                {
+                    this.SetProperty( "ClickCount", this.Data.ClickCount + 1 );
+                }
+
+                // ~~
+
+                SetClickCountAttribute(
+                    )
+                {
+                    this.SetAttribute( "click-count", this.Data.ClickCount + 1 );
+                }
+
+                // ~~
+
+                InitializeElement(
+                    )
+                {
+                    this.Data.MovieArray =
+                        [
+                            {
+                                Name : "<Blade Runner>",
+                                Rating : 5
+                            },
+                            {
+                                Name : "<The Chronicles of Riddick>",
+                                Rating : 4
+                            },
+                            {
+                                Name : "<The Matrix>",
+                                Rating : 3
+                            }
+                        ];
+
+                    this.BindProperty( this.Data, "TextColor", "text-color", "#0000ff" );
+                    this.BindProperty( this.Data, "ClickCount", "click-count", 0 );
+                    this.BindMethod( this, "SetTextColorProperty" );
+                    this.BindMethod( this, "SetClickCountProperty" );
+                    this.BindMethod( this, "SetClickCountAttribute" );
+
+                    this.AttachShadow();
+                    this.SetTemplate(
+                        Html`
+                        <style>
+                            :host .button
+                            {
+                                border: none;
+                                border-radius: 0.5rem;
+                                padding: 0.5rem 1rem;
+                                background-color: <:# this.Data.TextColor :>;
+                                color: white;
+                            }
+                        </style>
+                        <button id="property-button" class="button">
+                            <:# this.Data.TextColor :> : <:# this.Data.ClickCount :>
+                        </button>
+                        <button id="attribute-button" class="button">
+                            <:# this.Data.TextColor :> : <:# this.Data.ClickCount :>
+                        </button>
+                        <ul>
+                            <: for ( var movie of this.Data.MovieArray ) { :>
+                                <li style="color:<:# this.Data.TextColor :>">
+                                    <:% movie.Name :> : <:# movie.Rating :>
+                                </li>
+                            <: } :>
+                        </ul>
+                        <div ignored="<\: ignored :\>">
+                            <: var ignored = "<\: ignored :\>"; :>
+                        </div>
+                        `
+                        );
+                }
+
+                // ~~
+
+                UpdateElement(
+                    )
+                {
+                    super.UpdateElement();
+
+                    this.BindEvent( this.RootElement.GetElements( ".button" ), "click", this.SetTextColorProperty );
+                    this.BindEvent( this.RootElement.GetElement( "#property-button" ), "click", this.SetClickCountProperty );
+                    this.BindEvent( this.RootElement.GetElement( "#attribute-button" ), "click", this.SetClickCountAttribute );
+                }
+            }
+
+            // -- STATEMENTS
+
+            DefineElement( TEST_ELEMENT, "test-element" );
+        </script>
+    </body>
+</html>

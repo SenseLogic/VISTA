@@ -64,7 +64,7 @@ class VISTA_DATA
 
     // ~~
 
-    Watch(
+    WatchData(
         data
         )
     {
@@ -73,7 +73,7 @@ class VISTA_DATA
 
     // ~~
 
-    Unwatch(
+    UnwatchData(
         data
         )
     {

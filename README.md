@@ -54,28 +54,96 @@ Lightweight CSS and JavaScript framework.
     <head>
         <meta charset="UTF-8">
         <title>Sample</title>
-        <link rel="stylesheet" href="style.css" type="text/css">
     </head>
     <body>
         <main>
-            <test-element click-count="1">
-            </test-element>
             <div class="line">
-                <div class="background-red block">
+                <div class="block" style="background-color:#FF0000">
                 </div>
             </div>
             <div class="line">
-                <div class="background-green block">
+                <div class="block" style="background-color:#00FF00">
                 </div>
             </div>
             <div class="line">
-                <div class="background-blue block">
+                <div class="block" style="background-color:#0000FF">
                 </div>
             </div>
         </main>
         <script src="../../CODE/JAVASCRIPT/vista_base.js"></script>
         <script src="../../CODE/JAVASCRIPT/vista_element.js"></script>
         <script src="../../CODE/JAVASCRIPT/vista_animation.js"></script>
+        <script>
+            // -- STATEMENTS
+
+            GetElements( ".line" )
+                .SetProperties(
+                    {
+                        "margin-top" : "2vw",
+                        "width" : "100%",
+                        "height" : "5vw",
+                        "background-color" : "#EEE"
+                    }
+                    );
+
+            GetElements( ".block" )
+                .SetProperties(
+                    {
+                        "width" : "5vw",
+                        "height" : "5vw"
+                    }
+                    )
+                .AnimateProperties(
+                    {
+                        "transform" : [ "translateX(0vw)", "translateX(30vw)", "translateX(70vw)", "translateX(90vw)" ],
+                        "opacity" : [ "1.0", "0.5", "0.1", "1.0" ]
+                    },
+                    [ 0.0, 2.0, 4.0, 6.0 ]
+                    );
+
+            GetElements( "div" )
+                .Iterate(
+                    function (
+                        element,
+                        element_index
+                        )
+                    {
+                        Print( element_index, element.classList );
+                    }
+                    )
+                .Process(
+                    function (
+                        element_array
+                        )
+                    {
+                        var
+                            element;
+
+                        for ( element of element_array )
+                        {
+                            PrintElement( element );
+                        }
+                    }
+                    );
+        </script>
+    </body>
+</html>
+```
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Sample</title>
+    </head>
+    <body>
+        <main>
+            <test-element click-count="1">
+            </test-element>
+        </main>
+        <script src="../../CODE/JAVASCRIPT/vista_base.js"></script>
+        <script src="../../CODE/JAVASCRIPT/vista_element.js"></script>
         <script>
             // -- TYPES
 
@@ -166,6 +234,9 @@ Lightweight CSS and JavaScript framework.
                                 </li>
                             <: } :>
                         </ul>
+                        <div ignored="<\: ignored :\>">
+                            <: var ignored = "<\: ignored :\>"; :>
+                        </div>
                         `
                         );
                 }
@@ -186,31 +257,6 @@ Lightweight CSS and JavaScript framework.
             // -- STATEMENTS
 
             DefineElement( TEST_ELEMENT, "test-element" );
-
-            GetElements( ".line" )
-                .SetProperties(
-                    {
-                        "margin-top" : "2vw",
-                        "width" : "100%",
-                        "height" : "5vw",
-                        "background-color" : "#EEE"
-                    }
-                    );
-
-            GetElements( ".block" )
-                .SetProperties(
-                    {
-                        "width" : "5vw",
-                        "height" : "5vw"
-                    }
-                    )
-                .AnimateProperties(
-                    {
-                        "transform" : [ "translateX(0vw)", "translateX(30vw)", "translateX(70vw)", "translateX(90vw)" ],
-                        "opacity" : [ "1.0", "0.5", "0.1", "1.0" ]
-                    },
-                    [ 0.0, 2.0, 4.0, 6.0 ]
-                    );
         </script>
     </body>
 </html>
