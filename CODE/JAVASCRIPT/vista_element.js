@@ -9,6 +9,7 @@ class VISTA_DATA
     {
         this.WatcherArray = [];
         this.HasChanged = true;
+        this.HasChangedWatchers = false;
     }
 
     // -- INQUIRIES
@@ -93,9 +94,14 @@ class VISTA_DATA
         DataHasChanged = true;
         this.HasChanged = true;
 
-        for ( watcher of this.WatcherArray )
+        if ( !this.HasChangedWatchers )
         {
-            watcher.SetChanged();
+            this.HasChangedWatchers = true;
+
+            for ( watcher of this.WatcherArray )
+            {
+                watcher.SetChanged();
+            }
         }
 
         if ( document_has_changed )
@@ -111,6 +117,7 @@ class VISTA_DATA
         )
     {
         this.HasChanged = false;
+        this.HasChangedWatchers = false;
     }
 }
 

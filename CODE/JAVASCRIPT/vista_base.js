@@ -1,6 +1,8 @@
 // -- VARIABLES
 
 var
+    MinimumInteger = -9007199254740991,
+    MaximumInteger = 9007199254740991,
     UnitArray = [ "%", "px", "em", "rem", "vw", "vh", "vmin", "vmax" ];
 
 // -- FUNCTIONS

@@ -69,7 +69,15 @@ function SendJsonRequest(
                   {
                       if ( request.readyState == 4 )
                       {
-                          response_object = GetJsonObject( request.responseText );
+                          try
+                          {
+                              response_object = GetJsonObject( request.responseText );
+                          }
+                          catch ( error )
+                          {
+                              Print( request.responseText );
+                              PrintError( error );
+                          }
 
                           if ( request.status >= 300 )
                           {

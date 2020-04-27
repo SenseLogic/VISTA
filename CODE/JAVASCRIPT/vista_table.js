@@ -88,6 +88,26 @@ class VISTA_TABLE extends VISTA_DATA
 
     // ~~
 
+    ClearDataArray(
+        )
+    {
+        var
+            removed_data,
+            removed_data_map;
+
+        removed_data_map = this.DataMap;
+
+        for ( removed_data of removed_data_map.values() )
+        {
+            removed_data.SetChanged();
+        }
+
+        this.DataMap = new Map();
+        this.SetChanged();
+    }
+
+    // ~~
+
     SetData(
         data
         )
@@ -112,26 +132,8 @@ class VISTA_TABLE extends VISTA_DATA
 
         this.SetChanged();
         set_data.SetChanged();
-    }
 
-    // ~~
-
-    ClearDataArray(
-        )
-    {
-        var
-            removed_data,
-            removed_data_map;
-
-        removed_data_map = this.DataMap;
-
-        for ( removed_data of removed_data_map.values() )
-        {
-            removed_data.SetChanged();
-        }
-
-        this.DataMap = new Map();
-        this.SetChanged();
+        return set_data;
     }
 
     // ~~
@@ -141,12 +143,17 @@ class VISTA_TABLE extends VISTA_DATA
         )
     {
         var
-            data;
+            data,
+            set_data_array;
+
+        set_data_array = [];
 
         for ( data of data_array )
         {
-            this.SetData( data );
+            set_data_array.push( this.SetData( data ) );
         }
+
+        return set_data_array;
     }
 
     // ~~
@@ -176,9 +183,8 @@ class VISTA_TABLE extends VISTA_DATA
         data_array = await SendJsonRequest( this.RequestUrl, "GET" );
 
         this.ClearDataArray();
-        this.SetDataArray( data_array );
 
-        return data_array;
+        return this.SetDataArray( data_array );
     }
 
     // ~~
@@ -192,9 +198,7 @@ class VISTA_TABLE extends VISTA_DATA
 
         data = await SendJsonRequest( this.RequestUrl + "/" + data_key, "GET" );
 
-        this.SetData( data );
-
-        return data;
+        return this.SetData( data );
     }
 
     // ~~
@@ -205,7 +209,7 @@ class VISTA_TABLE extends VISTA_DATA
     {
         await SendJsonRequest( this.RequestUrl + "/" + this.GetKey( data ), "POST", this.CreateStoredData( data ) );
 
-        this.SetData( data );
+        return this.SetData( data );
     }
 
     // ~~
@@ -216,7 +220,7 @@ class VISTA_TABLE extends VISTA_DATA
     {
         await SendJsonRequest( this.RequestUrl + "/" + this.GetKey( data ), "PUT", this.CreateStoredData( data ) );
 
-        this.SetData( data );
+        return this.SetData( data );
     }
 
     // ~~
