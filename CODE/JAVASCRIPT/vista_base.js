@@ -3,12 +3,15 @@
 var
     MinimumInteger = -9007199254740991,
     MaximumInteger = 9007199254740991,
-    UnitArray = [ "%", "px", "em", "rem", "vw", "vh", "vmin", "vmax" ];
+    UnitArray = [ "%", "px", "em", "rem", "vw", "vh", "vmin", "vmax" ],
+    ErrorsAreShown = true;
 
 // -- FUNCTIONS
 
 var
     Html = String.raw,
+    Alert = alert,
+    Write = document.write,
     Print = console.log,
     Dump = console.dir,
     PrintTable = console.table,
@@ -24,13 +27,99 @@ var
     GetJsonText = JSON.stringify,
     GetJsonObject = JSON.parse;
 
-// ~~;
+// ~~
+
+function ShowError(
+    )
+{
+    var
+        argument,
+        error_console_element,
+        error_message_element;
+
+    if ( ErrorsAreShown )
+    {
+        error_console_element = document.getElementById( "error-console" );
+
+        if ( error_console_element === null )
+        {
+            error_console_element = document.createElement( "div" );
+            error_console_element.id = "error-console";
+            error_console_element.style = "position:fixed;z-index:999999;left:0;top:0;width:100%;height:100%;font-size:1rem;overflow:auto;background-color:rgba(0,0,0,0.5);color:white";
+            error_console_element.innerHTML = "<h1>ERROR</h1>";
+            error_console_element.onclick = function () { error_console_element.style.display = "none"; }
+
+            document.body.appendChild( error_console_element );
+        }
+        else
+        {
+            error_console_element.style.display = "block";
+        }
+
+        for ( argument of arguments )
+        {
+            if ( argument instanceof Error )
+            {
+                error_message_element = document.createElement( "pre" );
+
+                if ( argument.stack === undefined )
+                {
+                    error_message_element.innerHTML = GetEncodedHtml( argument.toString() )
+                }
+                else
+                {
+                    error_message_element.innerHTML
+                        = GetEncodedHtml( argument.toString() )
+                          + "\n"
+                          + GetEncodedHtml( argument.stack );
+                }
+            }
+            else if ( argument instanceof XMLHttpRequest )
+            {
+                error_message_element = document.createElement( "pre" );
+
+                error_message_element.innerHTML
+                    = GetEncodedHtml( argument.responseURL )
+                      + "\n"
+                      + GetEncodedHtml( argument.status )
+                      + " "
+                      + GetEncodedHtml( argument.statusText )
+                      + "\n"
+                      + GetEncodedHtml( argument.responseText );
+            }
+            else
+            {
+                error_message_element = document.createElement( "div" );
+
+                if ( typeof argument !== "string" )
+                {
+                    error_message_element.textContent = GetJsonText( argument );
+                }
+                else if ( argument.startsWith( '<' ) )
+                {
+                    error_message_element.innerHTML = argument;
+                }
+                else
+                {
+                    error_message_element.textContent = argument;
+                }
+            }
+
+            error_console_element.appendChild( error_message_element );
+
+            Print( error_message_element.textContent );
+        }
+    }
+}
 
 // ~~
 
 function PrintText(
     )
 {
+    var
+        argument;
+
     for ( argument of arguments )
     {
         Print( GetJsonText( argument ) );
@@ -51,6 +140,7 @@ function PrintWarning(
 function PrintError(
     )
 {
+    ShowError( ...arguments );
     PrintStack();
     console.error( ...arguments );
 }

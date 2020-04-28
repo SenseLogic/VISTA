@@ -3,8 +3,8 @@
 function SendRequest(
     request_url,
     request_method,
-    request_header_map,
-    request_body
+    request_body = null,
+    request_header_map = {}
     )
 {
     var
@@ -23,6 +23,8 @@ function SendRequest(
                       {
                           if ( request.status >= 300 )
                           {
+                              PrintError( request_method + " " + request_url, request );
+
                               reject( request );
                           }
                           else
@@ -52,7 +54,8 @@ function SendRequest(
 function SendJsonRequest(
     request_url,
     request_method,
-    request_object = null
+    request_object = null,
+    request_header_map = {}
     )
 {
     var
@@ -69,18 +72,26 @@ function SendJsonRequest(
                   {
                       if ( request.readyState == 4 )
                       {
-                          try
+                          if ( request.response.length === 0 )
                           {
-                              response_object = GetJsonObject( request.responseText );
+                              response_object = {};
                           }
-                          catch ( error )
+                          else
                           {
-                              Print( request.responseText );
-                              PrintError( error );
+                              try
+                              {
+                                  response_object = GetJsonObject( request.response );
+                              }
+                              catch ( error )
+                              {
+                                  PrintError( error, request_method + " " + request_url, request );
+                              }
                           }
 
                           if ( request.status >= 300 )
                           {
+                              PrintError( request_method + " " + request_url, request );
+
                               reject( response_object );
                           }
                           else
@@ -92,6 +103,14 @@ function SendJsonRequest(
 
             request.open( request_method, request_url, true );
             request.setRequestHeader( "Content-type", "application/json; charset=UTF-8" );
+
+            if ( request_header_map !== undefined )
+            {
+                for ( request_header_name in request_header_map )
+                {
+                    request.setRequestHeader( request_header_name, request_header_map[ request_header_name ] );
+                }
+            }
 
             if ( request_object === null )
             {

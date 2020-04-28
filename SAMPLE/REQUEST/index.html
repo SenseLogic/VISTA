@@ -43,9 +43,7 @@
 
                 response = await SendRequest(
                     "https://reqres.in/api/users/2",
-                    "GET",
-                    {},
-                    null
+                    "GET"
                     );
 
                 SetResponseElement( "get-request-response", response );
@@ -53,15 +51,15 @@
                 response = await SendRequest(
                     "https://reqres.in/api/users",
                     "POST",
-                    {
-                        "Content-type" : "application/json; charset=UTF-8"
-                    },
                     GetJsonText(
                         {
                             "name" : "Morpheus",
                             "job" : "leader"
                         }
-                        )
+                        ),
+                    {
+                        "Content-type" : "application/json; charset=UTF-8"
+                    }
                     );
 
                 SetResponseElement( "post-request-response", response );

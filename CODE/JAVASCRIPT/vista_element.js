@@ -418,8 +418,7 @@ class VISTA_ELEMENT extends HTMLElement
         }
         catch ( error )
         {
-            Print( function_code );
-            PrintError( error );
+            PrintError( error, function_code );
         }
     }
 

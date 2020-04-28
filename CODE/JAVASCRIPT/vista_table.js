@@ -207,7 +207,7 @@ class VISTA_TABLE extends VISTA_DATA
         data
         )
     {
-        await SendJsonRequest( this.RequestUrl + "/" + this.GetKey( data ), "POST", this.CreateRemoteData( data ) );
+        await SendJsonRequest( this.RequestUrl, "POST", this.CreateRemoteData( data ) );
 
         return this.SetLocalData( data );
     }
