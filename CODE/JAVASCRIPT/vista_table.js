@@ -7,7 +7,7 @@ class VISTA_TABLE extends VISTA_DATA
     constructor(
         data_class,
         key_property_name,
-        stored_property_name_array,
+        property_name_array,
         request_url
         )
     {
@@ -16,7 +16,7 @@ class VISTA_TABLE extends VISTA_DATA
         this.DataClass = data_class;
         this.DataMap = new Map();
         this.KeyPropertyName = key_property_name;
-        this.StoredPropertyNameArray = stored_property_name_array;
+        this.PropertyNameArray = property_name_array;
         this.RequestUrl = request_url;
     }
 
@@ -31,7 +31,7 @@ class VISTA_TABLE extends VISTA_DATA
 
     // ~~
 
-    GetData(
+    GetLocalData(
         data_key
         )
     {
@@ -52,43 +52,43 @@ class VISTA_TABLE extends VISTA_DATA
 
     // -- OPERATIONS
 
-    CreateStoredData(
+    CreateRemoteData(
         data
         )
     {
         var
-            stored_data,
-            stored_property_name;
+            remote_data,
+            remote_property_name;
 
-        stored_data = {};
+        remote_data = {};
 
-        for ( stored_property_name of this.StoredPropertyNameArray )
+        for ( remote_property_name of this.PropertyNameArray )
         {
-            stored_data[ stored_property_name ] = data[ stored_property_name ];
+            remote_data[ remote_property_name ] = data[ remote_property_name ];
         }
 
-        return stored_data;
+        return remote_data;
     }
 
     // ~~
 
-    CopyStoredData(
+    CopyData(
         data,
         other_data
         )
     {
         var
-            stored_property_name;
+            property_name;
 
-        for ( stored_property_name of this.StoredPropertyNameArray )
+        for ( property_name of this.PropertyNameArray )
         {
-            data[ stored_property_name ] = other_data[ stored_property_name ];
+            data[ property_name ] = other_data[ property_name ];
         }
     }
 
     // ~~
 
-    ClearDataArray(
+    ClearLocalDataArray(
         )
     {
         var
@@ -108,7 +108,7 @@ class VISTA_TABLE extends VISTA_DATA
 
     // ~~
 
-    SetData(
+    SetLocalData(
         data
         )
     {
@@ -126,7 +126,7 @@ class VISTA_TABLE extends VISTA_DATA
 
         if ( set_data !== data )
         {
-            this.CopyStoredData( set_data, data );
+            this.CopyData( set_data, data );
             this.DataMap.set( data_key, set_data );
         }
 
@@ -138,7 +138,7 @@ class VISTA_TABLE extends VISTA_DATA
 
     // ~~
 
-    SetDataArray(
+    SetLocalDataArray(
         data_array
         )
     {
@@ -150,7 +150,7 @@ class VISTA_TABLE extends VISTA_DATA
 
         for ( data of data_array )
         {
-            set_data_array.push( this.SetData( data ) );
+            set_data_array.push( this.SetLocalData( data ) );
         }
 
         return set_data_array;
@@ -158,7 +158,7 @@ class VISTA_TABLE extends VISTA_DATA
 
     // ~~
 
-    RemoveData(
+    RemoveLocalData(
         data_key
         )
     {
@@ -174,7 +174,7 @@ class VISTA_TABLE extends VISTA_DATA
 
     // ~~
 
-    async GetStoredDataArray(
+    async GetDataArray(
         )
     {
         var
@@ -182,14 +182,14 @@ class VISTA_TABLE extends VISTA_DATA
 
         data_array = await SendJsonRequest( this.RequestUrl, "GET" );
 
-        this.ClearDataArray();
+        this.ClearLocalDataArray();
 
-        return this.SetDataArray( data_array );
+        return this.SetLocalDataArray( data_array );
     }
 
     // ~~
 
-    async GetStoredData(
+    async GetData(
         data_key
         )
     {
@@ -198,39 +198,39 @@ class VISTA_TABLE extends VISTA_DATA
 
         data = await SendJsonRequest( this.RequestUrl + "/" + data_key, "GET" );
 
-        return this.SetData( data );
+        return this.SetLocalData( data );
     }
 
     // ~~
 
-    async AddStoredData(
+    async AddData(
         data
         )
     {
-        await SendJsonRequest( this.RequestUrl + "/" + this.GetKey( data ), "POST", this.CreateStoredData( data ) );
+        await SendJsonRequest( this.RequestUrl + "/" + this.GetKey( data ), "POST", this.CreateRemoteData( data ) );
 
-        return this.SetData( data );
+        return this.SetLocalData( data );
     }
 
     // ~~
 
-    async SetStoredData(
+    async SetData(
         data
         )
     {
-        await SendJsonRequest( this.RequestUrl + "/" + this.GetKey( data ), "PUT", this.CreateStoredData( data ) );
+        await SendJsonRequest( this.RequestUrl + "/" + this.GetKey( data ), "PUT", this.CreateRemoteData( data ) );
 
-        return this.SetData( data );
+        return this.SetLocalData( data );
     }
 
     // ~~
 
-    async RemoveStoredData(
+    async RemoveData(
         data_key
         )
     {
         await SendJsonRequest( this.RequestUrl + "/" + data_key, "DELETE", null );
 
-        this.RemoveData( data_key );
+        this.RemoveLocalData( data_key );
     }
 }

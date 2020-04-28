@@ -33,11 +33,10 @@ Lightweight CSS and JavaScript framework.
     *   parallaxes
 *   JavaScript
     *   traversals
+    *   manipulations
     *   animations
     *   components
-    *   templates
     *   requests
-    *   tables
     *   proxies
     *   vectors
     *   matrices
