@@ -5,7 +5,7 @@ class VISTA_TABLE extends VISTA_DATA
     // -- CONSTRUCTORS
 
     constructor(
-        data_class,
+        value_class,
         key_property_name,
         property_name_array,
         request_url
@@ -13,68 +13,84 @@ class VISTA_TABLE extends VISTA_DATA
     {
         super();
 
-        this.DataClass = data_class;
-        this.DataMap = new Map();
+        this.ValueClass = value_class;
+        this.ValueMap = new Map();
         this.KeyPropertyName = key_property_name;
         this.PropertyNameArray = property_name_array;
-        this.RequestUrl = request_url;
+        this.GetValueArrayUrl = request_url;
+        this.GetValueUrl = request_url + "/";
+        this.AddValueUrl = request_url;
+        this.SetValueUrl = request_url + "/";
+        this.FixValueUrl = request_url + "/";
+        this.RemoveValueUrl = request_url + "/";
+        this.GetValueArrayMethod = "GET";
+        this.GetValueMethod = "GET";
+        this.AddValueMethod = "POST";
+        this.SetValueMethod = "PUT";
+        this.FixValueMethod = "PATCH";
+        this.RemoveValueMethod = "DELETE";
+        this.GetValueArrayPropertyName = undefined;
+        this.GetValuePropertyName = undefined;
+        this.AddValueArrayPropertyName = undefined;
+        this.SetValuePropertyName = undefined;
+        this.FixValuePropertyName = undefined;
     }
 
     // -- INQUIRIES
 
     GetKey(
-        data
+        value
         )
     {
-        return data[ this.KeyPropertyName ];
+        return value[ this.KeyPropertyName ];
     }
 
     // ~~
 
-    GetLocalData(
-        data_key
+    GetLocalValue(
+        value_key
         )
     {
         var
-            data;
+            value;
 
-        data = this.DataMap.get( data_key );
+        value = this.ValueMap.get( value_key );
 
-        if ( data === undefined )
+        if ( value === undefined )
         {
             return null;
         }
         else
         {
-            return data;
+            return value;
         }
     }
 
     // -- OPERATIONS
 
-    CreateRemoteData(
-        data
+    CreateStoredValue(
+        value
         )
     {
         var
-            remote_data,
+            remote_value,
             remote_property_name;
 
-        remote_data = {};
+        remote_value = {};
 
         for ( remote_property_name of this.PropertyNameArray )
         {
-            remote_data[ remote_property_name ] = data[ remote_property_name ];
+            remote_value[ remote_property_name ] = value[ remote_property_name ];
         }
 
-        return remote_data;
+        return remote_value;
     }
 
     // ~~
 
-    CopyData(
-        data,
-        other_data
+    CopyValue(
+        value,
+        other_value
         )
     {
         var
@@ -82,155 +98,221 @@ class VISTA_TABLE extends VISTA_DATA
 
         for ( property_name of this.PropertyNameArray )
         {
-            data[ property_name ] = other_data[ property_name ];
+            value[ property_name ] = other_value[ property_name ];
         }
     }
 
     // ~~
 
-    ClearLocalDataArray(
+    ClearLocalValueArray(
         )
     {
         var
-            removed_data,
-            removed_data_map;
+            removed_value,
+            removed_value_map;
 
-        removed_data_map = this.DataMap;
+        removed_value_map = this.ValueMap;
 
-        for ( removed_data of removed_data_map.values() )
+        for ( removed_value of removed_value_map.values() )
         {
-            removed_data.SetChanged();
+            removed_value.SetChanged();
         }
 
-        this.DataMap = new Map();
+        this.ValueMap = new Map();
         this.SetChanged();
     }
 
     // ~~
 
-    SetLocalData(
-        data
+    SetLocalValue(
+        value
         )
     {
         var
-            data_key,
-            set_data;
+            value_key,
+            set_value;
 
-        data_key = data[ this.KeyPropertyName ];
-        set_data = this.DataMap.get( data_key );
+        value_key = value[ this.KeyPropertyName ];
+        set_value = this.ValueMap.get( value_key );
 
-        if ( set_data === undefined )
+        if ( set_value === undefined )
         {
-            set_data = new this.DataClass();
+            set_value = new this.ValueClass();
         }
 
-        if ( set_data !== data )
+        if ( set_value !== value )
         {
-            this.CopyData( set_data, data );
-            this.DataMap.set( data_key, set_data );
+            this.CopyValue( set_value, value );
+            this.ValueMap.set( value_key, set_value );
         }
 
+        set_value.SetChanged();
         this.SetChanged();
-        set_data.SetChanged();
 
-        return set_data;
+        return set_value;
     }
 
     // ~~
 
-    SetLocalDataArray(
-        data_array
+    SetLocalValueArray(
+        value_array
         )
     {
         var
-            data,
-            set_data_array;
+            value,
+            set_value_array;
 
-        set_data_array = [];
+        set_value_array = [];
 
-        for ( data of data_array )
+        for ( value of value_array )
         {
-            set_data_array.push( this.SetLocalData( data ) );
+            set_value_array.push( this.SetLocalValue( value ) );
         }
 
-        return set_data_array;
+        return set_value_array;
     }
 
     // ~~
 
-    RemoveLocalData(
-        data_key
+    FixLocalValue(
+        value
+        )
+    {
+        return this.SetLocalValue( value );
+    }
+
+    // ~~
+
+    RemoveLocalValue(
+        value_key
         )
     {
         var
-            removed_data;
+            removed_value;
 
-        removed_data = this.DataMap.get( data_key );
-        removed_data.SetChanged();
+        removed_value = this.ValueMap.get( value_key );
+        removed_value.SetChanged();
 
-        this.DataMap.delete( data_key );
+        this.ValueMap.delete( value_key );
         this.SetChanged();
+
+        return removed_value;
     }
 
     // ~~
 
-    async GetDataArray(
+    async GetStoredValueArray(
+        query_suffix = ""
         )
     {
         var
-            data_array;
+            value_array;
 
-        data_array = await SendJsonRequest( this.RequestUrl, "GET" );
+        value_array = await SendJsonRequest( this.GetValueArrayUrl + query_suffix, this.GetValueArrayMethod );
 
-        this.ClearLocalDataArray();
+        if ( this.GetValueArrayPropertyName !== undefined )
+        {
+            value_array = value_array[ this.GetValueArrayPropertyName ];
+        }
 
-        return this.SetLocalDataArray( data_array );
+        this.ClearLocalValueArray();
+
+        return this.SetLocalValueArray( value_array );
     }
 
     // ~~
 
-    async GetData(
-        data_key
+    async GetStoredValue(
+        value_key,
+        query_prefix = "",
+        query_suffix = ""
         )
     {
         var
-            data;
+            value;
 
-        data = await SendJsonRequest( this.RequestUrl + "/" + data_key, "GET" );
+        value = await SendJsonRequest( this.GetValueUrl + query_prefix + value_key + query_suffix, this.GetValueMethod );
 
-        return this.SetLocalData( data );
+        if ( this.GetValuePropertyName !== undefined )
+        {
+            value = value[ this.GetValuePropertyName ];
+        }
+
+        return this.SetLocalValue( value );
     }
 
     // ~~
 
-    async AddData(
-        data
+    async AddStoredValue(
+        value,
+        query_suffix = ""
         )
     {
-        await SendJsonRequest( this.RequestUrl, "POST", this.CreateRemoteData( data ) );
+        var
+            added_value;
 
-        return this.SetLocalData( data );
+        added_value = await SendJsonRequest( this.AddValueUrl + query_suffix, this.AddValueMethod, this.CreateStoredValue( value ) );
+
+        if ( this.AddValuePropertyName !== undefined )
+        {
+            added_value = added_value[ this.AddValuePropertyName ];
+        }
+
+        return this.SetLocalValue( added_value );
     }
 
     // ~~
 
-    async SetData(
-        data
+    async SetStoredValue(
+        value,
+        query_prefix = "",
+        query_suffix = ""
         )
     {
-        await SendJsonRequest( this.RequestUrl + "/" + this.GetKey( data ), "PUT", this.CreateRemoteData( data ) );
+        var
+            set_value;
 
-        return this.SetLocalData( data );
+        set_value = await SendJsonRequest( this.SetValueUrl + query_prefix + this.GetKey( value ) + query_suffix, this.SetValueMethod, this.CreateStoredValue( value ) );
+
+        if ( this.SetValuePropertyName !== undefined )
+        {
+            set_value = set_value[ this.SetValuePropertyName ];
+        }
+
+        return this.SetLocalValue( set_value );
     }
 
     // ~~
 
-    async RemoveData(
-        data_key
+    async FixStoredValue(
+        value,
+        query_prefix = "",
+        query_suffix = ""
         )
     {
-        await SendJsonRequest( this.RequestUrl + "/" + data_key, "DELETE", null );
+        var
+            fixed_value;
 
-        this.RemoveLocalData( data_key );
+        fixed_value = await SendJsonRequest( this.FixValueUrl + query_prefix + this.GetKey( value ) + query_suffix, this.FixValueMethod, value );
+
+        if ( this.FixValuePropertyName !== undefined )
+        {
+            fixed_value = fixed_value[ this.FixValuePropertyName ];
+        }
+
+        return this.FixLocalValue( fixed_value );
+    }
+
+    // ~~
+
+    async RemoveStoredValue(
+        value_key,
+        query_prefix = "",
+        query_suffix = ""
+        )
+    {
+        await SendJsonRequest( this.RemoveValueUrl + query_prefix + value_key + query_suffix, this.RemoveValueMethod, null );
+
+        return this.RemoveLocalValue( value_key );
     }
 }

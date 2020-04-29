@@ -48,7 +48,38 @@
                         "opacity" : [ "1.0", "0.5", "0.1", "1.0" ]
                     },
                     [ 0.0, 2.0, 4.0, 6.0 ]
+                    )
+                .AnimateProperties(
+                    {
+                        "background-color" : [ "#FF8888", "#FFFF00", "#00FFFF", "#FF00FF" ]
+                    },
+                    [ 2.0, 4.0, 5.0, 6.0 ]
+                    )
+                .AnimateProperties(
+                    {
+                        "display" : [ "none", "block" ]
+                    },
+                    [ 2.5, 2.75 ]
+                    )
+                .AnimateProperties(
+                    {
+                        "width" : [ "2vw", "5vw" ]
+                    },
+                    [ 0.5, 1.0 ],
+                    {
+                        IsLooping : true,
+                        Speed : 0.5
+                    }
                     );
+
+            DelayCall(
+                function (
+                    )
+                {
+                    GetElements( ".block" ).StopProperties();
+                },
+                6.0
+                );
 
             GetElements( "div" )
                 .Iterate(

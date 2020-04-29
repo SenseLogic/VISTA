@@ -98,7 +98,38 @@ Lightweight CSS and JavaScript framework.
                         "opacity" : [ "1.0", "0.5", "0.1", "1.0" ]
                     },
                     [ 0.0, 2.0, 4.0, 6.0 ]
+                    )
+                .AnimateProperties(
+                    {
+                        "background-color" : [ "#FF8888", "#FFFF00", "#00FFFF", "#FF00FF" ]
+                    },
+                    [ 2.0, 4.0, 5.0, 6.0 ]
+                    )
+                .AnimateProperties(
+                    {
+                        "display" : [ "none", "block" ]
+                    },
+                    [ 2.5, 2.75 ]
+                    )
+                .AnimateProperties(
+                    {
+                        "width" : [ "2vw", "5vw" ]
+                    },
+                    [ 0.5, 1.0 ],
+                    {
+                        IsLooping : true,
+                        Speed : 0.5
+                    }
                     );
+
+            DelayCall(
+                function (
+                    )
+                {
+                    GetElements( ".block" ).StopProperties();
+                },
+                6.0
+                );
 
             GetElements( "div" )
                 .Iterate(
@@ -138,15 +169,16 @@ Lightweight CSS and JavaScript framework.
     </head>
     <body>
         <main>
-            <test-element click-count="1">
-            </test-element>
+            <test-component click-count="1">
+            </test-component>
         </main>
         <script src="../../CODE/JAVASCRIPT/vista_base.js"></script>
         <script src="../../CODE/JAVASCRIPT/vista_element.js"></script>
+        <script src="../../CODE/JAVASCRIPT/vista_component.js"></script>
         <script>
             // -- TYPES
 
-            class TEST_ELEMENT extends VISTA_ELEMENT
+            class TEST_COMPONENT extends VISTA_COMPONENT
             {
                 // -- INQUIRIES
 
@@ -182,7 +214,7 @@ Lightweight CSS and JavaScript framework.
 
                 // ~~
 
-                InitializeElement(
+                InitializeComponent(
                     )
                 {
                     this.Data.MovieArray =
@@ -242,10 +274,10 @@ Lightweight CSS and JavaScript framework.
 
                 // ~~
 
-                UpdateElement(
+                UpdateComponent(
                     )
                 {
-                    super.UpdateElement();
+                    super.UpdateComponent();
 
                     this.BindEvent( this.RootElement.GetElements( ".button" ), "click", this.SetTextColorProperty );
                     this.BindEvent( this.RootElement.GetElement( "#property-button" ), "click", this.SetClickCountProperty );
@@ -255,7 +287,113 @@ Lightweight CSS and JavaScript framework.
 
             // -- STATEMENTS
 
-            DefineElement( TEST_ELEMENT, "test-element" );
+            DefineElement( TEST_COMPONENT, "test-component" );
+        </script>
+    </body>
+</html>
+```
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Sample</title>
+    </head>
+    <body>
+        <script src="../../CODE/JAVASCRIPT/vista_base.js"></script>
+        <script src="../../CODE/JAVASCRIPT/vista_component.js"></script>
+        <script src="../../CODE/JAVASCRIPT/vista_request.js"></script>
+        <script src="../../CODE/JAVASCRIPT/vista_table.js"></script>
+        <script>
+            // -- TYPES
+
+            class USER extends VISTA_DATA
+            {
+                // -- CONSTRUCTORS
+
+                constructor(
+                    )
+                {
+                    super();
+                }
+            }
+
+            // ~~
+
+            class USER_TABLE extends VISTA_TABLE
+            {
+                // -- CONSTRUCTORS
+
+                constructor(
+                    )
+                {
+                    super(
+                        USER,
+                        "id",
+                        [ "id", "email", "first_name", "last_name", "avatar" ],
+                        "https://reqres.in/api/users"
+                        );
+
+                    this.GetValueArrayPropertyName = "data";
+                    this.GetValuePropertyName = "data";
+                }
+            }
+
+            // -- FUNCTIONS
+
+            function Write(
+                text
+                )
+            {
+                document.write( "<pre>" + text + "</pre>" );
+            }
+
+            // ~~
+
+            async function Test(
+                )
+            {
+                var
+                    user,
+                    user_array,
+                    user_table;
+
+                user_table = new USER_TABLE();
+                user_array = await user_table.GetStoredValueArray( "?page=1" );
+
+                for ( user of user_array )
+                {
+                    Write( "GET " + GetJsonText( user ) );
+                }
+
+                user = await user_table.GetStoredValue( 2 );
+                Write( "GET " + GetJsonText( user ) );
+
+                user.email = "janet.weaver@yahoo.com";
+                user = await user_table.SetStoredValue( user );
+                Write( "PUT " + GetJsonText( user ) );
+
+                user = await user_table.FixStoredValue( { email : "janet.weaver@gmail.com" } );
+                Write( "PATCH " + GetJsonText( user ) );
+
+                user = await user_table.AddStoredValue(
+                    {
+                        email : "rick.deckard@live.com",
+                        first_name : "Rick",
+                        last_name : "Deckard",
+                        avatar : "https://s3.amazonaws.com/uifaces/faces/twitter/rickdeckard/128.jpg",
+                    }
+                    );
+                Write( "POST " + GetJsonText( user ) );
+
+                user = await user_table.RemoveStoredValue( 2 );
+                Write( "DELETE " + GetJsonText( user ) );
+            }
+
+            // -- STATEMENTS
+
+            Test();
         </script>
     </body>
 </html>

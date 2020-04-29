@@ -6,26 +6,13 @@
     </head>
     <body>
         <script src="../../CODE/JAVASCRIPT/vista_base.js"></script>
-        <script src="../../CODE/JAVASCRIPT/vista_element.js"></script>
+        <script src="../../CODE/JAVASCRIPT/vista_component.js"></script>
         <script src="../../CODE/JAVASCRIPT/vista_request.js"></script>
         <script src="../../CODE/JAVASCRIPT/vista_table.js"></script>
         <script>
             // -- TYPES
 
             class USER extends VISTA_DATA
-            {
-                // -- CONSTRUCTORS
-
-                constructor(
-                    )
-                {
-                    super();
-                }
-            }
-
-            // ~~
-
-            class TODO extends VISTA_DATA
             {
                 // -- CONSTRUCTORS
 
@@ -48,49 +35,64 @@
                     super(
                         USER,
                         "id",
-                        [ "id", "name", "username", "email", "address", "phone", "website", "company" ],
-                        "https://jsonplaceholder.typicode.com/users"
+                        [ "id", "email", "first_name", "last_name", "avatar" ],
+                        "https://reqres.in/api/users"
                         );
-                }
-            }
 
-            // ~~
-
-            class TODO_TABLE extends VISTA_TABLE
-            {
-                // -- CONSTRUCTORS
-
-                constructor(
-                    )
-                {
-                    super(
-                        TODO,
-                        "id",
-                        [ "id", "userId", "title", "completed" ],
-                        "https://jsonplaceholder.typicode.com/todos"
-                        );
+                    this.GetValueArrayPropertyName = "data";
+                    this.GetValuePropertyName = "data";
                 }
             }
 
             // -- FUNCTIONS
 
+            function Write(
+                text
+                )
+            {
+                document.write( "<pre>" + text + "</pre>" );
+            }
+
+            // ~~
+
             async function Test(
                 )
             {
                 var
-                    todo_array,
-                    todo_table,
+                    user,
                     user_array,
                     user_table;
 
                 user_table = new USER_TABLE();
-                todo_table = new TODO_TABLE();
+                user_array = await user_table.GetStoredValueArray( "?page=1" );
 
-                user_array = await user_table.GetDataArray();
-                todo_array = await user_table.GetDataArray();
+                for ( user of user_array )
+                {
+                    Write( "GET " + GetJsonText( user ) );
+                }
 
-                document.write( GetJsonText( user_array ) );
-                document.write( GetJsonText( todo_array ) );
+                user = await user_table.GetStoredValue( 2 );
+                Write( "GET " + GetJsonText( user ) );
+
+                user.email = "janet.weaver@yahoo.com";
+                user = await user_table.SetStoredValue( user );
+                Write( "PUT " + GetJsonText( user ) );
+
+                user = await user_table.FixStoredValue( { email : "janet.weaver@gmail.com" } );
+                Write( "PATCH " + GetJsonText( user ) );
+
+                user = await user_table.AddStoredValue(
+                    {
+                        email : "rick.deckard@live.com",
+                        first_name : "Rick",
+                        last_name : "Deckard",
+                        avatar : "https://s3.amazonaws.com/uifaces/faces/twitter/rickdeckard/128.jpg",
+                    }
+                    );
+                Write( "POST " + GetJsonText( user ) );
+
+                user = await user_table.RemoveStoredValue( 2 );
+                Write( "DELETE " + GetJsonText( user ) );
             }
 
             // -- STATEMENTS
