@@ -31,7 +31,7 @@ class VISTA_TABLE extends VISTA_DATA
         this.RemoveValueMethod = "DELETE";
         this.GetValueArrayPropertyName = undefined;
         this.GetValuePropertyName = undefined;
-        this.AddValueArrayPropertyName = undefined;
+        this.AddValuePropertyName = undefined;
         this.SetValuePropertyName = undefined;
         this.FixValuePropertyName = undefined;
     }
@@ -68,7 +68,7 @@ class VISTA_TABLE extends VISTA_DATA
 
     // -- OPERATIONS
 
-    CreateStoredValue(
+    CreateRemoteValue(
         value
         )
     {
@@ -98,7 +98,10 @@ class VISTA_TABLE extends VISTA_DATA
 
         for ( property_name of this.PropertyNameArray )
         {
-            value[ property_name ] = other_value[ property_name ];
+            if ( property_name in other_value )
+            {
+                value[ property_name ] = other_value[ property_name ];
+            }
         }
     }
 
@@ -201,7 +204,7 @@ class VISTA_TABLE extends VISTA_DATA
 
     // ~~
 
-    async GetStoredValueArray(
+    async GetValueArray(
         query_suffix = ""
         )
     {
@@ -222,7 +225,7 @@ class VISTA_TABLE extends VISTA_DATA
 
     // ~~
 
-    async GetStoredValue(
+    async GetValue(
         value_key,
         query_prefix = "",
         query_suffix = ""
@@ -243,7 +246,7 @@ class VISTA_TABLE extends VISTA_DATA
 
     // ~~
 
-    async AddStoredValue(
+    async AddValue(
         value,
         query_suffix = ""
         )
@@ -251,19 +254,26 @@ class VISTA_TABLE extends VISTA_DATA
         var
             added_value;
 
-        added_value = await SendJsonRequest( this.AddValueUrl + query_suffix, this.AddValueMethod, this.CreateStoredValue( value ) );
+        added_value = await SendJsonRequest( this.AddValueUrl + query_suffix, this.AddValueMethod, this.CreateRemoteValue( value ) );
 
         if ( this.AddValuePropertyName !== undefined )
         {
             added_value = added_value[ this.AddValuePropertyName ];
         }
 
-        return this.SetLocalValue( added_value );
+        if ( added_value.hasOwnProperty( this.KeyPropertyName ) )
+        {
+            return this.SetLocalValue( added_value );
+        }
+        else
+        {
+            return this.SetLocalValue( value );
+        }
     }
 
     // ~~
 
-    async SetStoredValue(
+    async SetValue(
         value,
         query_prefix = "",
         query_suffix = ""
@@ -272,19 +282,26 @@ class VISTA_TABLE extends VISTA_DATA
         var
             set_value;
 
-        set_value = await SendJsonRequest( this.SetValueUrl + query_prefix + this.GetKey( value ) + query_suffix, this.SetValueMethod, this.CreateStoredValue( value ) );
+        set_value = await SendJsonRequest( this.SetValueUrl + query_prefix + this.GetKey( value ) + query_suffix, this.SetValueMethod, this.CreateRemoteValue( value ) );
 
         if ( this.SetValuePropertyName !== undefined )
         {
             set_value = set_value[ this.SetValuePropertyName ];
         }
 
-        return this.SetLocalValue( set_value );
+        if ( set_value.hasOwnProperty( this.KeyPropertyName ) )
+        {
+            return this.SetLocalValue( set_value );
+        }
+        else
+        {
+            return this.SetLocalValue( value );
+        }
     }
 
     // ~~
 
-    async FixStoredValue(
+    async FixValue(
         value,
         query_prefix = "",
         query_suffix = ""
@@ -300,12 +317,19 @@ class VISTA_TABLE extends VISTA_DATA
             fixed_value = fixed_value[ this.FixValuePropertyName ];
         }
 
-        return this.FixLocalValue( fixed_value );
+        if ( fixed_value.hasOwnProperty( this.KeyPropertyName ) )
+        {
+            return this.SetLocalValue( fixed_value );
+        }
+        else
+        {
+            return this.SetLocalValue( value );
+        }
     }
 
     // ~~
 
-    async RemoveStoredValue(
+    async RemoveValue(
         value_key,
         query_prefix = "",
         query_suffix = ""

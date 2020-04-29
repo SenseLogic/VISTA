@@ -287,7 +287,7 @@ Lightweight CSS and JavaScript framework.
 
             // -- STATEMENTS
 
-            DefineElement( TEST_COMPONENT, "test-component" );
+            DefineComponent( TEST_COMPONENT, "test-component" );
         </script>
     </body>
 </html>

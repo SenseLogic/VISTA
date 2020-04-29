@@ -1,11 +1,11 @@
 // -- VARIABLES
 
 var
-    PropertyAnimationFrame = null,
-    PropertyAnimationIdentifier = -1,
-    PropertyAnimationMap = new Map(),
-    PropertyAnimationTimestamp = null,
-    PropertyTransformNameArray = [
+    StyleAnimationFrame = null,
+    StyleAnimationIdentifier = -1,
+    StyleAnimationMap = new Map(),
+    StyleAnimationTimestamp = null,
+    StyleTransformNameArray = [
         "translateX",
         "translateY",
         "translateZ",
@@ -20,34 +20,34 @@ var
 
 // -- TYPES
 
-class VISTA_PROPERTY_ANIMATION
+class VISTA_STYLE_ANIMATION
 {
     // -- CONSTRUCTORS
 
     constructor(
         element,
-        property_name,
-        property_value_array,
-        property_time_array,
+        style_name,
+        style_value_array,
+        style_time_array,
         animation_configuration
         )
     {
         var
-            property_value;
+            style_value;
 
-        this.Identifier = ++PropertyAnimationIdentifier;
-        this.Name = property_name;
+        this.Identifier = ++StyleAnimationIdentifier;
+        this.Name = style_name;
         this.Element = element;
-        this.IsNumeric = IsNumericText( property_value_array[ 0 ] );
-        this.IsColor = IsColorText( property_value_array[ 0 ] );
-        this.IsTransform = ( property_name == "transform" );
+        this.IsNumeric = IsNumericText( style_value_array[ 0 ] );
+        this.IsColor = IsColorText( style_value_array[ 0 ] );
+        this.IsTransform = ( style_name == "transform" );
         this.IsConstant = ( !this.IsNumeric && !this.IsColor && !this.IsTransform );
         this.State = 0;
 
         this.ParseValueFunction = animation_configuration.ParseValueFunction;
         this.GetRatioFunction = animation_configuration.GetRatioFunction;
-        this.GetPropertyFunction = animation_configuration.GetPropertyFunction;
-        this.SetPropertyFunction = animation_configuration.SetPropertyFunction;
+        this.GetStyleFunction = animation_configuration.GetStyleFunction;
+        this.SetStyleFunction = animation_configuration.SetStyleFunction;
         this.GetInterpolationFunction = animation_configuration.GetInterpolationFunction;
 
         if ( this.GetRatioFunction === undefined )
@@ -75,43 +75,43 @@ class VISTA_PROPERTY_ANIMATION
             }
         }
 
-        if ( this.GetPropertyFunction === undefined )
+        if ( this.GetStyleFunction === undefined )
         {
             if ( this.IsNumeric )
             {
-                this.GetPropertyFunction = GetNumericProperty;
+                this.GetStyleFunction = GetNumericStyle;
             }
             else if ( this.IsColor )
             {
-                this.GetPropertyFunction = GetColorProperty;
+                this.GetStyleFunction = GetColorStyle;
             }
             else if ( this.IsTransform )
             {
-                this.GetPropertyFunction = GetTransformProperty;
+                this.GetStyleFunction = GetTransformStyle;
             }
             else
             {
-                this.GetPropertyFunction = GetConstantProperty;
+                this.GetStyleFunction = GetConstantStyle;
             }
         }
 
-        if ( this.SetPropertyFunction === undefined )
+        if ( this.SetStyleFunction === undefined )
         {
             if ( this.IsNumeric )
             {
-                this.SetPropertyFunction = SetNumericProperty;
+                this.SetStyleFunction = SetNumericStyle;
             }
             else if ( this.IsColor )
             {
-                this.SetPropertyFunction = SetColorProperty;
+                this.SetStyleFunction = SetColorStyle;
             }
             else if ( this.IsTransform )
             {
-                this.SetPropertyFunction = SetTransformProperty;
+                this.SetStyleFunction = SetTransformStyle;
             }
             else
             {
-                this.SetPropertyFunction = SetConstantProperty;
+                this.SetStyleFunction = SetConstantStyle;
             }
         }
 
@@ -137,25 +137,25 @@ class VISTA_PROPERTY_ANIMATION
 
         this.ValueArray = [];
 
-        if ( property_value_array instanceof Array )
+        if ( style_value_array instanceof Array )
         {
-            for ( property_value of property_value_array )
+            for ( style_value of style_value_array )
             {
-                this.ValueArray.push( this.ParseValueFunction( property_value ) );
+                this.ValueArray.push( this.ParseValueFunction( style_value ) );
             }
         }
         else
         {
-            this.ValueArray = [ this.ParseValueFunction( property_value_array ) ];
+            this.ValueArray = [ this.ParseValueFunction( style_value_array ) ];
         }
 
-        if ( property_time_array instanceof Array )
+        if ( style_time_array instanceof Array )
         {
-            this.TimeArray = property_time_array.slice();
+            this.TimeArray = style_time_array.slice();
         }
         else
         {
-            this.TimeArray = [ property_time_array ];
+            this.TimeArray = [ style_time_array ];
         }
 
         this.Time = animation_configuration.Time;
@@ -179,12 +179,12 @@ class VISTA_PROPERTY_ANIMATION
 
         if ( this.TimeArray[ 0 ] > 0.0 )
         {
-            this.ValueArray.unshift( this.GetPropertyFunction( element, property_name ) );
+            this.ValueArray.unshift( this.GetStyleFunction( element, style_name ) );
             this.TimeArray.unshift( 0.0 );
         }
         else
         {
-            this.SetPropertyFunction( element, property_name, this.ValueArray[ 0 ] );
+            this.SetStyleFunction( element, style_name, this.ValueArray[ 0 ] );
         }
 
         if ( this.Duration === undefined )
@@ -217,9 +217,9 @@ class VISTA_PROPERTY_ANIMATION
             this.StartFunction( this );
         }
 
-        PropertyAnimationMap.set( this.Identifier, this );
+        StyleAnimationMap.set( this.Identifier, this );
 
-        if ( PropertyAnimationMap.size === 1 )
+        if ( StyleAnimationMap.size === 1 )
         {
             StartAnimation();
         }
@@ -237,9 +237,9 @@ class VISTA_PROPERTY_ANIMATION
             this.PauseFunction( this );
         }
 
-        PropertyAnimationMap.delete( this.Identifier );
+        StyleAnimationMap.delete( this.Identifier );
 
-        if ( PropertyAnimationMap.size === 0 )
+        if ( StyleAnimationMap.size === 0 )
         {
             StopAnimation();
         }
@@ -257,9 +257,9 @@ class VISTA_PROPERTY_ANIMATION
             this.ResumeFunction( this );
         }
 
-        PropertyAnimationMap.set( this.Identifier, this );
+        StyleAnimationMap.set( this.Identifier, this );
 
-        if ( PropertyAnimationMap.size === 1 )
+        if ( StyleAnimationMap.size === 1 )
         {
             StartAnimation();
         }
@@ -277,9 +277,9 @@ class VISTA_PROPERTY_ANIMATION
             this.StopFunction( this );
         }
 
-        PropertyAnimationMap.delete( this.Identifier );
+        StyleAnimationMap.delete( this.Identifier );
 
-        if ( PropertyAnimationMap.size === 0 )
+        if ( StyleAnimationMap.size === 0 )
         {
             StopAnimation();
         }
@@ -384,7 +384,7 @@ class VISTA_PROPERTY_ANIMATION
             }
         }
 
-        this.SetPropertyFunction(
+        this.SetStyleFunction(
             this.Element,
             this.Name,
             value
@@ -630,72 +630,72 @@ function ParseConstantText(
 
 // ~~
 
-function GetNumericProperty(
+function GetNumericStyle(
     element,
-    property_name
+    style_name
     )
 {
-    return ParseNumericText( GetElementProperty( element, property_name ) );
+    return ParseNumericText( GetElementStyle( element, style_name ) );
 }
 
 // ~~
 
-function GetColorProperty(
+function GetColorStyle(
     element,
-    property_name
+    style_name
     )
 {
-    return ParseColorText( GetElementProperty( element, property_name ) );
+    return ParseColorText( GetElementStyle( element, style_name ) );
 }
 
 // ~~
 
-function GetTransformProperty(
+function GetTransformStyle(
     element,
-    property_name
+    style_name
     )
 {
-    return ParseTransformText( element.style[ property_name ] );
+    return ParseTransformText( element.style[ style_name ] );
 }
 
 // ~~
 
-function GetConstantProperty(
+function GetConstantStyle(
     element,
-    property_name
+    style_name
     )
 {
-    return GetElementProperty( element, property_name );
+    return GetElementStyle( element, style_name );
 }
 
 // ~~
 
-function SetNumericProperty(
+function SetNumericStyle(
     element,
-    property_name,
+    style_name,
     number
     )
 {
-    element.style[ property_name ] = number.Amount + number.Unit;
+    element.style[ style_name ] = number.Amount + number.Unit;
 }
 
 // ~~
 
-function SetColorProperty(
+function SetColorStyle(
     element,
-    property_name,
+    style_name,
     color
     )
 {
-    element.style[ property_name ]
+    element.style[ style_name ]
         = "rgba(" + color.Red + "," + color.Green + "," + color.Blue + "," + color.Opacity + ")";
 }
 
 // ~~
 
-function SetTransformProperty(
+function SetTransformStyle(
     element,
-    property_name,
+    style_name,
     transform
     )
 {
@@ -712,18 +712,18 @@ function SetTransformProperty(
         style += operation_name + "(" + operation.Amount + operation.Unit + ")";
     }
 
-    element.style[ property_name ] = style;
+    element.style[ style_name ] = style;
 }
 
 // ~~
 
-function SetConstantProperty(
+function SetConstantStyle(
     element,
-    property_name,
+    style_name,
     constant
     )
 {
-    element.style[ property_name ] = constant;
+    element.style[ style_name ] = constant;
 }
 
 // ~~
@@ -982,9 +982,9 @@ function GetQuinticEaseInOutRatio(
 function StartAnimation(
     )
 {
-    if ( PropertyAnimationFrame === null )
+    if ( StyleAnimationFrame === null )
     {
-        PropertyAnimationFrame = window.requestAnimationFrame( UpdateAnimation );
+        StyleAnimationFrame = window.requestAnimationFrame( UpdateAnimation );
     }
 }
 
@@ -997,23 +997,23 @@ function UpdateAnimation(
     var
         step_time;
 
-    if ( PropertyAnimationTimestamp === null )
+    if ( StyleAnimationTimestamp === null )
     {
         step_time = 0.0;
     }
     else
     {
-        step_time = ( timestamp - PropertyAnimationTimestamp ) * 0.001;
+        step_time = ( timestamp - StyleAnimationTimestamp ) * 0.001;
     }
 
-    PropertyAnimationTimestamp = timestamp;
+    StyleAnimationTimestamp = timestamp;
 
-    for ( property_animation of PropertyAnimationMap.values() )
+    for ( style_animation of StyleAnimationMap.values() )
     {
-        property_animation.Update( step_time );
+        style_animation.Update( step_time );
     }
 
-    PropertyAnimationFrame = window.requestAnimationFrame( UpdateAnimation );
+    StyleAnimationFrame = window.requestAnimationFrame( UpdateAnimation );
 }
 
 // ~~
@@ -1021,67 +1021,67 @@ function UpdateAnimation(
 function StopAnimation(
     )
 {
-    if ( PropertyAnimationFrame !== null )
+    if ( StyleAnimationFrame !== null )
     {
-        window.cancelAnimationFrame( PropertyAnimationFrame );
+        window.cancelAnimationFrame( StyleAnimationFrame );
 
-        PropertyAnimationFrame = null;
+        StyleAnimationFrame = null;
     }
 }
 
 // ~~
 
-function AnimateProperty(
+function AnimateStyle(
     element,
-    property_name,
-    property_value_array,
-    property_time_array,
+    style_name,
+    style_value_array,
+    style_time_array,
     animation_configuration = {}
     )
 {
-    if ( element.PropertyAnimationMap === undefined )
+    if ( element.StyleAnimationMap === undefined )
     {
-        element.PropertyAnimationMap = new Map();
+        element.StyleAnimationMap = new Map();
     }
 
-    if ( element.PropertyAnimationMap.has( property_name ) )
+    if ( element.StyleAnimationMap.has( style_name ) )
     {
-        element.PropertyAnimationMap.get( property_name ).Stop();
+        element.StyleAnimationMap.get( style_name ).Stop();
     }
 
-    property_animation
-        = new VISTA_PROPERTY_ANIMATION(
+    style_animation
+        = new VISTA_STYLE_ANIMATION(
               element,
-              property_name,
-              property_value_array,
-              property_time_array,
+              style_name,
+              style_value_array,
+              style_time_array,
               animation_configuration
               );
 
-    element.PropertyAnimationMap.set( property_name, property_animation );
+    element.StyleAnimationMap.set( style_name, style_animation );
 
-    property_animation.Start();
+    style_animation.Start();
 }
 
 // ~~
 
-function AnimateProperties(
+function AnimateStyles(
     element,
-    property_value_array_map,
-    property_time_array,
+    style_value_array_map,
+    style_time_array,
     animation_configuration = {}
     )
 {
     var
-        property_name;
+        style_name;
 
-    for ( property_name in property_value_array_map )
+    for ( style_name in style_value_array_map )
     {
-        AnimateProperty(
+        AnimateStyle(
             element,
-            property_name,
-            property_value_array_map[ property_name ],
-            property_time_array,
+            style_name,
+            style_value_array_map[ style_name ],
+            style_time_array,
             animation_configuration
             );
     }
@@ -1089,140 +1089,140 @@ function AnimateProperties(
 
 // ~~
 
-function PauseProperty(
+function PauseStyle(
     element,
-    property_name
+    style_name
     )
 {
-    if ( element.PropertyAnimationMap !== undefined
-         && element.PropertyAnimationMap.has( property_name ) )
+    if ( element.StyleAnimationMap !== undefined
+         && element.StyleAnimationMap.has( style_name ) )
     {
-        element.PropertyAnimationMap.get( property_name ).Pause();
+        element.StyleAnimationMap.get( style_name ).Pause();
     }
 }
 
 // ~~
 
-function PauseProperties(
+function PauseStyles(
     element,
-    property_name_array
+    style_name_array
     )
 {
     var
-        property_name;
+        style_name;
 
-    if ( property_name_array === undefined )
+    if ( style_name_array === undefined )
     {
-        if ( element.PropertyAnimationMap !== undefined )
+        if ( element.StyleAnimationMap !== undefined )
         {
-            for ( property_animation of element.PropertyAnimationMap.values() )
+            for ( style_animation of element.StyleAnimationMap.values() )
             {
-                property_animation.Pause();
+                style_animation.Pause();
             }
         }
     }
     else
     {
-        for ( property_name of property_name_array )
+        for ( style_name of style_name_array )
         {
-            PauseProperty( element, property_name );
+            PauseStyle( element, style_name );
         }
     }
 }
 
 // ~~
 
-function ResumeProperty(
+function ResumeStyle(
     element,
-    property_name
+    style_name
     )
 {
-    if ( element.PropertyAnimationMap !== undefined
-         && element.PropertyAnimationMap.has( property_name ) )
+    if ( element.StyleAnimationMap !== undefined
+         && element.StyleAnimationMap.has( style_name ) )
     {
-        element.PropertyAnimationMap.get( property_name ).Resume();
+        element.StyleAnimationMap.get( style_name ).Resume();
     }
 }
 
 // ~~
 
-function ResumeProperties(
+function ResumeStyles(
     element,
-    property_name_array
+    style_name_array
     )
 {
     var
-        property_name;
+        style_name;
 
-    if ( property_name_array === undefined )
+    if ( style_name_array === undefined )
     {
-        if ( element.PropertyAnimationMap !== undefined )
+        if ( element.StyleAnimationMap !== undefined )
         {
-            for ( property_animation of element.PropertyAnimationMap.values() )
+            for ( style_animation of element.StyleAnimationMap.values() )
             {
-                property_animation.Resume();
+                style_animation.Resume();
             }
         }
     }
     else
     {
-        for ( property_name of property_name_array )
+        for ( style_name of style_name_array )
         {
-            ResumeProperty( element, property_name );
+            ResumeStyle( element, style_name );
         }
     }
 }
 
 // ~~
 
-function StopProperty(
+function StopStyle(
     element,
-    property_name
+    style_name
     )
 {
-    if ( element.PropertyAnimationMap !== undefined
-         && element.PropertyAnimationMap.has( property_name ) )
+    if ( element.StyleAnimationMap !== undefined
+         && element.StyleAnimationMap.has( style_name ) )
     {
-        element.PropertyAnimationMap.get( property_name ).Stop();
+        element.StyleAnimationMap.get( style_name ).Stop();
     }
 }
 
 // ~~
 
-function StopProperties(
+function StopStyles(
     element,
-    property_name_array
+    style_name_array
     )
 {
     var
-        property_animation,
-        property_name;
+        style_animation,
+        style_name;
 
-    if ( property_name_array === undefined )
+    if ( style_name_array === undefined )
     {
-        if ( element.PropertyAnimationMap !== undefined )
+        if ( element.StyleAnimationMap !== undefined )
         {
-            for ( property_animation of element.PropertyAnimationMap.values() )
+            for ( style_animation of element.StyleAnimationMap.values() )
             {
-                property_animation.Stop();
+                style_animation.Stop();
             }
         }
     }
     else
     {
-        for ( property_name of property_name_array )
+        for ( style_name of style_name_array )
         {
-            StopProperty( element, property_name );
+            StopStyle( element, style_name );
         }
     }
 }
 
 // ~~
 
-Array.prototype.AnimateProperty = function(
-    property_name,
-    property_value_array,
-    property_time_array,
+Array.prototype.AnimateStyle = function(
+    style_name,
+    style_value_array,
+    style_time_array,
     animation_configuration = {}
     )
 {
@@ -1231,35 +1231,11 @@ Array.prototype.AnimateProperty = function(
 
     for ( element of this )
     {
-        AnimateProperty(
+        AnimateStyle(
             element,
-            property_name,
-            property_value_array,
-            property_time_array,
-            animation_configuration
-            );
-    }
-
-    return this;
-}
-
-// ~~
-
-Array.prototype.AnimateProperties = function(
-    property_value_array_map,
-    property_time_array,
-    animation_configuration = {}
-    )
-{
-    var
-        element;
-
-    for ( element of this )
-    {
-        AnimateProperties(
-            element,
-            property_value_array_map,
-            property_time_array,
+            style_name,
+            style_value_array,
+            style_time_array,
             animation_configuration
             );
     }
@@ -1269,8 +1245,10 @@ Array.prototype.AnimateProperties = function(
 
 // ~~
 
-Array.prototype.PauseProperty = function(
-    property_name
+Array.prototype.AnimateStyles = function(
+    style_value_array_map,
+    style_time_array,
+    animation_configuration = {}
     )
 {
     var
@@ -1278,7 +1256,12 @@ Array.prototype.PauseProperty = function(
 
     for ( element of this )
     {
-        PauseProperty( element, property_name );
+        AnimateStyles(
+            element,
+            style_value_array_map,
+            style_time_array,
+            animation_configuration
+            );
     }
 
     return this;
@@ -1286,8 +1269,8 @@ Array.prototype.PauseProperty = function(
 
 // ~~
 
-Array.prototype.PauseProperties = function(
-    property_name_array
+Array.prototype.PauseStyle = function(
+    style_name
     )
 {
     var
@@ -1295,7 +1278,7 @@ Array.prototype.PauseProperties = function(
 
     for ( element of this )
     {
-        PauseProperties( element, property_name_array );
+        PauseStyle( element, style_name );
     }
 
     return this;
@@ -1303,8 +1286,8 @@ Array.prototype.PauseProperties = function(
 
 // ~~
 
-Array.prototype.ResumeProperty = function(
-    property_name
+Array.prototype.PauseStyles = function(
+    style_name_array
     )
 {
     var
@@ -1312,7 +1295,7 @@ Array.prototype.ResumeProperty = function(
 
     for ( element of this )
     {
-        ResumeProperty( element, property_name );
+        PauseStyles( element, style_name_array );
     }
 
     return this;
@@ -1320,8 +1303,8 @@ Array.prototype.ResumeProperty = function(
 
 // ~~
 
-Array.prototype.ResumeProperties = function(
-    property_name_array
+Array.prototype.ResumeStyle = function(
+    style_name
     )
 {
     var
@@ -1329,7 +1312,7 @@ Array.prototype.ResumeProperties = function(
 
     for ( element of this )
     {
-        ResumeProperties( element, property_name_array );
+        ResumeStyle( element, style_name );
     }
 
     return this;
@@ -1337,8 +1320,8 @@ Array.prototype.ResumeProperties = function(
 
 // ~~
 
-Array.prototype.StopProperty = function(
-    property_name
+Array.prototype.ResumeStyles = function(
+    style_name_array
     )
 {
     var
@@ -1346,7 +1329,7 @@ Array.prototype.StopProperty = function(
 
     for ( element of this )
     {
-        StopProperty( element, property_name );
+        ResumeStyles( element, style_name_array );
     }
 
     return this;
@@ -1354,8 +1337,8 @@ Array.prototype.StopProperty = function(
 
 // ~~
 
-Array.prototype.StopProperties = function(
-    property_name_array
+Array.prototype.StopStyle = function(
+    style_name
     )
 {
     var
@@ -1363,7 +1346,24 @@ Array.prototype.StopProperties = function(
 
     for ( element of this )
     {
-        StopProperties( element, property_name_array );
+        StopStyle( element, style_name );
+    }
+
+    return this;
+}
+
+// ~~
+
+Array.prototype.StopStyles = function(
+    style_name_array
+    )
+{
+    var
+        element;
+
+    for ( element of this )
+    {
+        StopStyles( element, style_name_array );
     }
 
     return this;

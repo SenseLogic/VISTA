@@ -64,24 +64,24 @@
                     user_table;
 
                 user_table = new USER_TABLE();
-                user_array = await user_table.GetStoredValueArray( "?page=1" );
+                user_array = await user_table.GetValueArray( "?page=1" );
 
                 for ( user of user_array )
                 {
                     Write( "GET " + GetJsonText( user ) );
                 }
 
-                user = await user_table.GetStoredValue( 2 );
+                user = await user_table.GetValue( 2 );
                 Write( "GET " + GetJsonText( user ) );
 
                 user.email = "janet.weaver@yahoo.com";
-                user = await user_table.SetStoredValue( user );
+                user = await user_table.SetValue( user );
                 Write( "PUT " + GetJsonText( user ) );
 
-                user = await user_table.FixStoredValue( { email : "janet.weaver@gmail.com" } );
+                user = await user_table.FixValue( { email : "janet.weaver@gmail.com" } );
                 Write( "PATCH " + GetJsonText( user ) );
 
-                user = await user_table.AddStoredValue(
+                user = await user_table.AddValue(
                     {
                         email : "rick.deckard@live.com",
                         first_name : "Rick",
@@ -91,7 +91,7 @@
                     );
                 Write( "POST " + GetJsonText( user ) );
 
-                user = await user_table.RemoveStoredValue( 2 );
+                user = await user_table.RemoveValue( 2 );
                 Write( "DELETE " + GetJsonText( user ) );
             }
 

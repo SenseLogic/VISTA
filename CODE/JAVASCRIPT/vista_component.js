@@ -528,19 +528,19 @@ function UpdateDocument(
 
 // ~~
 
-function DefineElement(
-    element_class,
-    element_tag,
+function DefineComponent(
+    component_class,
+    component_tag,
     base_tag = undefined
     )
 {
     if ( base_tag === undefined )
     {
-        window.customElements.define( element_tag, element_class );
+        window.customElements.define( component_tag, component_class );
     }
     else
     {
-        window.customElements.define( element_tag, element_class, { extends: base_tag } );
+        window.customElements.define( component_tag, component_class, { extends: base_tag } );
     }
 }
 

@@ -235,23 +235,23 @@ function IsVisibleElement(
 
 // ~~
 
-function GetElementProperty(
+function GetElementStyle(
     element,
-    property_name
+    style_name
     )
 {
     var
-        property;
+        style;
 
-    property = element.style[ property_name ];
+    style = element.style[ style_name ];
 
-    if ( property.length > 0 )
+    if ( style.length > 0 )
     {
-        return property;
+        return style;
     }
     else
     {
-        return window.getComputedStyle( element, null ).getPropertyValue( property_name );
+        return window.getComputedStyle( element, null ).getPropertyValue( style_name );
     }
 }
 
@@ -853,79 +853,79 @@ Array.prototype.SetAttributes = function(
 
 // ~~
 
-Array.prototype.GetProperty = function(
-    property_name
+Array.prototype.GetStyle = function(
+    style_name
     )
 {
     var
-        property_value_array,
+        style_value_array,
         element;
 
-    property_value_array = [];
+    style_value_array = [];
 
     for ( element of this )
     {
-        property_value_array.push( element.style[ property_name ] );
+        style_value_array.push( element.style[ style_name ] );
     }
 
-    return property_value_array;
+    return style_value_array;
 }
 
 // ~~
 
-Array.prototype.GetProperties = function(
-    property_name_array
+Array.prototype.GetStyles = function(
+    style_name_array
     )
 {
     var
-        property_value_array,
-        property_value_array_array,
+        style_value_array,
+        style_value_array_array,
         element;
 
-    property_value_array_array = [];
+    style_value_array_array = [];
 
     for ( element of this )
     {
-        property_value_array = [];
+        style_value_array = [];
 
-        for ( property_name of property_name_array )
+        for ( style_name of style_name_array )
         {
-            property_value_array.push( element.style[ property_name ] );
+            style_value_array.push( element.style[ style_name ] );
         }
 
-        property_value_array_array.push( property_value_array );
+        style_value_array_array.push( style_value_array );
     }
 
-    return property_value_array_array;
+    return style_value_array_array;
 }
 
 // ~~
 
-Array.prototype.SetProperty = function(
-    property_name,
-    property_value_array
+Array.prototype.SetStyle = function(
+    style_name,
+    style_value_array
     )
 {
     var
-        property_value_index,
+        style_value_index,
         element;
 
-    if ( property_value_array instanceof Array )
+    if ( style_value_array instanceof Array )
     {
-        property_value_index = 0;
+        style_value_index = 0;
 
         for ( element of this )
         {
-            element[ property_name ] = property_value_array[ property_value_index ];
+            element[ style_name ] = style_value_array[ style_value_index ];
 
-            ++property_value_index;
+            ++style_value_index;
         }
     }
     else
     {
         for ( element of this )
         {
-            element[ property_name ] = property_value_array;
+            element[ style_name ] = style_value_array;
         }
     }
 
@@ -934,36 +934,36 @@ Array.prototype.SetProperty = function(
 
 // ~~
 
-Array.prototype.SetProperties = function(
-    property_value_map
+Array.prototype.SetStyles = function(
+    style_value_map
     )
 {
     var
         element,
-        property_name,
-        property_value_array,
-        property_value_index;
+        style_name,
+        style_value_array,
+        style_value_index;
 
-    for ( property_name in property_value_map )
+    for ( style_name in style_value_map )
     {
-        property_value_array = property_value_map[ property_name ];
+        style_value_array = style_value_map[ style_name ];
 
-        if ( property_value_array instanceof Array )
+        if ( style_value_array instanceof Array )
         {
-            property_value_index = 0;
+            style_value_index = 0;
 
             for ( element of this )
             {
-                element.style[ property_name ] = property_value_array[ property_value_index ];
+                element.style[ style_name ] = style_value_array[ style_value_index ];
 
-                ++property_value_index;
+                ++style_value_index;
             }
         }
         else
         {
             for ( element of this )
             {
-                element.style[ property_name ] = property_value_array;
+                element.style[ style_name ] = style_value_array;
             }
         }
     }
