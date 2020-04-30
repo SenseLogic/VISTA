@@ -72,7 +72,8 @@ function SendJsonRequest(
                   {
                       if ( request.readyState == 4 )
                       {
-                          if ( request.response === "" )
+                          if ( request_response === null
+                               || request.response === "" )
                           {
                               response_object = {};
                           }
