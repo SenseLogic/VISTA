@@ -45,7 +45,7 @@ Lightweight CSS and JavaScript framework.
     *   loaders
     *   renderers
 
-## Sample
+## Samples
 
 ### Traversals, manipulations and animations
 
