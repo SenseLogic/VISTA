@@ -37,7 +37,7 @@ Lightweight CSS and JavaScript framework.
     *   animations
     *   components
     *   requests
-    *   proxies
+    *   stores
     *   vectors
     *   matrices
     *   quaternions
@@ -45,7 +45,9 @@ Lightweight CSS and JavaScript framework.
     *   loaders
     *   renderers
 
-## Samples
+## Sample
+
+### Traversals, manipulations and animations
 
 ```html
 <!DOCTYPE html>
@@ -159,6 +161,8 @@ Lightweight CSS and JavaScript framework.
     </body>
 </html>
 ```
+
+### Components
 
 ```html
 <!DOCTYPE html>
@@ -319,6 +323,8 @@ Lightweight CSS and JavaScript framework.
 </html>
 ```
 
+### Stores
+
 ```html
 <!DOCTYPE html>
 <html lang="en">
@@ -424,6 +430,8 @@ Lightweight CSS and JavaScript framework.
     </body>
 </html>
 ```
+
+### Shaders
 
 ```html
 <!DOCTYPE html>
