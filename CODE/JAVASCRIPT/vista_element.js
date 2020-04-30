@@ -118,12 +118,19 @@ function GetElement(
 
 // ~~
 
-HTMLElement.prototype.GetElement = HTMLElement.prototype.querySelector;
-
-
-// ~~
-
-ShadowRoot.prototype.GetElement = ShadowRoot.prototype.querySelector;
+HTMLElement.prototype.GetElement = function(
+    element_selector
+    )
+{
+    if ( this.matches( element_selector ) )
+    {
+        return this;
+    }
+    else
+    {
+        return this.querySelector( element_selector );
+    }
+}
 
 // ~~
 
@@ -140,12 +147,39 @@ HTMLElement.prototype.GetElements = function(
     element_selector
     )
 {
+    var
+        element_array;
+
+    element_array = Array.from( this.querySelectorAll( element_selector ) );
+
+    if ( this.matches( element_selector ) )
+    {
+        return element_array.unshift( this );
+    }
+
+    return element_array;
+}
+
+// ~~
+
+HTMLElement.prototype.GetDescendantElement = HTMLElement.prototype.querySelector;
+
+// ~~
+
+ShadowRoot.prototype.GetDescendantElement = ShadowRoot.prototype.querySelector;
+
+// ~~
+
+HTMLElement.prototype.GetDescendantElements = function(
+    element_selector
+    )
+{
     return Array.from( this.querySelectorAll( element_selector ) );
 }
 
 // ~~
 
-ShadowRoot.prototype.GetElements = function(
+ShadowRoot.prototype.GetDescendantElements = function(
     element_selector
     )
 {

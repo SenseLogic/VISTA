@@ -47,7 +47,11 @@ function ShowError(
             error_console_element.id = "error-console";
             error_console_element.style = "position:fixed;z-index:999999;left:0;top:0;width:100%;height:100%;font-size:1rem;overflow:auto;background-color:rgba(0,0,0,0.5);color:white";
             error_console_element.innerHTML = "<h1>ERROR</h1>";
-            error_console_element.onclick = function () { error_console_element.style.display = "none"; }
+            error_console_element.onclick = function(
+                )
+            {
+                error_console_element.style.display = "none";
+            }
 
             document.body.appendChild( error_console_element );
         }

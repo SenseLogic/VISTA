@@ -46,11 +46,12 @@
 
             // -- FUNCTIONS
 
-            function Write(
-                text
+            function PrintResult(
+                prefix,
+                result
                 )
             {
-                document.write( "<pre>" + text + "</pre>" );
+                document.write( "<pre>" + prefix + " " + GetJsonText( result ) + "</pre>" );
             }
 
             // ~~
@@ -68,18 +69,18 @@
 
                 for ( user of user_array )
                 {
-                    Write( "GET " + GetJsonText( user ) );
+                    PrintResult( "GET", user );
                 }
 
                 user = await user_table.GetValue( 2 );
-                Write( "GET " + GetJsonText( user ) );
+                PrintResult( "GET", user );
 
                 user.email = "janet.weaver@yahoo.com";
                 user = await user_table.SetValue( user );
-                Write( "PUT " + GetJsonText( user ) );
+                PrintResult( "PUT", user );
 
                 user = await user_table.FixValue( { email : "janet.weaver@gmail.com" } );
-                Write( "PATCH " + GetJsonText( user ) );
+                PrintResult( "PATCH", user );
 
                 user = await user_table.AddValue(
                     {
@@ -89,10 +90,10 @@
                         avatar : "https://s3.amazonaws.com/uifaces/faces/twitter/rickdeckard/128.jpg",
                     }
                     );
-                Write( "POST " + GetJsonText( user ) );
+                PrintResult( "POST", user );
 
                 user = await user_table.RemoveValue( 2 );
-                Write( "DELETE " + GetJsonText( user ) );
+                PrintResult( "DELETE", user );
             }
 
             // -- STATEMENTS

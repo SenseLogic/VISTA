@@ -309,9 +309,9 @@ Lightweight CSS and JavaScript framework.
                 {
                     super.UpdateComponent();
 
-                    this.BindEvent( this.GetElements( ".button" ), "click", this.SetTextColorProperty );
-                    this.BindEvent( this.GetElement( "#property-button" ), "click", this.SetClickCountProperty );
-                    this.BindEvent( this.GetElement( "#attribute-button" ), "click", this.SetClickCountAttribute );
+                    this.BindEvent( this.GetDescendantElements( ".button" ), "click", this.SetTextColorProperty );
+                    this.BindEvent( this.GetDescendantElement( "#property-button" ), "click", this.SetClickCountProperty );
+                    this.BindEvent( this.GetDescendantElement( "#attribute-button" ), "click", this.SetClickCountAttribute );
                 }
             }
 
@@ -374,11 +374,12 @@ Lightweight CSS and JavaScript framework.
 
             // -- FUNCTIONS
 
-            function Write(
-                text
+            function PrintResult(
+                prefix,
+                result
                 )
             {
-                document.write( "<pre>" + text + "</pre>" );
+                document.write( "<pre>" + prefix + " " + GetJsonText( result ) + "</pre>" );
             }
 
             // ~~
@@ -392,24 +393,24 @@ Lightweight CSS and JavaScript framework.
                     user_table;
 
                 user_table = new USER_TABLE();
-                user_array = await user_table.GetStoredValueArray( "?page=1" );
+                user_array = await user_table.GetValueArray( "?page=1" );
 
                 for ( user of user_array )
                 {
-                    Write( "GET " + GetJsonText( user ) );
+                    PrintResult( "GET", user );
                 }
 
-                user = await user_table.GetStoredValue( 2 );
-                Write( "GET " + GetJsonText( user ) );
+                user = await user_table.GetValue( 2 );
+                PrintResult( "GET", user );
 
                 user.email = "janet.weaver@yahoo.com";
-                user = await user_table.SetStoredValue( user );
-                Write( "PUT " + GetJsonText( user ) );
+                user = await user_table.SetValue( user );
+                PrintResult( "PUT", user );
 
-                user = await user_table.FixStoredValue( { email : "janet.weaver@gmail.com" } );
-                Write( "PATCH " + GetJsonText( user ) );
+                user = await user_table.FixValue( { email : "janet.weaver@gmail.com" } );
+                PrintResult( "PATCH", user );
 
-                user = await user_table.AddStoredValue(
+                user = await user_table.AddValue(
                     {
                         email : "rick.deckard@live.com",
                         first_name : "Rick",
@@ -417,10 +418,10 @@ Lightweight CSS and JavaScript framework.
                         avatar : "https://s3.amazonaws.com/uifaces/faces/twitter/rickdeckard/128.jpg",
                     }
                     );
-                Write( "POST " + GetJsonText( user ) );
+                PrintResult( "POST", user );
 
-                user = await user_table.RemoveStoredValue( 2 );
-                Write( "DELETE " + GetJsonText( user ) );
+                user = await user_table.RemoveValue( 2 );
+                PrintResult( "DELETE", user );
             }
 
             // -- STATEMENTS
