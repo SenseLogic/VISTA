@@ -249,7 +249,33 @@ Lightweight CSS and JavaScript framework.
                                 border-radius: 0.5rem;
                                 padding: 0.5rem 1rem;
                                 background-color: <:# this.Data.TextColor :>;
-                                color: white;
+                                color: cyan;
+
+                                @media above-30em and below-40em, above-50em
+                                {
+                                    color: lightgrey;
+                                }
+
+                                @media above-60em
+                                {
+                                    color: white;
+                                }
+                            }
+
+                            :host .button
+                            {
+                                @media above-60em
+                                {
+                                    background-color: magenta;
+                                }
+                            }
+
+                            @media above-80em
+                            {
+                                :host .button
+                                {
+                                    background-color: red;
+                                }
                             }
                         </style>
                         <button id="property-button" class="button">
@@ -279,9 +305,9 @@ Lightweight CSS and JavaScript framework.
                 {
                     super.UpdateComponent();
 
-                    this.BindEvent( this.RootElement.GetElements( ".button" ), "click", this.SetTextColorProperty );
-                    this.BindEvent( this.RootElement.GetElement( "#property-button" ), "click", this.SetClickCountProperty );
-                    this.BindEvent( this.RootElement.GetElement( "#attribute-button" ), "click", this.SetClickCountAttribute );
+                    this.BindEvent( this.GetElements( ".button" ), "click", this.SetTextColorProperty );
+                    this.BindEvent( this.GetElement( "#property-button" ), "click", this.SetClickCountProperty );
+                    this.BindEvent( this.GetElement( "#attribute-button" ), "click", this.SetClickCountAttribute );
                 }
             }
 

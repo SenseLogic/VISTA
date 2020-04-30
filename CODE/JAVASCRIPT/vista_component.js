@@ -88,10 +88,10 @@ class VISTA_DATA
     {
         var
             watcher,
-            document_has_changed;
+            component_has_changed;
 
-        document_has_changed = ( DataHasChanged === false );
-        DataHasChanged = true;
+        component_has_changed = ( ComponentHasChanged === false );
+        ComponentHasChanged = true;
         this.HasChanged = true;
 
         if ( !this.HasChangedWatchers )
@@ -104,9 +104,9 @@ class VISTA_DATA
             }
         }
 
-        if ( document_has_changed )
+        if ( component_has_changed )
         {
-            setInterval( UpdateDocument, DocumentUpdateDelay * 1000.0 );
+            setInterval( UpdateComponents, ComponentUpdateDelay * 1000.0 );
         }
 
     }
@@ -147,6 +147,59 @@ class VISTA_COMPONENT extends HTMLElement
         )
     {
         return this.TemplateFunction();
+    }
+
+    // ~~
+
+    GetElement(
+        element_selector
+        )
+    {
+        if ( this.matches( element_selector ) )
+        {
+            return this;
+        }
+        else
+        {
+            return this.RootElement.querySelector( element_selector );
+        }
+    }
+
+    // ~~
+
+    GetElements(
+        element_selector
+        )
+    {
+        var
+            element_array;
+
+        element_array = Array.from( this.RootElement.querySelectorAll( element_selector ) );
+
+        if ( this.matches( element_selector ) )
+        {
+            return element_array.unshift( this );
+        }
+
+        return element_array;
+    }
+
+    // ~~
+
+    GetDescendantElement(
+        element_selector
+        )
+    {
+        return this.RootElement.querySelector( element_selector );
+    }
+
+    // ~~
+
+    GetDescendantElements(
+        element_selector
+        )
+    {
+        return Array.from( this.RootElement.querySelectorAll( element_selector ) );
     }
 
     // -- OPERATIONS
@@ -353,6 +406,106 @@ class VISTA_COMPONENT extends HTMLElement
 
     // ~~
 
+    ProcessTemplate(
+        template_text
+        )
+    {
+        var
+            brace_level,
+            line,
+            line_array,
+            line_index,
+            media_query_name,
+            section_array,
+            section_index,
+            section_part_array,
+            selector_text,
+            trimmed_line;
+
+        template_text = template_text.split( "\r" ).join( "" );
+
+        if ( MediaQueryMap.size > 0
+             && template_text.indexOf( "@media " ) >= 0 )
+        {
+            section_array = template_text.split( "<style>\n" );
+
+            for ( section_index = 1;
+                  section_index < section_array.length;
+                  ++section_index )
+            {
+                section_part_array = section_array[ section_index ].split( "</style>\n" );
+                line_array = section_part_array[ 0 ].split( "\n" );
+                brace_level = 0;
+                selector_text = "";
+
+                for ( line_index = 0;
+                      line_index < line_array.length;
+                      ++line_index )
+                {
+                    line = line_array[ line_index ];
+                    trimmed_line = line.trim();
+
+                    if ( trimmed_line.endsWith( '{' ) )
+                    {
+                        ++brace_level;
+                    }
+                    else if ( trimmed_line.startsWith( '}' ) )
+                    {
+                        --brace_level;
+
+                        if ( brace_level === 0 )
+                        {
+                            selector_text = "";
+                        }
+                    }
+                    else if ( trimmed_line.startsWith( "@media " ) )
+                    {
+                        trimmed_line = trimmed_line.slice( 6 );
+
+                        for ( media_query_name of MediaQueryMap.keys() )
+                        {
+                            trimmed_line = trimmed_line.split( media_query_name ).join( MediaQueryMap.get( media_query_name ) );
+                        }
+
+                        if ( brace_level === 0 )
+                        {
+                            line_array[ line_index ] = "@media" + trimmed_line;
+                        }
+                        else
+                        {
+                            line_array[ line_index ] = "}\n\n@media" + trimmed_line + "\n{\n    " + selector_text;
+                        }
+                    }
+                    else if ( brace_level === 0 )
+                    {
+                        if ( trimmed_line === ""
+                             || trimmed_line.endsWith( "*/" ) )
+                        {
+                            selector_text = "";
+                        }
+                        else if ( selector_text === "" )
+                        {
+                            selector_text = trimmed_line;
+                        }
+                        else
+                        {
+                            selector_text += "\n" + trimmed_line;
+                        }
+                    }
+                }
+
+                section_part_array[ 0 ] = line_array.join( "\n" );
+                section_array[ section_index ] = section_part_array.join( "</style>\n" );
+            }
+
+            template_text = section_array.join( "<style>\n" );
+        }
+
+        return template_text;
+    }
+
+    // ~~
+
     SetTemplate(
         template_text
         )
@@ -360,7 +513,6 @@ class VISTA_COMPONENT extends HTMLElement
         var
             section_array,
             section_code,
-            section_count,
             section_index,
             section_part_array,
             section_text,
@@ -371,13 +523,14 @@ class VISTA_COMPONENT extends HTMLElement
             template_text = GetDecodedHtml( template_text.innerHTML );
         }
 
-        section_array = template_text.split( "\r" ).join( "" ).split( "<:" );
-        section_count = section_array.length;
+        template_text = this.ProcessTemplate( template_text );
+
+        section_array = template_text.split( "<:" );
 
         function_code = "() => {\nvar result = " + GetJsonText( section_array[ 0 ] ) + ";\n";
 
         for ( section_index = 1;
-              section_index < section_count;
+              section_index < section_array.length;
               ++section_index )
         {
             section_part_array = section_array[ section_index ].split( ":>" );
@@ -482,12 +635,13 @@ class VISTA_COMPONENT extends HTMLElement
 // -- VARIABLES
 
 var
-    DataHasChanged = false,
-    DocumentUpdateDelay = 0.05;
+    ComponentHasChanged = false,
+    ComponentUpdateDelay = 0.05,
+    MediaQueryMap = new Map();
 
 // -- FUNCTIONS
 
-function UpdateComponents(
+function UpdateComponent(
     element
     )
 {
@@ -508,21 +662,21 @@ function UpdateComponents(
               child_element_index < child_element_count;
               ++child_element_index )
         {
-            UpdateComponents( element.children[ child_element_index ] );
+            UpdateComponent( element.children[ child_element_index ] );
         }
     }
 }
 
 // ~~
 
-function UpdateDocument(
+function UpdateComponents(
     )
 {
-    if ( DataHasChanged )
+    if ( ComponentHasChanged )
     {
-        UpdateComponents( document.body );
+        UpdateComponent( document.body );
 
-        DataHasChanged = false;
+        ComponentHasChanged = false;
     }
 }
 
@@ -544,3 +698,43 @@ function DefineComponent(
     }
 }
 
+// ~~
+
+function DefineMediaQueries(
+    media_query_map
+    )
+{
+    for ( media_query_name in media_query_map )
+    {
+        MediaQueryMap.set( media_query_name, media_query_map[ media_query_name ] );
+    }
+}
+
+// -- STATEMENTS
+
+DefineMediaQueries(
+    {
+        "below-20em" : "(max-width: 19.98em)",
+        "below-30em" : "(max-width: 29.98em)",
+        "below-40em" : "(max-width: 39.98em)",
+        "below-50em" : "(max-width: 49.98em)",
+        "below-60em" : "(max-width: 59.98em)",
+        "below-70em" : "(max-width: 69.98em)",
+        "below-80em" : "(max-width: 79.98em)",
+        "below-90em" : "(max-width: 89.98em)",
+        "below-100em" : "(max-width: 99.98em)",
+        "below-110em" : "(max-width: 109.98em)",
+        "below-120em" : "(max-width: 119.98em)",
+        "above-20em" : "(min-width: 20em)",
+        "above-30em" : "(min-width: 30em)",
+        "above-40em" : "(min-width: 40em)",
+        "above-50em" : "(min-width: 50em)",
+        "above-60em" : "(min-width: 60em)",
+        "above-70em" : "(min-width: 70em)",
+        "above-80em" : "(min-width: 80em)",
+        "above-90em" : "(min-width: 90em)",
+        "above-100em" : "(min-width: 100em)",
+        "above-110em" : "(min-width: 110em)",
+        "above-120em" : "(min-width: 120em)"
+    }
+    );

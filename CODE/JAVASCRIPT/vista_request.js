@@ -72,7 +72,7 @@ function SendJsonRequest(
                   {
                       if ( request.readyState == 4 )
                       {
-                          if ( request.response.length === 0 )
+                          if ( request.response === "" )
                           {
                               response_object = {};
                           }
