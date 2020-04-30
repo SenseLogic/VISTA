@@ -374,12 +374,12 @@ Lightweight CSS and JavaScript framework.
 
             // -- FUNCTIONS
 
-            function PrintResult(
+            function PrintResponse(
                 prefix,
-                result
+                object
                 )
             {
-                document.write( "<pre>" + prefix + " " + GetJsonText( result ) + "</pre>" );
+                document.write( "<pre>" + prefix + " " + GetJsonText( object ) + "</pre>" );
             }
 
             // ~~
@@ -397,18 +397,18 @@ Lightweight CSS and JavaScript framework.
 
                 for ( user of user_array )
                 {
-                    PrintResult( "GET", user );
+                    PrintResponse( "GET", user );
                 }
 
                 user = await user_table.GetValue( 2 );
-                PrintResult( "GET", user );
+                PrintResponse( "GET", user );
 
                 user.email = "janet.weaver@yahoo.com";
                 user = await user_table.SetValue( user );
-                PrintResult( "PUT", user );
+                PrintResponse( "PUT", user );
 
                 user = await user_table.FixValue( { email : "janet.weaver@gmail.com" } );
-                PrintResult( "PATCH", user );
+                PrintResponse( "PATCH", user );
 
                 user = await user_table.AddValue(
                     {
@@ -418,10 +418,10 @@ Lightweight CSS and JavaScript framework.
                         avatar : "https://s3.amazonaws.com/uifaces/faces/twitter/rickdeckard/128.jpg",
                     }
                     );
-                PrintResult( "POST", user );
+                PrintResponse( "POST", user );
 
                 user = await user_table.RemoveValue( 2 );
-                PrintResult( "DELETE", user );
+                PrintResponse( "DELETE", user );
             }
 
             // -- STATEMENTS
