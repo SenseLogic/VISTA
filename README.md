@@ -323,6 +323,69 @@ Lightweight CSS and JavaScript framework.
 </html>
 ```
 
+### Requests
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Sample</title>
+    </head>
+    <body>
+        <script src="../../CODE/JAVASCRIPT/vista_base.js"></script>
+        <script src="../../CODE/JAVASCRIPT/vista_element.js"></script>
+        <script src="../../CODE/JAVASCRIPT/vista_request.js"></script>
+        <script>
+            // -- FUNCTIONS
+
+            async function Test(
+                )
+            {
+                var
+                    result,
+                    user;
+
+                result = await SendRequest(
+                    "https://reqres.in/api/users/2",
+                    "GET"
+                    );
+                WriteLine( result.response );
+
+                result = await SendRequest(
+                    "https://reqres.in/api/users",
+                    "POST",
+                    GetJsonText(
+                        {
+                            "name" : "Morpheus",
+                            "job" : "leader"
+                        }
+                        ),
+                    {
+                        "Content-type" : "application/json; charset=UTF-8"
+                    }
+                    );
+                WriteLine( result.response );
+
+                user = await SendJsonRequest(
+                    "https://reqres.in/api/users",
+                    "POST",
+                    {
+                        "name" : "Morpheus",
+                        "job" : "leader"
+                    }
+                    );
+                WriteLine( GetJsonText( user ) );
+            }
+
+            // -- STATEMENTS
+
+            Test();
+        </script>
+    </body>
+</html>
+```
+
 ### Stores
 
 ```html
@@ -369,20 +432,11 @@ Lightweight CSS and JavaScript framework.
 
                     this.GetValueArrayPropertyName = "data";
                     this.GetValuePropertyName = "data";
+                    this.DefineInterface( "User" );
                 }
             }
 
             // -- FUNCTIONS
-
-            function PrintResponse(
-                prefix,
-                object
-                )
-            {
-                document.write( "<pre>" + prefix + " " + GetJsonText( object ) + "</pre>" );
-            }
-
-            // ~~
 
             async function Test(
                 )
@@ -393,24 +447,24 @@ Lightweight CSS and JavaScript framework.
                     user_table;
 
                 user_table = new USER_TABLE();
-                user_array = await user_table.GetValueArray( "?page=1" );
+                user_array = await user_table.GetUserArray( "?page=1" );
 
                 for ( user of user_array )
                 {
-                    PrintResponse( "GET", user );
+                    WriteLine( "GET " + GetJsonText( user ) );
                 }
 
-                user = await user_table.GetValue( 2 );
-                PrintResponse( "GET", user );
+                user = await user_table.GetUser( 2 );
+                WriteLine( "GET " + GetJsonText( user ) );
 
                 user.email = "janet.weaver@yahoo.com";
-                user = await user_table.SetValue( user );
-                PrintResponse( "PUT", user );
+                user = await user_table.SetUser( user );
+                WriteLine( "PUT " + GetJsonText( user ) );
 
-                user = await user_table.FixValue( { email : "janet.weaver@gmail.com" } );
-                PrintResponse( "PATCH", user );
+                user = await user_table.FixUser( { email : "janet.weaver@gmail.com" } );
+                WriteLine( "PATCH " + GetJsonText( user ) );
 
-                user = await user_table.AddValue(
+                user = await user_table.AddUser(
                     {
                         email : "rick.deckard@live.com",
                         first_name : "Rick",
@@ -418,10 +472,10 @@ Lightweight CSS and JavaScript framework.
                         avatar : "https://s3.amazonaws.com/uifaces/faces/twitter/rickdeckard/128.jpg",
                     }
                     );
-                PrintResponse( "POST", user );
+                WriteLine( "POST " + GetJsonText( user ) );
 
-                user = await user_table.RemoveValue( 2 );
-                PrintResponse( "DELETE", user );
+                user = await user_table.RemoveUser( 2 );
+                WriteLine( "DELETE " + GetJsonText( user ) );
             }
 
             // -- STATEMENTS

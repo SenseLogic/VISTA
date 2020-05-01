@@ -543,7 +543,7 @@ class VISTA_COMPONENT extends HTMLElement
             }
             else if ( section_code.startsWith( "%" ) )
             {
-                function_code += "result += GetEncodedHtml( " +  section_code.substring( 1 ).trim() + " );\n";
+                function_code += "result += GetEscapedHtml( " +  section_code.substring( 1 ).trim() + " );\n";
             }
             else
             {

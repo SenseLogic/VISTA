@@ -41,20 +41,11 @@
 
                     this.GetValueArrayPropertyName = "data";
                     this.GetValuePropertyName = "data";
+                    this.DefineInterface( "User" );
                 }
             }
 
             // -- FUNCTIONS
-
-            function PrintResponse(
-                prefix,
-                object
-                )
-            {
-                document.write( "<pre>" + prefix + " " + GetJsonText( object ) + "</pre>" );
-            }
-
-            // ~~
 
             async function Test(
                 )
@@ -65,24 +56,24 @@
                     user_table;
 
                 user_table = new USER_TABLE();
-                user_array = await user_table.GetValueArray( "?page=1" );
+                user_array = await user_table.GetUserArray( "?page=1" );
 
                 for ( user of user_array )
                 {
-                    PrintResponse( "GET", user );
+                    WriteLine( "GET " + GetJsonText( user ) );
                 }
 
-                user = await user_table.GetValue( 2 );
-                PrintResponse( "GET", user );
+                user = await user_table.GetUser( 2 );
+                WriteLine( "GET " + GetJsonText( user ) );
 
                 user.email = "janet.weaver@yahoo.com";
-                user = await user_table.SetValue( user );
-                PrintResponse( "PUT", user );
+                user = await user_table.SetUser( user );
+                WriteLine( "PUT " + GetJsonText( user ) );
 
-                user = await user_table.FixValue( { email : "janet.weaver@gmail.com" } );
-                PrintResponse( "PATCH", user );
+                user = await user_table.FixUser( { email : "janet.weaver@gmail.com" } );
+                WriteLine( "PATCH " + GetJsonText( user ) );
 
-                user = await user_table.AddValue(
+                user = await user_table.AddUser(
                     {
                         email : "rick.deckard@live.com",
                         first_name : "Rick",
@@ -90,10 +81,10 @@
                         avatar : "https://s3.amazonaws.com/uifaces/faces/twitter/rickdeckard/128.jpg",
                     }
                     );
-                PrintResponse( "POST", user );
+                WriteLine( "POST " + GetJsonText( user ) );
 
-                user = await user_table.RemoveValue( 2 );
-                PrintResponse( "DELETE", user );
+                user = await user_table.RemoveUser( 2 );
+                WriteLine( "DELETE " + GetJsonText( user ) );
             }
 
             // -- STATEMENTS

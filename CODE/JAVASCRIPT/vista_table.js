@@ -339,4 +339,18 @@ class VISTA_TABLE extends VISTA_DATA
 
         return this.RemoveLocalValue( value_key );
     }
+
+    // ~~
+
+    DefineInterface(
+        value_name
+        )
+    {
+        this[ "Get" + value_name + "Array" ] = this.GetValueArray;
+        this[ "Get" + value_name ] = this.GetValue;
+        this[ "Add" + value_name ] = this.AddValue;
+        this[ "Set" + value_name ] = this.SetValue;
+        this[ "Fix" + value_name ] = this.FixValue;
+        this[ "Remove" + value_name ] = this.RemoveValue;
+    }
 }

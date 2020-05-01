@@ -130,7 +130,7 @@
                 wavefront_model.ParseMaterialFileText( GetElementById( "cube-material" ).text );
                 wavefront_model.ParseModelFileText( GetElementById( "cube-model" ).text );
 
-                document.write( GetEncodedHtml( GetJsonText( wavefront_model ) ) );
+                document.write( GetEscapedHtml( GetJsonText( wavefront_model ) ) );
             }
 
             // -- STATEMENTS

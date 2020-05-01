@@ -68,14 +68,14 @@ function ShowError(
 
                 if ( argument.stack === undefined )
                 {
-                    error_message_element.innerHTML = GetEncodedHtml( argument.toString() )
+                    error_message_element.innerHTML = GetEscapedHtml( argument.toString() )
                 }
                 else
                 {
                     error_message_element.innerHTML
-                        = GetEncodedHtml( argument.toString() )
+                        = GetEscapedHtml( argument.toString() )
                           + "\n"
-                          + GetEncodedHtml( argument.stack );
+                          + GetEscapedHtml( argument.stack );
                 }
             }
             else if ( argument instanceof XMLHttpRequest )
@@ -83,13 +83,13 @@ function ShowError(
                 error_message_element = document.createElement( "pre" );
 
                 error_message_element.innerHTML
-                    = GetEncodedHtml( argument.responseURL )
+                    = GetEscapedHtml( argument.responseURL )
                       + "\n"
-                      + GetEncodedHtml( argument.status )
+                      + GetEscapedHtml( argument.status )
                       + " "
-                      + GetEncodedHtml( argument.statusText )
+                      + GetEscapedHtml( argument.statusText )
                       + "\n"
-                      + GetEncodedHtml( argument.responseText );
+                      + GetEscapedHtml( argument.responseText );
             }
             else
             {
@@ -147,6 +147,16 @@ function PrintError(
     ShowError( ...arguments );
     PrintStack();
     console.error( ...arguments );
+}
+
+// ~~
+
+function WriteLine(
+    line
+    )
+{
+    document.body.appendChild( document.createTextNode( line ) );
+    document.body.appendChild( document.createElement( "br" ) );
 }
 
 // ~~
@@ -305,6 +315,23 @@ function GetUnit(
     }
 
     return "";
+}
+
+// ~~
+
+function GetEscapedHtml(
+    text
+    )
+{
+    return (
+        text
+            .split( "&" ).join( "&amp;" )
+            .split( "<" ).join( "&lt;" )
+            .split( ">" ).join( "&gt;" )
+            .split( "\\" ).join( "&#92;" )
+            .split( "\"" ).join( "&#34;" )
+            .split( "'" ).join( "&#39;" )
+        );
 }
 
 // ~~
