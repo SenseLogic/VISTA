@@ -1,6 +1,6 @@
 // -- TYPES
 
-class VISTA_TABLE extends VISTA_DATA
+class VISTA_STORE extends VISTA_DATA
 {
     // -- CONSTRUCTORS
 
@@ -8,7 +8,8 @@ class VISTA_TABLE extends VISTA_DATA
         value_class,
         key_property_name,
         property_name_array,
-        request_url
+        request_url,
+        value_name = undefined
         )
     {
         super();
@@ -34,6 +35,16 @@ class VISTA_TABLE extends VISTA_DATA
         this.AddValuePropertyName = undefined;
         this.SetValuePropertyName = undefined;
         this.FixValuePropertyName = undefined;
+
+        if ( value_name !== undefined )
+        {
+            this[ "Get" + value_name + "Array" ] = this.GetValueArray;
+            this[ "Get" + value_name ] = this.GetValue;
+            this[ "Add" + value_name ] = this.AddValue;
+            this[ "Set" + value_name ] = this.SetValue;
+            this[ "Fix" + value_name ] = this.FixValue;
+            this[ "Remove" + value_name ] = this.RemoveValue;
+        }
     }
 
     // -- INQUIRIES
@@ -338,19 +349,5 @@ class VISTA_TABLE extends VISTA_DATA
         await SendJsonRequest( this.RemoveValueUrl + query_prefix + value_key + query_suffix, this.RemoveValueMethod, null );
 
         return this.RemoveLocalValue( value_key );
-    }
-
-    // ~~
-
-    DefineInterface(
-        value_name
-        )
-    {
-        this[ "Get" + value_name + "Array" ] = this.GetValueArray;
-        this[ "Get" + value_name ] = this.GetValue;
-        this[ "Add" + value_name ] = this.AddValue;
-        this[ "Set" + value_name ] = this.SetValue;
-        this[ "Fix" + value_name ] = this.FixValue;
-        this[ "Remove" + value_name ] = this.RemoveValue;
     }
 }

@@ -332,7 +332,7 @@ Lightweight CSS and JavaScript framework.
         <meta charset="UTF-8">
         <title>Sample</title>
     </head>
-    <body>
+    <body style="font-family:monospace">
         <script src="../../CODE/JAVASCRIPT/vista_base.js"></script>
         <script src="../../CODE/JAVASCRIPT/vista_request.js"></script>
         <script>
@@ -394,11 +394,12 @@ Lightweight CSS and JavaScript framework.
         <meta charset="UTF-8">
         <title>Sample</title>
     </head>
-    <body>
+    <body style="font-family:monospace">
         <script src="../../CODE/JAVASCRIPT/vista_base.js"></script>
+        <script src="../../CODE/JAVASCRIPT/vista_text.js"></script>
         <script src="../../CODE/JAVASCRIPT/vista_component.js"></script>
         <script src="../../CODE/JAVASCRIPT/vista_request.js"></script>
-        <script src="../../CODE/JAVASCRIPT/vista_table.js"></script>
+        <script src="../../CODE/JAVASCRIPT/vista_store.js"></script>
         <script>
             // -- TYPES
 
@@ -415,7 +416,7 @@ Lightweight CSS and JavaScript framework.
 
             // ~~
 
-            class USER_TABLE extends VISTA_TABLE
+            class USER_STORE extends VISTA_STORE
             {
                 // -- CONSTRUCTORS
 
@@ -426,12 +427,12 @@ Lightweight CSS and JavaScript framework.
                         USER,
                         "id",
                         [ "id", "email", "first_name", "last_name", "avatar" ],
-                        "https://reqres.in/api/users"
+                        "https://reqres.in/api/users",
+                        "User"
                         );
 
                     this.GetValueArrayPropertyName = "data";
                     this.GetValuePropertyName = "data";
-                    this.DefineInterface( "User" );
                 }
             }
 
@@ -443,27 +444,27 @@ Lightweight CSS and JavaScript framework.
                 var
                     user,
                     user_array,
-                    user_table;
+                    user_store;
 
-                user_table = new USER_TABLE();
-                user_array = await user_table.GetUserArray( "?page=1" );
+                user_store = new USER_STORE();
+                user_array = await user_store.GetUserArray( "?page=1" );
 
                 for ( user of user_array )
                 {
                     WriteLine( "GET " + GetJsonText( user ) );
                 }
 
-                user = await user_table.GetUser( 2 );
+                user = await user_store.GetUser( 2 );
                 WriteLine( "GET " + GetJsonText( user ) );
 
                 user.email = "janet.weaver@yahoo.com";
-                user = await user_table.SetUser( user );
+                user = await user_store.SetUser( user );
                 WriteLine( "PUT " + GetJsonText( user ) );
 
-                user = await user_table.FixUser( { email : "janet.weaver@gmail.com" } );
+                user = await user_store.FixUser( { email : "janet.weaver@gmail.com" } );
                 WriteLine( "PATCH " + GetJsonText( user ) );
 
-                user = await user_table.AddUser(
+                user = await user_store.AddUser(
                     {
                         email : "rick.deckard@live.com",
                         first_name : "Rick",
@@ -473,7 +474,7 @@ Lightweight CSS and JavaScript framework.
                     );
                 WriteLine( "POST " + GetJsonText( user ) );
 
-                user = await user_table.RemoveUser( 2 );
+                user = await user_store.RemoveUser( 2 );
                 WriteLine( "DELETE " + GetJsonText( user ) );
             }
 
