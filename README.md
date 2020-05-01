@@ -334,7 +334,6 @@ Lightweight CSS and JavaScript framework.
     </head>
     <body>
         <script src="../../CODE/JAVASCRIPT/vista_base.js"></script>
-        <script src="../../CODE/JAVASCRIPT/vista_element.js"></script>
         <script src="../../CODE/JAVASCRIPT/vista_request.js"></script>
         <script>
             // -- FUNCTIONS

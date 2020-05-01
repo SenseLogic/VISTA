@@ -151,6 +151,15 @@ function PrintError(
 
 // ~~
 
+function Write(
+    text
+    )
+{
+    document.body.appendChild( document.createTextNode( line ) );
+}
+
+// ~~
+
 function WriteLine(
     line
     )
