@@ -57,7 +57,7 @@ class VISTA_WAVEFRONT_MODEL
 
         part_array = line.split( " " );
 
-        return parseFloat( part_array[ 1 ] );
+        return GetReal( part_array[ 1 ] );
     }
 
     // ~~
@@ -72,8 +72,8 @@ class VISTA_WAVEFRONT_MODEL
         part_array = line.split( " " );
 
         return [
-            parseFloat( part_array[ 1 ] ),
-            parseFloat( part_array[ 2 ] )
+            GetReal( part_array[ 1 ] ),
+            GetReal( part_array[ 2 ] )
             ];
     }
 
@@ -89,9 +89,9 @@ class VISTA_WAVEFRONT_MODEL
         part_array = line.split( " " );
 
         return [
-            parseFloat( part_array[ 1 ] ),
-            parseFloat( part_array[ 2 ] ),
-            parseFloat( part_array[ 3 ] )
+            GetReal( part_array[ 1 ] ),
+            GetReal( part_array[ 2 ] ),
+            GetReal( part_array[ 3 ] )
             ];
     }
 
@@ -137,7 +137,7 @@ class VISTA_WAVEFRONT_MODEL
             if ( index_array.length > 0
                  && index_array[ 0 ].length > 0 )
             {
-                position_index = parseFloat( index_array[ 0 ] );
+                position_index = GetReal( index_array[ 0 ] );
 
                 if ( position_index < 0 )
                 {
@@ -158,7 +158,7 @@ class VISTA_WAVEFRONT_MODEL
             if ( index_array.length > 1
                  && index_array[ 1 ].length > 0 )
             {
-                mapping_index = parseFloat( index_array[ 1 ] );
+                mapping_index = GetReal( index_array[ 1 ] );
 
                 if ( mapping_index < 0 )
                 {
@@ -179,7 +179,7 @@ class VISTA_WAVEFRONT_MODEL
             if ( index_array.length > 2
                  && index_array[ 2 ].length > 0 )
             {
-                normal_index = parseFloat( index_array[ 2 ] );
+                normal_index = GetReal( index_array[ 2 ] );
 
                 if ( normal_index < 0 )
                 {

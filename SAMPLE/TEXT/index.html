@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Sample</title>
+    </head>
+    <body style="font-family:monospace">
+        <script src="../../CODE/JAVASCRIPT/vista_base.js"></script>
+        <script src="../../CODE/JAVASCRIPT/vista_text.js"></script>
+        <script>
+            WriteLine( "AbcÄbç-Abcäbç" );
+            WriteLine( "AbcÄbç".GetRightPaddedText( 13, '-' ) );
+            WriteLine( "Abcäbç".GetLeftPaddedText( 13, '-' ) );
+            WriteLine( "AbcÄbç-Abcäbç".GetLowerCaseText() );
+            WriteLine( "AbcÄbç-Abcäbç".GetUpperCaseText() );
+            WriteLine( "AbcÄbç-Abcäbç".GetCapitalCaseText() );
+            WriteLine( "AbcÄbç-Abcäbç".GetTitleCaseText() );
+            WriteLine( "AbcÄbç-Abcäbç".GetPascalCaseText() );
+            WriteLine( "AbcÄbç-Abcäbç".GetCamelCaseText() );
+            WriteLine( "AbcÄbç-Abcäbç".GetSnakeCaseText() );
+            WriteLine( "AbcÄbç-Abcäbç".GetKebabCaseText() );
+            WriteLine( "AbcÄbç-Abcäbç".RemovePrefix( "Abc" ) );
+            WriteLine( "AbcÄbç-Abcäbç".RemoveSuffix( "äbç" ) );
+            WriteLine( GetNaturalHexadecimalText( 12345678, 8 ) );
+            WriteLine( GetByteArrayHexadecimalText( GetRandomByteArray( 4 ) ) );
+        </script>
+    </body>
+</html>

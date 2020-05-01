@@ -3,8 +3,6 @@
     <head>
         <meta charset="UTF-8">
         <title>Sample</title>
-        <style>
-        </style>
     </head>
     <body>
         <script src="../../CODE/JAVASCRIPT/vista_base.js"></script>
@@ -130,7 +128,7 @@
                 wavefront_model.ParseMaterialFileText( GetElementById( "cube-material" ).text );
                 wavefront_model.ParseModelFileText( GetElementById( "cube-model" ).text );
 
-                document.write( GetEscapedHtml( GetJsonText( wavefront_model ) ) );
+                WriteLine( GetJsonText( wavefront_model ) );
             }
 
             // -- STATEMENTS

@@ -3,26 +3,22 @@
     <head>
         <meta charset="UTF-8">
         <title>Sample</title>
-        <link rel="stylesheet" href="style.css" type="text/css">
     </head>
-    <body>
+    <body style="font-family:monospace">
         <script src="../../CODE/JAVASCRIPT/vista_base.js"></script>
+        <script src="../../CODE/JAVASCRIPT/vista_text.js"></script>
         <script src="../../CODE/JAVASCRIPT/vista_time.js"></script>
         <script src="../../CODE/JAVASCRIPT/vista_uuid.js"></script>
         <script>
             var
                 uuid_index;
 
-            document.write( "<pre>" );
-
             for ( uuid_index = 0;
                   uuid_index < 32;
                   ++uuid_index )
             {
-                document.write( GetTimeUuid() + " | " + GetRandomUuid() + "<br/>" );
+                WriteLine( GetTimeUuid() + " | " + GetRandomUuid() );
             }
-
-            document.write( "</pre>" );
         </script>
     </body>
 </html>

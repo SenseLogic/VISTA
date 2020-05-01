@@ -11,7 +11,6 @@ var
 var
     Html = String.raw,
     Alert = alert,
-    Write = document.write,
     Print = console.log,
     Dump = console.dir,
     PrintTable = console.table,
@@ -151,11 +150,29 @@ function PrintError(
 
 // ~~
 
-function Write(
+function WriteText(
     text
     )
 {
-    document.body.appendChild( document.createTextNode( line ) );
+    document.write( GetEscapedHtml( text ) );
+}
+
+// ~~
+
+function WriteLine(
+    line
+    )
+{
+    document.write( GetEscapedHtml( line ) + "<br/>" );
+}
+
+// ~~
+
+function WriteText(
+    text
+    )
+{
+    document.body.appendChild( document.createTextNode( text ) );
 }
 
 // ~~
@@ -166,93 +183,6 @@ function WriteLine(
 {
     document.body.appendChild( document.createTextNode( line ) );
     document.body.appendChild( document.createElement( "br" ) );
-}
-
-// ~~
-
-function IsMobileBrowser()
-{
-    var
-        user_agent;
-
-    user_agent = navigator.userAgent.toLowerCase();
-
-    return (
-        user_agent.indexOf( 'android' ) >= 0
-        || user_agent.indexOf( 'iphone' ) >= 0
-        || user_agent.indexOf( 'ipad' ) >= 0
-        || user_agent.indexOf( 'ipod' ) >= 0
-        || user_agent.indexOf( 'blackberry' ) >= 0
-        || user_agent.indexOf( 'phone' ) >= 0
-        );
-}
-
-// ~~
-
-function GetLeftPaddedText(
-    text,
-    minimum_character_count,
-    padding_character
-    )
-{
-    if ( text.length < minimum_character_count )
-    {
-        return padding_character.repeat( minimum_character_count - text.length ) + text;
-    }
-    else
-    {
-        return text;
-    }
-}
-
-// ~~
-
-function GetRightPaddedText(
-    text,
-    minimum_character_count,
-    padding_character
-    )
-{
-    if ( text.length < minimum_character_count )
-    {
-        return text + padding_character.repeat( minimum_character_count - text.length );
-    }
-    else
-    {
-        return text;
-    }
-}
-
-// ~~
-
-function GetNaturalHexadecimalText(
-    natural,
-    minimum_digit_count = 0
-    )
-{
-    return GetLeftPaddedText( natural.toString( 16 ), minimum_digit_count, '0' );
-}
-
-// ~~
-
-function GetByteArrayHexadecimalText(
-    byte_array
-    )
-{
-    var
-        byte_index,
-        hexadecimal_text;
-
-    hexadecimal_text = "";
-
-    for ( byte_index = 0;
-          byte_index < byte_array.length;
-          ++byte_index )
-    {
-        hexadecimal_text += GetNaturalHexadecimalText( byte_array[ byte_index ], 2 );
-    }
-
-    return hexadecimal_text;
 }
 
 // ~~
@@ -268,42 +198,6 @@ function GetRandomByteArray(
     window.crypto.getRandomValues( byte_array );
 
     return byte_array;
-}
-
-// ~~
-
-function RemoveStart(
-    text,
-    start
-    )
-{
-    if ( start !== ""
-         && text.startsWith( start ) )
-    {
-        return text.substring( start.length );
-    }
-    else
-    {
-        return text;
-    }
-}
-
-// ~~
-
-function RemoveEnd(
-    text,
-    end
-    )
-{
-    if ( end !== ""
-         && text.endsWith( end ) )
-    {
-        return text.substring( 0, text.length - end.length );
-    }
-    else
-    {
-        return text;
-    }
 }
 
 // ~~
@@ -375,6 +269,25 @@ function GetDecodedHtml(
 
 // ~~
 
+function IsMobileBrowser()
+{
+    var
+        user_agent;
+
+    user_agent = navigator.userAgent.toLowerCase();
+
+    return (
+        user_agent.indexOf( 'android' ) >= 0
+        || user_agent.indexOf( 'iphone' ) >= 0
+        || user_agent.indexOf( 'ipad' ) >= 0
+        || user_agent.indexOf( 'ipod' ) >= 0
+        || user_agent.indexOf( 'blackberry' ) >= 0
+        || user_agent.indexOf( 'phone' ) >= 0
+        );
+}
+
+// ~~
+
 function AwaitCall(
     called_function,
     ...argument_array
@@ -424,6 +337,14 @@ function RepeatCall(
 {
     return setInterval( called_function, delay_time * 1000.0 );
 }
+
+// ~~
+
+String.prototype.GetLowerCaseText = String.prototype.toLowerCase;
+
+// ~~
+
+String.prototype.GetUpperCaseText = String.prototype.toUpperCase;
 
 // ~~
 

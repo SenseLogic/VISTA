@@ -457,11 +457,11 @@ function ParseNumericText(
 
     if ( unit === "" )
     {
-        amount = parseFloat( text );
+        amount = GetReal( text );
     }
     else
     {
-        amount = parseFloat( RemoveEnd( text, unit ) );
+        amount = GetReal( RemoveSuffix( text, unit ) );
     }
 
     return {
@@ -561,9 +561,9 @@ function ParseColorText(
             component_array = text.substring( 4, text.length - 1 ).split( "," );
 
             return {
-                Red : parseFloat( component_array[ 0 ] ),
-                Green : parseFloat( component_array[ 1 ] ),
-                Blue : parseFloat( component_array[ 2 ] ),
+                Red : GetReal( component_array[ 0 ] ),
+                Green : GetReal( component_array[ 1 ] ),
+                Blue : GetReal( component_array[ 2 ] ),
                 Opacity : 1.0
                 };
         }
@@ -572,10 +572,10 @@ function ParseColorText(
             component_array = text.substring( 5, text.length - 1 ).split( "," );
 
             return {
-                Red : parseFloat( component_array[ 0 ] ),
-                Green : parseFloat( component_array[ 1 ] ),
-                Blue : parseFloat( component_array[ 2 ] ),
-                Opacity : parseFloat( component_array[ 3 ] )
+                Red : GetReal( component_array[ 0 ] ),
+                Green : GetReal( component_array[ 1 ] ),
+                Blue : GetReal( component_array[ 2 ] ),
+                Opacity : GetReal( component_array[ 3 ] )
                 };
         }
     }
