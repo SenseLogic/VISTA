@@ -109,7 +109,8 @@ function GetObjectText(
 
     for ( property in object )
     {
-        if ( object.hasOwnProperty( property ) )
+        if ( object.hasOwnProperty( property )
+             && !( object[ property ] instanceof Function ) )
         {
             text_array.push( GetValueText( object[ property ] ) );
         }
