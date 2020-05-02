@@ -1,5 +1,37 @@
 // -- FUNCTIONS
 
+function GetNaturalHexadecimalText(
+    natural,
+    minimum_digit_count = 0
+    )
+{
+    return natural.toString( 16 ).GetLeftPaddedText( minimum_digit_count, '0' );
+}
+
+// ~~
+
+function GetByteArrayHexadecimalText(
+    byte_array
+    )
+{
+    var
+        byte_index,
+        hexadecimal_text;
+
+    hexadecimal_text = "";
+
+    for ( byte_index = 0;
+          byte_index < byte_array.length;
+          ++byte_index )
+    {
+        hexadecimal_text += GetNaturalHexadecimalText( byte_array[ byte_index ], 2 );
+    }
+
+    return hexadecimal_text;
+}
+
+// ~~
+
 String.prototype.GetLeftPaddedText = function(
     minimum_character_count,
     padding_character = ' '
@@ -215,32 +247,70 @@ String.prototype.RemoveSuffix = function(
 
 // ~~
 
-function GetNaturalHexadecimalText(
-    natural,
-    minimum_digit_count = 0
+String.prototype.GetTranslatedText = function(
+    language_code,
+    default_language_code = "en",
+    translation_separator = '¨'
     )
 {
-    return natural.toString( 16 ).GetLeftPaddedText( minimum_digit_count, '0' );
+    var
+        translated_text,
+        translated_text_array,
+        translated_text_index;
+
+    if ( this === "" )
+    {
+        return "";
+    }
+    else
+    {
+        translated_text_array = this.split( translation_separator );
+
+        if ( language_code !== default_language_code )
+        {
+            for ( translated_text_index = 1;
+                  translated_text_index < translated_text_array.length;
+                  ++translated_text_index )
+            {
+                translated_text = translated_text_array[ translated_text_index ];
+
+                if ( translated_text.substring( 0, 2 ) === language_code )
+                {
+                    return translated_text.substring( 3 );
+                }
+            }
+        }
+
+        return translated_text_array[ 0 ];
+    }
 }
 
 // ~~
 
-function GetByteArrayHexadecimalText(
-    byte_array
+function GetRealText(
+    real,
+    fractional_digit_count = undefined,
+    decimal_separator = '.'
     )
 {
     var
-        byte_index,
-        hexadecimal_text;
+        real_text;
 
-    hexadecimal_text = "";
-
-    for ( byte_index = 0;
-          byte_index < byte_array.length;
-          ++byte_index )
+    if ( fractional_digit_count === undefined )
     {
-        hexadecimal_text += GetNaturalHexadecimalText( byte_array[ byte_index ], 2 );
+        real_text = real.toString();
+    }
+    else
+    {
+        real_text = real.toFixed( fractional_digit_count );
     }
 
-    return hexadecimal_text;
+    if ( decimal_separator === '.' )
+    {
+        return real_text;
+    }
+    else
+    {
+        return real_text.split( '.' ).join( decimal_separator );
+    }
 }
