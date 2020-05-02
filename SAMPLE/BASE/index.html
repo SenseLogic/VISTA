@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Sample</title>
+    </head>
+    <body style="font-family:monospace">
+        <script src="../../CODE/JAVASCRIPT/vista_base.js"></script>
+        <script>
+            WriteLine( 12 );
+            WriteLine( 12.345 );
+            WriteLine( "a" );
+            WriteLine( GetValueText( "a" ) );
+            WriteLine( [ 1, 2, 3 ] );
+            WriteLine( [ "a", "b", "c" ] );
+            WriteLine( GetRandomByteArray( 8 ) );
+            WriteLine( { "a" : 1, "b" : 2, "c" : 3 } );
+            WriteLine(
+                {
+                    "a" : 12,
+                    "b" : [ 1, 2, 3 ],
+                    "c" : GetRandomByteArray( 8 ),
+                    "d" : function () { Print( "Hello" ); }
+                }
+                );
+        </script>
+    </body>
+</html>

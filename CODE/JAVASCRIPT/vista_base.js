@@ -29,10 +29,12 @@ var
 // ~~
 
 function GetValueText(
-    value
+    value,
+    value_is_unquoted = false
     )
 {
-    if ( typeof value === "string" )
+    if ( typeof value === "string"
+         && value_is_unquoted )
     {
         return value;
     }
@@ -53,8 +55,16 @@ function GetValueText(
         }
         else
         {
-            return "[ " + GetValueArrayText( value, ", " ) + " ]";
+            return "[" + GetArrayText( value, "," ) + "]";
         }
+    }
+    else if ( value instanceof Function )
+    {
+        return value.name + "()";
+    }
+    else if ( value instanceof Object )
+    {
+        return "{" + GetObjectText( value, "," ) + "}";
     }
     else
     {
@@ -64,9 +74,10 @@ function GetValueText(
 
 // ~~
 
-function GetValueArrayText(
+function GetArrayText(
     value_array,
-    separator_text
+    separator_text,
+    value_is_unquoted = false
     )
 {
     var
@@ -77,7 +88,31 @@ function GetValueArrayText(
 
     for ( value of value_array )
     {
-        text_array.push( GetValueText( value ) );
+        text_array.push( GetValueText( value, value_is_unquoted ) );
+    }
+
+    return text_array.join( separator_text );
+}
+
+// ~~
+
+function GetObjectText(
+    object,
+    separator_text
+    )
+{
+    var
+        property,
+        text_array;
+
+    text_array = [];
+
+    for ( property in object )
+    {
+        if ( object.hasOwnProperty( property ) )
+        {
+            text_array.push( GetValueText( object[ property ] ) );
+        }
     }
 
     return text_array.join( separator_text );
@@ -88,7 +123,7 @@ function GetValueArrayText(
 function Write(
     )
 {
-    document.body.appendChild( document.createTextNode( GetValueArrayText( arguments, "" ) ) );
+    document.body.appendChild( document.createTextNode( GetArrayText( arguments, "", true ) ) );
 }
 
 // ~~
@@ -96,7 +131,7 @@ function Write(
 function WriteLine(
     )
 {
-    document.body.appendChild( document.createTextNode( GetValueArrayText( arguments, "" ) ) );
+    document.body.appendChild( document.createTextNode( GetArrayText( arguments, "", true ) ) );
     document.body.appendChild( document.createElement( "br" ) );
 }
 
@@ -105,7 +140,7 @@ function WriteLine(
 function WriteSpacedLine(
     )
 {
-    document.body.appendChild( document.createTextNode( GetValueArrayText( arguments, " " ) ) );
+    document.body.appendChild( document.createTextNode( GetArrayText( arguments, " ", true ) ) );
     document.body.appendChild( document.createElement( "br" ) );
 }
 
