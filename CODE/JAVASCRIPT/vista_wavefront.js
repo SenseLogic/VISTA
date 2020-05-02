@@ -230,36 +230,36 @@ class VISTA_WAVEFRONT_MODEL
         {
             line = line.trim();
 
-            if ( line.startsWith( "newmtl " ) )
+            if ( line.HasPrefix( "newmtl " ) )
             {
                 this.MaterialIndex = this.MaterialArray.length;
                 this.MaterialArray.push( new VISTA_MATERIAL( line.substring( 7 ) ) );
             }
-            else if ( line.startsWith( "Ka " ) )
+            else if ( line.HasPrefix( "Ka " ) )
             {
                 this.MaterialArray[ this.MaterialIndex ].AmbientColor = this.GetVector3( line );
             }
-            else if ( line.startsWith( "Kd " ) )
+            else if ( line.HasPrefix( "Kd " ) )
             {
                 this.MaterialArray[ this.MaterialIndex ].DiffuseColor = this.GetVector3( line );
             }
-            else if ( line.startsWith( "Ks " ) )
+            else if ( line.HasPrefix( "Ks " ) )
             {
                 this.MaterialArray[ this.MaterialIndex ].SpecularColor = this.GetVector3( line );
             }
-            else if ( line.startsWith( "Ns " ) )
+            else if ( line.HasPrefix( "Ns " ) )
             {
                 this.MaterialArray[ this.MaterialIndex ].SpecularExponent = this.GetReal( line );
             }
-            else if ( line.startsWith( "Ke " ) )
+            else if ( line.HasPrefix( "Ke " ) )
             {
                 this.MaterialArray[ this.MaterialIndex ].EmissiveColor = this.GetVector3( line );
             }
-            else if ( line.startsWith( "Ni " ) )
+            else if ( line.HasPrefix( "Ni " ) )
             {
                 this.MaterialArray[ this.MaterialIndex ].Density = this.GetReal( line );
             }
-            else if ( line.startsWith( "d " ) )
+            else if ( line.HasPrefix( "d " ) )
             {
                 this.MaterialArray[ this.MaterialIndex ].Opacity = this.GetReal( line );
             }
@@ -282,33 +282,33 @@ class VISTA_WAVEFRONT_MODEL
         {
             line = line.trim();
 
-            if ( line.startsWith( "v " ) )
+            if ( line.HasPrefix( "v " ) )
             {
                 this.PositionVectorArray.push( this.GetVector3( line ) );
             }
-            else if ( line.startsWith( "vn " ) )
+            else if ( line.HasPrefix( "vn " ) )
             {
                 this.NormalVectorArray.push( this.GetVector3( line ) );
             }
-            else if ( line.startsWith( "vt " ) )
+            else if ( line.HasPrefix( "vt " ) )
             {
                 this.MappingVectorArray.push( this.GetVector2( line ) );
             }
-            else if ( line.startsWith( "f " ) )
+            else if ( line.HasPrefix( "f " ) )
             {
                 this.FaceArray.push( this.GetFace( line ) );
             }
-            else if ( line.startsWith( "o " ) )
+            else if ( line.HasPrefix( "o " ) )
             {
                 this.ObjectIndex = this.ObjectArray.length;
                 this.ObjectArray.push( line.substring( 2 ) );
             }
-            else if ( line.startsWith( "g " ) )
+            else if ( line.HasPrefix( "g " ) )
             {
                 this.GroupIndex = this.GroupArray.length;
                 this.GroupArray.push( line.substring( 2 ) );
             }
-            else if ( line.startsWith( "usemtl " ) )
+            else if ( line.HasPrefix( "usemtl " ) )
             {
                 this.MaterialIndex = this.MaterialArray.indexOf( line.substring( 7 ) );
             }

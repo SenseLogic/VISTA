@@ -78,7 +78,7 @@ Lightweight CSS and JavaScript framework.
             // -- STATEMENTS
 
             GetElements( ".line" )
-                .SetProperties(
+                .SetStyles(
                     {
                         "margin-top" : "2vw",
                         "width" : "100%",
@@ -88,32 +88,32 @@ Lightweight CSS and JavaScript framework.
                     );
 
             GetElements( ".block" )
-                .SetProperties(
+                .SetStyles(
                     {
                         "width" : "5vw",
                         "height" : "5vw"
                     }
                     )
-                .AnimateProperties(
+                .AnimateStyles(
                     {
                         "transform" : [ "translateX(0vw)", "translateX(30vw)", "translateX(70vw)", "translateX(90vw)" ],
                         "opacity" : [ "1.0", "0.5", "0.1", "1.0" ]
                     },
                     [ 0.0, 2.0, 4.0, 6.0 ]
                     )
-                .AnimateProperties(
+                .AnimateStyles(
                     {
                         "background-color" : [ "#FF8888", "#FFFF00", "#00FFFF", "#FF00FF" ]
                     },
                     [ 2.0, 4.0, 5.0, 6.0 ]
                     )
-                .AnimateProperties(
+                .AnimateStyles(
                     {
                         "display" : [ "none", "block" ]
                     },
                     [ 2.5, 2.75 ]
                     )
-                .AnimateProperties(
+                .AnimateStyles(
                     {
                         "width" : [ "2vw", "5vw" ]
                     },
@@ -128,7 +128,7 @@ Lightweight CSS and JavaScript framework.
                 function (
                     )
                 {
-                    GetElements( ".block" ).StopProperties();
+                    GetElements( ".block" ).StopStyles();
                 },
                 6.0
                 );
@@ -396,7 +396,6 @@ Lightweight CSS and JavaScript framework.
     </head>
     <body style="font-family:monospace">
         <script src="../../CODE/JAVASCRIPT/vista_base.js"></script>
-        <script src="../../CODE/JAVASCRIPT/vista_text.js"></script>
         <script src="../../CODE/JAVASCRIPT/vista_component.js"></script>
         <script src="../../CODE/JAVASCRIPT/vista_request.js"></script>
         <script src="../../CODE/JAVASCRIPT/vista_store.js"></script>

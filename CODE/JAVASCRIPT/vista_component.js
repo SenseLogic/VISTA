@@ -445,11 +445,11 @@ class VISTA_COMPONENT extends HTMLElement
                     line = line_array[ line_index ];
                     trimmed_line = line.trim();
 
-                    if ( trimmed_line.endsWith( '{' ) )
+                    if ( trimmed_line.HasSuffix( "{" ) )
                     {
                         ++brace_level;
                     }
-                    else if ( trimmed_line.startsWith( '}' ) )
+                    else if ( trimmed_line.HasPrefix( "}" ) )
                     {
                         --brace_level;
 
@@ -458,7 +458,7 @@ class VISTA_COMPONENT extends HTMLElement
                             selector_text = "";
                         }
                     }
-                    else if ( trimmed_line.startsWith( "@media " ) )
+                    else if ( trimmed_line.HasPrefix( "@media " ) )
                     {
                         trimmed_line = trimmed_line.slice( 6 );
 
@@ -479,7 +479,7 @@ class VISTA_COMPONENT extends HTMLElement
                     else if ( brace_level === 0 )
                     {
                         if ( trimmed_line === ""
-                             || trimmed_line.endsWith( "*/" ) )
+                             || trimmed_line.HasSuffix( "*/" ) )
                         {
                             selector_text = "";
                         }
@@ -537,11 +537,11 @@ class VISTA_COMPONENT extends HTMLElement
             section_code = section_part_array.shift();
             section_text = section_part_array.join( ":>" );
 
-            if ( section_code.startsWith( "#" ) )
+            if ( section_code.HasPrefix( "#" ) )
             {
                 function_code += "result += " + section_code.substring( 1 ).trim() + ";\n";
             }
-            else if ( section_code.startsWith( "%" ) )
+            else if ( section_code.HasPrefix( "%" ) )
             {
                 function_code += "result += GetEscapedHtml( " +  section_code.substring( 1 ).trim() + " );\n";
             }

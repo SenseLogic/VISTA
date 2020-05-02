@@ -1,71 +1,5 @@
 // -- FUNCTIONS
 
-function GetNaturalHexadecimalText(
-    natural,
-    minimum_digit_count = 0
-    )
-{
-    return natural.toString( 16 ).GetLeftPaddedText( minimum_digit_count, '0' );
-}
-
-// ~~
-
-function GetByteArrayHexadecimalText(
-    byte_array
-    )
-{
-    var
-        byte_index,
-        hexadecimal_text;
-
-    hexadecimal_text = "";
-
-    for ( byte_index = 0;
-          byte_index < byte_array.length;
-          ++byte_index )
-    {
-        hexadecimal_text += GetNaturalHexadecimalText( byte_array[ byte_index ], 2 );
-    }
-
-    return hexadecimal_text;
-}
-
-// ~~
-
-String.prototype.GetLeftPaddedText = function(
-    minimum_character_count,
-    padding_character = ' '
-    )
-{
-    if ( this.length < minimum_character_count )
-    {
-        return padding_character.repeat( minimum_character_count - this.length ) + this;
-    }
-    else
-    {
-        return this;
-    }
-}
-
-// ~~
-
-String.prototype.GetRightPaddedText = function(
-    minimum_character_count,
-    padding_character = ' '
-    )
-{
-    if ( this.length < minimum_character_count )
-    {
-        return this + padding_character.repeat( minimum_character_count - this.length );
-    }
-    else
-    {
-        return this;
-    }
-}
-
-// ~~
-
 String.prototype.GetCapitalCaseText = function(
     )
 {
@@ -146,7 +80,7 @@ String.prototype.GetCamelCaseText = function(
 // ~~
 
 String.prototype.GetSnakeCaseText = function(
-    separator_character = '_'
+    separator_character = "_"
     )
 {
     var
@@ -159,8 +93,8 @@ String.prototype.GetSnakeCaseText = function(
 
     for ( character of this )
     {
-        if ( character >= '0'
-             && character <= '9' )
+        if ( character >= "0"
+             && character <= "9" )
         {
             prior_character_is_digit = true;
         }
@@ -208,41 +142,7 @@ String.prototype.GetSnakeCaseText = function(
 String.prototype.GetKebabCaseText = function(
     )
 {
-    return this.GetSnakeCaseText( '-' );
-}
-
-// ~~
-
-String.prototype.RemovePrefix = function(
-    prefix
-    )
-{
-    if ( prefix !== ""
-         && this.startsWith( prefix ) )
-    {
-        return this.substring( prefix.length );
-    }
-    else
-    {
-        return this;
-    }
-}
-
-// ~~
-
-String.prototype.RemoveSuffix = function(
-    suffix
-    )
-{
-    if ( suffix !== ""
-         && this.endsWith( suffix ) )
-    {
-        return this.substring( 0, this.length - suffix.length );
-    }
-    else
-    {
-        return this;
-    }
+    return this.GetSnakeCaseText( "-" );
 }
 
 // ~~
@@ -250,7 +150,7 @@ String.prototype.RemoveSuffix = function(
 String.prototype.GetTranslatedText = function(
     language_code,
     default_language_code = "en",
-    translation_separator = '¨'
+    translation_separator = "¨"
     )
 {
     var
@@ -282,35 +182,5 @@ String.prototype.GetTranslatedText = function(
         }
 
         return translated_text_array[ 0 ];
-    }
-}
-
-// ~~
-
-function GetRealText(
-    real,
-    fractional_digit_count = undefined,
-    decimal_separator = '.'
-    )
-{
-    var
-        real_text;
-
-    if ( fractional_digit_count === undefined )
-    {
-        real_text = real.toString();
-    }
-    else
-    {
-        real_text = real.toFixed( fractional_digit_count );
-    }
-
-    if ( decimal_separator === '.' )
-    {
-        return real_text;
-    }
-    else
-    {
-        return real_text.split( '.' ).join( decimal_separator );
     }
 }

@@ -28,6 +28,89 @@ var
 
 // ~~
 
+function GetValueText(
+    value
+    )
+{
+    if ( typeof value === "string" )
+    {
+        return value;
+    }
+    else if ( value instanceof Uint8Array
+              || value instanceof Uint16Array
+              || value instanceof Uint32Array
+              || value instanceof BigUint64Array
+              || value instanceof Int8Array
+              || value instanceof Int16Array
+              || value instanceof Int32Array
+              || value instanceof BigInt64Array
+              || value instanceof Float32Array
+              || value instanceof Float64Array )
+    {
+        if ( value.length === 0 )
+        {
+            return [];
+        }
+        else
+        {
+            return "[ " + GetValueArrayText( value, ", " ) + " ]";
+        }
+    }
+    else
+    {
+        return GetJsonText( value );
+    }
+}
+
+// ~~
+
+function GetValueArrayText(
+    value_array,
+    separator_text
+    )
+{
+    var
+        text_array,
+        value;
+
+    text_array = [];
+
+    for ( value of value_array )
+    {
+        text_array.push( GetValueText( value ) );
+    }
+
+    return text_array.join( separator_text );
+}
+
+// ~~
+
+function Write(
+    )
+{
+    document.body.appendChild( document.createTextNode( GetValueArrayText( arguments, "" ) ) );
+}
+
+// ~~
+
+function WriteLine(
+    )
+{
+    document.body.appendChild( document.createTextNode( GetValueArrayText( arguments, "" ) ) );
+    document.body.appendChild( document.createElement( "br" ) );
+}
+
+// ~~
+
+function WriteSpacedLine(
+    )
+{
+    document.body.appendChild( document.createTextNode( GetValueArrayText( arguments, " " ) ) );
+    document.body.appendChild( document.createElement( "br" ) );
+}
+
+// ~~
+
 function ShowError(
     )
 {
@@ -98,7 +181,7 @@ function ShowError(
                 {
                     error_message_element.textContent = GetJsonText( argument );
                 }
-                else if ( argument.startsWith( '<' ) )
+                else if ( argument.HasPrefix( "<" ) )
                 {
                     error_message_element.innerHTML = argument;
                 }
@@ -150,43 +233,6 @@ function PrintError(
 
 // ~~
 
-function WriteText(
-    text
-    )
-{
-    document.write( GetEscapedHtml( text ) );
-}
-
-// ~~
-
-function WriteLine(
-    line
-    )
-{
-    document.write( GetEscapedHtml( line ) + "<br/>" );
-}
-
-// ~~
-
-function WriteText(
-    text
-    )
-{
-    document.body.appendChild( document.createTextNode( text ) );
-}
-
-// ~~
-
-function WriteLine(
-    line
-    )
-{
-    document.body.appendChild( document.createTextNode( line ) );
-    document.body.appendChild( document.createElement( "br" ) );
-}
-
-// ~~
-
 function GetRandomByteArray(
     byte_count
     )
@@ -210,7 +256,7 @@ function GetUnit(
     {
         for ( unit of UnitArray )
         {
-            if ( value.endsWith( unit ) )
+            if ( value.HasSuffix( unit ) )
             {
                 return unit;
             }
@@ -274,15 +320,15 @@ function IsMobileBrowser()
     var
         user_agent;
 
-    user_agent = navigator.userAgent.toLowerCase();
+    user_agent = navigator.userAgent.GetLowerCaseText();
 
     return (
-        user_agent.indexOf( 'android' ) >= 0
-        || user_agent.indexOf( 'iphone' ) >= 0
-        || user_agent.indexOf( 'ipad' ) >= 0
-        || user_agent.indexOf( 'ipod' ) >= 0
-        || user_agent.indexOf( 'blackberry' ) >= 0
-        || user_agent.indexOf( 'phone' ) >= 0
+        user_agent.indexOf( "android" ) >= 0
+        || user_agent.indexOf( "iphone" ) >= 0
+        || user_agent.indexOf( "ipad" ) >= 0
+        || user_agent.indexOf( "ipod" ) >= 0
+        || user_agent.indexOf( "blackberry" ) >= 0
+        || user_agent.indexOf( "phone" ) >= 0
         );
 }
 
@@ -340,11 +386,192 @@ function RepeatCall(
 
 // ~~
 
+function GetRealText(
+    real,
+    fractional_digit_count = undefined,
+    decimal_separator = ".",
+    trailing_zeroes_are_removed = false
+    )
+{
+    var
+        real_text;
+
+    if ( fractional_digit_count === undefined )
+    {
+        real_text = real.toString();
+    }
+    else
+    {
+        real_text = real.toFixed( fractional_digit_count );
+    }
+
+    if ( trailing_zeroes_are_removed
+         && real_text.indexOf( "." ) >= 0 )
+    {
+        real_text = real_text.RemoveSuffixCharacters( "0." );
+    }
+
+    if ( decimal_separator === "." )
+    {
+        return real_text;
+    }
+    else
+    {
+        return real_text.split( "." ).join( decimal_separator );
+    }
+}
+
+// ~~
+
 String.prototype.GetLowerCaseText = String.prototype.toLowerCase;
 
 // ~~
 
 String.prototype.GetUpperCaseText = String.prototype.toUpperCase;
+
+// ~~
+
+String.prototype.HasPrefix = String.prototype.startsWith;
+
+// ~~
+
+String.prototype.HasSuffix = String.prototype.endsWith;
+
+// ~~
+
+String.prototype.RemovePrefix = function(
+    prefix
+    )
+{
+    if ( prefix !== ""
+         && this.HasPrefix( prefix ) )
+    {
+        return this.substring( prefix.length );
+    }
+    else
+    {
+        return this;
+    }
+}
+
+// ~~
+
+String.prototype.RemoveSuffix = function(
+    suffix
+    )
+{
+    if ( suffix !== ""
+         && this.HasSuffix( suffix ) )
+    {
+        return this.substring( 0, this.length - suffix.length );
+    }
+    else
+    {
+        return this;
+    }
+}
+
+// ~~
+
+String.prototype.RemoveSuffixCharacters = function(
+    suffix_characters
+    )
+{
+    var
+        character_count,
+        last_character;
+
+    character_count = this.length;
+
+    while ( character_count > 0 )
+    {
+        last_character = this.charAt( character_count - 1 );
+
+        if ( suffix_characters.indexOf( last_character ) >= 0 )
+        {
+            --character_count;
+        }
+        else
+        {
+            break;
+        }
+    }
+
+    if ( character_count < this.length )
+    {
+        return this.substring( 0, character_count );
+    }
+    else
+    {
+        return this;
+    }
+}
+
+// ~~
+
+String.prototype.GetLeftPaddedText = function(
+    minimum_character_count,
+    padding_character = " "
+    )
+{
+    if ( this.length < minimum_character_count )
+    {
+        return padding_character.repeat( minimum_character_count - this.length ) + this;
+    }
+    else
+    {
+        return this;
+    }
+}
+
+// ~~
+
+String.prototype.GetRightPaddedText = function(
+    minimum_character_count,
+    padding_character = " "
+    )
+{
+    if ( this.length < minimum_character_count )
+    {
+        return this + padding_character.repeat( minimum_character_count - this.length );
+    }
+    else
+    {
+        return this;
+    }
+}
+
+// ~~
+
+function GetNaturalHexadecimalText(
+    natural,
+    minimum_digit_count = 0
+    )
+{
+    return natural.toString( 16 ).GetLeftPaddedText( minimum_digit_count, '0' );
+}
+
+// ~~
+
+function GetByteArrayHexadecimalText(
+    byte_array
+    )
+{
+    var
+        byte_index,
+        hexadecimal_text;
+
+    hexadecimal_text = "";
+
+    for ( byte_index = 0;
+          byte_index < byte_array.length;
+          ++byte_index )
+    {
+        hexadecimal_text += GetNaturalHexadecimalText( byte_array[ byte_index ], 2 );
+    }
+
+    return hexadecimal_text;
+}
 
 // ~~
 

@@ -11,6 +11,9 @@
             WriteLine( GetNaturalHexadecimalText( 12345678, 8 ) );
             WriteLine( GetByteArrayHexadecimalText( GetRandomByteArray( 4 ) ) );
             WriteLine( "AbcÄbç-Abcäbç" );
+            WriteLine( "AbcÄbç-Abcäbç".RemovePrefix( "Abc" ) );
+            WriteLine( "AbcÄbç-Abcäbç".RemoveSuffix( "äbç" ) );
+            WriteLine( "AbcÄbç-Abcäbç".RemoveSuffixCharacters( "äbcç" ) );
             WriteLine( "AbcÄbç".GetRightPaddedText( 13, '-' ) );
             WriteLine( "Abcäbç".GetLeftPaddedText( 13, '-' ) );
             WriteLine( "AbcÄbç-Abcäbç".GetLowerCaseText() );
@@ -21,15 +24,17 @@
             WriteLine( "AbcÄbç-Abcäbç".GetCamelCaseText() );
             WriteLine( "AbcÄbç-Abcäbç".GetSnakeCaseText() );
             WriteLine( "AbcÄbç-Abcäbç".GetKebabCaseText() );
-            WriteLine( "AbcÄbç-Abcäbç".RemovePrefix( "Abc" ) );
-            WriteLine( "AbcÄbç-Abcäbç".RemoveSuffix( "äbç" ) );
             WriteLine( "Add¨fr:Ajouter¨es:Añadir".GetTranslatedText( "en" ) );
             WriteLine( "Add¨fr:Ajouter¨es:Añadir".GetTranslatedText( "fr" ) );
             WriteLine( "Add¨fr:Ajouter¨es:Añadir".GetTranslatedText( "es" ) );
-            WriteLine( GetRealText( -123.456789 ) );
+            WriteLine( GetRealText( -123.456789, 0 ) );
             WriteLine( GetRealText( -123.456789, 2 ) );
+            WriteLine( GetRealText( -123.456789 ) );
             WriteLine( GetRealText( -123.456789, 8 ) );
             WriteLine( GetRealText( -123.456789, 8, ',' ) );
+            WriteLine( GetRealText( -123.456789, 8, ',', true ) );
+            WriteLine( GetRealText( -123, 2, ',' ) );
+            WriteLine( GetRealText( -123, 2, ',', true ) );
         </script>
     </body>
 </html>

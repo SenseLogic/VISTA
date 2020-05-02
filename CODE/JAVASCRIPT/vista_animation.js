@@ -437,9 +437,9 @@ function IsColorText(
     )
 {
     return (
-        text.startsWith( "#" )
-        || text.startsWith( "rgb(" )
-        || text.startsWith( "rgba(" )
+        text.HasPrefix( "#" )
+        || text.HasPrefix( "rgb(" )
+        || text.HasPrefix( "rgba(" )
         );
 }
 
@@ -461,7 +461,7 @@ function ParseNumericText(
     }
     else
     {
-        amount = GetReal( RemoveSuffix( text, unit ) );
+        amount = GetReal( text.RemoveSuffix( unit ) );
     }
 
     return {
@@ -533,7 +533,7 @@ function ParseColorText(
 
     text = text.split( " " ).join( "" );
 
-    if ( text.startsWith( "#" ) )
+    if ( text.HasPrefix( "#" ) )
     {
         if ( text.length == 4 )
         {
@@ -554,9 +554,9 @@ function ParseColorText(
                 };
         }
     }
-    else if ( text.endsWith( ")" ) )
+    else if ( text.HasSuffix( ")" ) )
     {
-        if ( text.startsWith( "rgb(" ) )
+        if ( text.HasPrefix( "rgb(" ) )
         {
             component_array = text.substring( 4, text.length - 1 ).split( "," );
 
@@ -567,7 +567,7 @@ function ParseColorText(
                 Opacity : 1.0
                 };
         }
-        else if ( text.startsWith( "rgba(" ) )
+        else if ( text.HasPrefix( "rgba(" ) )
         {
             component_array = text.substring( 5, text.length - 1 ).split( "," );
 

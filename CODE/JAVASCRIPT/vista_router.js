@@ -50,7 +50,7 @@ class VISTA_ROUTER_COMPONENT extends VISTA_COMPONENT
             route_character = route[ route_character_index ];
             filter_character = filter[ filter_character_index ];
 
-            if ( filter_character === '{' )
+            if ( filter_character === "{" )
             {
                 ++filter_character_index;
 
@@ -61,7 +61,7 @@ class VISTA_ROUTER_COMPONENT extends VISTA_COMPONENT
                 {
                     filter_character = filter[ filter_character_index ];
 
-                    if ( filter_character === '}' )
+                    if ( filter_character === "}" )
                     {
                         ++filter_character_index;
 
@@ -78,7 +78,7 @@ class VISTA_ROUTER_COMPONENT extends VISTA_COMPONENT
                 {
                     route_character = route[ route_character_index ];
 
-                    if ( route_character === '/' )
+                    if ( route_character === "/" )
                     {
                         break;
                     }
