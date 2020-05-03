@@ -210,7 +210,7 @@ class VISTA_COMPONENT extends HTMLElement
 
     // ~~
 
-    GetDescendantElement(
+    GetSubElement(
         element_selector
         )
     {
@@ -219,7 +219,7 @@ class VISTA_COMPONENT extends HTMLElement
 
     // ~~
 
-    GetDescendantElements(
+    GetSubElements(
         element_selector
         )
     {

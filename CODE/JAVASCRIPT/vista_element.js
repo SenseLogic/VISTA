@@ -162,15 +162,15 @@ HTMLElement.prototype.GetElements = function(
 
 // ~~
 
-HTMLElement.prototype.GetDescendantElement = HTMLElement.prototype.querySelector;
+HTMLElement.prototype.GetSubElement = HTMLElement.prototype.querySelector;
 
 // ~~
 
-ShadowRoot.prototype.GetDescendantElement = ShadowRoot.prototype.querySelector;
+ShadowRoot.prototype.GetSubElement = ShadowRoot.prototype.querySelector;
 
 // ~~
 
-HTMLElement.prototype.GetDescendantElements = function(
+HTMLElement.prototype.GetSubElements = function(
     element_selector
     )
 {
@@ -179,7 +179,7 @@ HTMLElement.prototype.GetDescendantElements = function(
 
 // ~~
 
-ShadowRoot.prototype.GetDescendantElements = function(
+ShadowRoot.prototype.GetSubElements = function(
     element_selector
     )
 {
@@ -188,21 +188,21 @@ ShadowRoot.prototype.GetDescendantElements = function(
 
 // ~~
 
-HTMLElement.prototype.GetAncestorElement = function(
+HTMLElement.prototype.GetSuperElement = function(
     element_selector
     )
 {
     var
-        ancestor_element;
+        super_element;
 
-    for ( ancestor_element = this.parentElement;
-          ancestor_element;
-          ancestor_element = ancestor_element.parentElement )
+    for ( super_element = this.parentElement;
+          super_element;
+          super_element = super_element.parentElement )
     {
-        if ( ancestor_element.nodeType === 1
-             && ancestor_element.matches( element_selector ) )
+        if ( super_element.nodeType === 1
+             && super_element.matches( element_selector ) )
         {
-            return ancestor_element;
+            return super_element;
         }
     }
 
@@ -323,7 +323,7 @@ Array.prototype.DumpElements = function(
 
 // ~~
 
-Array.prototype.PrependChild = function(
+Array.prototype.PrependChildElement = function(
     child_element
     )
 {
@@ -338,7 +338,7 @@ Array.prototype.PrependChild = function(
 
 // ~~
 
-Array.prototype.PrependChildren = function(
+Array.prototype.PrependChildElements = function(
     child_element_array
     )
 {
@@ -357,7 +357,7 @@ Array.prototype.PrependChildren = function(
 
 // ~~
 
-Array.prototype.AppendChild = function(
+Array.prototype.AppendChildElement = function(
     child_element
     )
 {
@@ -372,7 +372,7 @@ Array.prototype.AppendChild = function(
 
 // ~~
 
-Array.prototype.AppendChildren = function(
+Array.prototype.AppendChildElements = function(
     child_element_array
     )
 {
@@ -391,33 +391,33 @@ Array.prototype.AppendChildren = function(
 
 // ~~
 
-Array.prototype.GetAncestorElements = function(
+Array.prototype.GetSuperElements = function(
     element_selector = undefined
     )
 {
     var
-        ancestor_element,
-        ancestor_element_array,
+        super_element,
+        super_element_array,
         element;
 
-    ancestor_element_array = [];
+    super_element_array = [];
 
     for ( element of this )
     {
-        for ( ancestor_element = element.parentElement;
-              ancestor_element;
-              ancestor_element = ancestor_element.parentElement )
+        for ( super_element = element.parentElement;
+              super_element;
+              super_element = super_element.parentElement )
         {
-            if ( ancestor_element.nodeType === 1
+            if ( super_element.nodeType === 1
                  && ( element_selector === undefined
-                      || ancestor_element.matches( element_selector ) ) )
+                      || super_element.matches( element_selector ) ) )
             {
-                ancestor_element_array.push( ancestor_element );
+                super_element_array.push( super_element );
             }
         }
     }
 
-    return ancestor_element_array;
+    return super_element_array;
 }
 
 // ~~
@@ -591,17 +591,17 @@ Array.prototype.GetChildElements = function(
 
 // ~~
 
-Array.prototype.GetDescendantElements = function(
+Array.prototype.GetSubElements = function(
     element_selector = undefined
     )
 {
     var
-        descendant_element,
-        descendant_element_array,
-        descendant_element_list,
+        sub_element,
+        sub_element_array,
+        sub_element_list,
         element;
 
-    descendant_element_array = [];
+    sub_element_array = [];
 
     if ( element_selector === undefined )
     {
@@ -610,18 +610,18 @@ Array.prototype.GetDescendantElements = function(
 
     for ( element of this )
     {
-        descendant_element_list = element.querySelectorAll( element_selector );
+        sub_element_list = element.querySelectorAll( element_selector );
 
-        for ( descendant_element of descendant_element_list )
+        for ( sub_element of sub_element_list )
         {
-            if ( descendant_element.nodeType == 1 )
+            if ( sub_element.nodeType == 1 )
             {
-                descendant_element_array.push( descendant_element );
+                sub_element_array.push( sub_element );
             }
         }
     }
 
-    return descendant_element_array;
+    return sub_element_array;
 }
 
 // ~~
