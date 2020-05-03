@@ -450,18 +450,18 @@ Lightweight CSS and JavaScript framework.
 
                 for ( user of user_array )
                 {
-                    WriteLine( "GET " + GetJsonText( user ) );
+                    WriteRow( "GET", user );
                 }
 
                 user = await user_store.GetUser( 2 );
-                WriteLine( "GET " + GetJsonText( user ) );
+                WriteRow( "GET", user );
 
                 user.email = "janet.weaver@yahoo.com";
                 user = await user_store.SetUser( user );
-                WriteLine( "PUT " + GetJsonText( user ) );
+                WriteRow( "PUT", user );
 
                 user = await user_store.FixUser( { email : "janet.weaver@gmail.com" } );
-                WriteLine( "PATCH " + GetJsonText( user ) );
+                WriteRow( "PATCH", user );
 
                 user = await user_store.AddUser(
                     {
@@ -471,10 +471,10 @@ Lightweight CSS and JavaScript framework.
                         avatar : "https://s3.amazonaws.com/uifaces/faces/twitter/rickdeckard/128.jpg",
                     }
                     );
-                WriteLine( "POST " + GetJsonText( user ) );
+                WriteRow( "POST", user );
 
                 user = await user_store.RemoveUser( 2 );
-                WriteLine( "DELETE " + GetJsonText( user ) );
+                WriteRow( "DELETE", user );
             }
 
             // -- STATEMENTS
