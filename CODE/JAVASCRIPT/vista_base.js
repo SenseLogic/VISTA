@@ -182,32 +182,52 @@ function GetObjectText(
 // ~~
 
 function Write(
+    ...argument_array
     )
 {
-    document.body.appendChild( document.createTextNode( GetArrayText( arguments, "", true, "", "", "" ) ) );
+    document.body.appendChild( document.createTextNode( GetArrayText( argument_array, "", true, "", "", "" ) ) );
 }
 
 // ~~
 
 function WriteLine(
+    ...argument_array
     )
 {
-    document.body.appendChild( document.createTextNode( GetArrayText( arguments, "", true, "", "", "" ) ) );
+    document.body.appendChild( document.createTextNode( GetArrayText( argument_array, "", true, "", "", "" ) ) );
     document.body.appendChild( document.createElement( "br" ) );
 }
 
 // ~~
 
 function WriteRow(
+    ...argument_array
     )
 {
-    document.body.appendChild( document.createTextNode( GetArrayText( arguments, " ", true, "", "", "" ) ) );
+    document.body.appendChild( document.createTextNode( GetArrayText( argument_array, " ", true, "", "", "" ) ) );
     document.body.appendChild( document.createElement( "br" ) );
 }
 
 // ~~
 
+function HideErrors(
+    )
+{
+    ErrorsAreShown = false;
+}
+
+// ~~
+
+function ShowErrors(
+    )
+{
+    ErrorsAreShown = true;
+}
+
+// ~~
+
 function ShowError(
+    ...argument_array
     )
 {
     var
@@ -238,7 +258,7 @@ function ShowError(
             error_console_element.style.display = "block";
         }
 
-        for ( argument of arguments )
+        for ( argument of argument_array )
         {
             if ( argument instanceof Error )
             {
@@ -296,35 +316,23 @@ function ShowError(
 
 // ~~
 
-function PrintText(
-    )
-{
-    var
-        argument;
-
-    for ( argument of arguments )
-    {
-        Print( GetJsonText( argument ) );
-    }
-}
-
-// ~~
-
 function PrintWarning(
+    ...argument_array
     )
 {
     PrintStack();
-    console.warn( ...arguments );
+    console.warn( ...argument_array );
 }
 
 // ~~
 
 function PrintError(
+    ...argument_array
     )
 {
-    ShowError( ...arguments );
+    ShowError( ...argument_array );
     PrintStack();
-    console.error( ...arguments );
+    console.error( ...argument_array );
 }
 
 // ~~

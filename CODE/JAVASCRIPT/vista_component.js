@@ -666,6 +666,15 @@ var
 
 // -- FUNCTIONS
 
+function SetComponentUpdateDelay(
+    component_update_delay
+    )
+{
+    ComponentUpdateDelay = component_update_delay;
+}
+
+// ~~
+
 function UpdateComponent(
     element
     )

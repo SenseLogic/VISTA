@@ -172,7 +172,7 @@ Lightweight CSS and JavaScript framework.
         <title>Sample</title>
     </head>
     <body>
-        <main>
+        <main style="font-family:monospace">
             <test-component click-count="1">
             </test-component>
         </main>
@@ -374,7 +374,7 @@ Lightweight CSS and JavaScript framework.
                         "job" : "leader"
                     }
                     );
-                WriteLine( GetJsonText( user ) );
+                WriteLine( user );
             }
 
             // -- STATEMENTS
