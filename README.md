@@ -309,9 +309,9 @@ Lightweight CSS and JavaScript framework.
                 {
                     super.UpdateComponent();
 
-                    this.BindEvent( this.GetSubElements( ".button" ), "click", this.SetTextColorProperty );
-                    this.BindEvent( this.GetSubElement( "#property-button" ), "click", this.SetClickCountProperty );
-                    this.BindEvent( this.GetSubElement( "#attribute-button" ), "click", this.SetClickCountAttribute );
+                    this.BindEvent( this.GetDescendantElements( ".button" ), "click", this.SetTextColorProperty );
+                    this.BindEvent( this.GetDescendantElement( "#property-button" ), "click", this.SetClickCountProperty );
+                    this.BindEvent( this.GetDescendantElement( "#attribute-button" ), "click", this.SetClickCountAttribute );
                 }
             }
 

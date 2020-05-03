@@ -6,28 +6,7 @@ function PrintElement(
 {
     if ( element )
     {
-        Print(
-            {
-                tagName : element.tagName,
-                nodeType : element.nodeType,
-                id : element.id,
-                classList : element.classList,
-                style : element.style,
-                dataset : element.dataset,
-                clientWidth : element.clientWidth,
-                clientHeight : element.clientHeight,
-                clientLeft : element.clientLeft,
-                clientTop : element.clientTop,
-                offsetWidth : element.offsetWidth,
-                offsetHeight : element.offsetHeight,
-                offsetLeft : element.offsetLeft,
-                offsetTop : element.offsetTop,
-                scrollWidth : element.scrollWidth,
-                scrollHeight : element.scrollHeight,
-                scrollLeft : element.scrollLeft,
-                scrollTop : element.scrollTop
-            }
-            );
+        Print( GetObjectText( element ) );
     }
     else
     {
@@ -162,15 +141,15 @@ HTMLElement.prototype.GetElements = function(
 
 // ~~
 
-HTMLElement.prototype.GetSubElement = HTMLElement.prototype.querySelector;
+HTMLElement.prototype.GetDescendantElement = HTMLElement.prototype.querySelector;
 
 // ~~
 
-ShadowRoot.prototype.GetSubElement = ShadowRoot.prototype.querySelector;
+ShadowRoot.prototype.GetDescendantElement = ShadowRoot.prototype.querySelector;
 
 // ~~
 
-HTMLElement.prototype.GetSubElements = function(
+HTMLElement.prototype.GetDescendantElements = function(
     element_selector
     )
 {
@@ -179,7 +158,7 @@ HTMLElement.prototype.GetSubElements = function(
 
 // ~~
 
-ShadowRoot.prototype.GetSubElements = function(
+ShadowRoot.prototype.GetDescendantElements = function(
     element_selector
     )
 {
@@ -188,21 +167,21 @@ ShadowRoot.prototype.GetSubElements = function(
 
 // ~~
 
-HTMLElement.prototype.GetSuperElement = function(
+HTMLElement.prototype.GetAncestorElement = function(
     element_selector
     )
 {
     var
-        super_element;
+        ancestor_element;
 
-    for ( super_element = this.parentElement;
-          super_element;
-          super_element = super_element.parentElement )
+    for ( ancestor_element = this.parentElement;
+          ancestor_element;
+          ancestor_element = ancestor_element.parentElement )
     {
-        if ( super_element.nodeType === 1
-             && super_element.matches( element_selector ) )
+        if ( ancestor_element.nodeType === 1
+             && ancestor_element.matches( element_selector ) )
         {
-            return super_element;
+            return ancestor_element;
         }
     }
 
@@ -391,33 +370,33 @@ Array.prototype.AppendChildElements = function(
 
 // ~~
 
-Array.prototype.GetSuperElements = function(
+Array.prototype.GetAncestorElements = function(
     element_selector = undefined
     )
 {
     var
-        super_element,
-        super_element_array,
+        ancestor_element,
+        ancestor_element_array,
         element;
 
-    super_element_array = [];
+    ancestor_element_array = [];
 
     for ( element of this )
     {
-        for ( super_element = element.parentElement;
-              super_element;
-              super_element = super_element.parentElement )
+        for ( ancestor_element = element.parentElement;
+              ancestor_element;
+              ancestor_element = ancestor_element.parentElement )
         {
-            if ( super_element.nodeType === 1
+            if ( ancestor_element.nodeType === 1
                  && ( element_selector === undefined
-                      || super_element.matches( element_selector ) ) )
+                      || ancestor_element.matches( element_selector ) ) )
             {
-                super_element_array.push( super_element );
+                ancestor_element_array.push( ancestor_element );
             }
         }
     }
 
-    return super_element_array;
+    return ancestor_element_array;
 }
 
 // ~~
@@ -591,17 +570,17 @@ Array.prototype.GetChildElements = function(
 
 // ~~
 
-Array.prototype.GetSubElements = function(
+Array.prototype.GetDescendantElements = function(
     element_selector = undefined
     )
 {
     var
-        sub_element,
-        sub_element_array,
-        sub_element_list,
+        descendant_element,
+        descendant_element_array,
+        descendant_element_list,
         element;
 
-    sub_element_array = [];
+    descendant_element_array = [];
 
     if ( element_selector === undefined )
     {
@@ -610,18 +589,18 @@ Array.prototype.GetSubElements = function(
 
     for ( element of this )
     {
-        sub_element_list = element.querySelectorAll( element_selector );
+        descendant_element_list = element.querySelectorAll( element_selector );
 
-        for ( sub_element of sub_element_list )
+        for ( descendant_element of descendant_element_list )
         {
-            if ( sub_element.nodeType == 1 )
+            if ( descendant_element.nodeType == 1 )
             {
-                sub_element_array.push( sub_element );
+                descendant_element_array.push( descendant_element );
             }
         }
     }
 
-    return sub_element_array;
+    return descendant_element_array;
 }
 
 // ~~

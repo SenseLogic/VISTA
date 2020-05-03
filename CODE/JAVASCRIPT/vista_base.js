@@ -28,6 +28,31 @@ var
 
 // ~~
 
+function GetTextArrayText(
+    text_array,
+    separator_text = ", ",
+    opening_brace = "[ ",
+    closing_brace = " ]",
+    empty_braces = "[]"
+    )
+{
+    var
+        text_array_text;
+
+    text_array_text = text_array.join( separator_text );
+
+    if ( text_array_text === "" )
+    {
+        return empty_braces;
+    }
+    else
+    {
+        return opening_brace + text_array_text + closing_brace;
+    }
+}
+
+// ~~
+
 function GetValueText(
     value,
     value_is_unquoted = false
@@ -38,7 +63,8 @@ function GetValueText(
     {
         return value;
     }
-    else if ( value instanceof Uint8Array
+    else if ( value instanceof Array
+              || value instanceof Uint8Array
               || value instanceof Uint16Array
               || value instanceof Uint32Array
               || value instanceof BigUint64Array
@@ -55,16 +81,43 @@ function GetValueText(
         }
         else
         {
-            return "[" + GetArrayText( value, "," ) + "]";
+            return GetArrayText( value );
         }
     }
     else if ( value instanceof Function )
     {
-        return value.name + "()";
+        return "()";
+    }
+    else if ( value instanceof HTMLElement )
+    {
+        return (
+            GetObjectText(
+                {
+                    tagName : value.tagName,
+                    nodeType : value.nodeType,
+                    id : value.id,
+                    classList : value.classList,
+                    style : value.style,
+                    dataset : value.dataset,
+                    clientWidth : value.clientWidth,
+                    clientHeight : value.clientHeight,
+                    clientLeft : value.clientLeft,
+                    clientTop : value.clientTop,
+                    offsetWidth : value.offsetWidth,
+                    offsetHeight : value.offsetHeight,
+                    offsetLeft : value.offsetLeft,
+                    offsetTop : value.offsetTop,
+                    scrollWidth : value.scrollWidth,
+                    scrollHeight : value.scrollHeight,
+                    scrollLeft : value.scrollLeft,
+                    scrollTop : value.scrollTop
+                }
+                )
+            );
     }
     else if ( value instanceof Object )
     {
-        return "{" + GetObjectText( value, "," ) + "}";
+        return GetObjectText( value );
     }
     else
     {
@@ -76,11 +129,15 @@ function GetValueText(
 
 function GetArrayText(
     value_array,
-    separator_text,
-    value_is_unquoted = false
+    separator_text = ", ",
+    value_is_unquoted = false,
+    opening_brace = "[ ",
+    closing_brace = " ]",
+    empty_braces = "[]"
     )
 {
     var
+        array_text,
         text_array,
         value;
 
@@ -91,17 +148,21 @@ function GetArrayText(
         text_array.push( GetValueText( value, value_is_unquoted ) );
     }
 
-    return text_array.join( separator_text );
+    return GetTextArrayText( text_array, separator_text, opening_brace, closing_brace, empty_braces );
 }
 
 // ~~
 
 function GetObjectText(
     object,
-    separator_text
+    separator_text = ", ",
+    opening_brace = "{ ",
+    closing_brace = " }",
+    empty_braces = "{}"
     )
 {
     var
+        object_text,
         property,
         text_array;
 
@@ -111,11 +172,11 @@ function GetObjectText(
     {
         if ( object.hasOwnProperty( property ) )
         {
-            text_array.push( GetValueText( object[ property ] ) );
+            text_array.push( property + " : " + GetValueText( object[ property ] ) );
         }
     }
 
-    return text_array.join( separator_text );
+    return GetTextArrayText( text_array, separator_text, opening_brace, closing_brace, empty_braces );
 }
 
 // ~~
@@ -123,7 +184,7 @@ function GetObjectText(
 function Write(
     )
 {
-    document.body.appendChild( document.createTextNode( GetArrayText( arguments, "", true ) ) );
+    document.body.appendChild( document.createTextNode( GetArrayText( arguments, "", true, "", "", "" ) ) );
 }
 
 // ~~
@@ -131,16 +192,16 @@ function Write(
 function WriteLine(
     )
 {
-    document.body.appendChild( document.createTextNode( GetArrayText( arguments, "", true ) ) );
+    document.body.appendChild( document.createTextNode( GetArrayText( arguments, "", true, "", "", "" ) ) );
     document.body.appendChild( document.createElement( "br" ) );
 }
 
 // ~~
 
-function WriteSpacedLine(
+function WriteRow(
     )
 {
-    document.body.appendChild( document.createTextNode( GetArrayText( arguments, " ", true ) ) );
+    document.body.appendChild( document.createTextNode( GetArrayText( arguments, " ", true, "", "", "" ) ) );
     document.body.appendChild( document.createElement( "br" ) );
 }
 
