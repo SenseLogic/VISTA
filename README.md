@@ -257,18 +257,18 @@ Lightweight CSS and JavaScript framework.
 
                                 @media above-30em and below-40em, above-50em
                                 {
-                                    color: lightgrey;
+                                    color: white;
                                 }
 
-                                @media above-60em
+                                @media above-70em
                                 {
-                                    color: white;
+                                    color: yellow;
                                 }
                             }
 
                             :host .button
                             {
-                                @media above-60em
+                                @media above-70em
                                 {
                                     background-color: magenta;
                                 }
