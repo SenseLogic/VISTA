@@ -205,7 +205,7 @@ Lightweight CSS and JavaScript framework.
                 SetClickCountProperty(
                     )
                 {
-                    this.SetProperty( "ClickCount", this.Data.ClickCount + 1 );
+                    this.SetProperty( "ClickCount", this.ClickCount + 1 );
                 }
 
                 // ~~
@@ -213,7 +213,7 @@ Lightweight CSS and JavaScript framework.
                 SetClickCountAttribute(
                     )
                 {
-                    this.SetAttribute( "click-count", this.Data.ClickCount + 1 );
+                    this.SetAttribute( "click-count", this.ClickCount + 1 );
                 }
 
                 // ~~
@@ -221,7 +221,7 @@ Lightweight CSS and JavaScript framework.
                 InitializeComponent(
                     )
                 {
-                    this.Data.MovieArray =
+                    this.MovieArray =
                         [
                             {
                                 Name : "<Blade Runner>",
@@ -237,8 +237,8 @@ Lightweight CSS and JavaScript framework.
                             }
                         ];
 
-                    this.BindProperty( this.Data, "TextColor", "text-color", "#0000ff" );
-                    this.BindProperty( this.Data, "ClickCount", "click-count", 0 );
+                    this.BindProperty( this, "TextColor", "text-color", "#0000ff" );
+                    this.BindProperty( this, "ClickCount", "click-count", 0 );
                     this.BindMethod( this, "SetTextColorProperty" );
                     this.BindMethod( this, "SetClickCountProperty" );
                     this.BindMethod( this, "SetClickCountAttribute" );
@@ -252,7 +252,7 @@ Lightweight CSS and JavaScript framework.
                                 border: none;
                                 border-radius: 0.5rem;
                                 padding: 0.5rem 1rem;
-                                background-color: <:# this.Data.TextColor :>;
+                                background-color: <:# this.TextColor :>;
                                 color: cyan;
 
                                 @media above-30em and below-40em, above-50em
@@ -283,14 +283,14 @@ Lightweight CSS and JavaScript framework.
                             }
                         </style>
                         <button id="property-button" class="button">
-                            <:# this.Data.TextColor :> : <:# this.Data.ClickCount :>
+                            <:# this.TextColor :> : <:# this.ClickCount :>
                         </button>
                         <button id="attribute-button" class="button">
-                            <:# this.Data.TextColor :> : <:# this.Data.ClickCount :>
+                            <:# this.TextColor :> : <:# this.ClickCount :>
                         </button>
                         <ul>
-                            <: for ( var movie of this.Data.MovieArray ) { :>
-                                <li style="color:<:# this.Data.TextColor :>">
+                            <: for ( var movie of this.MovieArray ) { :>
+                                <li style="color:<:# this.TextColor :>">
                                     <:% movie.Name :> : <:# movie.Rating :>
                                 </li>
                             <: } :>

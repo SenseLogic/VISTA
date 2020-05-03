@@ -88,9 +88,9 @@ class VISTA_DATA
     {
         var
             watcher,
-            component_has_changed;
+            update_is_required;
 
-        component_has_changed = ( ComponentHasChanged === false );
+        update_is_required = ( ComponentHasChanged === false );
         ComponentHasChanged = true;
         this.HasChanged = true;
 
@@ -104,9 +104,9 @@ class VISTA_DATA
             }
         }
 
-        if ( component_has_changed )
+        if ( update_is_required )
         {
-            setInterval( UpdateComponents, ComponentUpdateDelay * 1000.0 );
+            DelayCall( UpdateComponents, ComponentUpdateDelay );
         }
 
     }
@@ -118,6 +118,26 @@ class VISTA_DATA
     {
         this.HasChanged = false;
         this.HasChangedWatchers = false;
+    }
+
+    // ~~
+
+    static ConstructObject(
+        object,
+        object_class
+        )
+    {
+        object.WatcherArray = [];
+        object.HasChanged = true;
+        object.HasChangedWatchers = false;
+
+        object_class.prototype.FindWatcherIndex = VISTA_DATA.prototype.FindWatcherIndex;
+        object_class.prototype.AddWatcher = VISTA_DATA.prototype.AddWatcher;
+        object_class.prototype.RemoveWatcher = VISTA_DATA.prototype.RemoveWatcher;
+        object_class.prototype.WatchData = VISTA_DATA.prototype.WatchData;
+        object_class.prototype.UnwatchData = VISTA_DATA.prototype.UnwatchData;
+        object_class.prototype.SetChanged = VISTA_DATA.prototype.SetChanged;
+        object_class.prototype.SetUpdated = VISTA_DATA.prototype.SetUpdated;
     }
 }
 
@@ -131,9 +151,13 @@ class VISTA_COMPONENT extends HTMLElement
         template_text = "",
         )
     {
+        var
+            property;
+
         super();
 
-        this.Data = new VISTA_DATA();
+        VISTA_DATA.ConstructObject( this, VISTA_COMPONENT );
+
         this.PropertyMap = new Map();
         this.AttributeMap = new Map();
         this.EventArray = [];
@@ -252,7 +276,8 @@ class VISTA_COMPONENT extends HTMLElement
         }
 
         if ( property_watcher === undefined
-             && property_owner instanceof VISTA_DATA )
+             && ( property_owner instanceof VISTA_DATA
+                  || property_owner instanceof VISTA_COMPONENT ) )
         {
             property_watcher = property_owner;
         }
@@ -594,7 +619,7 @@ class VISTA_COMPONENT extends HTMLElement
         }
 
         this.RootElement.innerHTML = content;
-        this.Data.SetUpdated();
+        this.SetUpdated();
     }
 
     // ~~
@@ -649,8 +674,7 @@ function UpdateComponent(
         child_element_count,
         child_element_index;
 
-    if ( element.Data !== undefined
-         && element.Data.HasChanged )
+    if ( element.HasChanged === true )
     {
         element.UpdateComponent();
     }

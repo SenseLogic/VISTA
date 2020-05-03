@@ -10,7 +10,7 @@ class VISTA_ROUTER_COMPONENT extends VISTA_COMPONENT
     {
         super( template_text );
 
-        this.Data.Route = "";
+        this.Route = "";
     }
 
     // -- OPERATIONS
@@ -19,8 +19,8 @@ class VISTA_ROUTER_COMPONENT extends VISTA_COMPONENT
         route
         )
     {
-        this.Data.Route = route;
-        this.Data.SetChanged();
+        this.Route = route;
+        this.SetChanged();
     }
 
     // ~~
@@ -38,9 +38,9 @@ class VISTA_ROUTER_COMPONENT extends VISTA_COMPONENT
             route_character,
             route_character_index;
 
-        this.Data.SetChanged();
+        this.SetChanged();
 
-        route = this.Data.Route;
+        route = this.Route;
         route_character_index = 0;
         filter_character_index = 0;
 
@@ -89,7 +89,7 @@ class VISTA_ROUTER_COMPONENT extends VISTA_COMPONENT
                     }
                 }
 
-                this.Data[ argument_name ] = argument_value;
+                this[ argument_name ] = argument_value;
             }
             else if ( filter_character === route_character )
             {
