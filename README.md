@@ -56,7 +56,7 @@ Lightweight CSS and JavaScript framework.
         <meta charset="UTF-8">
         <title>Sample</title>
     </head>
-    <body>
+    <body style="font-family:monospace">
         <main>
             <div class="line">
                 <div class="block" style="background-color:#FF0000">
@@ -140,7 +140,7 @@ Lightweight CSS and JavaScript framework.
                         element_index
                         )
                     {
-                        Print( element_index, element.classList );
+                        WriteRow( element_index, element.classList );
                     }
                     )
                 .Process(
@@ -153,7 +153,7 @@ Lightweight CSS and JavaScript framework.
 
                         for ( element of element_array )
                         {
-                            PrintElement( element );
+                            WriteLine( element );
                         }
                     }
                     );
