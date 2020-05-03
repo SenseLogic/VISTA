@@ -248,23 +248,17 @@ class VISTA_COMPONENT extends HTMLElement
         }
 
         attribute.Owner[ property_name ] = value;
-
-        if ( attribute.Watcher )
-        {
-            attribute.Watcher.SetChanged();
-        }
+        attribute.Owner.SetChanged();
     }
 
     // ~~
 
     BindProperty(
-        property_owner,
         property_name,
         attribute_name,
         default_value = "",
         decoding_function = undefined,
-        encoding_function = undefined,
-        property_watcher = undefined
+        encoding_function = undefined
         )
     {
         if ( typeof default_value === "number"
@@ -275,19 +269,11 @@ class VISTA_COMPONENT extends HTMLElement
             encoding_function = GetText;
         }
 
-        if ( property_watcher === undefined
-             && ( property_owner instanceof VISTA_DATA
-                  || property_owner instanceof VISTA_COMPONENT ) )
-        {
-            property_watcher = property_owner;
-        }
-
         this.PropertyMap.set(
             attribute_name,
             {
                 Name : property_name,
-                Owner : property_owner,
-                Watcher : property_watcher,
+                Owner : this,
                 DecodingFunction : decoding_function
             }
             );
@@ -296,8 +282,7 @@ class VISTA_COMPONENT extends HTMLElement
             property_name,
             {
                 Name : attribute_name,
-                Owner : property_owner,
-                Watcher : property_watcher,
+                Owner : this,
                 EncodingFunction : encoding_function
             }
             );
@@ -306,17 +291,14 @@ class VISTA_COMPONENT extends HTMLElement
         {
             if ( decoding_function === undefined )
             {
-                property_owner[ property_name ] = this.getAttribute( attribute_name );
+                this[ property_name ] = this.getAttribute( attribute_name );
             }
             else
             {
-                property_owner[ property_name ] = decoding_function( this.getAttribute( attribute_name ) );
+                this[ property_name ] = decoding_function( this.getAttribute( attribute_name ) );
             }
 
-            if ( property_watcher )
-            {
-                property_watcher.SetChanged();
-            }
+            this.SetChanged();
         }
         else
         {
@@ -348,21 +330,17 @@ class VISTA_COMPONENT extends HTMLElement
                 property.Owner[ property.Name ] = property.DecodingFunction( new_value );
             }
 
-            if ( property.Watcher )
-            {
-                property.Watcher.SetChanged();
-            }
+            property.Owner.SetChanged();
         }
     }
 
     // ~~
 
     BindMethod(
-        method_owner,
         method_name
         )
     {
-        method_owner[ method_name ] = method_owner[ method_name ].bind( method_owner );
+        this[ method_name ] = this[ method_name ].bind( this );
     }
 
     // ~~

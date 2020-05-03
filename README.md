@@ -237,11 +237,11 @@ Lightweight CSS and JavaScript framework.
                             }
                         ];
 
-                    this.BindProperty( this, "TextColor", "text-color", "#0000ff" );
-                    this.BindProperty( this, "ClickCount", "click-count", 0 );
-                    this.BindMethod( this, "SetTextColorProperty" );
-                    this.BindMethod( this, "SetClickCountProperty" );
-                    this.BindMethod( this, "SetClickCountAttribute" );
+                    this.BindProperty( "TextColor", "text-color", "#0000ff" );
+                    this.BindProperty( "ClickCount", "click-count", 0 );
+                    this.BindMethod( "SetTextColorProperty" );
+                    this.BindMethod( "SetClickCountProperty" );
+                    this.BindMethod( "SetClickCountAttribute" );
 
                     this.AttachShadow();
                     this.SetTemplate(
