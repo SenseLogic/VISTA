@@ -448,22 +448,36 @@ Lightweight CSS and JavaScript framework.
                     user_store;
 
                 user_store = new USER_STORE();
-                user_array = await user_store.GetUserArray( "?page=1" );
+
+                user = await user_store.FetchUser( 1 );
+                WriteRow( "FETCH", user );
+
+                user = await user_store.GetUser( 1 );
+                WriteRow( "GET", user );
+
+                user = await user_store.GetUser( 2 );
+                WriteRow( "GET", user );
+
+                user_array = await user_store.FetchUserArray( "?page=1" );
+
+                for ( user of user_array )
+                {
+                    WriteRow( "FETCH", user );
+                }
+
+                user_array = user_store.GetLocalUserArray( ( user ) => user.id < 3 );
 
                 for ( user of user_array )
                 {
                     WriteRow( "GET", user );
                 }
 
-                user = await user_store.GetUser( 2 );
-                WriteRow( "GET", user );
-
                 user.email = "janet.weaver@yahoo.com";
                 user = await user_store.SetUser( user );
-                WriteRow( "PUT", user );
+                WriteRow( "SET", user );
 
                 user = await user_store.FixUser( { email : "janet.weaver@gmail.com" } );
-                WriteRow( "PATCH", user );
+                WriteRow( "FIX", user );
 
                 user = await user_store.AddUser(
                     {
@@ -473,10 +487,10 @@ Lightweight CSS and JavaScript framework.
                         avatar : "https://s3.amazonaws.com/uifaces/faces/twitter/rickdeckard/128.jpg",
                     }
                     );
-                WriteRow( "POST", user );
+                WriteRow( "ADD", user );
 
                 user = await user_store.RemoveUser( 2 );
-                WriteRow( "DELETE", user );
+                WriteRow( "REMOVE", user );
             }
 
             // -- STATEMENTS
