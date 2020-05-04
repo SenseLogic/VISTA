@@ -318,7 +318,7 @@ Lightweight CSS and JavaScript framework.
 
             // -- STATEMENTS
 
-            DefineTemplateOperation( " pxm", ( expression ) => eval( expression ) * 0.0625 + "rem" );
+            DefineTemplateUnit( " pxm", ( expression ) => eval( expression ) * 0.0625 + "rem" );
             DefineComponent( TEST_COMPONENT, "test-component" );
         </script>
     </body>

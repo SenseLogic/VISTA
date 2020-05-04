@@ -162,7 +162,7 @@ class VISTA_COMPONENT extends HTMLElement
         this.AttributeMap = new Map();
         this.EventArray = [];
         this.RootElement = this;
-        this.TemplateOperation = null;
+        this.TemplateUnit = null;
     }
 
     // -- INQUIRIES
@@ -170,7 +170,7 @@ class VISTA_COMPONENT extends HTMLElement
     GetContent(
         )
     {
-        return this.TemplateOperation();
+        return this.TemplateUnit();
     }
 
     // ~~
@@ -409,22 +409,22 @@ class VISTA_COMPONENT extends HTMLElement
 
     // ~~
 
-    ProcessTemplateOperations(
+    ProcessTemplateUnits(
         text
         )
     {
         var
-            template_operation,
-            template_operation_name;
+            template_unit,
+            template_unit_name;
 
-        for ( template_operation_name of TemplateOperationMap.keys() )
+        for ( template_unit_name of TemplateUnitMap.keys() )
         {
-            if ( text.endsWith( template_operation_name ) )
+            if ( text.endsWith( template_unit_name ) )
             {
-                template_operation = TemplateOperationMap.get( template_operation_name );
+                template_unit = TemplateUnitMap.get( template_unit_name );
 
-                text = text.slice( 0, text.length - template_operation_name.length );
-                text = template_operation( this.ProcessTemplateOperations( text ) );
+                text = text.slice( 0, text.length - template_unit_name.length );
+                text = template_unit( this.ProcessTemplateUnits( text ) );
             }
         }
 
@@ -463,7 +463,7 @@ class VISTA_COMPONENT extends HTMLElement
                 }
                 else
                 {
-                    section_code = this.ProcessTemplateOperations( section_code );
+                    section_code = this.ProcessTemplateUnits( section_code );
                 }
 
                 section_array[ section_index ] = section_code + section_text;
@@ -646,7 +646,7 @@ class VISTA_COMPONENT extends HTMLElement
 
         try
         {
-            this.TemplateOperation = eval( function_code );
+            this.TemplateUnit = eval( function_code );
         }
         catch ( error )
         {
@@ -717,7 +717,7 @@ var
     ComponentHasChanged = false,
     ComponentUpdateDelay = 0.05,
     TemplateConstantMap = new Map(),
-    TemplateOperationMap = new Map();
+    TemplateUnitMap = new Map();
 
 // -- FUNCTIONS
 
@@ -798,10 +798,10 @@ function DefineTemplateConstant(
 
 // ~~
 
-function DefineTemplateOperation(
-    template_operation_name,
-    template_operation
+function DefineTemplateUnit(
+    template_unit_name,
+    template_unit
     )
 {
-    TemplateOperationMap.set( template_operation_name, template_operation );
+    TemplateUnitMap.set( template_unit_name, template_unit );
 }
