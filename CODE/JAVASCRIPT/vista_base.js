@@ -232,30 +232,30 @@ function ShowError(
 {
     var
         argument,
-        error_console_element,
+        error_panel_element,
         error_message_element;
 
     if ( ErrorsAreShown )
     {
-        error_console_element = document.getElementById( "error-console" );
+        error_panel_element = document.getElementById( "vista-error-panel" );
 
-        if ( error_console_element === null )
+        if ( error_panel_element === null )
         {
-            error_console_element = document.createElement( "div" );
-            error_console_element.id = "error-console";
-            error_console_element.style = "position:fixed;z-index:999999;left:0;top:0;width:100%;height:100%;font-size:1rem;overflow:auto;background-color:rgba(0,0,0,0.5);color:white";
-            error_console_element.innerHTML = "<h1>ERROR</h1>";
-            error_console_element.onclick = function(
+            error_panel_element = document.createElement( "div" );
+            error_panel_element.id = "vista-error-panel";
+            error_panel_element.style = "position:fixed;z-index:999999;left:0;top:0;width:100%;height:100%;font-size:1rem;overflow:auto;background-color:rgba(0,0,0,0.5);color:white";
+            error_panel_element.innerHTML = "<h1>ERROR</h1>";
+            error_panel_element.onclick = function(
                 )
             {
-                error_console_element.style.display = "none";
+                error_panel_element.style.display = "none";
             }
 
-            document.body.appendChild( error_console_element );
+            document.body.appendChild( error_panel_element );
         }
         else
         {
-            error_console_element.style.display = "block";
+            error_panel_element.style.display = "block";
         }
 
         for ( argument of argument_array )
@@ -307,7 +307,7 @@ function ShowError(
                 }
             }
 
-            error_console_element.appendChild( error_message_element );
+            error_panel_element.appendChild( error_message_element );
 
             Print( error_message_element.textContent );
         }
@@ -378,12 +378,12 @@ function GetEscapedHtml(
 {
     return (
         text
-            .split( "&" ).join( "&amp;" )
-            .split( "<" ).join( "&lt;" )
-            .split( ">" ).join( "&gt;" )
-            .split( "\\" ).join( "&#92;" )
-            .split( "\"" ).join( "&#34;" )
-            .split( "'" ).join( "&#39;" )
+            .ReplaceText( "&", "&amp;" )
+            .ReplaceText( "<", "&lt;" )
+            .ReplaceText( ">", "&gt;" )
+            .ReplaceText( "\\", "&#92;" )
+            .ReplaceText( "\"", "&#34;" )
+            .ReplaceText( "'", "&#39;" )
         );
 }
 
@@ -521,7 +521,7 @@ function GetRealText(
     }
     else
     {
-        return real_text.split( "." ).join( decimal_separator );
+        return real_text.ReplaceText( "." ).join( decimal_separator );
     }
 }
 
@@ -643,6 +643,16 @@ String.prototype.GetRightPaddedText = function(
     {
         return this;
     }
+}
+
+// ~~
+
+String.prototype.ReplaceText = function(
+    old_text,
+    new_text
+    )
+{
+    return this.split( old_text ).join( new_text );
 }
 
 // ~~

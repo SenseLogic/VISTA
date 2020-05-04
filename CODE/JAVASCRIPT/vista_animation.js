@@ -531,7 +531,7 @@ function ParseColorText(
     var
         component_array;
 
-    text = text.split( " " ).join( "" );
+    text = text.ReplaceText( " ", "" );
 
     if ( text.HasPrefix( "#" ) )
     {
@@ -601,7 +601,7 @@ function ParseTransformText(
         value;
 
     transform = new Map();
-    component_array = text.split( " " ).join( "" ).split( ")" );
+    component_array = text.ReplaceText( " ", "" ).split( ")" );
 
     for ( component of component_array )
     {

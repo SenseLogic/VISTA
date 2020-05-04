@@ -224,7 +224,7 @@ class VISTA_WAVEFRONT_MODEL
             line,
             line_array;
 
-        line_array = material_file_text.split( "\r" ).join( "" ).split( "  " ).join( " " ).split( "\n" );
+        line_array = material_file_text.ReplaceText( "\r", "" ).ReplaceText( "  ", " " ).split( "\n" );
 
         for ( line of line_array )
         {
@@ -276,7 +276,7 @@ class VISTA_WAVEFRONT_MODEL
             line,
             line_array;
 
-        line_array = model_file_text.split( "\r" ).join( "" ).split( "  " ).join( " " ).split( "\n" );
+        line_array = model_file_text.ReplaceText( "\r", "" ).ReplaceText( "  ", " " ).split( "\n" );
 
         for ( line of line_array )
         {

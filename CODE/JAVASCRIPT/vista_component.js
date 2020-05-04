@@ -409,7 +409,79 @@ class VISTA_COMPONENT extends HTMLElement
 
     // ~~
 
-    ProcessTemplate(
+    ProcessTemplateFunctions(
+        text
+        )
+    {
+        var
+            template_function,
+            template_function_name;
+
+        for ( template_function_name of TemplateFunctionMap.keys() )
+        {
+            if ( text.endsWith( template_function_name ) )
+            {
+                template_function = TemplateFunctionMap.get( template_function_name );
+
+                text = text.slice( 0, text.length - template_function_name.length );
+                text = template_function( this.ProcessTemplateFunctions( text ) );
+            }
+        }
+
+        return text;
+    }
+
+    // ~~
+
+    ProcessTemplateConstants(
+        template_text
+        )
+    {
+        var
+            section_array,
+            section_code,
+            section_index,
+            section_part_array,
+            section_text,
+            template_constant_name;
+
+        while ( template_text.indexOf( "(:" ) >= 0 )
+        {
+            section_array = template_text.split( "(:" );
+
+            for ( section_index = 1;
+                  section_index < section_array.length;
+                  ++section_index )
+            {
+                section_part_array = section_array[ section_index ].split( ":)" );
+                section_code = section_part_array.shift();
+                section_text = section_part_array.join( ":)" );
+
+                if ( TemplateConstantMap.has( section_code ) )
+                {
+                    section_code = TemplateConstantMap.get( section_code );
+                }
+                else
+                {
+                    section_code = this.ProcessTemplateFunctions( section_code );
+                }
+
+                section_array[ section_index ] = section_code + section_text;
+            }
+
+            template_text = section_array.join( "" );
+        }
+
+        return (
+            template_text
+                .ReplaceText( "(\\:", "(:" )
+                .ReplaceText( ":\\)", ":)" )
+            );
+    }
+
+    // ~~
+
+    ProcessTemplateStyle(
         template_text
         )
     {
@@ -418,17 +490,13 @@ class VISTA_COMPONENT extends HTMLElement
             line,
             line_array,
             line_index,
-            media_query_name,
             section_array,
             section_index,
             section_part_array,
             selector_text,
             trimmed_line;
 
-        template_text = template_text.split( "\r" ).join( "" );
-
-        if ( MediaQueryMap.size > 0
-             && template_text.indexOf( "@media " ) >= 0 )
+        if ( template_text.indexOf( "@media " ) >= 0 )
         {
             section_array = template_text.split( "<style>\n" );
 
@@ -464,11 +532,6 @@ class VISTA_COMPONENT extends HTMLElement
                     else if ( trimmed_line.HasPrefix( "@media " ) )
                     {
                         trimmed_line = trimmed_line.slice( 6 );
-
-                        for ( media_query_name of MediaQueryMap.keys() )
-                        {
-                            trimmed_line = trimmed_line.split( media_query_name ).join( MediaQueryMap.get( media_query_name ) );
-                        }
 
                         if ( brace_level === 0 )
                         {
@@ -509,6 +572,21 @@ class VISTA_COMPONENT extends HTMLElement
 
     // ~~
 
+    ProcessTemplate(
+        template_text
+        )
+    {
+        return (
+            this.ProcessTemplateStyle(
+                this.ProcessTemplateConstants(
+                    template_text.ReplaceText( "\r", "" )
+                    )
+                )
+            );
+    }
+
+    // ~~
+
     SetTemplate(
         template_text
         )
@@ -527,9 +605,7 @@ class VISTA_COMPONENT extends HTMLElement
         }
 
         template_text = this.ProcessTemplate( template_text );
-
         section_array = template_text.split( "<:" );
-
         function_code = "() => {\nvar result = " + GetJsonText( section_array[ 0 ] ) + ";\n";
 
         for ( section_index = 1;
@@ -563,10 +639,10 @@ class VISTA_COMPONENT extends HTMLElement
 
         function_code
             = function_code
-                  .split( "<\\:" ).join( "<:" )
-                  .split( ":\\>" ).join( ":>" )
-                  .split( "<\\\\:" ).join( "<:" )
-                  .split( ":\\\\>" ).join( ":>" );
+                  .ReplaceText( "<\\:", "<:" )
+                  .ReplaceText( ":\\>", ":>" )
+                  .ReplaceText( "<\\\\:", "<:" )
+                  .ReplaceText( ":\\\\>", ":>" );
 
         try
         {
@@ -593,7 +669,7 @@ class VISTA_COMPONENT extends HTMLElement
     {
         if ( content === undefined )
         {
-             content = this.GetContent()
+             content = this.GetContent();
         }
 
         this.RootElement.innerHTML = content;
@@ -640,7 +716,8 @@ class VISTA_COMPONENT extends HTMLElement
 var
     ComponentHasChanged = false,
     ComponentUpdateDelay = 0.05,
-    MediaQueryMap = new Map();
+    TemplateConstantMap = new Map(),
+    TemplateFunctionMap = new Map();
 
 // -- FUNCTIONS
 
@@ -711,41 +788,20 @@ function DefineComponent(
 
 // ~~
 
-function DefineMediaQueries(
-    media_query_map
+function DefineTemplateConstant(
+    template_constant_name,
+    template_constant
     )
 {
-    for ( media_query_name in media_query_map )
-    {
-        MediaQueryMap.set( media_query_name, media_query_map[ media_query_name ] );
-    }
+    TemplateConstantMap.set( template_constant_name, template_constant );
 }
 
-// -- STATEMENTS
+// ~~
 
-DefineMediaQueries(
-    {
-        "below-20em" : "(max-width: 19.98em)",
-        "below-30em" : "(max-width: 29.98em)",
-        "below-40em" : "(max-width: 39.98em)",
-        "below-50em" : "(max-width: 49.98em)",
-        "below-60em" : "(max-width: 59.98em)",
-        "below-70em" : "(max-width: 69.98em)",
-        "below-80em" : "(max-width: 79.98em)",
-        "below-90em" : "(max-width: 89.98em)",
-        "below-100em" : "(max-width: 99.98em)",
-        "below-110em" : "(max-width: 109.98em)",
-        "below-120em" : "(max-width: 119.98em)",
-        "above-20em" : "(min-width: 20em)",
-        "above-30em" : "(min-width: 30em)",
-        "above-40em" : "(min-width: 40em)",
-        "above-50em" : "(min-width: 50em)",
-        "above-60em" : "(min-width: 60em)",
-        "above-70em" : "(min-width: 70em)",
-        "above-80em" : "(min-width: 80em)",
-        "above-90em" : "(min-width: 90em)",
-        "above-100em" : "(min-width: 100em)",
-        "above-110em" : "(min-width: 110em)",
-        "above-120em" : "(min-width: 120em)"
-    }
-    );
+function DefineTemplateFunction(
+    template_function_name,
+    template_function
+    )
+{
+    TemplateFunctionMap.set( template_function_name, template_function );
+}

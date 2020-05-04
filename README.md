@@ -179,6 +179,7 @@ Lightweight CSS and JavaScript framework.
         <script src="../../CODE/JAVASCRIPT/vista_base.js"></script>
         <script src="../../CODE/JAVASCRIPT/vista_element.js"></script>
         <script src="../../CODE/JAVASCRIPT/vista_component.js"></script>
+        <script src="../../CODE/JAVASCRIPT/vista_breakpoint.js"></script>
         <script>
             // -- TYPES
 
@@ -250,17 +251,17 @@ Lightweight CSS and JavaScript framework.
                             :host .button
                             {
                                 border: none;
-                                border-radius: 0.5rem;
-                                padding: 0.5rem 1rem;
+                                border-radius: (:8 pxm:);
+                                padding: (:8 pxm:) (:16 pxm:);
                                 background-color: <:# this.TextColor :>;
                                 color: cyan;
 
-                                @media above-30em and below-40em, above-50em
+                                @media (:above-30em:) and (:below-40em:), (:above-50em:)
                                 {
                                     color: white;
                                 }
 
-                                @media above-70em
+                                @media (:above-60em:)
                                 {
                                     color: yellow;
                                 }
@@ -268,13 +269,13 @@ Lightweight CSS and JavaScript framework.
 
                             :host .button
                             {
-                                @media above-70em
+                                @media (:above-60em:)
                                 {
                                     background-color: magenta;
                                 }
                             }
 
-                            @media above-80em
+                            @media (:above-70em:)
                             {
                                 :host .button
                                 {
@@ -317,6 +318,7 @@ Lightweight CSS and JavaScript framework.
 
             // -- STATEMENTS
 
+            DefineTemplateFunction( " pxm", ( expression ) => eval( expression ) * 0.0625 + "rem" );
             DefineComponent( TEST_COMPONENT, "test-component" );
         </script>
     </body>
