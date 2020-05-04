@@ -162,7 +162,7 @@ class VISTA_COMPONENT extends HTMLElement
         this.AttributeMap = new Map();
         this.EventArray = [];
         this.RootElement = this;
-        this.TemplateFunction = null;
+        this.TemplateOperation = null;
     }
 
     // -- INQUIRIES
@@ -170,7 +170,7 @@ class VISTA_COMPONENT extends HTMLElement
     GetContent(
         )
     {
-        return this.TemplateFunction();
+        return this.TemplateOperation();
     }
 
     // ~~
@@ -409,22 +409,22 @@ class VISTA_COMPONENT extends HTMLElement
 
     // ~~
 
-    ProcessTemplateFunctions(
+    ProcessTemplateOperations(
         text
         )
     {
         var
-            template_function,
-            template_function_name;
+            template_operation,
+            template_operation_name;
 
-        for ( template_function_name of TemplateFunctionMap.keys() )
+        for ( template_operation_name of TemplateOperationMap.keys() )
         {
-            if ( text.endsWith( template_function_name ) )
+            if ( text.endsWith( template_operation_name ) )
             {
-                template_function = TemplateFunctionMap.get( template_function_name );
+                template_operation = TemplateOperationMap.get( template_operation_name );
 
-                text = text.slice( 0, text.length - template_function_name.length );
-                text = template_function( this.ProcessTemplateFunctions( text ) );
+                text = text.slice( 0, text.length - template_operation_name.length );
+                text = template_operation( this.ProcessTemplateOperations( text ) );
             }
         }
 
@@ -463,7 +463,7 @@ class VISTA_COMPONENT extends HTMLElement
                 }
                 else
                 {
-                    section_code = this.ProcessTemplateFunctions( section_code );
+                    section_code = this.ProcessTemplateOperations( section_code );
                 }
 
                 section_array[ section_index ] = section_code + section_text;
@@ -646,7 +646,7 @@ class VISTA_COMPONENT extends HTMLElement
 
         try
         {
-            this.TemplateFunction = eval( function_code );
+            this.TemplateOperation = eval( function_code );
         }
         catch ( error )
         {
@@ -717,7 +717,7 @@ var
     ComponentHasChanged = false,
     ComponentUpdateDelay = 0.05,
     TemplateConstantMap = new Map(),
-    TemplateFunctionMap = new Map();
+    TemplateOperationMap = new Map();
 
 // -- FUNCTIONS
 
@@ -798,10 +798,10 @@ function DefineTemplateConstant(
 
 // ~~
 
-function DefineTemplateFunction(
-    template_function_name,
-    template_function
+function DefineTemplateOperation(
+    template_operation_name,
+    template_operation
     )
 {
-    TemplateFunctionMap.set( template_function_name, template_function );
+    TemplateOperationMap.set( template_operation_name, template_operation );
 }
