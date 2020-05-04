@@ -423,7 +423,7 @@ class VISTA_COMPONENT extends HTMLElement
             {
                 template_unit = TemplateUnitMap.get( template_unit_name );
 
-                text = text.slice( 0, text.length - template_unit_name.length );
+                text = text.slice( 0, text.length - template_unit_name.length ).trim();
                 text = template_unit( this.ProcessTemplateUnits( text ) );
             }
         }
@@ -454,7 +454,7 @@ class VISTA_COMPONENT extends HTMLElement
                   ++section_index )
             {
                 section_part_array = section_array[ section_index ].split( ":)" );
-                section_code = section_part_array.shift();
+                section_code = section_part_array.shift().trim();
                 section_text = section_part_array.join( ":)" );
 
                 if ( TemplateConstantMap.has( section_code ) )
