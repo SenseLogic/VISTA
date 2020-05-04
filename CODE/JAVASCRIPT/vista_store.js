@@ -36,9 +36,14 @@ class VISTA_STORE extends VISTA_DATA
         this.SetValuePropertyName = undefined;
         this.FixValuePropertyName = undefined;
 
-        if ( value_name !== undefined )
+        if ( value_name !== undefined
+             && value_name !== "Value" )
         {
-            this[ "Get" + value_name + "Array" ] = this.GetValueArray;
+            this[ "HasLocal" + value_name ] = this.HasLocalValue;
+            this[ "GetLocal" + value_name + "Array" ] = this.GetLocalValueArray;
+            this[ "GetLocal" + value_name ] = this.GetLocalValue;
+            this[ "Fetch" + value_name + "Array" ] = this.FetchValueArray;
+            this[ "Fetch" + value_name ] = this.FetchValue;
             this[ "Get" + value_name ] = this.GetValue;
             this[ "Add" + value_name ] = this.AddValue;
             this[ "Set" + value_name ] = this.SetValue;
@@ -54,6 +59,39 @@ class VISTA_STORE extends VISTA_DATA
         )
     {
         return value[ this.KeyPropertyName ];
+    }
+
+    // ~~
+
+    HasLocalValue(
+        value_key
+        )
+    {
+        return this.ValueMap.has( value_key );
+    }
+
+    // ~~
+
+    GetLocalValueArray(
+        filter_function = undefined
+        )
+    {
+        var
+            value,
+            value_array;
+
+        value_array = [];
+
+        for ( value of this.ValueMap.values() )
+        {
+            if ( filter_function === undefined
+                 || filter_function( value ) )
+            {
+                value_array.push( value );
+            }
+        }
+
+        return value_array;
     }
 
     // ~~
@@ -215,7 +253,7 @@ class VISTA_STORE extends VISTA_DATA
 
     // ~~
 
-    async GetValueArray(
+    async FetchValueArray(
         query_suffix = ""
         )
     {
@@ -236,7 +274,7 @@ class VISTA_STORE extends VISTA_DATA
 
     // ~~
 
-    async GetValue(
+    async FetchValue(
         value_key,
         query_prefix = "",
         query_suffix = ""
@@ -253,6 +291,36 @@ class VISTA_STORE extends VISTA_DATA
         }
 
         return this.SetLocalValue( value );
+    }
+
+    // ~~
+
+    async GetValue(
+        value_key,
+        query_prefix = "",
+        query_suffix = ""
+        )
+    {
+        var
+            value;
+
+        value = this.ValueMap.get( value_key );
+
+        if ( value === undefined )
+        {
+            value = await SendJsonRequest( this.GetValueUrl + query_prefix + value_key + query_suffix, this.GetValueMethod );
+
+            if ( this.GetValuePropertyName !== undefined )
+            {
+                value = value[ this.GetValuePropertyName ];
+            }
+
+            return this.SetLocalValue( value );
+        }
+        else
+        {
+            return value;
+        }
     }
 
     // ~~

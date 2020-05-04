@@ -728,3 +728,27 @@ Array.prototype.Process = function(
 
     return this;
 }
+
+// ~~
+
+Array.prototype.HasValue = Array.prototype.includes;
+
+// ~~
+
+Array.prototype.GetValueIndex = Array.prototype.indexOf;
+
+// ~~
+
+Array.prototype.FindMatchingValue = Array.prototype.find;
+
+// ~~
+
+Array.prototype.FindMatchingValueIndex = Array.prototype.findIndex;
+
+// ~~
+
+Array.prototype.FilterValues = Array.prototype.filter;
+
+// ~~
+
+Array.prototype.MapValue = Array.prototype.map;
