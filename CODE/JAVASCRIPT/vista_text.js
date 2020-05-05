@@ -1,6 +1,6 @@
 // -- FUNCTIONS
 
-String.prototype.GetCapitalCaseText = function(
+String.prototype.GetCapitalCaseText = function (
     )
 {
     if ( this.length <= 1 )
@@ -15,7 +15,7 @@ String.prototype.GetCapitalCaseText = function(
 
 // ~~
 
-String.prototype.GetTitleCaseText = function(
+String.prototype.GetTitleCaseText = function (
     prior_character_is_letter = false,
     separator_characters_are_kept = true
     )
@@ -62,7 +62,7 @@ String.prototype.GetTitleCaseText = function(
 
 // ~~
 
-String.prototype.GetPascalCaseText = function(
+String.prototype.GetPascalCaseText = function (
     prior_character_is_letter = false
     )
 {
@@ -71,7 +71,7 @@ String.prototype.GetPascalCaseText = function(
 
 // ~~
 
-String.prototype.GetCamelCaseText = function(
+String.prototype.GetCamelCaseText = function (
     )
 {
     return this.GetTitleCaseText( true, false );
@@ -79,7 +79,7 @@ String.prototype.GetCamelCaseText = function(
 
 // ~~
 
-String.prototype.GetSnakeCaseText = function(
+String.prototype.GetSnakeCaseText = function (
     separator_character = "_"
     )
 {
@@ -139,7 +139,7 @@ String.prototype.GetSnakeCaseText = function(
 
 // ~~
 
-String.prototype.GetKebabCaseText = function(
+String.prototype.GetKebabCaseText = function (
     )
 {
     return this.GetSnakeCaseText( "-" );
@@ -147,7 +147,7 @@ String.prototype.GetKebabCaseText = function(
 
 // ~~
 
-String.prototype.GetTranslatedText = function(
+String.prototype.GetTranslatedText = function (
     language_code,
     default_language_code = "en",
     translation_separator = "¨"

@@ -190,6 +190,14 @@ function Write(
 
 // ~~
 
+HTMLElement.prototype.Write = function (
+    )
+{
+    this.appendChild( document.createTextNode( GetArrayText( argument_array, "", true, "", "", "" ) ) );
+}
+
+// ~~
+
 function WriteLine(
     ...argument_array
     )
@@ -200,12 +208,30 @@ function WriteLine(
 
 // ~~
 
+HTMLElement.prototype.WriteLine = function (
+    )
+{
+    this.appendChild( document.createTextNode( GetArrayText( argument_array, "", true, "", "", "" ) ) );
+    this.appendChild( document.createElement( "br" ) );
+}
+
+// ~~
+
 function WriteRow(
     ...argument_array
     )
 {
     document.body.appendChild( document.createTextNode( GetArrayText( argument_array, " ", true, "", "", "" ) ) );
     document.body.appendChild( document.createElement( "br" ) );
+}
+
+// ~~
+
+HTMLElement.prototype.WriteRow = function (
+    )
+{
+    this.appendChild( document.createTextNode( GetArrayText( argument_array, " ", true, "", "", "" ) ) );
+    this.appendChild( document.createElement( "br" ) );
 }
 
 // ~~
@@ -245,7 +271,7 @@ function ShowError(
             error_panel_element.id = "vista-error-panel";
             error_panel_element.style = "position:fixed;z-index:999999;left:0;top:0;width:100%;height:100%;font-size:1rem;overflow:auto;background-color:rgba(0,0,0,0.5);color:white";
             error_panel_element.innerHTML = "<h1>ERROR</h1>";
-            error_panel_element.onclick = function(
+            error_panel_element.onclick = function (
                 )
             {
                 error_panel_element.style.display = "none";
@@ -543,7 +569,7 @@ String.prototype.HasSuffix = String.prototype.endsWith;
 
 // ~~
 
-String.prototype.RemovePrefix = function(
+String.prototype.RemovePrefix = function (
     prefix
     )
 {
@@ -560,7 +586,7 @@ String.prototype.RemovePrefix = function(
 
 // ~~
 
-String.prototype.RemoveSuffix = function(
+String.prototype.RemoveSuffix = function (
     suffix
     )
 {
@@ -577,7 +603,7 @@ String.prototype.RemoveSuffix = function(
 
 // ~~
 
-String.prototype.RemoveSuffixCharacters = function(
+String.prototype.RemoveSuffixCharacters = function (
     suffix_characters
     )
 {
@@ -613,7 +639,7 @@ String.prototype.RemoveSuffixCharacters = function(
 
 // ~~
 
-String.prototype.GetLeftPaddedText = function(
+String.prototype.GetLeftPaddedText = function (
     minimum_character_count,
     padding_character = " "
     )
@@ -630,7 +656,7 @@ String.prototype.GetLeftPaddedText = function(
 
 // ~~
 
-String.prototype.GetRightPaddedText = function(
+String.prototype.GetRightPaddedText = function (
     minimum_character_count,
     padding_character = " "
     )
@@ -647,7 +673,7 @@ String.prototype.GetRightPaddedText = function(
 
 // ~~
 
-String.prototype.ReplaceText = function(
+String.prototype.ReplaceText = function (
     old_text,
     new_text
     )
@@ -689,7 +715,7 @@ function GetByteArrayHexadecimalText(
 
 // ~~
 
-Array.prototype.Print = function(
+Array.prototype.Print = function (
     )
 {
     Print( this );
@@ -699,7 +725,7 @@ Array.prototype.Print = function(
 
 // ~~
 
-Array.prototype.Iterate = function(
+Array.prototype.Iterate = function (
     element_function,
     ...argument_array
     )
@@ -719,7 +745,7 @@ Array.prototype.Iterate = function(
 
 // ~~
 
-Array.prototype.Process = function(
+Array.prototype.Process = function (
     array_function,
     ...argument_array
     )

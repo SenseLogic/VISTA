@@ -60,7 +60,7 @@ function SetBackgroundParallax(
 
 // ~~
 
-Array.prototype.SetBackgroundParallax = function(
+Array.prototype.SetBackgroundParallax = function (
     offset_ratio = 1.5,
     offset_distance = 100,
     offset_unit = "px"

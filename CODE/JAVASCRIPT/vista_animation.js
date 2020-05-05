@@ -1219,7 +1219,7 @@ function StopStyles(
 
 // ~~
 
-Array.prototype.AnimateStyle = function(
+Array.prototype.AnimateStyle = function (
     style_name,
     style_value_array,
     style_time_array,
@@ -1245,7 +1245,7 @@ Array.prototype.AnimateStyle = function(
 
 // ~~
 
-Array.prototype.AnimateStyles = function(
+Array.prototype.AnimateStyles = function (
     style_value_array_map,
     style_time_array,
     animation_configuration = {}
@@ -1269,7 +1269,7 @@ Array.prototype.AnimateStyles = function(
 
 // ~~
 
-Array.prototype.PauseStyle = function(
+Array.prototype.PauseStyle = function (
     style_name
     )
 {
@@ -1286,7 +1286,7 @@ Array.prototype.PauseStyle = function(
 
 // ~~
 
-Array.prototype.PauseStyles = function(
+Array.prototype.PauseStyles = function (
     style_name_array
     )
 {
@@ -1303,7 +1303,7 @@ Array.prototype.PauseStyles = function(
 
 // ~~
 
-Array.prototype.ResumeStyle = function(
+Array.prototype.ResumeStyle = function (
     style_name
     )
 {
@@ -1320,7 +1320,7 @@ Array.prototype.ResumeStyle = function(
 
 // ~~
 
-Array.prototype.ResumeStyles = function(
+Array.prototype.ResumeStyles = function (
     style_name_array
     )
 {
@@ -1337,7 +1337,7 @@ Array.prototype.ResumeStyles = function(
 
 // ~~
 
-Array.prototype.StopStyle = function(
+Array.prototype.StopStyle = function (
     style_name
     )
 {
@@ -1354,7 +1354,7 @@ Array.prototype.StopStyle = function(
 
 // ~~
 
-Array.prototype.StopStyles = function(
+Array.prototype.StopStyles = function (
     style_name_array
     )
 {

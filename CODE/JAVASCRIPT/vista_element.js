@@ -61,7 +61,7 @@ function GetElementsByClasses(
 
 // ~~
 
-HTMLElement.prototype.GetElementsByClasses = function(
+HTMLElement.prototype.GetElementsByClasses = function (
     element_classes
     )
 {
@@ -79,7 +79,7 @@ function GetElementsByName(
 
 // ~~
 
-HTMLElement.prototype.GetElementsByName = function(
+HTMLElement.prototype.GetElementsByName = function (
     element_name
     )
 {
@@ -97,7 +97,7 @@ function GetElement(
 
 // ~~
 
-HTMLElement.prototype.GetElement = function(
+HTMLElement.prototype.GetElement = function (
     element_selector
     )
 {
@@ -122,7 +122,7 @@ function GetElements(
 
 // ~~
 
-HTMLElement.prototype.GetElements = function(
+HTMLElement.prototype.GetElements = function (
     element_selector
     )
 {
@@ -149,7 +149,7 @@ ShadowRoot.prototype.GetDescendantElement = ShadowRoot.prototype.querySelector;
 
 // ~~
 
-HTMLElement.prototype.GetDescendantElements = function(
+HTMLElement.prototype.GetDescendantElements = function (
     element_selector
     )
 {
@@ -158,7 +158,7 @@ HTMLElement.prototype.GetDescendantElements = function(
 
 // ~~
 
-ShadowRoot.prototype.GetDescendantElements = function(
+ShadowRoot.prototype.GetDescendantElements = function (
     element_selector
     )
 {
@@ -167,7 +167,7 @@ ShadowRoot.prototype.GetDescendantElements = function(
 
 // ~~
 
-HTMLElement.prototype.GetAncestorElement = function(
+HTMLElement.prototype.GetAncestorElement = function (
     element_selector
     )
 {
@@ -202,7 +202,7 @@ HTMLElement.prototype.HasAttribute = HTMLElement.prototype.hasAttribute;
 
 // ~~
 
-HTMLElement.prototype.GetAttribute = function(
+HTMLElement.prototype.GetAttribute = function (
     attribute_name,
     default_value = ""
     )
@@ -270,7 +270,7 @@ function GetElementStyle(
 
 // ~~
 
-Array.prototype.PrintElements = function(
+Array.prototype.PrintElements = function (
     )
 {
     var
@@ -286,7 +286,7 @@ Array.prototype.PrintElements = function(
 
 // ~~
 
-Array.prototype.DumpElements = function(
+Array.prototype.DumpElements = function (
     )
 {
     var
@@ -302,7 +302,7 @@ Array.prototype.DumpElements = function(
 
 // ~~
 
-Array.prototype.PrependChildElement = function(
+Array.prototype.PrependChildElement = function (
     child_element
     )
 {
@@ -317,7 +317,7 @@ Array.prototype.PrependChildElement = function(
 
 // ~~
 
-Array.prototype.PrependChildElements = function(
+Array.prototype.PrependChildElements = function (
     child_element_array
     )
 {
@@ -336,7 +336,7 @@ Array.prototype.PrependChildElements = function(
 
 // ~~
 
-Array.prototype.AppendChildElement = function(
+Array.prototype.AppendChildElement = function (
     child_element
     )
 {
@@ -351,7 +351,7 @@ Array.prototype.AppendChildElement = function(
 
 // ~~
 
-Array.prototype.AppendChildElements = function(
+Array.prototype.AppendChildElements = function (
     child_element_array
     )
 {
@@ -370,7 +370,7 @@ Array.prototype.AppendChildElements = function(
 
 // ~~
 
-Array.prototype.GetAncestorElements = function(
+Array.prototype.GetAncestorElements = function (
     element_selector = undefined
     )
 {
@@ -401,7 +401,7 @@ Array.prototype.GetAncestorElements = function(
 
 // ~~
 
-Array.prototype.GetParentElements = function(
+Array.prototype.GetParentElements = function (
     element_selector = undefined
     )
 {
@@ -427,7 +427,7 @@ Array.prototype.GetParentElements = function(
 
 // ~~
 
-Array.prototype.GetPrecedingElements = function(
+Array.prototype.GetPrecedingElements = function (
     element_selector = undefined
     )
 {
@@ -458,7 +458,7 @@ Array.prototype.GetPrecedingElements = function(
 
 // ~~
 
-Array.prototype.GetPriorElements = function(
+Array.prototype.GetPriorElements = function (
     element_selector = undefined
     )
 {
@@ -484,7 +484,7 @@ Array.prototype.GetPriorElements = function(
 
 // ~~
 
-Array.prototype.GetNextElements = function(
+Array.prototype.GetNextElements = function (
     element_selector = undefined
     )
 {
@@ -510,7 +510,7 @@ Array.prototype.GetNextElements = function(
 
 // ~~
 
-Array.prototype.GetFollowingElements = function(
+Array.prototype.GetFollowingElements = function (
     element_selector = undefined
     )
 {
@@ -541,7 +541,7 @@ Array.prototype.GetFollowingElements = function(
 
 // ~~
 
-Array.prototype.GetChildElements = function(
+Array.prototype.GetChildElements = function (
     element_selector = undefined
     )
 {
@@ -570,7 +570,7 @@ Array.prototype.GetChildElements = function(
 
 // ~~
 
-Array.prototype.GetDescendantElements = function(
+Array.prototype.GetDescendantElements = function (
     element_selector = undefined
     )
 {
@@ -605,7 +605,7 @@ Array.prototype.GetDescendantElements = function(
 
 // ~~
 
-Array.prototype.GetMatchingElements = function(
+Array.prototype.GetMatchingElements = function (
     element_selector = undefined
     )
 {
@@ -630,7 +630,7 @@ Array.prototype.GetMatchingElements = function(
 
 // ~~
 
-Array.prototype.GetElements = function(
+Array.prototype.GetElements = function (
     element_selector = undefined
     )
 {
@@ -670,7 +670,7 @@ Array.prototype.GetElements = function(
 
 // ~~
 
-Array.prototype.AddClass = function(
+Array.prototype.AddClass = function (
     class_name
     )
 {
@@ -687,7 +687,7 @@ Array.prototype.AddClass = function(
 
 // ~~
 
-Array.prototype.AddClasses = function(
+Array.prototype.AddClasses = function (
     class_name_array
     )
 {
@@ -708,7 +708,7 @@ Array.prototype.AddClasses = function(
 
 // ~~
 
-Array.prototype.RemoveClass = function(
+Array.prototype.RemoveClass = function (
     class_name
     )
 {
@@ -725,7 +725,7 @@ Array.prototype.RemoveClass = function(
 
 // ~~
 
-Array.prototype.RemoveClasses = function(
+Array.prototype.RemoveClasses = function (
     class_name_array
     )
 {
@@ -746,7 +746,7 @@ Array.prototype.RemoveClasses = function(
 
 // ~~
 
-Array.prototype.GetAttribute = function(
+Array.prototype.GetAttribute = function (
     attribute_name
     )
 {
@@ -766,7 +766,7 @@ Array.prototype.GetAttribute = function(
 
 // ~~
 
-Array.prototype.GetAttributes = function(
+Array.prototype.GetAttributes = function (
     attribute_name_array
     )
 {
@@ -794,7 +794,7 @@ Array.prototype.GetAttributes = function(
 
 // ~~
 
-Array.prototype.SetAttribute = function(
+Array.prototype.SetAttribute = function (
     attribute_name,
     attribute_value_array
     )
@@ -827,7 +827,7 @@ Array.prototype.SetAttribute = function(
 
 // ~~
 
-Array.prototype.SetAttributes = function(
+Array.prototype.SetAttributes = function (
     attribute_value_map
     )
 {
@@ -866,7 +866,7 @@ Array.prototype.SetAttributes = function(
 
 // ~~
 
-Array.prototype.GetStyle = function(
+Array.prototype.GetStyle = function (
     style_name
     )
 {
@@ -886,7 +886,7 @@ Array.prototype.GetStyle = function(
 
 // ~~
 
-Array.prototype.GetStyles = function(
+Array.prototype.GetStyles = function (
     style_name_array
     )
 {
@@ -914,7 +914,7 @@ Array.prototype.GetStyles = function(
 
 // ~~
 
-Array.prototype.SetStyle = function(
+Array.prototype.SetStyle = function (
     style_name,
     style_value_array
     )
@@ -947,7 +947,7 @@ Array.prototype.SetStyle = function(
 
 // ~~
 
-Array.prototype.SetStyles = function(
+Array.prototype.SetStyles = function (
     style_value_map
     )
 {
@@ -986,7 +986,7 @@ Array.prototype.SetStyles = function(
 
 // ~~
 
-Array.prototype.GetTextContent = function(
+Array.prototype.GetTextContent = function (
     )
 {
     var
@@ -1008,7 +1008,7 @@ Array.prototype.GetTextContent = function(
 
 // ~~
 
-Array.prototype.SetTextContent = function(
+Array.prototype.SetTextContent = function (
     text
     )
 {
@@ -1025,7 +1025,7 @@ Array.prototype.SetTextContent = function(
 
 // ~~
 
-Array.prototype.AddEventListener = function(
+Array.prototype.AddEventListener = function (
     event_name,
     event_function,
     options
@@ -1044,7 +1044,7 @@ Array.prototype.AddEventListener = function(
 
 // ~~
 
-Array.prototype.RemoveEventListener = function(
+Array.prototype.RemoveEventListener = function (
     event_name,
     event_function,
     options

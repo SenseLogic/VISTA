@@ -14,10 +14,14 @@ function SendRequest(
     request = new XMLHttpRequest();
 
     return new Promise(
-        function ( resolve, reject )
+        function (
+            resolve,
+            reject
+            )
         {
             request.onreadystatechange
-                = function()
+                = function (
+                      )
                   {
                       if ( request.readyState == 4 )
                       {
@@ -65,10 +69,14 @@ function SendJsonRequest(
     request = new XMLHttpRequest();
 
     return new Promise(
-        function ( resolve, reject )
+        function (
+            resolve,
+            reject
+            )
         {
             request.onreadystatechange
-                = function()
+                = function (
+                      )
                   {
                       if ( request.readyState == 4 )
                       {
