@@ -36,7 +36,6 @@ Lightweight CSS and JavaScript framework.
     *   manipulations
     *   animations
     *   components
-    *   events
     *   requests
     *   stores
     *   vectors
@@ -212,7 +211,6 @@ Lightweight CSS and JavaScript framework.
                     )
                 {
                     this.SetProperty( "TextColor", "#" + GetByteArrayHexadecimalText( GetRandomByteArray( 3 ) ) );
-
                     event.target.EmitEvent( "set-random-real", { RandomReal : GetRandomReal( 0.0, 10.0 ) } );
                 }
 
