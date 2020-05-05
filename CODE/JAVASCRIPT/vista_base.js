@@ -58,8 +58,16 @@ function GetValueText(
     value_is_unquoted = false
     )
 {
-    if ( typeof value === "string"
-         && value_is_unquoted )
+    if ( value === undefined )
+    {
+        return "undefined";
+    }
+    else if ( value === null )
+    {
+        return "null";
+    }
+    else if ( typeof value === "string"
+              && value_is_unquoted )
     {
         return value;
     }
@@ -77,7 +85,7 @@ function GetValueText(
     {
         if ( value.length === 0 )
         {
-            return [];
+            return "[]";
         }
         else
         {

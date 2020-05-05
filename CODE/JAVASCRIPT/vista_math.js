@@ -222,7 +222,7 @@ function GetRandomReal(
     excluded_maximum_real
     )
 {
-    return minimum_integer + GetRandom() * ( excluded_maximum_real - minimum_real );
+    return minimum_real + GetRandom() * ( excluded_maximum_real - minimum_real );
 }
 // ~~
 

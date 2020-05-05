@@ -190,11 +190,62 @@ HTMLElement.prototype.GetAncestorElement = function (
 
 // ~~
 
+HTMLElement.prototype.GetAncestorProperty = function (
+    property_name,
+    element_class
+    )
+{
+    var
+        ancestor_element;
+
+    for ( ancestor_element = this.parentElement;
+          ancestor_element;
+          ancestor_element = ancestor_element.parentElement )
+    {
+        if ( ancestor_element.nodeType === 1
+             && ancestor_element[ property_name ] !== undefined
+             && ( element_class === undefined
+                  || ancestor_element instanceof element_class ) )
+        {
+            return ancestor_element[ property_name ];
+        }
+    }
+
+    return null;
+}
+
+// ~~
+
 HTMLElement.prototype.AddEventListener = HTMLElement.prototype.addEventListener;
 
 // ~~
 
 HTMLElement.prototype.RemoveEventListener = HTMLElement.prototype.removeEventListener;
+
+// ~~
+
+HTMLElement.prototype.EmitEvent = function (
+    event_name,
+    event_data,
+    event_is_bubbled = true,
+    event_is_cancelable = true,
+    event_is_composed = true
+    )
+{
+    return (
+        this.dispatchEvent(
+            new CustomEvent(
+                event_name,
+                {
+                    detail : event_data,
+                    bubbles : event_is_bubbled,
+                    cancelable : event_is_cancelable,
+                    composed : event_is_composed
+                }
+                )
+            )
+        );
+}
 
 // ~~
 

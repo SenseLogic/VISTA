@@ -36,6 +36,7 @@ Lightweight CSS and JavaScript framework.
     *   manipulations
     *   animations
     *   components
+    *   events
     *   requests
     *   stores
     *   vectors
@@ -177,6 +178,7 @@ Lightweight CSS and JavaScript framework.
             </test-component>
         </main>
         <script src="../../CODE/JAVASCRIPT/vista_base.js"></script>
+        <script src="../../CODE/JAVASCRIPT/vista_math.js"></script>
         <script src="../../CODE/JAVASCRIPT/vista_element.js"></script>
         <script src="../../CODE/JAVASCRIPT/vista_component.js"></script>
         <script src="../../CODE/JAVASCRIPT/vista_breakpoint.js"></script>
@@ -195,15 +197,29 @@ Lightweight CSS and JavaScript framework.
 
                 // -- OPERATIONS
 
+                SetRandomReal(
+                    event
+                    )
+                {
+                    this.RandomReal = event.detail.RandomReal;
+                    this.SetChanged();
+                }
+
+                // ~~
+
                 SetTextColorProperty(
+                    event
                     )
                 {
                     this.SetProperty( "TextColor", "#" + GetByteArrayHexadecimalText( GetRandomByteArray( 3 ) ) );
+
+                    event.target.EmitEvent( "set-random-real", { RandomReal : GetRandomReal( 0.0, 10.0 ) } );
                 }
 
                 // ~~
 
                 SetClickCountProperty(
+                    event
                     )
                 {
                     this.SetProperty( "ClickCount", this.ClickCount + 1 );
@@ -212,6 +228,7 @@ Lightweight CSS and JavaScript framework.
                 // ~~
 
                 SetClickCountAttribute(
+                    event
                     )
                 {
                     this.SetAttribute( "click-count", this.ClickCount + 1 );
@@ -237,12 +254,17 @@ Lightweight CSS and JavaScript framework.
                                 Rating : 3
                             }
                         ];
+                    this.RandomReal = 0.0;
 
                     this.BindProperty( "TextColor", "text-color", "#0000ff" );
                     this.BindProperty( "ClickCount", "click-count", 0 );
+
+                    this.BindMethod( "SetRandomReal" );
                     this.BindMethod( "SetTextColorProperty" );
                     this.BindMethod( "SetClickCountProperty" );
                     this.BindMethod( "SetClickCountAttribute" );
+
+                    this.BindEvent( this, "set-random-real", this.SetRandomReal );
 
                     this.AttachShadow();
                     this.SetTemplate(
@@ -299,6 +321,9 @@ Lightweight CSS and JavaScript framework.
                         <div ignored="<\: ignored :\>">
                             <: var ignored = "<\: ignored :\>"; :>
                         </div>
+                        <div>
+                            <:# this.RandomReal :>
+                        </div>
                         `
                         );
                 }
@@ -318,7 +343,7 @@ Lightweight CSS and JavaScript framework.
 
             // -- STATEMENTS
 
-            DefineTemplateUnit( " pxm", ( expression ) => eval( expression ) * 0.0625 + "rem" );
+            DefineTemplateFilter( " pxm", ( expression ) => eval( expression ) * 0.0625 + "rem" );
             DefineComponent( TEST_COMPONENT, "test-component" );
         </script>
     </body>

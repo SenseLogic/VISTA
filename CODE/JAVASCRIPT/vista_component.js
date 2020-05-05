@@ -9,7 +9,7 @@ class VISTA_DATA
     {
         this.WatcherArray = [];
         this.HasChanged = true;
-        this.HasChangedWatchers = false;
+        this.IsChangingWatchers = false;
     }
 
     // -- INQUIRIES
@@ -94,21 +94,22 @@ class VISTA_DATA
         ComponentHasChanged = true;
         this.HasChanged = true;
 
-        if ( !this.HasChangedWatchers )
+        if ( !this.IsChangingWatchers )
         {
-            this.HasChangedWatchers = true;
+            this.IsChangingWatchers = true;
 
             for ( watcher of this.WatcherArray )
             {
                 watcher.SetChanged();
             }
+
+            this.IsChangingWatchers = false;
         }
 
         if ( update_is_required )
         {
             DelayCall( UpdateComponents, ComponentUpdateDelay );
         }
-
     }
 
     // ~~
@@ -117,7 +118,7 @@ class VISTA_DATA
         )
     {
         this.HasChanged = false;
-        this.HasChangedWatchers = false;
+        this.IsChangingWatchers = false;
     }
 
     // ~~
@@ -129,7 +130,7 @@ class VISTA_DATA
     {
         object.WatcherArray = [];
         object.HasChanged = true;
-        object.HasChangedWatchers = false;
+        object.IsChangingWatchers = false;
 
         object_class.prototype.FindWatcherIndex = VISTA_DATA.prototype.FindWatcherIndex;
         object_class.prototype.AddWatcher = VISTA_DATA.prototype.AddWatcher;
@@ -149,12 +150,14 @@ class VISTA_COMPONENT extends HTMLElement
 
     constructor(
         template_text = "",
+        display_style = "block"
         )
     {
         var
             property;
 
         super();
+        this.style[ "display" ] = display_style;
 
         VISTA_DATA.ConstructObject( this, VISTA_COMPONENT );
 
@@ -162,7 +165,7 @@ class VISTA_COMPONENT extends HTMLElement
         this.AttributeMap = new Map();
         this.EventArray = [];
         this.RootElement = this;
-        this.TemplateUnit = null;
+        this.TemplateFunction = null;
     }
 
     // -- INQUIRIES
@@ -170,7 +173,7 @@ class VISTA_COMPONENT extends HTMLElement
     GetContent(
         )
     {
-        return this.TemplateUnit();
+        return this.TemplateFunction();
     }
 
     // ~~
@@ -386,17 +389,28 @@ class VISTA_COMPONENT extends HTMLElement
     // ~~
 
     UnbindEvents(
+        excluded_element = undefined
         )
     {
         var
-            event;
+            event,
+            event_array;
+
+        event_array = [];
 
         for ( event of this.EventArray )
         {
-            event.Element.RemoveEventListener( event.Name, event.CalledFunction );
+            if ( event.Element === excluded_element )
+            {
+                event_array.push( event );
+            }
+            else
+            {
+                event.Element.RemoveEventListener( event.Name, event.CalledFunction );
+            }
         }
 
-        this.EventArray = [];
+        this.EventArray = event_array;
     }
 
     // ~~
@@ -409,22 +423,22 @@ class VISTA_COMPONENT extends HTMLElement
 
     // ~~
 
-    ProcessTemplateUnits(
+    ProcessTemplateFilters(
         text
         )
     {
         var
-            template_unit,
-            template_unit_name;
+            template_filter,
+            template_filter_name;
 
-        for ( template_unit_name of TemplateUnitMap.keys() )
+        for ( template_filter_name of TemplateFilterMap.keys() )
         {
-            if ( text.endsWith( template_unit_name ) )
+            if ( text.endsWith( template_filter_name ) )
             {
-                template_unit = TemplateUnitMap.get( template_unit_name );
+                template_filter = TemplateFilterMap.get( template_filter_name );
 
-                text = text.slice( 0, text.length - template_unit_name.length ).trim();
-                text = template_unit( this.ProcessTemplateUnits( text ) );
+                text = text.slice( 0, text.length - template_filter_name.length ).trim();
+                text = template_filter( this.ProcessTemplateFilters( text ) );
             }
         }
 
@@ -463,7 +477,7 @@ class VISTA_COMPONENT extends HTMLElement
                 }
                 else
                 {
-                    section_code = this.ProcessTemplateUnits( section_code );
+                    section_code = this.ProcessTemplateFilters( section_code );
                 }
 
                 section_array[ section_index ] = section_code + section_text;
@@ -646,7 +660,7 @@ class VISTA_COMPONENT extends HTMLElement
 
         try
         {
-            this.TemplateUnit = eval( function_code );
+            this.TemplateFunction = eval( function_code );
         }
         catch ( error )
         {
@@ -681,7 +695,7 @@ class VISTA_COMPONENT extends HTMLElement
     UpdateComponent(
         )
     {
-        this.UnbindEvents();
+        this.UnbindEvents( this );
         this.UpdateContent();
     }
 
@@ -717,7 +731,7 @@ var
     ComponentHasChanged = false,
     ComponentUpdateDelay = 0.05,
     TemplateConstantMap = new Map(),
-    TemplateUnitMap = new Map();
+    TemplateFilterMap = new Map();
 
 // -- FUNCTIONS
 
@@ -798,10 +812,10 @@ function DefineTemplateConstant(
 
 // ~~
 
-function DefineTemplateUnit(
-    template_unit_name,
-    template_unit
+function DefineTemplateFilter(
+    template_filter_name,
+    template_filter
     )
 {
-    TemplateUnitMap.set( template_unit_name, template_unit );
+    TemplateFilterMap.set( template_filter_name, template_filter );
 }
