@@ -720,12 +720,12 @@ Lightweight CSS and JavaScript framework.
 
 ## Limitations
 
-*   The custom components require the latest versions of :
+*   The components require recent versions of :
     *   Firefox
     *   Safari
     *   Chrome
     *   Edge-Chromium
-*   The media query bubbling requires trailing definitions.
+*   The media query bubbling is applied to trailing definitions.
 
 ## Version
 
