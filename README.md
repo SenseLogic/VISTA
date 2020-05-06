@@ -36,6 +36,7 @@ Lightweight CSS and JavaScript framework.
     *   manipulations
     *   animations
     *   components
+    *   routers
     *   requests
     *   stores
     *   vectors
@@ -171,8 +172,8 @@ Lightweight CSS and JavaScript framework.
         <meta charset="UTF-8">
         <title>Sample</title>
     </head>
-    <body>
-        <main style="font-family:monospace">
+    <body style="font-family:monospace">
+        <main>
             <test-component click-count="1">
             </test-component>
         </main>
@@ -186,27 +187,21 @@ Lightweight CSS and JavaScript framework.
 
             class TEST_COMPONENT extends VISTA_COMPONENT
             {
-                // -- INQUIRIES
-
-                static get observedAttributes(
-                    )
-                {
-                    return [ "text-color", "click-count" ];
-                }
-
                 // -- OPERATIONS
 
-                SetRandomReal(
+                HandleSetRandomRealEvent(
                     event
                     )
                 {
                     this.RandomReal = event.detail.RandomReal;
                     this.SetChanged();
+
+                    event.preventDefault();
                 }
 
                 // ~~
 
-                SetTextColorProperty(
+                HandleButtonClickEvent(
                     event
                     )
                 {
@@ -216,7 +211,7 @@ Lightweight CSS and JavaScript framework.
 
                 // ~~
 
-                SetClickCountProperty(
+                HandlePropertyButtonClickEvent(
                     event
                     )
                 {
@@ -225,7 +220,7 @@ Lightweight CSS and JavaScript framework.
 
                 // ~~
 
-                SetClickCountAttribute(
+                HandleAttributeButtonClickEvent(
                     event
                     )
                 {
@@ -257,12 +252,12 @@ Lightweight CSS and JavaScript framework.
                     this.BindProperty( "TextColor", "text-color", "#0000ff" );
                     this.BindProperty( "ClickCount", "click-count", 0 );
 
-                    this.BindMethod( "SetRandomReal" );
-                    this.BindMethod( "SetTextColorProperty" );
-                    this.BindMethod( "SetClickCountProperty" );
-                    this.BindMethod( "SetClickCountAttribute" );
+                    this.BindMethod( "HandleSetRandomRealEvent" );
+                    this.BindMethod( "HandleButtonClickEvent" );
+                    this.BindMethod( "HandlePropertyButtonClickEvent" );
+                    this.BindMethod( "HandleAttributeButtonClickEvent" );
 
-                    this.BindEvent( this, "set-random-real", this.SetRandomReal );
+                    this.BindEvent( this, "set-random-real", this.HandleSetRandomRealEvent );
 
                     this.AttachShadow();
                     this.SetTemplate(
@@ -333,16 +328,118 @@ Lightweight CSS and JavaScript framework.
                 {
                     super.UpdateComponent();
 
-                    this.BindEvent( this.GetElements( ".button" ), "click", this.SetTextColorProperty );
-                    this.BindEvent( this.GetElement( "#property-button" ), "click", this.SetClickCountProperty );
-                    this.BindEvent( this.GetElement( "#attribute-button" ), "click", this.SetClickCountAttribute );
+                    this.BindEvent( this.GetElements( ".button" ), "click", this.HandleButtonClickEvent );
+                    this.BindEvent( this.GetElement( "#property-button" ), "click", this.HandlePropertyButtonClickEvent );
+                    this.BindEvent( this.GetElement( "#attribute-button" ), "click", this.HandleAttributeButtonClickEvent );
                 }
             }
 
             // -- STATEMENTS
 
             DefineTemplateFilter( " pxm", ( expression ) => eval( expression ) * 0.0625 + "rem" );
-            DefineComponent( TEST_COMPONENT, "test-component" );
+            DefineComponent( TEST_COMPONENT, "test-component", [ "text-color", "click-count" ] );
+        </script>
+    </body>
+</html>
+```
+
+### Router
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Sample</title>
+    </head>
+    <body style="font-family:monospace">
+        <main>
+            <router-component>
+            </router-component>
+        </main>
+        <script src="../../CODE/JAVASCRIPT/vista_base.js"></script>
+        <script src="../../CODE/JAVASCRIPT/vista_element.js"></script>
+        <script src="../../CODE/JAVASCRIPT/vista_component.js"></script>
+        <script src="../../CODE/JAVASCRIPT/vista_router.js"></script>
+        <script>
+            // -- TYPES
+
+            class ROUTER_COMPONENT extends VISTA_ROUTER_COMPONENT
+            {
+                // -- OPERATIONS
+
+                HandleRouteButtonClickEvent(
+                    event
+                    )
+                {
+                    this.SetRoute( event.target.dataset.route );
+                }
+
+                // ~~
+
+                InitializeComponent(
+                    )
+                {
+                    this.Route = "/";
+
+                    this.BindMethod( "HandleRouteButtonClickEvent" );
+
+                    this.SetTemplate(
+                        Html`
+                        <style>
+                            .route-button
+                            {
+                                border: none;
+                                border-radius: 0.5rem;
+                                padding: 0.5rem 1rem;
+                                background-color: magenta;
+                                color: white;
+                            }
+                        </style>
+                        <button class="route-button" data-route="/">
+                            /
+                        </button>
+                        <button class="route-button" data-route="/articles">
+                            /articles
+                        </button>
+                        <button class="route-button" data-route="/articles/10">
+                            /articles/10
+                        </button>
+                        <button class="route-button" data-route="/articles/10/bad">
+                            /articles/10/bad
+                        </button>
+                        <h1>
+                            <: if ( this.HasRoute( "/" ) ) { :>
+                                Home
+                            <: } else if ( this.HasRoute( "/articles" ) ) { :>
+                                Articles
+                            <: } else if ( this.HasRoute( "/articles/{ArticleId}" ) ) { :>
+                                Article <:# this.ArticleId :>
+                            <: } else { :>
+                                Bad
+                            <: } :>
+                        </h1>
+                        </h2>
+                            "<:# this.Route :>"
+                        </h2>
+                        `
+                        );
+                }
+
+                // ~~
+
+                UpdateComponent(
+                    )
+                {
+                    super.UpdateComponent();
+
+                    this.BindEvent( this.GetElements( ".route-button" ), "click", this.HandleRouteButtonClickEvent );
+                }
+            }
+
+            // -- STATEMENTS
+
+            DefineComponent( ROUTER_COMPONENT, "router-component" );
         </script>
     </body>
 </html>
@@ -620,6 +717,15 @@ Lightweight CSS and JavaScript framework.
     </body>
 </html>
 ```
+
+## Limitations
+
+*   The custom components require the latest versions of :
+    *   Firefox
+    *   Safari
+    *   Chrome
+    *   Edge-Chromium
+*   The media query bubbling requires trailing definitions.
 
 ## Version
 

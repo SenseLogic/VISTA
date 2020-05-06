@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Sample</title>
+    </head>
+    <body style="font-family:monospace">
+        <main>
+            <router-component>
+            </router-component>
+        </main>
+        <script src="../../CODE/JAVASCRIPT/vista_base.js"></script>
+        <script src="../../CODE/JAVASCRIPT/vista_element.js"></script>
+        <script src="../../CODE/JAVASCRIPT/vista_component.js"></script>
+        <script src="../../CODE/JAVASCRIPT/vista_router.js"></script>
+        <script>
+            // -- TYPES
+
+            class ROUTER_COMPONENT extends VISTA_ROUTER_COMPONENT
+            {
+                // -- OPERATIONS
+
+                HandleRouteButtonClickEvent(
+                    event
+                    )
+                {
+                    this.SetRoute( event.target.dataset.route );
+                }
+
+                // ~~
+
+                InitializeComponent(
+                    )
+                {
+                    this.Route = "/";
+
+                    this.BindMethod( "HandleRouteButtonClickEvent" );
+
+                    this.SetTemplate(
+                        Html`
+                        <style>
+                            .route-button
+                            {
+                                border: none;
+                                border-radius: 0.5rem;
+                                padding: 0.5rem 1rem;
+                                background-color: magenta;
+                                color: white;
+                            }
+                        </style>
+                        <button class="route-button" data-route="/">
+                            /
+                        </button>
+                        <button class="route-button" data-route="/articles">
+                            /articles
+                        </button>
+                        <button class="route-button" data-route="/articles/10">
+                            /articles/10
+                        </button>
+                        <button class="route-button" data-route="/articles/10/bad">
+                            /articles/10/bad
+                        </button>
+                        <h1>
+                            <: if ( this.HasRoute( "/" ) ) { :>
+                                Home
+                            <: } else if ( this.HasRoute( "/articles" ) ) { :>
+                                Articles
+                            <: } else if ( this.HasRoute( "/articles/{ArticleId}" ) ) { :>
+                                Article <:# this.ArticleId :>
+                            <: } else { :>
+                                Bad
+                            <: } :>
+                        </h1>
+                        </h2>
+                            "<:# this.Route :>"
+                        </h2>
+                        `
+                        );
+                }
+
+                // ~~
+
+                UpdateComponent(
+                    )
+                {
+                    super.UpdateComponent();
+
+                    this.BindEvent( this.GetElements( ".route-button" ), "click", this.HandleRouteButtonClickEvent );
+                }
+            }
+
+            // -- STATEMENTS
+
+            DefineComponent( ROUTER_COMPONENT, "router-component" );
+        </script>
+    </body>
+</html>

@@ -30,82 +30,48 @@ class VISTA_ROUTER_COMPONENT extends VISTA_COMPONENT
         )
     {
         var
-            argument_name,
-            argument_value,
-            filter_character,
-            filter_character_index,
-            route,
-            route_character,
-            route_character_index;
+            filter_part,
+            filter_part_array,
+            filter_part_index,
+            route_part,
+            route_part_array;
 
-        this.SetChanged();
-
-        route = this.Route;
-        route_character_index = 0;
-        filter_character_index = 0;
-
-        while ( route_character_index < route.length
-                && filter_character_index < filter.length )
+        if ( filter.indexOf( "{" ) >= 0 )
         {
-            route_character = route[ route_character_index ];
-            filter_character = filter[ filter_character_index ];
+            route_part_array = this.Route.split( "/" );
+            filter_part_array = filter.split( "/" );
 
-            if ( filter_character === "{" )
+            if ( route_part_array.length === filter_part_array.length )
             {
-                ++filter_character_index;
-
-                argument_name = "";
-                argument_value = "";
-
-                while ( filter_character_index < filter.length )
+                for ( filter_part_index = 0;
+                      filter_part_index < route_part_array.length;
+                      ++filter_part_index )
                 {
-                    filter_character = filter[ filter_character_index ];
+                    filter_part = filter_part_array[ filter_part_index ];
+                    route_part = route_part_array[ filter_part_index ];
 
-                    if ( filter_character === "}" )
+                    if ( filter_part.startsWith( "{" )
+                         && filter_part.endsWith( "}" ) )
                     {
-                        ++filter_character_index;
-
-                        break;
+                        this[ filter_part.slice( 1, -1 ) ] = route_part;
                     }
-                    else
+                    else if ( route_part !== filter_part )
                     {
-                        argument_name += filter_character;
-                        ++filter_character_index;
+                        return false;
                     }
                 }
 
-                while ( route_character_index < route.length )
-                {
-                    route_character = route[ route_character_index ];
-
-                    if ( route_character === "/" )
-                    {
-                        break;
-                    }
-                    else
-                    {
-                        argument_value += route_character;
-                        ++route_character_index;
-                    }
-                }
-
-                this[ argument_name ] = argument_value;
-            }
-            else if ( filter_character === route_character )
-            {
-                ++filter_character_index;
-                ++route_character_index;
+                return true;
             }
             else
             {
                 return false;
             }
         }
-
-        return (
-            route_character_index === route.length
-            && filter_character_index === filter.length
-            );
+        else
+        {
+            return this.Route === filter;
+        }
     }
 }
 

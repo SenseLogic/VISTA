@@ -170,6 +170,14 @@ class VISTA_COMPONENT extends HTMLElement
 
     // -- INQUIRIES
 
+    static get observedAttributes(
+        )
+    {
+        return ComponentAttributeNameArray;
+    }
+
+    // ~~
+
     GetContent(
         )
     {
@@ -728,6 +736,7 @@ class VISTA_COMPONENT extends HTMLElement
 // -- VARIABLES
 
 var
+    ComponentAttributeNameArray = [],
     ComponentHasChanged = false,
     ComponentUpdateDelay = 0.05,
     TemplateConstantMap = new Map(),
@@ -787,9 +796,12 @@ function UpdateComponents(
 function DefineComponent(
     component_class,
     component_tag,
+    component_attribute_name_array = [],
     base_tag = undefined
     )
 {
+    ComponentAttributeNameArray = component_attribute_name_array;
+
     if ( base_tag === undefined )
     {
         window.customElements.define( component_tag, component_class );
@@ -798,6 +810,8 @@ function DefineComponent(
     {
         window.customElements.define( component_tag, component_class, { extends: base_tag } );
     }
+
+    ComponentAttributeNameArray = [];
 }
 
 // ~~

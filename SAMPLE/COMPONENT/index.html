@@ -4,8 +4,8 @@
         <meta charset="UTF-8">
         <title>Sample</title>
     </head>
-    <body>
-        <main style="font-family:monospace">
+    <body style="font-family:monospace">
+        <main>
             <test-component click-count="1">
             </test-component>
         </main>
@@ -19,27 +19,21 @@
 
             class TEST_COMPONENT extends VISTA_COMPONENT
             {
-                // -- INQUIRIES
-
-                static get observedAttributes(
-                    )
-                {
-                    return [ "text-color", "click-count" ];
-                }
-
                 // -- OPERATIONS
 
-                SetRandomReal(
+                HandleSetRandomRealEvent(
                     event
                     )
                 {
                     this.RandomReal = event.detail.RandomReal;
                     this.SetChanged();
+
+                    event.preventDefault();
                 }
 
                 // ~~
 
-                SetTextColorProperty(
+                HandleButtonClickEvent(
                     event
                     )
                 {
@@ -49,7 +43,7 @@
 
                 // ~~
 
-                SetClickCountProperty(
+                HandlePropertyButtonClickEvent(
                     event
                     )
                 {
@@ -58,7 +52,7 @@
 
                 // ~~
 
-                SetClickCountAttribute(
+                HandleAttributeButtonClickEvent(
                     event
                     )
                 {
@@ -90,12 +84,12 @@
                     this.BindProperty( "TextColor", "text-color", "#0000ff" );
                     this.BindProperty( "ClickCount", "click-count", 0 );
 
-                    this.BindMethod( "SetRandomReal" );
-                    this.BindMethod( "SetTextColorProperty" );
-                    this.BindMethod( "SetClickCountProperty" );
-                    this.BindMethod( "SetClickCountAttribute" );
+                    this.BindMethod( "HandleSetRandomRealEvent" );
+                    this.BindMethod( "HandleButtonClickEvent" );
+                    this.BindMethod( "HandlePropertyButtonClickEvent" );
+                    this.BindMethod( "HandleAttributeButtonClickEvent" );
 
-                    this.BindEvent( this, "set-random-real", this.SetRandomReal );
+                    this.BindEvent( this, "set-random-real", this.HandleSetRandomRealEvent );
 
                     this.AttachShadow();
                     this.SetTemplate(
@@ -166,16 +160,16 @@
                 {
                     super.UpdateComponent();
 
-                    this.BindEvent( this.GetElements( ".button" ), "click", this.SetTextColorProperty );
-                    this.BindEvent( this.GetElement( "#property-button" ), "click", this.SetClickCountProperty );
-                    this.BindEvent( this.GetElement( "#attribute-button" ), "click", this.SetClickCountAttribute );
+                    this.BindEvent( this.GetElements( ".button" ), "click", this.HandleButtonClickEvent );
+                    this.BindEvent( this.GetElement( "#property-button" ), "click", this.HandlePropertyButtonClickEvent );
+                    this.BindEvent( this.GetElement( "#attribute-button" ), "click", this.HandleAttributeButtonClickEvent );
                 }
             }
 
             // -- STATEMENTS
 
             DefineTemplateFilter( " pxm", ( expression ) => eval( expression ) * 0.0625 + "rem" );
-            DefineComponent( TEST_COMPONENT, "test-component" );
+            DefineComponent( TEST_COMPONENT, "test-component", [ "text-color", "click-count" ] );
         </script>
     </body>
 </html>
