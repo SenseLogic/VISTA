@@ -36,8 +36,6 @@ Lightweight CSS and JavaScript framework.
     *   manipulations
     *   animations
     *   components
-    *   templating
-    *   preprocessing
     *   routers
     *   requests
     *   stores
@@ -722,12 +720,12 @@ Lightweight CSS and JavaScript framework.
 
 ## Limitations
 
-*   The components require recent versions of :
+*   Native components require recent versions of :
     *   Firefox
     *   Safari
     *   Chrome
     *   Edge-Chromium
-*   The trailing media queries bubbling is limited to one level.
+*   Trailing media queries bubbling is limited to one level.
 
 ## Version
 

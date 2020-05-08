@@ -893,7 +893,7 @@ function GetCubicEaseInOutRatio(
 {
     if ( ratio < 0.5 )
     {
-        return 4.0 * ratio * ratio * ratio ;
+        return 4.0 * ratio * ratio * ratio;
     }
     else
     {
@@ -956,7 +956,7 @@ function GetQuinticEaseOutRatio(
 {
     ratio -= 1.0;
 
-    return ratio * ratio * ratio * ratio * ratio + 1;
+    return ratio * ratio * ratio * ratio * ratio + 1.0;
 }
 
 // ~~
@@ -973,7 +973,7 @@ function GetQuinticEaseInOutRatio(
     {
         ratio -= 1.0;
 
-        return 16.0 * ratio * ratio * ratio * ratio * ratio + 1;
+        return 16.0 * ratio * ratio * ratio * ratio * ratio + 1.0;
     }
 }
 
