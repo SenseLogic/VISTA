@@ -36,6 +36,8 @@ Lightweight CSS and JavaScript framework.
     *   manipulations
     *   animations
     *   components
+    *   templating
+    *   preprocessing
     *   routers
     *   requests
     *   stores
@@ -725,7 +727,7 @@ Lightweight CSS and JavaScript framework.
     *   Safari
     *   Chrome
     *   Edge-Chromium
-*   The media query bubbling is applied to trailing definitions.
+*   The trailing media queries bubbling is limited to one level.
 
 ## Version
 
