@@ -446,11 +446,11 @@ class VISTA_COMPONENT extends HTMLElement
                 template_filter = TemplateFilterMap.get( template_filter_name );
 
                 text = text.slice( 0, text.length - template_filter_name.length ).trim();
-                text = template_filter( this.ProcessTemplateFilters( text ) );
+                return template_filter( this.ProcessTemplateFilters( text ) );
             }
         }
 
-        return text;
+        return eval( text );
     }
 
     // ~~
@@ -460,6 +460,7 @@ class VISTA_COMPONENT extends HTMLElement
         )
     {
         var
+            old_template_text,
             section_array,
             section_code,
             section_index,
@@ -467,8 +468,12 @@ class VISTA_COMPONENT extends HTMLElement
             section_text,
             template_constant_name;
 
-        while ( template_text.indexOf( "(:" ) >= 0 )
+        old_template_text = "";
+
+        while ( template_text.indexOf( "(:" ) >= 0
+                && template_text != old_template_text )
         {
+            old_template_text = template_text;
             section_array = template_text.split( "(:" );
 
             for ( section_index = 1;
@@ -476,19 +481,27 @@ class VISTA_COMPONENT extends HTMLElement
                   ++section_index )
             {
                 section_part_array = section_array[ section_index ].split( ":)" );
-                section_code = section_part_array.shift().trim();
-                section_text = section_part_array.join( ":)" );
 
-                if ( TemplateConstantMap.has( section_code ) )
+                if ( section_part_array.length >= 2 )
                 {
-                    section_code = TemplateConstantMap.get( section_code );
+                    section_code = section_part_array.shift().trim();
+                    section_text = section_part_array.join( ":)" );
+
+                    if ( TemplateConstantMap.has( section_code ) )
+                    {
+                        section_code = TemplateConstantMap.get( section_code );
+                    }
+                    else
+                    {
+                        section_code = this.ProcessTemplateFilters( section_code );
+                    }
+
+                    section_array[ section_index ] = section_code + section_text;
                 }
                 else
                 {
-                    section_code = this.ProcessTemplateFilters( section_code );
+                    section_array[ section_index ] = "(:" + section_array[ section_index ];
                 }
-
-                section_array[ section_index ] = section_code + section_text;
             }
 
             template_text = section_array.join( "" );

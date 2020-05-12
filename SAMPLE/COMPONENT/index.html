@@ -83,12 +83,10 @@
 
                     this.BindProperty( "TextColor", "text-color", "#0000ff" );
                     this.BindProperty( "ClickCount", "click-count", 0 );
-
                     this.BindMethod( "HandleSetRandomRealEvent" );
                     this.BindMethod( "HandleButtonClickEvent" );
                     this.BindMethod( "HandlePropertyButtonClickEvent" );
                     this.BindMethod( "HandleAttributeButtonClickEvent" );
-
                     this.BindEvent( this, "set-random-real", this.HandleSetRandomRealEvent );
 
                     this.AttachShadow();
@@ -99,7 +97,7 @@
                             {
                                 border: none;
                                 border-radius: (:8 pxm:);
-                                padding: (:8 pxm:) (:16 pxm:);
+                                padding: (:8 pxm:) (:2 * 8 pxm:) (:(4 + 4) pxm:) (:2 * (:left-padding:) pxm:);
                                 background-color: <:# this.TextColor :>;
                                 color: cyan;
 
@@ -139,7 +137,7 @@
                         <ul>
                             <: for ( var movie of this.MovieArray ) { :>
                                 <li style="color:<:# this.TextColor :>">
-                                    <:% movie.Name :> : <:# movie.Rating :>
+                                    <:% movie.Name :> <:# "*".repeat( movie.Rating ) :>
                                 </li>
                             <: } :>
                         </ul>
@@ -168,6 +166,7 @@
 
             // -- STATEMENTS
 
+            DefineTemplateConstant( "left-padding", "8" );
             DefineTemplateFilter( " pxm", ( expression ) => eval( expression ) * 0.0625 + "rem" );
             DefineComponent( TEST_COMPONENT, "test-component", [ "text-color", "click-count" ] );
         </script>
