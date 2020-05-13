@@ -315,7 +315,7 @@ Lightweight CSS and JavaScript framework.
                             <: var ignored = "<\: ignored :\>"; :>
                         </div>
                         <div>
-                            (:this.RandomReal:)
+                            (: this.RandomReal :)
                         </div>
                         <div>
                             <:# this.RandomReal :>
