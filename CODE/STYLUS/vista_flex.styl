@@ -103,44 +103,64 @@ MakeFlexBasisRange( first_column_count, last_column_count, media_query_name_list
 
 // ~~
 
-MakeFlexShrink( minimum_factor, maximum_factor, media_query_name_list = {} )
+MakeFlexShrink( size, unit_value, unit_name = "", media_query_name_list = {} )
 
-    for factor in minimum_factor .. maximum_factor
-
-        .flex-shrink-{factor}
-        {
-            flex-shrink: factor;
-        }
+    .flex-shrink-{size}{unit_name}
+    {
+        flex-shrink: size * unit_value;
+    }
 
     for media_query_name in media_query_name_list
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .flex-shrink-{factor}-{media_query_name}
+            .flex-shrink-{size}{unit_name}-{media_query_name}
             {
-                flex-shrink: factor;
+                flex-shrink: size * unit_value;
             }
         }
     }
 
 // ~~
 
-MakeFlexGrow( minimum_factor, maximum_factor, media_query_name_list = {} )
+MakeFlexShrinkRange( start, step, count, unit_value, unit_name = "", media_query_name_list = {} )
 
-    for factor in minimum_factor .. maximum_factor
+    for index in 0 .. count - 1
+    {
+        size = start + index * step;
 
-        .flex-grow-{factor}
-        {
-            flex-grow: factor;
-        }
+        MakeFlexShrink( size, unit_value, unit_name, media_query_name_list );
+    }
+
+// ~~
+
+MakeFlexGrow( size, unit_value, unit_name = "", media_query_name_list = {} )
+
+    .flex-grow-{size}{unit_name}
+    {
+        flex-grow: size * unit_value;
+    }
 
     for media_query_name in media_query_name_list
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .flex-grow-{factor}-{media_query_name}
+            .flex-grow-{size}{unit_name}-{media_query_name}
             {
-                flex-grow: factor;
+                flex-grow: size * unit_value;
             }
         }
     }
+
+// ~~
+
+MakeFlexGrowRange( start, step, count, unit_value, unit_name = "", media_query_name_list = {} )
+
+    for index in 0 .. count - 1
+    {
+        size = start + index * step;
+
+        MakeFlexGrow( size, unit_value, unit_name, media_query_name_list );
+    }
+
+

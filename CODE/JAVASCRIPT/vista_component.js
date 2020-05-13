@@ -460,6 +460,7 @@ class VISTA_COMPONENT extends HTMLElement
         )
     {
         var
+            old_template_text,
             section_array,
             section_code,
             section_index,
@@ -467,8 +468,12 @@ class VISTA_COMPONENT extends HTMLElement
             section_text,
             template_constant_name;
 
-        while ( template_text.indexOf( "(:" ) >= 0 )
+        old_template_text = "";
+
+        while ( template_text.indexOf( "(:" ) >= 0
+                && template_text !== old_template_text )
         {
+            old_template_text = template_text;
             section_array = template_text.split( "(:" );
 
             for ( section_index = 1;
