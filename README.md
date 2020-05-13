@@ -36,6 +36,8 @@ Lightweight CSS and JavaScript framework.
     *   manipulations
     *   animations
     *   components
+    *   preprocessing
+    *   templating
     *   routers
     *   requests
     *   stores
@@ -247,16 +249,14 @@ Lightweight CSS and JavaScript framework.
                                 Rating : 3
                             }
                         ];
-                    this.RandomReal = 0.0;
+                    this.RandomReal = 1.0;
 
                     this.BindProperty( "TextColor", "text-color", "#0000ff" );
                     this.BindProperty( "ClickCount", "click-count", 0 );
-
                     this.BindMethod( "HandleSetRandomRealEvent" );
                     this.BindMethod( "HandleButtonClickEvent" );
                     this.BindMethod( "HandlePropertyButtonClickEvent" );
                     this.BindMethod( "HandleAttributeButtonClickEvent" );
-
                     this.BindEvent( this, "set-random-real", this.HandleSetRandomRealEvent );
 
                     this.AttachShadow();
@@ -267,7 +267,7 @@ Lightweight CSS and JavaScript framework.
                             {
                                 border: none;
                                 border-radius: (:8 pxm:);
-                                padding: (:8 pxm:) (:16 pxm:);
+                                padding: (:8 pxm:) (:2 * 8 pxm:) (:(4 + 4) pxm:) (:2 * (:left-padding:) pxm:);
                                 background-color: <:# this.TextColor :>;
                                 color: cyan;
 
@@ -307,12 +307,15 @@ Lightweight CSS and JavaScript framework.
                         <ul>
                             <: for ( var movie of this.MovieArray ) { :>
                                 <li style="color:<:# this.TextColor :>">
-                                    <:% movie.Name :> : <:# movie.Rating :>
+                                    <:% movie.Name :> <:# "*".repeat( movie.Rating ) :>
                                 </li>
                             <: } :>
                         </ul>
                         <div ignored="<\: ignored :\>">
                             <: var ignored = "<\: ignored :\>"; :>
+                        </div>
+                        <div>
+                            (:this.RandomReal:)
                         </div>
                         <div>
                             <:# this.RandomReal :>
@@ -336,7 +339,8 @@ Lightweight CSS and JavaScript framework.
 
             // -- STATEMENTS
 
-            DefineTemplateFilter( " pxm", ( expression ) => eval( expression ) * 0.0625 + "rem" );
+            DefineTemplateConstant( "left-padding", "8" );
+            DefineTemplateFilter( " pxm", ( value ) => value * 0.0625 + "rem" );
             DefineComponent( TEST_COMPONENT, "test-component", [ "text-color", "click-count" ] );
         </script>
     </body>
