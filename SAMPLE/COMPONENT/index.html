@@ -79,7 +79,7 @@
                                 Rating : 3
                             }
                         ];
-                    this.RandomReal = 0.0;
+                    this.RandomReal = 1.0;
 
                     this.BindProperty( "TextColor", "text-color", "#0000ff" );
                     this.BindProperty( "ClickCount", "click-count", 0 );
@@ -145,6 +145,9 @@
                             <: var ignored = "<\: ignored :\>"; :>
                         </div>
                         <div>
+                            (:this.RandomReal:)
+                        </div>
+                        <div>
                             <:# this.RandomReal :>
                         </div>
                         `
@@ -167,7 +170,7 @@
             // -- STATEMENTS
 
             DefineTemplateConstant( "left-padding", "8" );
-            DefineTemplateFilter( " pxm", ( expression ) => eval( expression ) * 0.0625 + "rem" );
+            DefineTemplateFilter( " pxm", ( value ) => value * 0.0625 + "rem" );
             DefineComponent( TEST_COMPONENT, "test-component", [ "text-color", "click-count" ] );
         </script>
     </body>
