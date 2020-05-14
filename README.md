@@ -176,7 +176,7 @@ Lightweight CSS and JavaScript framework.
     </head>
     <body style="font-family:monospace">
         <main>
-            <test-component click-count="1">
+            <test-component random-real="1" click-count="1">
             </test-component>
         </main>
         <script src="../../CODE/JAVASCRIPT/vista_base.js"></script>
@@ -234,6 +234,15 @@ Lightweight CSS and JavaScript framework.
                 InitializeComponent(
                     )
                 {
+                    this.BindProperty( "TextColor", "text-color", "#0000ff" );
+                    this.BindProperty( "ClickCount", "click-count", 0 );
+                    this.BindMethod( "HandleSetRandomRealEvent" );
+                    this.BindMethod( "HandleButtonClickEvent" );
+                    this.BindMethod( "HandlePropertyButtonClickEvent" );
+                    this.BindMethod( "HandleAttributeButtonClickEvent" );
+                    this.BindEvent( this, "set-random-real", this.HandleSetRandomRealEvent );
+
+                    this.RandomReal = this.GetAttribute( "random-real", 0.0 );
                     this.MovieArray =
                         [
                             {
@@ -249,15 +258,6 @@ Lightweight CSS and JavaScript framework.
                                 Rating : 3
                             }
                         ];
-                    this.RandomReal = 1.0;
-
-                    this.BindProperty( "TextColor", "text-color", "#0000ff" );
-                    this.BindProperty( "ClickCount", "click-count", 0 );
-                    this.BindMethod( "HandleSetRandomRealEvent" );
-                    this.BindMethod( "HandleButtonClickEvent" );
-                    this.BindMethod( "HandlePropertyButtonClickEvent" );
-                    this.BindMethod( "HandleAttributeButtonClickEvent" );
-                    this.BindEvent( this, "set-random-real", this.HandleSetRandomRealEvent );
 
                     this.AttachShadow();
                     this.SetTemplate(
@@ -340,7 +340,7 @@ Lightweight CSS and JavaScript framework.
             // -- STATEMENTS
 
             DefineTemplateConstant( "left-padding", "8" );
-            DefineTemplateFilter( " pxm", ( value ) => value * 0.0625 + "rem" );
+            DefineTemplateProcessor( " pxm", ( value ) => value * 0.0625 + "rem" );
             DefineComponent( TEST_COMPONENT, "test-component", [ "text-color", "click-count" ] );
         </script>
     </body>
@@ -384,9 +384,9 @@ Lightweight CSS and JavaScript framework.
                 InitializeComponent(
                     )
                 {
-                    this.Route = "/";
-
                     this.BindMethod( "HandleRouteButtonClickEvent" );
+
+                    this.Route = "/";
 
                     this.SetTemplate(
                         Html`

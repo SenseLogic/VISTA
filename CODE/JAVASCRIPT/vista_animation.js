@@ -635,7 +635,7 @@ function GetNumericStyle(
     style_name
     )
 {
-    return ParseNumericText( GetElementStyle( element, style_name ) );
+    return ParseNumericText( element.GetStyle( style_name ) );
 }
 
 // ~~
@@ -645,7 +645,7 @@ function GetColorStyle(
     style_name
     )
 {
-    return ParseColorText( GetElementStyle( element, style_name ) );
+    return ParseColorText( element.GetStyle( style_name ) );
 }
 
 // ~~
@@ -665,7 +665,7 @@ function GetConstantStyle(
     style_name
     )
 {
-    return GetElementStyle( element, style_name );
+    return element.GetStyle( style_name );
 }
 
 // ~~
@@ -1031,42 +1031,40 @@ function StopAnimation(
 
 // ~~
 
-function AnimateStyle(
-    element,
+HTMLElement.prototype.AnimateStyle = function (
     style_name,
     style_value_array,
     style_time_array,
     animation_configuration = {}
     )
 {
-    if ( element.StyleAnimationMap === undefined )
+    if ( this.StyleAnimationMap === undefined )
     {
-        element.StyleAnimationMap = new Map();
+        this.StyleAnimationMap = new Map();
     }
 
-    if ( element.StyleAnimationMap.has( style_name ) )
+    if ( this.StyleAnimationMap.has( style_name ) )
     {
-        element.StyleAnimationMap.get( style_name ).Stop();
+        this.StyleAnimationMap.get( style_name ).Stop();
     }
 
     style_animation
         = new VISTA_STYLE_ANIMATION(
-              element,
+              this,
               style_name,
               style_value_array,
               style_time_array,
               animation_configuration
               );
 
-    element.StyleAnimationMap.set( style_name, style_animation );
+    this.StyleAnimationMap.set( style_name, style_animation );
 
     style_animation.Start();
 }
 
 // ~~
 
-function AnimateStyles(
-    element,
+HTMLElement.prototype.AnimateStyles = function (
     style_value_array_map,
     style_time_array,
     animation_configuration = {}
@@ -1077,8 +1075,7 @@ function AnimateStyles(
 
     for ( style_name in style_value_array_map )
     {
-        AnimateStyle(
-            element,
+        this.AnimateStyle(
             style_name,
             style_value_array_map[ style_name ],
             style_time_array,
@@ -1089,22 +1086,20 @@ function AnimateStyles(
 
 // ~~
 
-function PauseStyle(
-    element,
+HTMLElement.prototype.PauseStyle = function (
     style_name
     )
 {
-    if ( element.StyleAnimationMap !== undefined
-         && element.StyleAnimationMap.has( style_name ) )
+    if ( this.StyleAnimationMap !== undefined
+         && this.StyleAnimationMap.has( style_name ) )
     {
-        element.StyleAnimationMap.get( style_name ).Pause();
+        this.StyleAnimationMap.get( style_name ).Pause();
     }
 }
 
 // ~~
 
-function PauseStyles(
-    element,
+HTMLElement.prototype.PauseStyles = function (
     style_name_array
     )
 {
@@ -1113,9 +1108,9 @@ function PauseStyles(
 
     if ( style_name_array === undefined )
     {
-        if ( element.StyleAnimationMap !== undefined )
+        if ( this.StyleAnimationMap !== undefined )
         {
-            for ( style_animation of element.StyleAnimationMap.values() )
+            for ( style_animation of this.StyleAnimationMap.values() )
             {
                 style_animation.Pause();
             }
@@ -1125,29 +1120,27 @@ function PauseStyles(
     {
         for ( style_name of style_name_array )
         {
-            PauseStyle( element, style_name );
+            this.PauseStyle( style_name );
         }
     }
 }
 
 // ~~
 
-function ResumeStyle(
-    element,
+HTMLElement.prototype.ResumeStyle = function (
     style_name
     )
 {
-    if ( element.StyleAnimationMap !== undefined
-         && element.StyleAnimationMap.has( style_name ) )
+    if ( this.StyleAnimationMap !== undefined
+         && this.StyleAnimationMap.has( style_name ) )
     {
-        element.StyleAnimationMap.get( style_name ).Resume();
+        this.StyleAnimationMap.get( style_name ).Resume();
     }
 }
 
 // ~~
 
-function ResumeStyles(
-    element,
+HTMLElement.prototype.ResumeStyles = function (
     style_name_array
     )
 {
@@ -1156,9 +1149,9 @@ function ResumeStyles(
 
     if ( style_name_array === undefined )
     {
-        if ( element.StyleAnimationMap !== undefined )
+        if ( this.StyleAnimationMap !== undefined )
         {
-            for ( style_animation of element.StyleAnimationMap.values() )
+            for ( style_animation of this.StyleAnimationMap.values() )
             {
                 style_animation.Resume();
             }
@@ -1168,29 +1161,27 @@ function ResumeStyles(
     {
         for ( style_name of style_name_array )
         {
-            ResumeStyle( element, style_name );
+            this.ResumeStyle( style_name );
         }
     }
 }
 
 // ~~
 
-function StopStyle(
-    element,
+HTMLElement.prototype.StopStyle = function (
     style_name
     )
 {
-    if ( element.StyleAnimationMap !== undefined
-         && element.StyleAnimationMap.has( style_name ) )
+    if ( this.StyleAnimationMap !== undefined
+         && this.StyleAnimationMap.has( style_name ) )
     {
-        element.StyleAnimationMap.get( style_name ).Stop();
+        this.StyleAnimationMap.get( style_name ).Stop();
     }
 }
 
 // ~~
 
-function StopStyles(
-    element,
+HTMLElement.prototype.StopStyles = function (
     style_name_array
     )
 {
@@ -1200,9 +1191,9 @@ function StopStyles(
 
     if ( style_name_array === undefined )
     {
-        if ( element.StyleAnimationMap !== undefined )
+        if ( this.StyleAnimationMap !== undefined )
         {
-            for ( style_animation of element.StyleAnimationMap.values() )
+            for ( style_animation of this.StyleAnimationMap.values() )
             {
                 style_animation.Stop();
             }
@@ -1212,7 +1203,7 @@ function StopStyles(
     {
         for ( style_name of style_name_array )
         {
-            StopStyle( element, style_name );
+            this.StopStyle( style_name );
         }
     }
 }
@@ -1231,8 +1222,7 @@ Array.prototype.AnimateStyle = function (
 
     for ( element of this )
     {
-        AnimateStyle(
-            element,
+        element.AnimateStyle(
             style_name,
             style_value_array,
             style_time_array,
@@ -1256,8 +1246,7 @@ Array.prototype.AnimateStyles = function (
 
     for ( element of this )
     {
-        AnimateStyles(
-            element,
+        element.AnimateStyles(
             style_value_array_map,
             style_time_array,
             animation_configuration
@@ -1278,7 +1267,7 @@ Array.prototype.PauseStyle = function (
 
     for ( element of this )
     {
-        PauseStyle( element, style_name );
+        element.PauseStyle( style_name );
     }
 
     return this;
@@ -1295,7 +1284,7 @@ Array.prototype.PauseStyles = function (
 
     for ( element of this )
     {
-        PauseStyles( element, style_name_array );
+        element.PauseStyles( style_name_array );
     }
 
     return this;
@@ -1312,7 +1301,7 @@ Array.prototype.ResumeStyle = function (
 
     for ( element of this )
     {
-        ResumeStyle( element, style_name );
+        element.ResumeStyle( style_name );
     }
 
     return this;
@@ -1329,7 +1318,7 @@ Array.prototype.ResumeStyles = function (
 
     for ( element of this )
     {
-        ResumeStyles( element, style_name_array );
+        element.ResumeStyles( style_name_array );
     }
 
     return this;
@@ -1346,7 +1335,7 @@ Array.prototype.StopStyle = function (
 
     for ( element of this )
     {
-        StopStyle( element, style_name );
+        element.StopStyle( style_name );
     }
 
     return this;
@@ -1363,7 +1352,7 @@ Array.prototype.StopStyles = function (
 
     for ( element of this )
     {
-        StopStyles( element, style_name_array );
+        element.StopStyles( style_name_array );
     }
 
     return this;

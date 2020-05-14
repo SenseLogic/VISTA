@@ -103,7 +103,7 @@ MakeFlexBasisRange( first_column_count, last_column_count, media_query_name_list
 
 // ~~
 
-MakeFlexShrink( size, unit_value, unit_name = "", media_query_name_list = {} )
+MakeFlexShrink( size, unit_value = 1, unit_name = "", media_query_name_list = {} )
 
     .flex-shrink-{size}{unit_name}
     {
@@ -123,7 +123,7 @@ MakeFlexShrink( size, unit_value, unit_name = "", media_query_name_list = {} )
 
 // ~~
 
-MakeFlexShrinkRange( start, step, count, unit_value, unit_name = "", media_query_name_list = {} )
+MakeFlexShrinkRange( start, step, count, unit_value = 1, unit_name = "", media_query_name_list = {} )
 
     for index in 0 .. count - 1
     {
@@ -134,7 +134,7 @@ MakeFlexShrinkRange( start, step, count, unit_value, unit_name = "", media_query
 
 // ~~
 
-MakeFlexGrow( size, unit_value, unit_name = "", media_query_name_list = {} )
+MakeFlexGrow( size, unit_value = 1, unit_name = "", media_query_name_list = {} )
 
     .flex-grow-{size}{unit_name}
     {
@@ -154,7 +154,7 @@ MakeFlexGrow( size, unit_value, unit_name = "", media_query_name_list = {} )
 
 // ~~
 
-MakeFlexGrowRange( start, step, count, unit_value, unit_name = "", media_query_name_list = {} )
+MakeFlexGrowRange( start, step, count, unit_value = 1, unit_name = "", media_query_name_list = {} )
 
     for index in 0 .. count - 1
     {

@@ -28,6 +28,51 @@ var
 
 // ~~
 
+function IsNumber(
+    value
+    )
+{
+    return typeof value === "number";
+}
+
+// ~~
+
+function IsString(
+    value
+    )
+{
+    return typeof value === "string";
+}
+
+// ~~
+
+function IsArray(
+    value
+    )
+{
+    return value instanceof Array;
+}
+
+// ~~
+
+function IsFunction(
+    value
+    )
+{
+    return value instanceof Function;
+}
+
+// ~~
+
+function IsElement(
+    value
+    )
+{
+    return value instanceof HTMLElement;
+}
+
+// ~~
+
 function GetTextArrayText(
     text_array,
     separator_text = ", ",
@@ -279,7 +324,7 @@ function ShowError(
             error_panel_element.id = "vista-error-panel";
             error_panel_element.style = "position:fixed;z-index:999999;left:0;top:0;width:100%;height:100%;font-size:1rem;overflow:auto;background-color:rgba(0,0,0,0.5);color:white";
             error_panel_element.innerHTML = "<h1>ERROR</h1>";
-            error_panel_element.onclick = function (
+            error_panel_element.ondblclick = function (
                 )
             {
                 error_panel_element.style.display = "none";
@@ -719,6 +764,15 @@ function GetByteArrayHexadecimalText(
     }
 
     return hexadecimal_text;
+}
+
+// ~~
+
+function Redirect(
+    url
+    )
+{
+    window.location.replace( url );
 }
 
 // ~~

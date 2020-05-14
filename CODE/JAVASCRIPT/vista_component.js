@@ -239,6 +239,37 @@ class VISTA_COMPONENT extends HTMLElement
 
     // -- OPERATIONS
 
+    GetAttribute(
+        attribute_name,
+        default_value = "",
+        decoding_function = undefined
+        )
+    {
+        if ( typeof default_value === "number"
+             && decoding_function === undefined )
+        {
+            decoding_function = GetNumber;
+        }
+
+        if ( this.hasAttribute( attribute_name ) )
+        {
+            if ( decoding_function === undefined )
+            {
+                return this.getAttribute( attribute_name );
+            }
+            else
+            {
+                return decoding_function( this.getAttribute( attribute_name ) );
+            }
+        }
+        else
+        {
+            return default_value;
+        }
+    }
+
+    // ~~
+
     SetProperty(
         property_name,
         value
@@ -431,22 +462,22 @@ class VISTA_COMPONENT extends HTMLElement
 
     // ~~
 
-    ProcessTemplateFilters(
+    ProcessTemplateProcessors(
         text
         )
     {
         var
-            template_filter,
-            template_filter_name;
+            template_processor,
+            template_processor_name;
 
-        for ( template_filter_name of TemplateFilterMap.keys() )
+        for ( template_processor_name of TemplateProcessorMap.keys() )
         {
-            if ( text.endsWith( template_filter_name ) )
+            if ( text.endsWith( template_processor_name ) )
             {
-                template_filter = TemplateFilterMap.get( template_filter_name );
+                template_processor = TemplateProcessorMap.get( template_processor_name );
 
-                text = text.slice( 0, text.length - template_filter_name.length ).trim();
-                return template_filter( this.ProcessTemplateFilters( text ) );
+                text = text.slice( 0, text.length - template_processor_name.length ).trim();
+                return template_processor( this.ProcessTemplateProcessors( text ) );
             }
         }
 
@@ -455,12 +486,13 @@ class VISTA_COMPONENT extends HTMLElement
 
     // ~~
 
-    ProcessTemplateConstants(
+    ProcessTemplateExpressions(
         template_text
         )
     {
         var
             old_template_text,
+            iteration_index,
             section_array,
             section_code,
             section_index,
@@ -468,12 +500,10 @@ class VISTA_COMPONENT extends HTMLElement
             section_text,
             template_constant_name;
 
-        old_template_text = "";
+        iteration_index = 0;
 
-        while ( template_text.indexOf( "(:" ) >= 0
-                && template_text !== old_template_text )
+        while ( template_text.indexOf( "(:" ) >= 0 )
         {
-            old_template_text = template_text;
             section_array = template_text.split( "(:" );
 
             for ( section_index = 1;
@@ -493,7 +523,7 @@ class VISTA_COMPONENT extends HTMLElement
                     }
                     else
                     {
-                        section_code = this.ProcessTemplateFilters( section_code );
+                        section_code = this.ProcessTemplateProcessors( section_code );
                     }
 
                     section_array[ section_index ] = section_code + section_text;
@@ -505,6 +535,14 @@ class VISTA_COMPONENT extends HTMLElement
             }
 
             template_text = section_array.join( "" );
+            ++iteration_index;
+
+            if ( iteration_index === 100 )
+            {
+                PrintError( "Invalid template expression:", template_text.substring( template_text.indexOf( "(:" ) ) );
+
+                break;
+            }
         }
 
         return (
@@ -613,7 +651,7 @@ class VISTA_COMPONENT extends HTMLElement
     {
         return (
             this.ProcessTemplateStyle(
-                this.ProcessTemplateConstants(
+                this.ProcessTemplateExpressions(
                     template_text.ReplaceText( "\r", "" )
                     )
                 )
@@ -648,25 +686,35 @@ class VISTA_COMPONENT extends HTMLElement
               ++section_index )
         {
             section_part_array = section_array[ section_index ].split( ":>" );
-            section_code = section_part_array.shift();
-            section_text = section_part_array.join( ":>" );
 
-            if ( section_code.HasPrefix( "#" ) )
+            if ( section_part_array.length >= 2 )
             {
-                function_code += "result += " + section_code.substring( 1 ).trim() + ";\n";
-            }
-            else if ( section_code.HasPrefix( "%" ) )
-            {
-                function_code += "result += GetEscapedHtml( " +  section_code.substring( 1 ).trim() + " );\n";
+                section_code = section_part_array.shift();
+                section_text = section_part_array.join( ":>" );
+
+                if ( section_code.HasPrefix( "#" ) )
+                {
+                    function_code += "result += " + section_code.substring( 1 ).trim() + ";\n";
+                }
+                else if ( section_code.HasPrefix( "%" ) )
+                {
+                    function_code += "result += GetEscapedHtml( " +  section_code.substring( 1 ).trim() + " );\n";
+                }
+                else
+                {
+                    function_code += section_code;
+                }
+
+                if ( section_text.length > 0 )
+                {
+                    function_code += "result += " + GetJsonText( section_text ) + ";\n";
+                }
             }
             else
             {
-                function_code += section_code;
-            }
+                PrintError( "Invalid template expression:" , "<:" + section_array[ section_index ] );
 
-            if ( section_text.length > 0 )
-            {
-                function_code += "result += " + GetJsonText( section_text ) + ";\n";
+                break;
             }
         }
 
@@ -753,7 +801,7 @@ var
     ComponentHasChanged = false,
     ComponentUpdateDelay = 0.05,
     TemplateConstantMap = new Map(),
-    TemplateFilterMap = new Map();
+    TemplateProcessorMap = new Map();
 
 // -- FUNCTIONS
 
@@ -839,10 +887,10 @@ function DefineTemplateConstant(
 
 // ~~
 
-function DefineTemplateFilter(
-    template_filter_name,
-    template_filter
+function DefineTemplateProcessor(
+    template_processor_name,
+    template_processor
     )
 {
-    TemplateFilterMap.set( template_filter_name, template_filter );
+    TemplateProcessorMap.set( template_processor_name, template_processor );
 }

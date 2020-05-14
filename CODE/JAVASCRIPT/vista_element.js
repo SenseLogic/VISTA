@@ -1,26 +1,24 @@
 // -- FUNCTIONS
 
-function PrintElement(
-    element
+HTMLElement.prototype.Print = function (
     )
 {
-    if ( element )
+    if ( this )
     {
-        Print( GetObjectText( element ) );
+        Print( GetObjectText( this ) );
     }
     else
     {
-        Print( element );
+        Print( this );
     }
 }
 
 // ~~
 
-function DumpElement(
-    element
+HTMLElement.prototype.DumpElement = function (
     )
 {
-    Dump( element );
+    Dump( this );
 }
 
 // ~~
@@ -274,8 +272,7 @@ HTMLElement.prototype.SetAttribute = HTMLElement.prototype.setAttribute;
 
 // ~~
 
-function IsVisibleElement(
-    element,
+HTMLElement.prototype.IsVisible = function (
     bottom_offset = 0,
     top_offset = 0,
     left_offset = 0,
@@ -285,7 +282,7 @@ function IsVisibleElement(
     var
         bounding_client_rectangle;
 
-    bounding_client_rectangle = element.getBoundingClientRect();
+    bounding_client_rectangle = this.getBoundingClientRect();
 
     return (
         ( bounding_client_rectangle.height > 0
@@ -299,15 +296,14 @@ function IsVisibleElement(
 
 // ~~
 
-function GetElementStyle(
-    element,
+HTMLElement.prototype.GetStyle = function(
     style_name
     )
 {
     var
         style;
 
-    style = element.style[ style_name ];
+    style = this.style[ style_name ];
 
     if ( style.length > 0 )
     {
@@ -315,8 +311,18 @@ function GetElementStyle(
     }
     else
     {
-        return window.getComputedStyle( element, null ).getPropertyValue( style_name );
+        return window.getComputedStyle( this, null ).getPropertyValue( style_name );
     }
+}
+
+// ~~
+
+HTMLElement.prototype.SetStyle = function (
+    style_name,
+    style_value
+    )
+{
+    this.style[ style_name ] = style_value;
 }
 
 // ~~
@@ -980,7 +986,7 @@ Array.prototype.SetStyle = function (
 
         for ( element of this )
         {
-            element[ style_name ] = style_value_array[ style_value_index ];
+            element.style[ style_name ] = style_value_array[ style_value_index ];
 
             ++style_value_index;
         }
@@ -989,7 +995,7 @@ Array.prototype.SetStyle = function (
     {
         for ( element of this )
         {
-            element[ style_name ] = style_value_array;
+            element.style[ style_name ] = style_value_array;
         }
     }
 

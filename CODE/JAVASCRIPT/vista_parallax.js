@@ -17,7 +17,7 @@ function UpdateBackgroundParallax(
     element_height = element.offsetHeight;
     element_bottom  = element_top + element_height;
 
-    if ( IsVisibleElement( element ) )
+    if ( element.IsVisible() )
     {
         element_offset = window.scrollY - element_top;
         element_ratio = ( element_offset / element_height ) * offset_distance;
