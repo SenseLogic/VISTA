@@ -211,3 +211,35 @@ MakeMaxFractionalWidthRange( first_column_count, last_column_count, media_query_
     {
         MakeMaxFractionalWidth( column_count, media_query_name_list );
     }
+
+// ~~
+
+MakePartialWidth( column_count, total_size, offset_size, unit_name, media_query_name_list = {} )
+
+    for column_index in 1 .. column_count
+    {
+        .width-{column_index}{unit_name}
+        {
+            width: total_size * ( column_index / column_count ) + offset_size;
+        }
+
+        for media_query_name in media_query_name_list
+        {
+            @media MediaQueryMap[ media_query_name ]
+            {
+                .width-{column_index}{unit_name}-{media_query_name}
+                {
+                    width: total_size * ( column_index / column_count ) + offset_size;
+                }
+            }
+        }
+    }
+
+// ~~
+
+MakePartialWidthRange( first_column_count, last_column_count, total_size, offset_size, unit_name, media_query_name_list = {} )
+
+    for column_count in first_column_count .. last_column_count
+    {
+        MakePartialWidth( column_count, total_size, offset_size, unit_name, media_query_name_list );
+    }

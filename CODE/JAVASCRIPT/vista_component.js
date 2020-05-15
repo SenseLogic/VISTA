@@ -161,6 +161,9 @@ class VISTA_COMPONENT extends HTMLElement
 
         VISTA_DATA.ConstructObject( this, VISTA_COMPONENT );
 
+        this.Identifier = ++ComponentIdentifier;
+        this.HostClassName = "";
+        this.HostSelector = "";
         this.PropertyMap = new Map();
         this.AttributeMap = new Map();
         this.EventArray = [];
@@ -174,6 +177,37 @@ class VISTA_COMPONENT extends HTMLElement
         )
     {
         return ComponentAttributeNameArray;
+    }
+
+    // ~~
+
+    GetAttribute(
+        attribute_name,
+        default_value = "",
+        decoding_function = undefined
+        )
+    {
+        if ( typeof default_value === "number"
+             && decoding_function === undefined )
+        {
+            decoding_function = GetNumber;
+        }
+
+        if ( this.hasAttribute( attribute_name ) )
+        {
+            if ( decoding_function === undefined )
+            {
+                return this.getAttribute( attribute_name );
+            }
+            else
+            {
+                return decoding_function( this.getAttribute( attribute_name ) );
+            }
+        }
+        else
+        {
+            return default_value;
+        }
     }
 
     // ~~
@@ -239,33 +273,21 @@ class VISTA_COMPONENT extends HTMLElement
 
     // -- OPERATIONS
 
-    GetAttribute(
-        attribute_name,
-        default_value = "",
-        decoding_function = undefined
+    BindRoot(
         )
     {
-        if ( typeof default_value === "number"
-             && decoding_function === undefined )
-        {
-            decoding_function = GetNumber;
-        }
+        this.RootElement = this.attachShadow( { mode : "open" } );
+        this.HostSelector = ":host";
+    }
 
-        if ( this.hasAttribute( attribute_name ) )
-        {
-            if ( decoding_function === undefined )
-            {
-                return this.getAttribute( attribute_name );
-            }
-            else
-            {
-                return decoding_function( this.getAttribute( attribute_name ) );
-            }
-        }
-        else
-        {
-            return default_value;
-        }
+    // ~~
+
+    BindStyle(
+        )
+    {
+        this.HostClassName = "host-" + this.Identifier;
+        this.HostSelector = "." + this.HostClassName;
+        this.classList.add( this.HostClassName );
     }
 
     // ~~
@@ -454,14 +476,6 @@ class VISTA_COMPONENT extends HTMLElement
 
     // ~~
 
-    AttachShadow(
-        )
-    {
-        this.RootElement = this.attachShadow( { mode : "open" } );
-    }
-
-    // ~~
-
     ProcessTemplateProcessors(
         text
         )
@@ -520,6 +534,10 @@ class VISTA_COMPONENT extends HTMLElement
                     if ( TemplateConstantMap.has( section_code ) )
                     {
                         section_code = TemplateConstantMap.get( section_code );
+                    }
+                    else if ( section_code === "host" )
+                    {
+                        section_code = this.HostSelector;
                     }
                     else
                     {
@@ -797,6 +815,7 @@ class VISTA_COMPONENT extends HTMLElement
 // -- VARIABLES
 
 var
+    ComponentIdentifier = -1,
     ComponentAttributeNameArray = [],
     ComponentHasChanged = false,
     ComponentUpdateDelay = 0.05,

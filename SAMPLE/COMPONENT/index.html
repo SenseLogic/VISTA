@@ -64,6 +64,7 @@
                 InitializeComponent(
                     )
                 {
+                    this.BindStyle();
                     this.BindProperty( "TextColor", "text-color", "#0000ff" );
                     this.BindProperty( "ClickCount", "click-count", 0 );
                     this.BindMethod( "HandleSetRandomRealEvent" );
@@ -71,7 +72,6 @@
                     this.BindMethod( "HandlePropertyButtonClickEvent" );
                     this.BindMethod( "HandleAttributeButtonClickEvent" );
                     this.BindEvent( this, "set-random-real", this.HandleSetRandomRealEvent );
-
                     this.RandomReal = this.GetAttribute( "random-real", 0.0 );
                     this.MovieArray =
                         [
@@ -89,11 +89,10 @@
                             }
                         ];
 
-                    this.AttachShadow();
                     this.SetTemplate(
                         Html`
                         <style>
-                            :host .button
+                            (:host:) .button
                             {
                                 border: none;
                                 border-radius: (:8 pxm:);
@@ -112,7 +111,7 @@
                                 }
                             }
 
-                            :host .button
+                            (:host:) .button
                             {
                                 @media (:above-60em:)
                                 {
@@ -122,7 +121,7 @@
 
                             @media (:above-70em:)
                             {
-                                :host .button
+                                (:host:) .button
                                 {
                                     background-color: red;
                                 }

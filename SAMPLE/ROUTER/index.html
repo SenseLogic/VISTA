@@ -32,14 +32,14 @@
                 InitializeComponent(
                     )
                 {
+                    this.BindRoot();
                     this.BindMethod( "HandleRouteButtonClickEvent" );
-
                     this.Route = "/";
 
                     this.SetTemplate(
                         Html`
                         <style>
-                            .route-button
+                            :host .route-button
                             {
                                 border: none;
                                 border-radius: 0.5rem;

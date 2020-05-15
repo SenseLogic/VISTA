@@ -234,6 +234,7 @@ Lightweight CSS and JavaScript framework.
                 InitializeComponent(
                     )
                 {
+                    this.BindStyle();
                     this.BindProperty( "TextColor", "text-color", "#0000ff" );
                     this.BindProperty( "ClickCount", "click-count", 0 );
                     this.BindMethod( "HandleSetRandomRealEvent" );
@@ -241,7 +242,6 @@ Lightweight CSS and JavaScript framework.
                     this.BindMethod( "HandlePropertyButtonClickEvent" );
                     this.BindMethod( "HandleAttributeButtonClickEvent" );
                     this.BindEvent( this, "set-random-real", this.HandleSetRandomRealEvent );
-
                     this.RandomReal = this.GetAttribute( "random-real", 0.0 );
                     this.MovieArray =
                         [
@@ -259,11 +259,10 @@ Lightweight CSS and JavaScript framework.
                             }
                         ];
 
-                    this.AttachShadow();
                     this.SetTemplate(
                         Html`
                         <style>
-                            :host .button
+                            (:host:) .button
                             {
                                 border: none;
                                 border-radius: (:8 pxm:);
@@ -282,7 +281,7 @@ Lightweight CSS and JavaScript framework.
                                 }
                             }
 
-                            :host .button
+                            (:host:) .button
                             {
                                 @media (:above-60em:)
                                 {
@@ -292,7 +291,7 @@ Lightweight CSS and JavaScript framework.
 
                             @media (:above-70em:)
                             {
-                                :host .button
+                                (:host:) .button
                                 {
                                     background-color: red;
                                 }
@@ -384,14 +383,14 @@ Lightweight CSS and JavaScript framework.
                 InitializeComponent(
                     )
                 {
+                    this.BindRoot();
                     this.BindMethod( "HandleRouteButtonClickEvent" );
-
                     this.Route = "/";
 
                     this.SetTemplate(
                         Html`
                         <style>
-                            .route-button
+                            :host .route-button
                             {
                                 border: none;
                                 border-radius: 0.5rem;
