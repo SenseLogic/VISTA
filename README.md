@@ -243,8 +243,8 @@ Lightweight CSS and JavaScript framework.
                     this.BindMethod( "HandleAttributeButtonClickEvent" );
                     this.BindEvent( this, "set-random-real", this.HandleSetRandomRealEvent );
 
-                    this.InitialValueText = "Initial value <<";
-                    this.CurrentValueText = "Current value >>";
+                    this.InitialValueText = "Initial value (::) <<";
+                    this.CurrentValueText = "Current value (::) >>";
                     this.RandomReal = this.GetAttribute( "random-real", 0.0 );
                     this.MovieArray =
                         [
