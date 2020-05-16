@@ -50,10 +50,10 @@ Lightweight front-end framework.
 
 ## Goals
 
+*   Compact : implemented in a simple yet efficient manner
 *   Minimalistic : only the most used features
 *   Modular : only use the parts you need
 *   Direct : simply include the minified scripts
-*   Compact : implemented in a simple yet efficient manner
 
 ## Samples
 
