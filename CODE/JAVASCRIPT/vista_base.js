@@ -460,6 +460,8 @@ function GetEscapedHtml(
             .ReplaceText( "&", "&amp;" )
             .ReplaceText( "<", "&lt;" )
             .ReplaceText( ">", "&gt;" )
+            .ReplaceText( "(", "&#40;" )
+            .ReplaceText( ")", "&#41;" )
             .ReplaceText( "\\", "&#92;" )
             .ReplaceText( "\"", "&#34;" )
             .ReplaceText( "'", "&#39;" )
