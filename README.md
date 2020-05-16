@@ -52,7 +52,7 @@ Lightweight front-end framework.
 
 *   Compact : implemented in a simple yet efficient manner
 *   Minimalistic : only the most used features
-*   Modular : only use the parts you need
+*   Modular : just use the parts you need
 *   Direct : simply include the minified scripts
 
 ## Samples
