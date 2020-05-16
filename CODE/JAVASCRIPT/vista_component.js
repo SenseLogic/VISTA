@@ -273,7 +273,7 @@ class VISTA_COMPONENT extends HTMLElement
 
     // -- OPERATIONS
 
-    BindRoot(
+    BindShadow(
         )
     {
         this.RootElement = this.attachShadow( { mode : "open" } );
@@ -282,7 +282,7 @@ class VISTA_COMPONENT extends HTMLElement
 
     // ~~
 
-    BindStyle(
+    BindHost(
         )
     {
         this.HostClassName = "host-" + this.Identifier;

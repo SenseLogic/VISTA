@@ -234,7 +234,7 @@ Lightweight CSS and JavaScript framework.
                 InitializeComponent(
                     )
                 {
-                    this.BindStyle();
+                    this.BindHost();
                     this.BindProperty( "TextColor", "text-color", "#0000ff" );
                     this.BindProperty( "ClickCount", "click-count", 0 );
                     this.BindMethod( "HandleSetRandomRealEvent" );
@@ -242,6 +242,7 @@ Lightweight CSS and JavaScript framework.
                     this.BindMethod( "HandlePropertyButtonClickEvent" );
                     this.BindMethod( "HandleAttributeButtonClickEvent" );
                     this.BindEvent( this, "set-random-real", this.HandleSetRandomRealEvent );
+
                     this.RandomReal = this.GetAttribute( "random-real", 0.0 );
                     this.MovieArray =
                         [
@@ -383,8 +384,9 @@ Lightweight CSS and JavaScript framework.
                 InitializeComponent(
                     )
                 {
-                    this.BindRoot();
+                    this.BindShadow();
                     this.BindMethod( "HandleRouteButtonClickEvent" );
+
                     this.Route = "/";
 
                     this.SetTemplate(
