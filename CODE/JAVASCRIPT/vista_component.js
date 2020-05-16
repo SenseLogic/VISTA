@@ -509,6 +509,7 @@ class VISTA_COMPONENT extends HTMLElement
             iteration_index,
             section_array,
             section_code,
+            section_code_is_escaped,
             section_index,
             section_part_array,
             section_text,
@@ -528,7 +529,15 @@ class VISTA_COMPONENT extends HTMLElement
 
                 if ( section_part_array.length >= 2 )
                 {
-                    section_code = section_part_array.shift().trim();
+                    section_code = section_part_array.shift();
+                    section_code_is_escaped = section_code.startsWith( "%" );
+
+                    if ( section_code_is_escaped )
+                    {
+                        section_code = section_code.substring( 2 );
+                    }
+
+                    section_code = section_code.trim();
                     section_text = section_part_array.join( ":)" );
 
                     if ( TemplateConstantMap.has( section_code ) )
@@ -542,6 +551,11 @@ class VISTA_COMPONENT extends HTMLElement
                     else
                     {
                         section_code = this.ProcessTemplateProcessors( section_code );
+                    }
+
+                    if ( section_code_is_escaped )
+                    {
+                        section_code = GetEscapedHtml( section_code );
                     }
 
                     section_array[ section_index ] = section_code + section_text;

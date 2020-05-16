@@ -243,6 +243,8 @@ Lightweight CSS and JavaScript framework.
                     this.BindMethod( "HandleAttributeButtonClickEvent" );
                     this.BindEvent( this, "set-random-real", this.HandleSetRandomRealEvent );
 
+                    this.InitialValueText = "Initial value <<";
+                    this.CurrentValueText = "Current value >>";
                     this.RandomReal = this.GetAttribute( "random-real", 0.0 );
                     this.MovieArray =
                         [
@@ -315,10 +317,10 @@ Lightweight CSS and JavaScript framework.
                             <: var ignored = "<\: ignored :\>"; :>
                         </div>
                         <div>
-                            (: this.RandomReal :)
+                            (:% this.InitialValueText :) (: this.RandomReal :)
                         </div>
                         <div>
-                            <:# this.RandomReal :>
+                            <:% this.CurrentValueText :> <:# this.RandomReal :>
                         </div>
                         `
                         );
