@@ -2,7 +2,7 @@
 
 # Vista
 
-Lightweight CSS and JavaScript framework.
+Lightweight front-end framework.
 
 ## Features
 
