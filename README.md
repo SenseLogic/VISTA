@@ -48,6 +48,13 @@ Lightweight CSS and JavaScript framework.
     *   loaders
     *   renderers
 
+## Goals
+
+*   Minimalistic : only the most used features
+*   Modular : only use the parts you need
+*   Direct : simply include the minified scripts
+*   Compact : implemented in a simple yet efficient manner
+
 ## Samples
 
 ### Traversals, manipulations and animations
