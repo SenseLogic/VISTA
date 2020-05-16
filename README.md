@@ -4,6 +4,13 @@
 
 Lightweight front-end framework.
 
+## Goals
+
+*   Compact : implemented in a simple yet efficient manner
+*   Minimalistic : only the most used features
+*   Modular : just use the parts you need
+*   Direct : simply include the minified scripts
+
 ## Features
 
 *   Stylus
@@ -47,13 +54,6 @@ Lightweight front-end framework.
     *   shaders
     *   loaders
     *   renderers
-
-## Goals
-
-*   Compact : implemented in a simple yet efficient manner
-*   Minimalistic : only the most used features
-*   Modular : just use the parts you need
-*   Direct : simply include the minified scripts
 
 ## Samples
 
