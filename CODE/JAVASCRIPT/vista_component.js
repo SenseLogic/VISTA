@@ -282,7 +282,7 @@ class VISTA_COMPONENT extends HTMLElement
 
     // ~~
 
-    BindHost(
+    BindStyle(
         )
     {
         this.HostClassName = "host-" + this.Identifier;

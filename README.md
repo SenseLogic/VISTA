@@ -234,7 +234,7 @@ Lightweight CSS and JavaScript framework.
                 InitializeComponent(
                     )
                 {
-                    this.BindHost();
+                    this.BindStyle();
                     this.BindProperty( "TextColor", "text-color", "#0000ff" );
                     this.BindProperty( "ClickCount", "click-count", 0 );
                     this.BindMethod( "HandleSetRandomRealEvent" );
