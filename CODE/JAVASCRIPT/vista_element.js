@@ -828,6 +828,7 @@ Array.prototype.GetAttributes = function (
     )
 {
     var
+        attribute_name,
         attribute_value_array,
         attribute_value_array_array,
         element;
@@ -896,24 +897,27 @@ Array.prototype.SetAttributes = function (
 
     for ( attribute_name in attribute_value_map )
     {
-        attribute_value_array = attribute_value_map[ attribute_name ];
-
-        if ( attribute_value_array instanceof Array )
+        if ( attribute_value_map.hasOwnProperty( attribute_name ) )
         {
-            attribute_value_index = 0;
+            attribute_value_array = attribute_value_map[ attribute_name ];
 
-            for ( element of this )
+            if ( attribute_value_array instanceof Array )
             {
-                element.style[ attribute_name ] = attribute_value_array[ attribute_value_index ];
+                attribute_value_index = 0;
 
-                ++attribute_value_index;
+                for ( element of this )
+                {
+                    element.style[ attribute_name ] = attribute_value_array[ attribute_value_index ];
+
+                    ++attribute_value_index;
+                }
             }
-        }
-        else
-        {
-            for ( element of this )
+            else
             {
-                element.style[ attribute_name ] = attribute_value_array;
+                for ( element of this )
+                {
+                    element.style[ attribute_name ] = attribute_value_array;
+                }
             }
         }
     }
@@ -948,6 +952,7 @@ Array.prototype.GetStyles = function (
     )
 {
     var
+        style_name,
         style_value_array,
         style_value_array_array,
         element;
@@ -1016,24 +1021,27 @@ Array.prototype.SetStyles = function (
 
     for ( style_name in style_value_map )
     {
-        style_value_array = style_value_map[ style_name ];
-
-        if ( style_value_array instanceof Array )
+        if ( style_value_map.hasOwnProperty( style_name ) )
         {
-            style_value_index = 0;
+            style_value_array = style_value_map[ style_name ];
 
-            for ( element of this )
+            if ( style_value_array instanceof Array )
             {
-                element.style[ style_name ] = style_value_array[ style_value_index ];
+                style_value_index = 0;
 
-                ++style_value_index;
+                for ( element of this )
+                {
+                    element.style[ style_name ] = style_value_array[ style_value_index ];
+
+                    ++style_value_index;
+                }
             }
-        }
-        else
-        {
-            for ( element of this )
+            else
             {
-                element.style[ style_name ] = style_value_array;
+                for ( element of this )
+                {
+                    element.style[ style_name ] = style_value_array;
+                }
             }
         }
     }

@@ -409,6 +409,9 @@ function IsNumericText(
     text
     )
 {
+    var
+        character_code;
+
     if ( text.length > 0 )
     {
         character_code = text.charCodeAt( 0 );
@@ -598,7 +601,7 @@ function ParseTransformText(
         component,
         component_array,
         parenthesis_character_index,
-        value;
+        transform;
 
     transform = new Map();
     component_array = text.ReplaceText( " ", "" ).split( ")" );
@@ -701,6 +704,7 @@ function SetTransformStyle(
 {
     var
         operation,
+        operation_name,
         style;
 
     style = "";
@@ -764,6 +768,10 @@ function GetTransformInterpolation(
     final_transform_ratio
     )
 {
+    var
+        interpolated_transform,
+        operation_name;
+
     if ( final_transform_ratio <= 0.0 )
     {
         return initial_transform;
@@ -995,7 +1003,8 @@ function UpdateAnimation(
     )
 {
     var
-        step_time;
+        step_time,
+        style_animation;
 
     if ( StyleAnimationTimestamp === null )
     {
@@ -1038,6 +1047,9 @@ HTMLElement.prototype.AnimateStyle = function (
     animation_configuration = {}
     )
 {
+    var
+        style_animation;
+
     if ( this.StyleAnimationMap === undefined )
     {
         this.StyleAnimationMap = new Map();
@@ -1075,12 +1087,15 @@ HTMLElement.prototype.AnimateStyles = function (
 
     for ( style_name in style_value_array_map )
     {
-        this.AnimateStyle(
-            style_name,
-            style_value_array_map[ style_name ],
-            style_time_array,
-            animation_configuration
-            );
+        if ( style_value_array_map.hasOwnProperty( style_name ) )
+        {
+            this.AnimateStyle(
+                style_name,
+                style_value_array_map[ style_name ],
+                style_time_array,
+                animation_configuration
+                );
+        }
     }
 }
 
@@ -1104,6 +1119,7 @@ HTMLElement.prototype.PauseStyles = function (
     )
 {
     var
+        style_animation,
         style_name;
 
     if ( style_name_array === undefined )
@@ -1145,6 +1161,7 @@ HTMLElement.prototype.ResumeStyles = function (
     )
 {
     var
+        style_animation,
         style_name;
 
     if ( style_name_array === undefined )

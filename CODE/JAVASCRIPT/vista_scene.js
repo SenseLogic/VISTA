@@ -123,7 +123,6 @@ class VISTA_NODE
     // -- CONSTRUCTORS
 
     constructor(
-        canvas
         )
     {
         this.Identifier = ++NodeIdentifier;
@@ -152,6 +151,9 @@ class VISTA_NODE
     Invalidate(
         )
     {
+        var
+            child_node;
+
         if ( !this.HasChanged )
         {
             this.HasChanged = true;
@@ -357,7 +359,7 @@ class VISTA_MODEL
     {
         this.Identifier = ModelIdentifier++;
         this.Name = "";
-        this.Node = new VISTA_NODE( name, context );
+        this.Node = new VISTA_NODE();
     }
 }
 

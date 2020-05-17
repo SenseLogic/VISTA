@@ -132,11 +132,8 @@ class VISTA_COMPONENT extends HTMLElement
         display_style = "block"
         )
     {
-        var
-            property;
-
         super();
-        this.style[ "display" ] = display_style;
+        this.style.display = display_style;
 
         this.WatcherArray = [];
         this.HasChanged = true;
@@ -513,15 +510,13 @@ class VISTA_COMPONENT extends HTMLElement
         )
     {
         var
-            old_template_text,
             iteration_index,
             section_array,
             section_code,
             section_code_is_escaped,
             section_index,
             section_part_array,
-            section_text,
-            template_constant_name;
+            section_text;
 
         iteration_index = 0;
 

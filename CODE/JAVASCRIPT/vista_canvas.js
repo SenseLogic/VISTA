@@ -1130,6 +1130,7 @@ class VISTA_PROGRAM_ATTRIBUTE
     // ~~
 
     BindNatural16ElementArrayBuffer(
+        graphic_context,
         element_array_buffer
         )
     {

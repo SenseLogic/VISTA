@@ -190,7 +190,6 @@ function GetArrayText(
     )
 {
     var
-        array_text,
         text_array,
         value;
 
@@ -215,7 +214,6 @@ function GetObjectText(
     )
 {
     var
-        object_text,
         property,
         text_array;
 
@@ -435,6 +433,9 @@ function GetUnit(
     value
     )
 {
+    var
+        unit;
+
     if ( typeof value === "string" )
     {
         for ( unit of UnitArray )
@@ -602,7 +603,7 @@ function GetRealText(
     }
     else
     {
-        return real_text.ReplaceText( "." ).join( decimal_separator );
+        return real_text.ReplaceText( ".", decimal_separator );
     }
 }
 

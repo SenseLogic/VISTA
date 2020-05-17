@@ -105,6 +105,7 @@ class VISTA_WAVEFRONT_MODEL
             index_array,
             mapping_index,
             mapping_index_array,
+            material,
             normal_index,
             normal_index_array,
             part_index,
@@ -322,10 +323,21 @@ class VISTA_WAVEFRONT_MODEL
     {
         var
             face,
+            face_vertex_index,
+            geometry,
+            mapping_index,
+            mapping_vector,
             material,
             material_index,
+            mesh,
+            normal_index,
+            normal_vector,
+            position_index,
+            position_vector,
+            real_array,
             scene,
-            vertex_index;
+            vertex_count,
+            vertex_index_array;
 
         scene = new VISTA_SCENE();
 

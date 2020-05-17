@@ -186,7 +186,7 @@ function GetVectorAngle(
             }
             else
             {
-                sinu = GetClamp( sinus, -1.0, 1.0 );
+                sinus = GetClamp( sinus, -1.0, 1.0 );
 
                 angle = GetArcSinus( GetPositive( sinus ) );
             }

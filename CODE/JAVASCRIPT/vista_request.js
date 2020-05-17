@@ -8,7 +8,6 @@ function SendRequest(
     )
 {
     var
-        request_header_name,
         request;
 
     request = new XMLHttpRequest();
@@ -19,6 +18,9 @@ function SendRequest(
             reject
             )
         {
+            var
+                request_header_name;
+
             request.onreadystatechange
                 = function (
                       )
@@ -44,7 +46,10 @@ function SendRequest(
             {
                 for ( request_header_name in request_header_map )
                 {
-                    request.setRequestHeader( request_header_name, request_header_map[ request_header_name ] );
+                    if ( request_header_map.hasOwnProperty( request_header_name ) )
+                    {
+                        request.setRequestHeader( request_header_name, request_header_map[ request_header_name ] );
+                    }
                 }
             }
 
@@ -74,6 +79,9 @@ function SendJsonRequest(
             reject
             )
         {
+            var
+                request_header_name;
+
             request.onreadystatechange
                 = function (
                       )
@@ -117,7 +125,10 @@ function SendJsonRequest(
             {
                 for ( request_header_name in request_header_map )
                 {
-                    request.setRequestHeader( request_header_name, request_header_map[ request_header_name ] );
+                    if ( request_header_map.hasOwnProperty( request_header_name ) )
+                    {
+                        request.setRequestHeader( request_header_name, request_header_map[ request_header_name ] );
+                    }
                 }
             }
 

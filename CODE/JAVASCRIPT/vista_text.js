@@ -85,9 +85,11 @@ String.prototype.GetSnakeCaseText = function (
 {
     var
         character,
+        lower_case_character,
         prior_character_is_digit,
         prior_character_is_lower_case_letter,
-        snake_case_text;
+        snake_case_text,
+        upper_case_character;
 
     snake_case_text = "";
 
