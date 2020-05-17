@@ -119,26 +119,6 @@ class VISTA_DATA
         this.HasChanged = false;
         this.IsChangingWatchers = false;
     }
-
-    // ~~
-
-    static ConstructComponent(
-        object,
-        object_class
-        )
-    {
-        object.WatcherArray = [];
-        object.HasChanged = true;
-        object.IsChangingWatchers = false;
-
-        object_class.prototype.FindWatcherIndex = VISTA_DATA.prototype.FindWatcherIndex;
-        object_class.prototype.AddWatcher = VISTA_DATA.prototype.AddWatcher;
-        object_class.prototype.RemoveWatcher = VISTA_DATA.prototype.RemoveWatcher;
-        object_class.prototype.WatchData = VISTA_DATA.prototype.WatchData;
-        object_class.prototype.UnwatchData = VISTA_DATA.prototype.UnwatchData;
-        object_class.prototype.ChangeWatchers = VISTA_DATA.prototype.ChangeWatchers;
-        object_class.prototype.SetUpdated = VISTA_DATA.prototype.SetUpdated;
-    }
 }
 
 // ~~
@@ -158,8 +138,9 @@ class VISTA_COMPONENT extends HTMLElement
         super();
         this.style[ "display" ] = display_style;
 
-        VISTA_DATA.ConstructComponent( this, VISTA_COMPONENT );
-
+        this.WatcherArray = [];
+        this.HasChanged = true;
+        this.IsChangingWatchers = false;
         this.Identifier = ++ComponentIdentifier;
         this.HostClassName = "";
         this.HostSelector = "";
@@ -168,6 +149,14 @@ class VISTA_COMPONENT extends HTMLElement
         this.EventArray = [];
         this.RootElement = this;
         this.TemplateFunction = null;
+
+        VISTA_COMPONENT.prototype.FindWatcherIndex = VISTA_DATA.prototype.FindWatcherIndex;
+        VISTA_COMPONENT.prototype.AddWatcher = VISTA_DATA.prototype.AddWatcher;
+        VISTA_COMPONENT.prototype.RemoveWatcher = VISTA_DATA.prototype.RemoveWatcher;
+        VISTA_COMPONENT.prototype.WatchData = VISTA_DATA.prototype.WatchData;
+        VISTA_COMPONENT.prototype.UnwatchData = VISTA_DATA.prototype.UnwatchData;
+        VISTA_COMPONENT.prototype.ChangeWatchers = VISTA_DATA.prototype.ChangeWatchers;
+        VISTA_COMPONENT.prototype.SetUpdated = VISTA_DATA.prototype.SetUpdated;
     }
 
     // -- INQUIRIES
