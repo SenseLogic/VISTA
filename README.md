@@ -6,10 +6,10 @@ Lightweight front-end framework.
 
 ## Goals
 
-*   Compact : implemented in a simple yet efficient manner
-*   Minimalistic : only the most used features
-*   Modular : just integrate the parts you need
-*   Direct : simply include the minified scripts
+*   Minimalistic : provides the most used features
+*   Compact : simple but efficient algorithms
+*   Modular : only integrate the parts you need
+*   Simple : just include the minified scripts
 
 ## Features
 
@@ -335,11 +335,9 @@ Lightweight front-end framework.
 
                 // ~~
 
-                UpdateComponent(
+                PostUpdateComponent(
                     )
                 {
-                    super.UpdateComponent();
-
                     this.BindEvent( this.GetElements( ".button" ), "click", this.HandleButtonClickEvent );
                     this.BindEvent( this.GetElement( "#property-button" ), "click", this.HandlePropertyButtonClickEvent );
                     this.BindEvent( this.GetElement( "#attribute-button" ), "click", this.HandleAttributeButtonClickEvent );
@@ -442,11 +440,9 @@ Lightweight front-end framework.
 
                 // ~~
 
-                UpdateComponent(
+                PostUpdateComponent(
                     )
                 {
-                    super.UpdateComponent();
-
                     this.BindEvent( this.GetElements( ".route-button" ), "click", this.HandleRouteButtonClickEvent );
                 }
             }

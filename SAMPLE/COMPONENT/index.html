@@ -158,11 +158,9 @@
 
                 // ~~
 
-                UpdateComponent(
+                PostUpdateComponent(
                     )
                 {
-                    super.UpdateComponent();
-
                     this.BindEvent( this.GetElements( ".button" ), "click", this.HandleButtonClickEvent );
                     this.BindEvent( this.GetElement( "#property-button" ), "click", this.HandlePropertyButtonClickEvent );
                     this.BindEvent( this.GetElement( "#attribute-button" ), "click", this.HandleAttributeButtonClickEvent );

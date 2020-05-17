@@ -81,11 +81,9 @@
 
                 // ~~
 
-                UpdateComponent(
+                PostUpdateComponent(
                     )
                 {
-                    super.UpdateComponent();
-
                     this.BindEvent( this.GetElements( ".route-button" ), "click", this.HandleRouteButtonClickEvent );
                 }
             }

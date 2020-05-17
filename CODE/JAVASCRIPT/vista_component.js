@@ -83,16 +83,11 @@ class VISTA_DATA
 
     // ~~
 
-    SetChanged(
+    ChangeWatchers(
         )
     {
         var
-            watcher,
-            update_is_required;
-
-        update_is_required = ( ComponentHasChanged === false );
-        ComponentHasChanged = true;
-        this.HasChanged = true;
+            watcher;
 
         if ( !this.IsChangingWatchers )
         {
@@ -105,11 +100,15 @@ class VISTA_DATA
 
             this.IsChangingWatchers = false;
         }
+    }
 
-        if ( update_is_required )
-        {
-            DelayCall( UpdateComponents, ComponentUpdateDelay );
-        }
+    // ~~
+
+    SetChanged(
+        )
+    {
+        this.HasChanged = true;
+        this.ChangeWatchers();
     }
 
     // ~~
@@ -123,7 +122,7 @@ class VISTA_DATA
 
     // ~~
 
-    static ConstructObject(
+    static ConstructComponent(
         object,
         object_class
         )
@@ -137,7 +136,7 @@ class VISTA_DATA
         object_class.prototype.RemoveWatcher = VISTA_DATA.prototype.RemoveWatcher;
         object_class.prototype.WatchData = VISTA_DATA.prototype.WatchData;
         object_class.prototype.UnwatchData = VISTA_DATA.prototype.UnwatchData;
-        object_class.prototype.SetChanged = VISTA_DATA.prototype.SetChanged;
+        object_class.prototype.ChangeWatchers = VISTA_DATA.prototype.ChangeWatchers;
         object_class.prototype.SetUpdated = VISTA_DATA.prototype.SetUpdated;
     }
 }
@@ -159,7 +158,7 @@ class VISTA_COMPONENT extends HTMLElement
         super();
         this.style[ "display" ] = display_style;
 
-        VISTA_DATA.ConstructObject( this, VISTA_COMPONENT );
+        VISTA_DATA.ConstructComponent( this, VISTA_COMPONENT );
 
         this.Identifier = ++ComponentIdentifier;
         this.HostClassName = "";
@@ -272,6 +271,26 @@ class VISTA_COMPONENT extends HTMLElement
     }
 
     // -- OPERATIONS
+
+    SetChanged(
+        )
+    {
+        var
+            it_has_changed;
+
+        it_has_changed = this.HasChanged;
+
+        this.HasChanged = true;
+        this.ChangeWatchers();
+
+        if ( !it_has_changed
+             && ComponentUpdateCall === null )
+        {
+            ComponentUpdateCall = DelayCall( UpdateComponents, ComponentUpdateDelay );
+        }
+    }
+
+    // ~~
 
     BindShadow(
         )
@@ -793,6 +812,13 @@ class VISTA_COMPONENT extends HTMLElement
 
     // ~~
 
+    PreUpdateComponent(
+        )
+    {
+    }
+
+    // ~~
+
     UpdateComponent(
         )
     {
@@ -802,11 +828,20 @@ class VISTA_COMPONENT extends HTMLElement
 
     // ~~
 
+    PostUpdateComponent(
+        )
+    {
+    }
+
+    // ~~
+
     connectedCallback(
         )
     {
         this.InitializeComponent();
+        this.PreUpdateComponent();
         this.UpdateComponent();
+        this.PostUpdateComponent();
     }
 
     // ~~
@@ -831,8 +866,8 @@ class VISTA_COMPONENT extends HTMLElement
 var
     ComponentIdentifier = -1,
     ComponentAttributeNameArray = [],
-    ComponentHasChanged = false,
     ComponentUpdateDelay = 0.05,
+    ComponentUpdateCall = null,
     TemplateConstantMap = new Map(),
     TemplateProcessorMap = new Map();
 
@@ -857,7 +892,9 @@ function UpdateComponent(
 
     if ( element.HasChanged === true )
     {
+        element.PreUpdateComponent();
         element.UpdateComponent();
+        element.PostUpdateComponent();
     }
     else
     {
@@ -877,12 +914,9 @@ function UpdateComponent(
 function UpdateComponents(
     )
 {
-    if ( ComponentHasChanged )
-    {
-        UpdateComponent( document.body );
+    ComponentUpdateCall = null;
 
-        ComponentHasChanged = false;
-    }
+    UpdateComponent( document.body );
 }
 
 // ~~
