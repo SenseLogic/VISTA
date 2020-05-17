@@ -6,9 +6,9 @@ Lightweight front-end framework.
 
 ## Goals
 
-*   Modular : just include what you actually use
-*   Compact : simple yet efficient algorithms
-*   Simple : simply include the minified scripts
+*   Modular : only integrate what you need
+*   Compact : based on simple yet efficient algorithms
+*   Simple : just include the minified scripts
 
 ## Features
 
