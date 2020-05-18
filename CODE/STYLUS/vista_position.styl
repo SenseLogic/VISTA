@@ -1,3 +1,28 @@
+.position-static
+{
+    position: static;
+}
+
+.position-relative
+{
+    position: relative;
+}
+
+.position-absolute
+{
+    position: absolute;
+}
+
+.position-fixed
+{
+    position: fixed;
+}
+
+.position-sticky
+{
+    position: sticky;
+}
+
 .position-fixed-top
 {
   position: fixed;
@@ -15,3 +40,127 @@
   left: 0;
   z-index: 1030;
 }
+
+// ~~
+
+MakePositionLeft( offset, unit_value, unit_name, media_query_name_list = {} )
+
+    .position-left-{offset}{unit_name}
+    {
+        left: offset * unit_value;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .position-left-{offset}{unit_name}-{media_query_name}
+            {
+                left: offset * unit_value;
+            }
+        }
+    }
+
+// ~~
+
+MakePositionLeftRange( start, step, count, unit_value, unit_name, media_query_name_list = {} )
+
+    for index in 0 .. count - 1
+    {
+        offset = start + index * step;
+
+        MakePositionLeft( offset, unit_value, unit_name, media_query_name_list );
+    }
+
+// ~~
+
+MakePositionRight( offset, unit_value, unit_name, media_query_name_list = {} )
+
+    .position-right-{offset}{unit_name}
+    {
+        right: offset * unit_value;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .position-right-{offset}{unit_name}-{media_query_name}
+            {
+                right: offset * unit_value;
+            }
+        }
+    }
+
+// ~~
+
+MakePositionRightRange( start, step, count, unit_value, unit_name, media_query_name_list = {} )
+
+    for index in 0 .. count - 1
+    {
+        offset = start + index * step;
+
+        MakePositionRight( offset, unit_value, unit_name, media_query_name_list );
+    }
+
+// ~~
+
+MakePositionBottom( offset, unit_value, unit_name, media_query_name_list = {} )
+
+    .position-bottom-{offset}{unit_name}
+    {
+        bottom: offset * unit_value;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .position-bottom-{offset}{unit_name}-{media_query_name}
+            {
+                bottom: offset * unit_value;
+            }
+        }
+    }
+
+// ~~
+
+MakePositionBottomRange( start, step, count, unit_value, unit_name, media_query_name_list = {} )
+
+    for index in 0 .. count - 1
+    {
+        offset = start + index * step;
+
+        MakePositionBottom( offset, unit_value, unit_name, media_query_name_list );
+    }
+
+// ~~
+
+MakePositionTop( offset, unit_value, unit_name, media_query_name_list = {} )
+
+    .position-top-{offset}{unit_name}
+    {
+        top: offset * unit_value;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .position-top-{offset}{unit_name}-{media_query_name}
+            {
+                top: offset * unit_value;
+            }
+        }
+    }
+
+// ~~
+
+MakePositionTopRange( start, step, count, unit_value, unit_name, media_query_name_list = {} )
+
+    for index in 0 .. count - 1
+    {
+        offset = start + index * step;
+
+        MakePositionTop( offset, unit_value, unit_name, media_query_name_list );
+    }

@@ -118,7 +118,7 @@ MakeMaxWidthRange( start, step, count, unit_value, unit_name, media_query_name_l
 
 // ~~
 
-MakeFractionalWidth( column_count, media_query_name_list = {} )
+MakeFractionalWidthRange( column_count, media_query_name_list = {} )
 
     for column_index in 1 .. column_count
     {
@@ -141,16 +141,7 @@ MakeFractionalWidth( column_count, media_query_name_list = {} )
 
 // ~~
 
-MakeFractionalWidthRange( first_column_count, last_column_count, media_query_name_list = {} )
-
-    for column_count in first_column_count .. last_column_count
-    {
-        MakeFractionalWidth( column_count, media_query_name_list );
-    }
-
-// ~~
-
-MakeMinFractionalWidth( column_count, media_query_name_list = {} )
+MakeMinFractionalWidthRange( column_count, media_query_name_list = {} )
 
     for column_index in 1 .. column_count
     {
@@ -173,16 +164,7 @@ MakeMinFractionalWidth( column_count, media_query_name_list = {} )
 
 // ~~
 
-MakeMinFractionalWidthRange( first_column_count, last_column_count, media_query_name_list = {} )
-
-    for column_count in first_column_count .. last_column_count
-    {
-        MakeMinFractionalWidth( column_count, media_query_name_list );
-    }
-
-// ~~
-
-MakeMaxFractionalWidth( column_count, media_query_name_list = {} )
+MakeMaxFractionalWidthRange( column_count, media_query_name_list = {} )
 
     for column_index in 1 .. column_count
     {
@@ -205,41 +187,25 @@ MakeMaxFractionalWidth( column_count, media_query_name_list = {} )
 
 // ~~
 
-MakeMaxFractionalWidthRange( first_column_count, last_column_count, media_query_name_list = {} )
+MakeGridWidthRange( column_count, total_size, gutter_size, unit_name, media_query_name_list = {} )
 
-    for column_count in first_column_count .. last_column_count
-    {
-        MakeMaxFractionalWidth( column_count, media_query_name_list );
-    }
-
-// ~~
-
-MakePartialWidth( column_count, total_size, offset_size, unit_name, media_query_name_list = {} )
+    column_size = ( total_size - ( column_count - 1 ) * gutter_size ) / column_count;
 
     for column_index in 1 .. column_count
     {
-        .width-{column_index}{unit_name}
+        .grid-width-{column_index}{unit_name}
         {
-            width: total_size * ( column_index / column_count ) + offset_size;
+            width: column_size * column_index + gutter_size * ( column_index - 1 );
         }
 
         for media_query_name in media_query_name_list
         {
             @media MediaQueryMap[ media_query_name ]
             {
-                .width-{column_index}{unit_name}-{media_query_name}
+                .grid-width-{column_index}{unit_name}-{media_query_name}
                 {
-                    width: total_size * ( column_index / column_count ) + offset_size;
+                    width: column_size * column_index + gutter_size * ( column_index - 1 );
                 }
             }
         }
-    }
-
-// ~~
-
-MakePartialWidthRange( first_column_count, last_column_count, total_size, offset_size, unit_name, media_query_name_list = {} )
-
-    for column_count in first_column_count .. last_column_count
-    {
-        MakePartialWidth( column_count, total_size, offset_size, unit_name, media_query_name_list );
     }

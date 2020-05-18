@@ -40,15 +40,20 @@ class VISTA_STORE extends VISTA_DATA
              && value_name !== "Value" )
         {
             this[ "HasLocal" + value_name ] = this.HasLocalValue;
-            this[ "GetLocal" + value_name + "Array" ] = this.GetLocalValueArray;
             this[ "GetLocal" + value_name ] = this.GetLocalValue;
-            this[ "Fetch" + value_name + "Array" ] = this.FetchValueArray;
+            this[ "GetLocal" + value_name + "Array" ] = this.GetLocalValueArray;
             this[ "Fetch" + value_name ] = this.FetchValue;
+            this[ "Fetch" + value_name + "Array" ] = this.FetchValueArray;
             this[ "Get" + value_name ] = this.GetValue;
+            this[ "Get" + value_name + "Array" ] = this.GetValueArray;
             this[ "Add" + value_name ] = this.AddValue;
+            this[ "Add" + value_name + "Array" ] = this.AddValueArray;
             this[ "Set" + value_name ] = this.SetValue;
+            this[ "Set" + value_name + "Array" ] = this.SetValueArray;
             this[ "Fix" + value_name ] = this.FixValue;
+            this[ "Fix" + value_name + "Array" ] = this.FixValueArray;
             this[ "Remove" + value_name ] = this.RemoveValue;
+            this[ "Remove" + value_name + "Array" ] = this.RemoveValueArray;
         }
     }
 
@@ -72,30 +77,6 @@ class VISTA_STORE extends VISTA_DATA
 
     // ~~
 
-    GetLocalValueArray(
-        filter_function = undefined
-        )
-    {
-        var
-            value,
-            value_array;
-
-        value_array = [];
-
-        for ( value of this.ValueMap.values() )
-        {
-            if ( filter_function === undefined
-                 || filter_function( value ) )
-            {
-                value_array.push( value );
-            }
-        }
-
-        return value_array;
-    }
-
-    // ~~
-
     GetLocalValue(
         value_key
         )
@@ -112,6 +93,50 @@ class VISTA_STORE extends VISTA_DATA
         else
         {
             return value;
+        }
+    }
+
+    // ~~
+
+    GetLocalValueArray(
+        value_key_array = undefined
+        )
+    {
+        var
+            value,
+            value_array,
+            value_key;
+
+        if ( value_key_array === undefined )
+        {
+            return Array.from( this.ValueMap.values() );
+        }
+        else
+        {
+            value_array = [];
+
+            if ( value_key_array instanceof Function )
+            {
+                for ( value of this.ValueMap.values() )
+                {
+                    if ( value_key_array( value ) )
+                    {
+                        value_array.push( value );
+                    }
+                }
+            }
+            else
+            {
+                for ( value_key of value_key_array )
+                {
+                    if ( this.ValueMap.has( value_key ) )
+                    {
+                        value_array.push( this.ValueMap.get( value_key ) );
+                    }
+                }
+            }
+
+            return value_array;
         }
     }
 
@@ -253,27 +278,6 @@ class VISTA_STORE extends VISTA_DATA
 
     // ~~
 
-    async FetchValueArray(
-        query_suffix = ""
-        )
-    {
-        var
-            value_array;
-
-        value_array = await SendJsonRequest( this.GetValueArrayUrl + query_suffix, this.GetValueArrayMethod );
-
-        if ( this.GetValueArrayPropertyName !== undefined )
-        {
-            value_array = value_array[ this.GetValueArrayPropertyName ];
-        }
-
-        this.ClearLocalValueArray();
-
-        return this.SetLocalValueArray( value_array );
-    }
-
-    // ~~
-
     async FetchValue(
         value_key,
         query_prefix = "",
@@ -291,6 +295,27 @@ class VISTA_STORE extends VISTA_DATA
         }
 
         return this.SetLocalValue( value );
+    }
+
+    // ~~
+
+    async FetchValueArray(
+        query_suffix = ""
+        )
+    {
+        var
+            value_array;
+
+        value_array = await SendJsonRequest( this.GetValueArrayUrl + query_suffix, this.GetValueArrayMethod );
+
+        if ( this.GetValueArrayPropertyName !== undefined )
+        {
+            value_array = value_array[ this.GetValueArrayPropertyName ];
+        }
+
+        this.ClearLocalValueArray();
+
+        return this.SetLocalValueArray( value_array );
     }
 
     // ~~
@@ -325,6 +350,28 @@ class VISTA_STORE extends VISTA_DATA
 
     // ~~
 
+    async GetValueArray(
+        value_key_array,
+        query_prefix = "",
+        query_suffix = ""
+        )
+    {
+        var
+            value_array,
+            value_key;
+
+        value_array = [];
+
+        for ( value_key of value_key_array )
+        {
+            value_array.push( await this.GetValue( value_key, query_prefix, query_suffix ) );
+        }
+
+        return value_array;
+    }
+
+    // ~~
+
     async AddValue(
         value,
         query_suffix = ""
@@ -347,6 +394,23 @@ class VISTA_STORE extends VISTA_DATA
         else
         {
             return this.SetLocalValue( value );
+        }
+    }
+
+    // ~~
+
+    async AddValueArray(
+        value_array,
+        query_prefix = "",
+        query_suffix = ""
+        )
+    {
+        var
+            value;
+
+        for ( value of value_array )
+        {
+            await this.AddValue( value, query_prefix, query_suffix );
         }
     }
 
@@ -380,6 +444,23 @@ class VISTA_STORE extends VISTA_DATA
 
     // ~~
 
+    async SetValueArray(
+        value_array,
+        query_prefix = "",
+        query_suffix = ""
+        )
+    {
+        var
+            value;
+
+        for ( value of value_array )
+        {
+            await this.SetValue( value, query_prefix, query_suffix );
+        }
+    }
+
+    // ~~
+
     async FixValue(
         value,
         query_prefix = "",
@@ -408,6 +489,23 @@ class VISTA_STORE extends VISTA_DATA
 
     // ~~
 
+    async FixValueArray(
+        value_array,
+        query_prefix = "",
+        query_suffix = ""
+        )
+    {
+        var
+            value;
+
+        for ( value of value_array )
+        {
+            await this.FixValue( value, query_prefix, query_suffix );
+        }
+    }
+
+    // ~~
+
     async RemoveValue(
         value_key,
         query_prefix = "",
@@ -417,5 +515,22 @@ class VISTA_STORE extends VISTA_DATA
         await SendJsonRequest( this.RemoveValueUrl + query_prefix + value_key + query_suffix, this.RemoveValueMethod, null );
 
         return this.RemoveLocalValue( value_key );
+    }
+
+    // ~~
+
+    async RemoveValueArray(
+        value_key_array,
+        query_prefix = "",
+        query_suffix = ""
+        )
+    {
+        var
+            value_key;
+
+        for ( value_key of value_key_array )
+        {
+            await this.RemoveValue( value_key, query_prefix, query_suffix );
+        }
     }
 }
