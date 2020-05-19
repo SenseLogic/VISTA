@@ -6,9 +6,12 @@ Lightweight front-end framework.
 
 ## Goals
 
-*   Modular : only include what you need
-*   Compact : based on simple yet efficient algorithms
-*   Simple : just include the minified scripts
+*   Basic : provides the essential features
+*   Modest : targets small scale projects
+*   Modular : allows to just include the needed parts
+*   Compact : uses simple efficient algorithms
+*   Native : extends existing types
+*   Easy : can be used by simply including the scripts
 
 ## Features
 
@@ -319,7 +322,7 @@ Lightweight front-end framework.
                                 </li>
                             <: } :>
                         </ul>
-                        <div ignored="<\: ignored :\>">
+                        <div id="(:scope:)-ignored" ignored="<\: ignored :\>">
                             <: var ignored = "<\: ignored :\>"; :>
                         </div>
                         <div>
@@ -340,6 +343,8 @@ Lightweight front-end framework.
                     this.BindEvent( this.GetElements( ".button" ), "click", this.HandleButtonClickEvent );
                     this.BindEvent( this.GetElement( "#property-button" ), "click", this.HandlePropertyButtonClickEvent );
                     this.BindEvent( this.GetElement( "#attribute-button" ), "click", this.HandleAttributeButtonClickEvent );
+
+                    this.GetElement( this.GetSelector( "#(:scope:)-ignored" ) ).SetStyle( "display", "none" );
                 }
             }
 

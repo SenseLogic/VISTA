@@ -143,7 +143,7 @@
                                 </li>
                             <: } :>
                         </ul>
-                        <div ignored="<\: ignored :\>">
+                        <div id="(:scope:)-ignored" ignored="<\: ignored :\>">
                             <: var ignored = "<\: ignored :\>"; :>
                         </div>
                         <div>
@@ -164,6 +164,8 @@
                     this.BindEvent( this.GetElements( ".button" ), "click", this.HandleButtonClickEvent );
                     this.BindEvent( this.GetElement( "#property-button" ), "click", this.HandlePropertyButtonClickEvent );
                     this.BindEvent( this.GetElement( "#attribute-button" ), "click", this.HandleAttributeButtonClickEvent );
+
+                    this.GetElement( this.GetSelector( "#(:scope:)-ignored" ) ).SetStyle( "display", "none" );
                 }
             }
 

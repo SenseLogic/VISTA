@@ -139,12 +139,14 @@ class VISTA_COMPONENT extends HTMLElement
         this.HasChanged = true;
         this.IsChangingWatchers = false;
         this.Identifier = ++ComponentIdentifier;
-        this.HostClassName = "";
-        this.HostSelector = "";
+        this.Scope = "component-" + this.Identifier + "-scope";
+        this.Host = "";
         this.PropertyMap = new Map();
         this.AttributeMap = new Map();
         this.EventArray = [];
         this.RootElement = this;
+        this.TemplateConstantMap = new Map();
+        this.TemplateConstantMap.set( "scope", this.Scope );
         this.TemplateFunction = null;
 
         VISTA_COMPONENT.prototype.FindWatcherIndex = VISTA_DATA.prototype.FindWatcherIndex;
@@ -201,6 +203,19 @@ class VISTA_COMPONENT extends HTMLElement
         )
     {
         return this.TemplateFunction();
+    }
+
+    // ~~
+
+    GetSelector(
+        selector
+        )
+    {
+        return (
+            selector
+                .ReplaceText( "(:scope:)", this.Scope )
+                .ReplaceText( "(:host:)", this.Host )
+            );
     }
 
     // ~~
@@ -282,7 +297,8 @@ class VISTA_COMPONENT extends HTMLElement
         )
     {
         this.RootElement = this.attachShadow( { mode : "open" } );
-        this.HostSelector = ":host";
+        this.Host = ":host";
+        this.TemplateConstantMap.set( "host", ":host" );
     }
 
     // ~~
@@ -290,9 +306,9 @@ class VISTA_COMPONENT extends HTMLElement
     BindStyle(
         )
     {
-        this.HostClassName = "host-" + this.Identifier;
-        this.HostSelector = "." + this.HostClassName;
-        this.classList.add( this.HostClassName );
+        this.classList.add( this.Scope );
+        this.Host = "." + this.Scope;
+        this.TemplateConstantMap.set( "host", this.Host );
     }
 
     // ~~
@@ -481,6 +497,16 @@ class VISTA_COMPONENT extends HTMLElement
 
     // ~~
 
+    DefineTemplateConstant(
+        template_constant_name,
+        template_constant
+        )
+    {
+        this.TemplateConstantMap.set( template_constant_name, template_constant );
+    }
+
+    // ~~
+
     ProcessTemplateProcessors(
         text
         )
@@ -543,13 +569,13 @@ class VISTA_COMPONENT extends HTMLElement
                     section_code = section_code.trim();
                     section_text = section_part_array.join( ":)" );
 
-                    if ( TemplateConstantMap.has( section_code ) )
+                    if ( this.TemplateConstantMap.has( section_code ) )
+                    {
+                        section_code = this.TemplateConstantMap.get( section_code );
+                    }
+                    else if ( TemplateConstantMap.has( section_code ) )
                     {
                         section_code = TemplateConstantMap.get( section_code );
-                    }
-                    else if ( section_code === "host" )
-                    {
-                        section_code = this.HostSelector;
                     }
                     else
                     {
