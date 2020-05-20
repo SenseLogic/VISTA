@@ -6,12 +6,11 @@ Lightweight front-end framework.
 
 ## Goals
 
-*   Basic : provides the essential features
-*   Modest : targets small scale projects
-*   Modular : allows to just include the needed parts
-*   Compact : uses simple efficient algorithms
-*   Native : extends existing types
-*   Easy : can be used by simply including the scripts
+*   Modest : focuses on the needs of small scale projects
+*   Modular : provides its features through separate scripts
+*   Compact : uses simple yet efficient algorithms
+*   Natural : extends or complements native types
+*   Direct : can be used without bundler
 
 ## Features
 
@@ -734,7 +733,7 @@ Lightweight front-end framework.
 
 ## Limitations
 
-*   Native components require recent versions of :
+*   Native web components require recent versions of :
     *   Firefox
     *   Safari
     *   Chrome
