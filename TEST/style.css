@@ -363,6 +363,12 @@ a:hover {
 .flex-nowrap {
   flex-wrap: nowrap;
 }
+.flex-shrink {
+  flex-shrink: 1;
+}
+.flex-grow {
+  flex-grow: 1;
+}
 .grid-flow-row {
   grid-auto-flow: row;
 }
@@ -7437,6 +7443,12 @@ a:hover {
   .flex-nowrap-above-20em {
     flex-wrap: nowrap;
   }
+  .flex-shrink-above-20em {
+    flex-shrink: 1;
+  }
+  .flex-grow-above-20em {
+    flex-grow: 1;
+  }
 }
 @media only screen and (min-width: 30em) {
   .flex-direction-row-above-30em {
@@ -7456,6 +7468,12 @@ a:hover {
   }
   .flex-nowrap-above-30em {
     flex-wrap: nowrap;
+  }
+  .flex-shrink-above-30em {
+    flex-shrink: 1;
+  }
+  .flex-grow-above-30em {
+    flex-grow: 1;
   }
 }
 @media only screen and (min-width: 40em) {
@@ -7477,6 +7495,12 @@ a:hover {
   .flex-nowrap-above-40em {
     flex-wrap: nowrap;
   }
+  .flex-shrink-above-40em {
+    flex-shrink: 1;
+  }
+  .flex-grow-above-40em {
+    flex-grow: 1;
+  }
 }
 @media only screen and (min-width: 60em) {
   .flex-direction-row-above-60em {
@@ -7497,6 +7521,12 @@ a:hover {
   .flex-nowrap-above-60em {
     flex-wrap: nowrap;
   }
+  .flex-shrink-above-60em {
+    flex-shrink: 1;
+  }
+  .flex-grow-above-60em {
+    flex-grow: 1;
+  }
 }
 @media only screen and (min-width: 80em) {
   .flex-direction-row-above-80em {
@@ -7516,6 +7546,12 @@ a:hover {
   }
   .flex-nowrap-above-80em {
     flex-wrap: nowrap;
+  }
+  .flex-shrink-above-80em {
+    flex-shrink: 1;
+  }
+  .flex-grow-above-80em {
+    flex-grow: 1;
   }
 }
 .flex-basis-1_12 {
@@ -8658,5 +8694,257 @@ a:hover {
 @media only screen and (min-width: 80em) {
   .font-weight-900-above-80em {
     font-weight: 900;
+  }
+}
+.line-height-0.5 {
+  line-height: 0.5;
+}
+@media only screen and (min-width: 20em) {
+  .line-height-0.5-above-20em {
+    line-height: 0.5;
+  }
+}
+@media only screen and (min-width: 30em) {
+  .line-height-0.5-above-30em {
+    line-height: 0.5;
+  }
+}
+@media only screen and (min-width: 40em) {
+  .line-height-0.5-above-40em {
+    line-height: 0.5;
+  }
+}
+@media only screen and (min-width: 60em) {
+  .line-height-0.5-above-60em {
+    line-height: 0.5;
+  }
+}
+@media only screen and (min-width: 80em) {
+  .line-height-0.5-above-80em {
+    line-height: 0.5;
+  }
+}
+.line-height-1 {
+  line-height: 1;
+}
+@media only screen and (min-width: 20em) {
+  .line-height-1-above-20em {
+    line-height: 1;
+  }
+}
+@media only screen and (min-width: 30em) {
+  .line-height-1-above-30em {
+    line-height: 1;
+  }
+}
+@media only screen and (min-width: 40em) {
+  .line-height-1-above-40em {
+    line-height: 1;
+  }
+}
+@media only screen and (min-width: 60em) {
+  .line-height-1-above-60em {
+    line-height: 1;
+  }
+}
+@media only screen and (min-width: 80em) {
+  .line-height-1-above-80em {
+    line-height: 1;
+  }
+}
+.line-height-1.5 {
+  line-height: 1.5;
+}
+@media only screen and (min-width: 20em) {
+  .line-height-1.5-above-20em {
+    line-height: 1.5;
+  }
+}
+@media only screen and (min-width: 30em) {
+  .line-height-1.5-above-30em {
+    line-height: 1.5;
+  }
+}
+@media only screen and (min-width: 40em) {
+  .line-height-1.5-above-40em {
+    line-height: 1.5;
+  }
+}
+@media only screen and (min-width: 60em) {
+  .line-height-1.5-above-60em {
+    line-height: 1.5;
+  }
+}
+@media only screen and (min-width: 80em) {
+  .line-height-1.5-above-80em {
+    line-height: 1.5;
+  }
+}
+.line-height-2 {
+  line-height: 2;
+}
+@media only screen and (min-width: 20em) {
+  .line-height-2-above-20em {
+    line-height: 2;
+  }
+}
+@media only screen and (min-width: 30em) {
+  .line-height-2-above-30em {
+    line-height: 2;
+  }
+}
+@media only screen and (min-width: 40em) {
+  .line-height-2-above-40em {
+    line-height: 2;
+  }
+}
+@media only screen and (min-width: 60em) {
+  .line-height-2-above-60em {
+    line-height: 2;
+  }
+}
+@media only screen and (min-width: 80em) {
+  .line-height-2-above-80em {
+    line-height: 2;
+  }
+}
+.line-height-10pxm {
+  line-height: 0.625rem;
+}
+@media only screen and (min-width: 20em) {
+  .line-height-10pxm-above-20em {
+    line-height: 0.625rem;
+  }
+}
+@media only screen and (min-width: 30em) {
+  .line-height-10pxm-above-30em {
+    line-height: 0.625rem;
+  }
+}
+@media only screen and (min-width: 40em) {
+  .line-height-10pxm-above-40em {
+    line-height: 0.625rem;
+  }
+}
+@media only screen and (min-width: 60em) {
+  .line-height-10pxm-above-60em {
+    line-height: 0.625rem;
+  }
+}
+@media only screen and (min-width: 80em) {
+  .line-height-10pxm-above-80em {
+    line-height: 0.625rem;
+  }
+}
+.line-height-20pxm {
+  line-height: 1.25rem;
+}
+@media only screen and (min-width: 20em) {
+  .line-height-20pxm-above-20em {
+    line-height: 1.25rem;
+  }
+}
+@media only screen and (min-width: 30em) {
+  .line-height-20pxm-above-30em {
+    line-height: 1.25rem;
+  }
+}
+@media only screen and (min-width: 40em) {
+  .line-height-20pxm-above-40em {
+    line-height: 1.25rem;
+  }
+}
+@media only screen and (min-width: 60em) {
+  .line-height-20pxm-above-60em {
+    line-height: 1.25rem;
+  }
+}
+@media only screen and (min-width: 80em) {
+  .line-height-20pxm-above-80em {
+    line-height: 1.25rem;
+  }
+}
+.line-height-30pxm {
+  line-height: 1.875rem;
+}
+@media only screen and (min-width: 20em) {
+  .line-height-30pxm-above-20em {
+    line-height: 1.875rem;
+  }
+}
+@media only screen and (min-width: 30em) {
+  .line-height-30pxm-above-30em {
+    line-height: 1.875rem;
+  }
+}
+@media only screen and (min-width: 40em) {
+  .line-height-30pxm-above-40em {
+    line-height: 1.875rem;
+  }
+}
+@media only screen and (min-width: 60em) {
+  .line-height-30pxm-above-60em {
+    line-height: 1.875rem;
+  }
+}
+@media only screen and (min-width: 80em) {
+  .line-height-30pxm-above-80em {
+    line-height: 1.875rem;
+  }
+}
+.line-height-40pxm {
+  line-height: 2.5rem;
+}
+@media only screen and (min-width: 20em) {
+  .line-height-40pxm-above-20em {
+    line-height: 2.5rem;
+  }
+}
+@media only screen and (min-width: 30em) {
+  .line-height-40pxm-above-30em {
+    line-height: 2.5rem;
+  }
+}
+@media only screen and (min-width: 40em) {
+  .line-height-40pxm-above-40em {
+    line-height: 2.5rem;
+  }
+}
+@media only screen and (min-width: 60em) {
+  .line-height-40pxm-above-60em {
+    line-height: 2.5rem;
+  }
+}
+@media only screen and (min-width: 80em) {
+  .line-height-40pxm-above-80em {
+    line-height: 2.5rem;
+  }
+}
+.line-height-50pxm {
+  line-height: 3.125rem;
+}
+@media only screen and (min-width: 20em) {
+  .line-height-50pxm-above-20em {
+    line-height: 3.125rem;
+  }
+}
+@media only screen and (min-width: 30em) {
+  .line-height-50pxm-above-30em {
+    line-height: 3.125rem;
+  }
+}
+@media only screen and (min-width: 40em) {
+  .line-height-50pxm-above-40em {
+    line-height: 3.125rem;
+  }
+}
+@media only screen and (min-width: 60em) {
+  .line-height-50pxm-above-60em {
+    line-height: 3.125rem;
+  }
+}
+@media only screen and (min-width: 80em) {
+  .line-height-50pxm-above-80em {
+    line-height: 3.125rem;
   }
 }

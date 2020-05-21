@@ -363,6 +363,12 @@ a:hover {
 .flex-nowrap {
   flex-wrap: nowrap;
 }
+.flex-shrink {
+  flex-shrink: 1;
+}
+.flex-grow {
+  flex-grow: 1;
+}
 .grid-flow-row {
   grid-auto-flow: row;
 }

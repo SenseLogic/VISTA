@@ -28,6 +28,16 @@
     flex-wrap: nowrap;
 }
 
+.flex-shrink
+{
+    flex-shrink: 1;
+}
+
+.flex-grow
+{
+    flex-grow: 1;
+}
+
 // ~~
 
 MakeFlex( media_query_name_list = {} )
@@ -64,6 +74,16 @@ MakeFlex( media_query_name_list = {} )
             .flex-nowrap-{media_query_name}
             {
                 flex-wrap: nowrap;
+            }
+
+            .flex-shrink-{media_query_name}
+            {
+                flex-shrink: 1;
+            }
+
+            .flex-grow-{media_query_name}
+            {
+                flex-grow: 1;
             }
         }
     }
