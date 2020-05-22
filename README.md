@@ -10,7 +10,7 @@ Lightweight CSS and JavaScript framework.
 *   Modular : allows to include only what is needed
 *   Compact : uses simple yet efficient algorithms
 *   Native : extends or complements existing types
-*   Direct : can be used without bundler setup
+*   Direct : can be used without any bundler setup
 
 ## Features
 
