@@ -197,7 +197,7 @@ function GetArrayText(
 
     for ( value of value_array )
     {
-        text_array.push( GetValueText( value, value_is_unquoted ) );
+        text_array.AddLastValue( GetValueText( value, value_is_unquoted ) );
     }
 
     return GetTextArrayText( text_array, separator_text, opening_brace, closing_brace, empty_braces );
@@ -223,7 +223,7 @@ function GetObjectText(
     {
         if ( object.hasOwnProperty( property ) )
         {
-            text_array.push( property + " : " + GetValueText( object[ property ] ) );
+            text_array.AddLastValue( property + " : " + GetValueText( object[ property ] ) );
         }
     }
 
@@ -461,6 +461,8 @@ function GetEscapedHtml(
             .ReplaceText( "&", "&amp;" )
             .ReplaceText( "<", "&lt;" )
             .ReplaceText( ">", "&gt;" )
+            .ReplaceText( "{", "&#40;" )
+            .ReplaceText( "}", "&#41;" )
             .ReplaceText( "(", "&#40;" )
             .ReplaceText( ")", "&#41;" )
             .ReplaceText( "\\", "&#92;" )
@@ -819,6 +821,83 @@ Array.prototype.Process = function (
 
     return this;
 }
+
+// ~~
+
+Array.prototype.RemoveValue = function (
+    value
+    )
+{
+    var
+        value_index;
+
+    value_index = this.GetValueIndex( value );
+
+    if ( value_index >= 0 )
+    {
+        this.splice( value_index, 1 );
+    }
+}
+
+// ~~
+
+Array.prototype.RecedeValue = function (
+    value
+    )
+{
+    var
+        prior_value,
+        prior_value_index,
+        value_index;
+
+    value_index = this.GetValueIndex( value );
+
+    if ( value_index > 0 )
+    {
+        prior_value_index = value_index - 1;
+        prior_value = this[ prior_value_index ];
+        this[ prior_value_index ] = value;
+        this[ value_index ] = prior_value;
+    }
+}
+
+// ~~
+
+Array.prototype.AdvanceValue = function (
+    value
+    )
+{
+    var
+        next_value,
+        next_value_index,
+        value_index;
+
+    value_index = this.GetValueIndex( value );
+
+    if ( value_index < this.length - 1 )
+    {
+        next_value_index = value_index + 1;
+        next_value = this[ next_value_index ];
+        this[ next_value_index ] = value;
+        this[ value_index ] = next_value;
+    }
+}
+
+// ~~
+
+Array.prototype.AddFirstValue = Array.prototype.unshift;
+
+// ~~
+
+Array.prototype.RemoveFirstValue = Array.prototype.shift;
+
+// ~~
+
+Array.prototype.AddLastValue = Array.prototype.push;
+
+// ~~
+
+Array.prototype.RemoveLastValue = Array.prototype.pop;
 
 // ~~
 

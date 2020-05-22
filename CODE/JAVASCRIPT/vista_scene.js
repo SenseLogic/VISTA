@@ -192,7 +192,7 @@ class VISTA_NODE
             }
 
             this.ParentNode = parent_node;
-            this.ChildNodeArray.push( this );
+            this.ChildNodeArray.AddLastValue( this );
             this.Invalidate();
         }
     }

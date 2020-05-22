@@ -117,7 +117,7 @@ class VISTA_WAVEFRONT_MODEL
         if ( this.MaterialIndex < 0 )
         {
             this.MaterialIndex = 0;
-            this.MaterialArray.push( new VISTA_MATERIAL( "default" ) );
+            this.MaterialArray.AddLastValue( new VISTA_MATERIAL( "default" ) );
         }
 
         material = this.MaterialArray[ this.MaterialIndex ];
@@ -198,9 +198,9 @@ class VISTA_WAVEFRONT_MODEL
                 normal_index = -1;
             }
 
-            position_index_array.push( position_index );
-            normal_index_array.push( normal_index );
-            mapping_index_array.push( mapping_index );
+            position_index_array.AddLastValue( position_index );
+            normal_index_array.AddLastValue( normal_index );
+            mapping_index_array.AddLastValue( mapping_index );
             ++vertex_count
         }
 
@@ -234,7 +234,7 @@ class VISTA_WAVEFRONT_MODEL
             if ( line.HasPrefix( "newmtl " ) )
             {
                 this.MaterialIndex = this.MaterialArray.length;
-                this.MaterialArray.push( new VISTA_MATERIAL( line.substring( 7 ) ) );
+                this.MaterialArray.AddLastValue( new VISTA_MATERIAL( line.substring( 7 ) ) );
             }
             else if ( line.HasPrefix( "Ka " ) )
             {
@@ -285,29 +285,29 @@ class VISTA_WAVEFRONT_MODEL
 
             if ( line.HasPrefix( "v " ) )
             {
-                this.PositionVectorArray.push( this.GetVector3( line ) );
+                this.PositionVectorArray.AddLastValue( this.GetVector3( line ) );
             }
             else if ( line.HasPrefix( "vn " ) )
             {
-                this.NormalVectorArray.push( this.GetVector3( line ) );
+                this.NormalVectorArray.AddLastValue( this.GetVector3( line ) );
             }
             else if ( line.HasPrefix( "vt " ) )
             {
-                this.MappingVectorArray.push( this.GetVector2( line ) );
+                this.MappingVectorArray.AddLastValue( this.GetVector2( line ) );
             }
             else if ( line.HasPrefix( "f " ) )
             {
-                this.FaceArray.push( this.GetFace( line ) );
+                this.FaceArray.AddLastValue( this.GetFace( line ) );
             }
             else if ( line.HasPrefix( "o " ) )
             {
                 this.ObjectIndex = this.ObjectArray.length;
-                this.ObjectArray.push( line.substring( 2 ) );
+                this.ObjectArray.AddLastValue( line.substring( 2 ) );
             }
             else if ( line.HasPrefix( "g " ) )
             {
                 this.GroupIndex = this.GroupArray.length;
-                this.GroupArray.push( line.substring( 2 ) );
+                this.GroupArray.AddLastValue( line.substring( 2 ) );
             }
             else if ( line.HasPrefix( "usemtl " ) )
             {
@@ -365,7 +365,7 @@ class VISTA_WAVEFRONT_MODEL
                             position_index = face.PositionIndexArray[ face_vertex_index ];
                             position_vector = this.PositionVectorArray[ position_index ];
 
-                            real_array.push( ...position_vector );
+                            real_array.AddLastValue( ...position_vector );
                         }
 
                         if ( material.MappingRealCount > 0 )
@@ -373,7 +373,7 @@ class VISTA_WAVEFRONT_MODEL
                             mapping_index = face.MappingIndexArray[ face_vertex_index ];
                             mapping_vector = this.MappingVectorArray[ mapping_index ];
 
-                            real_array.push( ...mapping_vector );
+                            real_array.AddLastValue( ...mapping_vector );
                         }
 
                         if ( material.NormalRealCount > 0 )
@@ -381,7 +381,7 @@ class VISTA_WAVEFRONT_MODEL
                             normal_index = face.NormalIndexArray[ face_vertex_index ];
                             normal_vector = this.NormalVectorArray[ normal_index ];
 
-                            real_array.push( ...normal_vector );
+                            real_array.AddLastValue( ...normal_vector );
                         }
                     }
 
@@ -389,9 +389,9 @@ class VISTA_WAVEFRONT_MODEL
                           face_vertex_index < face.VertexCount - 1;
                           ++face_vertex_index )
                     {
-                        vertex_index_array.push( vertex_count + 0 );
-                        vertex_index_array.push( vertex_count + face_vertex_index );
-                        vertex_index_array.push( vertex_count + face_vertex_index + 1 );
+                        vertex_index_array.AddLastValue( vertex_count + 0 );
+                        vertex_index_array.AddLastValue( vertex_count + face_vertex_index );
+                        vertex_index_array.AddLastValue( vertex_count + face_vertex_index + 1 );
                     }
 
                     vertex_count += face.VertexCount;

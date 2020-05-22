@@ -1,5 +1,9 @@
 // -- FUNCTIONS
 
+Event.prototype.Stop = Event.prototype.stopPropagation;
+
+// ~~
+
 HTMLElement.prototype.Print = function (
     )
 {
@@ -131,7 +135,7 @@ HTMLElement.prototype.GetElements = function (
 
     if ( this.matches( element_selector ) )
     {
-        return element_array.unshift( this );
+        return element_array.AddFirstValue( this );
     }
 
     return element_array;
@@ -448,7 +452,7 @@ Array.prototype.GetAncestorElements = function (
                  && ( element_selector === undefined
                       || ancestor_element.matches( element_selector ) ) )
             {
-                ancestor_element_array.push( ancestor_element );
+                ancestor_element_array.AddLastValue( ancestor_element );
             }
         }
     }
@@ -475,7 +479,7 @@ Array.prototype.GetParentElements = function (
              && ( element_selector === undefined
                   || element.parentElement.matches( element_selector ) ) )
         {
-            parent_element_array.push( element.parentElement );
+            parent_element_array.AddLastValue( element.parentElement );
         }
     }
 
@@ -505,7 +509,7 @@ Array.prototype.GetPrecedingElements = function (
                  && ( element_selector === undefined
                       || preceding_element.matches( element_selector ) ) )
             {
-                preceding_element_array.push( preceding_element );
+                preceding_element_array.AddLastValue( preceding_element );
             }
         }
     }
@@ -532,7 +536,7 @@ Array.prototype.GetPriorElements = function (
              && ( element_selector === undefined
                   || element.previousElementSibling.matches( element_selector ) ) )
         {
-            prior_element_array.push( element.previousElementSibling );
+            prior_element_array.AddLastValue( element.previousElementSibling );
         }
     }
 
@@ -558,7 +562,7 @@ Array.prototype.GetNextElements = function (
              && ( element_selector === undefined
                   || element.nextElementSibling.matches( element_selector ) ) )
         {
-            next_element_array.push( element.nextElementSibling );
+            next_element_array.AddLastValue( element.nextElementSibling );
         }
     }
 
@@ -588,7 +592,7 @@ Array.prototype.GetFollowingElements = function (
                  && ( element_selector === undefined
                       || following_element.matches( element_selector ) ) )
             {
-                following_element_array.push( following_element );
+                following_element_array.AddLastValue( following_element );
             }
         }
     }
@@ -617,7 +621,7 @@ Array.prototype.GetChildElements = function (
                  && ( element_selector === undefined
                       || child_element.matches( element_selector ) ) )
             {
-                child_element_array.push( child_element );
+                child_element_array.AddLastValue( child_element );
             }
         }
     }
@@ -652,7 +656,7 @@ Array.prototype.GetDescendantElements = function (
         {
             if ( descendant_element.nodeType == 1 )
             {
-                descendant_element_array.push( descendant_element );
+                descendant_element_array.AddLastValue( descendant_element );
             }
         }
     }
@@ -678,7 +682,7 @@ Array.prototype.GetMatchingElements = function (
              && ( element_selector === undefined
                   || element.matches( element_selector ) ) )
         {
-            matching_element_array.push( element );
+            matching_element_array.AddLastValue( element );
         }
     }
 
@@ -708,7 +712,7 @@ Array.prototype.GetElements = function (
     {
         if ( element.matches( element_selector ) )
         {
-            found_element_array.push( element );
+            found_element_array.AddLastValue( element );
         }
 
         found_element_list = element.querySelectorAll( element_selector );
@@ -717,7 +721,7 @@ Array.prototype.GetElements = function (
         {
             if ( found_element.nodeType == 1 )
             {
-                found_element_array.push( found_element );
+                found_element_array.AddLastValue( found_element );
             }
         }
     }
@@ -815,7 +819,7 @@ Array.prototype.GetAttribute = function (
 
     for ( element of this )
     {
-        attribute_value_array.push( element[ attribute_name ] );
+        attribute_value_array.AddLastValue( element[ attribute_name ] );
     }
 
     return attribute_value_array;
@@ -841,10 +845,10 @@ Array.prototype.GetAttributes = function (
 
         for ( attribute_name of attribute_name_array )
         {
-            attribute_value_array.push( element[ attribute_name ] );
+            attribute_value_array.AddLastValue( element[ attribute_name ] );
         }
 
-        attribute_value_array_array.push( attribute_value_array );
+        attribute_value_array_array.AddLastValue( attribute_value_array );
     }
 
     return attribute_value_array_array;
@@ -939,7 +943,7 @@ Array.prototype.GetStyle = function (
 
     for ( element of this )
     {
-        style_value_array.push( element.style[ style_name ] );
+        style_value_array.AddLastValue( element.style[ style_name ] );
     }
 
     return style_value_array;
@@ -965,10 +969,10 @@ Array.prototype.GetStyles = function (
 
         for ( style_name of style_name_array )
         {
-            style_value_array.push( element.style[ style_name ] );
+            style_value_array.AddLastValue( element.style[ style_name ] );
         }
 
-        style_value_array_array.push( style_value_array );
+        style_value_array_array.AddLastValue( style_value_array );
     }
 
     return style_value_array_array;

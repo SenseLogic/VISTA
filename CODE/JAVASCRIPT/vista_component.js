@@ -42,7 +42,7 @@ class VISTA_DATA
     {
         if ( this.FindWatcherIndex( watcher ) < 0 )
         {
-            this.WatcherArray.push( watcher );
+            this.WatcherArray.AddLastValue( watcher );
         }
     }
 
@@ -213,8 +213,8 @@ class VISTA_COMPONENT extends HTMLElement
     {
         return (
             selector
-                .ReplaceText( "(:scope:)", this.Scope )
-                .ReplaceText( "(:host:)", this.Host )
+                .ReplaceText( "{:scope:}", this.Scope )
+                .ReplaceText( "{:host:}", this.Host )
             );
     }
 
@@ -247,7 +247,7 @@ class VISTA_COMPONENT extends HTMLElement
 
         if ( this.matches( element_selector ) )
         {
-            return element_array.unshift( this );
+            return element_array.AddFirstValue( this );
         }
 
         return element_array;
@@ -441,7 +441,7 @@ class VISTA_COMPONENT extends HTMLElement
 
         if ( element_array instanceof HTMLElement )
         {
-            this.EventArray.push(
+            this.EventArray.AddLastValue(
                 {
                     Element : element_array,
                     Name : event_name,
@@ -455,7 +455,7 @@ class VISTA_COMPONENT extends HTMLElement
         {
             for ( element of element_array )
             {
-                this.EventArray.push(
+                this.EventArray.AddLastValue(
                     {
                         Element : element,
                         Name : event_name,
@@ -484,7 +484,7 @@ class VISTA_COMPONENT extends HTMLElement
         {
             if ( event.Element === excluded_element )
             {
-                event_array.push( event );
+                event_array.AddLastValue( event );
             }
             else
             {
@@ -546,19 +546,19 @@ class VISTA_COMPONENT extends HTMLElement
 
         iteration_index = 0;
 
-        while ( template_text.indexOf( "(:" ) >= 0 )
+        while ( template_text.indexOf( "{:" ) >= 0 )
         {
-            section_array = template_text.split( "(:" );
+            section_array = template_text.split( "{:" );
 
             for ( section_index = 1;
                   section_index < section_array.length;
                   ++section_index )
             {
-                section_part_array = section_array[ section_index ].split( ":)" );
+                section_part_array = section_array[ section_index ].split( ":}" );
 
                 if ( section_part_array.length >= 2 )
                 {
-                    section_code = section_part_array.shift();
+                    section_code = section_part_array.RemoveFirstValue();
                     section_code_is_escaped = section_code.startsWith( "%" );
 
                     if ( section_code_is_escaped )
@@ -567,7 +567,7 @@ class VISTA_COMPONENT extends HTMLElement
                     }
 
                     section_code = section_code.trim();
-                    section_text = section_part_array.join( ":)" );
+                    section_text = section_part_array.join( ":}" );
 
                     if ( this.TemplateConstantMap.has( section_code ) )
                     {
@@ -591,7 +591,7 @@ class VISTA_COMPONENT extends HTMLElement
                 }
                 else
                 {
-                    section_array[ section_index ] = "(:" + section_array[ section_index ];
+                    section_array[ section_index ] = "{:" + section_array[ section_index ];
                 }
             }
 
@@ -600,7 +600,7 @@ class VISTA_COMPONENT extends HTMLElement
 
             if ( iteration_index === 100 )
             {
-                PrintError( "Invalid template expression:", template_text.substring( template_text.indexOf( "(:" ) ) );
+                PrintError( "Invalid template expression:", template_text.substring( template_text.indexOf( "{:" ) ) );
 
                 break;
             }
@@ -608,8 +608,8 @@ class VISTA_COMPONENT extends HTMLElement
 
         return (
             template_text
-                .ReplaceText( "(\\:", "(:" )
-                .ReplaceText( ":\\)", ":)" )
+                .ReplaceText( "{\\:", "{:" )
+                .ReplaceText( ":\\}", ":}" )
             );
     }
 
@@ -750,7 +750,7 @@ class VISTA_COMPONENT extends HTMLElement
 
             if ( section_part_array.length >= 2 )
             {
-                section_code = section_part_array.shift();
+                section_code = section_part_array.RemoveFirstValue();
                 section_text = section_part_array.join( ":>" );
 
                 if ( section_code.HasPrefix( "#" ) )

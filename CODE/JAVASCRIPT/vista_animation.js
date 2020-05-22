@@ -141,7 +141,7 @@ class VISTA_STYLE_ANIMATION
         {
             for ( style_value of style_value_array )
             {
-                this.ValueArray.push( this.ParseValueFunction( style_value ) );
+                this.ValueArray.AddLastValue( this.ParseValueFunction( style_value ) );
             }
         }
         else
@@ -179,8 +179,8 @@ class VISTA_STYLE_ANIMATION
 
         if ( this.TimeArray[ 0 ] > 0.0 )
         {
-            this.ValueArray.unshift( this.GetStyleFunction( element, style_name ) );
-            this.TimeArray.unshift( 0.0 );
+            this.ValueArray.AddFirstValue( this.GetStyleFunction( element, style_name ) );
+            this.TimeArray.AddFirstValue( 0.0 );
         }
         else
         {

@@ -121,7 +121,7 @@ class VISTA_STORE extends VISTA_DATA
                 {
                     if ( value_key_array( value ) )
                     {
-                        value_array.push( value );
+                        value_array.AddLastValue( value );
                     }
                 }
             }
@@ -131,7 +131,7 @@ class VISTA_STORE extends VISTA_DATA
                 {
                     if ( this.ValueMap.has( value_key ) )
                     {
-                        value_array.push( this.ValueMap.get( value_key ) );
+                        value_array.AddLastValue( this.ValueMap.get( value_key ) );
                     }
                 }
             }
@@ -243,7 +243,7 @@ class VISTA_STORE extends VISTA_DATA
 
         for ( value of value_array )
         {
-            set_value_array.push( this.SetLocalValue( value ) );
+            set_value_array.AddLastValue( this.SetLocalValue( value ) );
         }
 
         return set_value_array;
@@ -364,7 +364,7 @@ class VISTA_STORE extends VISTA_DATA
 
         for ( value_key of value_key_array )
         {
-            value_array.push( await this.GetValue( value_key, query_prefix, query_suffix ) );
+            value_array.AddLastValue( await this.GetValue( value_key, query_prefix, query_suffix ) );
         }
 
         return value_array;
