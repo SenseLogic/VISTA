@@ -6,10 +6,10 @@ Lightweight CSS and JavaScript framework.
 
 ## Goals
 
-*   Modest : focuses on the needs of small scale projects
-*   Modular : provides its features through separate scripts
+*   Modest : focuses on medium scale applications
+*   Modular : allows to include only what is needed
 *   Compact : uses simple yet efficient algorithms
-*   Natural : extends or complements native types
+*   Native : extends or complements existing types
 *   Direct : can be used without bundler
 
 ## Features
@@ -251,8 +251,8 @@ Lightweight CSS and JavaScript framework.
                     this.BindMethod( "HandleAttributeButtonClickEvent" );
                     this.BindEvent( this, "set-random-real", this.HandleSetRandomRealEvent );
 
-                    this.InitialValueText = "Initial value (::) <<";
-                    this.CurrentValueText = "Current value (::) >>";
+                    this.InitialValueText = "Initial value {:-:}";
+                    this.CurrentValueText = "Current value <:-:>";
                     this.RandomReal = this.GetAttribute( "random-real", 0.0 );
                     this.MovieArray =
                         [
@@ -273,36 +273,36 @@ Lightweight CSS and JavaScript framework.
                     this.SetTemplate(
                         Html`
                         <style>
-                            (:host:) .button
+                            {:host:} .button
                             {
                                 border: none;
-                                border-radius: (:8 pxm:);
-                                padding: (:8 pxm:) (:2 * 8 pxm:) (:(4 + 4) pxm:) (:2 * (:left-padding:) pxm:);
+                                border-radius: {:8 pxm:};
+                                padding: {:8 pxm:} {:2 * 8 pxm:} {:(4 + 4) pxm:} {:2 * {:left-padding:} pxm:};
                                 background-color: <:# this.TextColor :>;
                                 color: cyan;
 
-                                @media (:above-30em:) and (:below-40em:), (:above-50em:)
+                                @media {:above-30em:} and {:below-40em:}, {:above-50em:}
                                 {
                                     color: white;
                                 }
 
-                                @media (:above-60em:)
+                                @media {:above-60em:}
                                 {
                                     color: yellow;
                                 }
                             }
 
-                            (:host:) .button
+                            {:host:} .button
                             {
-                                @media (:above-60em:)
+                                @media {:above-60em:}
                                 {
                                     background-color: magenta;
                                 }
                             }
 
-                            @media (:above-70em:)
+                            @media {:above-70em:}
                             {
-                                (:host:) .button
+                                {:host:} .button
                                 {
                                     background-color: red;
                                 }
@@ -321,11 +321,11 @@ Lightweight CSS and JavaScript framework.
                                 </li>
                             <: } :>
                         </ul>
-                        <div id="(:scope:)-ignored" ignored="<\: ignored :\>">
-                            <: var ignored = "<\: ignored :\>"; :>
+                        <div id="{:scope:}-ignored" ignored="{\: ignored :\} <\: ignored :\>">
+                            <: var ignored = "{\: ignored :\} <\: ignored :\>"; :>
                         </div>
                         <div>
-                            (:% this.InitialValueText :) (: this.RandomReal :)
+                            {:% this.InitialValueText :} {: this.RandomReal :}
                         </div>
                         <div>
                             <:% this.CurrentValueText :> <:# this.RandomReal :>
@@ -343,7 +343,7 @@ Lightweight CSS and JavaScript framework.
                     this.BindEvent( this.GetElement( "#property-button" ), "click", this.HandlePropertyButtonClickEvent );
                     this.BindEvent( this.GetElement( "#attribute-button" ), "click", this.HandleAttributeButtonClickEvent );
 
-                    this.GetElement( this.GetSelector( "#(:scope:)-ignored" ) ).SetStyle( "display", "none" );
+                    this.GetElement( this.GetSelector( "#{:scope:}-ignored" ) ).SetStyle( "display", "none" );
                 }
             }
 
