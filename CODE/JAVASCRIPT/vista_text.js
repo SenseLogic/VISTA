@@ -166,7 +166,7 @@ String.prototype.GetTranslatedText = function (
     }
     else
     {
-        translated_text_array = this.split( translation_separator );
+        translated_text_array = this.Split( translation_separator );
 
         if ( language_code !== default_language_code )
         {

@@ -72,7 +72,7 @@ class VISTA_STORE extends VISTA_DATA
         value_key
         )
     {
-        return this.ValueMap.has( value_key );
+        return this.ValueMap.HasKey( value_key );
     }
 
     // ~~
@@ -84,7 +84,7 @@ class VISTA_STORE extends VISTA_DATA
         var
             value;
 
-        value = this.ValueMap.get( value_key );
+        value = this.ValueMap.GetValue( value_key );
 
         if ( value === undefined )
         {
@@ -129,9 +129,9 @@ class VISTA_STORE extends VISTA_DATA
             {
                 for ( value_key of value_key_array )
                 {
-                    if ( this.ValueMap.has( value_key ) )
+                    if ( this.ValueMap.HasKey( value_key ) )
                     {
-                        value_array.AddLastValue( this.ValueMap.get( value_key ) );
+                        value_array.AddLastValue( this.ValueMap.GetValue( value_key ) );
                     }
                 }
             }
@@ -210,7 +210,7 @@ class VISTA_STORE extends VISTA_DATA
             set_value;
 
         value_key = value[ this.KeyPropertyName ];
-        set_value = this.ValueMap.get( value_key );
+        set_value = this.ValueMap.GetValue( value_key );
 
         if ( set_value === undefined )
         {
@@ -220,7 +220,7 @@ class VISTA_STORE extends VISTA_DATA
         if ( set_value !== value )
         {
             this.CopyValue( set_value, value );
-            this.ValueMap.set( value_key, set_value );
+            this.ValueMap.SetValue( value_key, set_value );
         }
 
         set_value.SetChanged();
@@ -267,7 +267,7 @@ class VISTA_STORE extends VISTA_DATA
         var
             removed_value;
 
-        removed_value = this.ValueMap.get( value_key );
+        removed_value = this.ValueMap.GetValue( value_key );
         removed_value.SetChanged();
 
         this.ValueMap.delete( value_key );
@@ -329,7 +329,7 @@ class VISTA_STORE extends VISTA_DATA
         var
             value;
 
-        value = this.ValueMap.get( value_key );
+        value = this.ValueMap.GetValue( value_key );
 
         if ( value === undefined )
         {

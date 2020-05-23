@@ -84,7 +84,7 @@ function GetTextArrayText(
     var
         text_array_text;
 
-    text_array_text = text_array.join( separator_text );
+    text_array_text = text_array.Join( separator_text );
 
     if ( text_array_text === "" )
     {
@@ -611,6 +611,14 @@ function GetRealText(
 
 // ~~
 
+String.prototype.Split = String.prototype.split;
+
+// ~~
+
+String.prototype.Trim = String.prototype.trim;
+
+// ~~
+
 String.prototype.GetLowerCaseText = String.prototype.toLowerCase;
 
 // ~~
@@ -736,7 +744,7 @@ String.prototype.ReplaceText = function (
     new_text
     )
 {
-    return this.split( old_text ).join( new_text );
+    return this.Split( old_text ).Join( new_text );
 }
 
 // ~~
@@ -779,6 +787,50 @@ function Redirect(
 {
     window.location.replace( url );
 }
+
+// ~~
+
+Array.prototype.Join = Array.prototype.join;
+
+// ~~
+
+Array.prototype.AddFirstValue = Array.prototype.unshift;
+
+// ~~
+
+Array.prototype.RemoveFirstValue = Array.prototype.shift;
+
+// ~~
+
+Array.prototype.AddLastValue = Array.prototype.push;
+
+// ~~
+
+Array.prototype.RemoveLastValue = Array.prototype.pop;
+
+// ~~
+
+Array.prototype.HasValue = Array.prototype.includes;
+
+// ~~
+
+Array.prototype.GetValueIndex = Array.prototype.indexOf;
+
+// ~~
+
+Array.prototype.FindMatchingValue = Array.prototype.find;
+
+// ~~
+
+Array.prototype.FindMatchingValueIndex = Array.prototype.findIndex;
+
+// ~~
+
+Array.prototype.FilterValues = Array.prototype.filter;
+
+// ~~
+
+Array.prototype.MapValue = Array.prototype.map;
 
 // ~~
 
@@ -885,40 +937,12 @@ Array.prototype.AdvanceValue = function (
 
 // ~~
 
-Array.prototype.AddFirstValue = Array.prototype.unshift;
+Map.prototype.HasKey = Map.prototype.has;
 
 // ~~
 
-Array.prototype.RemoveFirstValue = Array.prototype.shift;
+Map.prototype.SetValue = Map.prototype.set;
 
 // ~~
 
-Array.prototype.AddLastValue = Array.prototype.push;
-
-// ~~
-
-Array.prototype.RemoveLastValue = Array.prototype.pop;
-
-// ~~
-
-Array.prototype.HasValue = Array.prototype.includes;
-
-// ~~
-
-Array.prototype.GetValueIndex = Array.prototype.indexOf;
-
-// ~~
-
-Array.prototype.FindMatchingValue = Array.prototype.find;
-
-// ~~
-
-Array.prototype.FindMatchingValueIndex = Array.prototype.findIndex;
-
-// ~~
-
-Array.prototype.FilterValues = Array.prototype.filter;
-
-// ~~
-
-Array.prototype.MapValue = Array.prototype.map;
+Map.prototype.GetValue = Map.prototype.get;

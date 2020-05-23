@@ -55,7 +55,7 @@ class VISTA_WAVEFRONT_MODEL
         var
             part_array;
 
-        part_array = line.split( " " );
+        part_array = line.Split( " " );
 
         return GetReal( part_array[ 1 ] );
     }
@@ -69,7 +69,7 @@ class VISTA_WAVEFRONT_MODEL
         var
             part_array;
 
-        part_array = line.split( " " );
+        part_array = line.Split( " " );
 
         return [
             GetReal( part_array[ 1 ] ),
@@ -86,7 +86,7 @@ class VISTA_WAVEFRONT_MODEL
         var
             part_array;
 
-        part_array = line.split( " " );
+        part_array = line.Split( " " );
 
         return [
             GetReal( part_array[ 1 ] ),
@@ -127,13 +127,13 @@ class VISTA_WAVEFRONT_MODEL
         normal_index_array = [];
         vertex_count = 0;
 
-        part_array = line.split( " " );
+        part_array = line.Split( " " );
 
         for ( part_index = 1;
               part_index < part_array.length;
               ++part_index )
         {
-            index_array = part_array[ part_index ].split( "/" );
+            index_array = part_array[ part_index ].Split( "/" );
 
             if ( index_array.length > 0
                  && index_array[ 0 ].length > 0 )
@@ -225,11 +225,11 @@ class VISTA_WAVEFRONT_MODEL
             line,
             line_array;
 
-        line_array = material_file_text.ReplaceText( "\r", "" ).ReplaceText( "  ", " " ).split( "\n" );
+        line_array = material_file_text.ReplaceText( "\r", "" ).ReplaceText( "  ", " " ).Split( "\n" );
 
         for ( line of line_array )
         {
-            line = line.trim();
+            line = line.Trim();
 
             if ( line.HasPrefix( "newmtl " ) )
             {
@@ -277,11 +277,11 @@ class VISTA_WAVEFRONT_MODEL
             line,
             line_array;
 
-        line_array = model_file_text.ReplaceText( "\r", "" ).ReplaceText( "  ", " " ).split( "\n" );
+        line_array = model_file_text.ReplaceText( "\r", "" ).ReplaceText( "  ", " " ).Split( "\n" );
 
         for ( line of line_array )
         {
-            line = line.trim();
+            line = line.Trim();
 
             if ( line.HasPrefix( "v " ) )
             {

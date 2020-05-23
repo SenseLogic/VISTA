@@ -217,7 +217,7 @@ class VISTA_STYLE_ANIMATION
             this.StartFunction( this );
         }
 
-        StyleAnimationMap.set( this.Identifier, this );
+        StyleAnimationMap.SetValue( this.Identifier, this );
 
         if ( StyleAnimationMap.size === 1 )
         {
@@ -257,7 +257,7 @@ class VISTA_STYLE_ANIMATION
             this.ResumeFunction( this );
         }
 
-        StyleAnimationMap.set( this.Identifier, this );
+        StyleAnimationMap.SetValue( this.Identifier, this );
 
         if ( StyleAnimationMap.size === 1 )
         {
@@ -561,7 +561,7 @@ function ParseColorText(
     {
         if ( text.HasPrefix( "rgb(" ) )
         {
-            component_array = text.substring( 4, text.length - 1 ).split( "," );
+            component_array = text.substring( 4, text.length - 1 ).Split( "," );
 
             return {
                 Red : GetReal( component_array[ 0 ] ),
@@ -572,7 +572,7 @@ function ParseColorText(
         }
         else if ( text.HasPrefix( "rgba(" ) )
         {
-            component_array = text.substring( 5, text.length - 1 ).split( "," );
+            component_array = text.substring( 5, text.length - 1 ).Split( "," );
 
             return {
                 Red : GetReal( component_array[ 0 ] ),
@@ -604,7 +604,7 @@ function ParseTransformText(
         transform;
 
     transform = new Map();
-    component_array = text.ReplaceText( " ", "" ).split( ")" );
+    component_array = text.ReplaceText( " ", "" ).Split( ")" );
 
     for ( component of component_array )
     {
@@ -786,7 +786,7 @@ function GetTransformInterpolation(
 
         for ( operation_name of final_transform.keys() )
         {
-            if ( initial_transform.has( operation_name ) )
+            if ( initial_transform.HasKey( operation_name ) )
             {
                 interpolated_transform.set(
                     operation_name,
@@ -1055,9 +1055,9 @@ HTMLElement.prototype.AnimateStyle = function (
         this.StyleAnimationMap = new Map();
     }
 
-    if ( this.StyleAnimationMap.has( style_name ) )
+    if ( this.StyleAnimationMap.HasKey( style_name ) )
     {
-        this.StyleAnimationMap.get( style_name ).Stop();
+        this.StyleAnimationMap.GetValue( style_name ).Stop();
     }
 
     style_animation
@@ -1069,7 +1069,7 @@ HTMLElement.prototype.AnimateStyle = function (
               animation_configuration
               );
 
-    this.StyleAnimationMap.set( style_name, style_animation );
+    this.StyleAnimationMap.SetValue( style_name, style_animation );
 
     style_animation.Start();
 }
@@ -1106,9 +1106,9 @@ HTMLElement.prototype.PauseStyle = function (
     )
 {
     if ( this.StyleAnimationMap !== undefined
-         && this.StyleAnimationMap.has( style_name ) )
+         && this.StyleAnimationMap.HasKey( style_name ) )
     {
-        this.StyleAnimationMap.get( style_name ).Pause();
+        this.StyleAnimationMap.GetValue( style_name ).Pause();
     }
 }
 
@@ -1148,9 +1148,9 @@ HTMLElement.prototype.ResumeStyle = function (
     )
 {
     if ( this.StyleAnimationMap !== undefined
-         && this.StyleAnimationMap.has( style_name ) )
+         && this.StyleAnimationMap.HasKey( style_name ) )
     {
-        this.StyleAnimationMap.get( style_name ).Resume();
+        this.StyleAnimationMap.GetValue( style_name ).Resume();
     }
 }
 
@@ -1190,9 +1190,9 @@ HTMLElement.prototype.StopStyle = function (
     )
 {
     if ( this.StyleAnimationMap !== undefined
-         && this.StyleAnimationMap.has( style_name ) )
+         && this.StyleAnimationMap.HasKey( style_name ) )
     {
-        this.StyleAnimationMap.get( style_name ).Stop();
+        this.StyleAnimationMap.GetValue( style_name ).Stop();
     }
 }
 

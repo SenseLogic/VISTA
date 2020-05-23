@@ -146,7 +146,7 @@ class VISTA_COMPONENT extends HTMLElement
         this.EventArray = [];
         this.RootElement = this;
         this.TemplateConstantMap = new Map();
-        this.TemplateConstantMap.set( "scope", this.Scope );
+        this.TemplateConstantMap.SetValue( "scope", this.Scope );
         this.TemplateFunction = null;
 
         VISTA_COMPONENT.prototype.FindWatcherIndex = VISTA_DATA.prototype.FindWatcherIndex;
@@ -298,7 +298,7 @@ class VISTA_COMPONENT extends HTMLElement
     {
         this.RootElement = this.attachShadow( { mode : "open" } );
         this.Host = ":host";
-        this.TemplateConstantMap.set( "host", ":host" );
+        this.TemplateConstantMap.SetValue( "host", ":host" );
     }
 
     // ~~
@@ -308,7 +308,7 @@ class VISTA_COMPONENT extends HTMLElement
     {
         this.classList.add( this.Scope );
         this.Host = "." + this.Scope;
-        this.TemplateConstantMap.set( "host", this.Host );
+        this.TemplateConstantMap.SetValue( "host", this.Host );
     }
 
     // ~~
@@ -321,7 +321,7 @@ class VISTA_COMPONENT extends HTMLElement
         var
             attribute;
 
-        attribute = this.AttributeMap.get( property_name );
+        attribute = this.AttributeMap.GetValue( property_name );
 
         if ( attribute.EncodingFunction === undefined )
         {
@@ -354,7 +354,7 @@ class VISTA_COMPONENT extends HTMLElement
             encoding_function = GetText;
         }
 
-        this.PropertyMap.set(
+        this.PropertyMap.SetValue(
             attribute_name,
             {
                 Name : property_name,
@@ -363,7 +363,7 @@ class VISTA_COMPONENT extends HTMLElement
             }
             );
 
-        this.AttributeMap.set(
+        this.AttributeMap.SetValue(
             property_name,
             {
                 Name : attribute_name,
@@ -402,7 +402,7 @@ class VISTA_COMPONENT extends HTMLElement
         var
             property;
 
-        property = this.PropertyMap.get( attribute_name );
+        property = this.PropertyMap.GetValue( attribute_name );
 
         if ( property !== undefined )
         {
@@ -502,7 +502,7 @@ class VISTA_COMPONENT extends HTMLElement
         template_constant
         )
     {
-        this.TemplateConstantMap.set( template_constant_name, template_constant );
+        this.TemplateConstantMap.SetValue( template_constant_name, template_constant );
     }
 
     // ~~
@@ -519,9 +519,9 @@ class VISTA_COMPONENT extends HTMLElement
         {
             if ( text.endsWith( template_processor_name ) )
             {
-                template_processor = TemplateProcessorMap.get( template_processor_name );
+                template_processor = TemplateProcessorMap.GetValue( template_processor_name );
 
-                text = text.slice( 0, text.length - template_processor_name.length ).trim();
+                text = text.slice( 0, text.length - template_processor_name.length ).Trim();
                 return template_processor( this.ProcessTemplateProcessors( text ) );
             }
         }
@@ -548,13 +548,13 @@ class VISTA_COMPONENT extends HTMLElement
 
         while ( template_text.indexOf( "{:" ) >= 0 )
         {
-            section_array = template_text.split( "{:" );
+            section_array = template_text.Split( "{:" );
 
             for ( section_index = 1;
                   section_index < section_array.length;
                   ++section_index )
             {
-                section_part_array = section_array[ section_index ].split( ":}" );
+                section_part_array = section_array[ section_index ].Split( ":}" );
 
                 if ( section_part_array.length >= 2 )
                 {
@@ -566,16 +566,16 @@ class VISTA_COMPONENT extends HTMLElement
                         section_code = section_code.substring( 2 );
                     }
 
-                    section_code = section_code.trim();
-                    section_text = section_part_array.join( ":}" );
+                    section_code = section_code.Trim();
+                    section_text = section_part_array.Join( ":}" );
 
-                    if ( this.TemplateConstantMap.has( section_code ) )
+                    if ( this.TemplateConstantMap.HasKey( section_code ) )
                     {
-                        section_code = this.TemplateConstantMap.get( section_code );
+                        section_code = this.TemplateConstantMap.GetValue( section_code );
                     }
-                    else if ( TemplateConstantMap.has( section_code ) )
+                    else if ( TemplateConstantMap.HasKey( section_code ) )
                     {
-                        section_code = TemplateConstantMap.get( section_code );
+                        section_code = TemplateConstantMap.GetValue( section_code );
                     }
                     else
                     {
@@ -595,7 +595,7 @@ class VISTA_COMPONENT extends HTMLElement
                 }
             }
 
-            template_text = section_array.join( "" );
+            template_text = section_array.Join( "" );
             ++iteration_index;
 
             if ( iteration_index === 100 )
@@ -632,14 +632,14 @@ class VISTA_COMPONENT extends HTMLElement
 
         if ( template_text.indexOf( "@media " ) >= 0 )
         {
-            section_array = template_text.split( "<style>\n" );
+            section_array = template_text.Split( "<style>\n" );
 
             for ( section_index = 1;
                   section_index < section_array.length;
                   ++section_index )
             {
-                section_part_array = section_array[ section_index ].split( "</style>\n" );
-                line_array = section_part_array[ 0 ].split( "\n" );
+                section_part_array = section_array[ section_index ].Split( "</style>\n" );
+                line_array = section_part_array[ 0 ].Split( "\n" );
                 brace_level = 0;
                 selector_text = "";
 
@@ -648,7 +648,7 @@ class VISTA_COMPONENT extends HTMLElement
                       ++line_index )
                 {
                     line = line_array[ line_index ];
-                    trimmed_line = line.trim();
+                    trimmed_line = line.Trim();
 
                     if ( trimmed_line.HasSuffix( "{" ) )
                     {
@@ -694,11 +694,11 @@ class VISTA_COMPONENT extends HTMLElement
                     }
                 }
 
-                section_part_array[ 0 ] = line_array.join( "\n" );
-                section_array[ section_index ] = section_part_array.join( "</style>\n" );
+                section_part_array[ 0 ] = line_array.Join( "\n" );
+                section_array[ section_index ] = section_part_array.Join( "</style>\n" );
             }
 
-            template_text = section_array.join( "<style>\n" );
+            template_text = section_array.Join( "<style>\n" );
         }
 
         return template_text;
@@ -739,27 +739,27 @@ class VISTA_COMPONENT extends HTMLElement
         }
 
         template_text = this.ProcessTemplate( template_text );
-        section_array = template_text.split( "<:" );
+        section_array = template_text.Split( "<:" );
         function_code = "() => {\nvar result = " + GetJsonText( section_array[ 0 ] ) + ";\n";
 
         for ( section_index = 1;
               section_index < section_array.length;
               ++section_index )
         {
-            section_part_array = section_array[ section_index ].split( ":>" );
+            section_part_array = section_array[ section_index ].Split( ":>" );
 
             if ( section_part_array.length >= 2 )
             {
                 section_code = section_part_array.RemoveFirstValue();
-                section_text = section_part_array.join( ":>" );
+                section_text = section_part_array.Join( ":>" );
 
                 if ( section_code.HasPrefix( "#" ) )
                 {
-                    function_code += "result += " + section_code.substring( 1 ).trim() + ";\n";
+                    function_code += "result += " + section_code.substring( 1 ).Trim() + ";\n";
                 }
                 else if ( section_code.HasPrefix( "%" ) )
                 {
-                    function_code += "result += GetEscapedHtml( " +  section_code.substring( 1 ).trim() + " );\n";
+                    function_code += "result += GetEscapedHtml( " +  section_code.substring( 1 ).Trim() + " );\n";
                 }
                 else
                 {
@@ -959,7 +959,7 @@ function DefineTemplateConstant(
     template_constant
     )
 {
-    TemplateConstantMap.set( template_constant_name, template_constant );
+    TemplateConstantMap.SetValue( template_constant_name, template_constant );
 }
 
 // ~~
@@ -969,5 +969,5 @@ function DefineTemplateProcessor(
     template_processor
     )
 {
-    TemplateProcessorMap.set( template_processor_name, template_processor );
+    TemplateProcessorMap.SetValue( template_processor_name, template_processor );
 }
