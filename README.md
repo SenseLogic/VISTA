@@ -6,11 +6,11 @@ Lightweight CSS and JavaScript framework.
 
 ## Goals
 
-*   Modest : focuses on medium scale applications
+*   Modest : focuses on small scale web applications
 *   Modular : allows to include only what is needed
-*   Compact : uses simple yet efficient algorithms
-*   Native : extends or complements existing types
-*   Direct : can be used without any bundler setup
+*   Compact : uses simple but efficient algorithms
+*   Basic : extends and complements native types
+*   Direct : is designed to be used without bundler
 
 ## Features
 

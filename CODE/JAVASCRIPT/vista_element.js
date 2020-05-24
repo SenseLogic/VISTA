@@ -4,6 +4,35 @@ Event.prototype.Stop = Event.prototype.stopPropagation;
 
 // ~~
 
+HTMLElement.prototype.Write = function (
+    ...argument_array
+    )
+{
+    this.appendChild( document.createTextNode( GetArrayText( argument_array, "", true, "", "", "" ) ) );
+}
+
+// ~~
+
+HTMLElement.prototype.WriteLine = function (
+    ...argument_array
+    )
+{
+    this.appendChild( document.createTextNode( GetArrayText( argument_array, "", true, "", "", "" ) ) );
+    this.appendChild( document.createElement( "br" ) );
+}
+
+// ~~
+
+HTMLElement.prototype.WriteRow = function (
+    ...argument_array
+    )
+{
+    this.appendChild( document.createTextNode( GetArrayText( argument_array, " ", true, "", "", "" ) ) );
+    this.appendChild( document.createElement( "br" ) );
+}
+
+// ~~
+
 HTMLElement.prototype.Print = function (
     )
 {

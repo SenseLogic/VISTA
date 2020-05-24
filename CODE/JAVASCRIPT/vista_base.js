@@ -241,14 +241,6 @@ function Write(
 
 // ~~
 
-HTMLElement.prototype.Write = function (
-    )
-{
-    this.appendChild( document.createTextNode( GetArrayText( argument_array, "", true, "", "", "" ) ) );
-}
-
-// ~~
-
 function WriteLine(
     ...argument_array
     )
@@ -259,30 +251,12 @@ function WriteLine(
 
 // ~~
 
-HTMLElement.prototype.WriteLine = function (
-    )
-{
-    this.appendChild( document.createTextNode( GetArrayText( argument_array, "", true, "", "", "" ) ) );
-    this.appendChild( document.createElement( "br" ) );
-}
-
-// ~~
-
 function WriteRow(
     ...argument_array
     )
 {
     document.body.appendChild( document.createTextNode( GetArrayText( argument_array, " ", true, "", "", "" ) ) );
     document.body.appendChild( document.createElement( "br" ) );
-}
-
-// ~~
-
-HTMLElement.prototype.WriteRow = function (
-    )
-{
-    this.appendChild( document.createTextNode( GetArrayText( argument_array, " ", true, "", "", "" ) ) );
-    this.appendChild( document.createElement( "br" ) );
 }
 
 // ~~
