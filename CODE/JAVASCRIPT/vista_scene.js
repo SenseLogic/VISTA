@@ -5,7 +5,7 @@ var
     GeometryIdentifier = -1,
     MeshIdentifier = -1,
     ComponentIdentifier = -1,
-    NodeIdentifier = -1,
+    TransformIdentifier = -1,
     CameraIdentifier = -1,
     ModelIdentifier = -1,
     SceneIdentifier = -1;
@@ -71,16 +71,16 @@ class VISTA_MESH
 
 // ~~
 
-class VISTA_NODE_COMPONENT
+class VISTA_TRANSFORM_COMPONENT
 {
     // -- CONSTRUCTORS
 
     constructor(
-        node
+        transform
         )
     {
         this.Identifier = ++ComponentIdentifier;
-        this.Node = node;
+        this.Transform = transform;
         this.IsActive = true;
         this.IsUpdated = false;
         this.IsRendered = false;
@@ -118,16 +118,16 @@ class VISTA_NODE_COMPONENT
 
 // ~~
 
-class VISTA_NODE
+class VISTA_TRANSFORM
 {
     // -- CONSTRUCTORS
 
     constructor(
         )
     {
-        this.Identifier = ++NodeIdentifier;
-        this.ParentNode = null;
-        this.ChildNodeArray = [];
+        this.Identifier = ++TransformIdentifier;
+        this.ParentTransform = null;
+        this.ChildTransformArray = [];
         this.MeshArray = [];
         this.LocalScalingVector = [ 0.0, 0.0, 0.0 ];
         this.LocalRotationVector = [ 0.0, 0.0, 0.0 ];
@@ -152,47 +152,47 @@ class VISTA_NODE
         )
     {
         var
-            child_node;
+            child_transform;
 
         if ( !this.HasChanged )
         {
             this.HasChanged = true;
 
-            for ( child_node of this.ChildNodeArray )
+            for ( child_transform of this.ChildTransformArray )
             {
-                child_node.Invalidate();
+                child_transform.Invalidate();
             }
         }
     }
 
     // ~~
 
-    SetParentNode(
-        parent_node
+    SetParentTransform(
+        parent_transform
         )
     {
         var
-            child_node_index;
+            child_transform_index;
 
-        if ( this.ParentNode !== parent_node )
+        if ( this.ParentTransform !== parent_transform )
         {
-            if ( this.ParentNode !== null )
+            if ( this.ParentTransform !== null )
             {
-                for ( child_node_index = 0;
-                      child_node_index < this.ParentNode.ChildNodeArray.length;
-                      ++child_node_index )
+                for ( child_transform_index = 0;
+                      child_transform_index < this.ParentTransform.ChildTransformArray.length;
+                      ++child_transform_index )
                 {
-                    if ( this.ParentNode.ChildNodeArray[ child_node_index ] === this )
+                    if ( this.ParentTransform.ChildTransformArray[ child_transform_index ] === this )
                     {
-                        this.ParentNode.ChildNodeArray.splice( child_node_index, 1 );
+                        this.ParentTransform.ChildTransformArray.splice( child_transform_index, 1 );
 
                         break;
                     }
                 }
             }
 
-            this.ParentNode = parent_node;
-            this.ChildNodeArray.AddLastValue( this );
+            this.ParentTransform = parent_transform;
+            this.ChildTransformArray.AddLastValue( this );
             this.Invalidate();
         }
     }
@@ -266,7 +266,7 @@ class VISTA_NODE
                       this.LocalTranslationVector
                       );
 
-            if ( this.ParentNode === null )
+            if ( this.ParentTransform === null )
             {
                 this.GlobalTransformMatrix.set( this.LocalTransformMatrix );
                 this.GlobalRotationQuaternion.set( this.LocalRotationQuaternion );
@@ -274,10 +274,10 @@ class VISTA_NODE
             }
             else
             {
-                this.ParentNode.UpdateTransform();
+                this.ParentTransform.UpdateTransform();
 
-                this.GlobalTransformMatrix = GetProductMatrix4( this.LocalTransformMatrix, this.ParentNode.GlobalTransformMatrix );
-                this.GlobalRotationQuaternion = GetProductQuaternion( this.LocalRotationQuaternion, this.ParentNode.GlobalRotationQuaternion );
+                this.GlobalTransformMatrix = GetProductMatrix4( this.LocalTransformMatrix, this.ParentTransform.GlobalTransformMatrix );
+                this.GlobalRotationQuaternion = GetProductQuaternion( this.LocalRotationQuaternion, this.ParentTransform.GlobalRotationQuaternion );
                 this.GlobalTranslationVector = GetMatrix4WVector3( this.GlobalTransformMatrix );
             }
 
@@ -341,7 +341,7 @@ class VISTA_CAMERA
     {
         this.Identifier = CameraIdentifier++;
         this.Name = "";
-        this.Node = null;
+        this.Transform = null;
         this.XAngle = 90.0;
         this.YAngle = 90.0;
         this.GlobalTransformMatrix = GetMatrix4();
@@ -359,7 +359,7 @@ class VISTA_MODEL
     {
         this.Identifier = ModelIdentifier++;
         this.Name = "";
-        this.Node = new VISTA_NODE();
+        this.Transform = new VISTA_TRANSFORM();
     }
 }
 
@@ -375,8 +375,8 @@ class VISTA_SCENE
         this.Identifier = ++SceneIdentifier;
         this.Name = "";
         this.ProgramMap = new Map();
-        this.CameraMap = new Map();
-        this.Node = null;
-        this.UpdatedNodeMap = new Map();
+        this.MaterialMap = new Map();
+        this.Transform = null;
+        this.UpdatedTransformMap = new Map();
     }
 }

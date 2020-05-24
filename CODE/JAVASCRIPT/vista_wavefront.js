@@ -217,7 +217,7 @@ class VISTA_WAVEFRONT_MODEL
 
     // ~~
 
-    ParseMaterialFileText(
+    AddMaterials(
         material_file_text
         )
     {
@@ -269,7 +269,7 @@ class VISTA_WAVEFRONT_MODEL
 
     // ~~
 
-    ParseModelFileText(
+    AddMeshes(
         model_file_text
         )
     {
@@ -318,7 +318,8 @@ class VISTA_WAVEFRONT_MODEL
 
     // ~~
 
-    MakeScene(
+    CreateTransform(
+        scene
         )
     {
         var
@@ -339,7 +340,7 @@ class VISTA_WAVEFRONT_MODEL
             vertex_count,
             vertex_index_array;
 
-        scene = new VISTA_SCENE();
+        node = new VISTA_TRANSFORM();
 
         for ( material_index = 0;
               material_index < this.MaterialArray.length;
@@ -400,6 +401,7 @@ class VISTA_WAVEFRONT_MODEL
 
             geometry = new VISTA_GEOMETRY( real_array, vertex_index_array, vertex_count );
             mesh = new VISTA_MESH( material, geometry );
+            transform.MeshArray.AddLastValue( mesh );
         }
     }
 }
