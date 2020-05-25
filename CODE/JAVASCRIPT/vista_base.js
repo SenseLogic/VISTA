@@ -73,6 +73,19 @@ function IsElement(
 
 // ~~
 
+function IsHtmlText(
+    value
+    )
+{
+    return (
+        typeof value === "string"
+        && value.HasPrefix( "<" )
+        && value.Trim().HasSuffix( ">" )
+        );
+}
+
+// ~~
+
 function GetTextArrayText(
     text_array,
     separator_text = ", ",
@@ -338,7 +351,9 @@ function ShowError(
                       + " "
                       + GetEscapedHtml( argument.statusText )
                       + "\n"
-                      + GetEscapedHtml( argument.responseText );
+                      + ( IsHtmlText( argument.responseText )
+                          ? argument.responseText
+                          : GetEscapedHtml( argument.responseText ) );
             }
             else
             {
@@ -430,19 +445,34 @@ function GetEscapedHtml(
     text
     )
 {
-    return (
-        text
-            .ReplaceText( "&", "&amp;" )
-            .ReplaceText( "<", "&lt;" )
-            .ReplaceText( ">", "&gt;" )
-            .ReplaceText( "{", "&#40;" )
-            .ReplaceText( "}", "&#41;" )
-            .ReplaceText( "(", "&#40;" )
-            .ReplaceText( ")", "&#41;" )
-            .ReplaceText( "\\", "&#92;" )
-            .ReplaceText( "\"", "&#34;" )
-            .ReplaceText( "'", "&#39;" )
-        );
+    if ( text === undefined )
+    {
+        return "undefined";
+    }
+    else if ( text === null )
+    {
+        return "null";
+    }
+    else if ( typeof text === "string" )
+    {
+        return (
+            text
+                .ReplaceText( "&", "&amp;" )
+                .ReplaceText( "<", "&lt;" )
+                .ReplaceText( ">", "&gt;" )
+                .ReplaceText( "{", "&#40;" )
+                .ReplaceText( "}", "&#41;" )
+                .ReplaceText( "(", "&#40;" )
+                .ReplaceText( ")", "&#41;" )
+                .ReplaceText( "\\", "&#92;" )
+                .ReplaceText( "\"", "&#34;" )
+                .ReplaceText( "'", "&#39;" )
+            );
+    }
+    else
+    {
+        return GetEscapedHtml( GetValueText( text ) );
+    }
 }
 
 // ~~

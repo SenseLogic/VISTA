@@ -8,7 +8,7 @@ class VISTA_DATA
         )
     {
         this.WatcherArray = [];
-        this.HasChanged = true;
+        this.HasChanged = false;
         this.IsChangingWatchers = false;
     }
 
@@ -136,7 +136,7 @@ class VISTA_COMPONENT extends HTMLElement
         this.style.display = display_style;
 
         this.WatcherArray = [];
-        this.HasChanged = true;
+        this.HasChanged = false;
         this.IsChangingWatchers = false;
         this.Identifier = ++ComponentIdentifier;
         this.Scope = "component-" + this.Identifier + "-scope";
