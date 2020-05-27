@@ -897,7 +897,7 @@ Array.prototype.RemoveValue = function (
 
 // ~~
 
-Array.prototype.RecedeValue = function (
+Array.prototype.RegressValue = function (
     value
     )
 {

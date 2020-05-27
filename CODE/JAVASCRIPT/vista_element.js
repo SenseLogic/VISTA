@@ -257,7 +257,7 @@ HTMLElement.prototype.RemoveEventListener = HTMLElement.prototype.removeEventLis
 
 HTMLElement.prototype.EmitEvent = function (
     event_name,
-    event_data,
+    event_data = null,
     event_is_bubbled = true,
     event_is_cancelable = true,
     event_is_composed = true
