@@ -2,14 +2,14 @@
 
 # Vista
 
-Lightweight CSS and JavaScript framework.
+CSS and JavaScript microframework.
 
 ## Goals
 
 *   Modest : focuses on small scale web applications
+*   Light : just wraps and extends native types
 *   Modular : allows to include only what is needed
 *   Compact : uses simple but efficient algorithms
-*   Basic : extends and complements native types
 *   Direct : is designed to be used without bundler
 
 ## Features
