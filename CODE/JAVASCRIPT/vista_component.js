@@ -24,7 +24,7 @@ class VISTA_COMPONENT extends HTMLElement
         this.RootElement = this;
         this.TemplateConstantMap = new Map();
         this.TemplateConstantMap.SetValue( "scope", this.Scope );
-        this.TemplateFunction = null;
+        this.TemplateFunction = undefined;
 
         VISTA_COMPONENT.prototype.FindWatcherIndex = VISTA_DATA.prototype.FindWatcherIndex;
         VISTA_COMPONENT.prototype.AddWatcher = VISTA_DATA.prototype.AddWatcher;
@@ -33,6 +33,7 @@ class VISTA_COMPONENT extends HTMLElement
         VISTA_COMPONENT.prototype.UnwatchData = VISTA_DATA.prototype.UnwatchData;
         VISTA_COMPONENT.prototype.ChangeWatchers = VISTA_DATA.prototype.ChangeWatchers;
         VISTA_COMPONENT.prototype.SetUpdated = VISTA_DATA.prototype.SetUpdated;
+        VISTA_COMPONENT.prototype.SetTemplate = VISTA_DATA.prototype.SetTemplate;
     }
 
     // -- INQUIRIES
@@ -594,85 +595,6 @@ class VISTA_COMPONENT extends HTMLElement
                     )
                 )
             );
-    }
-
-    // ~~
-
-    SetTemplate(
-        template_text
-        )
-    {
-        var
-            section_array,
-            section_code,
-            section_index,
-            section_part_array,
-            section_text,
-            function_code;
-
-        if ( template_text instanceof HTMLElement )
-        {
-            template_text = GetDecodedHtml( template_text.innerHTML );
-        }
-
-        template_text = this.ProcessTemplate( template_text );
-        section_array = template_text.Split( "<:" );
-        function_code = "() => {\nvar result = " + GetJsonText( section_array[ 0 ] ) + ";\n";
-
-        for ( section_index = 1;
-              section_index < section_array.length;
-              ++section_index )
-        {
-            section_part_array = section_array[ section_index ].Split( ":>" );
-
-            if ( section_part_array.length >= 2 )
-            {
-                section_code = section_part_array.RemoveFirstValue();
-                section_text = section_part_array.Join( ":>" );
-
-                if ( section_code.HasPrefix( "#" ) )
-                {
-                    function_code += "result += " + section_code.substring( 1 ).Trim() + ";\n";
-                }
-                else if ( section_code.HasPrefix( "%" ) )
-                {
-                    function_code += "result += GetEscapedHtml( " +  section_code.substring( 1 ).Trim() + " );\n";
-                }
-                else
-                {
-                    function_code += section_code;
-                }
-
-                if ( section_text.length > 0 )
-                {
-                    function_code += "result += " + GetJsonText( section_text ) + ";\n";
-                }
-            }
-            else
-            {
-                PrintError( "Invalid template expression:" , "<:" + section_array[ section_index ] );
-
-                break;
-            }
-        }
-
-        function_code += "return result;\n}";
-
-        function_code
-            = function_code
-                  .ReplaceText( "<\\:", "<:" )
-                  .ReplaceText( ":\\>", ":>" )
-                  .ReplaceText( "<\\\\:", "<:" )
-                  .ReplaceText( ":\\\\>", ":>" );
-
-        try
-        {
-            this.TemplateFunction = eval( function_code );
-        }
-        catch ( error )
-        {
-            PrintError( error, function_code );
-        }
     }
 
     // ~~
