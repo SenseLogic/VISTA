@@ -742,6 +742,7 @@ Versatile front-end microframework.
     *   Chrome
     *   Edge-Chromium
 *   Trailing media queries bubbling is limited to one level.
+*	The types and functions are declared globally, on purpose.
 
 ## Version
 
