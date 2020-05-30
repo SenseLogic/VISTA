@@ -2,7 +2,7 @@
 
 # Vista
 
-CSS and JavaScript microframework.
+Versatile front-end microframework.
 
 ## Goals
 
