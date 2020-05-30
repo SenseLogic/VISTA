@@ -10,7 +10,7 @@ CSS and JavaScript microframework.
 *   Light : just wraps and extends native types
 *   Modular : allows to include only what is needed
 *   Compact : uses simple but efficient algorithms
-*   Direct : is designed to be used without bundler
+*   Direct : can be used immediately without bundler
 
 ## Features
 
@@ -53,8 +53,9 @@ CSS and JavaScript microframework.
     *   matrices
     *   quaternions
     *   shaders
-    *   loaders
-    *   renderers
+    *	scenes (WIP)
+    *	maps (WIP)
+    *	charts (WIP)
 
 ## Samples
 
@@ -190,6 +191,7 @@ CSS and JavaScript microframework.
         <script src="../../CODE/JAVASCRIPT/vista_base.js"></script>
         <script src="../../CODE/JAVASCRIPT/vista_math.js"></script>
         <script src="../../CODE/JAVASCRIPT/vista_element.js"></script>
+        <script src="../../CODE/JAVASCRIPT/vista_data.js"></script>
         <script src="../../CODE/JAVASCRIPT/vista_component.js"></script>
         <script src="../../CODE/JAVASCRIPT/vista_breakpoint.js"></script>
         <script>
@@ -206,7 +208,7 @@ CSS and JavaScript microframework.
                     this.RandomReal = event.detail.RandomReal;
                     this.SetChanged();
 
-                    event.preventDefault();
+                    event.Stop();
                 }
 
                 // ~~
@@ -373,6 +375,7 @@ CSS and JavaScript microframework.
         </main>
         <script src="../../CODE/JAVASCRIPT/vista_base.js"></script>
         <script src="../../CODE/JAVASCRIPT/vista_element.js"></script>
+        <script src="../../CODE/JAVASCRIPT/vista_data.js"></script>
         <script src="../../CODE/JAVASCRIPT/vista_component.js"></script>
         <script src="../../CODE/JAVASCRIPT/vista_router.js"></script>
         <script>
@@ -531,8 +534,8 @@ CSS and JavaScript microframework.
     </head>
     <body style="font-family:monospace">
         <script src="../../CODE/JAVASCRIPT/vista_base.js"></script>
-        <script src="../../CODE/JAVASCRIPT/vista_component.js"></script>
         <script src="../../CODE/JAVASCRIPT/vista_request.js"></script>
+        <script src="../../CODE/JAVASCRIPT/vista_data.js"></script>
         <script src="../../CODE/JAVASCRIPT/vista_store.js"></script>
         <script>
             // -- TYPES
