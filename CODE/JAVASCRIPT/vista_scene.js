@@ -35,7 +35,7 @@ class VISTA_PHONG_MATERIAL extends VISTA_MATERIAL
     constructor(
         )
     {
-		super();
+        super();
         this.AmbientColorAttribute = [ 1.0, 1.0, 1.0 ];
         this.DiffuseColorAttribute = [ 1.0, 1.0, 1.0 ];
         this.SpecularColorAttribute = [ 1.0, 1.0, 1.0 ];
@@ -352,9 +352,9 @@ class VISTA_LIGHT
     constructor(
         )
     {
-		this.IsDirectional = true;
+        this.IsDirectional = true;
     }
-	
+
 }
 
 // ~~

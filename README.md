@@ -53,9 +53,9 @@ Versatile front-end microframework.
     *   matrices
     *   quaternions
     *   shaders
-    *	scenes (WIP)
-    *	maps (WIP)
-    *	charts (WIP)
+    *    scenes (WIP)
+    *    maps (WIP)
+    *    charts (WIP)
 
 ## Samples
 
@@ -742,7 +742,7 @@ Versatile front-end microframework.
     *   Chrome
     *   Edge-Chromium
 *   Trailing media queries bubbling is limited to one level.
-*	The types and functions are declared globally, on purpose.
+*    The types and functions are declared globally, on purpose.
 
 ## Version
 
