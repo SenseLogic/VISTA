@@ -7,9 +7,10 @@ Versatile front-end microframework.
 ## Goals
 
 *   Modest : focuses on small scale web applications
+*   Concise : eliminates most boilerplate code
+*   Fast : uses simple yet efficient algorithms
 *   Light : just wraps and extends native types
 *   Modular : allows to include only what is needed
-*   Compact : uses simple but efficient algorithms
 *   Direct : can be used immediately without bundler
 
 ## Features
