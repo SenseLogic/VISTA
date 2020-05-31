@@ -875,6 +875,15 @@ class VISTA_SHADER
 
     // -- OPERATIONS
 
+    SetCode(
+        code
+        )
+    {
+        this.Code = code;
+    }
+
+    // ~~
+
     Bind(
         graphic_context
         )
@@ -914,7 +923,7 @@ class VISTA_VERTEX_SHADER extends VISTA_SHADER
     // -- CONSTRUCTORS
 
     constructor(
-        code
+        code = ""
         )
     {
         super( code, GL_VertexShader );
@@ -928,7 +937,7 @@ class VISTA_FRAGMENT_SHADER extends VISTA_SHADER
     // -- CONSTRUCTORS
 
     constructor(
-        code
+        code = ""
         )
     {
         super( code, GL_FragmentShader );

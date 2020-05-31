@@ -234,7 +234,7 @@ class VISTA_WAVEFRONT_MODEL
             if ( line.HasPrefix( "newmtl " ) )
             {
                 this.MaterialIndex = this.MaterialArray.length;
-                this.MaterialArray.AddLastValue( new VISTA_MATERIAL( line.substring( 7 ) ) );
+                this.MaterialArray.AddLastValue( new VISTA_PHONG_MATERIAL( line.substring( 7 ) ) );
             }
             else if ( line.HasPrefix( "Ka " ) )
             {

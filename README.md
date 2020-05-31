@@ -8,10 +8,9 @@ Versatile front-end microframework.
 
 *   Modest : focuses on small scale applications
 *   Concise : eliminates most boilerplate code
-*   Fast : uses simple yet efficient algorithms
+*   Compact : uses simple yet efficient algorithms
 *   Light : just wraps and extends native types
 *   Modular : allows to include only what is needed
-*   Global : is designed to be used as a framework
 *   Direct : can be used immediately without bundler
 
 ## Features

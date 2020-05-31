@@ -109,16 +109,7 @@ class VISTA_DATA
 
     // ~~
 
-    ProcessTemplate(
-        template_text
-        )
-    {
-        return template_text.ReplaceText( "\r", "" );
-    }
-
-    // ~~
-
-    SetTemplate(
+    GetTemplateFunction(
         template_text
         )
     {
@@ -130,12 +121,6 @@ class VISTA_DATA
             section_text,
             function_code;
 
-        if ( template_text instanceof HTMLElement )
-        {
-            template_text = GetDecodedHtml( template_text.innerHTML );
-        }
-
-        template_text = this.ProcessTemplate( template_text );
         section_array = template_text.Split( "<:" );
         function_code = "() => {\nvar result = " + GetJsonText( section_array[ 0 ] ) + ";\n";
 
@@ -187,11 +172,13 @@ class VISTA_DATA
 
         try
         {
-            this.TemplateFunction = eval( function_code );
+            return eval( function_code );
         }
         catch ( error )
         {
             PrintError( error, function_code );
+
+            return null;
         }
     }
 }

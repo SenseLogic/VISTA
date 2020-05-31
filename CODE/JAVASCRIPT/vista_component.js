@@ -33,7 +33,7 @@ class VISTA_COMPONENT extends HTMLElement
         VISTA_COMPONENT.prototype.UnwatchData = VISTA_DATA.prototype.UnwatchData;
         VISTA_COMPONENT.prototype.ChangeWatchers = VISTA_DATA.prototype.ChangeWatchers;
         VISTA_COMPONENT.prototype.SetUpdated = VISTA_DATA.prototype.SetUpdated;
-        VISTA_COMPONENT.prototype.SetTemplate = VISTA_DATA.prototype.SetTemplate;
+        VISTA_COMPONENT.prototype.GetTemplateFunction = VISTA_DATA.prototype.GetTemplateFunction;
     }
 
     // -- INQUIRIES
@@ -584,17 +584,23 @@ class VISTA_COMPONENT extends HTMLElement
 
     // ~~
 
-    ProcessTemplate(
+    SetTemplate(
         template_text
         )
     {
-        return (
-            this.ProcessTemplateStyle(
-                this.ProcessTemplateExpressions(
-                    template_text.ReplaceText( "\r", "" )
-                    )
-                )
-            );
+        if ( template_text instanceof HTMLElement )
+        {
+            template_text = GetDecodedHtml( template_text.innerHTML );
+        }
+
+        template_text
+            = this.ProcessTemplateStyle(
+                  this.ProcessTemplateExpressions(
+                      template_text.ReplaceText( "\r", "" )
+                      )
+                  );
+
+        this.TemplateFunction = this.GetTemplateFunction( template_text );
     }
 
     // ~~

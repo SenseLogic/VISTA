@@ -12,17 +12,90 @@ var
 
 // -- TYPES
 
-class VISTA_MATERIAL
+class VISTA_MATERIAL extends VISTA_DATA
 {
     // -- CONSTRUCTORS
 
     constructor(
         )
     {
+        super();
+
+        this.HasChanged = true;
         this.Identifier = ++MaterialIdentifier;
         this.Name = "";
+        this.VertexShader = new VISTA_VERTEX_SHADER();
+        this.VertexShaderCode = "";
+        this.VertexShaderTemplateFunction = null;
+        this.FragmentShader = new VISTA_FRAGMENT_SHADER();
+        this.FragmentShaderCode = "";
+        this.FragmentShaderTemplateFunction = null;
         this.Program = null;
+        this.LightArray = [];
         this.TextureArray = [];
+    }
+
+    // -- OPERATIONS
+
+    SetVertexShaderCode(
+        vertex_shader_code
+        )
+    {
+        this.VertexShaderCode = "";
+        this.VertexShaderTemplateFunction = null;
+    }
+
+    // ~~
+
+    SetFragmentShaderCode(
+        vertex_shader_code
+        )
+    {
+        this.FragmentShaderCode = "";
+        this.FragmentShaderTemplateFunction = null;
+    }
+
+    // ~~
+
+    SetVertexShaderTemplate(
+        vertex_shader_template_text
+        )
+    {
+        this.VertexShaderCode = "";
+        this.VertexShaderTemplateFunction = this.GetTemplateFunction( vertex_shader_template_text );
+    }
+
+    // ~~
+
+    SetFragmentShaderTemplate(
+        vertex_shader_template_text
+        )
+    {
+        this.FragmentShaderCode = "";
+        this.FragmentShaderTemplateFunction = this.GetTemplateFunction( vertex_shader_template_text );
+    }
+
+    // ~~
+
+    Update(
+        )
+    {
+        if ( this.HasChanged )
+        {
+            if ( this.VertexShaderTemplateFunction !== null )
+            {
+                this.VertexShaderCode = this.VertexShaderTemplateFunction();
+                this.VertexShader.SetCode( this.VertexShaderCode );
+            }
+
+            if ( this.FragmentShaderTemplateFunction !== null )
+            {
+                this.FragmentShaderCode = this.FragmentShaderTemplateFunction();
+                this.FragmentShader.SetCode( this.FragmentShaderCode );
+            }
+
+            this.SetUpdated();
+        }
     }
 }
 
