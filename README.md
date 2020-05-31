@@ -2,14 +2,14 @@
 
 # Vista
 
-Versatile front-end microframework.
+Minimalistic front-end framework.
 
 ## Goals
 
 *   Modest : focuses on small scale applications
+*   Minimal : just wraps and extends native types
 *   Concise : eliminates most boilerplate code
 *   Compact : uses simple yet efficient algorithms
-*   Light : just wraps and extends native types
 *   Modular : allows to include only what is needed
 *   Direct : can be used immediately without bundler
 
