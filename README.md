@@ -6,7 +6,7 @@ Versatile front-end microframework.
 
 ## Goals
 
-*   Modest : focuses on small scale web applications
+*   Modest : focuses on small scale applications
 *   Concise : eliminates most boilerplate code
 *   Fast : uses simple yet efficient algorithms
 *   Light : just wraps and extends native types
