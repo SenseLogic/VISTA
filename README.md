@@ -11,6 +11,7 @@ Versatile front-end microframework.
 *   Fast : uses simple yet efficient algorithms
 *   Light : just wraps and extends native types
 *   Modular : allows to include only what is needed
+*   Global : is meant to be used as a framework
 *   Direct : can be used immediately without bundler
 
 ## Features
