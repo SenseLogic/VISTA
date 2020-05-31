@@ -101,26 +101,6 @@ class VISTA_MATERIAL extends VISTA_DATA
 
 // ~~
 
-class VISTA_PHONG_MATERIAL extends VISTA_MATERIAL
-{
-    // -- CONSTRUCTORS
-
-    constructor(
-        )
-    {
-        super();
-        this.AmbientColorAttribute = [ 1.0, 1.0, 1.0 ];
-        this.DiffuseColorAttribute = [ 1.0, 1.0, 1.0 ];
-        this.SpecularColorAttribute = [ 1.0, 1.0, 1.0 ];
-        this.SpecularExponentAttribute = 0.0;
-        this.EmissiveColorAttribute = [ 0.0, 0.0, 0.0 ];
-        this.DensityAttribute = 1.0;
-        this.OpacityAttribute = 1.0;
-    }
-}
-
-// ~~
-
 class VISTA_GEOMETRY
 {
     // -- CONSTRUCTORS

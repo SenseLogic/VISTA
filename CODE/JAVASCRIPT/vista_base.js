@@ -9,7 +9,7 @@ var
 // -- FUNCTIONS
 
 var
-    Html = String.raw,
+    Text = String.raw,
     Alert = alert,
     Print = console.log,
     Dump = console.dir,

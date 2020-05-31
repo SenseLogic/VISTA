@@ -274,7 +274,7 @@ Versatile front-end microframework.
                         ];
 
                     this.SetTemplate(
-                        Html`
+                        Text`
                         <style>
                             {:host:} .button
                             {
@@ -404,7 +404,7 @@ Versatile front-end microframework.
                     this.Route = "/";
 
                     this.SetTemplate(
-                        Html`
+                        Text`
                         <style>
                             :host .route-button
                             {
