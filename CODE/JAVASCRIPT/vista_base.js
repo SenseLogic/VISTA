@@ -798,6 +798,10 @@ Array.prototype.Join = Array.prototype.join;
 
 // ~~
 
+Array.prototype.Splice = Array.prototype.splice;
+
+// ~~
+
 Array.prototype.AddFirstValue = Array.prototype.unshift;
 
 // ~~
@@ -822,11 +826,11 @@ Array.prototype.GetValueIndex = Array.prototype.indexOf;
 
 // ~~
 
-Array.prototype.FindMatchingValue = Array.prototype.find;
+Array.prototype.GetMatchingValue = Array.prototype.find;
 
 // ~~
 
-Array.prototype.FindMatchingValueIndex = Array.prototype.findIndex;
+Array.prototype.GetMatchingValueIndex = Array.prototype.findIndex;
 
 // ~~
 
@@ -891,7 +895,7 @@ Array.prototype.RemoveValue = function (
 
     if ( value_index >= 0 )
     {
-        this.splice( value_index, 1 );
+        this.Splice( value_index, 1 );
     }
 }
 

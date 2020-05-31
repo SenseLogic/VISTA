@@ -336,11 +336,11 @@ class VISTA_WAVEFRONT_MODEL
             position_index,
             position_vector,
             real_array,
-            scene,
+            transform,
             vertex_count,
             vertex_index_array;
 
-        node = new VISTA_TRANSFORM();
+        transform = new VISTA_TRANSFORM();
 
         for ( material_index = 0;
               material_index < this.MaterialArray.length;

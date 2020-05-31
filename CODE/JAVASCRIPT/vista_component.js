@@ -26,7 +26,7 @@ class VISTA_COMPONENT extends HTMLElement
         this.TemplateConstantMap.SetValue( "scope", this.Scope );
         this.TemplateFunction = undefined;
 
-        VISTA_COMPONENT.prototype.FindWatcherIndex = VISTA_DATA.prototype.FindWatcherIndex;
+        VISTA_COMPONENT.prototype.GetWatcherIndex = VISTA_DATA.prototype.GetWatcherIndex;
         VISTA_COMPONENT.prototype.AddWatcher = VISTA_DATA.prototype.AddWatcher;
         VISTA_COMPONENT.prototype.RemoveWatcher = VISTA_DATA.prototype.RemoveWatcher;
         VISTA_COMPONENT.prototype.WatchData = VISTA_DATA.prototype.WatchData;

@@ -4,7 +4,7 @@ var
     MaterialIdentifier = -1,
     GeometryIdentifier = -1,
     MeshIdentifier = -1,
-    ComponentIdentifier = -1,
+    TransformComponentIdentifier = -1,
     TransformIdentifier = -1,
     CameraIdentifier = -1,
     ModelIdentifier = -1,
@@ -73,12 +73,15 @@ class VISTA_MESH
 
     constructor(
         geometry,
-        material
+        material,
+        light_array = []
         )
     {
         this.Identifier = ++MeshIdentifier;
         this.Geometry = geometry;
         this.Material = material;
+        this.LightArray = light_array;
+        this.ActiveLightArray = [];
     }
 }
 
@@ -92,21 +95,12 @@ class VISTA_TRANSFORM_COMPONENT
         transform
         )
     {
-        this.Identifier = ++ComponentIdentifier;
+        this.Identifier = ++TransformComponentIdentifier;
         this.Transform = transform;
         this.IsActive = true;
-        this.IsUpdated = false;
-        this.IsRendered = false;
     }
 
     // -- OPERATIONS
-
-    Initialize(
-        )
-    {
-    }
-
-    // ~~
 
     Update(
         time_step
@@ -117,15 +111,40 @@ class VISTA_TRANSFORM_COMPONENT
     // ~~
 
     Render(
+        graphic_context
         )
     {
     }
+}
 
-    // ~~
+// ~~
 
-    Finalize(
+class VISTA_LIGHT extends VISTA_TRANSFORM_COMPONENT
+{
+    // -- CONSTRUCTORS
+
+    constructor(
         )
     {
+        this.IsDirectional = true;
+    }
+}
+
+// ~~
+
+class VISTA_CAMERA extends VISTA_TRANSFORM_COMPONENT
+{
+    // -- CONSTRUCTORS
+
+    constructor(
+        )
+    {
+        this.Identifier = CameraIdentifier++;
+        this.Name = "";
+        this.Transform = null;
+        this.XAngle = 90.0;
+        this.YAngle = 90.0;
+        this.GlobalTransformMatrix = GetMatrix4();
     }
 }
 
@@ -140,6 +159,7 @@ class VISTA_TRANSFORM
     {
         this.Identifier = ++TransformIdentifier;
         this.ParentTransform = null;
+        this.ComponentArray = [];
         this.ChildTransformArray = [];
         this.MeshArray = [];
         this.LocalScalingVector = [ 0.0, 0.0, 0.0 ];
@@ -153,10 +173,6 @@ class VISTA_TRANSFORM
         this.HasLocalRotationVector = false;
         this.HasChanged = false;
         this.IsActive = true;
-        this.IsUpdated = true;
-        this.IsRendered = true;
-        this.ComponentArray = [];
-        this.UpdatedComponentMap = new Map();
     }
 
     // -- OPERATIONS
@@ -180,34 +196,52 @@ class VISTA_TRANSFORM
 
     // ~~
 
-    SetParentTransform(
-        parent_transform
+    RemoveChildTransform(
+        child_transform
         )
     {
         var
             child_transform_index;
 
+        child_transform_index = this.ParentTransform.ChildTransformArray.indexOf( child_transform );
+
+        if ( child_transform_index >= 0 )
+        {
+            this.ParentTransform.ChildTransformArray.Splice( child_transform_index, 1 );
+        }
+    }
+
+    // ~~
+
+    SetParentTransform(
+        parent_transform
+        )
+    {
         if ( this.ParentTransform !== parent_transform )
         {
             if ( this.ParentTransform !== null )
             {
-                for ( child_transform_index = 0;
-                      child_transform_index < this.ParentTransform.ChildTransformArray.length;
-                      ++child_transform_index )
-                {
-                    if ( this.ParentTransform.ChildTransformArray[ child_transform_index ] === this )
-                    {
-                        this.ParentTransform.ChildTransformArray.splice( child_transform_index, 1 );
-
-                        break;
-                    }
-                }
+                this.ParentTransform.RemoveChildTransform( this );
             }
 
             this.ParentTransform = parent_transform;
-            this.ChildTransformArray.AddLastValue( this );
+
+            if ( parent_transform !== null )
+            {
+                parent_transform.ChildTransformArray.AddLastValue( this );
+            }
+
             this.Invalidate();
         }
+    }
+
+    // ~~
+
+    AddChildTransform(
+        child_transform
+        )
+    {
+        child_transform.SetParentTransform( this );
     }
 
     // ~~
@@ -341,52 +375,49 @@ class VISTA_TRANSFORM
 
         return GetMatrix4WVector3( this.GlobalTransformMatrix );
     }
-}
 
-// ~~
+    // ~~
 
-class VISTA_LIGHT
-{
-    // -- CONSTRUCTORS
-
-    constructor(
+    Update(
+        time_step
         )
     {
-        this.IsDirectional = true;
+        var
+            child_transform,
+            component;
+
+        this.UpdateTransform();
+
+        for ( component of this.ComponentArray )
+        {
+            component.Update( time_step );
+        }
+
+        for ( child_transform of this.ChildTransformArray )
+        {
+            child_transform.Update( time_step );
+        }
     }
 
-}
+    // ~~
 
-// ~~
-
-class VISTA_CAMERA
-{
-    // -- CONSTRUCTORS
-
-    constructor(
+    Render(
+        graphic_context
         )
     {
-        this.Identifier = CameraIdentifier++;
-        this.Name = "";
-        this.Transform = null;
-        this.XAngle = 90.0;
-        this.YAngle = 90.0;
-        this.GlobalTransformMatrix = GetMatrix4();
-    }
-}
+        var
+            child_transform,
+            component;
 
-// ~~
+        for ( component of this.ComponentArray )
+        {
+            component.Render( graphic_context );
+        }
 
-class VISTA_MODEL
-{
-    // -- CONSTRUCTORS
-
-    constructor(
-        )
-    {
-        this.Identifier = ModelIdentifier++;
-        this.Name = "";
-        this.Transform = new VISTA_TRANSFORM();
+        for ( child_transform of this.ChildTransformArray )
+        {
+            child_transform.Render( graphic_context );
+        }
     }
 }
 
@@ -401,9 +432,33 @@ class VISTA_SCENE
     {
         this.Identifier = ++SceneIdentifier;
         this.Name = "";
-        this.ProgramMap = new Map();
-        this.MaterialMap = new Map();
-        this.Transform = null;
-        this.UpdatedTransformMap = new Map();
+        this.Transform = new VISTA_TRANSFORM();
+    }
+
+    // -- OPERATIONS
+
+    AddChildTransform(
+        child_transform
+        )
+    {
+        child_transform.SetParentTransform( this.Transform );
+    }
+
+    // ~~
+
+    Update(
+        time_step
+        )
+    {
+        this.Transform.Update( time_step );
+    }
+
+    // ~~
+
+    Render(
+        graphic_context
+        )
+    {
+        this.Transform.Render( graphic_context );
     }
 }

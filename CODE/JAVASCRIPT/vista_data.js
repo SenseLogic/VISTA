@@ -14,24 +14,11 @@ class VISTA_DATA
 
     // -- INQUIRIES
 
-    FindWatcherIndex(
+    GetWatcherIndex(
         watcher
         )
     {
-        var
-            watcher_index;
-
-        for ( watcher_index = 0;
-              watcher_index < this.WatcherArray.length;
-              ++watcher_index )
-        {
-            if ( this.WatcherArray[ watcher_index ] === watcher )
-            {
-                return watcher_index;
-            }
-        }
-
-        return -1;
+        return this.WatcherArray.indexOf( watcher );
     }
 
     // -- OPERATIONS
@@ -40,7 +27,7 @@ class VISTA_DATA
         watcher
         )
     {
-        if ( this.FindWatcherIndex( watcher ) < 0 )
+        if ( this.GetWatcherIndex( watcher ) < 0 )
         {
             this.WatcherArray.AddLastValue( watcher );
         }
@@ -55,11 +42,11 @@ class VISTA_DATA
         var
             watcher_index;
 
-        watcher_index = this.FindWatcherIndex( watcher );
+        watcher_index = this.GetWatcherIndex( watcher );
 
         if ( watcher_index >= 0 )
         {
-            this.WatcherArray.splice( watcher_index, 1 );
+            this.WatcherArray.Splice( watcher_index, 1 );
         }
     }
 
@@ -118,8 +105,8 @@ class VISTA_DATA
     {
         this.HasChanged = false;
         this.IsChangingWatchers = false;
-    }    
-    
+    }
+
     // ~~
 
     ProcessTemplate(
