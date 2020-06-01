@@ -507,25 +507,6 @@ function GetDecodedHtml(
 
 // ~~
 
-function IsMobileBrowser()
-{
-    var
-        user_agent;
-
-    user_agent = navigator.userAgent.GetLowerCaseText();
-
-    return (
-        user_agent.indexOf( "android" ) >= 0
-        || user_agent.indexOf( "iphone" ) >= 0
-        || user_agent.indexOf( "ipad" ) >= 0
-        || user_agent.indexOf( "ipod" ) >= 0
-        || user_agent.indexOf( "blackberry" ) >= 0
-        || user_agent.indexOf( "phone" ) >= 0
-        );
-}
-
-// ~~
-
 function AwaitCall(
     called_function,
     ...argument_array
@@ -781,15 +762,6 @@ function GetByteArrayHexadecimalText(
     }
 
     return hexadecimal_text;
-}
-
-// ~~
-
-function Redirect(
-    url
-    )
-{
-    window.location.replace( url );
 }
 
 // ~~

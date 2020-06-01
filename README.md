@@ -11,7 +11,7 @@ Minimalistic front-end framework.
 *   Concise : eliminates most boilerplate code
 *   Compact : uses simple yet efficient algorithms
 *   Modular : allows to include only what is needed
-*   Direct : can be used with or without bundler
+*   Flexible : can be used directly without bundler
 
 ## Features
 
@@ -54,9 +54,9 @@ Minimalistic front-end framework.
     *   matrices
     *   quaternions
     *   shaders
-    *    scenes (WIP)
-    *    maps (WIP)
-    *    charts (WIP)
+    *   scenes (WIP)
+    *   maps (WIP)
+    *   charts (WIP)
 
 ## Samples
 
