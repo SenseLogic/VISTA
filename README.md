@@ -11,7 +11,8 @@ Minimalistic front-end framework.
 *   Concise : eliminates most boilerplate code
 *   Compact : uses simple yet efficient algorithms
 *   Modular : allows to include only what is needed
-*   Flexible : can be used directly without bundler
+*   Modern : uses ES6 and native web components
+*   Agile : can be used directly without bundler
 
 ## Features
 
@@ -54,9 +55,18 @@ Minimalistic front-end framework.
     *   matrices
     *   quaternions
     *   shaders
-    *   scenes (WIP)
-    *   maps (WIP)
-    *   charts (WIP)
+
+## Roadmap
+
+*   Javascript
+    *   meshes
+    *   materials
+    *   lights
+    *   cameras
+    *   shadows
+    *   scenes
+    *   charts
+    *   maps
 
 ## Samples
 
