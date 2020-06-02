@@ -381,15 +381,21 @@ Minimalistic front-end framework.
     </head>
     <body style="font-family:monospace">
         <main>
-            <router-component>
+            <router-component id="router">
             </router-component>
         </main>
         <script src="../../CODE/JAVASCRIPT/vista_base.js"></script>
         <script src="../../CODE/JAVASCRIPT/vista_element.js"></script>
+        <script src="../../CODE/JAVASCRIPT/vista_browser.js"></script>
         <script src="../../CODE/JAVASCRIPT/vista_data.js"></script>
         <script src="../../CODE/JAVASCRIPT/vista_component.js"></script>
         <script src="../../CODE/JAVASCRIPT/vista_router.js"></script>
         <script>
+            // -- CONSTANTS
+
+            const
+                BaseRoute = "/SAMPLE/ROUTER";
+
             // -- TYPES
 
             class ROUTER_COMPONENT extends VISTA_ROUTER_COMPONENT
@@ -401,6 +407,16 @@ Minimalistic front-end framework.
                     )
                 {
                     this.SetRoute( event.target.dataset.route );
+                    SetRoute( BaseRoute + event.target.dataset.route );
+                }
+
+                // ~~
+
+                HandleUrlButtonClickEvent(
+                    event
+                    )
+                {
+                    SetUrl( BaseRoute + event.target.dataset.route );
                 }
 
                 // ~~
@@ -410,19 +426,30 @@ Minimalistic front-end framework.
                 {
                     this.BindShadow();
                     this.BindMethod( "HandleRouteButtonClickEvent" );
+                    this.BindMethod( "HandleUrlButtonClickEvent" );
 
                     this.Route = "/";
 
                     this.SetTemplate(
                         Text`
                         <style>
-                            :host .route-button
+                            :host .route-button,
+                            :host .url-button
                             {
                                 border: none;
                                 border-radius: 0.5rem;
                                 padding: 0.5rem 1rem;
-                                background-color: magenta;
                                 color: white;
+                            }
+
+                            :host .route-button
+                            {
+                                background-color: magenta;
+                            }
+
+                            :host .url-button
+                            {
+                                background-color: red;
                             }
                         </style>
                         <button class="route-button" data-route="/">
@@ -436,6 +463,9 @@ Minimalistic front-end framework.
                         </button>
                         <button class="route-button" data-route="/articles/10/bad">
                             /articles/10/bad
+                        </button>
+                        <button class="url-button" data-route="/">
+                            /
                         </button>
                         <h1>
                             <: if ( this.HasRoute( "/" ) ) { :>
@@ -461,12 +491,15 @@ Minimalistic front-end framework.
                     )
                 {
                     this.BindEvent( this.GetElements( ".route-button" ), "click", this.HandleRouteButtonClickEvent );
+                    this.BindEvent( this.GetElements( ".url-button" ), "click", this.HandleUrlButtonClickEvent );
                 }
             }
 
             // -- STATEMENTS
 
             DefineComponent( ROUTER_COMPONENT, "router-component" );
+
+            GetElementById( "router" ).SetRoute( GetRoute().RemovePrefix( BaseRoute ) );
         </script>
     </body>
 </html>

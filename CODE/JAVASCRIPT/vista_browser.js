@@ -34,7 +34,7 @@ function GetRoute(
 
 // ~~
 
-function ShowRoute(
+function SetRoute(
     route
     )
 {
