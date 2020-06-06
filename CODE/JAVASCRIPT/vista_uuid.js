@@ -37,8 +37,8 @@ function GetRandomUuid(
         hexadecimal_text.substring( 0, 8 )
         + "-"
         + hexadecimal_text.substring( 8, 12 )
-        + "-"
-        + hexadecimal_text.substring( 12, 16 )
+        + "-4"
+        + hexadecimal_text.substring( 13, 16 )
         + "-"
         + hexadecimal_text.substring( 16, 20 )
         + "-"
