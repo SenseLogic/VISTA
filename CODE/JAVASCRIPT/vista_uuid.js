@@ -7,19 +7,19 @@ function GetTimeUuid(
         hexadecimal_text;
 
     hexadecimal_text
-        = GetNaturalHexadecimalText( GetMillisecondTimestamp() - 0x53E0000000 )
+        = GetNaturalHexadecimalText( GetMillisecondTimestamp() )
           + GetByteArrayHexadecimalText( GetRandomByteArray( 16 ) );
 
     return (
-        hexadecimal_text.substring( 8, 16 )
+        hexadecimal_text.substring( 7, 15 )
         + "-"
-        + hexadecimal_text.substring( 4, 8 )
+        + hexadecimal_text.substring( 3, 7 )
+        + "-1"
+        + hexadecimal_text.substring( 0, 3 )
         + "-"
-        + hexadecimal_text.substring( 0, 4 )
+        + hexadecimal_text.substring( 15, 19 )
         + "-"
-        + hexadecimal_text.substring( 16, 20 )
-        + "-"
-        + hexadecimal_text.substring( 20, 32 )
+        + hexadecimal_text.substring( 19, 31 )
         );
 }
 
@@ -38,10 +38,10 @@ function GetRandomUuid(
         + "-"
         + hexadecimal_text.substring( 8, 12 )
         + "-4"
-        + hexadecimal_text.substring( 13, 16 )
+        + hexadecimal_text.substring( 12, 15 )
         + "-"
-        + hexadecimal_text.substring( 16, 20 )
+        + hexadecimal_text.substring( 15, 19 )
         + "-"
-        + hexadecimal_text.substring( 20, 32 )
+        + hexadecimal_text.substring( 19, 31 )
         );
 }
