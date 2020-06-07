@@ -4,11 +4,8 @@ var
     MaterialIdentifier = -1,
     GeometryIdentifier = -1,
     MeshIdentifier = -1,
-    TransformComponentIdentifier = -1,
-    TransformIdentifier = -1,
-    CameraIdentifier = -1,
-    ModelIdentifier = -1,
-    SceneIdentifier = -1;
+    EntityComponentIdentifier = -1,
+    EntityIdentifier = -1;
 
 // -- TYPES
 
@@ -21,7 +18,6 @@ class VISTA_MATERIAL extends VISTA_DATA
     {
         super();
 
-        this.HasChanged = true;
         this.Identifier = ++MaterialIdentifier;
         this.Name = "";
         this.VertexShader = new VISTA_VERTEX_SHADER();
@@ -43,6 +39,7 @@ class VISTA_MATERIAL extends VISTA_DATA
     {
         this.VertexShaderCode = "";
         this.VertexShaderTemplateFunction = null;
+        this.SetChanged();
     }
 
     // ~~
@@ -53,6 +50,7 @@ class VISTA_MATERIAL extends VISTA_DATA
     {
         this.FragmentShaderCode = "";
         this.FragmentShaderTemplateFunction = null;
+        this.SetChanged();
     }
 
     // ~~
@@ -63,6 +61,7 @@ class VISTA_MATERIAL extends VISTA_DATA
     {
         this.VertexShaderCode = "";
         this.VertexShaderTemplateFunction = this.GetTemplateFunction( vertex_shader_template_text );
+        this.SetChanged();
     }
 
     // ~~
@@ -73,6 +72,7 @@ class VISTA_MATERIAL extends VISTA_DATA
     {
         this.FragmentShaderCode = "";
         this.FragmentShaderTemplateFunction = this.GetTemplateFunction( vertex_shader_template_text );
+        this.SetChanged();
     }
 
     // ~~
@@ -140,16 +140,18 @@ class VISTA_MESH
 
 // ~~
 
-class VISTA_TRANSFORM_COMPONENT
+class VISTA_ENTITY_COMPONENT extends VISTA_DATA
 {
     // -- CONSTRUCTORS
 
     constructor(
-        transform
+        entity
         )
     {
-        this.Identifier = ++TransformComponentIdentifier;
-        this.Transform = transform;
+        super();
+
+        this.Identifier = ++EntityComponentIdentifier;
+        this.Entity = entity;
         this.IsActive = true;
     }
 
@@ -159,6 +161,7 @@ class VISTA_TRANSFORM_COMPONENT
         time_step
         )
     {
+        SetUpdated();
     }
 
     // ~~
@@ -172,129 +175,148 @@ class VISTA_TRANSFORM_COMPONENT
 
 // ~~
 
-class VISTA_LIGHT extends VISTA_TRANSFORM_COMPONENT
+class VISTA_LIGHT extends VISTA_ENTITY_COMPONENT
 {
     // -- CONSTRUCTORS
 
     constructor(
         )
     {
+        super();
+
+        this.LocalDirectionVector = new VECTOR_3();
+        this.GlobalDirectionVector = new VECTOR_3();
         this.IsDirectional = true;
     }
 }
 
 // ~~
 
-class VISTA_CAMERA extends VISTA_TRANSFORM_COMPONENT
+class VISTA_CAMERA extends VISTA_ENTITY_COMPONENT
 {
     // -- CONSTRUCTORS
 
     constructor(
         )
     {
+        super();
+
         this.Identifier = CameraIdentifier++;
         this.Name = "";
-        this.Transform = null;
+        this.Entity = null;
         this.XAngle = 90.0;
         this.YAngle = 90.0;
-        this.GlobalTransformMatrix = GetMatrix4();
+        this.GlobalEntityMatrix = GetMatrix4();
     }
 }
 
 // ~~
 
-class VISTA_TRANSFORM
+class VISTA_ENTITY extends VISTA_DATA
 {
     // -- CONSTRUCTORS
 
     constructor(
         )
     {
-        this.Identifier = ++TransformIdentifier;
-        this.ParentTransform = null;
+        super();
+
+        this.Identifier = ++EntityIdentifier;
+        this.ParentEntity = null;
         this.ComponentArray = [];
-        this.ChildTransformArray = [];
+        this.ChildEntityArray = [];
         this.MeshArray = [];
-        this.LocalScalingVector = [ 0.0, 0.0, 0.0 ];
+        this.LocalScalingVector = [ 1.0, 1.0, 1.0 ];
         this.LocalRotationVector = [ 0.0, 0.0, 0.0 ];
         this.LocalRotationQuaternion = [ 0.0, 0.0, 0.0, 1.0 ];
         this.LocalTranslationVector = [ 0.0, 0.0, 0.0 ];
-        this.LocalTransformMatrix = GetMatrix4();
-        this.GlobalTransformMatrix = GetMatrix4();
+        this.LocalEntityMatrix = GetMatrix4();
+        this.GlobalEntityMatrix = GetMatrix4();
         this.GlobalRotationQuaternion = [ 0.0, 0.0, 0.0, 1.0 ];
         this.GlobalTranslationVector = [ 0.0, 0.0, 0.0 ];
         this.HasLocalRotationVector = false;
-        this.HasChanged = false;
+        this.TransformHasChanged = false;
         this.IsActive = true;
     }
 
     // -- OPERATIONS
 
-    Invalidate(
+    InvalidateTransform(
         )
     {
         var
-            child_transform;
+            child_entity;
 
-        if ( !this.HasChanged )
+        if ( !this.TransformHasChanged )
         {
-            this.HasChanged = true;
+            this.TransformHasChanged = true;
+            this.SetChanged();
 
-            for ( child_transform of this.ChildTransformArray )
+            for ( child_entity of this.ChildEntityArray )
             {
-                child_transform.Invalidate();
+                child_entity.InvalidateTransform();
             }
         }
     }
 
     // ~~
 
-    RemoveChildTransform(
-        child_transform
+    RemoveChildEntity(
+        child_entity
         )
     {
         var
-            child_transform_index;
+            child_entity_index;
 
-        child_transform_index = this.ParentTransform.ChildTransformArray.indexOf( child_transform );
+        child_entity_index = this.ParentEntity.ChildEntityArray.indexOf( child_entity );
 
-        if ( child_transform_index >= 0 )
+        if ( child_entity_index >= 0 )
         {
-            this.ParentTransform.ChildTransformArray.Splice( child_transform_index, 1 );
+            this.ParentEntity.ChildEntityArray.Splice( child_entity_index, 1 );
         }
     }
 
     // ~~
 
-    SetParentTransform(
-        parent_transform
+    SetParentEntity(
+        parent_entity
         )
     {
-        if ( this.ParentTransform !== parent_transform )
+        if ( this.ParentEntity !== parent_entity )
         {
-            if ( this.ParentTransform !== null )
+            if ( this.ParentEntity !== null )
             {
-                this.ParentTransform.RemoveChildTransform( this );
+                this.ParentEntity.RemoveChildEntity( this );
             }
 
-            this.ParentTransform = parent_transform;
+            this.ParentEntity = parent_entity;
 
-            if ( parent_transform !== null )
+            if ( parent_entity !== null )
             {
-                parent_transform.ChildTransformArray.AddLastValue( this );
+                parent_entity.ChildEntityArray.AddLastValue( this );
             }
 
-            this.Invalidate();
+            this.InvalidateTransform();
         }
     }
 
     // ~~
 
-    AddChildTransform(
-        child_transform
+    AddChildEntity(
+        child_entity
         )
     {
-        child_transform.SetParentTransform( this );
+        child_entity.SetParentEntity( this );
+    }
+
+    // ~~
+
+    AddComponent(
+        component
+        )
+    {
+        component.Entity = this;
+        ComponentArray.AddLastValue( component );
     }
 
     // ~~
@@ -306,7 +328,7 @@ class VISTA_TRANSFORM
         if ( !IsSameVector3( local_translation_vector, this.LocalTranslationVector ) )
         {
             this.LocalTranslationVector = local_translation_vector;
-            this.Invalidate();
+            this.InvalidateTransform();
         }
     }
 
@@ -321,7 +343,7 @@ class VISTA_TRANSFORM
             this.LocalRotationVector = local_rotation_vector;
             this.LocalRotationQuaternion = GetZxyRotationQuaternion( local_rotation_vector );
             this.HasLocalRotationVector = true;
-            this.Invalidate();
+            this.InvalidateTransform();
         }
     }
 
@@ -335,7 +357,7 @@ class VISTA_TRANSFORM
         {
             this.LocalRotationQuaternion = local_rotation_quaternion;
             this.HasLocalRotationVector = false;
-            this.Invalidate();
+            this.InvalidateTransform();
         }
     }
 
@@ -348,7 +370,7 @@ class VISTA_TRANSFORM
         if ( !IsSameVector3( local_scaling_vector, this.LocalScalingVector ) )
         {
             this.LocalScalingVector = local_scaling_vector;
-            this.Invalidate();
+            this.InvalidateTransform();
         }
     }
 
@@ -357,31 +379,31 @@ class VISTA_TRANSFORM
     UpdateTransform(
         )
     {
-        if ( this.HasChanged )
+        if ( this.TransformHasChanged )
         {
-            this.LocalTransformMatrix
-                = GetTransformMatrix4(
+            this.LocalEntityMatrix
+                = GetEntityMatrix4(
                       this.LocalScalingVector,
                       this.LocalRotationQuaternion,
                       this.LocalTranslationVector
                       );
 
-            if ( this.ParentTransform === null )
+            if ( this.ParentEntity === null )
             {
-                this.GlobalTransformMatrix.set( this.LocalTransformMatrix );
+                this.GlobalEntityMatrix.set( this.LocalEntityMatrix );
                 this.GlobalRotationQuaternion.set( this.LocalRotationQuaternion );
                 this.GlobalTranslationVector.set( this.LocalTranslationVector );
             }
             else
             {
-                this.ParentTransform.UpdateTransform();
+                this.ParentEntity.UpdateTransform();
 
-                this.GlobalTransformMatrix = GetProductMatrix4( this.LocalTransformMatrix, this.ParentTransform.GlobalTransformMatrix );
-                this.GlobalRotationQuaternion = GetProductQuaternion( this.LocalRotationQuaternion, this.ParentTransform.GlobalRotationQuaternion );
-                this.GlobalTranslationVector = GetMatrix4WVector3( this.GlobalTransformMatrix );
+                this.GlobalEntityMatrix = GetProductMatrix4( this.LocalEntityMatrix, this.ParentEntity.GlobalEntityMatrix );
+                this.GlobalRotationQuaternion = GetProductQuaternion( this.LocalRotationQuaternion, this.ParentEntity.GlobalRotationQuaternion );
+                this.GlobalTranslationVector = GetMatrix4WVector3( this.GlobalEntityMatrix );
             }
 
-            this.HasChanged = false;
+            this.TransformHasChanged = false;
         }
     }
 
@@ -406,7 +428,7 @@ class VISTA_TRANSFORM
     {
         UpdateTransform();
 
-        return GetMatrix4ScalingVector3( this.GlobalTransformMatrix );
+        return GetMatrix4ScalingVector3( this.GlobalEntityMatrix );
     }
 
     // ~~
@@ -426,7 +448,7 @@ class VISTA_TRANSFORM
     {
         UpdateTransform();
 
-        return GetMatrix4WVector3( this.GlobalTransformMatrix );
+        return GetMatrix4WVector3( this.GlobalEntityMatrix );
     }
 
     // ~~
@@ -436,7 +458,7 @@ class VISTA_TRANSFORM
         )
     {
         var
-            child_transform,
+            child_entity,
             component;
 
         this.UpdateTransform();
@@ -446,9 +468,9 @@ class VISTA_TRANSFORM
             component.Update( time_step );
         }
 
-        for ( child_transform of this.ChildTransformArray )
+        for ( child_entity of this.ChildEntityArray )
         {
-            child_transform.Update( time_step );
+            child_entity.Update( time_step );
         }
     }
 
@@ -459,7 +481,7 @@ class VISTA_TRANSFORM
         )
     {
         var
-            child_transform,
+            child_entity,
             component;
 
         for ( component of this.ComponentArray )
@@ -467,51 +489,9 @@ class VISTA_TRANSFORM
             component.Render( graphic_context );
         }
 
-        for ( child_transform of this.ChildTransformArray )
+        for ( child_entity of this.ChildEntityArray )
         {
-            child_transform.Render( graphic_context );
+            child_entity.Render( graphic_context );
         }
-    }
-}
-
-// ~~
-
-class VISTA_SCENE
-{
-    // -- CONSTRUCTORS
-
-    constructor(
-        )
-    {
-        this.Identifier = ++SceneIdentifier;
-        this.Name = "";
-        this.Transform = new VISTA_TRANSFORM();
-    }
-
-    // -- OPERATIONS
-
-    AddChildTransform(
-        child_transform
-        )
-    {
-        child_transform.SetParentTransform( this.Transform );
-    }
-
-    // ~~
-
-    Update(
-        time_step
-        )
-    {
-        this.Transform.Update( time_step );
-    }
-
-    // ~~
-
-    Render(
-        graphic_context
-        )
-    {
-        this.Transform.Render( graphic_context );
     }
 }

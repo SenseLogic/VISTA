@@ -318,8 +318,7 @@ class VISTA_WAVEFRONT_MODEL
 
     // ~~
 
-    CreateTransform(
-        scene
+    CreateEntity(
         )
     {
         var
@@ -336,11 +335,11 @@ class VISTA_WAVEFRONT_MODEL
             position_index,
             position_vector,
             real_array,
-            transform,
+            entity,
             vertex_count,
             vertex_index_array;
 
-        transform = new VISTA_TRANSFORM();
+        entity = new VISTA_ENTITY();
 
         for ( material_index = 0;
               material_index < this.MaterialArray.length;
@@ -401,7 +400,7 @@ class VISTA_WAVEFRONT_MODEL
 
             geometry = new VISTA_GEOMETRY( real_array, vertex_index_array, vertex_count );
             mesh = new VISTA_MESH( material, geometry );
-            transform.MeshArray.AddLastValue( mesh );
+            entity.MeshArray.AddLastValue( mesh );
         }
     }
 }

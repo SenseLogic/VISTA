@@ -61,10 +61,10 @@ Minimalistic front-end framework.
 *   Javascript
     *   meshes
     *   materials
+    *   entities
     *   lights
     *   cameras
     *   shadows
-    *   scenes
     *   charts
     *   maps
 
