@@ -7,7 +7,7 @@ function GetTimeUuid(
         hexadecimal_text;
 
     hexadecimal_text
-        = GetNaturalHexadecimalText( GetMillisecondTimestamp() )
+        = GetNaturalHexadecimalText( ( GetMillisecondTimestamp() + 12219292800000 ) * 10000 )
           + GetByteArrayHexadecimalText( GetRandomByteArray( 16 ) );
 
     return (
