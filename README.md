@@ -12,7 +12,7 @@ Minimalistic front-end framework.
 *   Compact : uses simple yet efficient algorithms
 *   Modular : allows to include only what is needed
 *   Modern : uses ES6 and native web components
-*   Agile : can be used directly without bundler
+*   Direct : can be used immediately without bundler
 
 ## Features
 
@@ -55,18 +55,6 @@ Minimalistic front-end framework.
     *   matrices
     *   quaternions
     *   shaders
-
-## Roadmap
-
-*   Javascript
-    *   meshes
-    *   materials
-    *   entities
-    *   lights
-    *   cameras
-    *   shadows
-    *   charts
-    *   maps
 
 ## Samples
 
