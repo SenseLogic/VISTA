@@ -5,12 +5,9 @@ class VISTA_COMPONENT extends HTMLElement
     // -- CONSTRUCTORS
 
     constructor(
-        template_text = "",
-        display_style = "block"
         )
     {
         super();
-        this.style.display = display_style;
 
         this.WatcherArray = [];
         this.HasChanged = false;
