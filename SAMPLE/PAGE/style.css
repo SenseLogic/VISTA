@@ -322,18 +322,34 @@ a:hover {
 .display-block {
   display: block;
 }
-.display-inline-block {
-  display: inline-block;
+.display-contents {
+  display: contents;
+}
+.display-table {
+  display: table;
+}
+.display-table-cell {
+  display: table-cell;
 }
 .display-flex {
   display: flex;
 }
 .display-grid {
-  display: -ms-grid;
   display: grid;
 }
+.display-inline {
+  display: inline;
+}
+.display-inline-block {
+  display: inline-block;
+}
+.display-inline-table {
+  display: inline-table;
+}
+.display-inline-flex {
+  display: inline-flex;
+}
 .display-inline-grid {
-  display: -ms-inline-grid;
   display: inline-grid;
 }
 .hidden {
@@ -399,19 +415,19 @@ a:hover {
 .grid-column-span-all {
   grid-column: 1/-1;
 }
-.align-start {
+.align-items-start {
   align-items: flex-start;
 }
-.align-center {
+.align-items-center {
   align-items: center;
 }
-.align-end {
+.align-items-end {
   align-items: flex-end;
 }
-.align-stretch {
+.align-items-stretch {
   align-items: stretch;
 }
-.align-baseline {
+.align-items-baseline {
   align-items: baseline;
 }
 .align-self-start {
@@ -429,19 +445,19 @@ a:hover {
 .align-self-baseline {
   align-self: baseline;
 }
-.justify-start {
+.justify-content-start {
   justify-content: flex-start;
 }
-.justify-center {
+.justify-content-center {
   justify-content: center;
 }
-.justify-end {
+.justify-content-end {
   justify-content: flex-end;
 }
-.justify-between {
+.justify-content-between {
   justify-content: space-between;
 }
-.justify-around {
+.justify-content-around {
   justify-content: space-around;
 }
 .justify-self-start {
@@ -575,6 +591,24 @@ a:hover {
 }
 .text-align-justify {
   text-align: justify;
+}
+.vertical-align-bottom {
+  vertical-align: bottom;
+}
+.vertical-align-middle {
+  vertical-align: middle;
+}
+.vertical-align-right {
+  vertical-align: top;
+}
+.vertical-align-sub {
+  vertical-align: sub;
+}
+.vertical-align-baseline {
+  vertical-align: baseline;
+}
+.vertical-align-text-top {
+  vertical-align: text-top;
 }
 .cursor-pointer:not([disabled]),
 [onclick]:not([disabled]) {

@@ -1,0 +1,70 @@
+.vertical-align-bottom
+{
+    vertical-align: bottom;
+}
+
+.vertical-align-middle
+{
+    vertical-align: middle;
+}
+
+.vertical-align-right
+{
+    vertical-align: top;
+}
+
+.vertical-align-sub
+{
+    vertical-align: sub;
+}
+
+.vertical-align-baseline
+{
+    vertical-align: baseline;
+}
+
+.vertical-align-text-top
+{
+    vertical-align: text-top;
+}
+
+// ~~
+
+MakeVerticalAlign( media_query_name_list = {} )
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .vertical-align-bottom-{media_query_name}
+            {
+                vertical-align: bottom;
+            }
+
+            .vertical-align-middle-{media_query_name}
+            {
+                vertical-align: middle;
+            }
+
+            .vertical-align-right-{media_query_name}
+            {
+                vertical-align: top;
+            }
+
+            .vertical-align-sub-{media_query_name}
+            {
+                vertical-align: sub;
+            }
+
+            .vertical-align-baseline-{media_query_name}
+            {
+                vertical-align: baseline;
+            }
+
+            .vertical-align-text-top-{media_query_name}
+            {
+                vertical-align: text-top;
+            }
+        }
+    }
+

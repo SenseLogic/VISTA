@@ -1,0 +1,49 @@
+.text-align-left
+{
+    text-align: left;
+}
+
+.text-align-center
+{
+    text-align: center;
+}
+
+.text-align-right
+{
+    text-align: right;
+}
+
+.text-align-justify
+{
+    text-align: justify;
+}
+
+// ~~
+
+MakeTextAlign( media_query_name_list = {} )
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .text-align-left-{media_query_name}
+            {
+                text-align: left;
+            }
+
+            .text-align-center-{media_query_name}
+            {
+                text-align: center;
+            }
+
+            .text-align-right-{media_query_name}
+            {
+                text-align: right;
+            }
+
+            .text-align-justify-{media_query_name}
+            {
+                text-align: justify;
+            }
+        }
+    }

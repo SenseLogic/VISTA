@@ -322,18 +322,34 @@ a:hover {
 .display-block {
   display: block;
 }
-.display-inline-block {
-  display: inline-block;
+.display-contents {
+  display: contents;
+}
+.display-table {
+  display: table;
+}
+.display-table-cell {
+  display: table-cell;
 }
 .display-flex {
   display: flex;
 }
 .display-grid {
-  display: -ms-grid;
   display: grid;
 }
+.display-inline {
+  display: inline;
+}
+.display-inline-block {
+  display: inline-block;
+}
+.display-inline-table {
+  display: inline-table;
+}
+.display-inline-flex {
+  display: inline-flex;
+}
 .display-inline-grid {
-  display: -ms-inline-grid;
   display: inline-grid;
 }
 .hidden {
@@ -399,19 +415,19 @@ a:hover {
 .grid-column-span-all {
   grid-column: 1/-1;
 }
-.align-start {
+.align-items-start {
   align-items: flex-start;
 }
-.align-center {
+.align-items-center {
   align-items: center;
 }
-.align-end {
+.align-items-end {
   align-items: flex-end;
 }
-.align-stretch {
+.align-items-stretch {
   align-items: stretch;
 }
-.align-baseline {
+.align-items-baseline {
   align-items: baseline;
 }
 .align-self-start {
@@ -429,19 +445,19 @@ a:hover {
 .align-self-baseline {
   align-self: baseline;
 }
-.justify-start {
+.justify-content-start {
   justify-content: flex-start;
 }
-.justify-center {
+.justify-content-center {
   justify-content: center;
 }
-.justify-end {
+.justify-content-end {
   justify-content: flex-end;
 }
-.justify-between {
+.justify-content-between {
   justify-content: space-between;
 }
-.justify-around {
+.justify-content-around {
   justify-content: space-around;
 }
 .justify-self-start {
@@ -575,6 +591,24 @@ a:hover {
 }
 .text-align-justify {
   text-align: justify;
+}
+.vertical-align-bottom {
+  vertical-align: bottom;
+}
+.vertical-align-middle {
+  vertical-align: middle;
+}
+.vertical-align-right {
+  vertical-align: top;
+}
+.vertical-align-sub {
+  vertical-align: sub;
+}
+.vertical-align-baseline {
+  vertical-align: baseline;
+}
+.vertical-align-text-top {
+  vertical-align: text-top;
 }
 .cursor-pointer:not([disabled]),
 [onclick]:not([disabled]) {
@@ -7346,14 +7380,35 @@ a:hover {
   .display-block-above-20em {
     display: block;
   }
-  .display-inline-block-above-20em {
-    display: inline-block;
+  .display-contents-above-20em {
+    display: contents;
+  }
+  .display-table-above-20em {
+    display: table;
+  }
+  .display-table-cell-above-20em {
+    display: table-cell;
   }
   .display-flex-above-20em {
     display: flex;
   }
   .display-grid-above-20em {
     display: grid;
+  }
+  .display-inline-above-20em {
+    display: inline;
+  }
+  .display-inline-block-above-20em {
+    display: inline-block;
+  }
+  .display-inline-table-above-20em {
+    display: inline-table;
+  }
+  .display-inline-flex-above-20em {
+    display: inline-flex;
+  }
+  .display-inline-grid-above-20em {
+    display: inline-grid;
   }
 }
 @media only screen and (min-width: 30em) {
@@ -7363,14 +7418,35 @@ a:hover {
   .display-block-above-30em {
     display: block;
   }
-  .display-inline-block-above-30em {
-    display: inline-block;
+  .display-contents-above-30em {
+    display: contents;
+  }
+  .display-table-above-30em {
+    display: table;
+  }
+  .display-table-cell-above-30em {
+    display: table-cell;
   }
   .display-flex-above-30em {
     display: flex;
   }
   .display-grid-above-30em {
     display: grid;
+  }
+  .display-inline-above-30em {
+    display: inline;
+  }
+  .display-inline-block-above-30em {
+    display: inline-block;
+  }
+  .display-inline-table-above-30em {
+    display: inline-table;
+  }
+  .display-inline-flex-above-30em {
+    display: inline-flex;
+  }
+  .display-inline-grid-above-30em {
+    display: inline-grid;
   }
 }
 @media only screen and (min-width: 40em) {
@@ -7380,14 +7456,35 @@ a:hover {
   .display-block-above-40em {
     display: block;
   }
-  .display-inline-block-above-40em {
-    display: inline-block;
+  .display-contents-above-40em {
+    display: contents;
+  }
+  .display-table-above-40em {
+    display: table;
+  }
+  .display-table-cell-above-40em {
+    display: table-cell;
   }
   .display-flex-above-40em {
     display: flex;
   }
   .display-grid-above-40em {
     display: grid;
+  }
+  .display-inline-above-40em {
+    display: inline;
+  }
+  .display-inline-block-above-40em {
+    display: inline-block;
+  }
+  .display-inline-table-above-40em {
+    display: inline-table;
+  }
+  .display-inline-flex-above-40em {
+    display: inline-flex;
+  }
+  .display-inline-grid-above-40em {
+    display: inline-grid;
   }
 }
 @media only screen and (min-width: 60em) {
@@ -7397,14 +7494,35 @@ a:hover {
   .display-block-above-60em {
     display: block;
   }
-  .display-inline-block-above-60em {
-    display: inline-block;
+  .display-contents-above-60em {
+    display: contents;
+  }
+  .display-table-above-60em {
+    display: table;
+  }
+  .display-table-cell-above-60em {
+    display: table-cell;
   }
   .display-flex-above-60em {
     display: flex;
   }
   .display-grid-above-60em {
     display: grid;
+  }
+  .display-inline-above-60em {
+    display: inline;
+  }
+  .display-inline-block-above-60em {
+    display: inline-block;
+  }
+  .display-inline-table-above-60em {
+    display: inline-table;
+  }
+  .display-inline-flex-above-60em {
+    display: inline-flex;
+  }
+  .display-inline-grid-above-60em {
+    display: inline-grid;
   }
 }
 @media only screen and (min-width: 80em) {
@@ -7414,14 +7532,35 @@ a:hover {
   .display-block-above-80em {
     display: block;
   }
-  .display-inline-block-above-80em {
-    display: inline-block;
+  .display-contents-above-80em {
+    display: contents;
+  }
+  .display-table-above-80em {
+    display: table;
+  }
+  .display-table-cell-above-80em {
+    display: table-cell;
   }
   .display-flex-above-80em {
     display: flex;
   }
   .display-grid-above-80em {
     display: grid;
+  }
+  .display-inline-above-80em {
+    display: inline;
+  }
+  .display-inline-block-above-80em {
+    display: inline-block;
+  }
+  .display-inline-table-above-80em {
+    display: inline-table;
+  }
+  .display-inline-flex-above-80em {
+    display: inline-flex;
+  }
+  .display-inline-grid-above-80em {
+    display: inline-grid;
   }
 }
 @media only screen and (min-width: 20em) {

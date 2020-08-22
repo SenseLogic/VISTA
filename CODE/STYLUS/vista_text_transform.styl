@@ -1,0 +1,39 @@
+.text-transform-lowercase
+{
+    text-transform: lowercase;
+}
+
+.text-transform-uppercase
+{
+    text-transform: uppercase;
+}
+
+.text-transform-capitalize
+{
+    text-transform: capitalize;
+}
+
+// ~~
+
+MakeTextTransform( media_query_name_list = {} )
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .text-transform-lowercase-{media_query_name}
+            {
+                text-transform: lowercase;
+            }
+
+            .text-transform-uppercase-{media_query_name}
+            {
+                text-transform: uppercase;
+            }
+
+            .text-transform-capitalize-{media_query_name}
+            {
+                text-transform: capitalize;
+            }
+        }
+    }

@@ -1,0 +1,17 @@
+MakeTextColor( name, value, media_query_name_list = {} )
+
+    .text-color-{name}
+    {
+        color: value;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .text-color-{name}-{media_query_name}
+            {
+                color: value;
+            }
+        }
+    }
