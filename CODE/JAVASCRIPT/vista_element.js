@@ -329,6 +329,46 @@ HTMLElement.prototype.IsVisible = function (
 
 // ~~
 
+HTMLElement.prototype.SetScrollTop = function (
+    distance
+    )
+{
+    if ( distance === undefined )
+    {
+        this.scrollTop = this.scrollHeight;
+    }
+    else if ( distance < 0 )
+    {
+        this.scrollTop = this.scrollHeight + distance;
+    }
+    else
+    {
+        this.scrollTop = distance;
+    }
+}
+
+// ~~
+
+HTMLElement.prototype.SetScrollLeft = function (
+    offset
+    )
+{
+    if ( distance === undefined )
+    {
+        this.scrollLeft = this.scrollWidth;
+    }
+    else if ( distance < 0 )
+    {
+        this.scrollLeft = this.scrollWidth + distance;
+    }
+    else
+    {
+        this.scrollLeft = offset;
+    }
+}
+
+// ~~
+
 HTMLElement.prototype.GetStyle = function(
     style_name
     )
