@@ -247,6 +247,23 @@ HTMLElement.prototype.GetAncestorProperty = function (
 
 // ~~
 
+HTMLElement.prototype.GetTextContent = function (
+    )
+{
+    return this.textContent;
+}
+
+// ~~
+
+HTMLElement.prototype.SetTextContent = function (
+    text
+    )
+{
+    this.textContent = text;
+}
+
+// ~~
+
 HTMLElement.prototype.AddEventListener = HTMLElement.prototype.addEventListener;
 
 // ~~
