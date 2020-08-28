@@ -7,6 +7,8 @@ var
     TwoPi = Math.PI * 2.0,
     DegreesToRadians = Math.PI / 180.0,
     RadiansToDegrees = 180.0 / Math.PI,
+    GetMinimum = Math.min,
+    GetMaximum = Math.max,
     GetPositive = Math.abs,
     GetSign = Math.sign,
     GetFloor = Math.floor,
