@@ -1,62 +1,233 @@
-.overflow-visible
-{
-    overflow: visible;
-}
+MakeOverflowVisible( media_query_name_list = {} )
 
-.overflow-hidden
-{
-    overflow: hidden;
-}
+    .overflow-visible
+    {
+        overflow: visible;
+    }
 
-.overflow-auto
-{
-    overflow: auto;
-}
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .overflow-visible-{media_query_name}
+            {
+                overflow: visible;
+            }
+        }
+    }
 
-.overflow-y-visible
-{
-    overflow-y: visible;
-}
+// ~~
 
-.overflow-y-hidden
-{
-    overflow-y: hidden;
-}
+MakeOverflowHidden( media_query_name_list = {} )
 
-.overflow-y-auto
-{
-    overflow-y: auto;
-}
+    .overflow-hidden
+    {
+        overflow: hidden;
+    }
 
-.overflow-x-visible
-{
-    overflow-x: visible;
-}
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .overflow-hidden-{media_query_name}
+            {
+                overflow: hidden;
+            }
+        }
+    }
 
-.overflow-x-hidden
-{
-    overflow-x: hidden;
-}
+// ~~
 
-.overflow-x-auto
-{
-    overflow-x: auto;
-}
+MakeOverflowAuto( media_query_name_list = {} )
 
-.overflow-scrollbar-hidden
-{
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-}
+    .overflow-auto
+    {
+        overflow: auto;
+    }
 
-.overflow-scrollbar-hidden::-webkit-scrollbar
-{
-    display: none;
-}
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .overflow-auto-{media_query_name}
+            {
+                overflow: auto;
+            }
+        }
+    }
 
-.overflow-tiny
-{
-    height: 0;
-    width: 0;
-    overflow: hidden;
-}
+// ~~
+
+MakeOverflowYVisible( media_query_name_list = {} )
+
+    .overflow-y-visible
+    {
+        overflow-y: visible;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .overflow-y-visible-{media_query_name}
+            {
+                overflow-y: visible;
+            }
+        }
+    }
+
+// ~~
+
+MakeOverflowYHidden( media_query_name_list = {} )
+
+    .overflow-y-hidden
+    {
+        overflow-y: hidden;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .overflow-y-hidden-{media_query_name}
+            {
+                overflow-y: hidden;
+            }
+        }
+    }
+
+// ~~
+
+MakeOverflowYAuto( media_query_name_list = {} )
+
+    .overflow-y-auto
+    {
+        overflow-y: auto;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .overflow-y-auto-{media_query_name}
+            {
+                overflow-y: auto;
+            }
+        }
+    }
+
+// ~~
+
+MakeOverflowXVisible( media_query_name_list = {} )
+
+    .overflow-x-visible
+    {
+        overflow-x: visible;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .overflow-x-visible-{media_query_name}
+            {
+                overflow-x: visible;
+            }
+        }
+    }
+
+// ~~
+
+MakeOverflowXHidden( media_query_name_list = {} )
+
+    .overflow-x-hidden
+    {
+        overflow-x: hidden;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .overflow-x-hidden-{media_query_name}
+            {
+                overflow-x: hidden;
+            }
+        }
+    }
+
+// ~~
+
+MakeOverflowXAuto( media_query_name_list = {} )
+
+    .overflow-x-auto
+    {
+        overflow-x: auto;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .overflow-x-auto-{media_query_name}
+            {
+                overflow-x: auto;
+            }
+        }
+    }
+
+// ~~
+
+MakeOverflowScrollbarHidden( media_query_name_list = {} )
+
+    .overflow-scrollbar-hidden
+    {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+
+    .overflow-scrollbar-hidden::-webkit-scrollbar
+    {
+        display: none;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .overflow-scrollbar-hidden-{media_query_name}
+            {
+                -ms-overflow-style: none;
+                scrollbar-width: none;
+            }
+
+            .overflow-scrollbar-hidden-{media_query_name}::-webkit-scrollbar
+            {
+                display: none;
+            }
+        }
+    }
+
+// ~~
+
+MakeOverflowTiny( media_query_name_list = {} )
+
+    .overflow-tiny
+    {
+        height: 0;
+        width: 0;
+        overflow: hidden;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .overflow-tiny-{media_query_name}
+            {
+                height: 0;
+                width: 0;
+                overflow: hidden;
+            }
+        }
+    }

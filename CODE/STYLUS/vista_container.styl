@@ -1,9 +1,25 @@
-.container-extended
-{
-    width: 100%;
-    margin-right: auto;
-    margin-left: auto;
-}
+MakeContainerExtended( media_query_name_list = {} )
+
+    .container-extended
+    {
+        width: 100%;
+        margin-right: auto;
+        margin-left: auto;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .container-extended-{media_query_name}
+            {
+                width: 100%;
+                margin-right: auto;
+                margin-left: auto;
+            }
+        }
+    }
+
 
 // ~~
 
@@ -20,7 +36,7 @@ MakeContainerCentered( max_width, max_width_map = {}, media_query_name_list = {}
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .container-centered
+            .container-centered-{media_query_name}
             {
                 max-width: max_width_map[ media_query_name ];
                 margin-left: auto;
@@ -43,7 +59,7 @@ MakeContainerMargined( margin, margin_map, media_query_name_list = {} )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .container-margined
+            .container-margined-{media_query_name}
             {
                 margin-left: margin_map[ media_query_name ];
                 margin-right: margin_map[ media_query_name ];

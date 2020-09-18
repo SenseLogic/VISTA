@@ -1,31 +1,9 @@
-.align-items-start
-{
-    align-items: flex-start;
-}
+MakeAlignItemsStart( media_query_name_list = {} )
 
-.align-items-center
-{
-    align-items: center;
-}
-
-.align-items-end
-{
-    align-items: flex-end;
-}
-
-.align-items-stretch
-{
-    align-items: stretch;
-}
-
-.align-items-baseline
-{
-    align-items: baseline;
-}
-
-// ~~
-
-MakeAlign( media_query_name_list = {} )
+    .align-items-start
+    {
+        align-items: flex-start;
+    }
 
     for media_query_name in media_query_name_list
     {
@@ -35,22 +13,82 @@ MakeAlign( media_query_name_list = {} )
             {
                 align-items: flex-start;
             }
+        }
+    }
 
+// ~~
+
+MakeAlignItemsCenter( media_query_name_list = {} )
+
+    .align-items-center
+    {
+        align-items: center;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
             .align-items-center-{media_query_name}
             {
                 align-items: center;
             }
+        }
+    }
 
+// ~~
+
+MakeAlignItemsEnd( media_query_name_list = {} )
+
+    .align-items-end
+    {
+        align-items: flex-end;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
             .align-items-end-{media_query_name}
             {
                 align-items: flex-end;
             }
+        }
+    }
 
+// ~~
+
+MakeAlignItemsStretch( media_query_name_list = {} )
+
+    .align-items-stretch
+    {
+        align-items: stretch;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
             .align-items-stretch-{media_query_name}
             {
                 align-items: stretch;
             }
+        }
+    }
 
+// ~~
+
+MakeAlignItemsBaseline( media_query_name_list = {} )
+
+    .align-items-baseline
+    {
+        align-items: baseline;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
             .align-items-baseline-{media_query_name}
             {
                 align-items: baseline;
@@ -60,34 +98,12 @@ MakeAlign( media_query_name_list = {} )
 
 // ~~
 
-.align-self-start
-{
-    align-self: flex-start;
-}
+MakeAlignSelfStart( media_query_name_list = {} )
 
-.align-self-center
-{
-    align-self: center;
-}
-
-.align-self-end
-{
-    align-self: flex-end;
-}
-
-.align-self-stretch
-{
-    align-self: stretch;
-}
-
-.align-self-baseline
-{
-    align-self: baseline;
-}
-
-// ~~
-
-MakeAlignSelf( media_query_name_list = {} )
+    .align-self-start
+    {
+        align-self: flex-start;
+    }
 
     for media_query_name in media_query_name_list
     {
@@ -97,22 +113,83 @@ MakeAlignSelf( media_query_name_list = {} )
             {
                 align-self: flex-start;
             }
+        }
+    }
 
+// ~~
+
+MakeAlignSelfCenter( media_query_name_list = {} )
+
+    .align-self-center
+    {
+        align-self: center;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
             .align-self-center-{media_query_name}
             {
                 align-self: center;
             }
+        }
+    }
 
+// ~~
+
+MakeAlignSelfEnd( media_query_name_list = {} )
+
+    .align-self-end
+    {
+        align-self: flex-end;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
             .align-self-end-{media_query_name}
             {
                 align-self: flex-end;
             }
+        }
+    }
+
+// ~~
+
+MakeAlignSelfStretch( media_query_name_list = {} )
+
+    .align-self-stretch
+    {
+        align-self: stretch;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
 
             .align-self-stretch-{media_query_name}
             {
                 align-self: stretch;
             }
+        }
+    }
 
+// ~~
+
+MakeAlignSelf( media_query_name_list = {} )
+
+    .align-self-baseline
+    {
+        align-self: baseline;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
             .align-self-baseline-{media_query_name}
             {
                 align-self: baseline;

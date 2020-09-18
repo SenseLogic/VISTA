@@ -1,36 +1,9 @@
-.vertical-align-bottom
-{
-    vertical-align: bottom;
-}
+MakeVerticalAlignBottom( media_query_name_list = {} )
 
-.vertical-align-middle
-{
-    vertical-align: middle;
-}
-
-.vertical-align-right
-{
-    vertical-align: top;
-}
-
-.vertical-align-sub
-{
-    vertical-align: sub;
-}
-
-.vertical-align-baseline
-{
-    vertical-align: baseline;
-}
-
-.vertical-align-text-top
-{
-    vertical-align: text-top;
-}
-
-// ~~
-
-MakeVerticalAlign( media_query_name_list = {} )
+    .vertical-align-bottom
+    {
+        vertical-align: bottom;
+    }
 
     for media_query_name in media_query_name_list
     {
@@ -40,31 +13,105 @@ MakeVerticalAlign( media_query_name_list = {} )
             {
                 vertical-align: bottom;
             }
+        }
+    }
 
+// ~~
+
+MakeVerticalAlignMiddle( media_query_name_list = {} )
+
+    .vertical-align-middle
+    {
+        vertical-align: middle;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
             .vertical-align-middle-{media_query_name}
             {
                 vertical-align: middle;
             }
+        }
+    }
 
-            .vertical-align-right-{media_query_name}
+// ~~
+
+MakeVerticalAlignTop( media_query_name_list = {} )
+
+    .vertical-align-top
+    {
+        vertical-align: top;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .vertical-align-top-{media_query_name}
             {
                 vertical-align: top;
             }
+        }
+    }
 
+// ~~
+
+MakeVerticalAlignSub( media_query_name_list = {} )
+
+    .vertical-align-sub
+    {
+        vertical-align: sub;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
             .vertical-align-sub-{media_query_name}
             {
                 vertical-align: sub;
             }
+        }
+    }
 
+// ~~
+
+MakeVerticalAlignBaseline( media_query_name_list = {} )
+
+    .vertical-align-baseline
+    {
+        vertical-align: baseline;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
             .vertical-align-baseline-{media_query_name}
             {
                 vertical-align: baseline;
             }
+        }
+    }
 
+// ~~
+
+MakeVerticalAlignTextTop( media_query_name_list = {} )
+
+    .vertical-align-text-top
+    {
+        vertical-align: text-top;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
             .vertical-align-text-top-{media_query_name}
             {
                 vertical-align: text-top;
             }
         }
     }
-

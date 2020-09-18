@@ -1,16 +1,9 @@
-.grid-flow-row
-{
-    grid-auto-flow: row;
-}
+MakeGridFlowRow( media_query_name_list = {} )
 
-.grid-flow-column
-{
-    grid-auto-flow: column;
-}
-
-// ~~
-
-MakeGridFlow( media_query_name_list = {} )
+    .grid-flow-row
+    {
+        grid-auto-flow: row;
+    }
 
     for media_query_name in media_query_name_list
     {
@@ -20,7 +13,22 @@ MakeGridFlow( media_query_name_list = {} )
             {
                 grid-auto-flow: row;
             }
+        }
+    }
 
+// ~~
+
+MakeGridFlowColumn( media_query_name_list = {} )
+
+    .grid-flow-column
+    {
+        grid-auto-flow: column;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
             .grid-flow-column-{media_query_name}
             {
                 grid-auto-flow: column;
@@ -31,24 +39,22 @@ MakeGridFlow( media_query_name_list = {} )
 
 // ~~
 
-.grid-heights-auto
-{
-    grid-auto-rows: auto;
-}
-
-.grid-heights-min
-{
-    grid-auto-rows: min-content;
-}
-
-.grid-heights-max
-{
-    grid-auto-rows: max-content;
-}
-
-// ~~
-
 MakeGridHeights( size, unit_value, unit_name, media_query_name_list = {} )
+
+    .grid-heights-auto
+    {
+        grid-auto-rows: auto;
+    }
+
+    .grid-heights-min
+    {
+        grid-auto-rows: min-content;
+    }
+
+    .grid-heights-max
+    {
+        grid-auto-rows: max-content;
+    }
 
     .grid-auto-rows-{size}{unit_name}
     {
@@ -79,24 +85,22 @@ MakeGridHeightsRange( start, step, count, unit_value, unit_name, media_query_nam
 
 // ~~
 
-.grid-widths-auto
-{
-    grid-auto-columns: auto;
-}
-
-.grid-widths-min
-{
-    grid-auto-columns: min-content;
-}
-
-.grid-widths-max
-{
-    grid-auto-columns: max-content;
-}
-
-// ~~
-
 MakeGridWidths( size, unit_value, unit_name, media_query_name_list = {} )
+
+    .grid-widths-auto
+    {
+        grid-auto-columns: auto;
+    }
+
+    .grid-widths-min
+    {
+        grid-auto-columns: min-content;
+    }
+
+    .grid-widths-max
+    {
+        grid-auto-columns: max-content;
+    }
 
     .grid-auto-columns-{size}{unit_name}
     {
@@ -185,14 +189,12 @@ MakeGridColumnSpanRange( first_column_count, last_column_count, media_query_name
 
 // ~~
 
-.grid-row-span-all
-{
-    grid-row: 1/-1;
-}
-
-// ~~
-
 MakeGridRowSpanAll( media_query_name_list = {} )
+
+    .grid-row-span-all
+    {
+        grid-row: 1/-1;
+    }
 
     for media_query_name in media_query_name_list
     {
@@ -207,14 +209,12 @@ MakeGridRowSpanAll( media_query_name_list = {} )
 
 // ~~
 
-.grid-column-span-all
-{
-    grid-column: 1/-1;
-}
-
-// ~~
-
 MakeGridColumnSpanAll( media_query_name_list = {} )
+
+    .grid-column-span-all
+    {
+        grid-column: 1/-1;
+    }
 
     for media_query_name in media_query_name_list
     {

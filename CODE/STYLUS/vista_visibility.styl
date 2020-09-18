@@ -1,37 +1,55 @@
-.hidden
-{
-    visibility: hidden;
-}
+MakeVisibilityHidden( media_query_name_list = {} )
 
-.visible
-{
-    visibility: visible;
-}
-
-.collapse
-{
-    visibility: collapse;
-}
-
-// ~~
-
-MakeVisibility( media_query_name_list = {} )
+    .visibility-hidden
+    {
+        visibility: hidden;
+    }
 
     for media_query_name in media_query_name_list
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .hidden-{media_query_name}
+            .visibility-hidden-{media_query_name}
             {
                 visibility: hidden;
             }
+        }
+    }
 
-            .visible-{media_query_name}
+// ~~
+
+MakeVisibilityVisible( media_query_name_list = {} )
+
+    .visibility-visible
+    {
+        visibility: visible;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .visibility-visible-{media_query_name}
             {
                 visibility: visible;
             }
+        }
+    }
 
-            .collapse-{media_query_name}
+// ~~
+
+MakeVisibilityCollapse( media_query_name_list = {} )
+
+    .visibility-collapse
+    {
+        visibility: collapse;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .visibility-collapse-{media_query_name}
             {
                 visibility: collapse;
             }

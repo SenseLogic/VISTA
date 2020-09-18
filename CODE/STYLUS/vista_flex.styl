@@ -1,46 +1,9 @@
-.flex-direction-row
-{
-    flex-direction: row;
-}
+MakeFlexDirectionRow( media_query_name_list = {} )
 
-.flex-direction-row-reverse
-{
-    flex-direction: row-reverse;
-}
-
-.flex-direction-column
-{
-    flex-direction: column;
-}
-
-.flex-direction-column-reverse
-{
-    flex-direction: column-reverse;
-}
-
-.flex-wrap
-{
-    flex-wrap: wrap;
-}
-
-.flex-nowrap
-{
-    flex-wrap: nowrap;
-}
-
-.flex-shrink
-{
-    flex-shrink: 1;
-}
-
-.flex-grow
-{
-    flex-grow: 1;
-}
-
-// ~~
-
-MakeFlex( media_query_name_list = {} )
+    .flex-direction-row
+    {
+        flex-direction: row;
+    }
 
     for media_query_name in media_query_name_list
     {
@@ -50,37 +13,143 @@ MakeFlex( media_query_name_list = {} )
             {
                 flex-direction: row;
             }
+        }
+    }
 
+// ~~
+
+MakeFlexDirectionRowReverse( media_query_name_list = {} )
+
+    .flex-direction-row-reverse
+    {
+        flex-direction: row-reverse;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
             .flex-direction-row-reverse-{media_query_name}
             {
                 flex-direction: row-reverse;
             }
+        }
+    }
 
+// ~~
+
+MakeFlexDirectionColumn( media_query_name_list = {} )
+
+    .flex-direction-column
+    {
+        flex-direction: column;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
             .flex-direction-column-{media_query_name}
             {
                 flex-direction: column;
             }
+        }
+    }
 
+// ~~
+
+MakeFlexDirectionColumnReverse( media_query_name_list = {} )
+
+    .flex-direction-column-reverse
+    {
+        flex-direction: column-reverse;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
             .flex-direction-column-reverse-{media_query_name}
             {
                 flex-direction: column-reverse;
             }
+        }
+    }
 
+// ~~
+
+MakeFlexWrap( media_query_name_list = {} )
+
+    .flex-wrap
+    {
+        flex-wrap: wrap;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
             .flex-wrap-{media_query_name}
             {
                 flex-wrap: wrap;
             }
+        }
+    }
 
+// ~~
+
+MakeFlexNoWrap( media_query_name_list = {} )
+
+    .flex-nowrap
+    {
+        flex-wrap: nowrap;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
             .flex-nowrap-{media_query_name}
             {
                 flex-wrap: nowrap;
             }
 
+        }
+    }
+
+// ~~
+
+MakeFlexShrink( media_query_name_list = {} )
+
+    .flex-shrink
+    {
+        flex-shrink: 1;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
             .flex-shrink-{media_query_name}
             {
                 flex-shrink: 1;
             }
+        }
+    }
 
+// ~~
+
+MakeFlexGrow( media_query_name_list = {} )
+
+    .flex-grow
+    {
+        flex-grow: 1;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
             .flex-grow-{media_query_name}
             {
                 flex-grow: 1;

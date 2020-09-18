@@ -1,21 +1,9 @@
-.text-transform-lowercase
-{
-    text-transform: lowercase;
-}
+MakeTextTransformLowercase( media_query_name_list = {} )
 
-.text-transform-uppercase
-{
-    text-transform: uppercase;
-}
-
-.text-transform-capitalize
-{
-    text-transform: capitalize;
-}
-
-// ~~
-
-MakeTextTransform( media_query_name_list = {} )
+    .text-transform-lowercase
+    {
+        text-transform: lowercase;
+    }
 
     for media_query_name in media_query_name_list
     {
@@ -25,12 +13,42 @@ MakeTextTransform( media_query_name_list = {} )
             {
                 text-transform: lowercase;
             }
+        }
+    }
 
+// ~~
+
+MakeTextTransformUppercase( media_query_name_list = {} )
+
+    .text-transform-uppercase
+    {
+        text-transform: uppercase;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
             .text-transform-uppercase-{media_query_name}
             {
                 text-transform: uppercase;
             }
+        }
+    }
 
+// ~~
+
+MakeTextTransformCapitalize( media_query_name_list = {} )
+
+    .text-transform-capitalize
+    {
+        text-transform: capitalize;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
             .text-transform-capitalize-{media_query_name}
             {
                 text-transform: capitalize;

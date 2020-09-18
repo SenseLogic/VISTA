@@ -1,16 +1,9 @@
-.width-auto
-{
-    width: auto;
-}
-
-.width-full
-{
-    width: 100%;
-}
-
-// ~~
-
 MakeWidthAuto( media_query_name_list = {} )
+
+    .width-auto
+    {
+        width: auto;
+    }
 
     for media_query_name in media_query_name_list
     {
@@ -19,6 +12,26 @@ MakeWidthAuto( media_query_name_list = {} )
             .width-auto-{media_query_name}
             {
                 width: auto;
+            }
+        }
+    }
+
+// ~~
+
+MakeWidthAll( media_query_name_list = {} )
+
+    .width-all
+    {
+        width: 100%;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .width-all-{media_query_name}
+            {
+                width: 100%;
             }
         }
     }

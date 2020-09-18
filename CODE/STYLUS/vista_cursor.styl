@@ -1,9 +1,37 @@
-.cursor-pointer:not([disabled]), [onclick]:not([disabled])
-{
-  cursor: pointer;
-}
+MakeCursorPointer( media_query_name_list = {} )
 
-.cursor-default, .not-clickable[onclick]
-{
-  cursor: default;
-}
+    .cursor-pointer
+    {
+        cursor: pointer;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .cursor-pointer-{media_query_name}
+            {
+                cursor: pointer;
+            }
+        }
+    }
+
+// ~~
+
+MakeCursorDefault( media_query_name_list = {} )
+
+    .cursor-default
+    {
+        cursor: default;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .cursor-default-{media_query_name}
+            {
+                cursor: default;
+            }
+        }
+    }

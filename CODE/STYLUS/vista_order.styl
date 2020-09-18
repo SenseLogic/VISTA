@@ -1,26 +1,34 @@
-.order-first
-{
-    order: -1;
-}
+MakeOrderFirst( media_query_name_list = {} )
 
-.order-last
-{
-    order: 1;
-}
-
-// ~~
-
-MakeOrder( media_query_name_list = {} )
+    .order-first
+    {
+        order: -1;
+    }
 
     for media_query_name in media_query_name_list
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .order-first-{media_query_name}
+            .order-last-{media_query_name}
             {
-                order: -1;
+                order: 1;
             }
+        }
+    }
 
+// ~~
+
+MakeOrderLast( media_query_name_list = {} )
+
+    .order-last
+    {
+        order: 1;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
             .order-last-{media_query_name}
             {
                 order: 1;

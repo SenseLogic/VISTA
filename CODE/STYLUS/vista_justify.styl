@@ -1,31 +1,9 @@
-.justify-content-start
-{
-    justify-content: flex-start;
-}
+MakeJustifyContentStart( media_query_name_list = {} )
 
-.justify-content-center
-{
-    justify-content: center;
-}
-
-.justify-content-end
-{
-    justify-content: flex-end;
-}
-
-.justify-content-between
-{
-    justify-content: space-between;
-}
-
-.justify-content-around
-{
-    justify-content: space-around;
-}
-
-// ~~
-
-MakeJustify( media_query_name_list = {} )
+    .justify-content-start
+    {
+        justify-content: flex-start;
+    }
 
     for media_query_name in media_query_name_list
     {
@@ -35,21 +13,82 @@ MakeJustify( media_query_name_list = {} )
             {
                 justify-content: flex-start;
             }
+        }
+    }
 
+// ~~
+
+MakeJustifyContentCenter( media_query_name_list = {} )
+
+    .justify-content-center
+    {
+        justify-content: center;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
             .justify-content-center-{media_query_name}
             {
                 justify-content: center;
             }
+        }
+    }
 
+// ~~
+
+MakeJustifyContentEnd( media_query_name_list = {} )
+
+    .justify-content-end
+    {
+        justify-content: flex-end;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
             .justify-content-end-{media_query_name}
             {
                 justify-content: flex-end;
             }
+        }
+    }
 
+// ~~
+
+MakeJustifyContentBetween( media_query_name_list = {} )
+
+    .justify-content-between
+    {
+        justify-content: space-between;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
             .justify-content-between-{media_query_name}
             {
                 justify-content: space-between;
             }
+        }
+    }
+
+// ~~
+
+MakeJustifyContentAround( media_query_name_list = {} )
+
+    .justify-content-around
+    {
+        justify-content: space-around;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
 
             .justify-content-around-{media_query_name}
             {
@@ -60,24 +99,12 @@ MakeJustify( media_query_name_list = {} )
 
 // ~~
 
-.justify-self-start
-{
-    justify-self: flex-start;
-}
+MakeJustifySelfStart( media_query_name_list = {} )
 
-.justify-self-center
-{
-    justify-self: center;
-}
-
-.justify-self-end
-{
-    justify-self: flex-end;
-}
-
-// ~~
-
-MakeJustifySelf( media_query_name_list = {} )
+    .justify-self-start
+    {
+        justify-self: flex-start;
+    }
 
     for media_query_name in media_query_name_list
     {
@@ -87,12 +114,42 @@ MakeJustifySelf( media_query_name_list = {} )
             {
                 justify-self: flex-start;
             }
+        }
+    }
 
+// ~~
+
+MakeJustifySelfCenter( media_query_name_list = {} )
+
+    .justify-self-center
+    {
+        justify-self: center;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
             .justify-self-center-{media_query_name}
             {
                 justify-self: center;
             }
+        }
+    }
 
+// ~~
+
+MakeJustifySelfEnd( media_query_name_list = {} )
+
+    .justify-self-end
+    {
+        justify-self: flex-end;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
             .justify-self-end-{media_query_name}
             {
                 justify-self: flex-end;

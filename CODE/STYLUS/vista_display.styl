@@ -1,66 +1,9 @@
-.display-none
-{
-    display: none;
-}
+MakeDisplayNone( media_query_name_list = {} )
 
-.display-block
-{
-    display: block;
-}
-
-.display-contents
-{
-    display: contents;
-}
-
-.display-table
-{
-    display: table;
-}
-
-.display-table-cell
-{
-    display: table-cell;
-}
-
-.display-flex
-{
-    display: flex;
-}
-
-.display-grid
-{
-    display: grid;
-}
-
-.display-inline
-{
-    display: inline;
-}
-
-.display-inline-block
-{
-    display: inline-block;
-}
-
-.display-inline-table
-{
-    display: inline-table;
-}
-
-.display-inline-flex
-{
-    display: inline-flex;
-}
-
-.display-inline-grid
-{
-    display: inline-grid;
-}
-
-// ~~
-
-MakeDisplay( media_query_name_list = {} )
+    .display-none
+    {
+        display: none;
+    }
 
     for media_query_name in media_query_name_list
     {
@@ -70,56 +13,227 @@ MakeDisplay( media_query_name_list = {} )
             {
                 display: none;
             }
+        }
+    }
 
+// ~~
+
+MakeDisplayBlock( media_query_name_list = {} )
+
+    .display-block
+    {
+        display: block;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
             .display-block-{media_query_name}
             {
                 display: block;
             }
+        }
+    }
 
+// ~~
+
+MakeDisplayContents( media_query_name_list = {} )
+
+    .display-contents
+    {
+        display: contents;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
             .display-contents-{media_query_name}
             {
                 display: contents;
             }
+        }
+    }
 
+// ~~
+
+MakeDisplayTable( media_query_name_list = {} )
+
+    .display-table
+    {
+        display: table;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
             .display-table-{media_query_name}
             {
                 display: table;
             }
+        }
+    }
 
+// ~~
+
+MakeDisplayTableCell( media_query_name_list = {} )
+
+    .display-table-cell
+    {
+        display: table-cell;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
             .display-table-cell-{media_query_name}
             {
                 display: table-cell;
             }
+        }
+    }
 
+// ~~
+
+MakeDisplayFlex( media_query_name_list = {} )
+
+    .display-flex
+    {
+        display: flex;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
             .display-flex-{media_query_name}
             {
                 display: flex;
             }
+        }
+    }
 
+// ~~
+
+MakeDisplayGrid( media_query_name_list = {} )
+
+    .display-grid
+    {
+        display: grid;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
             .display-grid-{media_query_name}
             {
                 display: grid;
             }
+        }
+    }
 
+// ~~
+
+MakeDisplayInline( media_query_name_list = {} )
+
+    .display-inline
+    {
+        display: inline;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
             .display-inline-{media_query_name}
             {
                 display: inline;
             }
+        }
+    }
 
+
+// ~~
+
+MakeDisplayInlineBlock( media_query_name_list = {} )
+
+    .display-inline-block
+    {
+        display: inline-block;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
             .display-inline-block-{media_query_name}
             {
                 display: inline-block;
             }
+        }
+    }
 
+
+// ~~
+
+MakeDisplayInlineTable( media_query_name_list = {} )
+
+    .display-inline-table
+    {
+        display: inline-table;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
             .display-inline-table-{media_query_name}
             {
                 display: inline-table;
             }
+        }
+    }
+
+
+// ~~
+
+MakeDisplayInlineFlex( media_query_name_list = {} )
+
+    .display-inline-flex
+    {
+        display: inline-flex;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
 
             .display-inline-flex-{media_query_name}
             {
                 display: inline-flex;
             }
+        }
+    }
+
+
+// ~~
+
+MakeDisplayInlineGrid( media_query_name_list = {} )
+
+    .display-inline-grid
+    {
+        display: inline-grid;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
 
             .display-inline-grid-{media_query_name}
             {

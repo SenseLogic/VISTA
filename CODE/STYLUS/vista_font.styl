@@ -16,6 +16,8 @@ MakeFontSize( size, unit_value, unit_name, media_query_name_list = {} )
         }
     }
 
+// ~~
+
 MakeFontSizeRange( start, step, count, unit_value, unit_name, media_query_name_list = {} )
 
     for index in 0 .. count - 1
@@ -24,6 +26,8 @@ MakeFontSizeRange( start, step, count, unit_value, unit_name, media_query_name_l
 
         MakeFontSize( size, unit_value, unit_name, media_query_name_list );
     }
+
+// ~~
 
 MakeFontWeight( weight, media_query_name_list = {} )
 
@@ -42,6 +46,8 @@ MakeFontWeight( weight, media_query_name_list = {} )
             }
         }
     }
+
+// ~~
 
 MakeFontWeightRange( start, step, count, media_query_name_list = {} )
 

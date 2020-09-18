@@ -1,26 +1,9 @@
-.text-align-left
-{
-    text-align: left;
-}
+MakeTextAlignLeft( media_query_name_list = {} )
 
-.text-align-center
-{
-    text-align: center;
-}
-
-.text-align-right
-{
-    text-align: right;
-}
-
-.text-align-justify
-{
-    text-align: justify;
-}
-
-// ~~
-
-MakeTextAlign( media_query_name_list = {} )
+    .text-align-left
+    {
+        text-align: left;
+    }
 
     for media_query_name in media_query_name_list
     {
@@ -30,17 +13,67 @@ MakeTextAlign( media_query_name_list = {} )
             {
                 text-align: left;
             }
+        }
+    }
 
+// ~~
+
+MakeTextAlignCenter( media_query_name_list = {} )
+
+    .text-align-center
+    {
+        text-align: center;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
             .text-align-center-{media_query_name}
             {
                 text-align: center;
             }
+        }
+    }
 
+// ~~
+
+MakeTextAlignRight( media_query_name_list = {} )
+
+    .text-align-right
+    {
+        text-align: right;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
             .text-align-right-{media_query_name}
             {
                 text-align: right;
             }
 
+            .text-align-justify-{media_query_name}
+            {
+                text-align: justify;
+            }
+        }
+    }
+
+// ~~
+
+MakeTextAlignJustify( media_query_name_list = {} )
+
+    .text-align-justify
+    {
+        text-align: justify;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
             .text-align-justify-{media_query_name}
             {
                 text-align: justify;

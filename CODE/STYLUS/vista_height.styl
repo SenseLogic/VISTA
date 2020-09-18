@@ -1,16 +1,9 @@
-.height-auto
-{
-    height: auto;
-}
-
-.height-full
-{
-    height: 100%;
-}
-
-// ~~
-
 MakeHeightAuto( media_query_name_list = {} )
+
+    .height-auto
+    {
+        height: auto;
+    }
 
     for media_query_name in media_query_name_list
     {
@@ -19,6 +12,26 @@ MakeHeightAuto( media_query_name_list = {} )
             .height-auto-{media_query_name}
             {
                 height: auto;
+            }
+        }
+    }
+
+// ~~
+
+MakeHeightAll( media_query_name_list = {} )
+
+    .height-all
+    {
+        height: 100%;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .height-all-{media_query_name}
+            {
+                height: 100%;
             }
         }
     }
