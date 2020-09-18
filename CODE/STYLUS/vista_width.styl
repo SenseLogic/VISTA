@@ -38,7 +38,7 @@ MakeWidthAll( media_query_name_list = {} )
 
 // ~~
 
-MakeWidth( size, unit_value, unit_name, media_query_name_list = {} )
+MakeWidthValue( size, unit_value, unit_name, media_query_name_list = {} )
 
     .width-{size}{unit_name}
     {
@@ -58,18 +58,18 @@ MakeWidth( size, unit_value, unit_name, media_query_name_list = {} )
 
 // ~~
 
-MakeWidthRange( start, step, count, unit_value, unit_name, media_query_name_list = {} )
+MakeWidthValueRange( start, step, count, unit_value, unit_name, media_query_name_list = {} )
 
     for index in 0 .. count - 1
     {
         size = start + index * step;
 
-        MakeWidth( size, unit_value, unit_name, media_query_name_list );
+        MakeWidthValue( size, unit_value, unit_name, media_query_name_list );
     }
 
 // ~~
 
-MakeMinWidth( size, unit_value, unit_name, media_query_name_list = {} )
+MakeMinWidthValue( size, unit_value, unit_name, media_query_name_list = {} )
 
     .min-width-{size}{unit_name}
     {
@@ -89,18 +89,18 @@ MakeMinWidth( size, unit_value, unit_name, media_query_name_list = {} )
 
 // ~~
 
-MakeMinWidthRange( start, step, count, unit_value, unit_name, media_query_name_list = {} )
+MakeMinWidthValueRange( start, step, count, unit_value, unit_name, media_query_name_list = {} )
 
     for index in 0 .. count - 1
     {
         size = start + index * step;
 
-        MakeMinWidth( size, unit_value, unit_name, media_query_name_list );
+        MakeMinWidthValue( size, unit_value, unit_name, media_query_name_list );
     }
 
 // ~~
 
-MakeMaxWidth( size, unit_value, unit_name, media_query_name_list = {} )
+MakeMaxWidthValue( size, unit_value, unit_name, media_query_name_list = {} )
 
     .max-width-{size}{unit_name}
     {
@@ -120,18 +120,18 @@ MakeMaxWidth( size, unit_value, unit_name, media_query_name_list = {} )
 
 // ~~
 
-MakeMaxWidthRange( start, step, count, unit_value, unit_name, media_query_name_list = {} )
+MakeMaxWidthValueRange( start, step, count, unit_value, unit_name, media_query_name_list = {} )
 
     for index in 0 .. count - 1
     {
         size = start + index * step;
 
-        MakeMaxWidth( size, unit_value, unit_name, media_query_name_list );
+        MakeMaxWidthValue( size, unit_value, unit_name, media_query_name_list );
     }
 
 // ~~
 
-MakeFractionalWidthRange( column_count, media_query_name_list = {} )
+MakeFractionalWidthValueRange( column_count, media_query_name_list = {} )
 
     for column_index in 1 .. column_count
     {
@@ -154,7 +154,7 @@ MakeFractionalWidthRange( column_count, media_query_name_list = {} )
 
 // ~~
 
-MakeMinFractionalWidthRange( column_count, media_query_name_list = {} )
+MakeMinFractionalWidthValueRange( column_count, media_query_name_list = {} )
 
     for column_index in 1 .. column_count
     {
@@ -177,7 +177,7 @@ MakeMinFractionalWidthRange( column_count, media_query_name_list = {} )
 
 // ~~
 
-MakeMaxFractionalWidthRange( column_count, media_query_name_list = {} )
+MakeMaxFractionalWidthValueRange( column_count, media_query_name_list = {} )
 
     for column_index in 1 .. column_count
     {
@@ -200,7 +200,7 @@ MakeMaxFractionalWidthRange( column_count, media_query_name_list = {} )
 
 // ~~
 
-MakeGridWidthRange( column_count, total_size, gutter_size, unit_name, media_query_name_list = {} )
+MakeGridWidthValueRange( column_count, total_size, gutter_size, unit_name, media_query_name_list = {} )
 
     column_size = ( total_size - ( column_count - 1 ) * gutter_size ) / column_count;
 

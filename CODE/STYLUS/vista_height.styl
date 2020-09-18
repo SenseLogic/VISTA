@@ -38,7 +38,7 @@ MakeHeightAll( media_query_name_list = {} )
 
 // ~~
 
-MakeHeight( size, unit_value, unit_name, media_query_name_list = {} )
+MakeHeightValue( size, unit_value, unit_name, media_query_name_list = {} )
 
     .height-{size}{unit_name}
     {
@@ -58,18 +58,18 @@ MakeHeight( size, unit_value, unit_name, media_query_name_list = {} )
 
 // ~~
 
-MakeHeightRange( start, step, count, unit_value, unit_name, media_query_name_list = {} )
+MakeHeightValueRange( start, step, count, unit_value, unit_name, media_query_name_list = {} )
 
     for index in 0 .. count - 1
     {
         size = start + index * step;
 
-        MakeHeight( size, unit_value, unit_name, media_query_name_list );
+        MakeHeightValue( size, unit_value, unit_name, media_query_name_list );
     }
 
 // ~~
 
-MakeMinHeight( size, unit_value, unit_name, media_query_name_list = {} )
+MakeMinHeightValue( size, unit_value, unit_name, media_query_name_list = {} )
 
     .min-height-{size}{unit_name}
     {
@@ -89,18 +89,18 @@ MakeMinHeight( size, unit_value, unit_name, media_query_name_list = {} )
 
 // ~~
 
-MakeMinHeightRange( start, step, count, unit_value, unit_name, media_query_name_list = {} )
+MakeMinHeightValueRange( start, step, count, unit_value, unit_name, media_query_name_list = {} )
 
     for index in 0 .. count - 1
     {
         size = start + index * step;
 
-        MakeMinHeight( size, unit_value, unit_name, media_query_name_list );
+        MakeMinHeightValue( size, unit_value, unit_name, media_query_name_list );
     }
 
 // ~~
 
-MakeMaxHeight( size, unit_value, unit_name, media_query_name_list = {} )
+MakeMaxHeightValue( size, unit_value, unit_name, media_query_name_list = {} )
 
     .max-height-{size}{unit_name}
     {
@@ -120,18 +120,18 @@ MakeMaxHeight( size, unit_value, unit_name, media_query_name_list = {} )
 
 // ~~
 
-MakeMaxHeightRange( start, step, count, unit_value, unit_name, media_query_name_list = {} )
+MakeMaxHeightValueRange( start, step, count, unit_value, unit_name, media_query_name_list = {} )
 
     for index in 0 .. count - 1
     {
         size = start + index * step;
 
-        MakeMaxHeight( size, unit_value, unit_name, media_query_name_list );
+        MakeMaxHeightValue( size, unit_value, unit_name, media_query_name_list );
     }
 
 // ~~
 
-MakeFractionalHeightRange( column_count, media_query_name_list = {} )
+MakeFractionalHeightValueRange( column_count, media_query_name_list = {} )
 
     for column_index in 1 .. column_count
     {
@@ -154,7 +154,7 @@ MakeFractionalHeightRange( column_count, media_query_name_list = {} )
 
 // ~~
 
-MakeMinFractionalHeightRange( column_count, media_query_name_list = {} )
+MakeMinFractionalHeightValueRange( column_count, media_query_name_list = {} )
 
     for column_index in 1 .. column_count
     {
@@ -177,7 +177,7 @@ MakeMinFractionalHeightRange( column_count, media_query_name_list = {} )
 
 // ~~
 
-MakeMaxFractionalHeightRange( column_count, media_query_name_list = {} )
+MakeMaxFractionalHeightValueRange( column_count, media_query_name_list = {} )
 
     for column_index in 1 .. column_count
     {
@@ -200,24 +200,24 @@ MakeMaxFractionalHeightRange( column_count, media_query_name_list = {} )
 
 // ~~
 
-MakeGridHeightRange( column_count, total_size, gutter_size, unit_name, media_query_name_list = {} )
+MakeGridHeightValueRange( row_count, total_size, gutter_size, unit_name, media_query_name_list = {} )
 
-    column_size = ( total_size - ( column_count - 1 ) * gutter_size ) / column_count;
+    row_size = ( total_size - ( row_count - 1 ) * gutter_size ) / row_count;
 
-    for column_index in 1 .. column_count
+    for row_index in 1 .. row_count
     {
-        .grid-height-{column_index}{unit_name}
+        .grid-height-{row_index}{unit_name}
         {
-            height: column_size * column_index + gutter_size * ( column_index - 1 );
+            height: row_size * row_index + gutter_size * ( row_index - 1 );
         }
 
         for media_query_name in media_query_name_list
         {
             @media MediaQueryMap[ media_query_name ]
             {
-                .grid-height-{column_index}{unit_name}-{media_query_name}
+                .grid-height-{row_index}{unit_name}-{media_query_name}
                 {
-                    height: column_size * column_index + gutter_size * ( column_index - 1 );
+                    height: row_size * row_index + gutter_size * ( row_index - 1 );
                 }
             }
         }

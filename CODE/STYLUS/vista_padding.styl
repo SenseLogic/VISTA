@@ -1,4 +1,4 @@
-MakePadding( size, unit_value, unit_name, media_query_name_list = {} )
+MakePaddingValue( size, unit_value, unit_name, media_query_name_list = {} )
 
     .padding-{size}{unit_name}
     {
@@ -18,18 +18,18 @@ MakePadding( size, unit_value, unit_name, media_query_name_list = {} )
 
 // ~~
 
-MakePaddingRange( start, step, count, unit_value, unit_name, media_query_name_list = {} )
+MakePaddingValueRange( start, step, count, unit_value, unit_name, media_query_name_list = {} )
 
     for index in 0 .. count - 1
     {
         size = start + index * step;
 
-        MakePadding( size, unit_value, unit_name, media_query_name_list );
+        MakePaddingValue( size, unit_value, unit_name, media_query_name_list );
     }
 
 // ~~
 
-MakePaddingLateral( size, unit_value, unit_name, media_query_name_list = {} )
+MakePaddingLateralValue( size, unit_value, unit_name, media_query_name_list = {} )
 
     .padding-lateral-{size}{unit_name}
     {
@@ -51,18 +51,18 @@ MakePaddingLateral( size, unit_value, unit_name, media_query_name_list = {} )
 
 // ~~
 
-MakePaddingLateralRange( start, step, count, unit_value, unit_name, media_query_name_list = {} )
+MakePaddingLateralValueRange( start, step, count, unit_value, unit_name, media_query_name_list = {} )
 
     for index in 0 .. count - 1
     {
         size = start + index * step;
 
-        MakePaddingLateral( size, unit_value, unit_name, media_query_name_list );
+        MakePaddingLateralValue( size, unit_value, unit_name, media_query_name_list );
     }
 
 // ~~
 
-MakePaddingVertical( size, unit_value, unit_name, media_query_name_list = {} )
+MakePaddingVerticalValue( size, unit_value, unit_name, media_query_name_list = {} )
 
     .padding-vertical-{size}{unit_name}
     {
@@ -84,18 +84,18 @@ MakePaddingVertical( size, unit_value, unit_name, media_query_name_list = {} )
 
 // ~~
 
-MakePaddingVerticalRange( start, step, count, unit_value, unit_name, media_query_name_list = {} )
+MakePaddingVerticalValueRange( start, step, count, unit_value, unit_name, media_query_name_list = {} )
 
     for index in 0 .. count - 1
     {
         size = start + index * step;
 
-        MakePaddingVertical( size, unit_value, unit_name, media_query_name_list );
+        MakePaddingVerticalValue( size, unit_value, unit_name, media_query_name_list );
     }
 
 // ~~
 
-MakePaddingLeft( size, unit_value, unit_name, media_query_name_list = {} )
+MakePaddingLeftValue( size, unit_value, unit_name, media_query_name_list = {} )
 
     .padding-left-{size}{unit_name}
     {
@@ -115,18 +115,18 @@ MakePaddingLeft( size, unit_value, unit_name, media_query_name_list = {} )
 
 // ~~
 
-MakePaddingLeftRange( start, step, count, unit_value, unit_name, media_query_name_list = {} )
+MakePaddingLeftValueRange( start, step, count, unit_value, unit_name, media_query_name_list = {} )
 
     for index in 0 .. count - 1
     {
         size = start + index * step;
 
-        MakePaddingLeft( size, unit_value, unit_name, media_query_name_list );
+        MakePaddingLeftValue( size, unit_value, unit_name, media_query_name_list );
     }
 
 // ~~
 
-MakePaddingRight( size, unit_value, unit_name, media_query_name_list = {} )
+MakePaddingRightValue( size, unit_value, unit_name, media_query_name_list = {} )
 
     .padding-right-{size}{unit_name}
     {
@@ -146,49 +146,18 @@ MakePaddingRight( size, unit_value, unit_name, media_query_name_list = {} )
 
 // ~~
 
-MakePaddingRightRange( start, step, count, unit_value, unit_name, media_query_name_list = {} )
+MakePaddingRightValueRange( start, step, count, unit_value, unit_name, media_query_name_list = {} )
 
     for index in 0 .. count - 1
     {
         size = start + index * step;
 
-        MakePaddingRight( size, unit_value, unit_name, media_query_name_list );
+        MakePaddingRightValue( size, unit_value, unit_name, media_query_name_list );
     }
 
 // ~~
 
-MakePaddingTop( size, unit_value, unit_name, media_query_name_list = {} )
-
-    .padding-top-{size}{unit_name}
-    {
-        padding-top: size * unit_value;
-    }
-
-    for media_query_name in media_query_name_list
-    {
-        @media MediaQueryMap[ media_query_name ]
-        {
-            .padding-top-{size}{unit_name}-{media_query_name}
-            {
-                padding-top: size * unit_value;
-            }
-        }
-    }
-
-// ~~
-
-MakePaddingTopRange( start, step, count, unit_value, unit_name, media_query_name_list = {} )
-
-    for index in 0 .. count - 1
-    {
-        size = start + index * step;
-
-        MakePaddingTop( size, unit_value, unit_name, media_query_name_list );
-    }
-
-// ~~
-
-MakePaddingBottom( size, unit_value, unit_name, media_query_name_list = {} )
+MakePaddingBottomValue( size, unit_value, unit_name, media_query_name_list = {} )
 
     .padding-bottom-{size}{unit_name}
     {
@@ -208,11 +177,42 @@ MakePaddingBottom( size, unit_value, unit_name, media_query_name_list = {} )
 
 // ~~
 
-MakePaddingBottomRange( start, step, count, unit_value, unit_name, media_query_name_list = {} )
+MakePaddingBottomValueRange( start, step, count, unit_value, unit_name, media_query_name_list = {} )
 
     for index in 0 .. count - 1
     {
         size = start + index * step;
 
-        MakePaddingBottom( size, unit_value, unit_name, media_query_name_list );
+        MakePaddingBottomValue( size, unit_value, unit_name, media_query_name_list );
+    }
+
+// ~~
+
+MakePaddingTopValue( size, unit_value, unit_name, media_query_name_list = {} )
+
+    .padding-top-{size}{unit_name}
+    {
+        padding-top: size * unit_value;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .padding-top-{size}{unit_name}-{media_query_name}
+            {
+                padding-top: size * unit_value;
+            }
+        }
+    }
+
+// ~~
+
+MakePaddingTopValueRange( start, step, count, unit_value, unit_name, media_query_name_list = {} )
+
+    for index in 0 .. count - 1
+    {
+        size = start + index * step;
+
+        MakePaddingTopValue( size, unit_value, unit_name, media_query_name_list );
     }

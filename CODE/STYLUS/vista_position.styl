@@ -154,7 +154,7 @@ MakePositionFixedBottom( media_query_name_list = {} )
 
 // ~~
 
-MakePositionLeft( offset, unit_value, unit_name, media_query_name_list = {} )
+MakePositionLeftValue( offset, unit_value, unit_name, media_query_name_list = {} )
 
     .position-left-{offset}{unit_name}
     {
@@ -174,18 +174,18 @@ MakePositionLeft( offset, unit_value, unit_name, media_query_name_list = {} )
 
 // ~~
 
-MakePositionLeftRange( start, step, count, unit_value, unit_name, media_query_name_list = {} )
+MakePositionLeftValueRange( start, step, count, unit_value, unit_name, media_query_name_list = {} )
 
     for index in 0 .. count - 1
     {
         offset = start + index * step;
 
-        MakePositionLeft( offset, unit_value, unit_name, media_query_name_list );
+        MakePositionLeftValue( offset, unit_value, unit_name, media_query_name_list );
     }
 
 // ~~
 
-MakePositionRight( offset, unit_value, unit_name, media_query_name_list = {} )
+MakePositionRightValue( offset, unit_value, unit_name, media_query_name_list = {} )
 
     .position-right-{offset}{unit_name}
     {
@@ -205,18 +205,18 @@ MakePositionRight( offset, unit_value, unit_name, media_query_name_list = {} )
 
 // ~~
 
-MakePositionRightRange( start, step, count, unit_value, unit_name, media_query_name_list = {} )
+MakePositionRightValueRange( start, step, count, unit_value, unit_name, media_query_name_list = {} )
 
     for index in 0 .. count - 1
     {
         offset = start + index * step;
 
-        MakePositionRight( offset, unit_value, unit_name, media_query_name_list );
+        MakePositionRightValue( offset, unit_value, unit_name, media_query_name_list );
     }
 
 // ~~
 
-MakePositionBottom( offset, unit_value, unit_name, media_query_name_list = {} )
+MakePositionBottomValue( offset, unit_value, unit_name, media_query_name_list = {} )
 
     .position-bottom-{offset}{unit_name}
     {
@@ -236,18 +236,18 @@ MakePositionBottom( offset, unit_value, unit_name, media_query_name_list = {} )
 
 // ~~
 
-MakePositionBottomRange( start, step, count, unit_value, unit_name, media_query_name_list = {} )
+MakePositionBottomValueRange( start, step, count, unit_value, unit_name, media_query_name_list = {} )
 
     for index in 0 .. count - 1
     {
         offset = start + index * step;
 
-        MakePositionBottom( offset, unit_value, unit_name, media_query_name_list );
+        MakePositionBottomValue( offset, unit_value, unit_name, media_query_name_list );
     }
 
 // ~~
 
-MakePositionTop( offset, unit_value, unit_name, media_query_name_list = {} )
+MakePositionTopValue( offset, unit_value, unit_name, media_query_name_list = {} )
 
     .position-top-{offset}{unit_name}
     {
@@ -267,11 +267,11 @@ MakePositionTop( offset, unit_value, unit_name, media_query_name_list = {} )
 
 // ~~
 
-MakePositionTopRange( start, step, count, unit_value, unit_name, media_query_name_list = {} )
+MakePositionTopValueRange( start, step, count, unit_value, unit_name, media_query_name_list = {} )
 
     for index in 0 .. count - 1
     {
         offset = start + index * step;
 
-        MakePositionTop( offset, unit_value, unit_name, media_query_name_list );
+        MakePositionTopValue( offset, unit_value, unit_name, media_query_name_list );
     }

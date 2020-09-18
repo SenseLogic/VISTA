@@ -20,10 +20,9 @@ MakeContainerExtended( media_query_name_list = {} )
         }
     }
 
-
 // ~~
 
-MakeContainerCentered( max_width, max_width_map = {}, media_query_name_list = {} )
+MakeContainerCenteredValue( max_width, max_width_map = {}, media_query_name_list = {} )
 
     .container-centered
     {
@@ -36,7 +35,7 @@ MakeContainerCentered( max_width, max_width_map = {}, media_query_name_list = {}
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .container-centered-{media_query_name}
+            .container-centered
             {
                 max-width: max_width_map[ media_query_name ];
                 margin-left: auto;
@@ -47,7 +46,7 @@ MakeContainerCentered( max_width, max_width_map = {}, media_query_name_list = {}
 
 // ~~
 
-MakeContainerMargined( margin, margin_map, media_query_name_list = {} )
+MakeContainerMarginedValue( margin, margin_map, media_query_name_list = {} )
 
     .container-margined
     {
@@ -59,7 +58,7 @@ MakeContainerMargined( margin, margin_map, media_query_name_list = {} )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .container-margined-{media_query_name}
+            .container-margined
             {
                 margin-left: margin_map[ media_query_name ];
                 margin-right: margin_map[ media_query_name ];

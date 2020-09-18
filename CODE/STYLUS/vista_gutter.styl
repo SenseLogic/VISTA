@@ -1,4 +1,4 @@
-MakeGutter( size, unit_value, unit_name, media_query_name_list = {} )
+MakeGutterValue( size, unit_value, unit_name, media_query_name_list = {} )
 
     .gutter-{size}{unit_name}
     {
@@ -32,11 +32,11 @@ MakeGutter( size, unit_value, unit_name, media_query_name_list = {} )
 
 // ~~
 
-MakeGutterRange( start, step, count, unit_value, unit_name, media_query_name_list = {} )
+MakeGutterValueRange( start, step, count, unit_value, unit_name, media_query_name_list = {} )
 
     for index in 0 .. count - 1
     {
         size = start + index * step;
 
-        MakeGutter( size, unit_value, unit_name, media_query_name_list );
+        MakeGutterValue( size, unit_value, unit_name, media_query_name_list );
     }

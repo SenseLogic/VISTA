@@ -322,35 +322,35 @@ a:hover {
   margin-right: auto;
 }
 @media (min-width: 20em) {
-  .test-container-centered-above-20em {
+  .test-container-centered {
     max-width: 15rem;
     margin-left: auto;
     margin-right: auto;
   }
 }
 @media (min-width: 30em) {
-  .test-container-centered-above-30em {
+  .test-container-centered {
     max-width: 25rem;
     margin-left: auto;
     margin-right: auto;
   }
 }
 @media (min-width: 40em) {
-  .test-container-centered-above-40em {
+  .test-container-centered {
     max-width: 35rem;
     margin-left: auto;
     margin-right: auto;
   }
 }
 @media (min-width: 60em) {
-  .test-container-centered-above-60em {
+  .test-container-centered {
     max-width: 55rem;
     margin-left: auto;
     margin-right: auto;
   }
 }
 @media (min-width: 80em) {
-  .test-container-centered-above-80em {
+  .test-container-centered {
     max-width: 75rem;
     margin-left: auto;
     margin-right: auto;
@@ -361,31 +361,31 @@ a:hover {
   margin-right: 1rem;
 }
 @media (min-width: 20em) {
-  .test-container-margined-above-20em {
+  .test-container-margined {
     margin-left: 2rem;
     margin-right: 2rem;
   }
 }
 @media (min-width: 30em) {
-  .test-container-margined-above-30em {
+  .test-container-margined {
     margin-left: 3rem;
     margin-right: 3rem;
   }
 }
 @media (min-width: 40em) {
-  .test-container-margined-above-40em {
+  .test-container-margined {
     margin-left: 4rem;
     margin-right: 4rem;
   }
 }
 @media (min-width: 60em) {
-  .test-container-margined-above-60em {
+  .test-container-margined {
     margin-left: 6rem;
     margin-right: 6rem;
   }
 }
 @media (min-width: 80em) {
-  .test-container-margined-above-80em {
+  .test-container-margined {
     margin-left: 8rem;
     margin-right: 8rem;
   }
@@ -8478,18 +8478,53 @@ a:hover {
     line-height: 3.125rem;
   }
 }
-.carousel {
-  overflow-x: hidden;
+.carousel-strip-2-1 {
+  display: flex;
+  position: relative;
+  left: 0;
+  margin: 0;
+  width: 200%;
 }
-.carousel {
-  overflow-x: hidden;
+.carousel-strip-3-1 {
+  display: flex;
+  position: relative;
+  left: 0;
+  margin: 0;
+  width: 300%;
 }
-.carousel {
-  overflow-x: hidden;
+.carousel-strip-4-1 {
+  display: flex;
+  position: relative;
+  left: 0;
+  margin: 0;
+  width: 400%;
 }
-.carousel {
-  overflow-x: hidden;
+.carousel-strip-5-1 {
+  display: flex;
+  position: relative;
+  left: 0;
+  margin: 0;
+  width: 500%;
 }
-.carousel {
-  overflow-x: hidden;
+.carousel-strip-6-1 {
+  display: flex;
+  position: relative;
+  left: 0;
+  margin: 0;
+  width: 600%;
+}
+.carousel-slide-2 {
+  width: 50%;
+}
+.carousel-slide-3 {
+  width: 33.333333333333336%;
+}
+.carousel-slide-4 {
+  width: 25%;
+}
+.carousel-slide-5 {
+  width: 20%;
+}
+.carousel-slide-6 {
+  width: 16.666666666666668%;
 }

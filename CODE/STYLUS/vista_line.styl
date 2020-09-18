@@ -1,4 +1,4 @@
-MakeLineHeight( size, unit_value, unit_name, media_query_name_list = {} )
+MakeLineHeightValue( size, unit_value, unit_name, media_query_name_list = {} )
 
     .line-height-{size}{unit_name}
     {
@@ -18,11 +18,11 @@ MakeLineHeight( size, unit_value, unit_name, media_query_name_list = {} )
 
 // ~~
 
-MakeLineHeightRange( start, step, count, unit_value, unit_name, media_query_name_list = {} )
+MakeLineHeightValueRange( start, step, count, unit_value, unit_name, media_query_name_list = {} )
 
     for index in 0 .. count - 1
     {
         size = start + index * step;
 
-        MakeLineHeight( size, unit_value, unit_name, media_query_name_list );
+        MakeLineHeightValue( size, unit_value, unit_name, media_query_name_list );
     }

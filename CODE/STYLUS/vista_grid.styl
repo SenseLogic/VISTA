@@ -39,7 +39,7 @@ MakeGridFlowColumn( media_query_name_list = {} )
 
 // ~~
 
-MakeGridHeights( size, unit_value, unit_name, media_query_name_list = {} )
+MakeGridHeightsValue( size, unit_value, unit_name, media_query_name_list = {} )
 
     .grid-heights-auto
     {
@@ -74,18 +74,18 @@ MakeGridHeights( size, unit_value, unit_name, media_query_name_list = {} )
 
 // ~~
 
-MakeGridHeightsRange( start, step, count, unit_value, unit_name, media_query_name_list = {} )
+MakeGridHeightsValueRange( start, step, count, unit_value, unit_name, media_query_name_list = {} )
 
     for index in 0 .. count - 1
     {
         size = start + index * step;
 
-        MakeGridHeights( size, unit_value, unit_name, media_query_name_list );
+        MakeGridHeightsValue( size, unit_value, unit_name, media_query_name_list );
     }
 
 // ~~
 
-MakeGridWidths( size, unit_value, unit_name, media_query_name_list = {} )
+MakeGridWidthsValue( size, unit_value, unit_name, media_query_name_list = {} )
 
     .grid-widths-auto
     {
@@ -120,18 +120,18 @@ MakeGridWidths( size, unit_value, unit_name, media_query_name_list = {} )
 
 // ~~
 
-MakeGridWidthsRange( start, step, count, unit_value, unit_name, media_query_name_list = {} )
+MakeGridWidthsValueRange( start, step, count, unit_value, unit_name, media_query_name_list = {} )
 
     for index in 0 .. count - 1
     {
         size = start + index * step;
 
-        MakeGridWidths( size, unit_value, unit_name, media_query_name_list );
+        MakeGridWidthsValue( size, unit_value, unit_name, media_query_name_list );
     }
 
 // ~~
 
-MakeGridRowSpan( row_count, media_query_name_list = {} )
+MakeGridRowSpanValue( row_count, media_query_name_list = {} )
 
     .grid-row-span-{row_count}
     {
@@ -151,16 +151,16 @@ MakeGridRowSpan( row_count, media_query_name_list = {} )
 
 // ~~
 
-MakeGridRowSpanRange( first_row_count, last_row_count, media_query_name_list = {} )
+MakeGridRowSpanValueRange( first_row_count, last_row_count, media_query_name_list = {} )
 
     for row_count in first_row_count .. last_row_count
     {
-        MakeGridRowSpan( row_count, media_query_name_list )
+        MakeGridRowSpanValue( row_count, media_query_name_list )
     }
 
 // ~~
 
-MakeGridColumnSpan( column_count, media_query_name_list = {} )
+MakeGridColumnSpanValue( column_count, media_query_name_list = {} )
 
     .grid-column-span-{column_count}
     {
@@ -180,11 +180,11 @@ MakeGridColumnSpan( column_count, media_query_name_list = {} )
 
 // ~~
 
-MakeGridColumnSpanRange( first_column_count, last_column_count, media_query_name_list = {} )
+MakeGridColumnSpanValueRange( first_column_count, last_column_count, media_query_name_list = {} )
 
     for column_count in first_column_count .. last_column_count
     {
-        MakeGridColumnSpan( column_count, media_query_name_list )
+        MakeGridColumnSpanValue( column_count, media_query_name_list )
     }
 
 // ~~
@@ -229,7 +229,7 @@ MakeGridColumnSpanAll( media_query_name_list = {} )
 
 // ~~
 
-MakeGridRowGap( size, unit_value, unit_name, media_query_name_list = {} )
+MakeGridRowGapValue( size, unit_value, unit_name, media_query_name_list = {} )
 
     .grid-row-gap-{size}{unit_name}
     {
@@ -249,18 +249,18 @@ MakeGridRowGap( size, unit_value, unit_name, media_query_name_list = {} )
 
 // ~~
 
-MakeGridRowGapRange( start, step, count, unit_value, unit_name, media_query_name_list = {} )
+MakeGridRowGapValueRange( start, step, count, unit_value, unit_name, media_query_name_list = {} )
 
     for index in 0 .. count - 1
     {
         size = start + index * step;
 
-        MakeGridRowGap( size, unit_value, unit_name, media_query_name_list );
+        MakeGridRowGapValue( size, unit_value, unit_name, media_query_name_list );
     }
 
 // ~~
 
-MakeGridColumnGap( size, unit_value, unit_name, media_query_name_list = {} )
+MakeGridColumnGapValue( size, unit_value, unit_name, media_query_name_list = {} )
 
     .grid-column-gap-{size}{unit_name}
     {
@@ -280,18 +280,18 @@ MakeGridColumnGap( size, unit_value, unit_name, media_query_name_list = {} )
 
 // ~~
 
-MakeGridColumnGapRange( start, step, count, unit_value, unit_name, media_query_name_list = {} )
+MakeGridColumnGapValueRange( start, step, count, unit_value, unit_name, media_query_name_list = {} )
 
     for index in 0 .. count - 1
     {
         size = start + index * step;
 
-        MakeGridColumnGap( size, unit_value, unit_name, media_query_name_list );
+        MakeGridColumnGapValue( size, unit_value, unit_name, media_query_name_list );
     }
 
 // ~~
 
-MakeGridColumns( column_count, media_query_name_list = {} )
+MakeGridColumnsValue( column_count, media_query_name_list = {} )
 
     .grid-columns-{column_count}
     {
@@ -313,9 +313,9 @@ MakeGridColumns( column_count, media_query_name_list = {} )
 
 // ~~
 
-MakeGridColumnsRange( first_column_count, last_column_count, media_query_name_list = {} )
+MakeGridColumnsValueRange( first_column_count, last_column_count, media_query_name_list = {} )
 
     for column_count in first_column_count .. last_column_count
     {
-        MakeGridColumns( column_count, media_query_name_list )
+        MakeGridColumnsValue( column_count, media_query_name_list )
     }

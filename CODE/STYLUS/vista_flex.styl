@@ -119,7 +119,7 @@ MakeFlexNoWrap( media_query_name_list = {} )
 
 // ~~
 
-MakeFlexShrink( media_query_name_list = {} )
+MakeFlexShrinkValue( media_query_name_list = {} )
 
     .flex-shrink
     {
@@ -139,27 +139,7 @@ MakeFlexShrink( media_query_name_list = {} )
 
 // ~~
 
-MakeFlexGrow( media_query_name_list = {} )
-
-    .flex-grow
-    {
-        flex-grow: 1;
-    }
-
-    for media_query_name in media_query_name_list
-    {
-        @media MediaQueryMap[ media_query_name ]
-        {
-            .flex-grow-{media_query_name}
-            {
-                flex-grow: 1;
-            }
-        }
-    }
-
-// ~~
-
-MakeFlexBasis( column_count, media_query_name_list = {} )
+MakeFlexBasisValue( column_count, media_query_name_list = {} )
 
     for column_index in 1 .. column_count
 
@@ -183,16 +163,16 @@ MakeFlexBasis( column_count, media_query_name_list = {} )
 
 // ~~
 
-MakeFlexBasisRange( first_column_count, last_column_count, media_query_name_list = {} )
+MakeFlexBasisValueRange( first_column_count, last_column_count, media_query_name_list = {} )
 
     for column_count in first_column_count .. last_column_count
     {
-        MakeFlexBasis( column_count, media_query_name_list )
+        MakeFlexBasisValue( column_count, media_query_name_list )
     }
 
 // ~~
 
-MakeFlexShrink( size, unit_value = 1, unit_name = "", media_query_name_list = {} )
+MakeFlexShrinkValue( size, unit_value = 1, unit_name = "", media_query_name_list = {} )
 
     .flex-shrink-{size}{unit_name}
     {
@@ -212,18 +192,18 @@ MakeFlexShrink( size, unit_value = 1, unit_name = "", media_query_name_list = {}
 
 // ~~
 
-MakeFlexShrinkRange( start, step, count, unit_value = 1, unit_name = "", media_query_name_list = {} )
+MakeFlexShrinkValueRange( start, step, count, unit_value = 1, unit_name = "", media_query_name_list = {} )
 
     for index in 0 .. count - 1
     {
         size = start + index * step;
 
-        MakeFlexShrink( size, unit_value, unit_name, media_query_name_list );
+        MakeFlexShrinkValue( size, unit_value, unit_name, media_query_name_list );
     }
 
 // ~~
 
-MakeFlexGrow( size, unit_value = 1, unit_name = "", media_query_name_list = {} )
+MakeFlexGrowValue( size, unit_value = 1, unit_name = "", media_query_name_list = {} )
 
     .flex-grow-{size}{unit_name}
     {
@@ -243,13 +223,11 @@ MakeFlexGrow( size, unit_value = 1, unit_name = "", media_query_name_list = {} )
 
 // ~~
 
-MakeFlexGrowRange( start, step, count, unit_value = 1, unit_name = "", media_query_name_list = {} )
+MakeFlexGrowValueRange( start, step, count, unit_value = 1, unit_name = "", media_query_name_list = {} )
 
     for index in 0 .. count - 1
     {
         size = start + index * step;
 
-        MakeFlexGrow( size, unit_value, unit_name, media_query_name_list );
+        MakeFlexGrowValue( size, unit_value, unit_name, media_query_name_list );
     }
-
-
