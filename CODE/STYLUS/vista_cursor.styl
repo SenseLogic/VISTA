@@ -1,3 +1,23 @@
+MakeCursorDefault( media_query_name_list = {} )
+
+    .cursor-default
+    {
+        cursor: default;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .cursor-default-{media_query_name}
+            {
+                cursor: default;
+            }
+        }
+    }
+
+// ~~
+
 MakeCursorPointer( media_query_name_list = {} )
 
     .cursor-pointer
@@ -18,20 +38,280 @@ MakeCursorPointer( media_query_name_list = {} )
 
 // ~~
 
-MakeCursorDefault( media_query_name_list = {} )
+MakeCursorText( media_query_name_list = {} )
 
-    .cursor-default
+    .cursor-text
     {
-        cursor: default;
+        cursor: text;
     }
 
     for media_query_name in media_query_name_list
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .cursor-default-{media_query_name}
+            .cursor-text-{media_query_name}
             {
-                cursor: default;
+                cursor: text;
+            }
+        }
+    }
+
+// ~~
+
+MakeCursorGrab( media_query_name_list = {} )
+
+    .cursor-grab
+    {
+        cursor: grab;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .cursor-grab-{media_query_name}
+            {
+                cursor: grab;
+            }
+        }
+    }
+
+// ~~
+
+MakeCursorGrabbing( media_query_name_list = {} )
+
+    .cursor-grabbing
+    {
+        cursor: grabbing;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .cursor-grabbing-{media_query_name}
+            {
+                cursor: grabbing;
+            }
+        }
+    }
+
+// ~~
+
+MakeCursorZoomIn( media_query_name_list = {} )
+
+    .cursor-zoom-in
+    {
+        cursor: zoom-in;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .cursor-zoom-in-{media_query_name}
+            {
+                cursor: zoom-in;
+            }
+        }
+    }
+
+// ~~
+
+MakeCursorZoomOut( media_query_name_list = {} )
+
+    .cursor-zoom-out
+    {
+        cursor: zoom-out;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .cursor-zoom-out-{media_query_name}
+            {
+                cursor: zoom-out;
+            }
+        }
+    }
+
+// ~~
+
+MakeCursorAllScroll( media_query_name_list = {} )
+
+    .cursor-all-scroll
+    {
+        cursor: all-scroll;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .cursor-all-scroll-{media_query_name}
+            {
+                cursor: all-scroll;
+            }
+        }
+    }
+
+// ~~
+
+MakeCursorMove( media_query_name_list = {} )
+
+    .cursor-move
+    {
+        cursor: move;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .cursor-move-{media_query_name}
+            {
+                cursor: move;
+            }
+        }
+    }
+
+// ~~
+
+MakeCursorNsResize( media_query_name_list = {} )
+
+    .cursor-ns-resize
+    {
+        cursor: ns-resize;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .cursor-ns-resize-{media_query_name}
+            {
+                cursor: ns-resize;
+            }
+        }
+    }
+
+// ~~
+
+MakeCursorEwResize( media_query_name_list = {} )
+
+    .cursor-ew-resize
+    {
+        cursor: ew-resize;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .cursor-ew-resize-{media_query_name}
+            {
+                cursor: ew-resize;
+            }
+        }
+    }
+
+// ~~
+
+MakeCursorColResize( media_query_name_list = {} )
+
+    .cursor-col-resize
+    {
+        cursor: col-resize;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .cursor-col-resize-{media_query_name}
+            {
+                cursor: col-resize;
+            }
+        }
+    }
+
+// ~~
+
+MakeCursorRowResize( media_query_name_list = {} )
+
+    .cursor-row-resize
+    {
+        cursor: row-resize;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .cursor-row-resize-{media_query_name}
+            {
+                cursor: row-resize;
+            }
+        }
+    }
+
+// ~~
+
+MakeCursorCrosshair( media_query_name_list = {} )
+
+    .cursor-crosshair
+    {
+        cursor: crosshair;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .cursor-crosshair-{media_query_name}
+            {
+                cursor: crosshair;
+            }
+        }
+    }
+
+// ~~
+
+MakeCursorWait( media_query_name_list = {} )
+
+    .cursor-wait
+    {
+        cursor: wait;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .cursor-wait-{media_query_name}
+            {
+                cursor: wait;
+            }
+        }
+    }
+
+// ~~
+
+MakeCursorNotAllowed( media_query_name_list = {} )
+
+    .cursor-not-allowed
+    {
+        cursor: not-allowed;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .cursor-not-allowed-{media_query_name}
+            {
+                cursor: not-allowed;
             }
         }
     }
