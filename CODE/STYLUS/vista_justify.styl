@@ -58,9 +58,9 @@ MakeJustifyContentEnd( media_query_name_list = {} )
 
 // ~~
 
-MakeJustifyContentBetween( media_query_name_list = {} )
+MakeJustifyContentSpaceBetween( media_query_name_list = {} )
 
-    .justify-content-between
+    .justify-content-space-between
     {
         justify-content: space-between;
     }
@@ -69,7 +69,7 @@ MakeJustifyContentBetween( media_query_name_list = {} )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .justify-content-between-{media_query_name}
+            .justify-content-space-between-{media_query_name}
             {
                 justify-content: space-between;
             }
@@ -78,9 +78,9 @@ MakeJustifyContentBetween( media_query_name_list = {} )
 
 // ~~
 
-MakeJustifyContentAround( media_query_name_list = {} )
+MakeJustifyContentSpaceAround( media_query_name_list = {} )
 
-    .justify-content-around
+    .justify-content-space-around
     {
         justify-content: space-around;
     }
@@ -90,7 +90,7 @@ MakeJustifyContentAround( media_query_name_list = {} )
         @media MediaQueryMap[ media_query_name ]
         {
 
-            .justify-content-around-{media_query_name}
+            .justify-content-space-around-{media_query_name}
             {
                 justify-content: space-around;
             }
