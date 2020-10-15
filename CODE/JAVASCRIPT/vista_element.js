@@ -246,6 +246,15 @@ HTMLElement.prototype.GetAncestorProperty = function (
 }
 
 // ~~
+    
+HTMLElement.prototype.SetContentHeight = function (
+    )
+{
+    this.style.height = "auto";
+    this.style.height = this.scrollHeight + "px";
+}
+
+// ~~
 
 HTMLElement.prototype.GetTextContent = function (
     )
@@ -1134,6 +1143,22 @@ Array.prototype.SetStyles = function (
                 }
             }
         }
+    }
+
+    return this;
+}
+
+// ~~
+
+Array.prototype.SetContentHeight = function (
+    )
+{
+    var
+        element;
+
+    for ( element of this )
+    {
+        element.SetContentHeight();
     }
 
     return this;
