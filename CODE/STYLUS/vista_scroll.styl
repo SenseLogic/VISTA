@@ -1,0 +1,41 @@
+MakeScrollSnapTypeMandatory( media_query_name_list = {} )
+
+    .scroll-snap-type-mandatory
+    {
+        scroll-snap-type: mandatory;
+        scroll-snap-points-y: repeat( 100vh );
+        scroll-snap-type: y mandatory;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .scroll-snap-type-mandatory-{media_query_name}
+            {
+                scroll-snap-type: mandatory;
+                scroll-snap-points-y: repeat( 100vh );
+                scroll-snap-type: y mandatory;
+            }
+        }
+    }
+
+// ~~
+
+MakeScrollSnapAlignStart( media_query_name_list = {} )
+
+    .scroll-snap-align-start
+    {
+        scroll-snap-align: start;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .scroll-snap-align-start-{media_query_name}
+            {
+                scroll-snap-align: start;
+            }
+        }
+    }

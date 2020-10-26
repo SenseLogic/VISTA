@@ -246,7 +246,29 @@ HTMLElement.prototype.GetAncestorProperty = function (
 }
 
 // ~~
-    
+
+HTMLElement.prototype.AddClass = function (
+    class_name
+    )
+{
+    this.classList.add( class_name );
+
+    return this;
+}
+
+// ~~
+
+HTMLElement.prototype.RemoveClass = function (
+    class_name
+    )
+{
+    this.classList.remove( class_name );
+
+    return this;
+}
+
+// ~~
+
 HTMLElement.prototype.SetContentHeight = function (
     )
 {
@@ -356,42 +378,111 @@ HTMLElement.prototype.IsVisible = function (
 // ~~
 
 HTMLElement.prototype.SetScrollTop = function (
-    distance
+    position
     )
 {
-    if ( distance === undefined )
+    if ( position === undefined )
     {
         this.scrollTop = this.scrollHeight;
     }
-    else if ( distance < 0 )
+    else if ( position < 0 )
     {
-        this.scrollTop = this.scrollHeight + distance;
+        this.scrollTop = this.scrollHeight + position;
     }
     else
     {
-        this.scrollTop = distance;
+        this.scrollTop = position;
     }
 }
 
 // ~~
 
 HTMLElement.prototype.SetScrollLeft = function (
-    offset
+    position
     )
 {
-    if ( distance === undefined )
+    if ( position === undefined )
     {
         this.scrollLeft = this.scrollWidth;
     }
-    else if ( distance < 0 )
+    else if ( position < 0 )
     {
-        this.scrollLeft = this.scrollWidth + distance;
+        this.scrollLeft = this.scrollWidth + position;
     }
     else
     {
-        this.scrollLeft = offset;
+        this.scrollLeft = position;
     }
 }
+
+// ~~
+
+HTMLElement.prototype.GetTopPosition = function (
+    )
+{
+    return this.getBoundingClientRect().top;
+}
+
+// ~~
+
+HTMLElement.prototype.GetLeftPosition = function (
+    )
+{
+    return this.getBoundingClientRect().left;
+}
+
+// ~~
+
+function SetScrollTop(
+    position
+    )
+{
+    if ( position instanceof HTMLElement )
+    {
+        position = position.GetTopPosition();
+    }
+
+    if ( window.scroll !== undefined )
+    {
+        window.scroll(
+            {
+                top : position,
+                behavior : "smooth"
+            }
+            );
+    }
+    else
+    {
+        window.scrollTo( 0, position );
+    }
+}
+
+// ~~
+
+function SetScrollLeft(
+    position
+    )
+{
+    if ( position instanceof HTMLElement )
+    {
+        position = position.GetLeftPosition();
+    }
+
+    if ( window.scroll !== undefined )
+    {
+        window.scroll(
+            {
+                left : position,
+                behavior : "smooth"
+            }
+            );
+    }
+    else
+    {
+        window.scrollTo( position, 0 );
+    }
+}
+
 
 // ~~
 
