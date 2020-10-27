@@ -420,7 +420,7 @@ HTMLElement.prototype.SetScrollLeft = function (
 HTMLElement.prototype.GetTopPosition = function (
     )
 {
-    return this.getBoundingClientRect().top;
+    return window.pageYOffset + this.getBoundingClientRect().top;
 }
 
 // ~~
@@ -428,7 +428,7 @@ HTMLElement.prototype.GetTopPosition = function (
 HTMLElement.prototype.GetLeftPosition = function (
     )
 {
-    return this.getBoundingClientRect().left;
+    return window.pageXOffset + this.getBoundingClientRect().left;
 }
 
 // ~~
@@ -442,19 +442,12 @@ function SetScrollTop(
         position = position.GetTopPosition();
     }
 
-    if ( window.scroll !== undefined )
-    {
-        window.scroll(
-            {
-                top : position,
-                behavior : "smooth"
-            }
-            );
-    }
-    else
-    {
-        window.scrollTo( 0, position );
-    }
+    window.scroll(
+        {
+            top : position,
+            behavior : "smooth"
+        }
+        );
 }
 
 // ~~
@@ -468,19 +461,12 @@ function SetScrollLeft(
         position = position.GetLeftPosition();
     }
 
-    if ( window.scroll !== undefined )
-    {
-        window.scroll(
-            {
-                left : position,
-                behavior : "smooth"
-            }
-            );
-    }
-    else
-    {
-        window.scrollTo( position, 0 );
-    }
+    window.scroll(
+        {
+            left : position,
+            behavior : "smooth"
+        }
+        );
 }
 
 
