@@ -269,6 +269,24 @@ HTMLElement.prototype.RemoveClass = function (
 
 // ~~
 
+HTMLElement.prototype.ToggleClass = function (
+    class_name
+    )
+{
+    if ( this.classList.contains( class_name ) )
+    {
+        this.classList.remove( class_name );
+    }
+    else
+    {
+        this.classList.add( class_name );
+    }
+
+    return this;
+}
+
+// ~~
+
 HTMLElement.prototype.SetContentHeight = function (
     )
 {
