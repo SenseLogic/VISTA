@@ -21,6 +21,27 @@ MakeScrollSnapTypeMandatory( media_query_name_list = {} )
 
 // ~~
 
+MakeScrollSnapAlignNone( media_query_name_list = {} )
+
+    .scroll-snap-align-none
+    {
+        scroll-snap-align: none;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .scroll-snap-align-none-{media_query_name}
+            {
+                scroll-snap-align: none;
+            }
+        }
+    }
+
+
+// ~~
+
 MakeScrollSnapAlignStart( media_query_name_list = {} )
 
     .scroll-snap-align-start
@@ -35,6 +56,48 @@ MakeScrollSnapAlignStart( media_query_name_list = {} )
             .scroll-snap-align-start-{media_query_name}
             {
                 scroll-snap-align: start;
+            }
+        }
+    }
+
+
+// ~~
+
+MakeScrollSnapAlignCenter( media_query_name_list = {} )
+
+    .scroll-snap-align-center
+    {
+        scroll-snap-align: center;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .scroll-snap-align-center-{media_query_name}
+            {
+                scroll-snap-align: center;
+            }
+        }
+    }
+
+
+// ~~
+
+MakeScrollSnapAlignEnd( media_query_name_list = {} )
+
+    .scroll-snap-align-end
+    {
+        scroll-snap-align: end;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .scroll-snap-align-end-{media_query_name}
+            {
+                scroll-snap-align: end;
             }
         }
     }

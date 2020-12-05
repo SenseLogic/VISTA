@@ -270,16 +270,28 @@ HTMLElement.prototype.RemoveClass = function (
 // ~~
 
 HTMLElement.prototype.ToggleClass = function (
-    class_name
+    class_name,
+    condition = undefined
     )
 {
-    if ( this.classList.contains( class_name ) )
+    if ( condition === undefined )
     {
-        this.classList.remove( class_name );
+        if ( this.classList.contains( class_name ) )
+        {
+            this.classList.remove( class_name );
+        }
+        else
+        {
+            this.classList.add( class_name );
+        }
+    }
+    else if ( condition )
+    {
+        this.classList.add( class_name );
     }
     else
     {
-        this.classList.add( class_name );
+        this.classList.remove( class_name );
     }
 
     return this;
@@ -989,6 +1001,46 @@ Array.prototype.RemoveClasses = function (
         for ( class_name of class_name_array )
         {
             element.classList.remove( class_name );
+        }
+    }
+
+    return this;
+}
+
+// ~~
+
+Array.prototype.ToggleClass = function (
+    class_name,
+    condition = undefined
+    )
+{
+    var
+        element;
+
+    for ( element of this )
+    {
+        element.ToggleClass( class_name, condition );
+    }
+
+    return this;
+}
+
+// ~~
+
+Array.prototype.ToggleClasses = function (
+    class_name_array,
+    condition = undefined
+    )
+{
+    var
+        class_name,
+        element;
+
+    for ( element of this )
+    {
+        for ( class_name of class_name_array )
+        {
+            element.ToggleClasses( class_name, condition );
         }
     }
 
