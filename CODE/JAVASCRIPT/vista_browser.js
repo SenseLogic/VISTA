@@ -38,7 +38,10 @@ function SetRoute(
     route
     )
 {
-    window.history.pushState( "", "", route );
+    if ( window.location.pathname !== route )
+    {
+        window.history.pushState( "", "", route );
+    }
 }
 
 // ~~
