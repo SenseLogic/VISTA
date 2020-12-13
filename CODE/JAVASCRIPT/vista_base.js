@@ -529,14 +529,13 @@ function DelayCall(
 {
     if ( delay_time === undefined )
     {
-        if ( document.readyState === "complete"
-             || document.readyState === "interactive" )
+        if ( document.readyState === "complete" )
         {
             return setTimeout( called_function, 1 );
         }
         else
         {
-            document.addEventListener( "DOMContentLoaded", called_function );
+            window.addEventListener( "load", called_function );
 
             return null;
         }
