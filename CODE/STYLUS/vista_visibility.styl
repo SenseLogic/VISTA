@@ -1,6 +1,6 @@
-MakeVisibilityHidden( media_query_name_list = {} )
+MakeVisibilityHidden( media_query_name_list = {}, suffix = )
 
-    .visibility-hidden
+    .visibility-hidden{suffix}
     {
         visibility: hidden;
     }
@@ -9,7 +9,7 @@ MakeVisibilityHidden( media_query_name_list = {} )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .visibility-hidden-{media_query_name}
+            .visibility-hidden-{media_query_name}{suffix}
             {
                 visibility: hidden;
             }
@@ -18,9 +18,9 @@ MakeVisibilityHidden( media_query_name_list = {} )
 
 // ~~
 
-MakeVisibilityVisible( media_query_name_list = {} )
+MakeVisibilityVisible( media_query_name_list = {}, suffix = )
 
-    .visibility-visible
+    .visibility-visible{suffix}
     {
         visibility: visible;
     }
@@ -29,7 +29,7 @@ MakeVisibilityVisible( media_query_name_list = {} )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .visibility-visible-{media_query_name}
+            .visibility-visible-{media_query_name}{suffix}
             {
                 visibility: visible;
             }
@@ -38,9 +38,9 @@ MakeVisibilityVisible( media_query_name_list = {} )
 
 // ~~
 
-MakeVisibilityCollapse( media_query_name_list = {} )
+MakeVisibilityCollapse( media_query_name_list = {}, suffix = )
 
-    .visibility-collapse
+    .visibility-collapse{suffix}
     {
         visibility: collapse;
     }
@@ -49,7 +49,7 @@ MakeVisibilityCollapse( media_query_name_list = {} )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .visibility-collapse-{media_query_name}
+            .visibility-collapse-{media_query_name}{suffix}
             {
                 visibility: collapse;
             }

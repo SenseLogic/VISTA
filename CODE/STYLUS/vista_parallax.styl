@@ -1,6 +1,6 @@
-MakeParallaxBackground( media_query_name_list = {} )
+MakeParallaxBackground( media_query_name_list = {}, suffix = )
 
-    .parallax-background
+    .parallax-background{suffix}
     {
         position : relative;
         background-attachment : fixed;
@@ -14,7 +14,7 @@ MakeParallaxBackground( media_query_name_list = {} )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .parallax-background-{media_query_name}
+            .parallax-background-{media_query_name}{suffix}
             {
                 position : relative;
                 background-attachment : fixed;

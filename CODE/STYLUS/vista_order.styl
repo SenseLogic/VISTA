@@ -1,6 +1,6 @@
-MakeOrderFirst( media_query_name_list = {} )
+MakeOrderFirst( media_query_name_list = {}, suffix = )
 
-    .order-first
+    .order-first{suffix}
     {
         order: -1;
     }
@@ -9,7 +9,7 @@ MakeOrderFirst( media_query_name_list = {} )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .order-last-{media_query_name}
+            .order-last-{media_query_name}{suffix}
             {
                 order: 1;
             }
@@ -18,9 +18,9 @@ MakeOrderFirst( media_query_name_list = {} )
 
 // ~~
 
-MakeOrderLast( media_query_name_list = {} )
+MakeOrderLast( media_query_name_list = {}, suffix = )
 
-    .order-last
+    .order-last{suffix}
     {
         order: 1;
     }
@@ -29,7 +29,7 @@ MakeOrderLast( media_query_name_list = {} )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .order-last-{media_query_name}
+            .order-last-{media_query_name}{suffix}
             {
                 order: 1;
             }

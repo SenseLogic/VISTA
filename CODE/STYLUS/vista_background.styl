@@ -1,6 +1,6 @@
-MakeBackgroundColorValue( name, value, media_query_name_list = {} )
+MakeBackgroundColorValue( name, value, media_query_name_list = {}, suffix )
 
-    .background-color-{name}
+    .background-color-{name}{suffix}
     {
         background-color: value;
     }
@@ -9,7 +9,7 @@ MakeBackgroundColorValue( name, value, media_query_name_list = {} )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .background-color-{name}-{media_query_name}
+            .background-color-{name}-{media_query_name}{suffix}
             {
                 background-color: value;
             }

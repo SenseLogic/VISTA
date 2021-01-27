@@ -1,6 +1,6 @@
-MakeVerticalAlignBottom( media_query_name_list = {} )
+MakeVerticalAlignBottom( media_query_name_list = {}, suffix = )
 
-    .vertical-align-bottom
+    .vertical-align-bottom{suffix}
     {
         vertical-align: bottom;
     }
@@ -9,7 +9,7 @@ MakeVerticalAlignBottom( media_query_name_list = {} )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .vertical-align-bottom-{media_query_name}
+            .vertical-align-bottom-{media_query_name}{suffix}
             {
                 vertical-align: bottom;
             }
@@ -18,9 +18,9 @@ MakeVerticalAlignBottom( media_query_name_list = {} )
 
 // ~~
 
-MakeVerticalAlignMiddle( media_query_name_list = {} )
+MakeVerticalAlignMiddle( media_query_name_list = {}, suffix = )
 
-    .vertical-align-middle
+    .vertical-align-middle{suffix}
     {
         vertical-align: middle;
     }
@@ -29,7 +29,7 @@ MakeVerticalAlignMiddle( media_query_name_list = {} )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .vertical-align-middle-{media_query_name}
+            .vertical-align-middle-{media_query_name}{suffix}
             {
                 vertical-align: middle;
             }
@@ -38,9 +38,9 @@ MakeVerticalAlignMiddle( media_query_name_list = {} )
 
 // ~~
 
-MakeVerticalAlignTop( media_query_name_list = {} )
+MakeVerticalAlignTop( media_query_name_list = {}, suffix = )
 
-    .vertical-align-top
+    .vertical-align-top{suffix}
     {
         vertical-align: top;
     }
@@ -49,7 +49,7 @@ MakeVerticalAlignTop( media_query_name_list = {} )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .vertical-align-top-{media_query_name}
+            .vertical-align-top-{media_query_name}{suffix}
             {
                 vertical-align: top;
             }
@@ -58,9 +58,9 @@ MakeVerticalAlignTop( media_query_name_list = {} )
 
 // ~~
 
-MakeVerticalAlignSub( media_query_name_list = {} )
+MakeVerticalAlignSub( media_query_name_list = {}, suffix = )
 
-    .vertical-align-sub
+    .vertical-align-sub{suffix}
     {
         vertical-align: sub;
     }
@@ -69,7 +69,7 @@ MakeVerticalAlignSub( media_query_name_list = {} )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .vertical-align-sub-{media_query_name}
+            .vertical-align-sub-{media_query_name}{suffix}
             {
                 vertical-align: sub;
             }
@@ -78,9 +78,9 @@ MakeVerticalAlignSub( media_query_name_list = {} )
 
 // ~~
 
-MakeVerticalAlignBaseline( media_query_name_list = {} )
+MakeVerticalAlignBaseline( media_query_name_list = {}, suffix = )
 
-    .vertical-align-baseline
+    .vertical-align-baseline{suffix}
     {
         vertical-align: baseline;
     }
@@ -89,7 +89,7 @@ MakeVerticalAlignBaseline( media_query_name_list = {} )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .vertical-align-baseline-{media_query_name}
+            .vertical-align-baseline-{media_query_name}{suffix}
             {
                 vertical-align: baseline;
             }
@@ -98,9 +98,9 @@ MakeVerticalAlignBaseline( media_query_name_list = {} )
 
 // ~~
 
-MakeVerticalAlignTextTop( media_query_name_list = {} )
+MakeVerticalAlignTextTop( media_query_name_list = {}, suffix = )
 
-    .vertical-align-text-top
+    .vertical-align-text-top{suffix}
     {
         vertical-align: text-top;
     }
@@ -109,7 +109,7 @@ MakeVerticalAlignTextTop( media_query_name_list = {} )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .vertical-align-text-top-{media_query_name}
+            .vertical-align-text-top-{media_query_name}{suffix}
             {
                 vertical-align: text-top;
             }

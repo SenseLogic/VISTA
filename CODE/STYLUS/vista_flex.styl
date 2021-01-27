@@ -1,6 +1,6 @@
-MakeFlexDirectionRow( media_query_name_list = {} )
+MakeFlexDirectionRow( media_query_name_list = {}, suffix = )
 
-    .flex-direction-row
+    .flex-direction-row{suffix}
     {
         flex-direction: row;
     }
@@ -9,7 +9,7 @@ MakeFlexDirectionRow( media_query_name_list = {} )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .flex-direction-row-{media_query_name}
+            .flex-direction-row-{media_query_name}{suffix}
             {
                 flex-direction: row;
             }
@@ -18,9 +18,9 @@ MakeFlexDirectionRow( media_query_name_list = {} )
 
 // ~~
 
-MakeFlexDirectionRowReverse( media_query_name_list = {} )
+MakeFlexDirectionRowReverse( media_query_name_list = {}, suffix = )
 
-    .flex-direction-row-reverse
+    .flex-direction-row-reverse{suffix}
     {
         flex-direction: row-reverse;
     }
@@ -29,7 +29,7 @@ MakeFlexDirectionRowReverse( media_query_name_list = {} )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .flex-direction-row-reverse-{media_query_name}
+            .flex-direction-row-reverse-{media_query_name}{suffix}
             {
                 flex-direction: row-reverse;
             }
@@ -38,9 +38,9 @@ MakeFlexDirectionRowReverse( media_query_name_list = {} )
 
 // ~~
 
-MakeFlexDirectionColumn( media_query_name_list = {} )
+MakeFlexDirectionColumn( media_query_name_list = {}, suffix = )
 
-    .flex-direction-column
+    .flex-direction-column{suffix}
     {
         flex-direction: column;
     }
@@ -49,7 +49,7 @@ MakeFlexDirectionColumn( media_query_name_list = {} )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .flex-direction-column-{media_query_name}
+            .flex-direction-column-{media_query_name}{suffix}
             {
                 flex-direction: column;
             }
@@ -58,9 +58,9 @@ MakeFlexDirectionColumn( media_query_name_list = {} )
 
 // ~~
 
-MakeFlexDirectionColumnReverse( media_query_name_list = {} )
+MakeFlexDirectionColumnReverse( media_query_name_list = {}, suffix = )
 
-    .flex-direction-column-reverse
+    .flex-direction-column-reverse{suffix}
     {
         flex-direction: column-reverse;
     }
@@ -69,7 +69,7 @@ MakeFlexDirectionColumnReverse( media_query_name_list = {} )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .flex-direction-column-reverse-{media_query_name}
+            .flex-direction-column-reverse-{media_query_name}{suffix}
             {
                 flex-direction: column-reverse;
             }
@@ -78,9 +78,9 @@ MakeFlexDirectionColumnReverse( media_query_name_list = {} )
 
 // ~~
 
-MakeFlexWrap( media_query_name_list = {} )
+MakeFlexWrap( media_query_name_list = {}, suffix = )
 
-    .flex-wrap
+    .flex-wrap{suffix}
     {
         flex-wrap: wrap;
     }
@@ -89,7 +89,7 @@ MakeFlexWrap( media_query_name_list = {} )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .flex-wrap-{media_query_name}
+            .flex-wrap-{media_query_name}{suffix}
             {
                 flex-wrap: wrap;
             }
@@ -98,9 +98,9 @@ MakeFlexWrap( media_query_name_list = {} )
 
 // ~~
 
-MakeFlexNoWrap( media_query_name_list = {} )
+MakeFlexNoWrap( media_query_name_list = {}, suffix = )
 
-    .flex-nowrap
+    .flex-nowrap{suffix}
     {
         flex-wrap: nowrap;
     }
@@ -109,7 +109,7 @@ MakeFlexNoWrap( media_query_name_list = {} )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .flex-nowrap-{media_query_name}
+            .flex-nowrap-{media_query_name}{suffix}
             {
                 flex-wrap: nowrap;
             }
@@ -119,9 +119,9 @@ MakeFlexNoWrap( media_query_name_list = {} )
 
 // ~~
 
-MakeFlexShrinkValue( media_query_name_list = {} )
+MakeFlexShrinkValue( media_query_name_list = {}, suffix = )
 
-    .flex-shrink
+    .flex-shrink{suffix}
     {
         flex-shrink: 1;
     }
@@ -130,7 +130,7 @@ MakeFlexShrinkValue( media_query_name_list = {} )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .flex-shrink-{media_query_name}
+            .flex-shrink-{media_query_name}{suffix}
             {
                 flex-shrink: 1;
             }
@@ -139,7 +139,7 @@ MakeFlexShrinkValue( media_query_name_list = {} )
 
 // ~~
 
-MakeFlexBasisValue( column_count, media_query_name_list = {} )
+MakeFlexBasisValue( column_count, media_query_name_list = {}, suffix = )
 
     for column_index in 1 .. column_count
 
@@ -153,7 +153,7 @@ MakeFlexBasisValue( column_count, media_query_name_list = {} )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .flex-basis-{column_index}_{column_count}-{media_query_name}
+            .flex-basis-{column_index}_{column_count}-{media_query_name}{suffix}
             {
                 flex-basis: 100% * ( column_index / column_count );
                 max-width: 100% * ( column_index / column_count );
@@ -163,18 +163,18 @@ MakeFlexBasisValue( column_count, media_query_name_list = {} )
 
 // ~~
 
-MakeFlexBasisValueRange( first_column_count, last_column_count, media_query_name_list = {} )
+MakeFlexBasisValueRange( first_column_count, last_column_count, media_query_name_list = {}, suffix = )
 
     for column_count in first_column_count .. last_column_count
     {
-        MakeFlexBasisValue( column_count, media_query_name_list )
+        MakeFlexBasisValue( column_count, media_query_name_list, suffix )
     }
 
 // ~~
 
-MakeFlexShrinkValue( size, unit_value = 1, unit_name = "", media_query_name_list = {} )
+MakeFlexShrinkValue( size, unit_value = 1, unit_name = "", media_query_name_list = {}, suffix = )
 
-    .flex-shrink-{size}{unit_name}
+    .flex-shrink-{size}{unit_name}{suffix}
     {
         flex-shrink: size * unit_value;
     }
@@ -183,7 +183,7 @@ MakeFlexShrinkValue( size, unit_value = 1, unit_name = "", media_query_name_list
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .flex-shrink-{size}{unit_name}-{media_query_name}
+            .flex-shrink-{size}{unit_name}-{media_query_name}{suffix}
             {
                 flex-shrink: size * unit_value;
             }
@@ -192,20 +192,20 @@ MakeFlexShrinkValue( size, unit_value = 1, unit_name = "", media_query_name_list
 
 // ~~
 
-MakeFlexShrinkValueRange( start, step, count, unit_value = 1, unit_name = "", media_query_name_list = {} )
+MakeFlexShrinkValueRange( start, step, count, unit_value = 1, unit_name = "", media_query_name_list = {}, suffix = )
 
     for index in 0 .. count - 1
     {
         size = start + index * step;
 
-        MakeFlexShrinkValue( size, unit_value, unit_name, media_query_name_list );
+        MakeFlexShrinkValue( size, unit_value, unit_name, media_query_name_list, suffix );
     }
 
 // ~~
 
-MakeFlexGrowValue( size, unit_value = 1, unit_name = "", media_query_name_list = {} )
+MakeFlexGrowValue( size, unit_value = 1, unit_name = "", media_query_name_list = {}, suffix = )
 
-    .flex-grow-{size}{unit_name}
+    .flex-grow-{size}{unit_name}{suffix}
     {
         flex-grow: size * unit_value;
     }
@@ -214,7 +214,7 @@ MakeFlexGrowValue( size, unit_value = 1, unit_name = "", media_query_name_list =
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .flex-grow-{size}{unit_name}-{media_query_name}
+            .flex-grow-{size}{unit_name}-{media_query_name}{suffix}
             {
                 flex-grow: size * unit_value;
             }
@@ -223,11 +223,11 @@ MakeFlexGrowValue( size, unit_value = 1, unit_name = "", media_query_name_list =
 
 // ~~
 
-MakeFlexGrowValueRange( start, step, count, unit_value = 1, unit_name = "", media_query_name_list = {} )
+MakeFlexGrowValueRange( start, step, count, unit_value = 1, unit_name = "", media_query_name_list = {}, suffix = )
 
     for index in 0 .. count - 1
     {
         size = start + index * step;
 
-        MakeFlexGrowValue( size, unit_value, unit_name, media_query_name_list );
+        MakeFlexGrowValue( size, unit_value, unit_name, media_query_name_list, suffix );
     }

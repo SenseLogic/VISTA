@@ -1,6 +1,6 @@
-MakeJustifyContentStart( media_query_name_list = {} )
+MakeJustifyContentStart( media_query_name_list = {}, suffix = )
 
-    .justify-content-start
+    .justify-content-start{suffix}
     {
         justify-content: flex-start;
     }
@@ -9,7 +9,7 @@ MakeJustifyContentStart( media_query_name_list = {} )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .justify-content-start-{media_query_name}
+            .justify-content-start-{media_query_name}{suffix}
             {
                 justify-content: flex-start;
             }
@@ -18,9 +18,9 @@ MakeJustifyContentStart( media_query_name_list = {} )
 
 // ~~
 
-MakeJustifyContentCenter( media_query_name_list = {} )
+MakeJustifyContentCenter( media_query_name_list = {}, suffix = )
 
-    .justify-content-center
+    .justify-content-center{suffix}
     {
         justify-content: center;
     }
@@ -29,7 +29,7 @@ MakeJustifyContentCenter( media_query_name_list = {} )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .justify-content-center-{media_query_name}
+            .justify-content-center-{media_query_name}{suffix}
             {
                 justify-content: center;
             }
@@ -38,9 +38,9 @@ MakeJustifyContentCenter( media_query_name_list = {} )
 
 // ~~
 
-MakeJustifyContentEnd( media_query_name_list = {} )
+MakeJustifyContentEnd( media_query_name_list = {}, suffix = )
 
-    .justify-content-end
+    .justify-content-end{suffix}
     {
         justify-content: flex-end;
     }
@@ -49,7 +49,7 @@ MakeJustifyContentEnd( media_query_name_list = {} )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .justify-content-end-{media_query_name}
+            .justify-content-end-{media_query_name}{suffix}
             {
                 justify-content: flex-end;
             }
@@ -58,9 +58,9 @@ MakeJustifyContentEnd( media_query_name_list = {} )
 
 // ~~
 
-MakeJustifyContentSpaceBetween( media_query_name_list = {} )
+MakeJustifyContentSpaceBetween( media_query_name_list = {}, suffix = )
 
-    .justify-content-space-between
+    .justify-content-space-between{suffix}
     {
         justify-content: space-between;
     }
@@ -69,7 +69,7 @@ MakeJustifyContentSpaceBetween( media_query_name_list = {} )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .justify-content-space-between-{media_query_name}
+            .justify-content-space-between-{media_query_name}{suffix}
             {
                 justify-content: space-between;
             }
@@ -78,9 +78,9 @@ MakeJustifyContentSpaceBetween( media_query_name_list = {} )
 
 // ~~
 
-MakeJustifyContentSpaceAround( media_query_name_list = {} )
+MakeJustifyContentSpaceAround( media_query_name_list = {}, suffix = )
 
-    .justify-content-space-around
+    .justify-content-space-around{suffix}
     {
         justify-content: space-around;
     }
@@ -90,7 +90,7 @@ MakeJustifyContentSpaceAround( media_query_name_list = {} )
         @media MediaQueryMap[ media_query_name ]
         {
 
-            .justify-content-space-around-{media_query_name}
+            .justify-content-space-around-{media_query_name}{suffix}
             {
                 justify-content: space-around;
             }
@@ -99,9 +99,9 @@ MakeJustifyContentSpaceAround( media_query_name_list = {} )
 
 // ~~
 
-MakeJustifySelfStart( media_query_name_list = {} )
+MakeJustifySelfStart( media_query_name_list = {}, suffix = )
 
-    .justify-self-start
+    .justify-self-start{suffix}
     {
         justify-self: flex-start;
     }
@@ -110,7 +110,7 @@ MakeJustifySelfStart( media_query_name_list = {} )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .justify-self-start-{media_query_name}
+            .justify-self-start-{media_query_name}{suffix}
             {
                 justify-self: flex-start;
             }
@@ -119,9 +119,9 @@ MakeJustifySelfStart( media_query_name_list = {} )
 
 // ~~
 
-MakeJustifySelfCenter( media_query_name_list = {} )
+MakeJustifySelfCenter( media_query_name_list = {}, suffix = )
 
-    .justify-self-center
+    .justify-self-center{suffix}
     {
         justify-self: center;
     }
@@ -130,7 +130,7 @@ MakeJustifySelfCenter( media_query_name_list = {} )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .justify-self-center-{media_query_name}
+            .justify-self-center-{media_query_name}{suffix}
             {
                 justify-self: center;
             }
@@ -139,9 +139,9 @@ MakeJustifySelfCenter( media_query_name_list = {} )
 
 // ~~
 
-MakeJustifySelfEnd( media_query_name_list = {} )
+MakeJustifySelfEnd( media_query_name_list = {}, suffix = )
 
-    .justify-self-end
+    .justify-self-end{suffix}
     {
         justify-self: flex-end;
     }
@@ -150,7 +150,7 @@ MakeJustifySelfEnd( media_query_name_list = {} )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .justify-self-end-{media_query_name}
+            .justify-self-end-{media_query_name}{suffix}
             {
                 justify-self: flex-end;
             }

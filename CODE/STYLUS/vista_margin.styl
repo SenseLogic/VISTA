@@ -1,6 +1,6 @@
-MakeMarginAuto( media_query_name_list = {} )
+MakeMarginAuto( media_query_name_list = {}, suffix = )
 
-    .margin-auto
+    .margin-auto{suffix}
     {
         margin: auto;
     }
@@ -9,7 +9,7 @@ MakeMarginAuto( media_query_name_list = {} )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .margin-auto-{media_query_name}
+            .margin-auto-{media_query_name}{suffix}
             {
                 margin: auto;
             }
@@ -18,9 +18,9 @@ MakeMarginAuto( media_query_name_list = {} )
 
 // ~~
 
-MakeMarginValue( size, unit_value, unit_name, media_query_name_list = {} )
+MakeMarginValue( size, unit_value, unit_name, media_query_name_list = {}, suffix = )
 
-    .margin-{size}{unit_name}
+    .margin-{size}{unit_name}{suffix}
     {
         margin: size * unit_value;
     }
@@ -29,7 +29,7 @@ MakeMarginValue( size, unit_value, unit_name, media_query_name_list = {} )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .margin-{size}{unit_name}-{media_query_name}
+            .margin-{size}{unit_name}-{media_query_name}{suffix}
             {
                 margin: size * unit_value;
             }
@@ -38,20 +38,20 @@ MakeMarginValue( size, unit_value, unit_name, media_query_name_list = {} )
 
 // ~~
 
-MakeMarginValueRange( start, step, count, unit_value, unit_name, media_query_name_list = {} )
+MakeMarginValueRange( start, step, count, unit_value, unit_name, media_query_name_list = {}, suffix = )
 
     for index in 0 .. count - 1
     {
         size = start + index * step;
 
-        MakeMarginValue( size, unit_value, unit_name, media_query_name_list );
+        MakeMarginValue( size, unit_value, unit_name, media_query_name_list, suffix );
     }
 
 // ~~
 
-MakeMarginLateralAuto( media_query_name_list = {} )
+MakeMarginLateralAuto( media_query_name_list = {}, suffix = )
 
-    .margin-lateral-auto
+    .margin-lateral-auto{suffix}
     {
         margin-left: auto;
         margin-right: auto;
@@ -61,7 +61,7 @@ MakeMarginLateralAuto( media_query_name_list = {} )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .margin-lateral-auto-{media_query_name}
+            .margin-lateral-auto-{media_query_name}{suffix}
             {
                 margin-left: auto;
                 margin-right: auto;
@@ -71,9 +71,9 @@ MakeMarginLateralAuto( media_query_name_list = {} )
 
 // ~~
 
-MakeMarginLateralValue( size, unit_value, unit_name, media_query_name_list = {} )
+MakeMarginLateralValue( size, unit_value, unit_name, media_query_name_list = {}, suffix = )
 
-    .margin-lateral-{size}{unit_name}
+    .margin-lateral-{size}{unit_name}{suffix}
     {
         margin-left: size * unit_value;
         margin-right: size * unit_value;
@@ -83,7 +83,7 @@ MakeMarginLateralValue( size, unit_value, unit_name, media_query_name_list = {} 
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .margin-lateral-{size}{unit_name}-{media_query_name}
+            .margin-lateral-{size}{unit_name}-{media_query_name}{suffix}
             {
                 margin-left: size * unit_value;
                 margin-right: size * unit_value;
@@ -93,20 +93,20 @@ MakeMarginLateralValue( size, unit_value, unit_name, media_query_name_list = {} 
 
 // ~~
 
-MakeMarginLateralValueRange( start, step, count, unit_value, unit_name, media_query_name_list = {} )
+MakeMarginLateralValueRange( start, step, count, unit_value, unit_name, media_query_name_list = {}, suffix = )
 
     for index in 0 .. count - 1
     {
         size = start + index * step;
 
-        MakeMarginLateralValue( size, unit_value, unit_name, media_query_name_list );
+        MakeMarginLateralValue( size, unit_value, unit_name, media_query_name_list, suffix );
     }
 
 // ~~
 
-MakeMarginVerticalAuto( media_query_name_list = {} )
+MakeMarginVerticalAuto( media_query_name_list = {}, suffix = )
 
-    .margin-vertical-auto
+    .margin-vertical-auto{suffix}
     {
         margin-top: auto;
         margin-bottom: auto;
@@ -116,7 +116,7 @@ MakeMarginVerticalAuto( media_query_name_list = {} )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .margin-vertical-auto-{media_query_name}
+            .margin-vertical-auto-{media_query_name}{suffix}
             {
                 margin-top: auto;
                 margin-bottom: auto;
@@ -126,9 +126,9 @@ MakeMarginVerticalAuto( media_query_name_list = {} )
 
 // ~~
 
-MakeMarginVerticalValue( size, unit_value, unit_name, media_query_name_list = {} )
+MakeMarginVerticalValue( size, unit_value, unit_name, media_query_name_list = {}, suffix = )
 
-    .margin-vertical-{size}{unit_name}
+    .margin-vertical-{size}{unit_name}{suffix}
     {
         margin-top: size * unit_value;
         margin-bottom: size * unit_value;
@@ -138,7 +138,7 @@ MakeMarginVerticalValue( size, unit_value, unit_name, media_query_name_list = {}
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .margin-vertical-{size}{unit_name}-{media_query_name}
+            .margin-vertical-{size}{unit_name}-{media_query_name}{suffix}
             {
                 margin-top: size * unit_value;
                 margin-bottom: size * unit_value;
@@ -148,20 +148,20 @@ MakeMarginVerticalValue( size, unit_value, unit_name, media_query_name_list = {}
 
 // ~~
 
-MakeMarginVerticalValueRange( start, step, count, unit_value, unit_name, media_query_name_list = {} )
+MakeMarginVerticalValueRange( start, step, count, unit_value, unit_name, media_query_name_list = {}, suffix = )
 
     for index in 0 .. count - 1
     {
         size = start + index * step;
 
-        MakeMarginVerticalValue( size, unit_value, unit_name, media_query_name_list );
+        MakeMarginVerticalValue( size, unit_value, unit_name, media_query_name_list, suffix );
     }
 
 // ~~
 
-MakeMarginLeftAuto( media_query_name_list = {} )
+MakeMarginLeftAuto( media_query_name_list = {}, suffix = )
 
-    .margin-left-auto
+    .margin-left-auto{suffix}
     {
         margin-left: auto;
     }
@@ -170,7 +170,7 @@ MakeMarginLeftAuto( media_query_name_list = {} )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .margin-left-auto-{media_query_name}
+            .margin-left-auto-{media_query_name}{suffix}
             {
                 margin-left: auto;
             }
@@ -179,9 +179,9 @@ MakeMarginLeftAuto( media_query_name_list = {} )
 
 // ~~
 
-MakeMarginLeftValue( size, unit_value, unit_name, media_query_name_list = {} )
+MakeMarginLeftValue( size, unit_value, unit_name, media_query_name_list = {}, suffix = )
 
-    .margin-left-{size}{unit_name}
+    .margin-left-{size}{unit_name}{suffix}
     {
         margin-left: size * unit_value;
     }
@@ -190,7 +190,7 @@ MakeMarginLeftValue( size, unit_value, unit_name, media_query_name_list = {} )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .margin-left-{size}{unit_name}-{media_query_name}
+            .margin-left-{size}{unit_name}-{media_query_name}{suffix}
             {
                 margin-left: size * unit_value;
             }
@@ -199,20 +199,20 @@ MakeMarginLeftValue( size, unit_value, unit_name, media_query_name_list = {} )
 
 // ~~
 
-MakeMarginLeftValueRange( start, step, count, unit_value, unit_name, media_query_name_list = {} )
+MakeMarginLeftValueRange( start, step, count, unit_value, unit_name, media_query_name_list = {}, suffix = )
 
     for index in 0 .. count - 1
     {
         size = start + index * step;
 
-        MakeMarginLeftValue( size, unit_value, unit_name, media_query_name_list );
+        MakeMarginLeftValue( size, unit_value, unit_name, media_query_name_list, suffix );
     }
 
 // ~~
 
-MakeMarginRightAuto( media_query_name_list = {} )
+MakeMarginRightAuto( media_query_name_list = {}, suffix = )
 
-    .margin-right-auto
+    .margin-right-auto{suffix}
     {
         margin-right: auto;
     }
@@ -221,7 +221,7 @@ MakeMarginRightAuto( media_query_name_list = {} )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .margin-right-auto-{media_query_name}
+            .margin-right-auto-{media_query_name}{suffix}
             {
                 margin-right: auto;
             }
@@ -230,9 +230,9 @@ MakeMarginRightAuto( media_query_name_list = {} )
 
 // ~~
 
-MakeMarginRightValue( size, unit_value, unit_name, media_query_name_list = {} )
+MakeMarginRightValue( size, unit_value, unit_name, media_query_name_list = {}, suffix = )
 
-    .margin-right-{size}{unit_name}
+    .margin-right-{size}{unit_name}{suffix}
     {
         margin-right: size * unit_value;
     }
@@ -241,7 +241,7 @@ MakeMarginRightValue( size, unit_value, unit_name, media_query_name_list = {} )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .margin-right-{size}{unit_name}-{media_query_name}
+            .margin-right-{size}{unit_name}-{media_query_name}{suffix}
             {
                 margin-right: size * unit_value;
             }
@@ -250,20 +250,20 @@ MakeMarginRightValue( size, unit_value, unit_name, media_query_name_list = {} )
 
 // ~~
 
-MakeMarginRightValueRange( start, step, count, unit_value, unit_name, media_query_name_list = {} )
+MakeMarginRightValueRange( start, step, count, unit_value, unit_name, media_query_name_list = {}, suffix = )
 
     for index in 0 .. count - 1
     {
         size = start + index * step;
 
-        MakeMarginRightValue( size, unit_value, unit_name, media_query_name_list );
+        MakeMarginRightValue( size, unit_value, unit_name, media_query_name_list, suffix );
     }
 
 // ~~
 
-MakeMarginBottomAuto( media_query_name_list = {} )
+MakeMarginBottomAuto( media_query_name_list = {}, suffix = )
 
-    .margin-bottom-auto
+    .margin-bottom-auto{suffix}
     {
         margin-bottom: auto;
     }
@@ -272,7 +272,7 @@ MakeMarginBottomAuto( media_query_name_list = {} )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .margin-bottom-auto-{media_query_name}
+            .margin-bottom-auto-{media_query_name}{suffix}
             {
                 margin-bottom: auto;
             }
@@ -281,9 +281,9 @@ MakeMarginBottomAuto( media_query_name_list = {} )
 
 // ~~
 
-MakeMarginBottomValue( size, unit_value, unit_name, media_query_name_list = {} )
+MakeMarginBottomValue( size, unit_value, unit_name, media_query_name_list = {}, suffix = )
 
-    .margin-bottom-{size}{unit_name}
+    .margin-bottom-{size}{unit_name}{suffix}
     {
         margin-bottom: size * unit_value;
     }
@@ -292,7 +292,7 @@ MakeMarginBottomValue( size, unit_value, unit_name, media_query_name_list = {} )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .margin-bottom-{size}{unit_name}-{media_query_name}
+            .margin-bottom-{size}{unit_name}-{media_query_name}{suffix}
             {
                 margin-bottom: size * unit_value;
             }
@@ -301,20 +301,20 @@ MakeMarginBottomValue( size, unit_value, unit_name, media_query_name_list = {} )
 
 // ~~
 
-MakeMarginBottomValueRange( start, step, count, unit_value, unit_name, media_query_name_list = {} )
+MakeMarginBottomValueRange( start, step, count, unit_value, unit_name, media_query_name_list = {}, suffix = )
 
     for index in 0 .. count - 1
     {
         size = start + index * step;
 
-        MakeMarginBottomValue( size, unit_value, unit_name, media_query_name_list );
+        MakeMarginBottomValue( size, unit_value, unit_name, media_query_name_list, suffix );
     }
 
 // ~~
 
-MakeMarginTopValue( size, unit_value, unit_name, media_query_name_list = {} )
+MakeMarginTopValue( size, unit_value, unit_name, media_query_name_list = {}, suffix = )
 
-    .margin-top-{size}{unit_name}
+    .margin-top-{size}{unit_name}{suffix}
     {
         margin-top: size * unit_value;
     }
@@ -323,7 +323,7 @@ MakeMarginTopValue( size, unit_value, unit_name, media_query_name_list = {} )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .margin-top-{size}{unit_name}-{media_query_name}
+            .margin-top-{size}{unit_name}-{media_query_name}{suffix}
             {
                 margin-top: size * unit_value;
             }
@@ -332,20 +332,20 @@ MakeMarginTopValue( size, unit_value, unit_name, media_query_name_list = {} )
 
 // ~~
 
-MakeMarginTopValueRange( start, step, count, unit_value, unit_name, media_query_name_list = {} )
+MakeMarginTopValueRange( start, step, count, unit_value, unit_name, media_query_name_list = {}, suffix = )
 
     for index in 0 .. count - 1
     {
         size = start + index * step;
 
-        MakeMarginTopValue( size, unit_value, unit_name, media_query_name_list );
+        MakeMarginTopValue( size, unit_value, unit_name, media_query_name_list, suffix );
     }
 
 // ~~
 
-MakeMarginTopAuto( media_query_name_list = {} )
+MakeMarginTopAuto( media_query_name_list = {}, suffix = )
 
-    .margin-top-auto
+    .margin-top-auto{suffix}
     {
         margin-top: auto;
     }
@@ -356,7 +356,7 @@ MakeMarginTopAuto( media_query_name_list = {} )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .margin-top-auto-{media_query_name}
+            .margin-top-auto-{media_query_name}{suffix}
             {
                 margin-top: auto;
             }
@@ -365,7 +365,7 @@ MakeMarginTopAuto( media_query_name_list = {} )
 
 // ~~
 
-MakeFractionalMarginLeftValue( column_count, media_query_name_list = {} )
+MakeFractionalMarginLeftValue( column_count, media_query_name_list = {}, suffix = )
 
     for column_index in 1 .. column_count
 
@@ -378,7 +378,7 @@ MakeFractionalMarginLeftValue( column_count, media_query_name_list = {} )
         {
             @media MediaQueryMap[ media_query_name ]
             {
-                .margin-left-{column_index}_{column_count}-{media_query_name}
+                .margin-left-{column_index}_{column_count}-{media_query_name}{suffix}
                 {
                     margin-left: 100% * ( column_index / column_count );
                 }
@@ -387,16 +387,16 @@ MakeFractionalMarginLeftValue( column_count, media_query_name_list = {} )
 
 // ~~
 
-MakeFractionalMarginLeftValueRange( first_column_count, last_column_count, media_query_name_list = {} )
+MakeFractionalMarginLeftValueRange( first_column_count, last_column_count, media_query_name_list = {}, suffix = )
 
     for column_count in first_column_count .. last_column_count
     {
-        MakeFractionalMarginLeftValue( column_count, media_query_name_list );
+        MakeFractionalMarginLeftValue( column_count, media_query_name_list, suffix );
     }
 
 // ~~
 
-MakeFractionalMarginRightValue( column_count, media_query_name_list = {} )
+MakeFractionalMarginRightValue( column_count, media_query_name_list = {}, suffix = )
 
     for column_index in 1 .. column_count
 
@@ -409,7 +409,7 @@ MakeFractionalMarginRightValue( column_count, media_query_name_list = {} )
         {
             @media MediaQueryMap[ media_query_name ]
             {
-                .margin-right-{column_index}_{column_count}-{media_query_name}
+                .margin-right-{column_index}_{column_count}-{media_query_name}{suffix}
                 {
                     margin-right: 100% * ( column_index / column_count );
                 }
@@ -418,9 +418,9 @@ MakeFractionalMarginRightValue( column_count, media_query_name_list = {} )
 
 // ~~
 
-MakeFractionalMarginRightRange( first_column_count, last_column_count, media_query_name_list = {} )
+MakeFractionalMarginRightRange( first_column_count, last_column_count, media_query_name_list = {}, suffix = )
 
     for column_count in first_column_count .. last_column_count
     {
-        MakeFractionalMarginRightValue( column_count, media_query_name_list );
+        MakeFractionalMarginRightValue( column_count, media_query_name_list, suffix );
     }
