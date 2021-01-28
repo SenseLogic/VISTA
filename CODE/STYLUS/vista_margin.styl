@@ -49,6 +49,61 @@ MakeMarginValueRange( start, step, count, unit_value, unit_name, media_query_nam
 
 // ~~
 
+MakeMarginVerticalAuto( media_query_name_list = {}, suffix = )
+
+    .margin-vertical-auto{suffix}
+    {
+        margin-top: auto;
+        margin-bottom: auto;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .margin-vertical-auto-{media_query_name}{suffix}
+            {
+                margin-top: auto;
+                margin-bottom: auto;
+            }
+        }
+    }
+
+// ~~
+
+MakeMarginVerticalValue( size, unit_value, unit_name, media_query_name_list = {}, suffix = )
+
+    .margin-vertical-{size}{unit_name}{suffix}
+    {
+        margin-top: size * unit_value;
+        margin-bottom: size * unit_value;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .margin-vertical-{size}{unit_name}-{media_query_name}{suffix}
+            {
+                margin-top: size * unit_value;
+                margin-bottom: size * unit_value;
+            }
+        }
+    }
+
+// ~~
+
+MakeMarginVerticalValueRange( start, step, count, unit_value, unit_name, media_query_name_list = {}, suffix = )
+
+    for index in 0 .. count - 1
+    {
+        size = start + index * step;
+
+        MakeMarginVerticalValue( size, unit_value, unit_name, media_query_name_list, suffix );
+    }
+
+// ~~
+
 MakeMarginLateralAuto( media_query_name_list = {}, suffix = )
 
     .margin-lateral-auto{suffix}
@@ -104,11 +159,63 @@ MakeMarginLateralValueRange( start, step, count, unit_value, unit_name, media_qu
 
 // ~~
 
-MakeMarginVerticalAuto( media_query_name_list = {}, suffix = )
+MakeMarginTopAuto( media_query_name_list = {}, suffix = )
 
-    .margin-vertical-auto{suffix}
+    .margin-top-auto{suffix}
     {
         margin-top: auto;
+    }
+
+    // ~~
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .margin-top-auto-{media_query_name}{suffix}
+            {
+                margin-top: auto;
+            }
+        }
+    }
+
+// ~~
+
+MakeMarginTopValue( size, unit_value, unit_name, media_query_name_list = {}, suffix = )
+
+    .margin-top-{size}{unit_name}{suffix}
+    {
+        margin-top: size * unit_value;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .margin-top-{size}{unit_name}-{media_query_name}{suffix}
+            {
+                margin-top: size * unit_value;
+            }
+        }
+    }
+
+// ~~
+
+MakeMarginTopValueRange( start, step, count, unit_value, unit_name, media_query_name_list = {}, suffix = )
+
+    for index in 0 .. count - 1
+    {
+        size = start + index * step;
+
+        MakeMarginTopValue( size, unit_value, unit_name, media_query_name_list, suffix );
+    }
+
+// ~~
+
+MakeMarginBottomAuto( media_query_name_list = {}, suffix = )
+
+    .margin-bottom-auto{suffix}
+    {
         margin-bottom: auto;
     }
 
@@ -116,9 +223,8 @@ MakeMarginVerticalAuto( media_query_name_list = {}, suffix = )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .margin-vertical-auto-{media_query_name}{suffix}
+            .margin-bottom-auto-{media_query_name}{suffix}
             {
-                margin-top: auto;
                 margin-bottom: auto;
             }
         }
@@ -126,11 +232,10 @@ MakeMarginVerticalAuto( media_query_name_list = {}, suffix = )
 
 // ~~
 
-MakeMarginVerticalValue( size, unit_value, unit_name, media_query_name_list = {}, suffix = )
+MakeMarginBottomValue( size, unit_value, unit_name, media_query_name_list = {}, suffix = )
 
-    .margin-vertical-{size}{unit_name}{suffix}
+    .margin-bottom-{size}{unit_name}{suffix}
     {
-        margin-top: size * unit_value;
         margin-bottom: size * unit_value;
     }
 
@@ -138,9 +243,8 @@ MakeMarginVerticalValue( size, unit_value, unit_name, media_query_name_list = {}
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .margin-vertical-{size}{unit_name}-{media_query_name}{suffix}
+            .margin-bottom-{size}{unit_name}-{media_query_name}{suffix}
             {
-                margin-top: size * unit_value;
                 margin-bottom: size * unit_value;
             }
         }
@@ -148,13 +252,13 @@ MakeMarginVerticalValue( size, unit_value, unit_name, media_query_name_list = {}
 
 // ~~
 
-MakeMarginVerticalValueRange( start, step, count, unit_value, unit_name, media_query_name_list = {}, suffix = )
+MakeMarginBottomValueRange( start, step, count, unit_value, unit_name, media_query_name_list = {}, suffix = )
 
     for index in 0 .. count - 1
     {
         size = start + index * step;
 
-        MakeMarginVerticalValue( size, unit_value, unit_name, media_query_name_list, suffix );
+        MakeMarginBottomValue( size, unit_value, unit_name, media_query_name_list, suffix );
     }
 
 // ~~
@@ -257,110 +361,6 @@ MakeMarginRightValueRange( start, step, count, unit_value, unit_name, media_quer
         size = start + index * step;
 
         MakeMarginRightValue( size, unit_value, unit_name, media_query_name_list, suffix );
-    }
-
-// ~~
-
-MakeMarginBottomAuto( media_query_name_list = {}, suffix = )
-
-    .margin-bottom-auto{suffix}
-    {
-        margin-bottom: auto;
-    }
-
-    for media_query_name in media_query_name_list
-    {
-        @media MediaQueryMap[ media_query_name ]
-        {
-            .margin-bottom-auto-{media_query_name}{suffix}
-            {
-                margin-bottom: auto;
-            }
-        }
-    }
-
-// ~~
-
-MakeMarginBottomValue( size, unit_value, unit_name, media_query_name_list = {}, suffix = )
-
-    .margin-bottom-{size}{unit_name}{suffix}
-    {
-        margin-bottom: size * unit_value;
-    }
-
-    for media_query_name in media_query_name_list
-    {
-        @media MediaQueryMap[ media_query_name ]
-        {
-            .margin-bottom-{size}{unit_name}-{media_query_name}{suffix}
-            {
-                margin-bottom: size * unit_value;
-            }
-        }
-    }
-
-// ~~
-
-MakeMarginBottomValueRange( start, step, count, unit_value, unit_name, media_query_name_list = {}, suffix = )
-
-    for index in 0 .. count - 1
-    {
-        size = start + index * step;
-
-        MakeMarginBottomValue( size, unit_value, unit_name, media_query_name_list, suffix );
-    }
-
-// ~~
-
-MakeMarginTopValue( size, unit_value, unit_name, media_query_name_list = {}, suffix = )
-
-    .margin-top-{size}{unit_name}{suffix}
-    {
-        margin-top: size * unit_value;
-    }
-
-    for media_query_name in media_query_name_list
-    {
-        @media MediaQueryMap[ media_query_name ]
-        {
-            .margin-top-{size}{unit_name}-{media_query_name}{suffix}
-            {
-                margin-top: size * unit_value;
-            }
-        }
-    }
-
-// ~~
-
-MakeMarginTopValueRange( start, step, count, unit_value, unit_name, media_query_name_list = {}, suffix = )
-
-    for index in 0 .. count - 1
-    {
-        size = start + index * step;
-
-        MakeMarginTopValue( size, unit_value, unit_name, media_query_name_list, suffix );
-    }
-
-// ~~
-
-MakeMarginTopAuto( media_query_name_list = {}, suffix = )
-
-    .margin-top-auto{suffix}
-    {
-        margin-top: auto;
-    }
-
-    // ~~
-
-    for media_query_name in media_query_name_list
-    {
-        @media MediaQueryMap[ media_query_name ]
-        {
-            .margin-top-auto-{media_query_name}{suffix}
-            {
-                margin-top: auto;
-            }
-        }
     }
 
 // ~~
