@@ -35,7 +35,7 @@ MakeContainerCenteredValue( max_width, max_width_map = {}, media_query_name_list
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .container-centered
+            .container-centered{suffix}
             {
                 max-width: max_width_map[ media_query_name ];
                 margin-left: auto;
@@ -58,7 +58,7 @@ MakeContainerMarginedValue( margin, margin_map, media_query_name_list = {}, suff
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .container-margined
+            .container-margined{suffix}
             {
                 margin-left: margin_map[ media_query_name ];
                 margin-right: margin_map[ media_query_name ];

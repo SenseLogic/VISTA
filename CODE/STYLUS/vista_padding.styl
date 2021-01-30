@@ -64,7 +64,7 @@ MakePaddingVerticalValueRange( start, step, count, unit_value, unit_name, media_
 
 MakePaddingLateralValue( size, unit_value, unit_name, media_query_name_list = {}, suffix = )
 
-    .padding-lateral-{size}{unit_name}
+    .padding-lateral-{size}{unit_name}{suffix}
     {
         padding-left: size * unit_value;
         padding-right: size * unit_value;
@@ -123,7 +123,7 @@ MakePaddingTopValueRange( start, step, count, unit_value, unit_name, media_query
 
         MakePaddingTopValue( size, unit_value, unit_name, media_query_name_list, suffix );
     }
-    
+
 // ~~
 
 MakePaddingBottomValue( size, unit_value, unit_name, media_query_name_list = {}, suffix = )

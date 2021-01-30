@@ -40,6 +40,7 @@ class VISTA_STORE extends VISTA_DATA
              && value_name !== "Value" )
         {
             this[ "HasLocal" + value_name ] = this.HasLocalValue;
+            this[ "FindLocal" + value_name ] = this.FindLocalValue;
             this[ "GetLocal" + value_name ] = this.GetLocalValue;
             this[ "GetLocal" + value_name + "Array" ] = this.GetLocalValueArray;
             this[ "Fetch" + value_name ] = this.FetchValue;
@@ -77,6 +78,27 @@ class VISTA_STORE extends VISTA_DATA
 
     // ~~
 
+    FindLocalValue(
+        value_key
+        )
+    {
+        var
+            value;
+
+        value = this.ValueMap.GetValue( value_key );
+
+        if ( value === undefined )
+        {
+            return null;
+        }
+        else
+        {
+            return value;
+        }
+    }
+
+    // ~~
+
     GetLocalValue(
         value_key
         )
@@ -88,6 +110,8 @@ class VISTA_STORE extends VISTA_DATA
 
         if ( value === undefined )
         {
+            PrintError( "Invalid local value key: ", value_key );
+
             return null;
         }
         else

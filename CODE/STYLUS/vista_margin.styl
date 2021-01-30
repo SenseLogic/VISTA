@@ -369,7 +369,7 @@ MakeFractionalMarginLeftValue( column_count, media_query_name_list = {}, suffix 
 
     for column_index in 1 .. column_count
 
-        .margin-left-{column_index}_{column_count}
+        .margin-left-{column_index}\\/{column_count}{suffix}
         {
             margin-left: 100% * ( column_index / column_count );
         }
@@ -378,7 +378,7 @@ MakeFractionalMarginLeftValue( column_count, media_query_name_list = {}, suffix 
         {
             @media MediaQueryMap[ media_query_name ]
             {
-                .margin-left-{column_index}_{column_count}-{media_query_name}{suffix}
+                .margin-left-{column_index}\\/{column_count}-{media_query_name}{suffix}
                 {
                     margin-left: 100% * ( column_index / column_count );
                 }
@@ -400,7 +400,7 @@ MakeFractionalMarginRightValue( column_count, media_query_name_list = {}, suffix
 
     for column_index in 1 .. column_count
 
-        .margin-right-{column_index}_{column_count}
+        .margin-right-{column_index}\\/{column_count}{suffix}
         {
             margin-right: 100% * ( column_index / column_count );
         }
@@ -409,7 +409,7 @@ MakeFractionalMarginRightValue( column_count, media_query_name_list = {}, suffix
         {
             @media MediaQueryMap[ media_query_name ]
             {
-                .margin-right-{column_index}_{column_count}-{media_query_name}{suffix}
+                .margin-right-{column_index}\\/{column_count}-{media_query_name}{suffix}
                 {
                     margin-right: 100% * ( column_index / column_count );
                 }
