@@ -1,0 +1,28 @@
+MakeOpacityValue( size, unit_value, unit_name, media_query_name_list = {}, suffix = )
+
+    .opacity-{size}{unit_name}{suffix}
+    {
+        opacity: size * unit_value;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .opacity-{size}{unit_name}-{media_query_name}{suffix}
+            {
+                opacity: size * unit_value;
+            }
+        }
+    }
+
+// ~~
+
+MakeOpacityValueRange( start, step, count, unit_value, unit_name, media_query_name_list = {}, suffix = )
+
+    for index in 0 .. count - 1
+    {
+        size = start + index * step;
+
+        MakeOpacityValue( size, unit_value, unit_name, media_query_name_list, suffix );
+    }

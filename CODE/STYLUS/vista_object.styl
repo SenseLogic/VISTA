@@ -1,0 +1,97 @@
+MakeObjectFitNone( media_query_name_list = {}, suffix = )
+
+    .object-fit-none{suffix}
+    {
+        object-fit: none;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .object-fit-none-{media_query_name}{suffix}
+            {
+                object-fit: none;
+            }
+        }
+    }
+
+// ~~
+
+MakeObjectFitContain( media_query_name_list = {}, suffix = )
+
+    .object-fit-contain{suffix}
+    {
+        object-fit: contain;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .object-fit-contain-{media_query_name}{suffix}
+            {
+                object-fit: contain;
+            }
+        }
+    }
+
+// ~~
+
+MakeObjectFitScaleDown( media_query_name_list = {}, suffix = )
+
+    .object-fit-scale-down{suffix}
+    {
+        object-fit: scale-down;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .object-fit-scale-down-{media_query_name}{suffix}
+            {
+                object-fit: scale-down;
+            }
+        }
+    }
+
+// ~~
+
+MakeObjectFitCover( media_query_name_list = {}, suffix = )
+
+    .object-fit-cover{suffix}
+    {
+        object-fit: cover;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .object-fit-cover-{media_query_name}{suffix}
+            {
+                object-fit: cover;
+            }
+        }
+    }
+
+// ~~
+
+MakeObjectFitFill( media_query_name_list = {}, suffix = )
+
+    .object-fit-fill{suffix}
+    {
+        object-fit: fill;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .object-fit-fill-{media_query_name}{suffix}
+            {
+                object-fit: fill;
+            }
+        }
+    }

@@ -1,3 +1,363 @@
+MakeBackgroundOriginBorderBox( media_query_name_list = {}, suffix = )
+
+    .background-origin-border-box{suffix}
+    {
+        background-origin: border-box;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .background-origin-border-box-{media_query_name}{suffix}
+            {
+                background-origin: border-box;
+            }
+        }
+    }
+
+// ~~
+
+MakeBackgroundOriginPaddingBox( media_query_name_list = {}, suffix = )
+
+    .background-origin-padding-box{suffix}
+    {
+        background-origin: padding-box;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .background-origin-padding-box-{media_query_name}{suffix}
+            {
+                background-origin: padding-box;
+            }
+        }
+    }
+
+// ~~
+
+MakeBackgroundOriginContentBox( media_query_name_list = {}, suffix = )
+
+    .background-origin-content-box{suffix}
+    {
+        background-origin: content-box;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .background-origin-content-box-{media_query_name}{suffix}
+            {
+                background-origin: content-box;
+            }
+        }
+    }
+
+// ~~
+
+MakeBackgroundClipBorderBox( media_query_name_list = {}, suffix = )
+
+    .background-origin-border-box{suffix}
+    {
+        background-origin: border-box;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .background-origin-border-box-{media_query_name}{suffix}
+            {
+                background-origin: border-box;
+            }
+        }
+    }
+
+// ~~
+
+MakeBackgroundClipPaddingBox( media_query_name_list = {}, suffix = )
+
+    .background-origin-padding-box{suffix}
+    {
+        background-origin: padding-box;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .background-origin-padding-box-{media_query_name}{suffix}
+            {
+                background-origin: padding-box;
+            }
+        }
+    }
+
+// ~~
+
+MakeBackgroundClipContentBox( media_query_name_list = {}, suffix = )
+
+    .background-origin-content-box{suffix}
+    {
+        background-origin: content-box;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .background-origin-content-box-{media_query_name}{suffix}
+            {
+                background-origin: content-box;
+            }
+        }
+    }
+
+// ~~
+
+MakeBackgroundClipText( media_query_name_list = {}, suffix = )
+
+    .background-origin-content-text{suffix}
+    {
+        background-origin: content-text;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .background-origin-content-text-{media_query_name}{suffix}
+            {
+                background-origin: content-text;
+            }
+        }
+    }
+
+// ~~
+
+MakeBackgroundAttachmentLocal( media_query_name_list = {}, suffix = )
+
+    .background-attachment-local{suffix}
+    {
+        background-attachment: local;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .background-attachment-local-{media_query_name}{suffix}
+            {
+                background-attachment: local;
+            }
+        }
+    }
+
+// ~~
+
+MakeBackgroundAttachmentScroll( media_query_name_list = {}, suffix = )
+
+    .background-attachment-scroll{suffix}
+    {
+        background-attachment: scroll;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .background-attachment-scroll-{media_query_name}{suffix}
+            {
+                background-attachment: scroll;
+            }
+        }
+    }
+
+// ~~
+
+MakeBackgroundAttachmentFixed( media_query_name_list = {}, suffix = )
+
+    .background-attachment-fixed{suffix}
+    {
+        background-attachment: fixed;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .background-attachment-fixed-{media_query_name}{suffix}
+            {
+                background-attachment: fixed;
+            }
+        }
+    }
+
+// ~~
+
+MakeBackgroundPositionCenter( media_query_name_list = {}, suffix = )
+
+    .background-position-center{suffix}
+    {
+        background-position: center;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .background-position-center-{media_query_name}{suffix}
+            {
+                background-position: center;
+            }
+        }
+    }
+
+// ~~
+
+MakeBackgroundPositionTopLeft( media_query_name_list = {}, suffix = )
+
+    .background-position-top-left{suffix}
+    {
+        background-position: top left;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .background-position-top-left-{media_query_name}{suffix}
+            {
+                background-position: top left;
+            }
+        }
+    }
+
+// ~~
+
+MakeBackgroundPositionTopRight( media_query_name_list = {}, suffix = )
+
+    .background-position-top-right{suffix}
+    {
+        background-position: top right;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .background-position-top-right-{media_query_name}{suffix}
+            {
+                background-position: top right;
+            }
+        }
+    }
+
+// ~~
+
+MakeBackgroundPositionBottomLeft( media_query_name_list = {}, suffix = )
+
+    .background-position-bottom-left{suffix}
+    {
+        background-position: bottom left;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .background-position-bottom-left-{media_query_name}{suffix}
+            {
+                background-position: bottom left;
+            }
+        }
+    }
+
+// ~~
+
+MakeBackgroundPositionBottomRight( media_query_name_list = {}, suffix = )
+
+    .background-position-bottom-right{suffix}
+    {
+        background-position: bottom right;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .background-position-bottom-right-{media_query_name}{suffix}
+            {
+                background-position: bottom right;
+            }
+        }
+    }
+
+// ~~
+
+MakeBackgroundSizeAuto( media_query_name_list = {}, suffix = )
+
+    .background-size-auto{suffix}
+    {
+        background-size: auto;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .background-size-auto-{media_query_name}{suffix}
+            {
+                background-size: auto;
+            }
+        }
+    }
+
+// ~~
+
+MakeBackgroundSizeContain( media_query_name_list = {}, suffix = )
+
+    .background-size-contain{suffix}
+    {
+        background-size: contain;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .background-size-contain-{media_query_name}{suffix}
+            {
+                background-size: contain;
+            }
+        }
+    }
+
+// ~~
+
+MakeBackgroundSizeCover( media_query_name_list = {}, suffix = )
+
+    .background-size-cover{suffix}
+    {
+        background-size: cover;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .background-size-cover-{media_query_name}{suffix}
+            {
+                background-size: cover;
+            }
+        }
+    }
+
+// ~~
+
 MakeBackgroundColorValue( name, value, media_query_name_list = {}, suffix = )
 
     .background-color-{name}{suffix}
