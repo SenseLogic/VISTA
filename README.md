@@ -55,6 +55,7 @@ Minimalistic front-end framework.
     *   matrices
     *   quaternions
     *   shaders
+    *   trackers
 
 ## Samples
 
