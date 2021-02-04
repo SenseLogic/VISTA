@@ -311,7 +311,7 @@ a:active,
 a:hover {
   outline: 0;
 }
-@media (min-width: 20em) and (max-width: 29.98em), (min-width: 40em) and (max-width: 49.98em) {
+@media (max-width: 19.98em), (min-width: 40em) {
   html {
     background-color: #ff0;
   }
