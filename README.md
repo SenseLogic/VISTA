@@ -6,13 +6,13 @@ Minimalistic front-end framework.
 
 ## Goals
 
-*   Modest : focuses on small scale applications
-*   Minimal : just wraps and extends native types
-*   Concise : eliminates most boilerplate code
-*   Compact : uses simple yet efficient algorithms
-*   Modular : allows to include only what is needed
-*   Modern : uses ES6 and native web components
-*   Direct : can be used immediately without bundler
+*   Modest : focuses on small scale applications.
+*   Minimal : just wraps and extends native types.
+*   Concise : eliminates most boilerplate code.
+*   Compact : uses simple yet efficient algorithms.
+*   Modular : allows to include only what is needed.
+*   Modern : uses ES6 and native web components.
+*   Direct : can be used immediately without bundler.
 
 ## Features
 
