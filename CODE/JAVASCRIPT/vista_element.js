@@ -325,11 +325,174 @@ HTMLElement.prototype.SetTextContent = function (
 
 // ~~
 
-HTMLElement.prototype.AddEventListener = HTMLElement.prototype.addEventListener;
+function AddEventListener(
+    event_name,
+    event_function,
+    event_is_captured = false,
+    event_is_unique = false,
+    event_is_passive = false
+    )
+{
+    document.addEventListener(
+        event_name,
+        event_function,
+        {
+            capture: event_is_captured,
+            once: event_is_unique,
+            passive: event_is_passive
+        }
+        );
+}
 
 // ~~
 
-HTMLElement.prototype.RemoveEventListener = HTMLElement.prototype.removeEventListener;
+HTMLElement.prototype.AddEventListener = function (
+    event_name,
+    event_function,
+    event_is_captured = false,
+    event_is_unique = false,
+    event_is_passive = false
+    )
+{
+    this.addEventListener(
+        event_name,
+        event_function,
+        {
+            capture: event_is_captured,
+            once: event_is_unique,
+            passive: event_is_passive
+        }
+        );
+}
+
+// ~~
+
+function RemoveEventListener(
+    event_name,
+    event_function,
+    event_is_captured = false,
+    event_is_unique = false,
+    event_is_passive = false
+    )
+{
+    document.removeEventListener(
+        event_name,
+        event_function,
+        {
+            capture: event_is_captured,
+            once: event_is_unique,
+            passive: event_is_passive
+        }
+        );
+}
+
+// ~~
+
+HTMLElement.prototype.RemoveEventListener = function (
+    event_name,
+    event_function,
+    event_is_captured = false,
+    event_is_unique = false,
+    event_is_passive = false
+    )
+{
+    this.removeEventListener(
+        event_name,
+        event_function,
+        {
+            capture: event_is_captured,
+            once: event_is_unique,
+            passive: event_is_passive
+        }
+        );
+}
+
+// ~~
+
+function ReplaceEventListener(
+    event_name,
+    event_function,
+    event_is_captured = false,
+    event_is_unique = false,
+    event_is_passive = false
+    )
+{
+    document.removeEventListener(
+        event_name,
+        event_function,
+        {
+            capture: event_is_captured,
+            once: event_is_unique,
+            passive: event_is_passive
+        }
+        );
+
+    document.addEventListener(
+        event_name,
+        event_function,
+        {
+            capture: event_is_captured,
+            once: event_is_unique,
+            passive: event_is_passive
+        }
+        );
+}
+
+// ~~
+
+HTMLElement.prototype.ReplaceEventListener = function (
+    event_name,
+    event_function,
+    event_is_captured = false,
+    event_is_unique = false,
+    event_is_passive = false
+    )
+{
+    this.removeEventListener(
+        event_name,
+        event_function,
+        {
+            capture: event_is_captured,
+            once: event_is_unique,
+            passive: event_is_passive
+        }
+        );
+
+    this.addEventListener(
+        event_name,
+        event_function,
+        {
+            capture: event_is_captured,
+            once: event_is_unique,
+            passive: event_is_passive
+        }
+        );
+}
+
+// ~~
+
+function EmitEvent(
+    event_name,
+    event_data = null,
+    event_is_bubbled = true,
+    event_is_cancelable = true,
+    event_is_composed = true
+    )
+{
+
+    return (
+        document.dispatchEvent(
+            new CustomEvent(
+                event_name,
+                {
+                    detail : event_data,
+                    bubbles : event_is_bubbled,
+                    cancelable : event_is_cancelable,
+                    composed : event_is_composed
+                }
+                )
+            )
+        );}
 
 // ~~
 

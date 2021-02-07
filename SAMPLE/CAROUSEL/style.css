@@ -314,10 +314,174 @@ a:hover {
 .display-flex {
   display: flex;
 }
-.carousel {
+.prefixcarousel {
   overflow-x: hidden;
 }
-Prefix(test-)
+.test-carousel-strip-7-1 {
+  display: flex;
+  position: relative;
+  left: 0;
+  margin: 0;
+  width: 700%;
+}
+.test-carousel-strip-perpetual-animation-7-1-3000-500 {
+  animation: 21s 'test-carousel-strip-perpetual-animation-7-1-3000-500' infinite;
+  animation-timing-function: ease;
+}
+@keyframes test-carousel-strip-perpetual-animation-7-1-3000-500 {
+  0% {
+    left: 0%;
+  }
+  14.285714285714288% {
+    left: 0%;
+  }
+  16.666666666666664% {
+    left: -100%;
+  }
+  30.952380952380953% {
+    left: -100%;
+  }
+  33.33333333333333% {
+    left: -200%;
+  }
+  47.61904761904762% {
+    left: -200%;
+  }
+  50% {
+    left: -300%;
+  }
+  64.28571428571429% {
+    left: -300%;
+  }
+  66.66666666666666% {
+    left: -400%;
+  }
+  80.95238095238096% {
+    left: -400%;
+  }
+  83.33333333333334% {
+    left: -500%;
+  }
+  97.61904761904762% {
+    left: -500%;
+  }
+  100% {
+    left: -600%;
+  }
+}
+.test-carousel-slide-7 {
+  width: 14.285714285714286%;
+}
+.test-carousel-strip-8-2 {
+  display: flex;
+  position: relative;
+  left: 0;
+  margin: 0;
+  width: 400%;
+}
+.test-carousel-strip-perpetual-animation-8-2-3000-500 {
+  animation: 21s 'test-carousel-strip-perpetual-animation-8-2-3000-500' infinite;
+  animation-timing-function: ease;
+}
+@keyframes test-carousel-strip-perpetual-animation-8-2-3000-500 {
+  0% {
+    left: 0%;
+  }
+  14.285714285714288% {
+    left: 0%;
+  }
+  16.666666666666664% {
+    left: -50%;
+  }
+  30.952380952380953% {
+    left: -50%;
+  }
+  33.33333333333333% {
+    left: -100%;
+  }
+  47.61904761904762% {
+    left: -100%;
+  }
+  50% {
+    left: -150%;
+  }
+  64.28571428571429% {
+    left: -150%;
+  }
+  66.66666666666666% {
+    left: -200%;
+  }
+  80.95238095238096% {
+    left: -200%;
+  }
+  83.33333333333334% {
+    left: -250%;
+  }
+  97.61904761904762% {
+    left: -250%;
+  }
+  100% {
+    left: -300%;
+  }
+}
+.test-carousel-slide-8 {
+  width: 12.5%;
+}
+.test-carousel-strip-9-3 {
+  display: flex;
+  position: relative;
+  left: 0;
+  margin: 0;
+  width: 300%;
+}
+.test-carousel-strip-perpetual-animation-9-3-3000-500 {
+  animation: 21s 'test-carousel-strip-perpetual-animation-9-3-3000-500' infinite;
+  animation-timing-function: ease;
+}
+@keyframes test-carousel-strip-perpetual-animation-9-3-3000-500 {
+  0% {
+    left: 0%;
+  }
+  14.285714285714288% {
+    left: 0%;
+  }
+  16.666666666666664% {
+    left: -33.33333333333333%;
+  }
+  30.952380952380953% {
+    left: -33.33333333333333%;
+  }
+  33.33333333333333% {
+    left: -66.66666666666666%;
+  }
+  47.61904761904762% {
+    left: -66.66666666666666%;
+  }
+  50% {
+    left: -100%;
+  }
+  64.28571428571429% {
+    left: -100%;
+  }
+  66.66666666666666% {
+    left: -133.33333333333331%;
+  }
+  80.95238095238096% {
+    left: -133.33333333333331%;
+  }
+  83.33333333333334% {
+    left: -166.66666666666666%;
+  }
+  97.61904761904762% {
+    left: -166.66666666666666%;
+  }
+  100% {
+    left: -200%;
+  }
+}
+.test-carousel-slide-9 {
+  width: 11.11111111111111%;
+}
 html {
   background: #fff;
 }

@@ -1,6 +1,6 @@
-MakeBackgroundOriginBorderBox( media_query_name_list = {}, suffix = )
+MakeBackgroundOriginBorderBox( media_query_name_list = {}, prefix =, suffix = )
 
-    .background-origin-border-box{suffix}
+    .{prefix}background-origin-border-box{suffix}
     {
         background-origin: border-box;
     }
@@ -9,7 +9,7 @@ MakeBackgroundOriginBorderBox( media_query_name_list = {}, suffix = )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .background-origin-border-box-{media_query_name}{suffix}
+            .{prefix}background-origin-border-box-{media_query_name}{suffix}
             {
                 background-origin: border-box;
             }
@@ -18,9 +18,9 @@ MakeBackgroundOriginBorderBox( media_query_name_list = {}, suffix = )
 
 // ~~
 
-MakeBackgroundOriginPaddingBox( media_query_name_list = {}, suffix = )
+MakeBackgroundOriginPaddingBox( media_query_name_list = {}, prefix =, suffix = )
 
-    .background-origin-padding-box{suffix}
+    .{prefix}background-origin-padding-box{suffix}
     {
         background-origin: padding-box;
     }
@@ -29,7 +29,7 @@ MakeBackgroundOriginPaddingBox( media_query_name_list = {}, suffix = )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .background-origin-padding-box-{media_query_name}{suffix}
+            .{prefix}background-origin-padding-box-{media_query_name}{suffix}
             {
                 background-origin: padding-box;
             }
@@ -38,9 +38,9 @@ MakeBackgroundOriginPaddingBox( media_query_name_list = {}, suffix = )
 
 // ~~
 
-MakeBackgroundOriginContentBox( media_query_name_list = {}, suffix = )
+MakeBackgroundOriginContentBox( media_query_name_list = {}, prefix =, suffix = )
 
-    .background-origin-content-box{suffix}
+    .{prefix}background-origin-content-box{suffix}
     {
         background-origin: content-box;
     }
@@ -49,7 +49,7 @@ MakeBackgroundOriginContentBox( media_query_name_list = {}, suffix = )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .background-origin-content-box-{media_query_name}{suffix}
+            .{prefix}background-origin-content-box-{media_query_name}{suffix}
             {
                 background-origin: content-box;
             }
@@ -58,9 +58,9 @@ MakeBackgroundOriginContentBox( media_query_name_list = {}, suffix = )
 
 // ~~
 
-MakeBackgroundClipBorderBox( media_query_name_list = {}, suffix = )
+MakeBackgroundClipBorderBox( media_query_name_list = {}, prefix =, suffix = )
 
-    .background-origin-border-box{suffix}
+    .{prefix}background-origin-border-box{suffix}
     {
         background-origin: border-box;
     }
@@ -69,7 +69,7 @@ MakeBackgroundClipBorderBox( media_query_name_list = {}, suffix = )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .background-origin-border-box-{media_query_name}{suffix}
+            .{prefix}background-origin-border-box-{media_query_name}{suffix}
             {
                 background-origin: border-box;
             }
@@ -78,9 +78,9 @@ MakeBackgroundClipBorderBox( media_query_name_list = {}, suffix = )
 
 // ~~
 
-MakeBackgroundClipPaddingBox( media_query_name_list = {}, suffix = )
+MakeBackgroundClipPaddingBox( media_query_name_list = {}, prefix =, suffix = )
 
-    .background-origin-padding-box{suffix}
+    .{prefix}background-origin-padding-box{suffix}
     {
         background-origin: padding-box;
     }
@@ -89,7 +89,7 @@ MakeBackgroundClipPaddingBox( media_query_name_list = {}, suffix = )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .background-origin-padding-box-{media_query_name}{suffix}
+            .{prefix}background-origin-padding-box-{media_query_name}{suffix}
             {
                 background-origin: padding-box;
             }
@@ -98,9 +98,9 @@ MakeBackgroundClipPaddingBox( media_query_name_list = {}, suffix = )
 
 // ~~
 
-MakeBackgroundClipContentBox( media_query_name_list = {}, suffix = )
+MakeBackgroundClipContentBox( media_query_name_list = {}, prefix =, suffix = )
 
-    .background-origin-content-box{suffix}
+    .{prefix}background-origin-content-box{suffix}
     {
         background-origin: content-box;
     }
@@ -109,7 +109,7 @@ MakeBackgroundClipContentBox( media_query_name_list = {}, suffix = )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .background-origin-content-box-{media_query_name}{suffix}
+            .{prefix}background-origin-content-box-{media_query_name}{suffix}
             {
                 background-origin: content-box;
             }
@@ -118,9 +118,9 @@ MakeBackgroundClipContentBox( media_query_name_list = {}, suffix = )
 
 // ~~
 
-MakeBackgroundClipText( media_query_name_list = {}, suffix = )
+MakeBackgroundClipText( media_query_name_list = {}, prefix =, suffix = )
 
-    .background-origin-content-text{suffix}
+    .{prefix}background-origin-content-text{suffix}
     {
         background-origin: content-text;
     }
@@ -129,7 +129,7 @@ MakeBackgroundClipText( media_query_name_list = {}, suffix = )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .background-origin-content-text-{media_query_name}{suffix}
+            .{prefix}background-origin-content-text-{media_query_name}{suffix}
             {
                 background-origin: content-text;
             }
@@ -138,9 +138,9 @@ MakeBackgroundClipText( media_query_name_list = {}, suffix = )
 
 // ~~
 
-MakeBackgroundAttachmentLocal( media_query_name_list = {}, suffix = )
+MakeBackgroundAttachmentLocal( media_query_name_list = {}, prefix =, suffix = )
 
-    .background-attachment-local{suffix}
+    .{prefix}background-attachment-local{suffix}
     {
         background-attachment: local;
     }
@@ -149,7 +149,7 @@ MakeBackgroundAttachmentLocal( media_query_name_list = {}, suffix = )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .background-attachment-local-{media_query_name}{suffix}
+            .{prefix}background-attachment-local-{media_query_name}{suffix}
             {
                 background-attachment: local;
             }
@@ -158,9 +158,9 @@ MakeBackgroundAttachmentLocal( media_query_name_list = {}, suffix = )
 
 // ~~
 
-MakeBackgroundAttachmentScroll( media_query_name_list = {}, suffix = )
+MakeBackgroundAttachmentScroll( media_query_name_list = {}, prefix =, suffix = )
 
-    .background-attachment-scroll{suffix}
+    .{prefix}background-attachment-scroll{suffix}
     {
         background-attachment: scroll;
     }
@@ -169,7 +169,7 @@ MakeBackgroundAttachmentScroll( media_query_name_list = {}, suffix = )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .background-attachment-scroll-{media_query_name}{suffix}
+            .{prefix}background-attachment-scroll-{media_query_name}{suffix}
             {
                 background-attachment: scroll;
             }
@@ -178,9 +178,9 @@ MakeBackgroundAttachmentScroll( media_query_name_list = {}, suffix = )
 
 // ~~
 
-MakeBackgroundAttachmentFixed( media_query_name_list = {}, suffix = )
+MakeBackgroundAttachmentFixed( media_query_name_list = {}, prefix =, suffix = )
 
-    .background-attachment-fixed{suffix}
+    .{prefix}background-attachment-fixed{suffix}
     {
         background-attachment: fixed;
     }
@@ -189,7 +189,7 @@ MakeBackgroundAttachmentFixed( media_query_name_list = {}, suffix = )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .background-attachment-fixed-{media_query_name}{suffix}
+            .{prefix}background-attachment-fixed-{media_query_name}{suffix}
             {
                 background-attachment: fixed;
             }
@@ -198,9 +198,9 @@ MakeBackgroundAttachmentFixed( media_query_name_list = {}, suffix = )
 
 // ~~
 
-MakeBackgroundPositionCenter( media_query_name_list = {}, suffix = )
+MakeBackgroundPositionCenter( media_query_name_list = {}, prefix =, suffix = )
 
-    .background-position-center{suffix}
+    .{prefix}background-position-center{suffix}
     {
         background-position: center;
     }
@@ -209,7 +209,7 @@ MakeBackgroundPositionCenter( media_query_name_list = {}, suffix = )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .background-position-center-{media_query_name}{suffix}
+            .{prefix}background-position-center-{media_query_name}{suffix}
             {
                 background-position: center;
             }
@@ -218,9 +218,9 @@ MakeBackgroundPositionCenter( media_query_name_list = {}, suffix = )
 
 // ~~
 
-MakeBackgroundPositionTopLeft( media_query_name_list = {}, suffix = )
+MakeBackgroundPositionTopLeft( media_query_name_list = {}, prefix =, suffix = )
 
-    .background-position-top-left{suffix}
+    .{prefix}background-position-top-left{suffix}
     {
         background-position: top left;
     }
@@ -229,7 +229,7 @@ MakeBackgroundPositionTopLeft( media_query_name_list = {}, suffix = )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .background-position-top-left-{media_query_name}{suffix}
+            .{prefix}background-position-top-left-{media_query_name}{suffix}
             {
                 background-position: top left;
             }
@@ -238,9 +238,9 @@ MakeBackgroundPositionTopLeft( media_query_name_list = {}, suffix = )
 
 // ~~
 
-MakeBackgroundPositionTopRight( media_query_name_list = {}, suffix = )
+MakeBackgroundPositionTopRight( media_query_name_list = {}, prefix =, suffix = )
 
-    .background-position-top-right{suffix}
+    .{prefix}background-position-top-right{suffix}
     {
         background-position: top right;
     }
@@ -249,7 +249,7 @@ MakeBackgroundPositionTopRight( media_query_name_list = {}, suffix = )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .background-position-top-right-{media_query_name}{suffix}
+            .{prefix}background-position-top-right-{media_query_name}{suffix}
             {
                 background-position: top right;
             }
@@ -258,9 +258,9 @@ MakeBackgroundPositionTopRight( media_query_name_list = {}, suffix = )
 
 // ~~
 
-MakeBackgroundPositionBottomLeft( media_query_name_list = {}, suffix = )
+MakeBackgroundPositionBottomLeft( media_query_name_list = {}, prefix =, suffix = )
 
-    .background-position-bottom-left{suffix}
+    .{prefix}background-position-bottom-left{suffix}
     {
         background-position: bottom left;
     }
@@ -269,7 +269,7 @@ MakeBackgroundPositionBottomLeft( media_query_name_list = {}, suffix = )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .background-position-bottom-left-{media_query_name}{suffix}
+            .{prefix}background-position-bottom-left-{media_query_name}{suffix}
             {
                 background-position: bottom left;
             }
@@ -278,9 +278,9 @@ MakeBackgroundPositionBottomLeft( media_query_name_list = {}, suffix = )
 
 // ~~
 
-MakeBackgroundPositionBottomRight( media_query_name_list = {}, suffix = )
+MakeBackgroundPositionBottomRight( media_query_name_list = {}, prefix =, suffix = )
 
-    .background-position-bottom-right{suffix}
+    .{prefix}background-position-bottom-right{suffix}
     {
         background-position: bottom right;
     }
@@ -289,7 +289,7 @@ MakeBackgroundPositionBottomRight( media_query_name_list = {}, suffix = )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .background-position-bottom-right-{media_query_name}{suffix}
+            .{prefix}background-position-bottom-right-{media_query_name}{suffix}
             {
                 background-position: bottom right;
             }
@@ -298,9 +298,9 @@ MakeBackgroundPositionBottomRight( media_query_name_list = {}, suffix = )
 
 // ~~
 
-MakeBackgroundSizeAuto( media_query_name_list = {}, suffix = )
+MakeBackgroundSizeAuto( media_query_name_list = {}, prefix =, suffix = )
 
-    .background-size-auto{suffix}
+    .{prefix}background-size-auto{suffix}
     {
         background-size: auto;
     }
@@ -309,7 +309,7 @@ MakeBackgroundSizeAuto( media_query_name_list = {}, suffix = )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .background-size-auto-{media_query_name}{suffix}
+            .{prefix}background-size-auto-{media_query_name}{suffix}
             {
                 background-size: auto;
             }
@@ -318,9 +318,9 @@ MakeBackgroundSizeAuto( media_query_name_list = {}, suffix = )
 
 // ~~
 
-MakeBackgroundSizeContain( media_query_name_list = {}, suffix = )
+MakeBackgroundSizeContain( media_query_name_list = {}, prefix =, suffix = )
 
-    .background-size-contain{suffix}
+    .{prefix}background-size-contain{suffix}
     {
         background-size: contain;
     }
@@ -329,7 +329,7 @@ MakeBackgroundSizeContain( media_query_name_list = {}, suffix = )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .background-size-contain-{media_query_name}{suffix}
+            .{prefix}background-size-contain-{media_query_name}{suffix}
             {
                 background-size: contain;
             }
@@ -338,9 +338,9 @@ MakeBackgroundSizeContain( media_query_name_list = {}, suffix = )
 
 // ~~
 
-MakeBackgroundSizeCover( media_query_name_list = {}, suffix = )
+MakeBackgroundSizeCover( media_query_name_list = {}, prefix =, suffix = )
 
-    .background-size-cover{suffix}
+    .{prefix}background-size-cover{suffix}
     {
         background-size: cover;
     }
@@ -349,7 +349,7 @@ MakeBackgroundSizeCover( media_query_name_list = {}, suffix = )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .background-size-cover-{media_query_name}{suffix}
+            .{prefix}background-size-cover-{media_query_name}{suffix}
             {
                 background-size: cover;
             }
@@ -358,9 +358,9 @@ MakeBackgroundSizeCover( media_query_name_list = {}, suffix = )
 
 // ~~
 
-MakeBackgroundColorValue( name, value, media_query_name_list = {}, suffix = )
+MakeBackgroundColorValue( name, value, media_query_name_list = {}, prefix =, suffix = )
 
-    .background-color-{name}{suffix}
+    .{prefix}background-color-{name}{suffix}
     {
         background-color: value;
     }
@@ -369,7 +369,7 @@ MakeBackgroundColorValue( name, value, media_query_name_list = {}, suffix = )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .background-color-{name}-{media_query_name}{suffix}
+            .{prefix}background-color-{name}-{media_query_name}{suffix}
             {
                 background-color: value;
             }

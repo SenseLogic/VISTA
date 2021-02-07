@@ -1,6 +1,6 @@
-MakeJustifyContentStart( media_query_name_list = {}, suffix = )
+MakeJustifyContentStart( media_query_name_list = {}, prefix =, suffix = )
 
-    .justify-content-start{suffix}
+    .{prefix}justify-content-start{suffix}
     {
         justify-content: flex-start;
     }
@@ -9,7 +9,7 @@ MakeJustifyContentStart( media_query_name_list = {}, suffix = )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .justify-content-start-{media_query_name}{suffix}
+            .{prefix}justify-content-start-{media_query_name}{suffix}
             {
                 justify-content: flex-start;
             }
@@ -18,9 +18,9 @@ MakeJustifyContentStart( media_query_name_list = {}, suffix = )
 
 // ~~
 
-MakeJustifyContentCenter( media_query_name_list = {}, suffix = )
+MakeJustifyContentCenter( media_query_name_list = {}, prefix =, suffix = )
 
-    .justify-content-center{suffix}
+    .{prefix}justify-content-center{suffix}
     {
         justify-content: center;
     }
@@ -29,7 +29,7 @@ MakeJustifyContentCenter( media_query_name_list = {}, suffix = )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .justify-content-center-{media_query_name}{suffix}
+            .{prefix}justify-content-center-{media_query_name}{suffix}
             {
                 justify-content: center;
             }
@@ -38,9 +38,9 @@ MakeJustifyContentCenter( media_query_name_list = {}, suffix = )
 
 // ~~
 
-MakeJustifyContentEnd( media_query_name_list = {}, suffix = )
+MakeJustifyContentEnd( media_query_name_list = {}, prefix =, suffix = )
 
-    .justify-content-end{suffix}
+    .{prefix}justify-content-end{suffix}
     {
         justify-content: flex-end;
     }
@@ -49,7 +49,7 @@ MakeJustifyContentEnd( media_query_name_list = {}, suffix = )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .justify-content-end-{media_query_name}{suffix}
+            .{prefix}justify-content-end-{media_query_name}{suffix}
             {
                 justify-content: flex-end;
             }
@@ -58,9 +58,9 @@ MakeJustifyContentEnd( media_query_name_list = {}, suffix = )
 
 // ~~
 
-MakeJustifyContentSpaceBetween( media_query_name_list = {}, suffix = )
+MakeJustifyContentSpaceBetween( media_query_name_list = {}, prefix =, suffix = )
 
-    .justify-content-space-between{suffix}
+    .{prefix}justify-content-space-between{suffix}
     {
         justify-content: space-between;
     }
@@ -69,7 +69,7 @@ MakeJustifyContentSpaceBetween( media_query_name_list = {}, suffix = )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .justify-content-space-between-{media_query_name}{suffix}
+            .{prefix}justify-content-space-between-{media_query_name}{suffix}
             {
                 justify-content: space-between;
             }
@@ -78,9 +78,9 @@ MakeJustifyContentSpaceBetween( media_query_name_list = {}, suffix = )
 
 // ~~
 
-MakeJustifyContentSpaceAround( media_query_name_list = {}, suffix = )
+MakeJustifyContentSpaceAround( media_query_name_list = {}, prefix =, suffix = )
 
-    .justify-content-space-around{suffix}
+    .{prefix}justify-content-space-around{suffix}
     {
         justify-content: space-around;
     }
@@ -90,7 +90,7 @@ MakeJustifyContentSpaceAround( media_query_name_list = {}, suffix = )
         @media MediaQueryMap[ media_query_name ]
         {
 
-            .justify-content-space-around-{media_query_name}{suffix}
+            .{prefix}justify-content-space-around-{media_query_name}{suffix}
             {
                 justify-content: space-around;
             }
@@ -99,9 +99,9 @@ MakeJustifyContentSpaceAround( media_query_name_list = {}, suffix = )
 
 // ~~
 
-MakeJustifySelfStart( media_query_name_list = {}, suffix = )
+MakeJustifySelfStart( media_query_name_list = {}, prefix =, suffix = )
 
-    .justify-self-start{suffix}
+    .{prefix}justify-self-start{suffix}
     {
         justify-self: flex-start;
     }
@@ -110,7 +110,7 @@ MakeJustifySelfStart( media_query_name_list = {}, suffix = )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .justify-self-start-{media_query_name}{suffix}
+            .{prefix}justify-self-start-{media_query_name}{suffix}
             {
                 justify-self: flex-start;
             }
@@ -119,9 +119,9 @@ MakeJustifySelfStart( media_query_name_list = {}, suffix = )
 
 // ~~
 
-MakeJustifySelfCenter( media_query_name_list = {}, suffix = )
+MakeJustifySelfCenter( media_query_name_list = {}, prefix =, suffix = )
 
-    .justify-self-center{suffix}
+    .{prefix}justify-self-center{suffix}
     {
         justify-self: center;
     }
@@ -130,7 +130,7 @@ MakeJustifySelfCenter( media_query_name_list = {}, suffix = )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .justify-self-center-{media_query_name}{suffix}
+            .{prefix}justify-self-center-{media_query_name}{suffix}
             {
                 justify-self: center;
             }
@@ -139,9 +139,9 @@ MakeJustifySelfCenter( media_query_name_list = {}, suffix = )
 
 // ~~
 
-MakeJustifySelfEnd( media_query_name_list = {}, suffix = )
+MakeJustifySelfEnd( media_query_name_list = {}, prefix =, suffix = )
 
-    .justify-self-end{suffix}
+    .{prefix}justify-self-end{suffix}
     {
         justify-self: flex-end;
     }
@@ -150,7 +150,7 @@ MakeJustifySelfEnd( media_query_name_list = {}, suffix = )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .justify-self-end-{media_query_name}{suffix}
+            .{prefix}justify-self-end-{media_query_name}{suffix}
             {
                 justify-self: flex-end;
             }

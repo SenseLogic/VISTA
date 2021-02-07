@@ -1,6 +1,6 @@
-MakeBorderRadiusValue( size, unit_value, unit_name, media_query_name_list = {}, suffix = )
+MakeBorderRadiusValue( size, unit_value, unit_name, media_query_name_list = {}, prefix =, suffix = )
 
-    .border-radius-{size}{unit_name}{suffix}
+    .{prefix}border-radius-{size}{unit_name}{suffix}
     {
         border-radius: size * unit_value;
     }
@@ -9,7 +9,7 @@ MakeBorderRadiusValue( size, unit_value, unit_name, media_query_name_list = {}, 
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .border-radius-{size}{unit_name}-{media_query_name}{suffix}
+            .{prefix}border-radius-{size}{unit_name}-{media_query_name}{suffix}
             {
                 border-radius: size * unit_value;
             }
@@ -18,20 +18,20 @@ MakeBorderRadiusValue( size, unit_value, unit_name, media_query_name_list = {}, 
 
 // ~~
 
-MakeBorderRadiusValueRange( start, step, count, unit_value, unit_name, media_query_name_list = {}, suffix = )
+MakeBorderRadiusValueRange( start, step, count, unit_value, unit_name, media_query_name_list = {}, prefix =, suffix = )
 
     for index in 0 .. count - 1
     {
         size = start + index * step;
 
-        MakeBorderRadiusValue( size, unit_value, unit_name, media_query_name_list, suffix );
+        MakeBorderRadiusValue( size, unit_value, unit_name, media_query_name_list, prefix, suffix );
     }
 
 // ~~
 
-MakeBorderColorValue( name, value, media_query_name_list = {}, suffix = )
+MakeBorderColorValue( name, value, media_query_name_list = {}, prefix =, suffix = )
 
-    .border-color-{name}{suffix}
+    .{prefix}border-color-{name}{suffix}
     {
         border-color: value;
     }
@@ -40,7 +40,7 @@ MakeBorderColorValue( name, value, media_query_name_list = {}, suffix = )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .border-color-{name}-{media_query_name}{suffix}
+            .{prefix}border-color-{name}-{media_query_name}{suffix}
             {
                 border-color: value;
             }

@@ -1,6 +1,6 @@
-MakeWidthAuto( media_query_name_list = {}, suffix = )
+MakeWidthAuto( media_query_name_list = {}, prefix =, suffix = )
 
-    .width-auto{suffix}
+    .{prefix}width-auto{suffix}
     {
         width: auto;
     }
@@ -9,7 +9,7 @@ MakeWidthAuto( media_query_name_list = {}, suffix = )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .width-auto-{media_query_name}{suffix}
+            .{prefix}width-auto-{media_query_name}{suffix}
             {
                 width: auto;
             }
@@ -18,9 +18,9 @@ MakeWidthAuto( media_query_name_list = {}, suffix = )
 
 // ~~
 
-MakeWidthValue( size, unit_value, unit_name, media_query_name_list = {}, suffix = )
+MakeWidthValue( size, unit_value, unit_name, media_query_name_list = {}, prefix =, suffix = )
 
-    .width-{size}{unit_name}{suffix}
+    .{prefix}width-{size}{unit_name}{suffix}
     {
         width: size * unit_value;
     }
@@ -29,7 +29,7 @@ MakeWidthValue( size, unit_value, unit_name, media_query_name_list = {}, suffix 
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .width-{size}{unit_name}-{media_query_name}{suffix}
+            .{prefix}width-{size}{unit_name}-{media_query_name}{suffix}
             {
                 width: size * unit_value;
             }
@@ -38,20 +38,20 @@ MakeWidthValue( size, unit_value, unit_name, media_query_name_list = {}, suffix 
 
 // ~~
 
-MakeWidthValueRange( start, step, count, unit_value, unit_name, media_query_name_list = {}, suffix = )
+MakeWidthValueRange( start, step, count, unit_value, unit_name, media_query_name_list = {}, prefix =, suffix = )
 
     for index in 0 .. count - 1
     {
         size = start + index * step;
 
-        MakeWidthValue( size, unit_value, unit_name, media_query_name_list, suffix );
+        MakeWidthValue( size, unit_value, unit_name, media_query_name_list, prefix, suffix );
     }
 
 // ~~
 
-MakeMinWidthValue( size, unit_value, unit_name, media_query_name_list = {}, suffix = )
+MakeMinWidthValue( size, unit_value, unit_name, media_query_name_list = {}, prefix =, suffix = )
 
-    .min-width-{size}{unit_name}{suffix}
+    .{prefix}min-width-{size}{unit_name}{suffix}
     {
         min-width: size * unit_value;
     }
@@ -60,7 +60,7 @@ MakeMinWidthValue( size, unit_value, unit_name, media_query_name_list = {}, suff
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .min-width-{size}{unit_name}-{media_query_name}{suffix}
+            .{prefix}min-width-{size}{unit_name}-{media_query_name}{suffix}
             {
                 min-width: size * unit_value;
             }
@@ -69,20 +69,20 @@ MakeMinWidthValue( size, unit_value, unit_name, media_query_name_list = {}, suff
 
 // ~~
 
-MakeMinWidthValueRange( start, step, count, unit_value, unit_name, media_query_name_list = {}, suffix = )
+MakeMinWidthValueRange( start, step, count, unit_value, unit_name, media_query_name_list = {}, prefix =, suffix = )
 
     for index in 0 .. count - 1
     {
         size = start + index * step;
 
-        MakeMinWidthValue( size, unit_value, unit_name, media_query_name_list, suffix );
+        MakeMinWidthValue( size, unit_value, unit_name, media_query_name_list, prefix, suffix );
     }
 
 // ~~
 
-MakeMaxWidthValue( size, unit_value, unit_name, media_query_name_list = {}, suffix = )
+MakeMaxWidthValue( size, unit_value, unit_name, media_query_name_list = {}, prefix =, suffix = )
 
-    .max-width-{size}{unit_name}{suffix}
+    .{prefix}max-width-{size}{unit_name}{suffix}
     {
         max-width: size * unit_value;
     }
@@ -91,7 +91,7 @@ MakeMaxWidthValue( size, unit_value, unit_name, media_query_name_list = {}, suff
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .max-width-{size}{unit_name}-{media_query_name}{suffix}
+            .{prefix}max-width-{size}{unit_name}-{media_query_name}{suffix}
             {
                 max-width: size * unit_value;
             }
@@ -100,22 +100,22 @@ MakeMaxWidthValue( size, unit_value, unit_name, media_query_name_list = {}, suff
 
 // ~~
 
-MakeMaxWidthValueRange( start, step, count, unit_value, unit_name, media_query_name_list = {}, suffix = )
+MakeMaxWidthValueRange( start, step, count, unit_value, unit_name, media_query_name_list = {}, prefix =, suffix = )
 
     for index in 0 .. count - 1
     {
         size = start + index * step;
 
-        MakeMaxWidthValue( size, unit_value, unit_name, media_query_name_list, suffix );
+        MakeMaxWidthValue( size, unit_value, unit_name, media_query_name_list, prefix, suffix );
     }
 
 // ~~
 
-MakeFractionalWidthValueRange( column_count, media_query_name_list = {}, suffix = )
+MakeFractionalWidthValueRange( column_count, media_query_name_list = {}, prefix =, suffix = )
 
     for column_index in 1 .. column_count
     {
-        .width-{column_index}\\/{column_count}{suffix}
+        .{prefix}width-{column_index}\\/{column_count}{suffix}
         {
             width: 100% * ( column_index / column_count );
         }
@@ -124,7 +124,7 @@ MakeFractionalWidthValueRange( column_count, media_query_name_list = {}, suffix 
         {
             @media MediaQueryMap[ media_query_name ]
             {
-                .width-{column_index}\\/{column_count}-{media_query_name}{suffix}
+                .{prefix}width-{column_index}\\/{column_count}-{media_query_name}{suffix}
                 {
                     width: 100% * ( column_index / column_count );
                 }
@@ -134,11 +134,11 @@ MakeFractionalWidthValueRange( column_count, media_query_name_list = {}, suffix 
 
 // ~~
 
-MakeMinFractionalWidthValueRange( column_count, media_query_name_list = {}, suffix = )
+MakeMinFractionalWidthValueRange( column_count, media_query_name_list = {}, prefix =, suffix = )
 
     for column_index in 1 .. column_count
     {
-        .min-width-{column_index}\\/{column_count}{suffix}
+        .{prefix}min-width-{column_index}\\/{column_count}{suffix}
         {
             min-width: 100% * ( column_index / column_count );
         }
@@ -147,7 +147,7 @@ MakeMinFractionalWidthValueRange( column_count, media_query_name_list = {}, suff
         {
             @media MediaQueryMap[ media_query_name ]
             {
-                .min-width-{column_index}\\/{column_count}-{media_query_name}{suffix}
+                .{prefix}min-width-{column_index}\\/{column_count}-{media_query_name}{suffix}
                 {
                     min-width: 100% * ( column_index / column_count );
                 }
@@ -157,11 +157,11 @@ MakeMinFractionalWidthValueRange( column_count, media_query_name_list = {}, suff
 
 // ~~
 
-MakeMaxFractionalWidthValueRange( column_count, media_query_name_list = {}, suffix = )
+MakeMaxFractionalWidthValueRange( column_count, media_query_name_list = {}, prefix =, suffix = )
 
     for column_index in 1 .. column_count
     {
-        .max-width-{column_index}\\/{column_count}{suffix}
+        .{prefix}max-width-{column_index}\\/{column_count}{suffix}
         {
             max-width: 100% * ( column_index / column_count );
         }
@@ -170,7 +170,7 @@ MakeMaxFractionalWidthValueRange( column_count, media_query_name_list = {}, suff
         {
             @media MediaQueryMap[ media_query_name ]
             {
-                .max-width-{column_index}\\/{column_count}-{media_query_name}{suffix}
+                .{prefix}max-width-{column_index}\\/{column_count}-{media_query_name}{suffix}
                 {
                     max-width: 100% * ( column_index / column_count );
                 }
@@ -180,13 +180,13 @@ MakeMaxFractionalWidthValueRange( column_count, media_query_name_list = {}, suff
 
 // ~~
 
-MakeGridWidthValueRange( column_count, total_size, gutter_size, unit_name, media_query_name_list = {}, suffix = )
+MakeGridWidthValueRange( column_count, total_size, gutter_size, unit_name, media_query_name_list = {}, prefix =, suffix = )
 
     column_size = ( total_size - ( column_count - 1 ) * gutter_size ) / column_count;
 
     for column_index in 1 .. column_count
     {
-        .grid-width-{column_index}{unit_name}{suffix}
+        .{prefix}grid-width-{column_index}{unit_name}{suffix}
         {
             width: column_size * column_index + gutter_size * ( column_index - 1 );
         }
@@ -195,7 +195,7 @@ MakeGridWidthValueRange( column_count, total_size, gutter_size, unit_name, media
         {
             @media MediaQueryMap[ media_query_name ]
             {
-                .grid-width-{column_index}{unit_name}-{media_query_name}{suffix}
+                .{prefix}grid-width-{column_index}{unit_name}-{media_query_name}{suffix}
                 {
                     width: column_size * column_index + gutter_size * ( column_index - 1 );
                 }

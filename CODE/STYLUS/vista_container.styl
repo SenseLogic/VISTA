@@ -1,6 +1,6 @@
-MakeContainerExtended( media_query_name_list = {}, suffix = )
+MakeContainerExtended( media_query_name_list = {}, prefix =, suffix = )
 
-    .container-extended{suffix}
+    .{prefix}container-extended{suffix}
     {
         width: 100%;
         margin-right: auto;
@@ -11,7 +11,7 @@ MakeContainerExtended( media_query_name_list = {}, suffix = )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .container-extended-{media_query_name}{suffix}
+            .{prefix}container-extended-{media_query_name}{suffix}
             {
                 width: 100%;
                 margin-right: auto;
@@ -22,9 +22,9 @@ MakeContainerExtended( media_query_name_list = {}, suffix = )
 
 // ~~
 
-MakeContainerCenteredValue( max_width, max_width_map = {}, media_query_name_list = {}, suffix = )
+MakeContainerCenteredValue( max_width, max_width_map = {}, media_query_name_list = {}, prefix =, suffix = )
 
-    .container-centered{suffix}
+    .{prefix}container-centered{suffix}
     {
         max-width: max_width;
         margin-left: auto;
@@ -35,7 +35,7 @@ MakeContainerCenteredValue( max_width, max_width_map = {}, media_query_name_list
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .container-centered{suffix}
+            .{prefix}container-centered{suffix}
             {
                 max-width: max_width_map[ media_query_name ];
                 margin-left: auto;
@@ -46,9 +46,9 @@ MakeContainerCenteredValue( max_width, max_width_map = {}, media_query_name_list
 
 // ~~
 
-MakeContainerMarginedValue( margin, margin_map, media_query_name_list = {}, suffix = )
+MakeContainerMarginedValue( margin, margin_map, media_query_name_list = {}, prefix =, suffix = )
 
-    .container-margined{suffix}
+    .{prefix}container-margined{suffix}
     {
         margin-left: margin;
         margin-right: margin;
@@ -58,7 +58,7 @@ MakeContainerMarginedValue( margin, margin_map, media_query_name_list = {}, suff
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .container-margined{suffix}
+            .{prefix}container-margined{suffix}
             {
                 margin-left: margin_map[ media_query_name ];
                 margin-right: margin_map[ media_query_name ];

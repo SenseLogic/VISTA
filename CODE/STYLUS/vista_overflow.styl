@@ -1,6 +1,6 @@
-MakeOverflowVisible( media_query_name_list = {}, suffix = )
+MakeOverflowVisible( media_query_name_list = {}, prefix =, suffix = )
 
-    .overflow-visible{suffix}
+    .{prefix}overflow-visible{suffix}
     {
         overflow: visible;
     }
@@ -9,7 +9,7 @@ MakeOverflowVisible( media_query_name_list = {}, suffix = )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .overflow-visible-{media_query_name}{suffix}
+            .{prefix}overflow-visible-{media_query_name}{suffix}
             {
                 overflow: visible;
             }
@@ -18,9 +18,9 @@ MakeOverflowVisible( media_query_name_list = {}, suffix = )
 
 // ~~
 
-MakeOverflowHidden( media_query_name_list = {}, suffix = )
+MakeOverflowHidden( media_query_name_list = {}, prefix =, suffix = )
 
-    .overflow-hidden{suffix}
+    .{prefix}overflow-hidden{suffix}
     {
         overflow: hidden;
     }
@@ -29,7 +29,7 @@ MakeOverflowHidden( media_query_name_list = {}, suffix = )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .overflow-hidden-{media_query_name}{suffix}
+            .{prefix}overflow-hidden-{media_query_name}{suffix}
             {
                 overflow: hidden;
             }
@@ -38,9 +38,9 @@ MakeOverflowHidden( media_query_name_list = {}, suffix = )
 
 // ~~
 
-MakeOverflowAuto( media_query_name_list = {}, suffix = )
+MakeOverflowAuto( media_query_name_list = {}, prefix =, suffix = )
 
-    .overflow-auto{suffix}
+    .{prefix}overflow-auto{suffix}
     {
         overflow: auto;
     }
@@ -49,7 +49,7 @@ MakeOverflowAuto( media_query_name_list = {}, suffix = )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .overflow-auto-{media_query_name}{suffix}
+            .{prefix}overflow-auto-{media_query_name}{suffix}
             {
                 overflow: auto;
             }
@@ -58,9 +58,9 @@ MakeOverflowAuto( media_query_name_list = {}, suffix = )
 
 // ~~
 
-MakeOverflowYVisible( media_query_name_list = {}, suffix = )
+MakeOverflowYVisible( media_query_name_list = {}, prefix =, suffix = )
 
-    .overflow-y-visible{suffix}
+    .{prefix}overflow-y-visible{suffix}
     {
         overflow-y: visible;
     }
@@ -69,7 +69,7 @@ MakeOverflowYVisible( media_query_name_list = {}, suffix = )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .overflow-y-visible-{media_query_name}{suffix}
+            .{prefix}overflow-y-visible-{media_query_name}{suffix}
             {
                 overflow-y: visible;
             }
@@ -78,9 +78,9 @@ MakeOverflowYVisible( media_query_name_list = {}, suffix = )
 
 // ~~
 
-MakeOverflowYHidden( media_query_name_list = {}, suffix = )
+MakeOverflowYHidden( media_query_name_list = {}, prefix =, suffix = )
 
-    .overflow-y-hidden{suffix}
+    .{prefix}overflow-y-hidden{suffix}
     {
         overflow-y: hidden;
     }
@@ -89,7 +89,7 @@ MakeOverflowYHidden( media_query_name_list = {}, suffix = )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .overflow-y-hidden-{media_query_name}{suffix}
+            .{prefix}overflow-y-hidden-{media_query_name}{suffix}
             {
                 overflow-y: hidden;
             }
@@ -98,9 +98,9 @@ MakeOverflowYHidden( media_query_name_list = {}, suffix = )
 
 // ~~
 
-MakeOverflowYAuto( media_query_name_list = {}, suffix = )
+MakeOverflowYAuto( media_query_name_list = {}, prefix =, suffix = )
 
-    .overflow-y-auto{suffix}
+    .{prefix}overflow-y-auto{suffix}
     {
         overflow-y: auto;
     }
@@ -109,7 +109,7 @@ MakeOverflowYAuto( media_query_name_list = {}, suffix = )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .overflow-y-auto-{media_query_name}{suffix}
+            .{prefix}overflow-y-auto-{media_query_name}{suffix}
             {
                 overflow-y: auto;
             }
@@ -118,9 +118,9 @@ MakeOverflowYAuto( media_query_name_list = {}, suffix = )
 
 // ~~
 
-MakeOverflowXVisible( media_query_name_list = {}, suffix = )
+MakeOverflowXVisible( media_query_name_list = {}, prefix =, suffix = )
 
-    .overflow-x-visible{suffix}
+    .{prefix}overflow-x-visible{suffix}
     {
         overflow-x: visible;
     }
@@ -129,7 +129,7 @@ MakeOverflowXVisible( media_query_name_list = {}, suffix = )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .overflow-x-visible-{media_query_name}{suffix}
+            .{prefix}overflow-x-visible-{media_query_name}{suffix}
             {
                 overflow-x: visible;
             }
@@ -138,9 +138,9 @@ MakeOverflowXVisible( media_query_name_list = {}, suffix = )
 
 // ~~
 
-MakeOverflowXHidden( media_query_name_list = {}, suffix = )
+MakeOverflowXHidden( media_query_name_list = {}, prefix =, suffix = )
 
-    .overflow-x-hidden{suffix}
+    .{prefix}overflow-x-hidden{suffix}
     {
         overflow-x: hidden;
     }
@@ -149,7 +149,7 @@ MakeOverflowXHidden( media_query_name_list = {}, suffix = )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .overflow-x-hidden-{media_query_name}{suffix}
+            .{prefix}overflow-x-hidden-{media_query_name}{suffix}
             {
                 overflow-x: hidden;
             }
@@ -158,9 +158,9 @@ MakeOverflowXHidden( media_query_name_list = {}, suffix = )
 
 // ~~
 
-MakeOverflowXAuto( media_query_name_list = {}, suffix = )
+MakeOverflowXAuto( media_query_name_list = {}, prefix =, suffix = )
 
-    .overflow-x-auto{suffix}
+    .{prefix}overflow-x-auto{suffix}
     {
         overflow-x: auto;
     }
@@ -169,7 +169,7 @@ MakeOverflowXAuto( media_query_name_list = {}, suffix = )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .overflow-x-auto-{media_query_name}{suffix}
+            .{prefix}overflow-x-auto-{media_query_name}{suffix}
             {
                 overflow-x: auto;
             }
@@ -178,15 +178,15 @@ MakeOverflowXAuto( media_query_name_list = {}, suffix = )
 
 // ~~
 
-MakeOverflowScrollbarHidden( media_query_name_list = {}, suffix = )
+MakeOverflowScrollbarHidden( media_query_name_list = {}, prefix =, suffix = )
 
-    .overflow-scrollbar-hidden{suffix}
+    .{prefix}overflow-scrollbar-hidden{suffix}
     {
         -ms-overflow-style: none;
         scrollbar-width: none;
     }
 
-    .overflow-scrollbar-hidden{suffix}::-webkit-scrollbar
+    .{prefix}overflow-scrollbar-hidden{suffix}::-webkit-scrollbar
     {
         display: none;
     }
@@ -195,13 +195,13 @@ MakeOverflowScrollbarHidden( media_query_name_list = {}, suffix = )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .overflow-scrollbar-hidden-{media_query_name}{suffix}
+            .{prefix}overflow-scrollbar-hidden-{media_query_name}{suffix}
             {
                 -ms-overflow-style: none;
                 scrollbar-width: none;
             }
 
-            .overflow-scrollbar-hidden-{media_query_name}{suffix}::-webkit-scrollbar
+            .{prefix}overflow-scrollbar-hidden-{media_query_name}{suffix}::-webkit-scrollbar
             {
                 display: none;
             }
@@ -210,9 +210,9 @@ MakeOverflowScrollbarHidden( media_query_name_list = {}, suffix = )
 
 // ~~
 
-MakeOverflowTiny( media_query_name_list = {}, suffix = )
+MakeOverflowTiny( media_query_name_list = {}, prefix =, suffix = )
 
-    .overflow-tiny{suffix}
+    .{prefix}overflow-tiny{suffix}
     {
         height: 0;
         width: 0;
@@ -223,7 +223,7 @@ MakeOverflowTiny( media_query_name_list = {}, suffix = )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .overflow-tiny-{media_query_name}{suffix}
+            .{prefix}overflow-tiny-{media_query_name}{suffix}
             {
                 height: 0;
                 width: 0;

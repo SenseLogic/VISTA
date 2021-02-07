@@ -1,6 +1,6 @@
-MakeFontSizeValue( size, unit_value, unit_name, media_query_name_list = {}, suffix = )
+MakeFontSizeValue( size, unit_value, unit_name, media_query_name_list = {}, prefix =, suffix = )
 
-    .font-size-{size}{unit_name}{suffix}
+    .{prefix}font-size-{size}{unit_name}{suffix}
     {
         font-size: size * unit_value;
     }
@@ -9,7 +9,7 @@ MakeFontSizeValue( size, unit_value, unit_name, media_query_name_list = {}, suff
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .font-size-{size}{unit_name}-{media_query_name}{suffix}
+            .{prefix}font-size-{size}{unit_name}-{media_query_name}{suffix}
             {
                 font-size: size * unit_value;
             }
@@ -18,20 +18,20 @@ MakeFontSizeValue( size, unit_value, unit_name, media_query_name_list = {}, suff
 
 // ~~
 
-MakeFontSizeValueRange( start, step, count, unit_value, unit_name, media_query_name_list = {}, suffix = )
+MakeFontSizeValueRange( start, step, count, unit_value, unit_name, media_query_name_list = {}, prefix =, suffix = )
 
     for index in 0 .. count - 1
     {
         size = start + index * step;
 
-        MakeFontSizeValue( size, unit_value, unit_name, media_query_name_list, suffix );
+        MakeFontSizeValue( size, unit_value, unit_name, media_query_name_list, prefix, suffix );
     }
 
 // ~~
 
-MakeFontWeightValue( weight, media_query_name_list = {}, suffix = )
+MakeFontWeightValue( weight, media_query_name_list = {}, prefix =, suffix = )
 
-    .font-weight-{weight}{suffix}
+    .{prefix}font-weight-{weight}{suffix}
     {
         font-weight: weight;
     }
@@ -40,7 +40,7 @@ MakeFontWeightValue( weight, media_query_name_list = {}, suffix = )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .font-weight-{weight}-{media_query_name}{suffix}
+            .{prefix}font-weight-{weight}-{media_query_name}{suffix}
             {
                 font-weight: weight;
             }
@@ -49,11 +49,11 @@ MakeFontWeightValue( weight, media_query_name_list = {}, suffix = )
 
 // ~~
 
-MakeFontWeightValueRange( start, step, count, media_query_name_list = {}, suffix = )
+MakeFontWeightValueRange( start, step, count, media_query_name_list = {}, prefix =, suffix = )
 
     for index in 0 .. count - 1
     {
         weight = start + index * step;
 
-        MakeFontWeightValue( weight, media_query_name_list, suffix );
+        MakeFontWeightValue( weight, media_query_name_list, prefix, suffix );
     }

@@ -1,6 +1,6 @@
-MakeObjectFitNone( media_query_name_list = {}, suffix = )
+MakeObjectFitNone( media_query_name_list = {}, prefix =, suffix = )
 
-    .object-fit-none{suffix}
+    .{prefix}object-fit-none{suffix}
     {
         object-fit: none;
     }
@@ -9,7 +9,7 @@ MakeObjectFitNone( media_query_name_list = {}, suffix = )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .object-fit-none-{media_query_name}{suffix}
+            .{prefix}object-fit-none-{media_query_name}{suffix}
             {
                 object-fit: none;
             }
@@ -18,9 +18,9 @@ MakeObjectFitNone( media_query_name_list = {}, suffix = )
 
 // ~~
 
-MakeObjectFitContain( media_query_name_list = {}, suffix = )
+MakeObjectFitContain( media_query_name_list = {}, prefix =, suffix = )
 
-    .object-fit-contain{suffix}
+    .{prefix}object-fit-contain{suffix}
     {
         object-fit: contain;
     }
@@ -29,7 +29,7 @@ MakeObjectFitContain( media_query_name_list = {}, suffix = )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .object-fit-contain-{media_query_name}{suffix}
+            .{prefix}object-fit-contain-{media_query_name}{suffix}
             {
                 object-fit: contain;
             }
@@ -38,9 +38,9 @@ MakeObjectFitContain( media_query_name_list = {}, suffix = )
 
 // ~~
 
-MakeObjectFitScaleDown( media_query_name_list = {}, suffix = )
+MakeObjectFitScaleDown( media_query_name_list = {}, prefix =, suffix = )
 
-    .object-fit-scale-down{suffix}
+    .{prefix}object-fit-scale-down{suffix}
     {
         object-fit: scale-down;
     }
@@ -49,7 +49,7 @@ MakeObjectFitScaleDown( media_query_name_list = {}, suffix = )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .object-fit-scale-down-{media_query_name}{suffix}
+            .{prefix}object-fit-scale-down-{media_query_name}{suffix}
             {
                 object-fit: scale-down;
             }
@@ -58,9 +58,9 @@ MakeObjectFitScaleDown( media_query_name_list = {}, suffix = )
 
 // ~~
 
-MakeObjectFitCover( media_query_name_list = {}, suffix = )
+MakeObjectFitCover( media_query_name_list = {}, prefix =, suffix = )
 
-    .object-fit-cover{suffix}
+    .{prefix}object-fit-cover{suffix}
     {
         object-fit: cover;
     }
@@ -69,7 +69,7 @@ MakeObjectFitCover( media_query_name_list = {}, suffix = )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .object-fit-cover-{media_query_name}{suffix}
+            .{prefix}object-fit-cover-{media_query_name}{suffix}
             {
                 object-fit: cover;
             }
@@ -78,9 +78,9 @@ MakeObjectFitCover( media_query_name_list = {}, suffix = )
 
 // ~~
 
-MakeObjectFitFill( media_query_name_list = {}, suffix = )
+MakeObjectFitFill( media_query_name_list = {}, prefix =, suffix = )
 
-    .object-fit-fill{suffix}
+    .{prefix}object-fit-fill{suffix}
     {
         object-fit: fill;
     }
@@ -89,7 +89,7 @@ MakeObjectFitFill( media_query_name_list = {}, suffix = )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .object-fit-fill-{media_query_name}{suffix}
+            .{prefix}object-fit-fill-{media_query_name}{suffix}
             {
                 object-fit: fill;
             }

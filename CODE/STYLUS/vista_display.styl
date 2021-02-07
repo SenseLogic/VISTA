@@ -1,6 +1,6 @@
-MakeDisplayNone( media_query_name_list = {}, suffix = )
+MakeDisplayNone( media_query_name_list = {}, prefix =, suffix = )
 
-    .display-none{suffix}
+    .{prefix}display-none{suffix}
     {
         display: none;
     }
@@ -9,7 +9,7 @@ MakeDisplayNone( media_query_name_list = {}, suffix = )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .display-none-{media_query_name}{suffix}
+            .{prefix}display-none-{media_query_name}{suffix}
             {
                 display: none;
             }
@@ -18,9 +18,9 @@ MakeDisplayNone( media_query_name_list = {}, suffix = )
 
 // ~~
 
-MakeDisplayBlock( media_query_name_list = {}, suffix = )
+MakeDisplayBlock( media_query_name_list = {}, prefix =, suffix = )
 
-    .display-block{suffix}
+    .{prefix}display-block{suffix}
     {
         display: block;
     }
@@ -29,7 +29,7 @@ MakeDisplayBlock( media_query_name_list = {}, suffix = )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .display-block-{media_query_name}{suffix}
+            .{prefix}display-block-{media_query_name}{suffix}
             {
                 display: block;
             }
@@ -38,9 +38,9 @@ MakeDisplayBlock( media_query_name_list = {}, suffix = )
 
 // ~~
 
-MakeDisplayContents( media_query_name_list = {}, suffix = )
+MakeDisplayContents( media_query_name_list = {}, prefix =, suffix = )
 
-    .display-contents{suffix}
+    .{prefix}display-contents{suffix}
     {
         display: contents;
     }
@@ -49,7 +49,7 @@ MakeDisplayContents( media_query_name_list = {}, suffix = )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .display-contents-{media_query_name}{suffix}
+            .{prefix}display-contents-{media_query_name}{suffix}
             {
                 display: contents;
             }
@@ -58,9 +58,9 @@ MakeDisplayContents( media_query_name_list = {}, suffix = )
 
 // ~~
 
-MakeDisplayTable( media_query_name_list = {}, suffix = )
+MakeDisplayTable( media_query_name_list = {}, prefix =, suffix = )
 
-    .display-table{suffix}
+    .{prefix}display-table{suffix}
     {
         display: table;
     }
@@ -69,7 +69,7 @@ MakeDisplayTable( media_query_name_list = {}, suffix = )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .display-table-{media_query_name}{suffix}
+            .{prefix}display-table-{media_query_name}{suffix}
             {
                 display: table;
             }
@@ -78,9 +78,9 @@ MakeDisplayTable( media_query_name_list = {}, suffix = )
 
 // ~~
 
-MakeDisplayTableCell( media_query_name_list = {}, suffix = )
+MakeDisplayTableCell( media_query_name_list = {}, prefix =, suffix = )
 
-    .display-table-cell{suffix}
+    .{prefix}display-table-cell{suffix}
     {
         display: table-cell;
     }
@@ -89,7 +89,7 @@ MakeDisplayTableCell( media_query_name_list = {}, suffix = )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .display-table-cell-{media_query_name}{suffix}
+            .{prefix}display-table-cell-{media_query_name}{suffix}
             {
                 display: table-cell;
             }
@@ -98,9 +98,9 @@ MakeDisplayTableCell( media_query_name_list = {}, suffix = )
 
 // ~~
 
-MakeDisplayFlex( media_query_name_list = {}, suffix = )
+MakeDisplayFlex( media_query_name_list = {}, prefix =, suffix = )
 
-    .display-flex{suffix}
+    .{prefix}display-flex{suffix}
     {
         display: flex;
     }
@@ -109,7 +109,7 @@ MakeDisplayFlex( media_query_name_list = {}, suffix = )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .display-flex-{media_query_name}{suffix}
+            .{prefix}display-flex-{media_query_name}{suffix}
             {
                 display: flex;
             }
@@ -118,9 +118,9 @@ MakeDisplayFlex( media_query_name_list = {}, suffix = )
 
 // ~~
 
-MakeDisplayGrid( media_query_name_list = {}, suffix = )
+MakeDisplayGrid( media_query_name_list = {}, prefix =, suffix = )
 
-    .display-grid{suffix}
+    .{prefix}display-grid{suffix}
     {
         display: grid;
     }
@@ -129,7 +129,7 @@ MakeDisplayGrid( media_query_name_list = {}, suffix = )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .display-grid-{media_query_name}{suffix}
+            .{prefix}display-grid-{media_query_name}{suffix}
             {
                 display: grid;
             }
@@ -138,9 +138,9 @@ MakeDisplayGrid( media_query_name_list = {}, suffix = )
 
 // ~~
 
-MakeDisplayInline( media_query_name_list = {}, suffix = )
+MakeDisplayInline( media_query_name_list = {}, prefix =, suffix = )
 
-    .display-inline{suffix}
+    .{prefix}display-inline{suffix}
     {
         display: inline;
     }
@@ -149,7 +149,7 @@ MakeDisplayInline( media_query_name_list = {}, suffix = )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .display-inline-{media_query_name}{suffix}
+            .{prefix}display-inline-{media_query_name}{suffix}
             {
                 display: inline;
             }
@@ -159,9 +159,9 @@ MakeDisplayInline( media_query_name_list = {}, suffix = )
 
 // ~~
 
-MakeDisplayInlineBlock( media_query_name_list = {}, suffix = )
+MakeDisplayInlineBlock( media_query_name_list = {}, prefix =, suffix = )
 
-    .display-inline-block{suffix}
+    .{prefix}display-inline-block{suffix}
     {
         display: inline-block;
     }
@@ -170,7 +170,7 @@ MakeDisplayInlineBlock( media_query_name_list = {}, suffix = )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .display-inline-block-{media_query_name}{suffix}
+            .{prefix}display-inline-block-{media_query_name}{suffix}
             {
                 display: inline-block;
             }
@@ -180,9 +180,9 @@ MakeDisplayInlineBlock( media_query_name_list = {}, suffix = )
 
 // ~~
 
-MakeDisplayInlineTable( media_query_name_list = {}, suffix = )
+MakeDisplayInlineTable( media_query_name_list = {}, prefix =, suffix = )
 
-    .display-inline-table{suffix}
+    .{prefix}display-inline-table{suffix}
     {
         display: inline-table;
     }
@@ -191,7 +191,7 @@ MakeDisplayInlineTable( media_query_name_list = {}, suffix = )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .display-inline-table-{media_query_name}{suffix}
+            .{prefix}display-inline-table-{media_query_name}{suffix}
             {
                 display: inline-table;
             }
@@ -201,9 +201,9 @@ MakeDisplayInlineTable( media_query_name_list = {}, suffix = )
 
 // ~~
 
-MakeDisplayInlineFlex( media_query_name_list = {}, suffix = )
+MakeDisplayInlineFlex( media_query_name_list = {}, prefix =, suffix = )
 
-    .display-inline-flex{suffix}
+    .{prefix}display-inline-flex{suffix}
     {
         display: inline-flex;
     }
@@ -213,7 +213,7 @@ MakeDisplayInlineFlex( media_query_name_list = {}, suffix = )
         @media MediaQueryMap[ media_query_name ]
         {
 
-            .display-inline-flex-{media_query_name}{suffix}
+            .{prefix}display-inline-flex-{media_query_name}{suffix}
             {
                 display: inline-flex;
             }
@@ -223,9 +223,9 @@ MakeDisplayInlineFlex( media_query_name_list = {}, suffix = )
 
 // ~~
 
-MakeDisplayInlineGrid( media_query_name_list = {}, suffix = )
+MakeDisplayInlineGrid( media_query_name_list = {}, prefix =, suffix = )
 
-    .display-inline-grid{suffix}
+    .{prefix}display-inline-grid{suffix}
     {
         display: inline-grid;
     }
@@ -235,7 +235,7 @@ MakeDisplayInlineGrid( media_query_name_list = {}, suffix = )
         @media MediaQueryMap[ media_query_name ]
         {
 
-            .display-inline-grid-{media_query_name}{suffix}
+            .{prefix}display-inline-grid-{media_query_name}{suffix}
             {
                 display: inline-grid;
             }

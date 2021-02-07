@@ -1,6 +1,6 @@
-MakeListStyleTypeNone( media_query_name_list = {}, suffix = )
+MakeListStyleTypeNone( media_query_name_list = {}, prefix =, suffix = )
 
-    .list-style-type-none{suffix}
+    .{prefix}list-style-type-none{suffix}
     {
         list-style-type: none;
     }
@@ -9,7 +9,7 @@ MakeListStyleTypeNone( media_query_name_list = {}, suffix = )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .list-style-type-none-{media_query_name}{suffix}
+            .{prefix}list-style-type-none-{media_query_name}{suffix}
             {
                 list-style-type: none;
             }
@@ -18,9 +18,9 @@ MakeListStyleTypeNone( media_query_name_list = {}, suffix = )
 
 // ~~
 
-MakeListStyleTypeDisc( media_query_name_list = {}, suffix = )
+MakeListStyleTypeDisc( media_query_name_list = {}, prefix =, suffix = )
 
-    .list-style-type-disc{suffix}
+    .{prefix}list-style-type-disc{suffix}
     {
         list-style-type: disc;
     }
@@ -29,7 +29,7 @@ MakeListStyleTypeDisc( media_query_name_list = {}, suffix = )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .list-style-type-disc-{media_query_name}{suffix}
+            .{prefix}list-style-type-disc-{media_query_name}{suffix}
             {
                 list-style-type: disc;
             }
@@ -38,9 +38,9 @@ MakeListStyleTypeDisc( media_query_name_list = {}, suffix = )
 
 // ~~
 
-MakeListStyleTypeCircle( media_query_name_list = {}, suffix = )
+MakeListStyleTypeCircle( media_query_name_list = {}, prefix =, suffix = )
 
-    .list-style-type-circle{suffix}
+    .{prefix}list-style-type-circle{suffix}
     {
         list-style-type: circle;
     }
@@ -49,7 +49,7 @@ MakeListStyleTypeCircle( media_query_name_list = {}, suffix = )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .list-style-type-circle-{media_query_name}{suffix}
+            .{prefix}list-style-type-circle-{media_query_name}{suffix}
             {
                 list-style-type: circle;
             }
@@ -58,9 +58,9 @@ MakeListStyleTypeCircle( media_query_name_list = {}, suffix = )
 
 // ~~
 
-MakeListStyleTypeSquare( media_query_name_list = {}, suffix = )
+MakeListStyleTypeSquare( media_query_name_list = {}, prefix =, suffix = )
 
-    .list-style-type-square{suffix}
+    .{prefix}list-style-type-square{suffix}
     {
         list-style-type: square;
     }
@@ -69,7 +69,7 @@ MakeListStyleTypeSquare( media_query_name_list = {}, suffix = )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .list-style-type-square-{media_query_name}{suffix}
+            .{prefix}list-style-type-square-{media_query_name}{suffix}
             {
                 list-style-type: square;
             }
@@ -78,9 +78,9 @@ MakeListStyleTypeSquare( media_query_name_list = {}, suffix = )
 
 // ~~
 
-MakeListStyleTypeDecimal( media_query_name_list = {}, suffix = )
+MakeListStyleTypeDecimal( media_query_name_list = {}, prefix =, suffix = )
 
-    .list-style-type-decimal{suffix}
+    .{prefix}list-style-type-decimal{suffix}
     {
         list-style-type: decimal;
     }
@@ -89,7 +89,7 @@ MakeListStyleTypeDecimal( media_query_name_list = {}, suffix = )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .list-style-type-decimal-{media_query_name}{suffix}
+            .{prefix}list-style-type-decimal-{media_query_name}{suffix}
             {
                 list-style-type: decimal;
             }
@@ -98,9 +98,9 @@ MakeListStyleTypeDecimal( media_query_name_list = {}, suffix = )
 
 // ~~
 
-MakeListStylePositionInside( media_query_name_list = {}, suffix = )
+MakeListStylePositionInside( media_query_name_list = {}, prefix =, suffix = )
 
-    .list-style-position-inside{suffix}
+    .{prefix}list-style-position-inside{suffix}
     {
         list-style-position: inside;
     }
@@ -109,7 +109,7 @@ MakeListStylePositionInside( media_query_name_list = {}, suffix = )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .list-style-position-inside-{media_query_name}{suffix}
+            .{prefix}list-style-position-inside-{media_query_name}{suffix}
             {
                 list-style-position: inside;
             }
@@ -118,9 +118,9 @@ MakeListStylePositionInside( media_query_name_list = {}, suffix = )
 
 // ~~
 
-MakeListStylePositionOutside( media_query_name_list = {}, suffix = )
+MakeListStylePositionOutside( media_query_name_list = {}, prefix =, suffix = )
 
-    .list-style-position-outside{suffix}
+    .{prefix}list-style-position-outside{suffix}
     {
         list-style-position: outside;
     }
@@ -129,7 +129,7 @@ MakeListStylePositionOutside( media_query_name_list = {}, suffix = )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .list-style-position-outside-{media_query_name}{suffix}
+            .{prefix}list-style-position-outside-{media_query_name}{suffix}
             {
                 list-style-position: outside;
             }

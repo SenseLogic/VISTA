@@ -1,6 +1,6 @@
-MakeTextTransformLowercase( media_query_name_list = {}, suffix = )
+MakeTextTransformLowercase( media_query_name_list = {}, prefix =, suffix = )
 
-    .text-transform-lowercase{suffix}
+    .{prefix}text-transform-lowercase{suffix}
     {
         text-transform: lowercase;
     }
@@ -9,7 +9,7 @@ MakeTextTransformLowercase( media_query_name_list = {}, suffix = )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .text-transform-lowercase-{media_query_name}{suffix}
+            .{prefix}text-transform-lowercase-{media_query_name}{suffix}
             {
                 text-transform: lowercase;
             }
@@ -18,9 +18,9 @@ MakeTextTransformLowercase( media_query_name_list = {}, suffix = )
 
 // ~~
 
-MakeTextTransformUppercase( media_query_name_list = {}, suffix = )
+MakeTextTransformUppercase( media_query_name_list = {}, prefix =, suffix = )
 
-    .text-transform-uppercase{suffix}
+    .{prefix}text-transform-uppercase{suffix}
     {
         text-transform: uppercase;
     }
@@ -29,7 +29,7 @@ MakeTextTransformUppercase( media_query_name_list = {}, suffix = )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .text-transform-uppercase-{media_query_name}{suffix}
+            .{prefix}text-transform-uppercase-{media_query_name}{suffix}
             {
                 text-transform: uppercase;
             }
@@ -38,9 +38,9 @@ MakeTextTransformUppercase( media_query_name_list = {}, suffix = )
 
 // ~~
 
-MakeTextTransformCapitalize( media_query_name_list = {}, suffix = )
+MakeTextTransformCapitalize( media_query_name_list = {}, prefix =, suffix = )
 
-    .text-transform-capitalize{suffix}
+    .{prefix}text-transform-capitalize{suffix}
     {
         text-transform: capitalize;
     }
@@ -49,7 +49,7 @@ MakeTextTransformCapitalize( media_query_name_list = {}, suffix = )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .text-transform-capitalize-{media_query_name}{suffix}
+            .{prefix}text-transform-capitalize-{media_query_name}{suffix}
             {
                 text-transform: capitalize;
             }

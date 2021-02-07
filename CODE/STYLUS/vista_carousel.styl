@@ -1,15 +1,15 @@
 MakeCarousel( suffix = )
 
-    .carousel{suffix}
+    .{prefix}carousel{suffix}
     {
         overflow-x: hidden;
     }
 
 // ~~
 
-MakeCarouselStripValue( slide_count, visible_slide_count = 1, suffix = )
+MakeCarouselStripValue( slide_count, visible_slide_count = 1, prefix =, suffix = )
 
-    .carousel-strip-{slide_count}-{visible_slide_count}{suffix}
+    .{prefix}carousel-strip-{slide_count}-{visible_slide_count}{suffix}
     {
         display: flex;
         position: relative;
@@ -20,13 +20,13 @@ MakeCarouselStripValue( slide_count, visible_slide_count = 1, suffix = )
 
 // ~~
 
-MakeCarouselStripPerpetualAnimationValue( slide_count, visible_slide_count = 1, pause_duration = 3000, translation_duration = 500, suffix = )
+MakeCarouselStripPerpetualAnimationValue( slide_count, visible_slide_count = 1, pause_duration = 3000, translation_duration = 500, prefix =, suffix = )
 
     slide_duration = pause_duration + translation_duration
 
     vendors = official
 
-    @keyframes carousel-strip-perpetual-animation-{slide_count}-{visible_slide_count}-{pause_duration}-{translation_duration}{suffix}
+    @keyframes {prefix}carousel-strip-perpetual-animation-{slide_count}-{visible_slide_count}-{pause_duration}-{translation_duration}{suffix}
 
         for slide_index in 0 .. slide_count - 1 - visible_slide_count
 
@@ -46,17 +46,17 @@ MakeCarouselStripPerpetualAnimationValue( slide_count, visible_slide_count = 1, 
             left: -100% * ( slide_count - visible_slide_count ) * ( 1.0 / visible_slide_count );
         }
 
-    .carousel-strip-perpetual-animation-{slide_count}-{visible_slide_count}-{pause_duration}-{translation_duration}{suffix}
+    .{prefix}carousel-strip-perpetual-animation-{slide_count}-{visible_slide_count}-{pause_duration}-{translation_duration}{suffix}
     {
-        animation: ( slide_count - visible_slide_count ) * slide_duration * 0.001s carousel-strip-perpetual-animation- + slide_count + "-" + visible_slide_count + "-" + pause_duration + "-" + translation_duration + suffix infinite;
+        animation: ( slide_count - visible_slide_count ) * slide_duration * 0.001s prefix + "carousel-strip-perpetual-animation-" + slide_count + "-" + visible_slide_count + "-" + pause_duration + "-" + translation_duration + suffix infinite;
         animation-timing-function: ease;
     }
 
 // ~~
 
-MakeCarouselSlideValue( slide_count, suffix = )
+MakeCarouselSlideValue( slide_count, prefix =, suffix = )
 
-    .carousel-slide-{slide_count}{suffix}
+    .{prefix}carousel-slide-{slide_count}{suffix}
     {
         width: ( 100% / slide_count );
     }

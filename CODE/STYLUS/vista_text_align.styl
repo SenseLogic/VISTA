@@ -1,6 +1,6 @@
-MakeTextAlignLeft( media_query_name_list = {}, suffix = )
+MakeTextAlignLeft( media_query_name_list = {}, prefix =, suffix = )
 
-    .text-align-left{suffix}
+    .{prefix}text-align-left{suffix}
     {
         text-align: left;
     }
@@ -9,7 +9,7 @@ MakeTextAlignLeft( media_query_name_list = {}, suffix = )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .text-align-left-{media_query_name}{suffix}
+            .{prefix}text-align-left-{media_query_name}{suffix}
             {
                 text-align: left;
             }
@@ -18,9 +18,9 @@ MakeTextAlignLeft( media_query_name_list = {}, suffix = )
 
 // ~~
 
-MakeTextAlignCenter( media_query_name_list = {}, suffix = )
+MakeTextAlignCenter( media_query_name_list = {}, prefix =, suffix = )
 
-    .text-align-center{suffix}
+    .{prefix}text-align-center{suffix}
     {
         text-align: center;
     }
@@ -29,7 +29,7 @@ MakeTextAlignCenter( media_query_name_list = {}, suffix = )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .text-align-center-{media_query_name}{suffix}
+            .{prefix}text-align-center-{media_query_name}{suffix}
             {
                 text-align: center;
             }
@@ -38,9 +38,9 @@ MakeTextAlignCenter( media_query_name_list = {}, suffix = )
 
 // ~~
 
-MakeTextAlignRight( media_query_name_list = {}, suffix = )
+MakeTextAlignRight( media_query_name_list = {}, prefix =, suffix = )
 
-    .text-align-right{suffix}
+    .{prefix}text-align-right{suffix}
     {
         text-align: right;
     }
@@ -49,12 +49,12 @@ MakeTextAlignRight( media_query_name_list = {}, suffix = )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .text-align-right-{media_query_name}{suffix}
+            .{prefix}text-align-right-{media_query_name}{suffix}
             {
                 text-align: right;
             }
 
-            .text-align-justify-{media_query_name}{suffix}
+            .{prefix}text-align-justify-{media_query_name}{suffix}
             {
                 text-align: justify;
             }
@@ -63,9 +63,9 @@ MakeTextAlignRight( media_query_name_list = {}, suffix = )
 
 // ~~
 
-MakeTextAlignJustify( media_query_name_list = {}, suffix = )
+MakeTextAlignJustify( media_query_name_list = {}, prefix =, suffix = )
 
-    .text-align-justify{suffix}
+    .{prefix}text-align-justify{suffix}
     {
         text-align: justify;
     }
@@ -74,7 +74,7 @@ MakeTextAlignJustify( media_query_name_list = {}, suffix = )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .text-align-justify-{media_query_name}{suffix}
+            .{prefix}text-align-justify-{media_query_name}{suffix}
             {
                 text-align: justify;
             }
