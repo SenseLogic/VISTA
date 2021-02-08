@@ -241,3 +241,23 @@ MakeDisplayInlineGrid( media_query_name_list = {}, prefix =, suffix = )
             }
         }
     }
+    
+// ~~
+
+MakeDisplayHidden( media_query_name_list = {}, prefix =, suffix = )
+
+    .{prefix}display-hidden{suffix}
+    {
+        display: none !important;
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .{prefix}display-hidden-{media_query_name}{suffix}
+            {
+                display: none !important;
+            }
+        }
+    }
