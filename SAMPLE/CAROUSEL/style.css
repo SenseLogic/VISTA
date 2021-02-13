@@ -311,10 +311,8 @@ a:active,
 a:hover {
   outline: 0;
 }
-.display-flex {
-  display: flex;
-}
-.prefixcarousel {
+.carousel {
+  position: relative;
   overflow-x: hidden;
 }
 .test-carousel-strip-7-1 {
@@ -486,6 +484,9 @@ html {
   background: #fff;
 }
 .slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 100vh;
   background-position: center center;
   background-size: cover;
@@ -507,4 +508,21 @@ html {
 }
 .slide-6 {
   background-image: url("slide_6.jpg");
+}
+.carousel-arrow {
+  font-size: 4rem;
+  color: #fff;
+  cursor: pointer;
+}
+.carousel-left-arrow {
+  position: absolute;
+  top: 50%;
+  left: 4rem;
+  transform: translateY(-50%);
+}
+.carousel-right-arrow {
+  position: absolute;
+  top: 50%;
+  right: 4rem;
+  transform: translateY(-50%);
 }

@@ -84,6 +84,7 @@ Minimalistic front-end framework.
             </div>
         </main>
         <script src="../../CODE/JAVASCRIPT/vista_base.js"></script>
+        <script src="../../CODE/JAVASCRIPT/vista_math.js"></script>
         <script src="../../CODE/JAVASCRIPT/vista_element.js"></script>
         <script src="../../CODE/JAVASCRIPT/vista_animation.js"></script>
         <script>

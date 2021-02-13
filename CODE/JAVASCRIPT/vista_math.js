@@ -226,6 +226,7 @@ function GetRandomReal(
 {
     return minimum_real + GetRandom() * ( excluded_maximum_real - minimum_real );
 }
+
 // ~~
 
 function GetRandomInteger(
@@ -234,4 +235,168 @@ function GetRandomInteger(
     )
 {
     return GetFloor( minimum_integer + GetRandom() * ( maximum_integer - minimum_integer + 1 ) );
+}
+
+// ~~
+
+function GetLinearRatio(
+    ratio
+    )
+{
+    return ratio;
+}
+
+// ~~
+
+function GetEaseInOutRatio(
+    ratio
+    )
+{
+    return ( 3.0 - 2.0 * ratio ) * ratio * ratio;
+}
+
+// ~~
+
+function GetQuadraticEaseInRatio(
+    ratio
+    )
+{
+    return ratio * ratio;
+}
+
+// ~~
+
+function GetQuadraticEaseOutRatio(
+    ratio
+    )
+{
+    return ratio * ( 2.0 - ratio );
+}
+
+// ~~
+
+function GetQuadraticEaseInOutRatio(
+    ratio
+    )
+{
+    if ( ratio < 0.5 )
+    {
+        return 2.0 * ratio * ratio;
+    }
+    else
+    {
+        return ( 4.0 - 2.0 * ratio ) * ratio - 1.0;
+    }
+}
+
+// ~~
+
+function GetCubicEaseInRatio(
+    ratio
+    )
+{
+    return ratio * ratio * ratio;
+}
+
+// ~~
+
+function GetCubicEaseOutRatio(
+    ratio
+    )
+{
+    ratio -= 1.0;
+
+    return ratio * ratio * ratio + 1.0;
+}
+
+// ~~
+
+function GetCubicEaseInOutRatio(
+    ratio
+    )
+{
+    if ( ratio < 0.5 )
+    {
+        return 4.0 * ratio * ratio * ratio;
+    }
+    else
+    {
+        return ( ratio - 1.0 ) * ( 2.0 * ratio - 2.0 ) * ( 2.0 * ratio - 2.0 ) + 1.0;
+    }
+}
+
+// ~~
+
+function GetQuarticEaseInRatio(
+    ratio
+    )
+{
+    return ratio * ratio * ratio * ratio;
+}
+
+// ~~
+
+function GetQuarticEaseOutRatio(
+    ratio
+    )
+{
+    ratio -= 1.0;
+
+    return 1.0 - ratio * ratio * ratio * ratio;
+}
+
+// ~~
+
+function GetQuarticEaseInOutRatio(
+    ratio
+    )
+{
+    if ( ratio < 0.5 )
+    {
+        return 8.0 * ratio * ratio * ratio * ratio;
+    }
+    else
+    {
+        ratio -= 1.0;
+
+        return 1.0 - 8.0 * ratio * ratio * ratio * ratio;
+    }
+}
+
+// ~~
+
+function GetQuinticEaseInRatio(
+    ratio
+    )
+{
+    return ratio * ratio * ratio * ratio * ratio;
+}
+
+// ~~
+
+function GetQuinticEaseOutRatio(
+    ratio
+    )
+{
+    ratio -= 1.0;
+
+    return ratio * ratio * ratio * ratio * ratio + 1.0;
+}
+
+// ~~
+
+function GetQuinticEaseInOutRatio(
+    ratio
+    )
+{
+    if ( ratio < 0.5 )
+    {
+        return 16.0 * ratio * ratio * ratio * ratio * ratio;
+    }
+    else
+    {
+        ratio -= 1.0;
+
+        return 16.0 * ratio * ratio * ratio * ratio * ratio + 1.0;
+    }
 }
