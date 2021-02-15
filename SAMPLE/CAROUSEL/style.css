@@ -311,9 +311,18 @@ a:active,
 a:hover {
   outline: 0;
 }
-.carousel {
+html {
+  background: #fff;
+}
+.test-carousel {
   position: relative;
   overflow-x: hidden;
+}
+.test-carousel-strip {
+  display: flex;
+  position: relative;
+  left: 0;
+  margin: 0;
 }
 .test-carousel-strip-7-1 {
   display: flex;
@@ -480,10 +489,7 @@ a:hover {
 .test-carousel-slide-9 {
   width: 11.11111111111111%;
 }
-html {
-  background: #fff;
-}
-.slide {
+.test-carousel-slide {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -491,36 +497,36 @@ html {
   background-position: center center;
   background-size: cover;
 }
-.slide-1 {
+.test-carousel-slide-background-1 {
   background-image: url("slide_1.jpg");
 }
-.slide-2 {
+.test-carousel-slide-background-2 {
   background-image: url("slide_2.jpg");
 }
-.slide-3 {
+.test-carousel-slide-background-3 {
   background-image: url("slide_3.jpg");
 }
-.slide-4 {
+.test-carousel-slide-background-4 {
   background-image: url("slide_4.jpg");
 }
-.slide-5 {
+.test-carousel-slide-background-5 {
   background-image: url("slide_5.jpg");
 }
-.slide-6 {
+.test-carousel-slide-background-6 {
   background-image: url("slide_6.jpg");
 }
-.carousel-arrow {
+.test-carousel-arrow {
   font-size: 4rem;
   color: #fff;
   cursor: pointer;
 }
-.carousel-left-arrow {
+.test-carousel-left-arrow {
   position: absolute;
   top: 50%;
   left: 4rem;
   transform: translateY(-50%);
 }
-.carousel-right-arrow {
+.test-carousel-right-arrow {
   position: absolute;
   top: 50%;
   right: 4rem;
