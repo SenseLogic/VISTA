@@ -36,7 +36,10 @@ class CAROUSEL
         this.IsPerpetual = carousel_is_perpetual;
         this.IsTranslated = false;
         this.IsAutomatic = false;
+
         this.SetStripPosition();
+        this.SetStripWidth();
+        this.SetSlideWidth();
     }
 
     // -- OPERATIONS
@@ -45,6 +48,34 @@ class CAROUSEL
         )
     {
         this.StripElement.style[ "left" ] = ( this.StripPosition * -100.0 / this.VisibleSlideCount ) + "%";
+    }
+
+    // ~~
+
+    SetStripWidth(
+        )
+    {
+        this.StripElement.style[ "width" ] = ( ( this.SlideCount / this.VisibleSlideCount ) * 100 ) + "%";
+    }
+
+    // ~~
+
+    SetSlideWidth(
+        )
+    {
+        var
+            carousel;
+
+        carousel = this;
+
+        this.StripElement.GetChildElements().Iterate(
+            function (
+                element
+                )
+            {
+                element.style[ "width" ] = ( 100 / carousel.SlideCount ) + "%";
+            }
+            );
     }
 
     // ~~

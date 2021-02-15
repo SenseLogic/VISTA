@@ -180,6 +180,31 @@ ShadowRoot.prototype.GetDescendantElement = ShadowRoot.prototype.querySelector;
 
 // ~~
 
+HTMLElement.prototype.GetChildElements = function (
+    element_selector
+    )
+{
+    var
+        child_element,
+        child_element_array;
+
+    child_element_array = [];
+
+    for ( child_element of this.children )
+    {
+        if ( child_element.nodeType == 1
+             && ( element_selector === undefined
+                  || child_element.matches( element_selector ) ) )
+        {
+            child_element_array.AddLastValue( child_element );
+        }
+    }
+
+    return child_element_array;
+}
+
+// ~~
+
 HTMLElement.prototype.GetDescendantElements = function (
     element_selector
     )
@@ -720,7 +745,7 @@ Array.prototype.DumpElements = function (
 
     for ( element of this )
     {
-        DumpElement( element );
+        element.DumpElement();
     }
 
     return this;

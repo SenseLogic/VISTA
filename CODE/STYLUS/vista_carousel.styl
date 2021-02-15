@@ -8,6 +8,18 @@ MakeCarousel( prefix =, suffix = )
 
 // ~~
 
+MakeCarouselStrip( prefix =, suffix = )
+
+    .{prefix}carousel-strip{suffix}
+    {
+        display: flex;
+        position: relative;
+        left: 0;
+        margin: 0;
+    }
+
+// ~~
+
 MakeCarouselStripValue( slide_count, visible_slide_count = 1, prefix =, suffix = )
 
     .{prefix}carousel-strip-{slide_count}-{visible_slide_count}{suffix}
