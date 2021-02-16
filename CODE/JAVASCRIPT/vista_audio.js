@@ -87,11 +87,29 @@ class AUDIO_PLAYER
 
     // ~~
 
+    RemovePlayEventListener(
+        called_function
+        )
+    {
+        this.AudioElement.removeEventListener( "play", called_function );
+    }
+
+    // ~~
+
     AddPauseEventListener(
         called_function
         )
     {
         this.AudioElement.addEventListener( "pause", called_function );
+    }
+
+    // ~~
+
+    RemovePauseEventListener(
+        called_function
+        )
+    {
+        this.AudioElement.removeEventListener( "pause", called_function );
     }
 
     // ~~
@@ -105,6 +123,33 @@ class AUDIO_PLAYER
 
     // ~~
 
+    RemoveTimeUpdateEventListener(
+        called_function
+        )
+    {
+        this.AudioElement.removeEventListener( "timeupdate", called_function );
+    }
+
+    // ~~
+
+    AddSpeedChangeEventListener(
+        called_function
+        )
+    {
+        this.AudioElement.addEventListener( "ratechange", called_function );
+    }
+
+    // ~~
+
+    RemoveSpeedChangeEventListener(
+        called_function
+        )
+    {
+        this.AudioElement.removeEventListener( "ratechange", called_function );
+    }
+
+    // ~~
+
     AddVolumeChangeEventListener(
         called_function
         )
@@ -114,11 +159,29 @@ class AUDIO_PLAYER
 
     // ~~
 
+    RemoveVolumeChangeEventListener(
+        called_function
+        )
+    {
+        this.AudioElement.removeEventListener( "volumechange", called_function );
+    }
+
+    // ~~
+
     AddEndedEventListener(
         called_function
         )
     {
         this.AudioElement.addEventListener( "ended", called_function );
+    }
+
+    // ~~
+
+    RemoveEndedEventListener(
+        called_function
+        )
+    {
+        this.AudioElement.removeEventListener( "ended", called_function );
     }
 
     // ~~
@@ -176,7 +239,7 @@ class AUDIO_PLAYER
         rate
         )
     {
-        this.AudioElement.playbackRate = rate;
+        this.AudioElement.volume = rate;
     }
 
     // ~~

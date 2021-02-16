@@ -15,6 +15,18 @@
             <button onclick="ToggleRadio()">
                 Toggle
             </button>
+            <button onclick="DecreaseVolume()">
+                -
+            </button>
+            <button onclick="IncreaseVolume()">
+                +
+            </button>
+            <button onclick="DecreaseSpeed()">
+                &lt;&lt;
+            </button>
+            <button onclick="IncreaseSpeed()">
+                &gt;&gt;
+            </button>
             <p>
                Play count : <span id="play-counter">0</span>
             </p>
@@ -23,6 +35,12 @@
             </p>
             <p>
                Update count : <span id="update-counter">0</span>
+            </p>
+            <p>
+               Volume : <span id="volume">1</span>
+            </p>
+            <p>
+               Speed : <span id="speed">1</span>
             </p>
         </main>
         <script src="../../CODE/JAVASCRIPT/vista_base.js"></script>
@@ -33,9 +51,11 @@
 
             var
                 AudioPlayer,
-                PauseCounterElement,
-                PlayCounterElement,
-                UpdateCounterElement;
+                PauseCounter,
+                PlayCounter,
+                Speed,
+                UpdateCounter,
+                Volume;
 
             // -- FUNCTIONS
 
@@ -63,44 +83,121 @@
 
             // ~~
 
-            function IncreasePlayCounter(
+            function DecreaseVolume(
                 )
             {
-                PlayCounterElement.SetTextContent(
-                    PlayCounterElement.GetTextContent() * 1 + 1
-                    );
+                --Volume;
+
+                if ( Volume < 0 )
+                {
+                    Volume = 0;
+                }
+
+                AudioPlayer.SetVolume( Volume / 10.0 );
             }
 
             // ~~
 
-            function IncreasePauseCounter(
+            function IncreaseVolume(
                 )
             {
-                PauseCounterElement.SetTextContent(
-                    PauseCounterElement.GetTextContent() * 1 + 1
-                    );
+                ++Volume;
+
+                if ( Volume > 10 )
+                {
+                    Volume = 10;
+                }
+
+                AudioPlayer.SetVolume( Volume / 10.0 );
             }
 
             // ~~
 
-            function IncreaseUpdateCounter(
+            function DecreaseSpeed(
                 )
             {
-                UpdateCounterElement.SetTextContent(
-                    UpdateCounterElement.GetTextContent() * 1 + 1
-                    );
+                --Speed;
+
+                if ( Speed < 5 )
+                {
+                    Speed = 5;
+                }
+
+                AudioPlayer.SetSpeed( Speed / 10.0 );
+            }
+
+            // ~~
+
+            function IncreaseSpeed(
+                )
+            {
+                ++Speed;
+
+                if ( Speed > 20 )
+                {
+                    Speed = 20;
+                }
+
+                AudioPlayer.SetSpeed( Speed / 10.0 );
+            }
+
+            // ~~
+
+            function IncreasePlayCounterElement(
+                )
+            {
+                ++PlayCounter;
+                GetElementById( "play-counter" ).SetTextContent( PlayCounter );
+            }
+
+            // ~~
+
+            function IncreasePauseCounterElement(
+                )
+            {
+                ++PauseCounter;
+                GetElementById( "pause-counter" ).SetTextContent( PauseCounter );
+            }
+
+            // ~~
+
+            function IncreaseUpdateCounterElement(
+                )
+            {
+                ++UpdateCounter;
+                GetElementById( "update-counter" ).SetTextContent( UpdateCounter );
+            }
+
+            // ~~
+
+            function UpdateSpeedElement(
+                )
+            {
+                GetElementById( "speed" ).SetTextContent( Speed / 10.0 );
+            }
+
+            // ~~
+
+            function UpdateVolumeElement(
+                )
+            {
+                GetElementById( "volume" ).SetTextContent( Volume / 10.0 );
             }
 
             // -- STATEMENTS
 
-            PlayCounterElement = GetElementById( "play-counter" );
-            PauseCounterElement = GetElementById( "pause-counter" );
-            UpdateCounterElement = GetElementById( "update-counter" );
+            PauseCounter = 0;
+            PlayCounter = 0;
+            UpdateCounter = 0;
+            Speed = 10;
+            Volume = 10;
 
             AudioPlayer = new AUDIO_PLAYER( "http://dancewave.online/dance.mp3" );
-            AudioPlayer.AddPlayEventListener( IncreasePlayCounter );
-            AudioPlayer.AddPauseEventListener( IncreasePauseCounter );
-            AudioPlayer.AddTimeUpdateEventListener( IncreaseUpdateCounter );
+            AudioPlayer.AddPlayEventListener( IncreasePlayCounterElement );
+            AudioPlayer.AddPauseEventListener( IncreasePauseCounterElement );
+            AudioPlayer.AddTimeUpdateEventListener( IncreaseUpdateCounterElement );
+            AudioPlayer.AddSpeedChangeEventListener( UpdateSpeedElement );
+            AudioPlayer.AddVolumeChangeEventListener( UpdateVolumeElement );
         </script>
     </body>
 </html>
