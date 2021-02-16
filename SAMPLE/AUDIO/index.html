@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Sample</title>
+    </head>
+    <body>
+        <main>
+            <button onclick="PlayRadio()">
+                Play
+            </button>
+            <button onclick="PauseRadio()">
+                Pause
+            </button>
+            <button onclick="ToggleRadio()">
+                Toggle
+            </button>
+            <p>
+               Play count : <span id="play-counter">0</span>
+            </p>
+            <p>
+               Pause count : <span id="pause-counter">0</span>
+            </p>
+            <p>
+               Update count : <span id="update-counter">0</span>
+            </p>
+        </main>
+        <script src="../../CODE/JAVASCRIPT/vista_base.js"></script>
+        <script src="../../CODE/JAVASCRIPT/vista_element.js"></script>
+        <script src="../../CODE/JAVASCRIPT/vista_audio.js"></script>
+        <script>
+            // -- VARIABLES
+
+            var
+                AudioPlayer,
+                PauseCounterElement,
+                PlayCounterElement,
+                UpdateCounterElement;
+
+            // -- FUNCTIONS
+
+            function PlayRadio(
+                )
+            {
+                AudioPlayer.Play();
+            }
+
+            // ~~
+
+            function PauseRadio(
+                )
+            {
+                AudioPlayer.Pause();
+            }
+
+            // ~~
+
+            function ToggleRadio(
+                )
+            {
+                AudioPlayer.TogglePause();
+            }
+
+            // ~~
+
+            function IncreasePlayCounter(
+                )
+            {
+                PlayCounterElement.SetTextContent(
+                    PlayCounterElement.GetTextContent() * 1 + 1
+                    );
+            }
+
+            // ~~
+
+            function IncreasePauseCounter(
+                )
+            {
+                PauseCounterElement.SetTextContent(
+                    PauseCounterElement.GetTextContent() * 1 + 1
+                    );
+            }
+
+            // ~~
+
+            function IncreaseUpdateCounter(
+                )
+            {
+                UpdateCounterElement.SetTextContent(
+                    UpdateCounterElement.GetTextContent() * 1 + 1
+                    );
+            }
+
+            // -- STATEMENTS
+
+            PlayCounterElement = GetElementById( "play-counter" );
+            PauseCounterElement = GetElementById( "pause-counter" );
+            UpdateCounterElement = GetElementById( "update-counter" );
+
+            AudioPlayer = new AUDIO_PLAYER( "http://dancewave.online/dance.mp3" );
+            AudioPlayer.AddPlayEventListener( IncreasePlayCounter );
+            AudioPlayer.AddPauseEventListener( IncreasePauseCounter );
+            AudioPlayer.AddTimeUpdateEventListener( IncreaseUpdateCounter );
+        </script>
+    </body>
+</html>
