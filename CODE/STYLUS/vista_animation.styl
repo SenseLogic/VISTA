@@ -1,0 +1,171 @@
+MakeOpacityAnimation( key_duration, key_time_array, key_value_array, delay = 0, duration = 1, timing_function = linear, iteration_count = 1, fill_mode = forwards, prefix =, suffix = )
+
+    key_count = length( key_time_array )
+
+    vendors = official
+
+    @keyframes {prefix}opacity-animation{suffix}
+
+        for key_time, key_index in key_time_array
+
+            key_value = key_value_array[ key_index ]
+            key_time_factor = key_time / key_duration
+
+            {100% * key_time_factor}
+
+                opacity: key_value;
+
+    .{prefix}opacity-animation{suffix}
+    {
+        animation-name: prefix + "opacity-animation" + suffix;
+        animation-delay: delay * 1s;
+        animation-duration: duration * 1s;
+        animation-timing-function: timing_function;
+        animation-iteration-count: iteration_count;
+        animation-fill-mode: fill_mode
+    }
+
+// ~~
+
+MakeXTranslationAnimation( key_duration, key_time_array, key_value_array, delay = 0, duration = 1, timing_function = linear, iteration_count = 1, fill_mode = forwards, prefix =, suffix = )
+
+    key_count = length( key_time_array )
+
+    vendors = official
+
+    @keyframes {prefix}x-translation-animation{suffix}
+
+        for key_time, key_index in key_time_array
+
+            key_value = key_value_array[ key_index ]
+            key_time_factor = key_time / key_duration
+
+            {100% * key_time_factor}
+
+                transform: translateX( key_value );
+
+    .{prefix}x-translation-animation{suffix}
+    {
+        animation-name: prefix + "x-translation-animation" + suffix;
+        animation-delay: delay * 1s;
+        animation-duration: duration * 1s;
+        animation-timing-function: timing_function;
+        animation-iteration-count: iteration_count;
+        animation-fill-mode: fill_mode
+    }
+
+// ~~
+
+MakeYTranslationAnimation( key_duration, key_time_array, key_value_array, delay = 0, duration = 1, timing_function = linear, iteration_count = 1, fill_mode = forwards, prefix =, suffix = )
+
+    key_count = length( key_time_array )
+
+    vendors = official
+
+    @keyframes {prefix}y-translation-animation{suffix}
+
+        for key_time, key_index in key_time_array
+
+            key_value = key_value_array[ key_index ]
+            key_time_factor = key_time / key_duration
+
+            {100% * key_time_factor}
+
+                transform: translateY( key_value );
+
+    .{prefix}y-translation-animation{suffix}
+    {
+        animation-name: prefix + "y-translation-animation" + suffix;
+        animation-delay: delay * 1s;
+        animation-duration: duration * 1s;
+        animation-timing-function: timing_function;
+        animation-iteration-count: iteration_count;
+        animation-fill-mode: fill_mode
+    }
+
+// ~~
+
+MakeXScalingAnimation( key_duration, key_time_array, key_value_array, delay = 0, duration = 1, timing_function = linear, iteration_count = 1, fill_mode = forwards, prefix =, suffix = )
+
+    key_count = length( key_time_array )
+
+    vendors = official
+
+    @keyframes {prefix}x-scaling-animation{suffix}
+
+        for key_time, key_index in key_time_array
+
+            key_value = key_value_array[ key_index ]
+            key_time_factor = key_time / key_duration
+
+            {100% * key_time_factor}
+
+                transform: scaleX( key_value );
+
+    .{prefix}x-scaling-animation{suffix}
+    {
+        animation-name: prefix + "x-scaling-animation" + suffix;
+        animation-delay: delay * 1s;
+        animation-duration: duration * 1s;
+        animation-timing-function: timing_function;
+        animation-iteration-count: iteration_count;
+        animation-fill-mode: fill_mode
+    }
+
+// ~~
+
+MakeYScalingAnimation( key_duration, key_time_array, key_value_array, delay = 0, duration = 1, timing_function = linear, iteration_count = 1, fill_mode = forwards, prefix =, suffix = )
+
+    key_count = length( key_time_array )
+
+    vendors = official
+
+    @keyframes {prefix}y-scaling-animation{suffix}
+
+        for key_time, key_index in key_time_array
+
+            key_value = key_value_array[ key_index ]
+            key_time_factor = key_time / key_duration
+
+            {100% * key_time_factor}
+
+                transform: scaleY( key_value );
+
+    .{prefix}y-scaling-animation{suffix}
+    {
+        animation-name: prefix + "y-scaling-animation" + suffix;
+        animation-delay: delay * 1s;
+        animation-duration: duration * 1s;
+        animation-timing-function: timing_function;
+        animation-iteration-count: iteration_count;
+        animation-fill-mode: fill_mode
+    }
+
+// ~~
+
+MakeRotationAnimation( key_duration, key_time_array, key_value_array, delay = 0, duration = 1, timing_function = linear, iteration_count = 1, fill_mode = forwards, prefix =, suffix = )
+
+    key_count = length( key_time_array )
+
+    vendors = official
+
+    @keyframes {prefix}rotation-animation{suffix}
+
+        for key_time, key_index in key_time_array
+
+            key_value = key_value_array[ key_index ]
+            key_time_factor = key_time / key_duration
+
+            {100% * key_time_factor}
+
+                transform: rotate( key_value );
+
+    .{prefix}rotation-animation{suffix}
+    {
+        animation-name: prefix + "rotation-animation" + suffix;
+        animation-delay: delay * 1s;
+        animation-duration: duration * 1s;
+        animation-timing-function: timing_function;
+        animation-iteration-count: iteration_count;
+        animation-fill-mode: fill_mode
+    }

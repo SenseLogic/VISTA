@@ -1,6 +1,8 @@
 #!/bin/sh
 set -x
-cd CAROUSEL
+cd ANIMATION
+stylus style.styl
+cd ../CAROUSEL
 stylus style.styl
 cd ../FORM
 stylus style.styl
