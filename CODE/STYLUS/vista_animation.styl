@@ -17,7 +17,7 @@ MakeOpacityAnimation( key_duration, key_time_array, key_value_array, delay = 0, 
 
     .{prefix}opacity-animation{suffix}
     {
-        animation-name: prefix + "opacity-animation" + suffix;
+        animation-name: unquote( prefix + "opacity-animation" + suffix );
         animation-delay: delay * 1s;
         animation-duration: duration * 1s;
         animation-timing-function: timing_function;
@@ -46,7 +46,7 @@ MakeXTranslationAnimation( key_duration, key_time_array, key_value_array, delay 
 
     .{prefix}x-translation-animation{suffix}
     {
-        animation-name: prefix + "x-translation-animation" + suffix;
+        animation-name: unquote( prefix + "x-translation-animation" + suffix );
         animation-delay: delay * 1s;
         animation-duration: duration * 1s;
         animation-timing-function: timing_function;
@@ -75,7 +75,7 @@ MakeYTranslationAnimation( key_duration, key_time_array, key_value_array, delay 
 
     .{prefix}y-translation-animation{suffix}
     {
-        animation-name: prefix + "y-translation-animation" + suffix;
+        animation-name: unquote( prefix + "y-translation-animation" + suffix );
         animation-delay: delay * 1s;
         animation-duration: duration * 1s;
         animation-timing-function: timing_function;
@@ -104,7 +104,7 @@ MakeXScalingAnimation( key_duration, key_time_array, key_value_array, delay = 0,
 
     .{prefix}x-scaling-animation{suffix}
     {
-        animation-name: prefix + "x-scaling-animation" + suffix;
+        animation-name: unquote( prefix + "x-scaling-animation" + suffix );
         animation-delay: delay * 1s;
         animation-duration: duration * 1s;
         animation-timing-function: timing_function;
@@ -133,7 +133,7 @@ MakeYScalingAnimation( key_duration, key_time_array, key_value_array, delay = 0,
 
     .{prefix}y-scaling-animation{suffix}
     {
-        animation-name: prefix + "y-scaling-animation" + suffix;
+        animation-name: unquote( prefix + "y-scaling-animation" + suffix );
         animation-delay: delay * 1s;
         animation-duration: duration * 1s;
         animation-timing-function: timing_function;
@@ -162,7 +162,7 @@ MakeRotationAnimation( key_duration, key_time_array, key_value_array, delay = 0,
 
     .{prefix}rotation-animation{suffix}
     {
-        animation-name: prefix + "rotation-animation" + suffix;
+        animation-name: unquote( prefix + "rotation-animation" + suffix );
         animation-delay: delay * 1s;
         animation-duration: duration * 1s;
         animation-timing-function: timing_function;

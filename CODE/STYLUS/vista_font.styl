@@ -1,3 +1,23 @@
+MakeFontFamilyValue( name, family, media_query_name_list = {}, prefix =, suffix = )
+
+    .{prefix}font-family-{name}{suffix}
+    {
+        font-family: convert( family );
+    }
+
+    for media_query_name in media_query_name_list
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .{prefix}font-family-{name}-{media_query_name}{suffix}
+            {
+                font-family: convert( family );
+            }
+        }
+    }
+
+// ~~
+
 MakeFontSizeValue( size, unit_value, unit_name, media_query_name_list = {}, prefix =, suffix = )
 
     .{prefix}font-size-{size}{unit_name}{suffix}

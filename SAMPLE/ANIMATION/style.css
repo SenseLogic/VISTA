@@ -315,7 +315,7 @@ html {
   background: #fff;
 }
 .block-opacity-animation {
-  animation-name: 'block-opacity-animation';
+  animation-name: block-opacity-animation;
   animation-delay: 1s;
   animation-duration: 1s;
   animation-timing-function: linear;
@@ -331,7 +331,7 @@ html {
   }
 }
 .block-x-translation-animation {
-  animation-name: 'block-x-translation-animation';
+  animation-name: block-x-translation-animation;
   animation-delay: 2s;
   animation-duration: 1s;
   animation-timing-function: linear;
@@ -347,7 +347,7 @@ html {
   }
 }
 .block-y-translation-animation {
-  animation-name: 'block-y-translation-animation';
+  animation-name: block-y-translation-animation;
   animation-delay: 3s;
   animation-duration: 1s;
   animation-timing-function: linear;
@@ -363,7 +363,7 @@ html {
   }
 }
 .block-x-scaling-animation {
-  animation-name: 'block-x-scaling-animation';
+  animation-name: block-x-scaling-animation;
   animation-delay: 4s;
   animation-duration: 1s;
   animation-timing-function: linear;
@@ -379,7 +379,7 @@ html {
   }
 }
 .block-y-scaling-animation {
-  animation-name: 'block-y-scaling-animation';
+  animation-name: block-y-scaling-animation;
   animation-delay: 5s;
   animation-duration: 1s;
   animation-timing-function: linear;
@@ -395,7 +395,7 @@ html {
   }
 }
 .block-rotation-animation {
-  animation-name: 'block-rotation-animation';
+  animation-name: block-rotation-animation;
   animation-delay: 6s;
   animation-duration: 1s;
   animation-timing-function: linear;
