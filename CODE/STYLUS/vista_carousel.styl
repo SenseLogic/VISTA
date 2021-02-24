@@ -8,9 +8,9 @@ MakeCarousel( prefix =, suffix = )
 
 // ~~
 
-MakeCarouselStrip( slide_count = 1, visible_slide_count = 1, prefix =, suffix = )
+MakeCarouselStrip( slide_count = 1, visible_slide_count = 1, prefix =, infix =, suffix = )
 
-    .{prefix}carousel-strip{suffix}
+    .{prefix}carousel{infix}-strip{suffix}
     {
         display: flex;
         position: relative;
@@ -21,13 +21,13 @@ MakeCarouselStrip( slide_count = 1, visible_slide_count = 1, prefix =, suffix = 
 
 // ~~
 
-MakeCarouselStripPerpetualAnimation( slide_count, visible_slide_count = 1, pause_duration = 3000, translation_duration = 500, prefix =, suffix = )
+MakeCarouselStripPerpetualAnimation( slide_count, visible_slide_count = 1, pause_duration = 3000, translation_duration = 500, prefix =, infix =, suffix = )
 
     slide_duration = pause_duration + translation_duration
 
     vendors = official
 
-    @keyframes {prefix}carousel-strip-perpetual-animation{suffix}
+    @keyframes {prefix}carousel{infix}-strip-perpetual-animation{suffix}
 
         for slide_index in 0 .. slide_count - 1 - visible_slide_count
 
@@ -47,17 +47,17 @@ MakeCarouselStripPerpetualAnimation( slide_count, visible_slide_count = 1, pause
             left: -100% * ( slide_count - visible_slide_count ) * ( 1.0 / visible_slide_count );
         }
 
-    .{prefix}carousel-strip-perpetual-animation{suffix}
+    .{prefix}carousel{infix}-strip-perpetual-animation{suffix}
     {
-        animation: ( slide_count - visible_slide_count ) * slide_duration * 0.001s prefix + "carousel-strip-perpetual-animation" + suffix infinite;
+        animation: ( slide_count - visible_slide_count ) * slide_duration * 0.001s prefix + "carousel" + infix + "-strip-perpetual-animation" + suffix infinite;
         animation-timing-function: ease;
     }
 
 // ~~
 
-MakeCarouselSlide( slide_count, prefix =, suffix = )
+MakeCarouselSlide( slide_count, prefix =, infix =, suffix = )
 
-    .{prefix}carousel-slide{suffix}
+    .{prefix}carousel{infix}-slide{suffix}
     {
         width: ( 100% / slide_count );
     }
