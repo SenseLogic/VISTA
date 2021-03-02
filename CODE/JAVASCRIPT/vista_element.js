@@ -721,6 +721,29 @@ HTMLElement.prototype.SetStyle = function (
 
 // ~~
 
+HTMLElement.prototype.SetStyles = function (
+    style_value_map
+    )
+{
+    var
+        element,
+        style_name,
+        style_value_array,
+        style_value_index;
+
+    for ( style_name in style_value_map )
+    {
+        if ( style_value_map.hasOwnProperty( style_name ) )
+        {
+            this.style[ style_name ] = style_value_map[ style_name ];
+        }
+    }
+
+    return this;
+}
+
+// ~~
+
 Array.prototype.PrintElements = function (
     )
 {
