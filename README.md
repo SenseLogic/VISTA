@@ -125,7 +125,7 @@ Minimalistic front-end framework.
                 .AnimateStyles(
                     {
                         "background-color" : [ ".", "#FF8888", "#FFFF00", "#00FFFF", "#FF00FF", "." ],
-                        "class" : [ "", "+outline", "-outline", "+outline", "-outline", "" ]
+                        "class-list" : [ "", "+outline", "-outline", "+outline", "-outline", "" ]
                     },
                     [ 1.0, 2.0, 4.0, 5.0, 5.5, 6.0 ]
                     )

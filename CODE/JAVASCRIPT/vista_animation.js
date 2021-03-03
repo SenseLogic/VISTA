@@ -44,7 +44,7 @@ class VISTA_STYLE_ANIMATION
         this.IsNumeric = IsNumericText( first_style_value );
         this.IsColor = IsColorText( first_style_value );
         this.IsTransform = ( style_name == "transform" );
-        this.IsClass = ( style_name == "class" );
+        this.IsClass = ( style_name == "class-list" );
         this.IsConstant = ( !this.IsNumeric && !this.IsColor && !this.IsTransform );
         this.State = 0;
 
