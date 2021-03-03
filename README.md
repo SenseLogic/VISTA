@@ -71,6 +71,12 @@ Minimalistic front-end framework.
         <title>Sample</title>
     </head>
     <body style="font-family:monospace">
+        <style>
+            .outline
+            {
+                outline: 2px solid red;
+            }
+        </style>
         <main>
             <div class="line">
                 <div class="block" style="background-color:#FF0000">
@@ -112,15 +118,16 @@ Minimalistic front-end framework.
                 .AnimateStyles(
                     {
                         "transform" : [ "translateX(0vw)", "translateX(30vw)", "translateX(70vw)", "translateX(90vw)" ],
-                        "opacity" : [ "1.0", "0.5", "0.1", "1.0" ]
+                        "opacity" : [ ".", "0.5", "0.1", "." ]
                     },
                     [ 0.0, 2.0, 4.0, 6.0 ]
                     )
                 .AnimateStyles(
                     {
-                        "background-color" : [ "#FF8888", "#FFFF00", "#00FFFF", "#FF00FF" ]
+                        "background-color" : [ ".", "#FF8888", "#FFFF00", "#00FFFF", "#FF00FF", "." ],
+                        "class" : [ "", "+outline", "-outline", "+outline", "-outline", "" ]
                     },
-                    [ 2.0, 4.0, 5.0, 6.0 ]
+                    [ 1.0, 2.0, 4.0, 5.0, 5.5, 6.0 ]
                     )
                 .AnimateStyles(
                     {
@@ -130,9 +137,9 @@ Minimalistic front-end framework.
                     )
                 .AnimateStyles(
                     {
-                        "width" : [ "2vw", "5vw" ]
+                        "width" : [ ".", "2vw", "5vw" ]
                     },
-                    [ 0.5, 1.0 ],
+                    [ 0.0, 0.5, 1.0 ],
                     {
                         IsLooping : true,
                         Speed : 0.5

@@ -33,14 +33,18 @@ class VISTA_STYLE_ANIMATION
         )
     {
         var
+            first_style_value,
             style_value;
+
+        first_style_value = this.GetFirstStyleValue( style_value_array );
 
         this.Identifier = ++StyleAnimationIdentifier;
         this.Name = style_name;
         this.Element = element;
-        this.IsNumeric = IsNumericText( style_value_array[ 0 ] );
-        this.IsColor = IsColorText( style_value_array[ 0 ] );
+        this.IsNumeric = IsNumericText( first_style_value );
+        this.IsColor = IsColorText( first_style_value );
         this.IsTransform = ( style_name == "transform" );
+        this.IsClass = ( style_name == "class" );
         this.IsConstant = ( !this.IsNumeric && !this.IsColor && !this.IsTransform );
         this.State = 0;
 
@@ -89,6 +93,10 @@ class VISTA_STYLE_ANIMATION
             {
                 this.GetStyleFunction = GetTransformStyle;
             }
+            else if ( this.IsClass )
+            {
+                this.GetStyleFunction = GetClassStyle;
+            }
             else
             {
                 this.GetStyleFunction = GetConstantStyle;
@@ -108,6 +116,10 @@ class VISTA_STYLE_ANIMATION
             else if ( this.IsTransform )
             {
                 this.SetStyleFunction = SetTransformStyle;
+            }
+            else if ( this.IsClass )
+            {
+                this.SetStyleFunction = SetClassStyle;
             }
             else
             {
@@ -141,12 +153,26 @@ class VISTA_STYLE_ANIMATION
         {
             for ( style_value of style_value_array )
             {
-                this.ValueArray.AddLastValue( this.ParseValueFunction( style_value ) );
+                if ( style_value === "." )
+                {
+                    this.ValueArray.AddLastValue( this.GetStyleFunction( element, style_name ) );
+                }
+                else
+                {
+                    this.ValueArray.AddLastValue( this.ParseValueFunction( style_value ) );
+                }
             }
         }
         else
         {
-            this.ValueArray = [ this.ParseValueFunction( style_value_array ) ];
+            if ( style_value_array === "." )
+            {
+                this.ValueArray = [ this.GetStyleFunction( element, style_name ) ];
+            }
+            else
+            {
+                this.ValueArray = [ this.ParseValueFunction( style_value_array ) ];
+            }
         }
 
         if ( style_time_array instanceof Array )
@@ -177,16 +203,6 @@ class VISTA_STYLE_ANIMATION
             this.IsLooping = false;
         }
 
-        if ( this.TimeArray[ 0 ] > 0.0 )
-        {
-            this.ValueArray.AddFirstValue( this.GetStyleFunction( element, style_name ) );
-            this.TimeArray.AddFirstValue( 0.0 );
-        }
-        else
-        {
-            this.SetStyleFunction( element, style_name, this.ValueArray[ 0 ] );
-        }
-
         if ( this.Duration === undefined )
         {
             this.Duration = this.TimeArray[ this.TimeArray.length - 1 ];
@@ -205,7 +221,34 @@ class VISTA_STYLE_ANIMATION
         this.NextValueIndex = 0;
     }
 
-    // ~~
+    // -- INQUIRIES
+
+    GetFirstStyleValue(
+        style_value_array
+        )
+    {
+        var
+            style_value;
+
+        if ( style_value_array instanceof Array )
+        {
+            for ( style_value of style_value_array )
+            {
+                if ( style_value !== "." )
+                {
+                    return style_value;
+                }
+            }
+
+            return "";
+        }
+        else
+        {
+            return style_value_array;
+        }
+    }
+
+    // -- OPERATIONS
 
     Start(
         )
@@ -306,99 +349,102 @@ class VISTA_STYLE_ANIMATION
 
         this.Time += step_time * this.Speed;
 
-        if ( this.Time >= this.Duration )
+        if ( this.Time >= this.TimeArray[ 0 ] )
         {
-            if ( this.IsLooping )
+            if ( this.Time >= this.Duration )
             {
-                while ( this.Time >= this.Duration )
+                if ( this.IsLooping )
                 {
-                    this.Time -= this.Duration;
+                    while ( this.Time >= this.Duration )
+                    {
+                        this.Time -= this.Duration;
+                    }
+                }
+                else
+                {
+                    this.Time = this.Duration;
                 }
             }
-            else
+
+            value_count = this.ValueArray.length;
+
+            prior_value_index = this.PriorValueIndex;
+
+            while ( prior_value_index >= 1
+                    && this.Time < this.TimeArray[ prior_value_index ] )
             {
-                this.Time = this.Duration;
+                --prior_value_index;
             }
-        }
 
-        value_count = this.ValueArray.length;
-
-        prior_value_index = this.PriorValueIndex;
-
-        while ( prior_value_index >= 1
-                && this.Time < this.TimeArray[ prior_value_index ] )
-        {
-            --prior_value_index;
-        }
-
-        while ( prior_value_index + 1 < value_count
-                && this.Time > this.TimeArray[ prior_value_index + 1 ] )
-        {
-            ++prior_value_index;
-        }
-
-        this.PriorValueIndex = prior_value_index;
-
-        next_value_index = prior_value_index + 1;
-
-        if ( next_value_index >= value_count )
-        {
-            next_value_index = prior_value_index;
-        }
-
-        this.NextValueIndex = next_value_index;
-
-        prior_time = this.TimeArray[ prior_value_index ];
-        prior_value = this.ValueArray[ prior_value_index ];
-
-        next_time = this.TimeArray[ next_value_index ];
-        next_value = this.ValueArray[ next_value_index ];
-
-        value_time = this.Time - prior_time;
-        value_duration = next_time - prior_time;
-
-        if ( value_duration === 0.0 )
-        {
-            value = next_value;
-        }
-        else
-        {
-            next_value_ratio = value_time / value_duration;
-
-            if ( next_value_ratio <= 0.0 )
+            while ( prior_value_index + 1 < value_count
+                    && this.Time > this.TimeArray[ prior_value_index + 1 ] )
             {
-                value = prior_value;
+                ++prior_value_index;
             }
-            else if ( next_value_ratio >= 1.0 )
+
+            this.PriorValueIndex = prior_value_index;
+
+            next_value_index = prior_value_index + 1;
+
+            if ( next_value_index >= value_count )
+            {
+                next_value_index = prior_value_index;
+            }
+
+            this.NextValueIndex = next_value_index;
+
+            prior_time = this.TimeArray[ prior_value_index ];
+            prior_value = this.ValueArray[ prior_value_index ];
+
+            next_time = this.TimeArray[ next_value_index ];
+            next_value = this.ValueArray[ next_value_index ];
+
+            value_time = this.Time - prior_time;
+            value_duration = next_time - prior_time;
+
+            if ( value_duration === 0.0 )
             {
                 value = next_value;
             }
             else
             {
-                value
-                    = this.GetInterpolationFunction(
-                          prior_value,
-                          next_value,
-                          this.GetRatioFunction( next_value_ratio )
-                          );
+                next_value_ratio = value_time / value_duration;
+
+                if ( next_value_ratio <= 0.0 )
+                {
+                    value = prior_value;
+                }
+                else if ( next_value_ratio >= 1.0 )
+                {
+                    value = next_value;
+                }
+                else
+                {
+                    value
+                        = this.GetInterpolationFunction(
+                              prior_value,
+                              next_value,
+                              this.GetRatioFunction( next_value_ratio )
+                              );
+                }
             }
-        }
 
-        this.SetStyleFunction(
-            this.Element,
-            this.Name,
-            value
-            );
+            this.SetStyleFunction(
+                this.Element,
+                this.Name,
+                value
+                );
 
-        if ( this.UpdateFunction !== undefined )
-        {
-            this.UpdateFunction( this );
-        }
+            if ( this.UpdateFunction !== undefined )
+            {
+                this.UpdateFunction( this );
+            }
 
-        if ( this.Time === this.Duration
-             && !this.IsLooping )
-        {
-            this.Stop();
+            if ( this.Time === this.Duration
+                 && !this.IsLooping )
+            {
+                this.Stop();
+            }
         }
     }
 }
@@ -673,6 +719,16 @@ function GetConstantStyle(
 
 // ~~
 
+function GetClassStyle(
+    element,
+    style_name
+    )
+{
+    return [ ...element.classList ].join( " " );
+}
+
+// ~~
+
 function SetNumericStyle(
     element,
     style_name,
@@ -728,6 +784,37 @@ function SetConstantStyle(
     )
 {
     element.style[ style_name ] = constant;
+}
+
+// ~~
+
+function SetClassStyle(
+    element,
+    style_name,
+    class_name_text
+    )
+{
+    var
+        class_name;
+
+    if ( class_name_text !== "" )
+    {
+        for ( class_name of class_name_text.split( " " ) )
+        {
+            if ( class_name.startsWith( "-" ) )
+            {
+                element.classList.remove( class_name.substring( 1 ) );
+            }
+            else if ( class_name.startsWith( "+" ) )
+            {
+                element.classList.add( class_name.substring( 1 ) );
+            }
+            else
+            {
+                element.classList.add( class_name );
+            }
+        }
+    }
 }
 
 // ~~
