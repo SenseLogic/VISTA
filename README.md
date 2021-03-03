@@ -526,13 +526,13 @@ Minimalistic front-end framework.
                     result,
                     user;
 
-                result = await SendRequest(
+                request = await SendRequest(
                     "https://reqres.in/api/users/2",
                     "GET"
                     );
-                WriteLine( result.response );
+                WriteLine( request.response );
 
-                result = await SendRequest(
+                request = await SendRequest(
                     "https://reqres.in/api/users",
                     "POST",
                     GetJsonText(
@@ -545,9 +545,9 @@ Minimalistic front-end framework.
                         "Content-type" : "application/json; charset=UTF-8"
                     }
                     );
-                WriteLine( result.response );
+                WriteLine( request.response );
 
-                user = await SendJsonRequest(
+                request = await SendJsonRequest(
                     "https://reqres.in/api/users",
                     "POST",
                     {
@@ -555,7 +555,7 @@ Minimalistic front-end framework.
                         "job" : "leader"
                     }
                     );
-                WriteLine( user );
+                WriteLine( request.result );
             }
 
             // -- STATEMENTS

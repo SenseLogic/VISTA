@@ -73,3 +73,24 @@ function GetUniversalDateTime(
         Second : date.getUTCSeconds()
         };
 }
+
+// ~~
+
+function GetDateTimeText(
+    date
+    )
+{
+    return (
+        GetLeftPaddedText( date.Year.toString(), 4, "0" )
+        + ":"
+        + GetLeftPaddedText( date.Month.toString(), 2, "0" )
+        + ":"
+        + GetLeftPaddedText( date.Day.toString(), 2, "0" )
+        + " "
+        + GetLeftPaddedText( date.Hour.toString(), 2, "0" )
+        + "-"
+        + GetLeftPaddedText( date.Minute.toString(), 2, "0" )
+        + "-"
+        + GetLeftPaddedText( date.Second.toString(), 2, "0" )
+        );
+}

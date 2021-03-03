@@ -91,13 +91,13 @@ function SendJsonRequest(
                           if ( request.response === null
                                || request.response === "" )
                           {
-                              response_object = {};
+                              request.result = {};
                           }
                           else
                           {
                               try
                               {
-                                  response_object = GetJsonObject( request.response );
+                                  request.result = GetJsonObject( request.response );
                               }
                               catch ( error )
                               {
@@ -109,11 +109,11 @@ function SendJsonRequest(
                           {
                               PrintError( request_method + " " + request_url, request );
 
-                              reject( response_object );
+                              reject( request );
                           }
                           else
                           {
-                              resolve( response_object );
+                              resolve( request );
                           }
                       }
                   };

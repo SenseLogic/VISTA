@@ -595,6 +595,15 @@ function GetRealText(
 
 // ~~
 
+function GetIntegerText(
+    integer
+    )
+{
+    return integer.toString();
+}
+
+// ~~
+
 String.prototype.Split = String.prototype.split;
 
 // ~~
