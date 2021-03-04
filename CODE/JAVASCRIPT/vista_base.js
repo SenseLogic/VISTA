@@ -774,17 +774,16 @@ function GetByteArrayHexadecimalText(
 
 // ~~
 
-function SetPrototype(
-    object,
+Object.prototype.SetType = function(
     class_
     )
 {
-    Object.setPrototypeOf( object, class_.prototype );
+    Object.setPrototypeOf( this, class_.prototype );
 }
 
 // ~~
 
-Array.prototype.SetPrototype = function(
+Array.prototype.SetType = function(
     class_
     )
 {
