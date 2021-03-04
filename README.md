@@ -523,6 +523,7 @@ Minimalistic front-end framework.
                 )
             {
                 var
+                    request,
                     result,
                     user;
 
@@ -532,30 +533,44 @@ Minimalistic front-end framework.
                     );
                 WriteLine( request.response );
 
-                request = await SendRequest(
-                    "https://reqres.in/api/users",
-                    "POST",
-                    GetJsonText(
+                try
+                {
+                    result = await SendTextRequest(
+                        "https://reqres.in/api/users",
+                        "POST",
+                        GetJsonText(
+                            {
+                                "name" : "Morpheus",
+                                "job" : "leader"
+                            }
+                            ),
+                        {
+                            "Content-type" : "application/json; charset=UTF-8"
+                        }
+                        );
+                    WriteLine( result );
+                }
+                catch ( exception )
+                {
+                    WriteLine( "error" );
+                }
+
+                try
+                {
+                    user = await SendJsonRequest(
+                        "https://reqres.in/api/users",
+                        "POST",
                         {
                             "name" : "Morpheus",
                             "job" : "leader"
                         }
-                        ),
-                    {
-                        "Content-type" : "application/json; charset=UTF-8"
-                    }
-                    );
-                WriteLine( request.response );
-
-                request = await SendJsonRequest(
-                    "https://reqres.in/api/users",
-                    "POST",
-                    {
-                        "name" : "Morpheus",
-                        "job" : "leader"
-                    }
-                    );
-                WriteLine( request.result );
+                        );
+                    WriteLine( user );
+                }
+                catch ( exception )
+                {
+                    WriteLine( "error" );
+                }
             }
 
             // -- STATEMENTS

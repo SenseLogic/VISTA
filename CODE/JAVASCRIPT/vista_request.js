@@ -1,5 +1,27 @@
 // -- FUNCTIONS
 
+function SetRequestHeaders(
+    request,
+    request_header_map
+    )
+{
+    var
+        request_header_name;
+
+    if ( request_header_map !== undefined )
+    {
+        for ( request_header_name in request_header_map )
+        {
+            if ( request_header_map.hasOwnProperty( request_header_name ) )
+            {
+                request.setRequestHeader( request_header_name, request_header_map[ request_header_name ] );
+            }
+        }
+    }
+}
+
+// ~~
+
 function SendRequest(
     request_url,
     request_method,
@@ -18,9 +40,6 @@ function SendRequest(
             reject
             )
         {
-            var
-                request_header_name;
-
             request.onreadystatechange
                 = function (
                       )
@@ -41,18 +60,53 @@ function SendRequest(
                   };
 
             request.open( request_method, request_url, true );
+            SetRequestHeaders( request, request_header_map );
+            request.send( request_body );
+        }
+        );
+}
 
-            if ( request_header_map !== undefined )
-            {
-                for ( request_header_name in request_header_map )
-                {
-                    if ( request_header_map.hasOwnProperty( request_header_name ) )
-                    {
-                        request.setRequestHeader( request_header_name, request_header_map[ request_header_name ] );
-                    }
-                }
-            }
+// ~~
 
+function SendTextRequest(
+    request_url,
+    request_method,
+    request_body = null,
+    request_header_map = {}
+    )
+{
+    var
+        request;
+
+    request = new XMLHttpRequest();
+
+    return new Promise(
+        function (
+            resolve,
+            reject
+            )
+        {
+            request.onreadystatechange
+                = function (
+                      )
+                  {
+                      if ( request.readyState == 4 )
+                      {
+                          if ( request.status >= 300 )
+                          {
+                              PrintError( request_method + " " + request_url, request );
+
+                              reject( request.response );
+                          }
+                          else
+                          {
+                              resolve( request.response );
+                          }
+                      }
+                  };
+
+            request.open( request_method, request_url, true );
+            SetRequestHeaders( request, request_header_map );
             request.send( request_body );
         }
         );
@@ -79,9 +133,6 @@ function SendJsonRequest(
             reject
             )
         {
-            var
-                request_header_name;
-
             request.onreadystatechange
                 = function (
                       )
@@ -91,13 +142,13 @@ function SendJsonRequest(
                           if ( request.response === null
                                || request.response === "" )
                           {
-                              request.result = {};
+                              response_object = {};
                           }
                           else
                           {
                               try
                               {
-                                  request.result = GetJsonObject( request.response );
+                                  response_object = GetJsonObject( request.response );
                               }
                               catch ( error )
                               {
@@ -109,28 +160,18 @@ function SendJsonRequest(
                           {
                               PrintError( request_method + " " + request_url, request );
 
-                              reject( request );
+                              reject( response_object );
                           }
                           else
                           {
-                              resolve( request );
+                              resolve( response_object );
                           }
                       }
                   };
 
             request.open( request_method, request_url, true );
             request.setRequestHeader( "Content-type", "application/json; charset=UTF-8" );
-
-            if ( request_header_map !== undefined )
-            {
-                for ( request_header_name in request_header_map )
-                {
-                    if ( request_header_map.hasOwnProperty( request_header_name ) )
-                    {
-                        request.setRequestHeader( request_header_name, request_header_map[ request_header_name ] );
-                    }
-                }
-            }
+            SetRequestHeaders( request, request_header_map );
 
             if ( request_object === null )
             {
