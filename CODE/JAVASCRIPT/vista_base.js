@@ -774,6 +774,31 @@ function GetByteArrayHexadecimalText(
 
 // ~~
 
+function SetPrototype(
+    object,
+    class_
+    )
+{
+    Object.setPrototypeOf( object, class_.prototype );
+}
+
+// ~~
+
+Array.prototype.SetPrototype = function(
+    class_
+    )
+{
+    var
+        element;
+
+    for ( element of this )
+    {
+        Object.setPrototypeOf( element, class_.prototype );
+    }
+}
+
+// ~~
+
 Array.prototype.Join = Array.prototype.join;
 
 // ~~

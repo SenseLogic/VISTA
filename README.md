@@ -552,7 +552,7 @@ Minimalistic front-end framework.
                 }
                 catch ( exception )
                 {
-                    WriteLine( "error" );
+                    Dump( exception );
                 }
 
                 try
@@ -569,7 +569,7 @@ Minimalistic front-end framework.
                 }
                 catch ( exception )
                 {
-                    WriteLine( "error" );
+                    Dump( exception );
                 }
             }
 
