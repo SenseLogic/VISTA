@@ -527,6 +527,8 @@ Minimalistic front-end framework.
                     result,
                     user;
 
+                ShowErrors();
+
                 request = await SendRequest(
                     "https://reqres.in/api/users/2",
                     "GET"
