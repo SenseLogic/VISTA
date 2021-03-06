@@ -12,6 +12,7 @@ var
         "rotateX",
         "rotateY",
         "rotateZ",
+        "scale",
         "scaleX",
         "scaleY",
         "scaleZ",
@@ -827,7 +828,7 @@ function GetNumericInterpolation(
 {
     return {
         Amount : initial_number.Amount + ( final_number.Amount - initial_number.Amount ) * final_number_ratio,
-        Unit : final_number.Unit
+        Unit : ( ( final_number.Unit !== "" ) ? final_number.Unit : initial_number.Unit )
         };
 }
 
@@ -845,6 +846,33 @@ function GetColorInterpolation(
         Blue : ( initial_color.Blue + ( final_color.Blue - initial_color.Blue ) * final_color_ratio ),
         Opacity : ( initial_color.Opacity + ( final_color.Opacity - initial_color.Opacity ) * final_color_ratio )
         };
+}
+
+// ~~
+
+function GetTransformValue(
+    transform,
+    operation_name
+    )
+{
+    if ( transform.HasKey( operation_name ) )
+    {
+        return transform.get( operation_name );
+    }
+    else if ( operation_name.startsWith( "scale" ) )
+    {
+        return {
+            Amount : 1.0,
+            Unit : ""
+            };
+    }
+    else
+    {
+        return {
+            Amount : 0.0,
+            Unit : ""
+            };
+    }
 }
 
 // ~~
@@ -871,18 +899,32 @@ function GetTransformInterpolation(
     {
         interpolated_transform = new Map();
 
-        for ( operation_name of final_transform.keys() )
+        if ( initial_transform.size >= final_transform.size )
         {
-            if ( initial_transform.HasKey( operation_name ) )
+            for ( operation_name of initial_transform.keys() )
             {
-                interpolated_transform.set(
-                    operation_name,
-                    GetNumericInterpolation(
-                        initial_transform.get( operation_name ),
-                        final_transform.get( operation_name ),
-                        final_transform_ratio
-                        )
-                    );
+                    interpolated_transform.set(
+                        operation_name,
+                        GetNumericInterpolation(
+                            GetTransformValue( initial_transform, operation_name ),
+                            GetTransformValue( final_transform, operation_name ),
+                            final_transform_ratio
+                            )
+                        );
+            }
+        }
+        else
+        {
+            for ( operation_name of final_transform.keys() )
+            {
+                    interpolated_transform.set(
+                        operation_name,
+                        GetNumericInterpolation(
+                            GetTransformValue( initial_transform, operation_name ),
+                            GetTransformValue( final_transform, operation_name ),
+                            final_transform_ratio
+                            )
+                        );
             }
         }
 

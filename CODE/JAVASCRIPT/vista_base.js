@@ -846,6 +846,14 @@ Array.prototype.MapValue = Array.prototype.map;
 
 // ~~
 
+Array.prototype.IsEmpty = function (
+    )
+{
+    return this.length === 0;
+}
+
+// ~~
+
 Array.prototype.Print = function (
     )
 {
@@ -958,3 +966,11 @@ Map.prototype.SetValue = Map.prototype.set;
 // ~~
 
 Map.prototype.GetValue = Map.prototype.get;
+
+// ~~
+
+Map.prototype.IsEmpty = function (
+    )
+{
+    return this.size === 0;
+}
