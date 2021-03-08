@@ -48,7 +48,9 @@ String.prototype.GetTitleCaseText = function (
         }
         else
         {
-            if ( separator_characters_are_kept )
+            if ( ( character >= "0"
+                   && character <= "9" )
+                 || separator_characters_are_kept )
             {
                 title_case_text += character;
             }
@@ -92,12 +94,19 @@ String.prototype.GetSnakeCaseText = function (
         upper_case_character;
 
     snake_case_text = "";
+    prior_character_is_digit = false;
+    prior_character_is_lower_case_letter = false;
 
     for ( character of this )
     {
         if ( character >= "0"
              && character <= "9" )
         {
+            if ( !prior_character_is_digit )
+            {
+                snake_case_text += separator_character;
+            }
+
             prior_character_is_digit = true;
         }
         else
