@@ -571,6 +571,10 @@ HTMLElement.prototype.SetAttribute = HTMLElement.prototype.setAttribute;
 
 // ~~
 
+HTMLElement.prototype.RemoveAttribute = HTMLElement.prototype.removeAttribute;
+
+// ~~
+
 HTMLElement.prototype.IsVisible = function (
     bottom_offset = 0,
     top_offset = 0,
@@ -1324,7 +1328,7 @@ Array.prototype.SetAttribute = function (
 
         for ( element of this )
         {
-            element[ attribute_name ] = attribute_value_array[ attribute_value_index ];
+            element.SetAttribute( attribute_name, attribute_value_array[ attribute_value_index ] );
 
             ++attribute_value_index;
         }
@@ -1333,7 +1337,7 @@ Array.prototype.SetAttribute = function (
     {
         for ( element of this )
         {
-            element[ attribute_name ] = attribute_value_array;
+            element.SetAttribute( attribute_name, attribute_value_array );
         }
     }
 
@@ -1364,7 +1368,7 @@ Array.prototype.SetAttributes = function (
 
                 for ( element of this )
                 {
-                    element.style[ attribute_name ] = attribute_value_array[ attribute_value_index ];
+                    element.SetAttribute( attribute_name, attribute_value_array[ attribute_value_index ] );
 
                     ++attribute_value_index;
                 }
@@ -1373,9 +1377,47 @@ Array.prototype.SetAttributes = function (
             {
                 for ( element of this )
                 {
-                    element.style[ attribute_name ] = attribute_value_array;
+                    element.SetAttribute( attribute_name, attribute_value_array );
                 }
             }
+        }
+    }
+
+    return this;
+}
+
+// ~~
+
+Array.prototype.RemoveAttribute = function (
+    attribute_name
+    )
+{
+    var
+        element;
+
+    for ( element of this )
+    {
+        element.RemoveAttribute( attribute_name );
+    }
+
+    return this;
+}
+
+// ~~
+
+Array.prototype.RemoveAttributes = function (
+    attribute_name_array
+    )
+{
+    var
+        element,
+        attribute_name;
+
+    for ( attribute_name of attribute_name_array )
+    {
+        for ( element of this )
+        {
+            element.RemoveAttribute( attribute_name );
         }
     }
 
