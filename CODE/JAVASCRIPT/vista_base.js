@@ -165,18 +165,18 @@ function GetValueText(
                     classList : value.classList,
                     style : value.style,
                     dataset : value.dataset,
-                    clientWidth : value.clientWidth,
                     clientHeight : value.clientHeight,
-                    clientLeft : value.clientLeft,
+                    clientWidth : value.clientWidth,
                     clientTop : value.clientTop,
-                    offsetWidth : value.offsetWidth,
+                    clientLeft : value.clientLeft,
                     offsetHeight : value.offsetHeight,
-                    offsetLeft : value.offsetLeft,
+                    offsetWidth : value.offsetWidth,
                     offsetTop : value.offsetTop,
-                    scrollWidth : value.scrollWidth,
+                    offsetLeft : value.offsetLeft,
                     scrollHeight : value.scrollHeight,
-                    scrollLeft : value.scrollLeft,
-                    scrollTop : value.scrollTop
+                    scrollWidth : value.scrollWidth,
+                    scrollTop : value.scrollTop,
+                    scrollLeft : value.scrollLeft
                 }
                 )
             );

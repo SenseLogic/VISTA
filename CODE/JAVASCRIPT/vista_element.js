@@ -1,6 +1,135 @@
 // -- FUNCTIONS
 
+function GetViewportHeight(
+    )
+{
+    return document.documentElement.clientHeight;
+}
+
+// ~~
+
+function GetViewportWidth(
+    )
+{
+    return document.documentElement.clientWidth;
+}
+
+// ~~
+
+function GetViewportMinimumSize(
+    )
+{
+    return Math.min( document.documentElement.clientHeight, document.documentElement.clientWidth );
+}
+
+// ~~
+
+function GetViewportMaximumSize(
+    )
+{
+    return Math.max( document.documentElement.clientHeight, document.documentElement.clientWidth );
+}
+
+// ~~
+
+function GetPixelCountFromVhCount(
+    vh_count
+    )
+{
+    return vh_count * ( GetViewportHeight() / 100.0 );
+}
+
+// ~~
+
+function GetVhCountFromPixelCount(
+    pixel_count
+    )
+{
+    return pixel_count / ( GetViewportHeight() / 100.0 );
+}
+
+// ~~
+
+function GetPixelCountFromVwCount(
+    vw_count
+    )
+{
+    return vw_count * ( GetViewportWidth() / 100.0 );
+}
+
+// ~~
+
+function GetVwCountFromPixelCount(
+    pixel_count
+    )
+{
+    return pixel_count / ( GetViewportWidth() / 100.0 );
+}
+
+// ~~
+
+function GetPixelCountFromVminCount(
+    vmin_count
+    )
+{
+    return vmin_count * ( GetViewportMinimumSize() / 100.0 );
+}
+
+// ~~
+
+function GetVminCountFromPixelCount(
+    pixel_count
+    )
+{
+    return pixel_count / ( GetViewportMinimumSize() / 100.0 );
+}
+
+// ~~
+
+function GetPixelCountFromVmaxCount(
+    vmax_count
+    )
+{
+    return vmax_count * ( GetViewportMaximumSize() / 100.0 );
+}
+
+// ~~
+
+function GetVmaxCountFromPixelCount(
+    pixel_count
+    )
+{
+    return pixel_count / ( GetViewportMaximumSize() / 100.0 );
+}
+
+// ~~
+
 Event.prototype.Stop = Event.prototype.stopPropagation;
+
+// ~~
+
+Event.prototype.Cancel = function (
+    )
+{
+    this.stopPropagation();
+    this.preventDefault();
+}
+
+// ~~
+
+HTMLElement.prototype.GetHeight = function (
+    )
+{
+    return this.clientHeight;
+}
+
+// ~~
+
+HTMLElement.prototype.GetWidth = function (
+    )
+{
+    return this.clientWidth;
+}
 
 // ~~
 
@@ -268,6 +397,15 @@ HTMLElement.prototype.GetAncestorProperty = function (
     }
 
     return null;
+}
+
+// ~~
+
+HTMLElement.prototype.HasClass = function (
+    class_name
+    )
+{
+    return this.classList.contains( class_name );
 }
 
 // ~~
@@ -592,8 +730,8 @@ HTMLElement.prototype.IsVisible = function (
           || bounding_client_rectangle.width > 0 )
         && bounding_client_rectangle.bottom >= bottom_offset
         && bounding_client_rectangle.right >= right_offset
-        && bounding_client_rectangle.top + top_offset <= ( window.innerHeight || document.documentElement.clientHeight )
-        && bounding_client_rectangle.left + left_offset <= ( window.innerWidth || document.documentElement.clientWidth )
+        && bounding_client_rectangle.top + top_offset <= document.documentElement.clientHeight
+        && bounding_client_rectangle.left + left_offset <= document.documentElement.clientWidth
         );
 }
 
