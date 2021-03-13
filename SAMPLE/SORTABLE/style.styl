@@ -1,0 +1,37 @@
+// -- IMPORTS
+
+@require "../../CODE/STYLUS/vista_reset.styl"
+@require "../../CODE/STYLUS/vista.styl"
+
+// -- ELEMENTS
+
+th,
+td
+{
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+// -- CLASSES
+
+MakeSortableGridColumn();
+MakeSortableTableColumn();
+
+// ~~
+
+.test-table
+{
+    display: grid;
+    grid-template-columns: repeat( 3, fit-content( 100% ) );
+}
+
+.test-table > *
+{
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.test-table-header
+{
+    font-weight: bold;
+}
