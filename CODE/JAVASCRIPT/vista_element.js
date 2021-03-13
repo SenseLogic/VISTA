@@ -32,6 +32,22 @@ function GetViewportMaximumSize(
 
 // ~~
 
+function IsLandscapeOrientation(
+    )
+{
+    return document.documentElement.clientWidth > document.documentElement.clientHeight;
+}
+
+// ~~
+
+function IsPortraitOrientation(
+    )
+{
+    return document.documentElement.clientWidth <= document.documentElement.clientHeight;
+}
+
+// ~~
+
 function GetPixelCountFromVhCount(
     vh_count
     )
@@ -309,6 +325,42 @@ ShadowRoot.prototype.GetDescendantElement = ShadowRoot.prototype.querySelector;
 
 // ~~
 
+HTMLElement.prototype.GetChildElementIndex = function (
+    element_selector
+    )
+{
+    var
+        index,
+        preceding_element;
+
+    index = -1;
+
+    for ( preceding_element = this;
+          preceding_element;
+          preceding_element = preceding_element.previousElementSibling )
+    {
+        if ( preceding_element.nodeType === 1
+             && ( element_selector === undefined
+                  || preceding_element.matches( element_selector ) ) )
+        {
+            ++index;
+        }
+    }
+
+    return index;
+}
+
+// ~~
+
+HTMLElement.prototype.GetChildElementAtIndex = function (
+    child_element_index
+    )
+{
+    return this.children.item( child_element_index );
+}
+
+// ~~
+
 HTMLElement.prototype.GetChildElements = function (
     element_selector
     )
@@ -330,6 +382,84 @@ HTMLElement.prototype.GetChildElements = function (
     }
 
     return child_element_array;
+}
+
+// ~~
+HTMLElement.prototype.PrependChildElement = function (
+    child_element
+    )
+{
+    this.prependChild( child_element );
+}
+
+// ~~
+
+HTMLElement.prototype.PrependChildElements = function (
+    child_element_array
+    )
+{
+    var
+        child_element;
+
+    for ( child_element of child_element_array )
+    {
+        this.prependChild( child_element );
+    }
+}
+
+// ~~
+
+HTMLElement.prototype.AppendChildElement = function (
+    child_element
+    )
+{
+    this.appendChild( child_element );
+}
+
+// ~~
+
+HTMLElement.prototype.AppendChildElements = function (
+    child_element_array
+    )
+{
+    var
+        child_element;
+
+    for ( child_element of child_element_array )
+    {
+        this.appendChild( child_element );
+    }
+}
+
+// ~~
+
+Array.prototype.GetPrecedingElements = function (
+    element_selector = undefined
+    )
+{
+    var
+        element,
+        preceding_element,
+        preceding_element_array;
+
+    preceding_element_array = [];
+
+    for ( element of this )
+    {
+        for ( preceding_element = element.previousElementSibling;
+              preceding_element;
+              preceding_element = preceding_element.previousElementSibling )
+        {
+            if ( preceding_element.nodeType === 1
+                 && ( element_selector === undefined
+                      || preceding_element.matches( element_selector ) ) )
+            {
+                preceding_element_array.AddLastValue( preceding_element );
+            }
+        }
+    }
+
+    return preceding_element_array;
 }
 
 // ~~
@@ -397,6 +527,14 @@ HTMLElement.prototype.GetAncestorProperty = function (
     }
 
     return null;
+}
+
+// ~~
+
+HTMLElement.prototype.GetParentElement = function (
+    )
+{
+    return this.parentElement;
 }
 
 // ~~

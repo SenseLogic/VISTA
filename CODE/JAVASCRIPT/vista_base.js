@@ -15,6 +15,8 @@ var
     Dump = console.dir,
     PrintTable = console.table,
     PrintStack = console.trace,
+    IsNaN = Number.isNaN,
+    IsInteger = Number.isInteger,
     GetReal = parseFloat,
     GetInteger = parseInt,
     GetNumber = Number,
@@ -25,6 +27,15 @@ var
     GetDecodedUri = decodeURI,
     GetJsonText = JSON.stringify,
     GetJsonObject = JSON.parse;
+
+// ~~
+
+function IsNumeric(
+    value
+    )
+{
+    return !IsNaN( GetReal( value ) );
+}
 
 // ~~
 
@@ -843,6 +854,10 @@ Array.prototype.FilterValues = Array.prototype.filter;
 // ~~
 
 Array.prototype.MapValue = Array.prototype.map;
+
+// ~~
+
+Array.prototype.Sort = Array.prototype.sort;
 
 // ~~
 
