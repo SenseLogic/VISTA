@@ -1,9 +1,14 @@
+// -- CONSTANTS
+
+const
+    MinimumInteger = -9007199254740991,
+    MaximumInteger = 9007199254740991,
+    NumericExpression = /^-?[0-9][0-9]*\.?[0-9]*$/,
+    UnitArray = [ "%", "px", "em", "rem", "vw", "vh", "vmin", "vmax" ];
+
 // -- VARIABLES
 
 var
-    MinimumInteger = -9007199254740991,
-    MaximumInteger = 9007199254740991,
-    UnitArray = [ "%", "px", "em", "rem", "vw", "vh", "vmin", "vmax" ],
     ErrorsAreShown = false;
 
 // -- FUNCTIONS
@@ -34,7 +39,7 @@ function IsNumeric(
     value
     )
 {
-    return !IsNaN( GetReal( value ) );
+    return value.match( NumericExpression );
 }
 
 // ~~
@@ -252,6 +257,15 @@ function GetObjectText(
     }
 
     return GetTextArrayText( text_array, separator_text, opening_brace, closing_brace, empty_braces );
+}
+
+// ~~
+
+function PrintValue(
+    ...argument_array
+    )
+{
+    Print( GetArrayText( argument_array, "", true, "", "", "" ) );
 }
 
 // ~~
@@ -781,15 +795,6 @@ function GetByteArrayHexadecimalText(
     }
 
     return hexadecimal_text;
-}
-
-// ~~
-
-Object.prototype.SetType = function(
-    class_
-    )
-{
-    Object.setPrototypeOf( this, class_.prototype );
 }
 
 // ~~

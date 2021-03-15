@@ -75,7 +75,16 @@ function HandleSortableGridColumnClickEvent(
     }
 
     sorted_column_element = event.currentTarget;
-    sorted_column_element.OrderIsDescending = sorted_column_element.HasClass( "order-is-ascending" );
+
+    if ( sorted_column_element.HasClass( "order-is-ascending" ) )
+    {
+        sorted_column_element.OrderIsDescending = true;
+    }
+    else if ( sorted_column_element.HasClass( "order-is-descending" ) )
+    {
+        sorted_column_element.OrderIsDescending = false;
+    }
+
     sorted_column_element_index = sorted_column_element.GetChildElementIndex();
     order_is_descending = sorted_column_element.OrderIsDescending;
     grid_element = sorted_column_element.GetParentElement( ".sortable-grid" );
@@ -140,7 +149,14 @@ function HandleSortableGridColumnClickEvent(
 function InitializeSortableGridColumns(
     )
 {
-    GetElements( ".sortable-grid-column" ).AddEventListener( "click", HandleSortableGridColumnClickEvent );
+    var
+        column_element;
+
+    for ( column_element of GetElements( ".sortable-grid-column" ) )
+    {
+        column_element.OrderIsDescending = column_element.HasClass( "order-is-descending" );
+        column_element.AddEventListener( "click", HandleSortableGridColumnClickEvent );
+    }
 }
 
 // ~~
