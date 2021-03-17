@@ -8,5 +8,7 @@ cd ..\PAGE
 call stylus style.styl
 cd ..\PARALLAX
 call stylus style.styl
+cd ..\TABLE
+call stylus style.styl
 cd ..
 pause

@@ -58,6 +58,7 @@ Minimalistic front-end framework.
     *   shaders
     *   trackers
     *   carousels
+    *   tables
 
 ## Samples
 
