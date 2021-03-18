@@ -15,7 +15,7 @@ function GetViewName(
     }
     else
     {
-        return substr( route, 0, separator_character_index );
+        return route.substring( 0, separator_character_index );
     }
 }
 
