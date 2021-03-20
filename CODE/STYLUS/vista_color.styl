@@ -1,6 +1,6 @@
-MakeTextColorValue( name, value, media_query_name_list = {}, prefix =, suffix = )
+MakeColorValue( name, value, media_query_name_list = {}, prefix =, suffix = )
 
-    .{prefix}text-color-{name}{suffix}
+    .{prefix}color-{name}{suffix}
     {
         color: value;
     }
@@ -9,7 +9,7 @@ MakeTextColorValue( name, value, media_query_name_list = {}, prefix =, suffix = 
     {
         @media MediaQueryMap[ media_query_name ]
         {
-            .{prefix}text-color-{name}-{media_query_name}{suffix}
+            .{prefix}color-{name}-{media_query_name}{suffix}
             {
                 color: value;
             }

@@ -1,13 +1,13 @@
 // -- FUNCTIONS
 
-function GetViewName(
+function GetRouteViewName(
     route
     )
 {
     var
         separator_character_index;
 
-    separator_character_index = route.indexOf( "#" );
+    separator_character_index = route.lastIndexOf( "/#" );
 
     if ( separator_character_index < 0 )
     {
@@ -21,14 +21,14 @@ function GetViewName(
 
 // ~~
 
-function GetSectionName(
+function GetRouteSectionName(
     route
     )
 {
     var
         separator_character_index;
 
-    separator_character_index = route.indexOf( "#" );
+    separator_character_index = route.lastIndexOf( "/#" );
 
     if ( separator_character_index < 0 )
     {
