@@ -1063,7 +1063,7 @@ Array.prototype.DumpElements = function (
 
     for ( element of this )
     {
-        element.Dump();
+        Dump( element );
     }
 
     return this;

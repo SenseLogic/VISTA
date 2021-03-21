@@ -875,10 +875,30 @@ Array.prototype.IsEmpty = function (
 
 // ~~
 
+Array.prototype.PrintValue = function (
+    )
+{
+    PrintValue( this );
+
+    return this;
+}
+
+// ~~
+
 Array.prototype.Print = function (
     )
 {
     Print( this );
+
+    return this;
+}
+
+// ~~
+
+Array.prototype.Dump = function (
+    )
+{
+    Dump( this );
 
     return this;
 }
