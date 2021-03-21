@@ -178,25 +178,18 @@ HTMLElement.prototype.WriteRow = function (
 
 // ~~
 
-HTMLElement.prototype.Print = function (
+HTMLElement.prototype.Dump = function (
     )
 {
-    if ( this )
-    {
-        Print( GetObjectText( this ) );
-    }
-    else
-    {
-        Print( this );
-    }
+    Dump( this );
 }
 
 // ~~
 
-HTMLElement.prototype.DumpElement = function (
+HTMLElement.prototype.PrintValue = function (
     )
 {
-    Dump( this );
+    PrintValue( this );
 }
 
 // ~~
@@ -843,7 +836,13 @@ HTMLElement.prototype.GetAttribute = function (
 
 // ~~
 
-HTMLElement.prototype.SetAttribute = HTMLElement.prototype.setAttribute;
+HTMLElement.prototype.SetAttribute = function(
+    attribute_name,
+    attribute_value
+    )
+{
+    this[ attribute_name ] = attribute_value;
+}
 
 // ~~
 
@@ -1024,6 +1023,22 @@ HTMLElement.prototype.SetStyles = function (
 
 // ~~
 
+Array.prototype.PrintValues = function (
+    )
+{
+    var
+        element;
+
+    for ( element of this )
+    {
+        PrintValue( element );
+    }
+
+    return this;
+}
+
+// ~~
+
 Array.prototype.PrintElements = function (
     )
 {
@@ -1032,7 +1047,7 @@ Array.prototype.PrintElements = function (
 
     for ( element of this )
     {
-        PrintElement( element );
+        Print( element );
     }
 
     return this;
@@ -1048,7 +1063,7 @@ Array.prototype.DumpElements = function (
 
     for ( element of this )
     {
-        element.DumpElement();
+        element.Dump();
     }
 
     return this;

@@ -192,7 +192,8 @@ function GetValueText(
                     scrollHeight : value.scrollHeight,
                     scrollWidth : value.scrollWidth,
                     scrollTop : value.scrollTop,
-                    scrollLeft : value.scrollLeft
+                    scrollLeft : value.scrollLeft,
+                    value : value.value
                 }
                 )
             );
