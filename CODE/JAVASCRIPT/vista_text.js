@@ -87,65 +87,91 @@ String.prototype.GetSnakeCaseText = function (
 {
     var
         character,
+        character_array,
+        character_count,
+        character_index,
+        character_is_lower_case,
+        character_is_upper_case,
+        character_is_digit,
         lower_case_character,
+        next_character_is_lower_case,
+        prior_character_is_lower_case,
+        prior_character_is_upper_case,
         prior_character_is_digit,
-        prior_character_is_lower_case_letter,
         snake_case_text,
         upper_case_character;
 
-    snake_case_text = "";
-    prior_character_is_digit = false;
-    prior_character_is_lower_case_letter = false;
+    character_array = [];
+    character_is_lower_case_array = [];
+    character_is_upper_case_array = [];
+    character_is_digit_array = [];
 
-    for ( character of this )
+    for ( character of this.replace( "-", "_" ) )
     {
-        if ( character >= "0"
-             && character <= "9" )
-        {
-            if ( !prior_character_is_digit )
-            {
-                snake_case_text += separator_character;
-            }
+        character_array.AddLastValue( character );
 
-            prior_character_is_digit = true;
+        lower_case_character = character.GetLowerCaseText();
+        upper_case_character = character.GetUpperCaseText();
+
+        if ( lower_case_character !== upper_case_character )
+        {
+            character_is_lower_case_array.AddLastValue( character === lower_case_character );
+            character_is_upper_case_array.AddLastValue( character === upper_case_character );
         }
         else
         {
-            lower_case_character = character.GetLowerCaseText();
-            upper_case_character = character.GetUpperCaseText();
+            character_is_lower_case_array.AddLastValue( false );
+            character_is_upper_case_array.AddLastValue( false );
+        }
 
-            if ( lower_case_character !== upper_case_character )
-            {
-                if ( character === lower_case_character )
-                {
-                    prior_character_is_lower_case_letter = true;
-                }
-                else if ( character === upper_case_character )
-                {
-                    if ( prior_character_is_lower_case_letter
-                         || prior_character_is_digit )
-                    {
-                        snake_case_text += separator_character;
-                    }
+        character_is_digit_array.AddLastValue( character >= "0" && character <= "9" );
+    }
 
-                    prior_character_is_lower_case_letter = false;
-                }
+    character_count = character_array.length;
+    snake_case_text = "";
+    prior_character_is_lower_case = false;
+    prior_character_is_upper_case = false;
+    prior_character_is_digit = false;
 
-                character = lower_case_character;
-            }
-            else
-            {
-                character = "";
-                prior_character_is_lower_case_letter = true;
-            }
+    for ( character_index = 0;
+          character_index < character_count;
+          ++character_index )
+    {
+        character = character_array[ character_index ];
+        character_is_lower_case = character_is_lower_case_array[ character_index ];
+        character_is_upper_case = character_is_upper_case_array[ character_index ];
+        character_is_digit = character_is_digit_array[ character_index ];
 
-            prior_character_is_digit = false;
+        if ( character_index + 1 < character_count )
+        {
+            next_character_is_lower_case = character_is_lower_case_array[ character_index + 1 ];
+        }
+        else
+        {
+            next_character_is_lower_case = false;
+        }
+
+        if ( ( prior_character_is_lower_case
+               && ( character_is_upper_case
+                    || character_is_digit ) )
+             || ( prior_character_is_digit
+                  && ( character_is_lower_case
+                       || character_is_upper_case ) )
+             || ( prior_character_is_upper_case
+                  && character_is_upper_case
+                  && next_character_is_lower_case ) )
+        {
+            snake_case_text += separator_character;
         }
 
         snake_case_text += character;
+
+        prior_character_is_lower_case = character_is_lower_case;
+        prior_character_is_upper_case = character_is_upper_case;
+        prior_character_is_digit = character_is_digit;
     }
 
-    return snake_case_text;
+    return snake_case_text.GetLowerCaseText();
 }
 
 // ~~

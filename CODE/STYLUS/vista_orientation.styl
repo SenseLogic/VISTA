@@ -12,22 +12,3 @@ MakeOrientationLandscape( prefix =, suffix = )
             width: 100vh;
         }
     }
-    
-    for media_query_name in media_query_name_list
-    {
-        @media MediaQueryMap[ media_query_name ]
-        {        
-            @media ( orientation: portrait )
-            {
-                .{prefix}orientation-landscape{media_query_name}{suffix}
-                {
-                    transform: rotate( 90deg );
-                    transform-origin: bottom left;
-                    position: absolute;
-                    top: -100vw;
-                    height: 100vw;
-                    width: 100vh;
-                }
-            }
-        }
-    }
