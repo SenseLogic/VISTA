@@ -851,8 +851,8 @@ HTMLElement.prototype.RemoveAttribute = HTMLElement.prototype.removeAttribute;
 // ~~
 
 HTMLElement.prototype.IsVisible = function (
-    bottom_offset = 0,
     top_offset = 0,
+    bottom_offset = 0,
     left_offset = 0,
     right_offset = 0
     )
@@ -1927,6 +1927,94 @@ Array.prototype.RemoveEventListener = function (
     for ( element of this )
     {
         element.removeEventListener( event_name, event_function, options );
+    }
+
+    return this;
+}
+
+// ~~
+
+function CreateIntersectionObserver(
+    element_is_intersecting = true,
+    intersection_ratio = 0,
+    added_class = "",
+    removed_class = "",
+    called_function = null,
+    intersection_margin = "0px",
+    root_element = null
+    )
+{
+    return new IntersectionObserver(
+        function (
+            intersection_observer_entry_array,
+            intersection_observer
+            )
+        {
+            var
+                intersection_observer_entry;
+
+            for ( intersection_observer_entry of intersection_observer_entry_array )
+            {
+                if ( intersection_observer_entry.isIntersecting === element_is_intersecting )
+                {
+                    if ( added_class !== "" )
+                    {
+                        intersection_observer_entry.target.classList.add( added_class );
+                    }
+
+                    if ( removed_class !== "" )
+                    {
+                        intersection_observer_entry.target.classList.remove( removed_class );
+                    }
+
+                    if ( called_function !== null )
+                    {
+                        called_function(
+                            intersection_observer_entry.target,
+                            intersection_observer_entry,
+                            intersection_observer
+                            );
+                    }
+                }
+            }
+        },
+        {
+            root: root_element,
+            rootMargin: intersection_margin,
+            threshold: intersection_ratio
+        }
+        );
+}
+
+// ~~
+
+Array.prototype.ApplyIntersectionObserver = function(
+    intersection_observer
+    )
+{
+    var
+        element;
+
+    for ( element of this )
+    {
+        intersection_observer.observe( element );
+    }
+
+    return this;
+}
+
+// ~~
+
+Array.prototype.IgnoreIntersectionObserver = function(
+    intersection_observer
+    )
+{
+    var
+        element;
+
+    for ( element of this )
+    {
+        intersection_observer.unobserve( element );
     }
 
     return this;
