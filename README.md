@@ -39,6 +39,7 @@ Minimalistic front-end framework.
     *   fonts
     *   texts
     *   cursors
+    *   transitions
     *   animations
     *   carousels
     *   parallaxes
@@ -58,6 +59,7 @@ Minimalistic front-end framework.
     *   shaders
     *   trackers
     *   carousels
+    *   intersections
     *   tables
 
 ## Samples
