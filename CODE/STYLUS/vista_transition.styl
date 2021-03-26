@@ -1,0 +1,204 @@
+MakeOpacityTransition( transition_condition, transition_duration, timing_function, initial_opacity = 0, final_opacity = 1, prefix =, suffix = )
+
+    .{prefix}opacity-transition{suffix}
+    {
+        opacity: initial_opacity;
+        transition: opacity transition_duration timing_function;
+    }
+
+    .{prefix}opacity-transition{suffix}{transition_condition}
+    {
+        opacity: final_opacity;
+    }
+
+// ~~
+
+MakeXTranslationTransition( transition_condition, transition_duration, timing_function, initial_x_translation, final_x_translation = 0, prefix =, suffix = )
+
+    .{prefix}x-translation-transition{suffix}
+    {
+        transform: translateX( initial_x_translation );
+        transition: transform transition_duration timing_function;
+    }
+
+    .{prefix}x-translation-transition{suffix}{transition_condition}
+    {
+        transform: translateX( final_x_translation );
+    }
+
+// ~~
+
+MakeXTranslationOpacityTransition( transition_condition, transition_duration, timing_function, initial_x_translation, initial_opacity = 0, final_x_translation = 0, final_opacity = 1, prefix =, suffix = )
+
+    .{prefix}x-translation-opacity-transition{suffix}
+    {
+        transform: translateX( initial_x_translation );
+        opacity: initial_opacity;
+        transition: transform transition_duration timing_function, opacity transition_duration timing_function;
+    }
+
+    .{prefix}x-translation-opacity-transition{suffix}{transition_condition}
+    {
+        transform: translateX( final_x_translation );
+        opacity: final_opacity;
+    }
+
+// ~~
+
+MakeYTranslationTransition( transition_condition, transition_duration, timing_function, initial_y_translation, final_y_translation = 0, prefix =, suffix = )
+
+    .{prefix}y-translation-transition{suffix}
+    {
+        transform: translateY( initial_y_translation );
+        transition: transform transition_duration timing_function;
+    }
+
+    .{prefix}y-translation-transition{suffix}{transition_condition}
+    {
+        transform: translateY( final_y_translation );
+    }
+
+// ~~
+
+MakeYTranslationOpacityTransition( transition_condition, transition_duration, timing_function, initial_y_translation, initial_opacity = 0, final_y_translation = 0, final_opacity = 1, prefix =, suffix = )
+
+    .{prefix}y-translation-opacity-transition{suffix}
+    {
+        transform: translateY( initial_y_translation );
+        opacity: initial_opacity;
+        transition: transform transition_duration timing_function, opacity transition_duration timing_function;
+    }
+
+    .{prefix}y-translation-opacity-transition{suffix}{transition_condition}
+    {
+        transform: translateY( final_y_translation );
+        opacity: final_opacity;
+    }
+
+// ~~
+
+MakeScalingTransition( transition_condition, transition_duration, timing_function, initial_scaling, final_scaling = 1, prefix =, suffix = )
+
+    .{prefix}scaling-transition{suffix}
+    {
+        transform: scale( initial_scaling );
+        transition: transform transition_duration timing_function;
+    }
+
+    .{prefix}scaling-transition{suffix}{transition_condition}
+    {
+        transform: scale( final_scaling );
+    }
+
+// ~~
+
+MakeScalingOpacityTransition( transition_condition, transition_duration, timing_function, initial_scaling, initial_opacity = 0, final_scaling = 1, final_opacity = 1, prefix =, suffix = )
+
+    .{prefix}scaling-opacity-transition{suffix}
+    {
+        transform: scale( initial_scaling );
+        opacity: initial_opacity;
+        transition: transform transition_duration timing_function, opacity transition_duration timing_function;
+    }
+
+    .{prefix}scaling-opacity-transition{suffix}{transition_condition}
+    {
+        transform: scale( final_scaling );
+        opacity: final_opacity;
+    }
+
+// ~~
+
+MakeXScalingTransition( transition_condition, transition_duration, timing_function, initial_x_scaling, final_x_scaling = 1, prefix =, suffix = )
+
+    .{prefix}x-scaling-transition{suffix}
+    {
+        transform: scaleX( initial_x_scaling );
+        transition: transform transition_duration timing_function;
+    }
+
+    .{prefix}x-scaling-transition{suffix}{transition_condition}
+    {
+        transform: scaleX( final_x_scaling );
+    }
+
+// ~~
+
+MakeXScalingOpacityTransition( transition_condition, transition_duration, timing_function, initial_x_scaling, initial_opacity = 0, final_x_scaling = 1, final_opacity = 1, prefix =, suffix = )
+
+    .{prefix}x-scaling-opacity-transition{suffix}
+    {
+        transform: scaleX( initial_x_scaling );
+        opacity: initial_opacity;
+        transition: transform transition_duration timing_function, opacity transition_duration timing_function;
+    }
+
+    .{prefix}x-scaling-opacity-transition{suffix}{transition_condition}
+    {
+        transform: scaleX( final_x_scaling );
+        opacity: final_opacity;
+    }
+
+// ~~
+
+MakeYScalingTransition( transition_condition, transition_duration, timing_function, initial_y_scaling, final_y_scaling = 1, prefix =, suffix = )
+
+    .{prefix}y-scaling-transition{suffix}
+    {
+        transform: scaleY( initial_y_scaling );
+        transition: transform transition_duration timing_function;
+    }
+
+    .{prefix}y-scaling-transition{suffix}{transition_condition}
+    {
+        transform: scaleY( final_y_scaling );
+    }
+
+// ~~
+
+MakeYScalingOpacityTransition( transition_condition, transition_duration, timing_function, initial_y_scaling, initial_opacity = 0, final_y_scaling = 1, final_opacity = 1, prefix =, suffix = )
+
+    .{prefix}y-scaling-opacity-transition{suffix}
+    {
+        transform: scaleY( initial_y_scaling );
+        opacity: initial_opacity;
+        transition: transform transition_duration timing_function, opacity transition_duration timing_function;
+    }
+
+    .{prefix}y-scaling-opacity-transition{suffix}{transition_condition}
+    {
+        transform: scaleY( final_y_scaling );
+        opacity: final_opacity;
+    }
+
+// ~~
+
+MakeRotationTransition( transition_condition, transition_duration, timing_function, initial_rotation, final_rotation = 0, prefix =, suffix = )
+
+    .{prefix}rotation-transition{suffix}
+    {
+        transform: rotate( initial_rotation );
+        transition: transform transition_duration timing_function;
+    }
+
+    .{prefix}rotation-transition{suffix}{transition_condition}
+    {
+        transform: rotate( final_rotation );
+    }
+
+// ~~
+
+MakeRotationOpacityTransition( transition_condition, transition_duration, timing_function, initial_rotation, initial_opacity = 0, final_rotation = 0, final_opacity = 1, prefix =, suffix = )
+
+    .{prefix}rotation-opacity-transition{suffix}
+    {
+        transform: rotate( initial_rotation );
+        opacity: initial_opacity;
+        transition: transform transition_duration timing_function, opacity transition_duration timing_function;
+    }
+
+    .{prefix}rotation-opacity-transition{suffix}{transition_condition}
+    {
+        transform: rotate( final_rotation );
+        opacity: final_opacity;
+    }

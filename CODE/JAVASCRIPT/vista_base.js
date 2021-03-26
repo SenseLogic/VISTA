@@ -35,6 +35,15 @@ var
 
 // ~~
 
+function IsBoolean(
+    value
+    )
+{
+    return typeof value === "boolean";
+}
+
+// ~~
+
 function IsNumeric(
     value
     )

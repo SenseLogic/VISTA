@@ -1988,12 +1988,22 @@ function CreateIntersectionObserver(
 
 // ~~
 
-Array.prototype.ApplyIntersectionObserver = function(
-    intersection_observer
+Array.prototype.AddIntersectionObserver = function(
+    ...argument_array
     )
 {
     var
-        element;
+        element,
+        intersection_observer;
+
+    if ( argument_array[ 0 ] instanceof IntersectionObserver )
+    {
+        intersection_observer = argument_array[ 0 ];
+    }
+    else
+    {
+        intersection_observer = CreateIntersectionObserver( ...argument_array );
+    }
 
     for ( element of this )
     {
@@ -2005,7 +2015,7 @@ Array.prototype.ApplyIntersectionObserver = function(
 
 // ~~
 
-Array.prototype.IgnoreIntersectionObserver = function(
+Array.prototype.RemoveIntersectionObserver = function(
     intersection_observer
     )
 {

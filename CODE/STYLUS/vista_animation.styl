@@ -85,6 +85,35 @@ MakeYTranslationAnimation( key_duration, key_time_array, key_value_array, delay 
 
 // ~~
 
+MakeScalingAnimation( key_duration, key_time_array, key_value_array, delay = 0, duration = 1, timing_function = linear, iteration_count = 1, fill_mode = forwards, prefix =, suffix = )
+
+    key_count = length( key_time_array )
+
+    vendors = official
+
+    @keyframes {prefix}scaling-animation{suffix}
+
+        for key_time, key_index in key_time_array
+
+            key_value = key_value_array[ key_index ]
+            key_time_factor = key_time / key_duration
+
+            {100% * key_time_factor}
+
+                transform: scale( key_value );
+
+    .{prefix}x-scaling-animation{suffix}
+    {
+        animation-name: unquote( prefix + "scaling-animation" + suffix );
+        animation-delay: delay * 1s;
+        animation-duration: duration * 1s;
+        animation-timing-function: timing_function;
+        animation-iteration-count: iteration_count;
+        animation-fill-mode: fill_mode
+    }
+
+// ~~
+
 MakeXScalingAnimation( key_duration, key_time_array, key_value_array, delay = 0, duration = 1, timing_function = linear, iteration_count = 1, fill_mode = forwards, prefix =, suffix = )
 
     key_count = length( key_time_array )
