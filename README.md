@@ -799,13 +799,9 @@ Minimalistic front-end framework.
 
 ## Limitations
 
-*   Native web components require recent versions of :
-    *   Firefox
-    *   Safari
-    *   Chrome
-    *   Edge-Chromium
+*   Native web components require a recent browser.
 *   Trailing media queries bubbling is limited to one level.
-*    The types and functions are declared globally, on purpose.
+*   The types and functions are declared globally, on purpose.
 
 ## Version
 
