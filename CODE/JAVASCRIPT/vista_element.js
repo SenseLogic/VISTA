@@ -931,7 +931,8 @@ HTMLElement.prototype.GetLeftPosition = function (
 // ~~
 
 function SetScrollTop(
-    position
+    position,
+    behavior = "smooth"
     )
 {
     if ( position instanceof HTMLElement )
@@ -942,7 +943,7 @@ function SetScrollTop(
     window.scroll(
         {
             top : position,
-            behavior : "smooth"
+            behavior : behavior
         }
         );
 }
@@ -950,7 +951,8 @@ function SetScrollTop(
 // ~~
 
 function SetScrollLeft(
-    position
+    position,
+    behavior = "smooth"
     )
 {
     if ( position instanceof HTMLElement )
@@ -961,7 +963,7 @@ function SetScrollLeft(
     window.scroll(
         {
             left : position,
-            behavior : "smooth"
+            behavior : behavior
         }
         );
 }
