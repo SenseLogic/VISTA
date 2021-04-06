@@ -826,9 +826,62 @@ function GetNumericInterpolation(
     final_number_ratio
     )
 {
+    var
+        final_amount,
+        final_unit,
+        initial_amount,
+        initial_unit;
+
+    initial_amount = initial_number.Amount;
+    initial_unit = initial_number.Unit;
+    final_amount = final_number.Amount;
+    final_unit = final_number.Unit;
+
+    if ( initial_unit !== final_unit
+         && initial_unit !== ""
+         && final_unit !== "" )
+    {
+        if ( initial_unit === "px" )
+        {
+            if ( final_unit === "rem" )
+            {
+                initial_amount *= 0.0625;
+                initial_unit = "rem";
+            }
+            else if ( final_unit === "vh" )
+            {
+                initial_amount *= 100.0 / document.documentElement.clientHeight;
+                initial_unit = "vh";
+            }
+            else if ( final_unit === "vw" )
+            {
+                initial_amount *= 100.0 / document.documentElement.clientWidth;
+                initial_unit = "vw";
+            }
+        }
+        else if ( final_unit === "px" )
+        {
+            if ( initial_unit === "rem" )
+            {
+                final_amount *= 0.0625;
+                final_unit = "rem";
+            }
+            else if ( initial_unit === "vh" )
+            {
+                final_amount *= 100.0 / document.documentElement.clientHeight;
+                final_unit = "vh";
+            }
+            else if ( initial_unit === "vw" )
+            {
+                final_amount *= 100.0 / document.documentElement.clientWidth;
+                final_unit = "vw";
+            }
+        }
+    }
+
     return {
-        Amount : initial_number.Amount + ( final_number.Amount - initial_number.Amount ) * final_number_ratio,
-        Unit : ( ( final_number.Unit !== "" ) ? final_number.Unit : initial_number.Unit )
+        Amount : initial_amount + ( final_amount - initial_amount ) * final_number_ratio,
+        Unit : ( ( final_unit !== "" ) ? final_unit : initial_unit )
         };
 }
 
