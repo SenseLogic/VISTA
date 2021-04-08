@@ -850,13 +850,23 @@ function GetNumericInterpolation(
             }
             else if ( final_unit === "vh" )
             {
-                initial_amount *= 100.0 / document.documentElement.clientHeight;
+                initial_amount *= 100.0 / GetViewportHeight();
                 initial_unit = "vh";
             }
             else if ( final_unit === "vw" )
             {
-                initial_amount *= 100.0 / document.documentElement.clientWidth;
+                initial_amount *= 100.0 / GetViewportWidth();
                 initial_unit = "vw";
+            }
+            else if ( final_unit === "vmin" )
+            {
+                initial_amount *= 100.0 / GetViewportMinimumSize();
+                initial_unit = "vmin";
+            }
+            else if ( final_unit === "vmax" )
+            {
+                initial_amount *= 100.0 / GetViewportMaximumSize();
+                initial_unit = "vmax";
             }
         }
         else if ( final_unit === "px" )
@@ -868,13 +878,23 @@ function GetNumericInterpolation(
             }
             else if ( initial_unit === "vh" )
             {
-                final_amount *= 100.0 / document.documentElement.clientHeight;
+                final_amount *= 100.0 / GetViewportHeight();
                 final_unit = "vh";
             }
             else if ( initial_unit === "vw" )
             {
-                final_amount *= 100.0 / document.documentElement.clientWidth;
+                final_amount *= 100.0 / GetViewportWidth();
                 final_unit = "vw";
+            }
+            else if ( initial_unit === "vmin" )
+            {
+                final_amount *= 100.0 / GetViewportMinimumSize();
+                final_unit = "vmin";
+            }
+            else if ( initial_unit === "vmax" )
+            {
+                final_amount *= 100.0 / GetViewportMaximumSize();
+                final_unit = "vmax";
             }
         }
     }
