@@ -5,26 +5,30 @@
 *::after
 {
     box-sizing: border-box;
-    padding: 0;
     margin: 0;
+    padding: 0;
 }
 
 body
 {
     margin: 0;
+
+    line-height: 1.5;
     font-family: sans-serif;
     font-size: 1rem;
     font-weight: 400;
-    line-height: 1.5;
+
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 hr
 {
-    margin: 1rem 0;
-    color: inherit;
     border: 0;
+    margin: 1rem 0;
+
     opacity: 0.25;
+
+    color: inherit;
 }
 
 hr:not([size])
@@ -41,8 +45,9 @@ h6
 {
     margin-top: 0;
     margin-bottom: 0.5rem;
-    font-weight: 500;
+
     line-height: 1.2;
+    font-weight: 500;
 }
 
 h1
@@ -87,6 +92,7 @@ abbr[data-original-title]
     text-decoration: underline;
     -webkit-text-decoration: underline dotted;
     text-decoration: underline dotted;
+
     cursor: help;
     -webkit-text-decoration-skip-ink: none;
     text-decoration-skip-ink: none;
@@ -95,8 +101,9 @@ abbr[data-original-title]
 address
 {
     margin-bottom: 1rem;
-    font-style: normal;
+
     line-height: inherit;
+    font-style: normal;
 }
 
 ol,
@@ -152,8 +159,9 @@ sub,
 sup
 {
     position: relative;
-    font-size: 0.75em;
+
     line-height: 0;
+    font-size: 0.75em;
     vertical-align: baseline;
 }
 
@@ -179,8 +187,8 @@ a:hover
 
 a:not([href]), a:not([href]):hover
 {
-    color: inherit;
     text-decoration: none;
+    color: inherit;
 }
 
 pre,
@@ -194,17 +202,19 @@ samp
 pre
 {
     display: block;
+
     margin-top: 0;
     margin-bottom: 1rem;
     overflow: auto;
+
     font-size: 0.875em;
 }
 
 pre code
 {
     font-size: inherit;
-    color: inherit;
     word-break: normal;
+    color: inherit;
 }
 
 code
@@ -220,14 +230,16 @@ a > code
 
 kbd
 {
-    padding: 0.2rem 0.4rem;
-    font-size: 0.875em;
     border-radius: 0.2rem;
+    padding: 0.2rem 0.4rem;
+
+    font-size: 0.875em;
 }
 
 kbd kbd
 {
     padding: 0;
+
     font-size: 1em;
     font-weight: 700;
 }
@@ -245,6 +257,7 @@ img
 svg
 {
     overflow: hidden;
+
     vertical-align: middle;
 }
 
@@ -257,6 +270,7 @@ caption
 {
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
+
     text-align: left;
     caption-side: bottom;
 }
@@ -269,6 +283,7 @@ th
 label
 {
     display: inline-block;
+
     margin-bottom: 0.5rem;
 }
 
@@ -284,9 +299,10 @@ optgroup,
 textarea
 {
     margin: 0;
+
+    line-height: inherit;
     font-family: inherit;
     font-size: inherit;
-    line-height: inherit;
 }
 
 button,
@@ -329,8 +345,8 @@ button:not(:disabled),
 
 ::-moz-focus-inner
 {
-    padding: 0;
     border-style: none;
+    padding: 0;
 }
 
 input[type="date"],
@@ -350,21 +366,23 @@ textarea
 fieldset
 {
     min-width: 0;
-    padding: 0;
-    margin: 0;
     border: 0;
+    margin: 0;
+    padding: 0;
 }
 
 legend
 {
     float: left;
+
     width: 100%;
-    padding: 0;
     margin-bottom: 0.5rem;
-    font-size: 1.5rem;
+    padding: 0;
+
     line-height: inherit;
-    color: inherit;
+    font-size: 1.5rem;
     white-space: normal;
+    color: inherit;
 }
 
 mark
@@ -380,6 +398,7 @@ progress
 ::-webkit-datetime-edit
 {
     overflow: visible;
+
     line-height: 0;
 }
 
@@ -412,6 +431,7 @@ output
 summary
 {
     display: list-item;
+
     cursor: pointer;
 }
 
@@ -432,8 +452,8 @@ main
 
 select:-moz-focusring
 {
-    color: transparent;
     text-shadow: 0 0 0 #000;
+    color: transparent;
 }
 
 select
