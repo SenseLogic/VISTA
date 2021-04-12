@@ -34,8 +34,9 @@ ContainerMarginMap = {
 // ~~
 
 
-MakeContainerCenteredValue( 10rem, ContainerMaxWidthMap, MediaQueryNameList, "test-" );
-MakeContainerMarginedValue( 1rem, ContainerMarginMap, MediaQueryNameList, "test-" );
+MakeExtendedContainer( ContainerMarginMap, MediaQueryNameList, "test-" );
+MakeCenteredContainer( 10rem, ContainerMaxWidthMap, MediaQueryNameList, "test-" );
+MakeMarginedContainer( 1rem, ContainerMarginMap, MediaQueryNameList, "test-" );
 MakeMarginAuto( MediaQueryNameList );
 MakeMarginLateralAuto( MediaQueryNameList );
 MakeMarginLateralValueRange( 10, 10, 5, Pxm, "pxm", MediaQueryNameList );
