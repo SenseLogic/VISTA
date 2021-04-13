@@ -12,11 +12,13 @@ MakeCarouselStrip( slide_count = 1, visible_slide_count = 1, prefix =, infix =, 
 
     .{prefix}carousel{infix}-strip{suffix}
     {
-        display: flex;
         position: relative;
         left: 0;
+
         margin: 0;
         width: ( slide_count / visible_slide_count ) * 100%;
+
+        display: flex;
     }
 
 // ~~
