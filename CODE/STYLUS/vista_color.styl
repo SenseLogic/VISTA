@@ -1,13 +1,13 @@
 // -- MIXINS
 
-MakeColorValue( name, value, media_query_name_list = {}, prefix =, suffix = )
+MakeColorValue( name, value, media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}color-{name}{suffix}
     {
         color: value;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {

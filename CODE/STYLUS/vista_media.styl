@@ -51,16 +51,16 @@ MediaQueryMap = {
 
 // -- MIXINS
 
-Media( media_query_name_list )
+Media( media_query_name_array )
 
-    media_query_list = ();
+    media_query_array = ();
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
-        push( media_query_list, MediaQueryMap[ media_query_name ] );
+        push( media_query_array, MediaQueryMap[ media_query_name ] );
     }
 
-    media_query_list_text = join( ", ", media_query_list );
+    media_query_array_text = join( ", ", media_query_array );
 
-    @media media_query_list_text
+    @media media_query_array_text
         {block}

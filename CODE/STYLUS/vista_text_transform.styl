@@ -1,13 +1,13 @@
 // -- MIXINS
 
-MakeTextTransformLowercase( media_query_name_list = {}, prefix =, suffix = )
+MakeTextTransformLowercase( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}text-transform-lowercase{suffix}
     {
         text-transform: lowercase;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -20,14 +20,14 @@ MakeTextTransformLowercase( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeTextTransformUppercase( media_query_name_list = {}, prefix =, suffix = )
+MakeTextTransformUppercase( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}text-transform-uppercase{suffix}
     {
         text-transform: uppercase;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -40,14 +40,14 @@ MakeTextTransformUppercase( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeTextTransformCapitalize( media_query_name_list = {}, prefix =, suffix = )
+MakeTextTransformCapitalize( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}text-transform-capitalize{suffix}
     {
         text-transform: capitalize;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {

@@ -1,13 +1,13 @@
 // -- MIXINS
 
-MakeBackgroundOriginBorderBox( media_query_name_list = {}, prefix =, suffix = )
+MakeBackgroundOriginBorderBox( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}background-origin-border-box{suffix}
     {
         background-origin: border-box;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -20,14 +20,14 @@ MakeBackgroundOriginBorderBox( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeBackgroundOriginPaddingBox( media_query_name_list = {}, prefix =, suffix = )
+MakeBackgroundOriginPaddingBox( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}background-origin-padding-box{suffix}
     {
         background-origin: padding-box;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -40,14 +40,14 @@ MakeBackgroundOriginPaddingBox( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeBackgroundOriginContentBox( media_query_name_list = {}, prefix =, suffix = )
+MakeBackgroundOriginContentBox( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}background-origin-content-box{suffix}
     {
         background-origin: content-box;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -60,14 +60,14 @@ MakeBackgroundOriginContentBox( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeBackgroundClipBorderBox( media_query_name_list = {}, prefix =, suffix = )
+MakeBackgroundClipBorderBox( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}background-origin-border-box{suffix}
     {
         background-origin: border-box;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -80,14 +80,14 @@ MakeBackgroundClipBorderBox( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeBackgroundClipPaddingBox( media_query_name_list = {}, prefix =, suffix = )
+MakeBackgroundClipPaddingBox( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}background-origin-padding-box{suffix}
     {
         background-origin: padding-box;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -100,14 +100,14 @@ MakeBackgroundClipPaddingBox( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeBackgroundClipContentBox( media_query_name_list = {}, prefix =, suffix = )
+MakeBackgroundClipContentBox( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}background-origin-content-box{suffix}
     {
         background-origin: content-box;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -120,14 +120,14 @@ MakeBackgroundClipContentBox( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeBackgroundClipText( media_query_name_list = {}, prefix =, suffix = )
+MakeBackgroundClipText( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}background-origin-content-text{suffix}
     {
         background-origin: content-text;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -140,14 +140,14 @@ MakeBackgroundClipText( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeBackgroundAttachmentLocal( media_query_name_list = {}, prefix =, suffix = )
+MakeBackgroundAttachmentLocal( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}background-attachment-local{suffix}
     {
         background-attachment: local;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -160,14 +160,14 @@ MakeBackgroundAttachmentLocal( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeBackgroundAttachmentScroll( media_query_name_list = {}, prefix =, suffix = )
+MakeBackgroundAttachmentScroll( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}background-attachment-scroll{suffix}
     {
         background-attachment: scroll;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -180,14 +180,14 @@ MakeBackgroundAttachmentScroll( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeBackgroundAttachmentFixed( media_query_name_list = {}, prefix =, suffix = )
+MakeBackgroundAttachmentFixed( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}background-attachment-fixed{suffix}
     {
         background-attachment: fixed;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -200,14 +200,14 @@ MakeBackgroundAttachmentFixed( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeBackgroundPositionCenter( media_query_name_list = {}, prefix =, suffix = )
+MakeBackgroundPositionCenter( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}background-position-center{suffix}
     {
         background-position: center;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -220,14 +220,14 @@ MakeBackgroundPositionCenter( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeBackgroundPositionTopLeft( media_query_name_list = {}, prefix =, suffix = )
+MakeBackgroundPositionTopLeft( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}background-position-top-left{suffix}
     {
         background-position: top left;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -240,14 +240,14 @@ MakeBackgroundPositionTopLeft( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeBackgroundPositionTopRight( media_query_name_list = {}, prefix =, suffix = )
+MakeBackgroundPositionTopRight( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}background-position-top-right{suffix}
     {
         background-position: top right;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -260,14 +260,14 @@ MakeBackgroundPositionTopRight( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeBackgroundPositionBottomLeft( media_query_name_list = {}, prefix =, suffix = )
+MakeBackgroundPositionBottomLeft( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}background-position-bottom-left{suffix}
     {
         background-position: bottom left;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -280,14 +280,14 @@ MakeBackgroundPositionBottomLeft( media_query_name_list = {}, prefix =, suffix =
 
 // ~~
 
-MakeBackgroundPositionBottomRight( media_query_name_list = {}, prefix =, suffix = )
+MakeBackgroundPositionBottomRight( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}background-position-bottom-right{suffix}
     {
         background-position: bottom right;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -300,14 +300,14 @@ MakeBackgroundPositionBottomRight( media_query_name_list = {}, prefix =, suffix 
 
 // ~~
 
-MakeBackgroundSizeAuto( media_query_name_list = {}, prefix =, suffix = )
+MakeBackgroundSizeAuto( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}background-size-auto{suffix}
     {
         background-size: auto;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -320,14 +320,14 @@ MakeBackgroundSizeAuto( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeBackgroundSizeContain( media_query_name_list = {}, prefix =, suffix = )
+MakeBackgroundSizeContain( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}background-size-contain{suffix}
     {
         background-size: contain;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -340,14 +340,14 @@ MakeBackgroundSizeContain( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeBackgroundSizeCover( media_query_name_list = {}, prefix =, suffix = )
+MakeBackgroundSizeCover( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}background-size-cover{suffix}
     {
         background-size: cover;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -360,14 +360,14 @@ MakeBackgroundSizeCover( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeBackgroundColorValue( name, value, media_query_name_list = {}, prefix =, suffix = )
+MakeBackgroundColorValue( name, value, media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}background-color-{name}{suffix}
     {
         background-color: value;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {

@@ -1,13 +1,13 @@
 // -- MIXINS
 
-MakeGridFlowRow( media_query_name_list = {}, prefix =, suffix = )
+MakeGridFlowRow( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}grid-flow-row{suffix}
     {
         grid-auto-flow: row;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -20,14 +20,14 @@ MakeGridFlowRow( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeGridFlowColumn( media_query_name_list = {}, prefix =, suffix = )
+MakeGridFlowColumn( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}grid-flow-column{suffix}
     {
         grid-auto-flow: column;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -41,7 +41,7 @@ MakeGridFlowColumn( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeGridHeightsValue( size, unit_value, unit_name, media_query_name_list = {}, prefix =, suffix = )
+MakeGridHeightsValue( size, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}grid-heights-auto{suffix}
     {
@@ -63,7 +63,7 @@ MakeGridHeightsValue( size, unit_value, unit_name, media_query_name_list = {}, p
         grid-auto-rows: size * unit_value;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -76,18 +76,18 @@ MakeGridHeightsValue( size, unit_value, unit_name, media_query_name_list = {}, p
 
 // ~~
 
-MakeGridHeightsValueRange( start, step, count, unit_value, unit_name, media_query_name_list = {}, prefix =, suffix = )
+MakeGridHeightsValueRange( start, step, count, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix = )
 
     for index in 0 .. count - 1
     {
         size = start + index * step;
 
-        MakeGridHeightsValue( size, unit_value, unit_name, media_query_name_list, prefix, suffix );
+        MakeGridHeightsValue( size, unit_value, unit_name, media_query_name_array, prefix, suffix );
     }
 
 // ~~
 
-MakeGridWidthsValue( size, unit_value, unit_name, media_query_name_list = {}, prefix =, suffix = )
+MakeGridWidthsValue( size, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}grid-widths-auto{suffix}
     {
@@ -109,7 +109,7 @@ MakeGridWidthsValue( size, unit_value, unit_name, media_query_name_list = {}, pr
         grid-auto-columns: size * unit_value;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -122,25 +122,25 @@ MakeGridWidthsValue( size, unit_value, unit_name, media_query_name_list = {}, pr
 
 // ~~
 
-MakeGridWidthsValueRange( start, step, count, unit_value, unit_name, media_query_name_list = {}, prefix =, suffix = )
+MakeGridWidthsValueRange( start, step, count, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix = )
 
     for index in 0 .. count - 1
     {
         size = start + index * step;
 
-        MakeGridWidthsValue( size, unit_value, unit_name, media_query_name_list, prefix, suffix );
+        MakeGridWidthsValue( size, unit_value, unit_name, media_query_name_array, prefix, suffix );
     }
 
 // ~~
 
-MakeGridRowSpanValue( row_count, media_query_name_list = {}, prefix =, suffix = )
+MakeGridRowSpanValue( row_count, media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}grid-row-span-{row_count}{suffix}
     {
         grid-row: auto/span row_count;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -153,23 +153,23 @@ MakeGridRowSpanValue( row_count, media_query_name_list = {}, prefix =, suffix = 
 
 // ~~
 
-MakeGridRowSpanValueRange( first_row_count, last_row_count, media_query_name_list = {}, prefix =, suffix = )
+MakeGridRowSpanValueRange( first_row_count, last_row_count, media_query_name_array = {}, prefix =, suffix = )
 
     for row_count in first_row_count .. last_row_count
     {
-        MakeGridRowSpanValue( row_count, media_query_name_list, prefix, suffix );
+        MakeGridRowSpanValue( row_count, media_query_name_array, prefix, suffix );
     }
 
 // ~~
 
-MakeGridColumnSpanValue( column_count, media_query_name_list = {}, prefix =, suffix = )
+MakeGridColumnSpanValue( column_count, media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}grid-column-span-{column_count}{suffix}
     {
         grid-column: auto/span column_count;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -182,23 +182,23 @@ MakeGridColumnSpanValue( column_count, media_query_name_list = {}, prefix =, suf
 
 // ~~
 
-MakeGridColumnSpanValueRange( first_column_count, last_column_count, media_query_name_list = {}, prefix =, suffix = )
+MakeGridColumnSpanValueRange( first_column_count, last_column_count, media_query_name_array = {}, prefix =, suffix = )
 
     for column_count in first_column_count .. last_column_count
     {
-        MakeGridColumnSpanValue( column_count, media_query_name_list, prefix, suffix );
+        MakeGridColumnSpanValue( column_count, media_query_name_array, prefix, suffix );
     }
 
 // ~~
 
-MakeGridRowSpanAll( media_query_name_list = {}, prefix =, suffix = )
+MakeGridRowSpanAll( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}grid-row-span-all{suffix}
     {
         grid-row: 1/-1;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -211,14 +211,14 @@ MakeGridRowSpanAll( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeGridColumnSpanAll( media_query_name_list = {}, prefix =, suffix = )
+MakeGridColumnSpanAll( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}grid-column-span-all{suffix}
     {
         grid-column: 1/-1;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -231,14 +231,14 @@ MakeGridColumnSpanAll( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeGridRowGapValue( size, unit_value, unit_name, media_query_name_list = {}, prefix =, suffix = )
+MakeGridRowGapValue( size, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}grid-row-gap-{size}{unit_name}{suffix}
     {
         grid-row-gap: size * unit_value;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -251,25 +251,25 @@ MakeGridRowGapValue( size, unit_value, unit_name, media_query_name_list = {}, pr
 
 // ~~
 
-MakeGridRowGapValueRange( start, step, count, unit_value, unit_name, media_query_name_list = {}, prefix =, suffix = )
+MakeGridRowGapValueRange( start, step, count, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix = )
 
     for index in 0 .. count - 1
     {
         size = start + index * step;
 
-        MakeGridRowGapValue( size, unit_value, unit_name, media_query_name_list, prefix, suffix );
+        MakeGridRowGapValue( size, unit_value, unit_name, media_query_name_array, prefix, suffix );
     }
 
 // ~~
 
-MakeGridColumnGapValue( size, unit_value, unit_name, media_query_name_list = {}, prefix =, suffix = )
+MakeGridColumnGapValue( size, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}grid-column-gap-{size}{unit_name}{suffix}
     {
         grid-column-gap: size * unit_value;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -282,18 +282,18 @@ MakeGridColumnGapValue( size, unit_value, unit_name, media_query_name_list = {},
 
 // ~~
 
-MakeGridColumnGapValueRange( start, step, count, unit_value, unit_name, media_query_name_list = {}, prefix =, suffix = )
+MakeGridColumnGapValueRange( start, step, count, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix = )
 
     for index in 0 .. count - 1
     {
         size = start + index * step;
 
-        MakeGridColumnGapValue( size, unit_value, unit_name, media_query_name_list, prefix, suffix );
+        MakeGridColumnGapValue( size, unit_value, unit_name, media_query_name_array, prefix, suffix );
     }
 
 // ~~
 
-MakeGridColumnsValue( column_count, media_query_name_list = {}, prefix =, suffix = )
+MakeGridColumnsValue( column_count, media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}grid-columns-{column_count}{suffix}
     {
@@ -301,7 +301,7 @@ MakeGridColumnsValue( column_count, media_query_name_list = {}, prefix =, suffix
         grid-template-columns: repeat( column_count, 1fr );
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -315,9 +315,9 @@ MakeGridColumnsValue( column_count, media_query_name_list = {}, prefix =, suffix
 
 // ~~
 
-MakeGridColumnsValueRange( first_column_count, last_column_count, media_query_name_list = {}, prefix =, suffix = )
+MakeGridColumnsValueRange( first_column_count, last_column_count, media_query_name_array = {}, prefix =, suffix = )
 
     for column_count in first_column_count .. last_column_count
     {
-        MakeGridColumnsValue( column_count, media_query_name_list, prefix, suffix );
+        MakeGridColumnsValue( column_count, media_query_name_array, prefix, suffix );
     }

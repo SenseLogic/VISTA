@@ -1,6 +1,6 @@
 // -- MIXINS
 
-MakeExtendedContainer( media_query_name_list = {}, prefix =, suffix = )
+MakeExtendedContainer( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}extended-container{suffix}
     {
@@ -10,7 +10,7 @@ MakeExtendedContainer( media_query_name_list = {}, prefix =, suffix = )
         width: 100%;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -25,7 +25,7 @@ MakeExtendedContainer( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeCenteredContainer( max_width, max_width_map = {}, media_query_name_list = {}, prefix =, suffix = )
+MakeCenteredContainer( max_width, max_width_array = {}, media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}centered-container{suffix}
     {
@@ -35,13 +35,13 @@ MakeCenteredContainer( max_width, max_width_map = {}, media_query_name_list = {}
         max-width: max_width;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name, media_query_name_index in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
             .{prefix}centered-container{suffix}
             {
-                max-width: max_width_map[ media_query_name ];
+                max-width: max_width_array[ media_query_name_index ];
                 margin-left: auto;
                 margin-right: auto;
             }
@@ -50,7 +50,7 @@ MakeCenteredContainer( max_width, max_width_map = {}, media_query_name_list = {}
 
 // ~~
 
-MakeMarginedContainer( margin, margin_map, media_query_name_list = {}, prefix =, suffix = )
+MakeMarginedContainer( margin, margin_array, media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}margined-container{suffix}
     {
@@ -58,21 +58,21 @@ MakeMarginedContainer( margin, margin_map, media_query_name_list = {}, prefix =,
         margin-right: margin;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name, media_query_name_index in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
             .{prefix}margined-container{suffix}
             {
-                margin-left: margin_map[ media_query_name ];
-                margin-right: margin_map[ media_query_name ];
+                margin-left: margin_array[ media_query_name_index ];
+                margin-right: margin_array[ media_query_name_index ];
             }
         }
     }
 
 // ~~
 
-MakePaddedContainer( padding, padding_map, media_query_name_list = {}, prefix =, suffix = )
+MakePaddedContainer( padding, padding_array, media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}padded-container{suffix}
     {
@@ -80,14 +80,14 @@ MakePaddedContainer( padding, padding_map, media_query_name_list = {}, prefix =,
         padding-right: padding;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name, media_query_name_index in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
             .{prefix}padded-container{suffix}
             {
-                padding-left: padding_map[ media_query_name ];
-                padding-right: padding_map[ media_query_name ];
+                padding-left: padding_array[ media_query_name_index ];
+                padding-right: padding_array[ media_query_name_index ];
             }
         }
     }

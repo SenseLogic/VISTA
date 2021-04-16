@@ -1,13 +1,13 @@
 // -- MIXINS
 
-MakeLineHeightValue( size, unit_value, unit_name, media_query_name_list = {}, prefix =, suffix = )
+MakeLineHeightValue( size, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}line-height-{size}{unit_name}{suffix}
     {
         line-height: size * unit_value;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -20,11 +20,11 @@ MakeLineHeightValue( size, unit_value, unit_name, media_query_name_list = {}, pr
 
 // ~~
 
-MakeLineHeightValueRange( start, step, count, unit_value, unit_name, media_query_name_list = {}, prefix =, suffix = )
+MakeLineHeightValueRange( start, step, count, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix = )
 
     for index in 0 .. count - 1
     {
         size = start + index * step;
 
-        MakeLineHeightValue( size, unit_value, unit_name, media_query_name_list, prefix, suffix );
+        MakeLineHeightValue( size, unit_value, unit_name, media_query_name_array, prefix, suffix );
     }

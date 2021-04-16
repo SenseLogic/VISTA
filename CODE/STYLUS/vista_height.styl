@@ -1,13 +1,13 @@
 // -- MIXINS
 
-MakeHeightAuto( media_query_name_list = {}, prefix =, suffix = )
+MakeHeightAuto( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}height-auto{suffix}{suffix}
     {
         height: auto;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -20,14 +20,14 @@ MakeHeightAuto( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeHeightValue( size, unit_value, unit_name, media_query_name_list = {}, prefix =, suffix = )
+MakeHeightValue( size, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}height-{size}{unit_name}{suffix}
     {
         height: size * unit_value;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -40,25 +40,25 @@ MakeHeightValue( size, unit_value, unit_name, media_query_name_list = {}, prefix
 
 // ~~
 
-MakeHeightValueRange( start, step, count, unit_value, unit_name, media_query_name_list = {}, prefix =, suffix = )
+MakeHeightValueRange( start, step, count, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix = )
 
     for index in 0 .. count - 1
     {
         size = start + index * step;
 
-        MakeHeightValue( size, unit_value, unit_name, media_query_name_list, prefix, suffix );
+        MakeHeightValue( size, unit_value, unit_name, media_query_name_array, prefix, suffix );
     }
 
 // ~~
 
-MakeMinHeightValue( size, unit_value, unit_name, media_query_name_list = {}, prefix =, suffix = )
+MakeMinHeightValue( size, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}min-height-{size}{unit_name}{suffix}
     {
         min-height: size * unit_value;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -71,25 +71,25 @@ MakeMinHeightValue( size, unit_value, unit_name, media_query_name_list = {}, pre
 
 // ~~
 
-MakeMinHeightValueRange( start, step, count, unit_value, unit_name, media_query_name_list = {}, prefix =, suffix = )
+MakeMinHeightValueRange( start, step, count, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix = )
 
     for index in 0 .. count - 1
     {
         size = start + index * step;
 
-        MakeMinHeightValue( size, unit_value, unit_name, media_query_name_list, prefix, suffix );
+        MakeMinHeightValue( size, unit_value, unit_name, media_query_name_array, prefix, suffix );
     }
 
 // ~~
 
-MakeMaxHeightValue( size, unit_value, unit_name, media_query_name_list = {}, prefix =, suffix = )
+MakeMaxHeightValue( size, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}max-height-{size}{unit_name}{suffix}
     {
         max-height: size * unit_value;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -102,18 +102,18 @@ MakeMaxHeightValue( size, unit_value, unit_name, media_query_name_list = {}, pre
 
 // ~~
 
-MakeMaxHeightValueRange( start, step, count, unit_value, unit_name, media_query_name_list = {}, prefix =, suffix = )
+MakeMaxHeightValueRange( start, step, count, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix = )
 
     for index in 0 .. count - 1
     {
         size = start + index * step;
 
-        MakeMaxHeightValue( size, unit_value, unit_name, media_query_name_list, prefix, suffix );
+        MakeMaxHeightValue( size, unit_value, unit_name, media_query_name_array, prefix, suffix );
     }
 
 // ~~
 
-MakeFractionalHeightValueRange( column_count, media_query_name_list = {}, prefix =, suffix = )
+MakeFractionalHeightValueRange( column_count, media_query_name_array = {}, prefix =, suffix = )
 
     for column_index in 1 .. column_count
     {
@@ -122,7 +122,7 @@ MakeFractionalHeightValueRange( column_count, media_query_name_list = {}, prefix
             height: 100% * ( column_index / column_count );
         }
 
-        for media_query_name in media_query_name_list
+        for media_query_name in media_query_name_array
         {
             @media MediaQueryMap[ media_query_name ]
             {
@@ -136,7 +136,7 @@ MakeFractionalHeightValueRange( column_count, media_query_name_list = {}, prefix
 
 // ~~
 
-MakeMinFractionalHeightValueRange( column_count, media_query_name_list = {}, prefix =, suffix = )
+MakeMinFractionalHeightValueRange( column_count, media_query_name_array = {}, prefix =, suffix = )
 
     for column_index in 1 .. column_count
     {
@@ -145,7 +145,7 @@ MakeMinFractionalHeightValueRange( column_count, media_query_name_list = {}, pre
             min-height: 100% * ( column_index / column_count );
         }
 
-        for media_query_name in media_query_name_list
+        for media_query_name in media_query_name_array
         {
             @media MediaQueryMap[ media_query_name ]
             {
@@ -159,7 +159,7 @@ MakeMinFractionalHeightValueRange( column_count, media_query_name_list = {}, pre
 
 // ~~
 
-MakeMaxFractionalHeightValueRange( column_count, media_query_name_list = {}, prefix =, suffix = )
+MakeMaxFractionalHeightValueRange( column_count, media_query_name_array = {}, prefix =, suffix = )
 
     for column_index in 1 .. column_count
     {
@@ -168,7 +168,7 @@ MakeMaxFractionalHeightValueRange( column_count, media_query_name_list = {}, pre
             max-height: 100% * ( column_index / column_count );
         }
 
-        for media_query_name in media_query_name_list
+        for media_query_name in media_query_name_array
         {
             @media MediaQueryMap[ media_query_name ]
             {
@@ -182,7 +182,7 @@ MakeMaxFractionalHeightValueRange( column_count, media_query_name_list = {}, pre
 
 // ~~
 
-MakeGridHeightValueRange( row_count, total_size, gutter_size, unit_name, media_query_name_list = {}, prefix =, suffix = )
+MakeGridHeightValueRange( row_count, total_size, gutter_size, unit_name, media_query_name_array = {}, prefix =, suffix = )
 
     row_size = ( total_size - ( row_count - 1 ) * gutter_size ) / row_count;
 
@@ -193,7 +193,7 @@ MakeGridHeightValueRange( row_count, total_size, gutter_size, unit_name, media_q
             height: row_size * row_index + gutter_size * ( row_index - 1 );
         }
 
-        for media_query_name in media_query_name_list
+        for media_query_name in media_query_name_array
         {
             @media MediaQueryMap[ media_query_name ]
             {

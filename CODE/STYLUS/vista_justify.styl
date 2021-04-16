@@ -1,13 +1,13 @@
 // -- MIXINS
 
-MakeJustifyContentStart( media_query_name_list = {}, prefix =, suffix = )
+MakeJustifyContentStart( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}justify-content-start{suffix}
     {
         justify-content: flex-start;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -20,14 +20,14 @@ MakeJustifyContentStart( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeJustifyContentCenter( media_query_name_list = {}, prefix =, suffix = )
+MakeJustifyContentCenter( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}justify-content-center{suffix}
     {
         justify-content: center;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -40,14 +40,14 @@ MakeJustifyContentCenter( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeJustifyContentEnd( media_query_name_list = {}, prefix =, suffix = )
+MakeJustifyContentEnd( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}justify-content-end{suffix}
     {
         justify-content: flex-end;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -60,14 +60,14 @@ MakeJustifyContentEnd( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeJustifyContentSpaceBetween( media_query_name_list = {}, prefix =, suffix = )
+MakeJustifyContentSpaceBetween( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}justify-content-space-between{suffix}
     {
         justify-content: space-between;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -80,14 +80,14 @@ MakeJustifyContentSpaceBetween( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeJustifyContentSpaceAround( media_query_name_list = {}, prefix =, suffix = )
+MakeJustifyContentSpaceAround( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}justify-content-space-around{suffix}
     {
         justify-content: space-around;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -101,14 +101,14 @@ MakeJustifyContentSpaceAround( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeJustifySelfStart( media_query_name_list = {}, prefix =, suffix = )
+MakeJustifySelfStart( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}justify-self-start{suffix}
     {
         justify-self: flex-start;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -121,14 +121,14 @@ MakeJustifySelfStart( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeJustifySelfCenter( media_query_name_list = {}, prefix =, suffix = )
+MakeJustifySelfCenter( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}justify-self-center{suffix}
     {
         justify-self: center;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -141,14 +141,14 @@ MakeJustifySelfCenter( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeJustifySelfEnd( media_query_name_list = {}, prefix =, suffix = )
+MakeJustifySelfEnd( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}justify-self-end{suffix}
     {
         justify-self: flex-end;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {

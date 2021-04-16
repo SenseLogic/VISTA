@@ -1,13 +1,13 @@
 // -- MIXINS
 
-MakeCursorDefault( media_query_name_list = {}, prefix =, suffix = )
+MakeCursorDefault( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}cursor-default{suffix}
     {
         cursor: default;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -20,14 +20,14 @@ MakeCursorDefault( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeCursorPointer( media_query_name_list = {}, prefix =, suffix = )
+MakeCursorPointer( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}cursor-pointer{suffix}
     {
         cursor: pointer;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -40,14 +40,14 @@ MakeCursorPointer( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeCursorText( media_query_name_list = {}, prefix =, suffix = )
+MakeCursorText( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}cursor-text{suffix}
     {
         cursor: text;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -60,14 +60,14 @@ MakeCursorText( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeCursorGrab( media_query_name_list = {}, prefix =, suffix = )
+MakeCursorGrab( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}cursor-grab{suffix}
     {
         cursor: grab;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -80,14 +80,14 @@ MakeCursorGrab( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeCursorGrabbing( media_query_name_list = {}, prefix =, suffix = )
+MakeCursorGrabbing( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}cursor-grabbing{suffix}
     {
         cursor: grabbing;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -100,14 +100,14 @@ MakeCursorGrabbing( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeCursorZoomIn( media_query_name_list = {}, prefix =, suffix = )
+MakeCursorZoomIn( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}cursor-zoom-in{suffix}
     {
         cursor: zoom-in;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -120,14 +120,14 @@ MakeCursorZoomIn( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeCursorZoomOut( media_query_name_list = {}, prefix =, suffix = )
+MakeCursorZoomOut( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}cursor-zoom-out{suffix}
     {
         cursor: zoom-out;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -140,14 +140,14 @@ MakeCursorZoomOut( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeCursorAllScroll( media_query_name_list = {}, prefix =, suffix = )
+MakeCursorAllScroll( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}cursor-all-scroll{suffix}
     {
         cursor: all-scroll;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -160,14 +160,14 @@ MakeCursorAllScroll( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeCursorMove( media_query_name_list = {}, prefix =, suffix = )
+MakeCursorMove( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}cursor-move{suffix}
     {
         cursor: move;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -180,14 +180,14 @@ MakeCursorMove( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeCursorNsResize( media_query_name_list = {}, prefix =, suffix = )
+MakeCursorNsResize( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}cursor-ns-resize{suffix}
     {
         cursor: ns-resize;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -200,14 +200,14 @@ MakeCursorNsResize( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeCursorEwResize( media_query_name_list = {}, prefix =, suffix = )
+MakeCursorEwResize( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}cursor-ew-resize{suffix}
     {
         cursor: ew-resize;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -220,14 +220,14 @@ MakeCursorEwResize( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeCursorColResize( media_query_name_list = {}, prefix =, suffix = )
+MakeCursorColResize( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}cursor-col-resize{suffix}
     {
         cursor: col-resize;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -240,14 +240,14 @@ MakeCursorColResize( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeCursorRowResize( media_query_name_list = {}, prefix =, suffix = )
+MakeCursorRowResize( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}cursor-row-resize{suffix}
     {
         cursor: row-resize;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -260,14 +260,14 @@ MakeCursorRowResize( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeCursorCrosshair( media_query_name_list = {}, prefix =, suffix = )
+MakeCursorCrosshair( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}cursor-crosshair{suffix}
     {
         cursor: crosshair;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -280,14 +280,14 @@ MakeCursorCrosshair( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeCursorWait( media_query_name_list = {}, prefix =, suffix = )
+MakeCursorWait( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}cursor-wait{suffix}
     {
         cursor: wait;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -300,14 +300,14 @@ MakeCursorWait( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeCursorNotAllowed( media_query_name_list = {}, prefix =, suffix = )
+MakeCursorNotAllowed( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}cursor-not-allowed{suffix}
     {
         cursor: not-allowed;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {

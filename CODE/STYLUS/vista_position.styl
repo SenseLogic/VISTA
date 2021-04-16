@@ -1,13 +1,13 @@
 // -- MIXINS
 
-MakePositionStatic( media_query_name_list = {}, prefix =, suffix = )
+MakePositionStatic( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}position-static{suffix}
     {
         position: static;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -20,14 +20,14 @@ MakePositionStatic( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakePositionRelative( media_query_name_list = {}, prefix =, suffix = )
+MakePositionRelative( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}position-relative{suffix}
     {
         position: relative;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -40,14 +40,14 @@ MakePositionRelative( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakePositionAbsolute( media_query_name_list = {}, prefix =, suffix = )
+MakePositionAbsolute( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}position-absolute{suffix}
     {
         position: absolute;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -60,14 +60,14 @@ MakePositionAbsolute( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakePositionFixed( media_query_name_list = {}, prefix =, suffix = )
+MakePositionFixed( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}position-fixed{suffix}
     {
         position: fixed;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -80,14 +80,14 @@ MakePositionFixed( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakePositionSticky( media_query_name_list = {}, prefix =, suffix = )
+MakePositionSticky( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}position-sticky{suffix}
     {
         position: sticky;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -100,7 +100,7 @@ MakePositionSticky( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakePositionFixedTop( media_query_name_list = {}, prefix =, suffix = )
+MakePositionFixedTop( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}position-fixed-top{suffix}
     {
@@ -111,7 +111,7 @@ MakePositionFixedTop( media_query_name_list = {}, prefix =, suffix = )
         z-index: 1030;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -128,7 +128,7 @@ MakePositionFixedTop( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakePositionFixedBottom( media_query_name_list = {}, prefix =, suffix = )
+MakePositionFixedBottom( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}position-fixed-bottom{suffix}
     {
@@ -139,7 +139,7 @@ MakePositionFixedBottom( media_query_name_list = {}, prefix =, suffix = )
         z-index: 1030;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -156,14 +156,14 @@ MakePositionFixedBottom( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakePositionLeftValue( offset, unit_value, unit_name, media_query_name_list = {}, prefix =, suffix = )
+MakePositionLeftValue( offset, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}position-left-{offset}{unit_name}{suffix}
     {
         left: offset * unit_value;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -176,25 +176,25 @@ MakePositionLeftValue( offset, unit_value, unit_name, media_query_name_list = {}
 
 // ~~
 
-MakePositionLeftValueRange( start, step, count, unit_value, unit_name, media_query_name_list = {}, prefix =, suffix = )
+MakePositionLeftValueRange( start, step, count, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix = )
 
     for index in 0 .. count - 1
     {
         offset = start + index * step;
 
-        MakePositionLeftValue( offset, unit_value, unit_name, media_query_name_list, prefix, suffix );
+        MakePositionLeftValue( offset, unit_value, unit_name, media_query_name_array, prefix, suffix );
     }
 
 // ~~
 
-MakePositionRightValue( offset, unit_value, unit_name, media_query_name_list = {}, prefix =, suffix = )
+MakePositionRightValue( offset, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}position-right-{offset}{unit_name}{suffix}
     {
         right: offset * unit_value;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -207,25 +207,25 @@ MakePositionRightValue( offset, unit_value, unit_name, media_query_name_list = {
 
 // ~~
 
-MakePositionRightValueRange( start, step, count, unit_value, unit_name, media_query_name_list = {}, prefix =, suffix = )
+MakePositionRightValueRange( start, step, count, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix = )
 
     for index in 0 .. count - 1
     {
         offset = start + index * step;
 
-        MakePositionRightValue( offset, unit_value, unit_name, media_query_name_list, prefix, suffix );
+        MakePositionRightValue( offset, unit_value, unit_name, media_query_name_array, prefix, suffix );
     }
 
 // ~~
 
-MakePositionBottomValue( offset, unit_value, unit_name, media_query_name_list = {}, prefix =, suffix = )
+MakePositionBottomValue( offset, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}position-bottom-{offset}{unit_name}{suffix}
     {
         bottom: offset * unit_value;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -238,25 +238,25 @@ MakePositionBottomValue( offset, unit_value, unit_name, media_query_name_list = 
 
 // ~~
 
-MakePositionBottomValueRange( start, step, count, unit_value, unit_name, media_query_name_list = {}, prefix =, suffix = )
+MakePositionBottomValueRange( start, step, count, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix = )
 
     for index in 0 .. count - 1
     {
         offset = start + index * step;
 
-        MakePositionBottomValue( offset, unit_value, unit_name, media_query_name_list, prefix, suffix );
+        MakePositionBottomValue( offset, unit_value, unit_name, media_query_name_array, prefix, suffix );
     }
 
 // ~~
 
-MakePositionTopValue( offset, unit_value, unit_name, media_query_name_list = {}, prefix =, suffix = )
+MakePositionTopValue( offset, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}position-top-{offset}{unit_name}{suffix}
     {
         top: offset * unit_value;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -269,11 +269,11 @@ MakePositionTopValue( offset, unit_value, unit_name, media_query_name_list = {},
 
 // ~~
 
-MakePositionTopValueRange( start, step, count, unit_value, unit_name, media_query_name_list = {}, prefix =, suffix = )
+MakePositionTopValueRange( start, step, count, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix = )
 
     for index in 0 .. count - 1
     {
         offset = start + index * step;
 
-        MakePositionTopValue( offset, unit_value, unit_name, media_query_name_list, prefix, suffix );
+        MakePositionTopValue( offset, unit_value, unit_name, media_query_name_array, prefix, suffix );
     }

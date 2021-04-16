@@ -1,13 +1,13 @@
 // -- MIXINS
 
-MakePaddingValue( size, unit_value, unit_name, media_query_name_list = {}, prefix =, suffix = )
+MakePaddingValue( size, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}padding-{size}{unit_name}{suffix}
     {
         padding: size * unit_value;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -20,18 +20,18 @@ MakePaddingValue( size, unit_value, unit_name, media_query_name_list = {}, prefi
 
 // ~~
 
-MakePaddingValueRange( start, step, count, unit_value, unit_name, media_query_name_list = {}, prefix =, suffix = )
+MakePaddingValueRange( start, step, count, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix = )
 
     for index in 0 .. count - 1
     {
         size = start + index * step;
 
-        MakePaddingValue( size, unit_value, unit_name, media_query_name_list, prefix, suffix );
+        MakePaddingValue( size, unit_value, unit_name, media_query_name_array, prefix, suffix );
     }
 
 // ~~
 
-MakePaddingVerticalValue( size, unit_value, unit_name, media_query_name_list = {}, prefix =, suffix = )
+MakePaddingVerticalValue( size, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}padding-vertical-{size}{unit_name}{suffix}
     {
@@ -39,7 +39,7 @@ MakePaddingVerticalValue( size, unit_value, unit_name, media_query_name_list = {
         padding-bottom: size * unit_value;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -53,18 +53,18 @@ MakePaddingVerticalValue( size, unit_value, unit_name, media_query_name_list = {
 
 // ~~
 
-MakePaddingVerticalValueRange( start, step, count, unit_value, unit_name, media_query_name_list = {}, prefix =, suffix = )
+MakePaddingVerticalValueRange( start, step, count, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix = )
 
     for index in 0 .. count - 1
     {
         size = start + index * step;
 
-        MakePaddingVerticalValue( size, unit_value, unit_name, media_query_name_list, prefix, suffix );
+        MakePaddingVerticalValue( size, unit_value, unit_name, media_query_name_array, prefix, suffix );
     }
 
 // ~~
 
-MakePaddingLateralValue( size, unit_value, unit_name, media_query_name_list = {}, prefix =, suffix = )
+MakePaddingLateralValue( size, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}padding-lateral-{size}{unit_name}{suffix}
     {
@@ -72,7 +72,7 @@ MakePaddingLateralValue( size, unit_value, unit_name, media_query_name_list = {}
         padding-right: size * unit_value;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -86,25 +86,25 @@ MakePaddingLateralValue( size, unit_value, unit_name, media_query_name_list = {}
 
 // ~~
 
-MakePaddingLateralValueRange( start, step, count, unit_value, unit_name, media_query_name_list = {}, prefix =, suffix = )
+MakePaddingLateralValueRange( start, step, count, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix = )
 
     for index in 0 .. count - 1
     {
         size = start + index * step;
 
-        MakePaddingLateralValue( size, unit_value, unit_name, media_query_name_list, prefix, suffix );
+        MakePaddingLateralValue( size, unit_value, unit_name, media_query_name_array, prefix, suffix );
     }
 
 // ~~
 
-MakePaddingTopValue( size, unit_value, unit_name, media_query_name_list = {}, prefix =, suffix = )
+MakePaddingTopValue( size, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}padding-top-{size}{unit_name}{suffix}
     {
         padding-top: size * unit_value;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -117,25 +117,25 @@ MakePaddingTopValue( size, unit_value, unit_name, media_query_name_list = {}, pr
 
 // ~~
 
-MakePaddingTopValueRange( start, step, count, unit_value, unit_name, media_query_name_list = {}, prefix =, suffix = )
+MakePaddingTopValueRange( start, step, count, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix = )
 
     for index in 0 .. count - 1
     {
         size = start + index * step;
 
-        MakePaddingTopValue( size, unit_value, unit_name, media_query_name_list, prefix, suffix );
+        MakePaddingTopValue( size, unit_value, unit_name, media_query_name_array, prefix, suffix );
     }
 
 // ~~
 
-MakePaddingBottomValue( size, unit_value, unit_name, media_query_name_list = {}, prefix =, suffix = )
+MakePaddingBottomValue( size, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}padding-bottom-{size}{unit_name}{suffix}
     {
         padding-bottom: size * unit_value;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -148,25 +148,25 @@ MakePaddingBottomValue( size, unit_value, unit_name, media_query_name_list = {},
 
 // ~~
 
-MakePaddingBottomValueRange( start, step, count, unit_value, unit_name, media_query_name_list = {}, prefix =, suffix = )
+MakePaddingBottomValueRange( start, step, count, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix = )
 
     for index in 0 .. count - 1
     {
         size = start + index * step;
 
-        MakePaddingBottomValue( size, unit_value, unit_name, media_query_name_list, prefix, suffix );
+        MakePaddingBottomValue( size, unit_value, unit_name, media_query_name_array, prefix, suffix );
     }
 
 // ~~
 
-MakePaddingLeftValue( size, unit_value, unit_name, media_query_name_list = {}, prefix =, suffix = )
+MakePaddingLeftValue( size, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}padding-left-{size}{unit_name}{suffix}
     {
         padding-left: size * unit_value;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -179,25 +179,25 @@ MakePaddingLeftValue( size, unit_value, unit_name, media_query_name_list = {}, p
 
 // ~~
 
-MakePaddingLeftValueRange( start, step, count, unit_value, unit_name, media_query_name_list = {}, prefix =, suffix = )
+MakePaddingLeftValueRange( start, step, count, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix = )
 
     for index in 0 .. count - 1
     {
         size = start + index * step;
 
-        MakePaddingLeftValue( size, unit_value, unit_name, media_query_name_list, prefix, suffix );
+        MakePaddingLeftValue( size, unit_value, unit_name, media_query_name_array, prefix, suffix );
     }
 
 // ~~
 
-MakePaddingRightValue( size, unit_value, unit_name, media_query_name_list = {}, prefix =, suffix = )
+MakePaddingRightValue( size, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}padding-right-{size}{unit_name}{suffix}
     {
         padding-right: size * unit_value;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -210,11 +210,11 @@ MakePaddingRightValue( size, unit_value, unit_name, media_query_name_list = {}, 
 
 // ~~
 
-MakePaddingRightValueRange( start, step, count, unit_value, unit_name, media_query_name_list = {}, prefix =, suffix = )
+MakePaddingRightValueRange( start, step, count, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix = )
 
     for index in 0 .. count - 1
     {
         size = start + index * step;
 
-        MakePaddingRightValue( size, unit_value, unit_name, media_query_name_list, prefix, suffix );
+        MakePaddingRightValue( size, unit_value, unit_name, media_query_name_array, prefix, suffix );
     }

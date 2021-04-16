@@ -1,13 +1,13 @@
 // -- MIXINS
 
-MakeObjectFitNone( media_query_name_list = {}, prefix =, suffix = )
+MakeObjectFitNone( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}object-fit-none{suffix}
     {
         object-fit: none;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -20,14 +20,14 @@ MakeObjectFitNone( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeObjectFitContain( media_query_name_list = {}, prefix =, suffix = )
+MakeObjectFitContain( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}object-fit-contain{suffix}
     {
         object-fit: contain;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -40,14 +40,14 @@ MakeObjectFitContain( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeObjectFitScaleDown( media_query_name_list = {}, prefix =, suffix = )
+MakeObjectFitScaleDown( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}object-fit-scale-down{suffix}
     {
         object-fit: scale-down;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -60,14 +60,14 @@ MakeObjectFitScaleDown( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeObjectFitCover( media_query_name_list = {}, prefix =, suffix = )
+MakeObjectFitCover( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}object-fit-cover{suffix}
     {
         object-fit: cover;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -80,14 +80,14 @@ MakeObjectFitCover( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeObjectFitFill( media_query_name_list = {}, prefix =, suffix = )
+MakeObjectFitFill( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}object-fit-fill{suffix}
     {
         object-fit: fill;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {

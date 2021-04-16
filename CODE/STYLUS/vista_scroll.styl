@@ -1,6 +1,6 @@
 // -- MIXINS
 
-MakeScrollSnapTypeMandatory( media_query_name_list = {}, prefix =, suffix = )
+MakeScrollSnapTypeMandatory( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}scroll-snap-type-mandatory{suffix}
     {
@@ -9,7 +9,7 @@ MakeScrollSnapTypeMandatory( media_query_name_list = {}, prefix =, suffix = )
         scroll-snap-type: y mandatory;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -23,14 +23,14 @@ MakeScrollSnapTypeMandatory( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeScrollSnapAlignNone( media_query_name_list = {}, prefix =, suffix = )
+MakeScrollSnapAlignNone( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}scroll-snap-align-none{suffix}
     {
         scroll-snap-align: none;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -44,14 +44,14 @@ MakeScrollSnapAlignNone( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeScrollSnapAlignStart( media_query_name_list = {}, prefix =, suffix = )
+MakeScrollSnapAlignStart( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}scroll-snap-align-start{suffix}
     {
         scroll-snap-align: start;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -65,14 +65,14 @@ MakeScrollSnapAlignStart( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeScrollSnapAlignCenter( media_query_name_list = {}, prefix =, suffix = )
+MakeScrollSnapAlignCenter( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}scroll-snap-align-center{suffix}
     {
         scroll-snap-align: center;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -86,14 +86,14 @@ MakeScrollSnapAlignCenter( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeScrollSnapAlignEnd( media_query_name_list = {}, prefix =, suffix = )
+MakeScrollSnapAlignEnd( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}scroll-snap-align-end{suffix}
     {
         scroll-snap-align: end;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {

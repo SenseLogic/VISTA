@@ -1,13 +1,13 @@
 // -- MIXINS
 
-MakeOverflowVisible( media_query_name_list = {}, prefix =, suffix = )
+MakeOverflowVisible( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}overflow-visible{suffix}
     {
         overflow: visible;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -20,14 +20,14 @@ MakeOverflowVisible( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeOverflowHidden( media_query_name_list = {}, prefix =, suffix = )
+MakeOverflowHidden( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}overflow-hidden{suffix}
     {
         overflow: hidden;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -40,14 +40,14 @@ MakeOverflowHidden( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeOverflowAuto( media_query_name_list = {}, prefix =, suffix = )
+MakeOverflowAuto( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}overflow-auto{suffix}
     {
         overflow: auto;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -60,14 +60,14 @@ MakeOverflowAuto( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeOverflowYVisible( media_query_name_list = {}, prefix =, suffix = )
+MakeOverflowYVisible( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}overflow-y-visible{suffix}
     {
         overflow-y: visible;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -80,14 +80,14 @@ MakeOverflowYVisible( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeOverflowYHidden( media_query_name_list = {}, prefix =, suffix = )
+MakeOverflowYHidden( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}overflow-y-hidden{suffix}
     {
         overflow-y: hidden;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -100,14 +100,14 @@ MakeOverflowYHidden( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeOverflowYAuto( media_query_name_list = {}, prefix =, suffix = )
+MakeOverflowYAuto( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}overflow-y-auto{suffix}
     {
         overflow-y: auto;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -120,14 +120,14 @@ MakeOverflowYAuto( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeOverflowXVisible( media_query_name_list = {}, prefix =, suffix = )
+MakeOverflowXVisible( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}overflow-x-visible{suffix}
     {
         overflow-x: visible;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -140,14 +140,14 @@ MakeOverflowXVisible( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeOverflowXHidden( media_query_name_list = {}, prefix =, suffix = )
+MakeOverflowXHidden( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}overflow-x-hidden{suffix}
     {
         overflow-x: hidden;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -160,14 +160,14 @@ MakeOverflowXHidden( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeOverflowXAuto( media_query_name_list = {}, prefix =, suffix = )
+MakeOverflowXAuto( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}overflow-x-auto{suffix}
     {
         overflow-x: auto;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -180,7 +180,7 @@ MakeOverflowXAuto( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeOverflowScrollbarHidden( media_query_name_list = {}, prefix =, suffix = )
+MakeOverflowScrollbarHidden( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}overflow-scrollbar-hidden{suffix}
     {
@@ -193,7 +193,7 @@ MakeOverflowScrollbarHidden( media_query_name_list = {}, prefix =, suffix = )
         display: none;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -212,7 +212,7 @@ MakeOverflowScrollbarHidden( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeOverflowTiny( media_query_name_list = {}, prefix =, suffix = )
+MakeOverflowTiny( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}overflow-tiny{suffix}
     {
@@ -221,7 +221,7 @@ MakeOverflowTiny( media_query_name_list = {}, prefix =, suffix = )
         overflow: hidden;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {

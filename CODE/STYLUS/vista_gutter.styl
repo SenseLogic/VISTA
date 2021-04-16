@@ -1,6 +1,6 @@
 // -- MIXINS
 
-MakeGutterValue( size, unit_value, unit_name, media_query_name_list = {}, prefix =, suffix = )
+MakeGutterValue( size, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}gutter-{size}{unit_name}{suffix}
     {
@@ -14,7 +14,7 @@ MakeGutterValue( size, unit_value, unit_name, media_query_name_list = {}, prefix
         padding-left: size * unit_value;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -34,11 +34,11 @@ MakeGutterValue( size, unit_value, unit_name, media_query_name_list = {}, prefix
 
 // ~~
 
-MakeGutterValueRange( start, step, count, unit_value, unit_name, media_query_name_list = {}, prefix =, suffix = )
+MakeGutterValueRange( start, step, count, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix = )
 
     for index in 0 .. count - 1
     {
         size = start + index * step;
 
-        MakeGutterValue( size, unit_value, unit_name, media_query_name_list, prefix, suffix );
+        MakeGutterValue( size, unit_value, unit_name, media_query_name_array, prefix, suffix );
     }

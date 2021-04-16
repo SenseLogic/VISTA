@@ -15,28 +15,11 @@
 
 MediaQueryNameList = above-20em, above-30em, above-40em, above-60em, above-80em;
 
-ContainerMaxWidthMap = {
-    above-20em: 15rem,
-    above-30em: 25rem,
-    above-40em: 35rem,
-    above-60em: 55rem,
-    above-80em: 75rem
-};
-
-ContainerMarginMap = {
-    above-20em: 32 * Pxm,
-    above-30em: 48 * Pxm,
-    above-40em: 64 * Pxm,
-    above-60em: 96 * Pxm,
-    above-80em: 128 * Pxm
-};
-
 // ~~
 
-
-MakeExtendedContainer( ContainerMarginMap, MediaQueryNameList, "test-" );
-MakeCenteredContainer( 10rem, ContainerMaxWidthMap, MediaQueryNameList, "test-" );
-MakeMarginedContainer( 1rem, ContainerMarginMap, MediaQueryNameList, "test-" );
+MakeExtendedContainer( MediaQueryNameList, "test-" );
+MakeCenteredContainer( 10rem, 15rem 25rem 35rem 55rem 75rem, MediaQueryNameList, "test-" );
+MakeMarginedContainer( 1rem, 2rem 3rem 4rem 5rem 6rem, MediaQueryNameList, "test-" );
 MakeMarginAuto( MediaQueryNameList );
 MakeMarginLateralAuto( MediaQueryNameList );
 MakeMarginLateralValueRange( 10, 10, 5, Pxm, "pxm", MediaQueryNameList );

@@ -1,13 +1,13 @@
 // -- MIXINS
 
-MakeOpacityValue( size, unit_value, unit_name, media_query_name_list = {}, prefix =, suffix = )
+MakeOpacityValue( size, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}opacity-{size}{unit_name}{suffix}
     {
         opacity: size * unit_value;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -20,11 +20,11 @@ MakeOpacityValue( size, unit_value, unit_name, media_query_name_list = {}, prefi
 
 // ~~
 
-MakeOpacityValueRange( start, step, count, unit_value, unit_name, media_query_name_list = {}, prefix =, suffix = )
+MakeOpacityValueRange( start, step, count, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix = )
 
     for index in 0 .. count - 1
     {
         size = start + index * step;
 
-        MakeOpacityValue( size, unit_value, unit_name, media_query_name_list, prefix, suffix );
+        MakeOpacityValue( size, unit_value, unit_name, media_query_name_array, prefix, suffix );
     }

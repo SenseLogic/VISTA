@@ -1,13 +1,13 @@
 // -- MIXINS
 
-MakeDisplayNone( media_query_name_list = {}, prefix =, suffix = )
+MakeDisplayNone( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}display-none{suffix}
     {
         display: none;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -20,14 +20,14 @@ MakeDisplayNone( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeDisplayBlock( media_query_name_list = {}, prefix =, suffix = )
+MakeDisplayBlock( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}display-block{suffix}
     {
         display: block;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -40,14 +40,14 @@ MakeDisplayBlock( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeDisplayContents( media_query_name_list = {}, prefix =, suffix = )
+MakeDisplayContents( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}display-contents{suffix}
     {
         display: contents;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -60,14 +60,14 @@ MakeDisplayContents( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeDisplayTable( media_query_name_list = {}, prefix =, suffix = )
+MakeDisplayTable( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}display-table{suffix}
     {
         display: table;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -80,14 +80,14 @@ MakeDisplayTable( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeDisplayTableCell( media_query_name_list = {}, prefix =, suffix = )
+MakeDisplayTableCell( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}display-table-cell{suffix}
     {
         display: table-cell;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -100,14 +100,14 @@ MakeDisplayTableCell( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeDisplayFlex( media_query_name_list = {}, prefix =, suffix = )
+MakeDisplayFlex( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}display-flex{suffix}
     {
         display: flex;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -120,14 +120,14 @@ MakeDisplayFlex( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeDisplayGrid( media_query_name_list = {}, prefix =, suffix = )
+MakeDisplayGrid( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}display-grid{suffix}
     {
         display: grid;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -140,14 +140,14 @@ MakeDisplayGrid( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeDisplayInline( media_query_name_list = {}, prefix =, suffix = )
+MakeDisplayInline( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}display-inline{suffix}
     {
         display: inline;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -161,14 +161,14 @@ MakeDisplayInline( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeDisplayInlineBlock( media_query_name_list = {}, prefix =, suffix = )
+MakeDisplayInlineBlock( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}display-inline-block{suffix}
     {
         display: inline-block;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -182,14 +182,14 @@ MakeDisplayInlineBlock( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeDisplayInlineTable( media_query_name_list = {}, prefix =, suffix = )
+MakeDisplayInlineTable( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}display-inline-table{suffix}
     {
         display: inline-table;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -203,14 +203,14 @@ MakeDisplayInlineTable( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeDisplayInlineFlex( media_query_name_list = {}, prefix =, suffix = )
+MakeDisplayInlineFlex( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}display-inline-flex{suffix}
     {
         display: inline-flex;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -225,14 +225,14 @@ MakeDisplayInlineFlex( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeDisplayInlineGrid( media_query_name_list = {}, prefix =, suffix = )
+MakeDisplayInlineGrid( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}display-inline-grid{suffix}
     {
         display: inline-grid;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -246,14 +246,14 @@ MakeDisplayInlineGrid( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeDisplayHidden( media_query_name_list = {}, prefix =, suffix = )
+MakeDisplayHidden( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}display-hidden{suffix}
     {
         display: none !important;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {

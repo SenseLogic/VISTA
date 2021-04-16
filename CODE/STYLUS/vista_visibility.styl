@@ -1,13 +1,13 @@
 // -- MIXINS
 
-MakeVisibilityHidden( media_query_name_list = {}, prefix =, suffix = )
+MakeVisibilityHidden( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}visibility-hidden{suffix}
     {
         visibility: hidden;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -20,14 +20,14 @@ MakeVisibilityHidden( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeVisibilityVisible( media_query_name_list = {}, prefix =, suffix = )
+MakeVisibilityVisible( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}visibility-visible{suffix}
     {
         visibility: visible;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -40,14 +40,14 @@ MakeVisibilityVisible( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeVisibilityCollapse( media_query_name_list = {}, prefix =, suffix = )
+MakeVisibilityCollapse( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}visibility-collapse{suffix}
     {
         visibility: collapse;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {

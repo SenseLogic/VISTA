@@ -1,13 +1,13 @@
 // -- MIXINS
 
-MakeVerticalAlignBottom( media_query_name_list = {}, prefix =, suffix = )
+MakeVerticalAlignBottom( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}vertical-align-bottom{suffix}
     {
         vertical-align: bottom;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -20,14 +20,14 @@ MakeVerticalAlignBottom( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeVerticalAlignMiddle( media_query_name_list = {}, prefix =, suffix = )
+MakeVerticalAlignMiddle( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}vertical-align-middle{suffix}
     {
         vertical-align: middle;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -40,14 +40,14 @@ MakeVerticalAlignMiddle( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeVerticalAlignTop( media_query_name_list = {}, prefix =, suffix = )
+MakeVerticalAlignTop( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}vertical-align-top{suffix}
     {
         vertical-align: top;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -60,14 +60,14 @@ MakeVerticalAlignTop( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeVerticalAlignSub( media_query_name_list = {}, prefix =, suffix = )
+MakeVerticalAlignSub( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}vertical-align-sub{suffix}
     {
         vertical-align: sub;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -80,14 +80,14 @@ MakeVerticalAlignSub( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeVerticalAlignBaseline( media_query_name_list = {}, prefix =, suffix = )
+MakeVerticalAlignBaseline( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}vertical-align-baseline{suffix}
     {
         vertical-align: baseline;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -100,14 +100,14 @@ MakeVerticalAlignBaseline( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeVerticalAlignTextTop( media_query_name_list = {}, prefix =, suffix = )
+MakeVerticalAlignTextTop( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}vertical-align-text-top{suffix}
     {
         vertical-align: text-top;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {

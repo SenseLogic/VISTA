@@ -1,6 +1,6 @@
 // -- MIXINS
 
-MakeParallaxBackground( media_query_name_list = {}, prefix =, suffix = )
+MakeParallaxBackground( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}parallax-background{suffix}
     {
@@ -12,7 +12,7 @@ MakeParallaxBackground( media_query_name_list = {}, prefix =, suffix = )
         height : 100vh;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {

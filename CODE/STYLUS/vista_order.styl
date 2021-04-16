@@ -1,13 +1,13 @@
 // -- MIXINS
 
-MakeOrderFirst( media_query_name_list = {}, prefix =, suffix = )
+MakeOrderFirst( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}order-first{suffix}
     {
         order: -1;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
@@ -20,14 +20,14 @@ MakeOrderFirst( media_query_name_list = {}, prefix =, suffix = )
 
 // ~~
 
-MakeOrderLast( media_query_name_list = {}, prefix =, suffix = )
+MakeOrderLast( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}order-last{suffix}
     {
         order: 1;
     }
 
-    for media_query_name in media_query_name_list
+    for media_query_name in media_query_name_array
     {
         @media MediaQueryMap[ media_query_name ]
         {
