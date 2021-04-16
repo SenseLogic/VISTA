@@ -1,3 +1,25 @@
+// -- MIXINS
+
+SetRootFontSize( font_size, media_query_font_size_map )
+
+    html
+    {
+        font-size: font_size;
+    }
+
+    for media_query_font_size, media_query_name in media_query_font_size_map
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            html
+            {
+                font-size: media_query_font_size;
+            }
+        }
+    }
+
+// ~~
+
 MakeFontFamilyValue( name, family, media_query_name_list = {}, prefix =, suffix = )
 
     .{prefix}font-family-{name}{suffix}
