@@ -115,7 +115,6 @@ MakeFlexNoWrap( media_query_name_array = {}, prefix =, suffix = )
             {
                 flex-wrap: nowrap;
             }
-
         }
     }
 
@@ -147,8 +146,9 @@ MakeFlexBasisValue( column_count, media_query_name_array = {}, prefix =, suffix 
 
         .{prefix}flex-basis-{column_index}\\/{column_count}{suffix}
         {
-            flex-basis: 100% * ( column_index / column_count );
             max-width: 100% * ( column_index / column_count );
+
+            flex-basis: 100% * ( column_index / column_count );
         }
 
     for media_query_name in media_query_name_array
@@ -157,8 +157,9 @@ MakeFlexBasisValue( column_count, media_query_name_array = {}, prefix =, suffix 
         {
             .{prefix}flex-basis-{column_index}\\/{column_count}-{media_query_name}{suffix}
             {
-                flex-basis: 100% * ( column_index / column_count );
                 max-width: 100% * ( column_index / column_count );
+
+                flex-basis: 100% * ( column_index / column_count );
             }
         }
     }

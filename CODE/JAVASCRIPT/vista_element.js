@@ -773,7 +773,6 @@ function EmitEvent(
     event_is_composed = true
     )
 {
-
     return (
         document.dispatchEvent(
             new CustomEvent(
@@ -967,7 +966,6 @@ function SetScrollLeft(
         }
         );
 }
-
 
 // ~~
 

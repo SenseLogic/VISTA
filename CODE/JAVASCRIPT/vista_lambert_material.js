@@ -1,4 +1,3 @@
-
 // -- TYPES
 
 class VISTA_LAMBERT_MATERIAL extends VISTA_MATERIAL
@@ -80,6 +79,5 @@ class VISTA_LAMBERT_MATERIAL extends VISTA_MATERIAL
             }
             `
             );
-
     }
 }

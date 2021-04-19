@@ -127,7 +127,6 @@ function IsRoughlyIdentityMatrix4(
         );
 }
 
-
 // ~~
 
 function IsRoughlySameMatrix4(

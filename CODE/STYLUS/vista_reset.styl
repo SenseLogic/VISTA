@@ -7,9 +7,9 @@
 *::after
 {
     box-sizing: border-box;
+    margin: 0;
     outline: 0 none;
     border: 0 none;
-    margin: 0;
     padding: 0;
 }
 
@@ -21,7 +21,6 @@ body
     font-family: sans-serif;
     font-size: 1rem;
     font-weight: 400;
-
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
@@ -205,11 +204,11 @@ samp
 
 pre
 {
-    display: block;
-
+    overflow: auto;
     margin-top: 0;
     margin-bottom: 1rem;
-    overflow: auto;
+
+    display: block;
 
     font-size: 0.875em;
 }
@@ -275,8 +274,8 @@ caption
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
 
-    text-align: left;
     caption-side: bottom;
+    text-align: left;
 }
 
 th
@@ -286,9 +285,9 @@ th
 
 label
 {
-    display: inline-block;
-
     margin-bottom: 0.5rem;
+
+    display: inline-block;
 }
 
 button
@@ -364,24 +363,25 @@ input[type="month"]
 textarea
 {
     overflow: auto;
+
     resize: vertical;
 }
 
 fieldset
 {
+    margin: 0;
     min-width: 0;
     border: 0;
-    margin: 0;
     padding: 0;
 }
 
 legend
 {
-    float: left;
-
-    width: 100%;
     margin-bottom: 0.5rem;
+    width: 100%;
     padding: 0;
+
+    float: left;
 
     line-height: inherit;
     font-size: 1.5rem;

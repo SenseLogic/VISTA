@@ -1412,4 +1412,3 @@ Array.prototype.StopStyles = function (
 
     return this;
 }
-

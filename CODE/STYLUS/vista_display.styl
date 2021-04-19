@@ -158,7 +158,6 @@ MakeDisplayInline( media_query_name_array = {}, prefix =, suffix = )
         }
     }
 
-
 // ~~
 
 MakeDisplayInlineBlock( media_query_name_array = {}, prefix =, suffix = )
@@ -178,7 +177,6 @@ MakeDisplayInlineBlock( media_query_name_array = {}, prefix =, suffix = )
             }
         }
     }
-
 
 // ~~
 
@@ -200,7 +198,6 @@ MakeDisplayInlineTable( media_query_name_array = {}, prefix =, suffix = )
         }
     }
 
-
 // ~~
 
 MakeDisplayInlineFlex( media_query_name_array = {}, prefix =, suffix = )
@@ -214,14 +211,12 @@ MakeDisplayInlineFlex( media_query_name_array = {}, prefix =, suffix = )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-
             .{prefix}display-inline-flex-{media_query_name}{suffix}
             {
                 display: inline-flex;
             }
         }
     }
-
 
 // ~~
 
@@ -236,7 +231,6 @@ MakeDisplayInlineGrid( media_query_name_array = {}, prefix =, suffix = )
     {
         @media MediaQueryMap[ media_query_name ]
         {
-
             .{prefix}display-inline-grid-{media_query_name}{suffix}
             {
                 display: inline-grid;

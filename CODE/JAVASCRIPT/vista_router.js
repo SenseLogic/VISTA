@@ -74,4 +74,3 @@ class VISTA_ROUTER_COMPONENT extends VISTA_COMPONENT
         }
     }
 }
-

@@ -216,9 +216,9 @@ MakeOverflowTiny( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}overflow-tiny{suffix}
     {
+        overflow: hidden;
         height: 0;
         width: 0;
-        overflow: hidden;
     }
 
     for media_query_name in media_query_name_array
@@ -227,9 +227,9 @@ MakeOverflowTiny( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}overflow-tiny-{media_query_name}{suffix}
             {
+                overflow: hidden;
                 height: 0;
                 width: 0;
-                overflow: hidden;
             }
         }
     }

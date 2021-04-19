@@ -5,8 +5,8 @@ MakeScrollSnapTypeMandatory( media_query_name_array = {}, prefix =, suffix = )
     .{prefix}scroll-snap-type-mandatory{suffix}
     {
         scroll-snap-type: mandatory;
-        scroll-snap-points-y: repeat( 100vh );
         scroll-snap-type: y mandatory;
+        scroll-snap-points-y: repeat( 100vh );
     }
 
     for media_query_name in media_query_name_array
@@ -41,7 +41,6 @@ MakeScrollSnapAlignNone( media_query_name_array = {}, prefix =, suffix = )
         }
     }
 
-
 // ~~
 
 MakeScrollSnapAlignStart( media_query_name_array = {}, prefix =, suffix = )
@@ -62,7 +61,6 @@ MakeScrollSnapAlignStart( media_query_name_array = {}, prefix =, suffix = )
         }
     }
 
-
 // ~~
 
 MakeScrollSnapAlignCenter( media_query_name_array = {}, prefix =, suffix = )
@@ -82,7 +80,6 @@ MakeScrollSnapAlignCenter( media_query_name_array = {}, prefix =, suffix = )
             }
         }
     }
-
 
 // ~~
 

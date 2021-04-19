@@ -71,6 +71,5 @@ class VISTA_PHONG_MATERIAL extends VISTA_MATERIAL
             }
             `
             );
-
     }
 }

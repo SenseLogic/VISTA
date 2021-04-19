@@ -104,11 +104,11 @@ MakePositionFixedTop( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}position-fixed-top{suffix}
     {
+        z-index: 1030;
         position: fixed;
         top: 0;
-        right: 0;
         left: 0;
-        z-index: 1030;
+        right: 0;
     }
 
     for media_query_name in media_query_name_array
@@ -117,11 +117,11 @@ MakePositionFixedTop( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}position-fixed-top-{media_query_name}{suffix}
             {
+                z-index: 1030;
                 position: fixed;
                 top: 0;
-                right: 0;
                 left: 0;
-                z-index: 1030;
+                right: 0;
             }
         }
     }
@@ -132,11 +132,11 @@ MakePositionFixedBottom( media_query_name_array = {}, prefix =, suffix = )
 
     .{prefix}position-fixed-bottom{suffix}
     {
+        z-index: 1030;
         position: fixed;
-        right: 0;
         bottom: 0;
         left: 0;
-        z-index: 1030;
+        right: 0;
     }
 
     for media_query_name in media_query_name_array
@@ -145,11 +145,11 @@ MakePositionFixedBottom( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}position-fixed-bottom-{media_query_name}{suffix}
             {
+                z-index: 1030;
                 position: fixed;
-                right: 0;
                 bottom: 0;
                 left: 0;
-                z-index: 1030;
+                right: 0;
             }
         }
     }
