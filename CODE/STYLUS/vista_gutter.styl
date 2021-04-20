@@ -1,17 +1,17 @@
 // -- MIXINS
 
-MakeGutterValue( size, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix = )
+MakeGutterValue( size, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}gutter-{size}{unit_name}{suffix}
     {
-        margin-top: -( size * unit_value );
-        margin-left: -( size * unit_value );
+        margin-top: -( size * unit_value ) important;
+        margin-left: -( size * unit_value ) important;
     }
 
     .{prefix}gutter-{size}{unit_name}{suffix} > *
     {
-        padding-top: size * unit_value;
-        padding-left: size * unit_value;
+        padding-top: size * unit_value important;
+        padding-left: size * unit_value important;
     }
 
     for media_query_name in media_query_name_array
@@ -20,25 +20,25 @@ MakeGutterValue( size, unit_value, unit_name, media_query_name_array = {}, prefi
         {
             .{prefix}gutter-{size}{unit_name}-{media_query_name}{suffix}
             {
-                margin-top: -( size * unit_value );
-                margin-left: -( size * unit_value );
+                margin-top: -( size * unit_value ) important;
+                margin-left: -( size * unit_value ) important;
             }
 
             .{prefix}gutter-{size}{unit_name}-{media_query_name}{suffix} > *
             {
-                padding-top: size * unit_value;
-                padding-left: size * unit_value;
+                padding-top: size * unit_value important;
+                padding-left: size * unit_value important;
             }
         }
     }
 
 // ~~
 
-MakeGutterValueRange( start, step, count, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix = )
+MakeGutterValueRange( start, step, count, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix =, important = )
 
     for index in 0 .. count - 1
     {
         size = start + index * step;
 
-        MakeGutterValue( size, unit_value, unit_name, media_query_name_array, prefix, suffix );
+        MakeGutterValue( size, unit_value, unit_name, media_query_name_array, prefix, suffix, important );
     }

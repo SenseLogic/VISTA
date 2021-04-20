@@ -1,10 +1,10 @@
 // -- MIXINS
 
-MakeVisibilityHidden( media_query_name_array = {}, prefix =, suffix = )
+MakeVisibilityHidden( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}visibility-hidden{suffix}
     {
-        visibility: hidden;
+        visibility: hidden important;
     }
 
     for media_query_name in media_query_name_array
@@ -13,18 +13,18 @@ MakeVisibilityHidden( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}visibility-hidden-{media_query_name}{suffix}
             {
-                visibility: hidden;
+                visibility: hidden important;
             }
         }
     }
 
 // ~~
 
-MakeVisibilityVisible( media_query_name_array = {}, prefix =, suffix = )
+MakeVisibilityVisible( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}visibility-visible{suffix}
     {
-        visibility: visible;
+        visibility: visible important;
     }
 
     for media_query_name in media_query_name_array
@@ -33,18 +33,18 @@ MakeVisibilityVisible( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}visibility-visible-{media_query_name}{suffix}
             {
-                visibility: visible;
+                visibility: visible important;
             }
         }
     }
 
 // ~~
 
-MakeVisibilityCollapse( media_query_name_array = {}, prefix =, suffix = )
+MakeVisibilityCollapse( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}visibility-collapse{suffix}
     {
-        visibility: collapse;
+        visibility: collapse important;
     }
 
     for media_query_name in media_query_name_array
@@ -53,7 +53,7 @@ MakeVisibilityCollapse( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}visibility-collapse-{media_query_name}{suffix}
             {
-                visibility: collapse;
+                visibility: collapse important;
             }
         }
     }

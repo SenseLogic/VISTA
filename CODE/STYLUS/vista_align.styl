@@ -1,10 +1,10 @@
 // -- MIXINS
 
-MakeAlignItemsStart( media_query_name_array = {}, prefix =, suffix = )
+MakeAlignItemsStart( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}align-items-start{suffix}
     {
-        align-items: flex-start;
+        align-items: flex-start important;
     }
 
     for media_query_name in media_query_name_array
@@ -13,18 +13,18 @@ MakeAlignItemsStart( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}align-items-start-{media_query_name}{suffix}
             {
-                align-items: flex-start;
+                align-items: flex-start important;
             }
         }
     }
 
 // ~~
 
-MakeAlignItemsCenter( media_query_name_array = {}, prefix =, suffix = )
+MakeAlignItemsCenter( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}align-items-center{suffix}
     {
-        align-items: center;
+        align-items: center important;
     }
 
     for media_query_name in media_query_name_array
@@ -33,18 +33,18 @@ MakeAlignItemsCenter( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}align-items-center-{media_query_name}{suffix}
             {
-                align-items: center;
+                align-items: center important;
             }
         }
     }
 
 // ~~
 
-MakeAlignItemsEnd( media_query_name_array = {}, prefix =, suffix = )
+MakeAlignItemsEnd( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}align-items-end{suffix}
     {
-        align-items: flex-end;
+        align-items: flex-end important;
     }
 
     for media_query_name in media_query_name_array
@@ -53,18 +53,18 @@ MakeAlignItemsEnd( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}align-items-end-{media_query_name}{suffix}
             {
-                align-items: flex-end;
+                align-items: flex-end important;
             }
         }
     }
 
 // ~~
 
-MakeAlignItemsStretch( media_query_name_array = {}, prefix =, suffix = )
+MakeAlignItemsStretch( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}align-items-stretch{suffix}
     {
-        align-items: stretch;
+        align-items: stretch important;
     }
 
     for media_query_name in media_query_name_array
@@ -73,18 +73,18 @@ MakeAlignItemsStretch( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}align-items-stretch-{media_query_name}{suffix}
             {
-                align-items: stretch;
+                align-items: stretch important;
             }
         }
     }
 
 // ~~
 
-MakeAlignItemsBaseline( media_query_name_array = {}, prefix =, suffix = )
+MakeAlignItemsBaseline( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}align-items-baseline{suffix}
     {
-        align-items: baseline;
+        align-items: baseline important;
     }
 
     for media_query_name in media_query_name_array
@@ -93,18 +93,18 @@ MakeAlignItemsBaseline( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}align-items-baseline-{media_query_name}{suffix}
             {
-                align-items: baseline;
+                align-items: baseline important;
             }
         }
     }
 
 // ~~
 
-MakeAlignSelfStart( media_query_name_array = {}, prefix =, suffix = )
+MakeAlignSelfStart( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}align-self-start{suffix}
     {
-        align-self: flex-start;
+        align-self: flex-start important;
     }
 
     for media_query_name in media_query_name_array
@@ -113,18 +113,18 @@ MakeAlignSelfStart( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}align-self-start-{media_query_name}{suffix}
             {
-                align-self: flex-start;
+                align-self: flex-start important;
             }
         }
     }
 
 // ~~
 
-MakeAlignSelfCenter( media_query_name_array = {}, prefix =, suffix = )
+MakeAlignSelfCenter( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}align-self-center{suffix}
     {
-        align-self: center;
+        align-self: center important;
     }
 
     for media_query_name in media_query_name_array
@@ -133,18 +133,18 @@ MakeAlignSelfCenter( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}align-self-center-{media_query_name}{suffix}
             {
-                align-self: center;
+                align-self: center important;
             }
         }
     }
 
 // ~~
 
-MakeAlignSelfEnd( media_query_name_array = {}, prefix =, suffix = )
+MakeAlignSelfEnd( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}align-self-end{suffix}
     {
-        align-self: flex-end;
+        align-self: flex-end important;
     }
 
     for media_query_name in media_query_name_array
@@ -153,18 +153,18 @@ MakeAlignSelfEnd( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}align-self-end-{media_query_name}{suffix}
             {
-                align-self: flex-end;
+                align-self: flex-end important;
             }
         }
     }
 
 // ~~
 
-MakeAlignSelfStretch( media_query_name_array = {}, prefix =, suffix = )
+MakeAlignSelfStretch( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}align-self-stretch{suffix}
     {
-        align-self: stretch;
+        align-self: stretch important;
     }
 
     for media_query_name in media_query_name_array
@@ -173,18 +173,18 @@ MakeAlignSelfStretch( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}align-self-stretch-{media_query_name}{suffix}
             {
-                align-self: stretch;
+                align-self: stretch important;
             }
         }
     }
 
 // ~~
 
-MakeAlignSelfBaseline( media_query_name_array = {}, prefix =, suffix = )
+MakeAlignSelfBaseline( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}align-self-baseline{suffix}
     {
-        align-self: baseline;
+        align-self: baseline important;
     }
 
     for media_query_name in media_query_name_array
@@ -193,7 +193,7 @@ MakeAlignSelfBaseline( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}align-self-baseline-{media_query_name}{suffix}
             {
-                align-self: baseline;
+                align-self: baseline important;
             }
         }
     }

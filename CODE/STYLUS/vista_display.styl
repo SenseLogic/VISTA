@@ -1,10 +1,10 @@
 // -- MIXINS
 
-MakeDisplayNone( media_query_name_array = {}, prefix =, suffix = )
+MakeDisplayNone( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}display-none{suffix}
     {
-        display: none;
+        display: none important;
     }
 
     for media_query_name in media_query_name_array
@@ -13,18 +13,18 @@ MakeDisplayNone( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}display-none-{media_query_name}{suffix}
             {
-                display: none;
+                display: none important;
             }
         }
     }
 
 // ~~
 
-MakeDisplayBlock( media_query_name_array = {}, prefix =, suffix = )
+MakeDisplayBlock( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}display-block{suffix}
     {
-        display: block;
+        display: block important;
     }
 
     for media_query_name in media_query_name_array
@@ -33,18 +33,18 @@ MakeDisplayBlock( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}display-block-{media_query_name}{suffix}
             {
-                display: block;
+                display: block important;
             }
         }
     }
 
 // ~~
 
-MakeDisplayContents( media_query_name_array = {}, prefix =, suffix = )
+MakeDisplayContents( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}display-contents{suffix}
     {
-        display: contents;
+        display: contents important;
     }
 
     for media_query_name in media_query_name_array
@@ -53,18 +53,18 @@ MakeDisplayContents( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}display-contents-{media_query_name}{suffix}
             {
-                display: contents;
+                display: contents important;
             }
         }
     }
 
 // ~~
 
-MakeDisplayTable( media_query_name_array = {}, prefix =, suffix = )
+MakeDisplayTable( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}display-table{suffix}
     {
-        display: table;
+        display: table important;
     }
 
     for media_query_name in media_query_name_array
@@ -73,18 +73,18 @@ MakeDisplayTable( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}display-table-{media_query_name}{suffix}
             {
-                display: table;
+                display: table important;
             }
         }
     }
 
 // ~~
 
-MakeDisplayTableCell( media_query_name_array = {}, prefix =, suffix = )
+MakeDisplayTableCell( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}display-table-cell{suffix}
     {
-        display: table-cell;
+        display: table-cell important;
     }
 
     for media_query_name in media_query_name_array
@@ -93,18 +93,18 @@ MakeDisplayTableCell( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}display-table-cell-{media_query_name}{suffix}
             {
-                display: table-cell;
+                display: table-cell important;
             }
         }
     }
 
 // ~~
 
-MakeDisplayFlex( media_query_name_array = {}, prefix =, suffix = )
+MakeDisplayFlex( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}display-flex{suffix}
     {
-        display: flex;
+        display: flex important;
     }
 
     for media_query_name in media_query_name_array
@@ -113,18 +113,18 @@ MakeDisplayFlex( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}display-flex-{media_query_name}{suffix}
             {
-                display: flex;
+                display: flex important;
             }
         }
     }
 
 // ~~
 
-MakeDisplayGrid( media_query_name_array = {}, prefix =, suffix = )
+MakeDisplayGrid( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}display-grid{suffix}
     {
-        display: grid;
+        display: grid important;
     }
 
     for media_query_name in media_query_name_array
@@ -133,18 +133,18 @@ MakeDisplayGrid( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}display-grid-{media_query_name}{suffix}
             {
-                display: grid;
+                display: grid important;
             }
         }
     }
 
 // ~~
 
-MakeDisplayInline( media_query_name_array = {}, prefix =, suffix = )
+MakeDisplayInline( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}display-inline{suffix}
     {
-        display: inline;
+        display: inline important;
     }
 
     for media_query_name in media_query_name_array
@@ -153,18 +153,18 @@ MakeDisplayInline( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}display-inline-{media_query_name}{suffix}
             {
-                display: inline;
+                display: inline important;
             }
         }
     }
 
 // ~~
 
-MakeDisplayInlineBlock( media_query_name_array = {}, prefix =, suffix = )
+MakeDisplayInlineBlock( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}display-inline-block{suffix}
     {
-        display: inline-block;
+        display: inline-block important;
     }
 
     for media_query_name in media_query_name_array
@@ -173,18 +173,18 @@ MakeDisplayInlineBlock( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}display-inline-block-{media_query_name}{suffix}
             {
-                display: inline-block;
+                display: inline-block important;
             }
         }
     }
 
 // ~~
 
-MakeDisplayInlineTable( media_query_name_array = {}, prefix =, suffix = )
+MakeDisplayInlineTable( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}display-inline-table{suffix}
     {
-        display: inline-table;
+        display: inline-table important;
     }
 
     for media_query_name in media_query_name_array
@@ -193,18 +193,18 @@ MakeDisplayInlineTable( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}display-inline-table-{media_query_name}{suffix}
             {
-                display: inline-table;
+                display: inline-table important;
             }
         }
     }
 
 // ~~
 
-MakeDisplayInlineFlex( media_query_name_array = {}, prefix =, suffix = )
+MakeDisplayInlineFlex( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}display-inline-flex{suffix}
     {
-        display: inline-flex;
+        display: inline-flex important;
     }
 
     for media_query_name in media_query_name_array
@@ -213,18 +213,18 @@ MakeDisplayInlineFlex( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}display-inline-flex-{media_query_name}{suffix}
             {
-                display: inline-flex;
+                display: inline-flex important;
             }
         }
     }
 
 // ~~
 
-MakeDisplayInlineGrid( media_query_name_array = {}, prefix =, suffix = )
+MakeDisplayInlineGrid( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}display-inline-grid{suffix}
     {
-        display: inline-grid;
+        display: inline-grid important;
     }
 
     for media_query_name in media_query_name_array
@@ -233,18 +233,18 @@ MakeDisplayInlineGrid( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}display-inline-grid-{media_query_name}{suffix}
             {
-                display: inline-grid;
+                display: inline-grid important;
             }
         }
     }
 
 // ~~
 
-MakeDisplayHidden( media_query_name_array = {}, prefix =, suffix = )
+MakeDisplayHidden( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}display-hidden{suffix}
     {
-        display: none !important;
+        display: none !important important;
     }
 
     for media_query_name in media_query_name_array
@@ -253,7 +253,7 @@ MakeDisplayHidden( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}display-hidden-{media_query_name}{suffix}
             {
-                display: none !important;
+                display: none !important important;
             }
         }
     }

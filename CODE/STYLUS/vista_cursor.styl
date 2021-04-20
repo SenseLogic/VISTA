@@ -1,10 +1,10 @@
 // -- MIXINS
 
-MakeCursorDefault( media_query_name_array = {}, prefix =, suffix = )
+MakeCursorDefault( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}cursor-default{suffix}
     {
-        cursor: default;
+        cursor: default important;
     }
 
     for media_query_name in media_query_name_array
@@ -13,18 +13,18 @@ MakeCursorDefault( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}cursor-default-{media_query_name}{suffix}
             {
-                cursor: default;
+                cursor: default important;
             }
         }
     }
 
 // ~~
 
-MakeCursorPointer( media_query_name_array = {}, prefix =, suffix = )
+MakeCursorPointer( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}cursor-pointer{suffix}
     {
-        cursor: pointer;
+        cursor: pointer important;
     }
 
     for media_query_name in media_query_name_array
@@ -33,18 +33,18 @@ MakeCursorPointer( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}cursor-pointer-{media_query_name}{suffix}
             {
-                cursor: pointer;
+                cursor: pointer important;
             }
         }
     }
 
 // ~~
 
-MakeCursorText( media_query_name_array = {}, prefix =, suffix = )
+MakeCursorText( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}cursor-text{suffix}
     {
-        cursor: text;
+        cursor: text important;
     }
 
     for media_query_name in media_query_name_array
@@ -53,18 +53,18 @@ MakeCursorText( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}cursor-text-{media_query_name}{suffix}
             {
-                cursor: text;
+                cursor: text important;
             }
         }
     }
 
 // ~~
 
-MakeCursorGrab( media_query_name_array = {}, prefix =, suffix = )
+MakeCursorGrab( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}cursor-grab{suffix}
     {
-        cursor: grab;
+        cursor: grab important;
     }
 
     for media_query_name in media_query_name_array
@@ -73,18 +73,18 @@ MakeCursorGrab( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}cursor-grab-{media_query_name}{suffix}
             {
-                cursor: grab;
+                cursor: grab important;
             }
         }
     }
 
 // ~~
 
-MakeCursorGrabbing( media_query_name_array = {}, prefix =, suffix = )
+MakeCursorGrabbing( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}cursor-grabbing{suffix}
     {
-        cursor: grabbing;
+        cursor: grabbing important;
     }
 
     for media_query_name in media_query_name_array
@@ -93,18 +93,18 @@ MakeCursorGrabbing( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}cursor-grabbing-{media_query_name}{suffix}
             {
-                cursor: grabbing;
+                cursor: grabbing important;
             }
         }
     }
 
 // ~~
 
-MakeCursorZoomIn( media_query_name_array = {}, prefix =, suffix = )
+MakeCursorZoomIn( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}cursor-zoom-in{suffix}
     {
-        cursor: zoom-in;
+        cursor: zoom-in important;
     }
 
     for media_query_name in media_query_name_array
@@ -113,18 +113,18 @@ MakeCursorZoomIn( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}cursor-zoom-in-{media_query_name}{suffix}
             {
-                cursor: zoom-in;
+                cursor: zoom-in important;
             }
         }
     }
 
 // ~~
 
-MakeCursorZoomOut( media_query_name_array = {}, prefix =, suffix = )
+MakeCursorZoomOut( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}cursor-zoom-out{suffix}
     {
-        cursor: zoom-out;
+        cursor: zoom-out important;
     }
 
     for media_query_name in media_query_name_array
@@ -133,18 +133,18 @@ MakeCursorZoomOut( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}cursor-zoom-out-{media_query_name}{suffix}
             {
-                cursor: zoom-out;
+                cursor: zoom-out important;
             }
         }
     }
 
 // ~~
 
-MakeCursorAllScroll( media_query_name_array = {}, prefix =, suffix = )
+MakeCursorAllScroll( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}cursor-all-scroll{suffix}
     {
-        cursor: all-scroll;
+        cursor: all-scroll important;
     }
 
     for media_query_name in media_query_name_array
@@ -153,18 +153,18 @@ MakeCursorAllScroll( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}cursor-all-scroll-{media_query_name}{suffix}
             {
-                cursor: all-scroll;
+                cursor: all-scroll important;
             }
         }
     }
 
 // ~~
 
-MakeCursorMove( media_query_name_array = {}, prefix =, suffix = )
+MakeCursorMove( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}cursor-move{suffix}
     {
-        cursor: move;
+        cursor: move important;
     }
 
     for media_query_name in media_query_name_array
@@ -173,18 +173,18 @@ MakeCursorMove( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}cursor-move-{media_query_name}{suffix}
             {
-                cursor: move;
+                cursor: move important;
             }
         }
     }
 
 // ~~
 
-MakeCursorNsResize( media_query_name_array = {}, prefix =, suffix = )
+MakeCursorNsResize( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}cursor-ns-resize{suffix}
     {
-        cursor: ns-resize;
+        cursor: ns-resize important;
     }
 
     for media_query_name in media_query_name_array
@@ -193,18 +193,18 @@ MakeCursorNsResize( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}cursor-ns-resize-{media_query_name}{suffix}
             {
-                cursor: ns-resize;
+                cursor: ns-resize important;
             }
         }
     }
 
 // ~~
 
-MakeCursorEwResize( media_query_name_array = {}, prefix =, suffix = )
+MakeCursorEwResize( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}cursor-ew-resize{suffix}
     {
-        cursor: ew-resize;
+        cursor: ew-resize important;
     }
 
     for media_query_name in media_query_name_array
@@ -213,18 +213,18 @@ MakeCursorEwResize( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}cursor-ew-resize-{media_query_name}{suffix}
             {
-                cursor: ew-resize;
+                cursor: ew-resize important;
             }
         }
     }
 
 // ~~
 
-MakeCursorColResize( media_query_name_array = {}, prefix =, suffix = )
+MakeCursorColResize( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}cursor-col-resize{suffix}
     {
-        cursor: col-resize;
+        cursor: col-resize important;
     }
 
     for media_query_name in media_query_name_array
@@ -233,18 +233,18 @@ MakeCursorColResize( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}cursor-col-resize-{media_query_name}{suffix}
             {
-                cursor: col-resize;
+                cursor: col-resize important;
             }
         }
     }
 
 // ~~
 
-MakeCursorRowResize( media_query_name_array = {}, prefix =, suffix = )
+MakeCursorRowResize( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}cursor-row-resize{suffix}
     {
-        cursor: row-resize;
+        cursor: row-resize important;
     }
 
     for media_query_name in media_query_name_array
@@ -253,18 +253,18 @@ MakeCursorRowResize( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}cursor-row-resize-{media_query_name}{suffix}
             {
-                cursor: row-resize;
+                cursor: row-resize important;
             }
         }
     }
 
 // ~~
 
-MakeCursorCrosshair( media_query_name_array = {}, prefix =, suffix = )
+MakeCursorCrosshair( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}cursor-crosshair{suffix}
     {
-        cursor: crosshair;
+        cursor: crosshair important;
     }
 
     for media_query_name in media_query_name_array
@@ -273,18 +273,18 @@ MakeCursorCrosshair( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}cursor-crosshair-{media_query_name}{suffix}
             {
-                cursor: crosshair;
+                cursor: crosshair important;
             }
         }
     }
 
 // ~~
 
-MakeCursorWait( media_query_name_array = {}, prefix =, suffix = )
+MakeCursorWait( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}cursor-wait{suffix}
     {
-        cursor: wait;
+        cursor: wait important;
     }
 
     for media_query_name in media_query_name_array
@@ -293,18 +293,18 @@ MakeCursorWait( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}cursor-wait-{media_query_name}{suffix}
             {
-                cursor: wait;
+                cursor: wait important;
             }
         }
     }
 
 // ~~
 
-MakeCursorNotAllowed( media_query_name_array = {}, prefix =, suffix = )
+MakeCursorNotAllowed( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}cursor-not-allowed{suffix}
     {
-        cursor: not-allowed;
+        cursor: not-allowed important;
     }
 
     for media_query_name in media_query_name_array
@@ -313,7 +313,7 @@ MakeCursorNotAllowed( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}cursor-not-allowed-{media_query_name}{suffix}
             {
-                cursor: not-allowed;
+                cursor: not-allowed important;
             }
         }
     }

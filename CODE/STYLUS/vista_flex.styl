@@ -1,10 +1,10 @@
 // -- MIXINS
 
-MakeFlexDirectionRow( media_query_name_array = {}, prefix =, suffix = )
+MakeFlexDirectionRow( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}flex-direction-row{suffix}
     {
-        flex-direction: row;
+        flex-direction: row important;
     }
 
     for media_query_name in media_query_name_array
@@ -13,18 +13,18 @@ MakeFlexDirectionRow( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}flex-direction-row-{media_query_name}{suffix}
             {
-                flex-direction: row;
+                flex-direction: row important;
             }
         }
     }
 
 // ~~
 
-MakeFlexDirectionRowReverse( media_query_name_array = {}, prefix =, suffix = )
+MakeFlexDirectionRowReverse( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}flex-direction-row-reverse{suffix}
     {
-        flex-direction: row-reverse;
+        flex-direction: row-reverse important;
     }
 
     for media_query_name in media_query_name_array
@@ -33,18 +33,18 @@ MakeFlexDirectionRowReverse( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}flex-direction-row-reverse-{media_query_name}{suffix}
             {
-                flex-direction: row-reverse;
+                flex-direction: row-reverse important;
             }
         }
     }
 
 // ~~
 
-MakeFlexDirectionColumn( media_query_name_array = {}, prefix =, suffix = )
+MakeFlexDirectionColumn( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}flex-direction-column{suffix}
     {
-        flex-direction: column;
+        flex-direction: column important;
     }
 
     for media_query_name in media_query_name_array
@@ -53,18 +53,18 @@ MakeFlexDirectionColumn( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}flex-direction-column-{media_query_name}{suffix}
             {
-                flex-direction: column;
+                flex-direction: column important;
             }
         }
     }
 
 // ~~
 
-MakeFlexDirectionColumnReverse( media_query_name_array = {}, prefix =, suffix = )
+MakeFlexDirectionColumnReverse( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}flex-direction-column-reverse{suffix}
     {
-        flex-direction: column-reverse;
+        flex-direction: column-reverse important;
     }
 
     for media_query_name in media_query_name_array
@@ -73,18 +73,18 @@ MakeFlexDirectionColumnReverse( media_query_name_array = {}, prefix =, suffix = 
         {
             .{prefix}flex-direction-column-reverse-{media_query_name}{suffix}
             {
-                flex-direction: column-reverse;
+                flex-direction: column-reverse important;
             }
         }
     }
 
 // ~~
 
-MakeFlexWrap( media_query_name_array = {}, prefix =, suffix = )
+MakeFlexWrap( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}flex-wrap{suffix}
     {
-        flex-wrap: wrap;
+        flex-wrap: wrap important;
     }
 
     for media_query_name in media_query_name_array
@@ -93,18 +93,18 @@ MakeFlexWrap( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}flex-wrap-{media_query_name}{suffix}
             {
-                flex-wrap: wrap;
+                flex-wrap: wrap important;
             }
         }
     }
 
 // ~~
 
-MakeFlexNoWrap( media_query_name_array = {}, prefix =, suffix = )
+MakeFlexNoWrap( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}flex-nowrap{suffix}
     {
-        flex-wrap: nowrap;
+        flex-wrap: nowrap important;
     }
 
     for media_query_name in media_query_name_array
@@ -113,18 +113,18 @@ MakeFlexNoWrap( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}flex-nowrap-{media_query_name}{suffix}
             {
-                flex-wrap: nowrap;
+                flex-wrap: nowrap important;
             }
         }
     }
 
 // ~~
 
-MakeFlexShrinkValue( media_query_name_array = {}, prefix =, suffix = )
+MakeFlexShrinkValue( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}flex-shrink{suffix}
     {
-        flex-shrink: 1;
+        flex-shrink: 1 important;
     }
 
     for media_query_name in media_query_name_array
@@ -133,22 +133,22 @@ MakeFlexShrinkValue( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}flex-shrink-{media_query_name}{suffix}
             {
-                flex-shrink: 1;
+                flex-shrink: 1 important;
             }
         }
     }
 
 // ~~
 
-MakeFlexBasisValue( column_count, media_query_name_array = {}, prefix =, suffix = )
+MakeFlexBasisValue( column_count, media_query_name_array = {}, prefix =, suffix =, important = )
 
     for column_index in 1 .. column_count
 
         .{prefix}flex-basis-{column_index}\\/{column_count}{suffix}
         {
-            max-width: 100% * ( column_index / column_count );
+            max-width: 100% * ( column_index / column_count ) important;
 
-            flex-basis: 100% * ( column_index / column_count );
+            flex-basis: 100% * ( column_index / column_count ) important;
         }
 
     for media_query_name in media_query_name_array
@@ -157,29 +157,29 @@ MakeFlexBasisValue( column_count, media_query_name_array = {}, prefix =, suffix 
         {
             .{prefix}flex-basis-{column_index}\\/{column_count}-{media_query_name}{suffix}
             {
-                max-width: 100% * ( column_index / column_count );
+                max-width: 100% * ( column_index / column_count ) important;
 
-                flex-basis: 100% * ( column_index / column_count );
+                flex-basis: 100% * ( column_index / column_count ) important;
             }
         }
     }
 
 // ~~
 
-MakeFlexBasisValueRange( first_column_count, last_column_count, media_query_name_array = {}, prefix =, suffix = )
+MakeFlexBasisValueRange( first_column_count, last_column_count, media_query_name_array = {}, prefix =, suffix =, important = )
 
     for column_count in first_column_count .. last_column_count
     {
-        MakeFlexBasisValue( column_count, media_query_name_array, prefix, suffix );
+        MakeFlexBasisValue( column_count, media_query_name_array, prefix, suffix, important );
     }
 
 // ~~
 
-MakeFlexShrinkValue( size, unit_value = 1, unit_name = "", media_query_name_array = {}, prefix =, suffix = )
+MakeFlexShrinkValue( size, unit_value = 1, unit_name = "", media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}flex-shrink-{size}{unit_name}{suffix}
     {
-        flex-shrink: size * unit_value;
+        flex-shrink: size * unit_value important;
     }
 
     for media_query_name in media_query_name_array
@@ -188,29 +188,29 @@ MakeFlexShrinkValue( size, unit_value = 1, unit_name = "", media_query_name_arra
         {
             .{prefix}flex-shrink-{size}{unit_name}-{media_query_name}{suffix}
             {
-                flex-shrink: size * unit_value;
+                flex-shrink: size * unit_value important;
             }
         }
     }
 
 // ~~
 
-MakeFlexShrinkValueRange( start, step, count, unit_value = 1, unit_name = "", media_query_name_array = {}, prefix =, suffix = )
+MakeFlexShrinkValueRange( start, step, count, unit_value = 1, unit_name = "", media_query_name_array = {}, prefix =, suffix =, important = )
 
     for index in 0 .. count - 1
     {
         size = start + index * step;
 
-        MakeFlexShrinkValue( size, unit_value, unit_name, media_query_name_array, prefix, suffix );
+        MakeFlexShrinkValue( size, unit_value, unit_name, media_query_name_array, prefix, suffix, important );
     }
 
 // ~~
 
-MakeFlexGrowValue( size, unit_value = 1, unit_name = "", media_query_name_array = {}, prefix =, suffix = )
+MakeFlexGrowValue( size, unit_value = 1, unit_name = "", media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}flex-grow-{size}{unit_name}{suffix}
     {
-        flex-grow: size * unit_value;
+        flex-grow: size * unit_value important;
     }
 
     for media_query_name in media_query_name_array
@@ -219,18 +219,18 @@ MakeFlexGrowValue( size, unit_value = 1, unit_name = "", media_query_name_array 
         {
             .{prefix}flex-grow-{size}{unit_name}-{media_query_name}{suffix}
             {
-                flex-grow: size * unit_value;
+                flex-grow: size * unit_value important;
             }
         }
     }
 
 // ~~
 
-MakeFlexGrowValueRange( start, step, count, unit_value = 1, unit_name = "", media_query_name_array = {}, prefix =, suffix = )
+MakeFlexGrowValueRange( start, step, count, unit_value = 1, unit_name = "", media_query_name_array = {}, prefix =, suffix =, important = )
 
     for index in 0 .. count - 1
     {
         size = start + index * step;
 
-        MakeFlexGrowValue( size, unit_value, unit_name, media_query_name_array, prefix, suffix );
+        MakeFlexGrowValue( size, unit_value, unit_name, media_query_name_array, prefix, suffix, important );
     }

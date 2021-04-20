@@ -1,10 +1,10 @@
 // -- MIXINS
 
-MakeJustifyContentStart( media_query_name_array = {}, prefix =, suffix = )
+MakeJustifyContentStart( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}justify-content-start{suffix}
     {
-        justify-content: flex-start;
+        justify-content: flex-start important;
     }
 
     for media_query_name in media_query_name_array
@@ -13,18 +13,18 @@ MakeJustifyContentStart( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}justify-content-start-{media_query_name}{suffix}
             {
-                justify-content: flex-start;
+                justify-content: flex-start important;
             }
         }
     }
 
 // ~~
 
-MakeJustifyContentCenter( media_query_name_array = {}, prefix =, suffix = )
+MakeJustifyContentCenter( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}justify-content-center{suffix}
     {
-        justify-content: center;
+        justify-content: center important;
     }
 
     for media_query_name in media_query_name_array
@@ -33,18 +33,18 @@ MakeJustifyContentCenter( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}justify-content-center-{media_query_name}{suffix}
             {
-                justify-content: center;
+                justify-content: center important;
             }
         }
     }
 
 // ~~
 
-MakeJustifyContentEnd( media_query_name_array = {}, prefix =, suffix = )
+MakeJustifyContentEnd( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}justify-content-end{suffix}
     {
-        justify-content: flex-end;
+        justify-content: flex-end important;
     }
 
     for media_query_name in media_query_name_array
@@ -53,18 +53,18 @@ MakeJustifyContentEnd( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}justify-content-end-{media_query_name}{suffix}
             {
-                justify-content: flex-end;
+                justify-content: flex-end important;
             }
         }
     }
 
 // ~~
 
-MakeJustifyContentSpaceBetween( media_query_name_array = {}, prefix =, suffix = )
+MakeJustifyContentSpaceBetween( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}justify-content-space-between{suffix}
     {
-        justify-content: space-between;
+        justify-content: space-between important;
     }
 
     for media_query_name in media_query_name_array
@@ -73,18 +73,18 @@ MakeJustifyContentSpaceBetween( media_query_name_array = {}, prefix =, suffix = 
         {
             .{prefix}justify-content-space-between-{media_query_name}{suffix}
             {
-                justify-content: space-between;
+                justify-content: space-between important;
             }
         }
     }
 
 // ~~
 
-MakeJustifyContentSpaceAround( media_query_name_array = {}, prefix =, suffix = )
+MakeJustifyContentSpaceAround( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}justify-content-space-around{suffix}
     {
-        justify-content: space-around;
+        justify-content: space-around important;
     }
 
     for media_query_name in media_query_name_array
@@ -93,18 +93,18 @@ MakeJustifyContentSpaceAround( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}justify-content-space-around-{media_query_name}{suffix}
             {
-                justify-content: space-around;
+                justify-content: space-around important;
             }
         }
     }
 
 // ~~
 
-MakeJustifySelfStart( media_query_name_array = {}, prefix =, suffix = )
+MakeJustifySelfStart( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}justify-self-start{suffix}
     {
-        justify-self: flex-start;
+        justify-self: flex-start important;
     }
 
     for media_query_name in media_query_name_array
@@ -113,18 +113,18 @@ MakeJustifySelfStart( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}justify-self-start-{media_query_name}{suffix}
             {
-                justify-self: flex-start;
+                justify-self: flex-start important;
             }
         }
     }
 
 // ~~
 
-MakeJustifySelfCenter( media_query_name_array = {}, prefix =, suffix = )
+MakeJustifySelfCenter( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}justify-self-center{suffix}
     {
-        justify-self: center;
+        justify-self: center important;
     }
 
     for media_query_name in media_query_name_array
@@ -133,18 +133,18 @@ MakeJustifySelfCenter( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}justify-self-center-{media_query_name}{suffix}
             {
-                justify-self: center;
+                justify-self: center important;
             }
         }
     }
 
 // ~~
 
-MakeJustifySelfEnd( media_query_name_array = {}, prefix =, suffix = )
+MakeJustifySelfEnd( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}justify-self-end{suffix}
     {
-        justify-self: flex-end;
+        justify-self: flex-end important;
     }
 
     for media_query_name in media_query_name_array
@@ -153,7 +153,7 @@ MakeJustifySelfEnd( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}justify-self-end-{media_query_name}{suffix}
             {
-                justify-self: flex-end;
+                justify-self: flex-end important;
             }
         }
     }

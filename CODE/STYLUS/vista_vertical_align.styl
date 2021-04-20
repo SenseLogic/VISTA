@@ -1,10 +1,10 @@
 // -- MIXINS
 
-MakeVerticalAlignBottom( media_query_name_array = {}, prefix =, suffix = )
+MakeVerticalAlignBottom( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}vertical-align-bottom{suffix}
     {
-        vertical-align: bottom;
+        vertical-align: bottom important;
     }
 
     for media_query_name in media_query_name_array
@@ -13,18 +13,18 @@ MakeVerticalAlignBottom( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}vertical-align-bottom-{media_query_name}{suffix}
             {
-                vertical-align: bottom;
+                vertical-align: bottom important;
             }
         }
     }
 
 // ~~
 
-MakeVerticalAlignMiddle( media_query_name_array = {}, prefix =, suffix = )
+MakeVerticalAlignMiddle( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}vertical-align-middle{suffix}
     {
-        vertical-align: middle;
+        vertical-align: middle important;
     }
 
     for media_query_name in media_query_name_array
@@ -33,18 +33,18 @@ MakeVerticalAlignMiddle( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}vertical-align-middle-{media_query_name}{suffix}
             {
-                vertical-align: middle;
+                vertical-align: middle important;
             }
         }
     }
 
 // ~~
 
-MakeVerticalAlignTop( media_query_name_array = {}, prefix =, suffix = )
+MakeVerticalAlignTop( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}vertical-align-top{suffix}
     {
-        vertical-align: top;
+        vertical-align: top important;
     }
 
     for media_query_name in media_query_name_array
@@ -53,18 +53,18 @@ MakeVerticalAlignTop( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}vertical-align-top-{media_query_name}{suffix}
             {
-                vertical-align: top;
+                vertical-align: top important;
             }
         }
     }
 
 // ~~
 
-MakeVerticalAlignSub( media_query_name_array = {}, prefix =, suffix = )
+MakeVerticalAlignSub( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}vertical-align-sub{suffix}
     {
-        vertical-align: sub;
+        vertical-align: sub important;
     }
 
     for media_query_name in media_query_name_array
@@ -73,18 +73,18 @@ MakeVerticalAlignSub( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}vertical-align-sub-{media_query_name}{suffix}
             {
-                vertical-align: sub;
+                vertical-align: sub important;
             }
         }
     }
 
 // ~~
 
-MakeVerticalAlignBaseline( media_query_name_array = {}, prefix =, suffix = )
+MakeVerticalAlignBaseline( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}vertical-align-baseline{suffix}
     {
-        vertical-align: baseline;
+        vertical-align: baseline important;
     }
 
     for media_query_name in media_query_name_array
@@ -93,18 +93,18 @@ MakeVerticalAlignBaseline( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}vertical-align-baseline-{media_query_name}{suffix}
             {
-                vertical-align: baseline;
+                vertical-align: baseline important;
             }
         }
     }
 
 // ~~
 
-MakeVerticalAlignTextTop( media_query_name_array = {}, prefix =, suffix = )
+MakeVerticalAlignTextTop( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}vertical-align-text-top{suffix}
     {
-        vertical-align: text-top;
+        vertical-align: text-top important;
     }
 
     for media_query_name in media_query_name_array
@@ -113,7 +113,7 @@ MakeVerticalAlignTextTop( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}vertical-align-text-top-{media_query_name}{suffix}
             {
-                vertical-align: text-top;
+                vertical-align: text-top important;
             }
         }
     }

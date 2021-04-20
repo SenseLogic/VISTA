@@ -1,10 +1,10 @@
 // -- MIXINS
 
-MakeObjectFitNone( media_query_name_array = {}, prefix =, suffix = )
+MakeObjectFitNone( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}object-fit-none{suffix}
     {
-        object-fit: none;
+        object-fit: none important;
     }
 
     for media_query_name in media_query_name_array
@@ -13,18 +13,18 @@ MakeObjectFitNone( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}object-fit-none-{media_query_name}{suffix}
             {
-                object-fit: none;
+                object-fit: none important;
             }
         }
     }
 
 // ~~
 
-MakeObjectFitContain( media_query_name_array = {}, prefix =, suffix = )
+MakeObjectFitContain( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}object-fit-contain{suffix}
     {
-        object-fit: contain;
+        object-fit: contain important;
     }
 
     for media_query_name in media_query_name_array
@@ -33,18 +33,18 @@ MakeObjectFitContain( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}object-fit-contain-{media_query_name}{suffix}
             {
-                object-fit: contain;
+                object-fit: contain important;
             }
         }
     }
 
 // ~~
 
-MakeObjectFitScaleDown( media_query_name_array = {}, prefix =, suffix = )
+MakeObjectFitScaleDown( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}object-fit-scale-down{suffix}
     {
-        object-fit: scale-down;
+        object-fit: scale-down important;
     }
 
     for media_query_name in media_query_name_array
@@ -53,18 +53,18 @@ MakeObjectFitScaleDown( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}object-fit-scale-down-{media_query_name}{suffix}
             {
-                object-fit: scale-down;
+                object-fit: scale-down important;
             }
         }
     }
 
 // ~~
 
-MakeObjectFitCover( media_query_name_array = {}, prefix =, suffix = )
+MakeObjectFitCover( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}object-fit-cover{suffix}
     {
-        object-fit: cover;
+        object-fit: cover important;
     }
 
     for media_query_name in media_query_name_array
@@ -73,18 +73,18 @@ MakeObjectFitCover( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}object-fit-cover-{media_query_name}{suffix}
             {
-                object-fit: cover;
+                object-fit: cover important;
             }
         }
     }
 
 // ~~
 
-MakeObjectFitFill( media_query_name_array = {}, prefix =, suffix = )
+MakeObjectFitFill( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}object-fit-fill{suffix}
     {
-        object-fit: fill;
+        object-fit: fill important;
     }
 
     for media_query_name in media_query_name_array
@@ -93,7 +93,7 @@ MakeObjectFitFill( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}object-fit-fill-{media_query_name}{suffix}
             {
-                object-fit: fill;
+                object-fit: fill important;
             }
         }
     }

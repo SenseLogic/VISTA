@@ -1,10 +1,10 @@
 // -- MIXINS
 
-MakeOrderFirst( media_query_name_array = {}, prefix =, suffix = )
+MakeOrderFirst( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}order-first{suffix}
     {
-        order: -1;
+        order: -1 important;
     }
 
     for media_query_name in media_query_name_array
@@ -13,18 +13,18 @@ MakeOrderFirst( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}order-last-{media_query_name}{suffix}
             {
-                order: 1;
+                order: 1 important;
             }
         }
     }
 
 // ~~
 
-MakeOrderLast( media_query_name_array = {}, prefix =, suffix = )
+MakeOrderLast( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}order-last{suffix}
     {
-        order: 1;
+        order: 1 important;
     }
 
     for media_query_name in media_query_name_array
@@ -33,7 +33,7 @@ MakeOrderLast( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}order-last-{media_query_name}{suffix}
             {
-                order: 1;
+                order: 1 important;
             }
         }
     }

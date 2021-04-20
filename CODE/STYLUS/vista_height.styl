@@ -1,10 +1,10 @@
 // -- MIXINS
 
-MakeHeightAuto( media_query_name_array = {}, prefix =, suffix = )
+MakeHeightAuto( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}height-auto{suffix}{suffix}
     {
-        height: auto;
+        height: auto important;
     }
 
     for media_query_name in media_query_name_array
@@ -13,18 +13,18 @@ MakeHeightAuto( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}height-auto-{media_query_name}{suffix}
             {
-                height: auto;
+                height: auto important;
             }
         }
     }
 
 // ~~
 
-MakeHeightValue( size, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix = )
+MakeHeightValue( size, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}height-{size}{unit_name}{suffix}
     {
-        height: size * unit_value;
+        height: size * unit_value important;
     }
 
     for media_query_name in media_query_name_array
@@ -33,29 +33,29 @@ MakeHeightValue( size, unit_value, unit_name, media_query_name_array = {}, prefi
         {
             .{prefix}height-{size}{unit_name}-{media_query_name}{suffix}
             {
-                height: size * unit_value;
+                height: size * unit_value important;
             }
         }
     }
 
 // ~~
 
-MakeHeightValueRange( start, step, count, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix = )
+MakeHeightValueRange( start, step, count, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix =, important = )
 
     for index in 0 .. count - 1
     {
         size = start + index * step;
 
-        MakeHeightValue( size, unit_value, unit_name, media_query_name_array, prefix, suffix );
+        MakeHeightValue( size, unit_value, unit_name, media_query_name_array, prefix, suffix, important );
     }
 
 // ~~
 
-MakeMinHeightValue( size, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix = )
+MakeMinHeightValue( size, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}min-height-{size}{unit_name}{suffix}
     {
-        min-height: size * unit_value;
+        min-height: size * unit_value important;
     }
 
     for media_query_name in media_query_name_array
@@ -64,29 +64,29 @@ MakeMinHeightValue( size, unit_value, unit_name, media_query_name_array = {}, pr
         {
             .{prefix}min-height-{size}{unit_name}-{media_query_name}{suffix}
             {
-                min-height: size * unit_value;
+                min-height: size * unit_value important;
             }
         }
     }
 
 // ~~
 
-MakeMinHeightValueRange( start, step, count, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix = )
+MakeMinHeightValueRange( start, step, count, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix =, important = )
 
     for index in 0 .. count - 1
     {
         size = start + index * step;
 
-        MakeMinHeightValue( size, unit_value, unit_name, media_query_name_array, prefix, suffix );
+        MakeMinHeightValue( size, unit_value, unit_name, media_query_name_array, prefix, suffix, important );
     }
 
 // ~~
 
-MakeMaxHeightValue( size, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix = )
+MakeMaxHeightValue( size, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}max-height-{size}{unit_name}{suffix}
     {
-        max-height: size * unit_value;
+        max-height: size * unit_value important;
     }
 
     for media_query_name in media_query_name_array
@@ -95,31 +95,31 @@ MakeMaxHeightValue( size, unit_value, unit_name, media_query_name_array = {}, pr
         {
             .{prefix}max-height-{size}{unit_name}-{media_query_name}{suffix}
             {
-                max-height: size * unit_value;
+                max-height: size * unit_value important;
             }
         }
     }
 
 // ~~
 
-MakeMaxHeightValueRange( start, step, count, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix = )
+MakeMaxHeightValueRange( start, step, count, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix =, important = )
 
     for index in 0 .. count - 1
     {
         size = start + index * step;
 
-        MakeMaxHeightValue( size, unit_value, unit_name, media_query_name_array, prefix, suffix );
+        MakeMaxHeightValue( size, unit_value, unit_name, media_query_name_array, prefix, suffix, important );
     }
 
 // ~~
 
-MakeFractionalHeightValueRange( column_count, media_query_name_array = {}, prefix =, suffix = )
+MakeFractionalHeightValueRange( column_count, media_query_name_array = {}, prefix =, suffix =, important = )
 
     for column_index in 1 .. column_count
     {
         .{prefix}height-{column_index}\\/{column_count}{suffix}
         {
-            height: 100% * ( column_index / column_count );
+            height: 100% * ( column_index / column_count ) important;
         }
 
         for media_query_name in media_query_name_array
@@ -128,7 +128,7 @@ MakeFractionalHeightValueRange( column_count, media_query_name_array = {}, prefi
             {
                 .{prefix}height-{column_index}\\/{column_count}-{media_query_name}{suffix}
                 {
-                    height: 100% * ( column_index / column_count );
+                    height: 100% * ( column_index / column_count ) important;
                 }
             }
         }
@@ -136,13 +136,13 @@ MakeFractionalHeightValueRange( column_count, media_query_name_array = {}, prefi
 
 // ~~
 
-MakeMinFractionalHeightValueRange( column_count, media_query_name_array = {}, prefix =, suffix = )
+MakeMinFractionalHeightValueRange( column_count, media_query_name_array = {}, prefix =, suffix =, important = )
 
     for column_index in 1 .. column_count
     {
         .{prefix}min-height-{column_index}\\/{column_count}{suffix}
         {
-            min-height: 100% * ( column_index / column_count );
+            min-height: 100% * ( column_index / column_count ) important;
         }
 
         for media_query_name in media_query_name_array
@@ -151,7 +151,7 @@ MakeMinFractionalHeightValueRange( column_count, media_query_name_array = {}, pr
             {
                 .{prefix}min-height-{column_index}\\/{column_count}-{media_query_name}{suffix}
                 {
-                    min-height: 100% * ( column_index / column_count );
+                    min-height: 100% * ( column_index / column_count ) important;
                 }
             }
         }
@@ -159,13 +159,13 @@ MakeMinFractionalHeightValueRange( column_count, media_query_name_array = {}, pr
 
 // ~~
 
-MakeMaxFractionalHeightValueRange( column_count, media_query_name_array = {}, prefix =, suffix = )
+MakeMaxFractionalHeightValueRange( column_count, media_query_name_array = {}, prefix =, suffix =, important = )
 
     for column_index in 1 .. column_count
     {
         .{prefix}max-height-{column_index}\\/{column_count}{suffix}
         {
-            max-height: 100% * ( column_index / column_count );
+            max-height: 100% * ( column_index / column_count ) important;
         }
 
         for media_query_name in media_query_name_array
@@ -174,7 +174,7 @@ MakeMaxFractionalHeightValueRange( column_count, media_query_name_array = {}, pr
             {
                 .{prefix}max-height-{column_index}\\/{column_count}-{media_query_name}{suffix}
                 {
-                    max-height: 100% * ( column_index / column_count );
+                    max-height: 100% * ( column_index / column_count ) important;
                 }
             }
         }
@@ -182,7 +182,7 @@ MakeMaxFractionalHeightValueRange( column_count, media_query_name_array = {}, pr
 
 // ~~
 
-MakeGridHeightValueRange( row_count, total_size, gutter_size, unit_name, media_query_name_array = {}, prefix =, suffix = )
+MakeGridHeightValueRange( row_count, total_size, gutter_size, unit_name, media_query_name_array = {}, prefix =, suffix =, important = )
 
     row_size = ( total_size - ( row_count - 1 ) * gutter_size ) / row_count;
 
@@ -190,7 +190,7 @@ MakeGridHeightValueRange( row_count, total_size, gutter_size, unit_name, media_q
     {
         .{prefix}grid-height-{row_index}{unit_name}{suffix}
         {
-            height: row_size * row_index + gutter_size * ( row_index - 1 );
+            height: row_size * row_index + gutter_size * ( row_index - 1 ) important;
         }
 
         for media_query_name in media_query_name_array
@@ -199,7 +199,7 @@ MakeGridHeightValueRange( row_count, total_size, gutter_size, unit_name, media_q
             {
                 .{prefix}grid-height-{row_index}{unit_name}-{media_query_name}{suffix}
                 {
-                    height: row_size * row_index + gutter_size * ( row_index - 1 );
+                    height: row_size * row_index + gutter_size * ( row_index - 1 ) important;
                 }
             }
         }

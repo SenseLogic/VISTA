@@ -1,12 +1,12 @@
 // -- MIXINS
 
-MakeScrollSnapTypeMandatory( media_query_name_array = {}, prefix =, suffix = )
+MakeScrollSnapTypeMandatory( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}scroll-snap-type-mandatory{suffix}
     {
-        scroll-snap-type: mandatory;
-        scroll-snap-type: y mandatory;
-        scroll-snap-points-y: repeat( 100vh );
+        scroll-snap-type: mandatory important;
+        scroll-snap-type: y mandatory important;
+        scroll-snap-points-y: repeat( 100vh ) important;
     }
 
     for media_query_name in media_query_name_array
@@ -15,19 +15,19 @@ MakeScrollSnapTypeMandatory( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}scroll-snap-type-mandatory-{media_query_name}{suffix}
             {
-                scroll-snap-type: y mandatory;
-                scroll-snap-type: mandatory;
+                scroll-snap-type: y mandatory important;
+                scroll-snap-type: mandatory important;
             }
         }
     }
 
 // ~~
 
-MakeScrollSnapAlignNone( media_query_name_array = {}, prefix =, suffix = )
+MakeScrollSnapAlignNone( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}scroll-snap-align-none{suffix}
     {
-        scroll-snap-align: none;
+        scroll-snap-align: none important;
     }
 
     for media_query_name in media_query_name_array
@@ -36,18 +36,18 @@ MakeScrollSnapAlignNone( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}scroll-snap-align-none-{media_query_name}{suffix}
             {
-                scroll-snap-align: none;
+                scroll-snap-align: none important;
             }
         }
     }
 
 // ~~
 
-MakeScrollSnapAlignStart( media_query_name_array = {}, prefix =, suffix = )
+MakeScrollSnapAlignStart( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}scroll-snap-align-start{suffix}
     {
-        scroll-snap-align: start;
+        scroll-snap-align: start important;
     }
 
     for media_query_name in media_query_name_array
@@ -56,18 +56,18 @@ MakeScrollSnapAlignStart( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}scroll-snap-align-start-{media_query_name}{suffix}
             {
-                scroll-snap-align: start;
+                scroll-snap-align: start important;
             }
         }
     }
 
 // ~~
 
-MakeScrollSnapAlignCenter( media_query_name_array = {}, prefix =, suffix = )
+MakeScrollSnapAlignCenter( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}scroll-snap-align-center{suffix}
     {
-        scroll-snap-align: center;
+        scroll-snap-align: center important;
     }
 
     for media_query_name in media_query_name_array
@@ -76,18 +76,18 @@ MakeScrollSnapAlignCenter( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}scroll-snap-align-center-{media_query_name}{suffix}
             {
-                scroll-snap-align: center;
+                scroll-snap-align: center important;
             }
         }
     }
 
 // ~~
 
-MakeScrollSnapAlignEnd( media_query_name_array = {}, prefix =, suffix = )
+MakeScrollSnapAlignEnd( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}scroll-snap-align-end{suffix}
     {
-        scroll-snap-align: end;
+        scroll-snap-align: end important;
     }
 
     for media_query_name in media_query_name_array
@@ -96,7 +96,7 @@ MakeScrollSnapAlignEnd( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}scroll-snap-align-end-{media_query_name}{suffix}
             {
-                scroll-snap-align: end;
+                scroll-snap-align: end important;
             }
         }
     }

@@ -4,7 +4,7 @@ SetRootFontSize( font_size, font_size_array, media_query_name_array )
 
     html
     {
-        font-size: font_size;
+        font-size: font_size important;
     }
 
     for media_query_name, media_query_name_index in media_query_name_array
@@ -13,18 +13,18 @@ SetRootFontSize( font_size, font_size_array, media_query_name_array )
         {
             html
             {
-                font-size: font_size_array[ media_query_name_index ];
+                font-size: font_size_array[ media_query_name_index ] important;
             }
         }
     }
 
 // ~~
 
-MakeFontFamilyValue( name, family, media_query_name_array = {}, prefix =, suffix = )
+MakeFontFamilyValue( name, family, media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}font-family-{name}{suffix}
     {
-        font-family: convert( family );
+        font-family: convert( family ) important;
     }
 
     for media_query_name in media_query_name_array
@@ -33,18 +33,18 @@ MakeFontFamilyValue( name, family, media_query_name_array = {}, prefix =, suffix
         {
             .{prefix}font-family-{name}-{media_query_name}{suffix}
             {
-                font-family: convert( family );
+                font-family: convert( family ) important;
             }
         }
     }
 
 // ~~
 
-MakeFontSizeValue( size, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix = )
+MakeFontSizeValue( size, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}font-size-{size}{unit_name}{suffix}
     {
-        font-size: size * unit_value;
+        font-size: size * unit_value important;
     }
 
     for media_query_name in media_query_name_array
@@ -53,29 +53,29 @@ MakeFontSizeValue( size, unit_value, unit_name, media_query_name_array = {}, pre
         {
             .{prefix}font-size-{size}{unit_name}-{media_query_name}{suffix}
             {
-                font-size: size * unit_value;
+                font-size: size * unit_value important;
             }
         }
     }
 
 // ~~
 
-MakeFontSizeValueRange( start, step, count, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix = )
+MakeFontSizeValueRange( start, step, count, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix =, important = )
 
     for index in 0 .. count - 1
     {
         size = start + index * step;
 
-        MakeFontSizeValue( size, unit_value, unit_name, media_query_name_array, prefix, suffix );
+        MakeFontSizeValue( size, unit_value, unit_name, media_query_name_array, prefix, suffix, important );
     }
 
 // ~~
 
-MakeFontWeightValue( weight, media_query_name_array = {}, prefix =, suffix = )
+MakeFontWeightValue( weight, media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}font-weight-{weight}{suffix}
     {
-        font-weight: weight;
+        font-weight: weight important;
     }
 
     for media_query_name in media_query_name_array
@@ -84,18 +84,18 @@ MakeFontWeightValue( weight, media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}font-weight-{weight}-{media_query_name}{suffix}
             {
-                font-weight: weight;
+                font-weight: weight important;
             }
         }
     }
 
 // ~~
 
-MakeFontWeightValueRange( start, step, count, media_query_name_array = {}, prefix =, suffix = )
+MakeFontWeightValueRange( start, step, count, media_query_name_array = {}, prefix =, suffix =, important = )
 
     for index in 0 .. count - 1
     {
         weight = start + index * step;
 
-        MakeFontWeightValue( weight, media_query_name_array, prefix, suffix );
+        MakeFontWeightValue( weight, media_query_name_array, prefix, suffix, important );
     }

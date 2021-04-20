@@ -1,10 +1,10 @@
 // -- MIXINS
 
-MakeTextTransformLowercase( media_query_name_array = {}, prefix =, suffix = )
+MakeTextTransformLowercase( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}text-transform-lowercase{suffix}
     {
-        text-transform: lowercase;
+        text-transform: lowercase important;
     }
 
     for media_query_name in media_query_name_array
@@ -13,18 +13,18 @@ MakeTextTransformLowercase( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}text-transform-lowercase-{media_query_name}{suffix}
             {
-                text-transform: lowercase;
+                text-transform: lowercase important;
             }
         }
     }
 
 // ~~
 
-MakeTextTransformUppercase( media_query_name_array = {}, prefix =, suffix = )
+MakeTextTransformUppercase( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}text-transform-uppercase{suffix}
     {
-        text-transform: uppercase;
+        text-transform: uppercase important;
     }
 
     for media_query_name in media_query_name_array
@@ -33,18 +33,18 @@ MakeTextTransformUppercase( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}text-transform-uppercase-{media_query_name}{suffix}
             {
-                text-transform: uppercase;
+                text-transform: uppercase important;
             }
         }
     }
 
 // ~~
 
-MakeTextTransformCapitalize( media_query_name_array = {}, prefix =, suffix = )
+MakeTextTransformCapitalize( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}text-transform-capitalize{suffix}
     {
-        text-transform: capitalize;
+        text-transform: capitalize important;
     }
 
     for media_query_name in media_query_name_array
@@ -53,7 +53,7 @@ MakeTextTransformCapitalize( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}text-transform-capitalize-{media_query_name}{suffix}
             {
-                text-transform: capitalize;
+                text-transform: capitalize important;
             }
         }
     }

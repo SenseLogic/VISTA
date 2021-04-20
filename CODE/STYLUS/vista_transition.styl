@@ -1,231 +1,231 @@
 // -- MIXINS
 
-MakeOpacityTransition( transition_condition, transition_duration, timing_function, initial_opacity = 0, final_opacity = 1, prefix =, suffix = )
+MakeOpacityTransition( transition_condition, transition_duration, timing_function, initial_opacity = 0, final_opacity = 1, prefix =, suffix =, important = )
 
     .{prefix}opacity-transition{suffix}
     {
-        opacity: initial_opacity;
+        opacity: initial_opacity important;
 
-        transition: opacity transition_duration timing_function;
+        transition: opacity transition_duration timing_function important;
     }
 
     .{prefix}opacity-transition{suffix}{transition_condition}
     {
-        opacity: final_opacity;
+        opacity: final_opacity important;
     }
 
 // ~~
 
-MakeXTranslationTransition( transition_condition, transition_duration, timing_function, initial_x_translation, final_x_translation = 0, prefix =, suffix = )
+MakeXTranslationTransition( transition_condition, transition_duration, timing_function, initial_x_translation, final_x_translation = 0, prefix =, suffix =, important = )
 
     .{prefix}x-translation-transition{suffix}
     {
-        transform: translateX( initial_x_translation );
+        transform: translateX( initial_x_translation ) important;
 
-        transition: transform transition_duration timing_function;
+        transition: transform transition_duration timing_function important;
     }
 
     .{prefix}x-translation-transition{suffix}{transition_condition}
     {
-        transform: translateX( final_x_translation );
+        transform: translateX( final_x_translation ) important;
     }
 
 // ~~
 
-MakeXTranslationOpacityTransition( transition_condition, transition_duration, timing_function, initial_x_translation, initial_opacity = 0, final_x_translation = 0, final_opacity = 1, prefix =, suffix = )
+MakeXTranslationOpacityTransition( transition_condition, transition_duration, timing_function, initial_x_translation, initial_opacity = 0, final_x_translation = 0, final_opacity = 1, prefix =, suffix =, important = )
 
     .{prefix}x-translation-opacity-transition{suffix}
     {
-        transform: translateX( initial_x_translation );
+        transform: translateX( initial_x_translation ) important;
 
-        opacity: initial_opacity;
+        opacity: initial_opacity important;
 
-        transition: transform transition_duration timing_function, opacity transition_duration timing_function;
+        transition: transform transition_duration timing_function, opacity transition_duration timing_function important;
     }
 
     .{prefix}x-translation-opacity-transition{suffix}{transition_condition}
     {
-        transform: translateX( final_x_translation );
+        transform: translateX( final_x_translation ) important;
 
-        opacity: final_opacity;
+        opacity: final_opacity important;
     }
 
 // ~~
 
-MakeYTranslationTransition( transition_condition, transition_duration, timing_function, initial_y_translation, final_y_translation = 0, prefix =, suffix = )
+MakeYTranslationTransition( transition_condition, transition_duration, timing_function, initial_y_translation, final_y_translation = 0, prefix =, suffix =, important = )
 
     .{prefix}y-translation-transition{suffix}
     {
-        transform: translateY( initial_y_translation );
+        transform: translateY( initial_y_translation ) important;
 
-        transition: transform transition_duration timing_function;
+        transition: transform transition_duration timing_function important;
     }
 
     .{prefix}y-translation-transition{suffix}{transition_condition}
     {
-        transform: translateY( final_y_translation );
+        transform: translateY( final_y_translation ) important;
     }
 
 // ~~
 
-MakeYTranslationOpacityTransition( transition_condition, transition_duration, timing_function, initial_y_translation, initial_opacity = 0, final_y_translation = 0, final_opacity = 1, prefix =, suffix = )
+MakeYTranslationOpacityTransition( transition_condition, transition_duration, timing_function, initial_y_translation, initial_opacity = 0, final_y_translation = 0, final_opacity = 1, prefix =, suffix =, important = )
 
     .{prefix}y-translation-opacity-transition{suffix}
     {
-        transform: translateY( initial_y_translation );
+        transform: translateY( initial_y_translation ) important;
 
-        opacity: initial_opacity;
+        opacity: initial_opacity important;
 
-        transition: transform transition_duration timing_function, opacity transition_duration timing_function;
+        transition: transform transition_duration timing_function, opacity transition_duration timing_function important;
     }
 
     .{prefix}y-translation-opacity-transition{suffix}{transition_condition}
     {
-        transform: translateY( final_y_translation );
+        transform: translateY( final_y_translation ) important;
 
-        opacity: final_opacity;
+        opacity: final_opacity important;
     }
 
 // ~~
 
-MakeScalingTransition( transition_condition, transition_duration, timing_function, initial_scaling, final_scaling = 1, prefix =, suffix = )
+MakeScalingTransition( transition_condition, transition_duration, timing_function, initial_scaling, final_scaling = 1, prefix =, suffix =, important = )
 
     .{prefix}scaling-transition{suffix}
     {
-        transform: scale( initial_scaling );
+        transform: scale( initial_scaling ) important;
 
-        transition: transform transition_duration timing_function;
+        transition: transform transition_duration timing_function important;
     }
 
     .{prefix}scaling-transition{suffix}{transition_condition}
     {
-        transform: scale( final_scaling );
+        transform: scale( final_scaling ) important;
     }
 
 // ~~
 
-MakeScalingOpacityTransition( transition_condition, transition_duration, timing_function, initial_scaling, initial_opacity = 0, final_scaling = 1, final_opacity = 1, prefix =, suffix = )
+MakeScalingOpacityTransition( transition_condition, transition_duration, timing_function, initial_scaling, initial_opacity = 0, final_scaling = 1, final_opacity = 1, prefix =, suffix =, important = )
 
     .{prefix}scaling-opacity-transition{suffix}
     {
-        transform: scale( initial_scaling );
+        transform: scale( initial_scaling ) important;
 
-        opacity: initial_opacity;
+        opacity: initial_opacity important;
 
-        transition: transform transition_duration timing_function, opacity transition_duration timing_function;
+        transition: transform transition_duration timing_function, opacity transition_duration timing_function important;
     }
 
     .{prefix}scaling-opacity-transition{suffix}{transition_condition}
     {
-        transform: scale( final_scaling );
+        transform: scale( final_scaling ) important;
 
-        opacity: final_opacity;
+        opacity: final_opacity important;
     }
 
 // ~~
 
-MakeXScalingTransition( transition_condition, transition_duration, timing_function, initial_x_scaling, final_x_scaling = 1, prefix =, suffix = )
+MakeXScalingTransition( transition_condition, transition_duration, timing_function, initial_x_scaling, final_x_scaling = 1, prefix =, suffix =, important = )
 
     .{prefix}x-scaling-transition{suffix}
     {
-        transform: scaleX( initial_x_scaling );
+        transform: scaleX( initial_x_scaling ) important;
 
-        transition: transform transition_duration timing_function;
+        transition: transform transition_duration timing_function important;
     }
 
     .{prefix}x-scaling-transition{suffix}{transition_condition}
     {
-        transform: scaleX( final_x_scaling );
+        transform: scaleX( final_x_scaling ) important;
     }
 
 // ~~
 
-MakeXScalingOpacityTransition( transition_condition, transition_duration, timing_function, initial_x_scaling, initial_opacity = 0, final_x_scaling = 1, final_opacity = 1, prefix =, suffix = )
+MakeXScalingOpacityTransition( transition_condition, transition_duration, timing_function, initial_x_scaling, initial_opacity = 0, final_x_scaling = 1, final_opacity = 1, prefix =, suffix =, important = )
 
     .{prefix}x-scaling-opacity-transition{suffix}
     {
-        transform: scaleX( initial_x_scaling );
+        transform: scaleX( initial_x_scaling ) important;
 
-        opacity: initial_opacity;
+        opacity: initial_opacity important;
 
-        transition: transform transition_duration timing_function, opacity transition_duration timing_function;
+        transition: transform transition_duration timing_function, opacity transition_duration timing_function important;
     }
 
     .{prefix}x-scaling-opacity-transition{suffix}{transition_condition}
     {
-        transform: scaleX( final_x_scaling );
+        transform: scaleX( final_x_scaling ) important;
 
-        opacity: final_opacity;
+        opacity: final_opacity important;
     }
 
 // ~~
 
-MakeYScalingTransition( transition_condition, transition_duration, timing_function, initial_y_scaling, final_y_scaling = 1, prefix =, suffix = )
+MakeYScalingTransition( transition_condition, transition_duration, timing_function, initial_y_scaling, final_y_scaling = 1, prefix =, suffix =, important = )
 
     .{prefix}y-scaling-transition{suffix}
     {
-        transform: scaleY( initial_y_scaling );
+        transform: scaleY( initial_y_scaling ) important;
 
-        transition: transform transition_duration timing_function;
+        transition: transform transition_duration timing_function important;
     }
 
     .{prefix}y-scaling-transition{suffix}{transition_condition}
     {
-        transform: scaleY( final_y_scaling );
+        transform: scaleY( final_y_scaling ) important;
     }
 
 // ~~
 
-MakeYScalingOpacityTransition( transition_condition, transition_duration, timing_function, initial_y_scaling, initial_opacity = 0, final_y_scaling = 1, final_opacity = 1, prefix =, suffix = )
+MakeYScalingOpacityTransition( transition_condition, transition_duration, timing_function, initial_y_scaling, initial_opacity = 0, final_y_scaling = 1, final_opacity = 1, prefix =, suffix =, important = )
 
     .{prefix}y-scaling-opacity-transition{suffix}
     {
-        transform: scaleY( initial_y_scaling );
+        transform: scaleY( initial_y_scaling ) important;
 
-        opacity: initial_opacity;
+        opacity: initial_opacity important;
 
-        transition: transform transition_duration timing_function, opacity transition_duration timing_function;
+        transition: transform transition_duration timing_function, opacity transition_duration timing_function important;
     }
 
     .{prefix}y-scaling-opacity-transition{suffix}{transition_condition}
     {
-        transform: scaleY( final_y_scaling );
+        transform: scaleY( final_y_scaling ) important;
 
-        opacity: final_opacity;
+        opacity: final_opacity important;
     }
 
 // ~~
 
-MakeRotationTransition( transition_condition, transition_duration, timing_function, initial_rotation, final_rotation = 0, prefix =, suffix = )
+MakeRotationTransition( transition_condition, transition_duration, timing_function, initial_rotation, final_rotation = 0, prefix =, suffix =, important = )
 
     .{prefix}rotation-transition{suffix}
     {
-        transform: rotate( initial_rotation );
+        transform: rotate( initial_rotation ) important;
 
-        transition: transform transition_duration timing_function;
+        transition: transform transition_duration timing_function important;
     }
 
     .{prefix}rotation-transition{suffix}{transition_condition}
     {
-        transform: rotate( final_rotation );
+        transform: rotate( final_rotation ) important;
     }
 
 // ~~
 
-MakeRotationOpacityTransition( transition_condition, transition_duration, timing_function, initial_rotation, initial_opacity = 0, final_rotation = 0, final_opacity = 1, prefix =, suffix = )
+MakeRotationOpacityTransition( transition_condition, transition_duration, timing_function, initial_rotation, initial_opacity = 0, final_rotation = 0, final_opacity = 1, prefix =, suffix =, important = )
 
     .{prefix}rotation-opacity-transition{suffix}
     {
-        transform: rotate( initial_rotation );
+        transform: rotate( initial_rotation ) important;
 
-        opacity: initial_opacity;
+        opacity: initial_opacity important;
 
-        transition: transform transition_duration timing_function, opacity transition_duration timing_function;
+        transition: transform transition_duration timing_function, opacity transition_duration timing_function important;
     }
 
     .{prefix}rotation-opacity-transition{suffix}{transition_condition}
     {
-        transform: rotate( final_rotation );
+        transform: rotate( final_rotation ) important;
 
-        opacity: final_opacity;
+        opacity: final_opacity important;
     }

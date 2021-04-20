@@ -934,7 +934,11 @@ function SetScrollTop(
     behavior = "smooth"
     )
 {
-    if ( position instanceof HTMLElement )
+    if ( position === null )
+    {
+        position = 0;
+    }
+    else if ( position instanceof HTMLElement )
     {
         position = position.GetTopPosition();
     }
@@ -954,7 +958,11 @@ function SetScrollLeft(
     behavior = "smooth"
     )
 {
-    if ( position instanceof HTMLElement )
+    if ( position === null )
+    {
+        position = 0;
+    }
+    else if ( position instanceof HTMLElement )
     {
         position = position.GetLeftPosition();
     }

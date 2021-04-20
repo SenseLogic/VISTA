@@ -1,10 +1,10 @@
 // -- MIXINS
 
-MakePositionStatic( media_query_name_array = {}, prefix =, suffix = )
+MakePositionStatic( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}position-static{suffix}
     {
-        position: static;
+        position: static important;
     }
 
     for media_query_name in media_query_name_array
@@ -13,18 +13,18 @@ MakePositionStatic( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}position-static-{media_query_name}{suffix}
             {
-                position: static;
+                position: static important;
             }
         }
     }
 
 // ~~
 
-MakePositionRelative( media_query_name_array = {}, prefix =, suffix = )
+MakePositionRelative( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}position-relative{suffix}
     {
-        position: relative;
+        position: relative important;
     }
 
     for media_query_name in media_query_name_array
@@ -33,18 +33,18 @@ MakePositionRelative( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}position-relative-{media_query_name}{suffix}
             {
-                position: relative;
+                position: relative important;
             }
         }
     }
 
 // ~~
 
-MakePositionAbsolute( media_query_name_array = {}, prefix =, suffix = )
+MakePositionAbsolute( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}position-absolute{suffix}
     {
-        position: absolute;
+        position: absolute important;
     }
 
     for media_query_name in media_query_name_array
@@ -53,18 +53,18 @@ MakePositionAbsolute( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}position-absolute-{media_query_name}{suffix}
             {
-                position: absolute;
+                position: absolute important;
             }
         }
     }
 
 // ~~
 
-MakePositionFixed( media_query_name_array = {}, prefix =, suffix = )
+MakePositionFixed( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}position-fixed{suffix}
     {
-        position: fixed;
+        position: fixed important;
     }
 
     for media_query_name in media_query_name_array
@@ -73,18 +73,18 @@ MakePositionFixed( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}position-fixed-{media_query_name}{suffix}
             {
-                position: fixed;
+                position: fixed important;
             }
         }
     }
 
 // ~~
 
-MakePositionSticky( media_query_name_array = {}, prefix =, suffix = )
+MakePositionSticky( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}position-sticky{suffix}
     {
-        position: sticky;
+        position: sticky important;
     }
 
     for media_query_name in media_query_name_array
@@ -93,22 +93,22 @@ MakePositionSticky( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}position-sticky-{media_query_name}{suffix}
             {
-                position: sticky;
+                position: sticky important;
             }
         }
     }
 
 // ~~
 
-MakePositionFixedTop( media_query_name_array = {}, prefix =, suffix = )
+MakePositionFixedTop( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}position-fixed-top{suffix}
     {
-        z-index: 1030;
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
+        z-index: 1030 important;
+        position: fixed important;
+        top: 0 important;
+        left: 0 important;
+        right: 0 important;
     }
 
     for media_query_name in media_query_name_array
@@ -117,26 +117,26 @@ MakePositionFixedTop( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}position-fixed-top-{media_query_name}{suffix}
             {
-                z-index: 1030;
-                position: fixed;
-                top: 0;
-                left: 0;
-                right: 0;
+                z-index: 1030 important;
+                position: fixed important;
+                top: 0 important;
+                left: 0 important;
+                right: 0 important;
             }
         }
     }
 
 // ~~
 
-MakePositionFixedBottom( media_query_name_array = {}, prefix =, suffix = )
+MakePositionFixedBottom( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}position-fixed-bottom{suffix}
     {
-        z-index: 1030;
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
+        z-index: 1030 important;
+        position: fixed important;
+        bottom: 0 important;
+        left: 0 important;
+        right: 0 important;
     }
 
     for media_query_name in media_query_name_array
@@ -145,22 +145,22 @@ MakePositionFixedBottom( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}position-fixed-bottom-{media_query_name}{suffix}
             {
-                z-index: 1030;
-                position: fixed;
-                bottom: 0;
-                left: 0;
-                right: 0;
+                z-index: 1030 important;
+                position: fixed important;
+                bottom: 0 important;
+                left: 0 important;
+                right: 0 important;
             }
         }
     }
 
 // ~~
 
-MakePositionLeftValue( offset, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix = )
+MakePositionLeftValue( offset, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}position-left-{offset}{unit_name}{suffix}
     {
-        left: offset * unit_value;
+        left: offset * unit_value important;
     }
 
     for media_query_name in media_query_name_array
@@ -169,29 +169,29 @@ MakePositionLeftValue( offset, unit_value, unit_name, media_query_name_array = {
         {
             .{prefix}position-left-{offset}{unit_name}-{media_query_name}{suffix}
             {
-                left: offset * unit_value;
+                left: offset * unit_value important;
             }
         }
     }
 
 // ~~
 
-MakePositionLeftValueRange( start, step, count, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix = )
+MakePositionLeftValueRange( start, step, count, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix =, important = )
 
     for index in 0 .. count - 1
     {
         offset = start + index * step;
 
-        MakePositionLeftValue( offset, unit_value, unit_name, media_query_name_array, prefix, suffix );
+        MakePositionLeftValue( offset, unit_value, unit_name, media_query_name_array, prefix, suffix, important );
     }
 
 // ~~
 
-MakePositionRightValue( offset, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix = )
+MakePositionRightValue( offset, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}position-right-{offset}{unit_name}{suffix}
     {
-        right: offset * unit_value;
+        right: offset * unit_value important;
     }
 
     for media_query_name in media_query_name_array
@@ -200,29 +200,29 @@ MakePositionRightValue( offset, unit_value, unit_name, media_query_name_array = 
         {
             .{prefix}position-right-{offset}{unit_name}-{media_query_name}{suffix}
             {
-                right: offset * unit_value;
+                right: offset * unit_value important;
             }
         }
     }
 
 // ~~
 
-MakePositionRightValueRange( start, step, count, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix = )
+MakePositionRightValueRange( start, step, count, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix =, important = )
 
     for index in 0 .. count - 1
     {
         offset = start + index * step;
 
-        MakePositionRightValue( offset, unit_value, unit_name, media_query_name_array, prefix, suffix );
+        MakePositionRightValue( offset, unit_value, unit_name, media_query_name_array, prefix, suffix, important );
     }
 
 // ~~
 
-MakePositionBottomValue( offset, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix = )
+MakePositionBottomValue( offset, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}position-bottom-{offset}{unit_name}{suffix}
     {
-        bottom: offset * unit_value;
+        bottom: offset * unit_value important;
     }
 
     for media_query_name in media_query_name_array
@@ -231,29 +231,29 @@ MakePositionBottomValue( offset, unit_value, unit_name, media_query_name_array =
         {
             .{prefix}position-bottom-{offset}{unit_name}-{media_query_name}{suffix}
             {
-                bottom: offset * unit_value;
+                bottom: offset * unit_value important;
             }
         }
     }
 
 // ~~
 
-MakePositionBottomValueRange( start, step, count, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix = )
+MakePositionBottomValueRange( start, step, count, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix =, important = )
 
     for index in 0 .. count - 1
     {
         offset = start + index * step;
 
-        MakePositionBottomValue( offset, unit_value, unit_name, media_query_name_array, prefix, suffix );
+        MakePositionBottomValue( offset, unit_value, unit_name, media_query_name_array, prefix, suffix, important );
     }
 
 // ~~
 
-MakePositionTopValue( offset, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix = )
+MakePositionTopValue( offset, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}position-top-{offset}{unit_name}{suffix}
     {
-        top: offset * unit_value;
+        top: offset * unit_value important;
     }
 
     for media_query_name in media_query_name_array
@@ -262,18 +262,18 @@ MakePositionTopValue( offset, unit_value, unit_name, media_query_name_array = {}
         {
             .{prefix}position-top-{offset}{unit_name}-{media_query_name}{suffix}
             {
-                top: offset * unit_value;
+                top: offset * unit_value important;
             }
         }
     }
 
 // ~~
 
-MakePositionTopValueRange( start, step, count, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix = )
+MakePositionTopValueRange( start, step, count, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix =, important = )
 
     for index in 0 .. count - 1
     {
         offset = start + index * step;
 
-        MakePositionTopValue( offset, unit_value, unit_name, media_query_name_array, prefix, suffix );
+        MakePositionTopValue( offset, unit_value, unit_name, media_query_name_array, prefix, suffix, important );
     }

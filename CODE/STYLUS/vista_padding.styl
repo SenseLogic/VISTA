@@ -1,10 +1,10 @@
 // -- MIXINS
 
-MakePaddingValue( size, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix = )
+MakePaddingValue( size, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}padding-{size}{unit_name}{suffix}
     {
-        padding: size * unit_value;
+        padding: size * unit_value important;
     }
 
     for media_query_name in media_query_name_array
@@ -13,30 +13,30 @@ MakePaddingValue( size, unit_value, unit_name, media_query_name_array = {}, pref
         {
             .{prefix}padding-{size}{unit_name}-{media_query_name}{suffix}
             {
-                padding: size * unit_value;
+                padding: size * unit_value important;
             }
         }
     }
 
 // ~~
 
-MakePaddingValueRange( start, step, count, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix = )
+MakePaddingValueRange( start, step, count, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix =, important = )
 
     for index in 0 .. count - 1
     {
         size = start + index * step;
 
-        MakePaddingValue( size, unit_value, unit_name, media_query_name_array, prefix, suffix );
+        MakePaddingValue( size, unit_value, unit_name, media_query_name_array, prefix, suffix, important );
     }
 
 // ~~
 
-MakePaddingVerticalValue( size, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix = )
+MakePaddingVerticalValue( size, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}padding-vertical-{size}{unit_name}{suffix}
     {
-        padding-top: size * unit_value;
-        padding-bottom: size * unit_value;
+        padding-top: size * unit_value important;
+        padding-bottom: size * unit_value important;
     }
 
     for media_query_name in media_query_name_array
@@ -45,31 +45,31 @@ MakePaddingVerticalValue( size, unit_value, unit_name, media_query_name_array = 
         {
             .{prefix}padding-vertical-{size}{unit_name}-{media_query_name}{suffix}
             {
-                padding-top: size * unit_value;
-                padding-bottom: size * unit_value;
+                padding-top: size * unit_value important;
+                padding-bottom: size * unit_value important;
             }
         }
     }
 
 // ~~
 
-MakePaddingVerticalValueRange( start, step, count, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix = )
+MakePaddingVerticalValueRange( start, step, count, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix =, important = )
 
     for index in 0 .. count - 1
     {
         size = start + index * step;
 
-        MakePaddingVerticalValue( size, unit_value, unit_name, media_query_name_array, prefix, suffix );
+        MakePaddingVerticalValue( size, unit_value, unit_name, media_query_name_array, prefix, suffix, important );
     }
 
 // ~~
 
-MakePaddingLateralValue( size, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix = )
+MakePaddingLateralValue( size, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}padding-lateral-{size}{unit_name}{suffix}
     {
-        padding-left: size * unit_value;
-        padding-right: size * unit_value;
+        padding-left: size * unit_value important;
+        padding-right: size * unit_value important;
     }
 
     for media_query_name in media_query_name_array
@@ -78,30 +78,30 @@ MakePaddingLateralValue( size, unit_value, unit_name, media_query_name_array = {
         {
             .{prefix}padding-lateral-{size}{unit_name}-{media_query_name}{suffix}
             {
-                padding-left: size * unit_value;
-                padding-right: size * unit_value;
+                padding-left: size * unit_value important;
+                padding-right: size * unit_value important;
             }
         }
     }
 
 // ~~
 
-MakePaddingLateralValueRange( start, step, count, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix = )
+MakePaddingLateralValueRange( start, step, count, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix =, important = )
 
     for index in 0 .. count - 1
     {
         size = start + index * step;
 
-        MakePaddingLateralValue( size, unit_value, unit_name, media_query_name_array, prefix, suffix );
+        MakePaddingLateralValue( size, unit_value, unit_name, media_query_name_array, prefix, suffix, important );
     }
 
 // ~~
 
-MakePaddingTopValue( size, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix = )
+MakePaddingTopValue( size, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}padding-top-{size}{unit_name}{suffix}
     {
-        padding-top: size * unit_value;
+        padding-top: size * unit_value important;
     }
 
     for media_query_name in media_query_name_array
@@ -110,29 +110,29 @@ MakePaddingTopValue( size, unit_value, unit_name, media_query_name_array = {}, p
         {
             .{prefix}padding-top-{size}{unit_name}-{media_query_name}{suffix}
             {
-                padding-top: size * unit_value;
+                padding-top: size * unit_value important;
             }
         }
     }
 
 // ~~
 
-MakePaddingTopValueRange( start, step, count, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix = )
+MakePaddingTopValueRange( start, step, count, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix =, important = )
 
     for index in 0 .. count - 1
     {
         size = start + index * step;
 
-        MakePaddingTopValue( size, unit_value, unit_name, media_query_name_array, prefix, suffix );
+        MakePaddingTopValue( size, unit_value, unit_name, media_query_name_array, prefix, suffix, important );
     }
 
 // ~~
 
-MakePaddingBottomValue( size, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix = )
+MakePaddingBottomValue( size, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}padding-bottom-{size}{unit_name}{suffix}
     {
-        padding-bottom: size * unit_value;
+        padding-bottom: size * unit_value important;
     }
 
     for media_query_name in media_query_name_array
@@ -141,29 +141,29 @@ MakePaddingBottomValue( size, unit_value, unit_name, media_query_name_array = {}
         {
             .{prefix}padding-bottom-{size}{unit_name}-{media_query_name}{suffix}
             {
-                padding-bottom: size * unit_value;
+                padding-bottom: size * unit_value important;
             }
         }
     }
 
 // ~~
 
-MakePaddingBottomValueRange( start, step, count, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix = )
+MakePaddingBottomValueRange( start, step, count, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix =, important = )
 
     for index in 0 .. count - 1
     {
         size = start + index * step;
 
-        MakePaddingBottomValue( size, unit_value, unit_name, media_query_name_array, prefix, suffix );
+        MakePaddingBottomValue( size, unit_value, unit_name, media_query_name_array, prefix, suffix, important );
     }
 
 // ~~
 
-MakePaddingLeftValue( size, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix = )
+MakePaddingLeftValue( size, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}padding-left-{size}{unit_name}{suffix}
     {
-        padding-left: size * unit_value;
+        padding-left: size * unit_value important;
     }
 
     for media_query_name in media_query_name_array
@@ -172,29 +172,29 @@ MakePaddingLeftValue( size, unit_value, unit_name, media_query_name_array = {}, 
         {
             .{prefix}padding-left-{size}{unit_name}-{media_query_name}{suffix}
             {
-                padding-left: size * unit_value;
+                padding-left: size * unit_value important;
             }
         }
     }
 
 // ~~
 
-MakePaddingLeftValueRange( start, step, count, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix = )
+MakePaddingLeftValueRange( start, step, count, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix =, important = )
 
     for index in 0 .. count - 1
     {
         size = start + index * step;
 
-        MakePaddingLeftValue( size, unit_value, unit_name, media_query_name_array, prefix, suffix );
+        MakePaddingLeftValue( size, unit_value, unit_name, media_query_name_array, prefix, suffix, important );
     }
 
 // ~~
 
-MakePaddingRightValue( size, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix = )
+MakePaddingRightValue( size, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}padding-right-{size}{unit_name}{suffix}
     {
-        padding-right: size * unit_value;
+        padding-right: size * unit_value important;
     }
 
     for media_query_name in media_query_name_array
@@ -203,18 +203,18 @@ MakePaddingRightValue( size, unit_value, unit_name, media_query_name_array = {},
         {
             .{prefix}padding-right-{size}{unit_name}-{media_query_name}{suffix}
             {
-                padding-right: size * unit_value;
+                padding-right: size * unit_value important;
             }
         }
     }
 
 // ~~
 
-MakePaddingRightValueRange( start, step, count, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix = )
+MakePaddingRightValueRange( start, step, count, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix =, important = )
 
     for index in 0 .. count - 1
     {
         size = start + index * step;
 
-        MakePaddingRightValue( size, unit_value, unit_name, media_query_name_array, prefix, suffix );
+        MakePaddingRightValue( size, unit_value, unit_name, media_query_name_array, prefix, suffix, important );
     }

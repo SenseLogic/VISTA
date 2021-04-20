@@ -1,10 +1,10 @@
 // -- MIXINS
 
-MakeBackgroundOriginBorderBox( media_query_name_array = {}, prefix =, suffix = )
+MakeBackgroundOriginBorderBox( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}background-origin-border-box{suffix}
     {
-        background-origin: border-box;
+        background-origin: border-box important;
     }
 
     for media_query_name in media_query_name_array
@@ -13,18 +13,18 @@ MakeBackgroundOriginBorderBox( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}background-origin-border-box-{media_query_name}{suffix}
             {
-                background-origin: border-box;
+                background-origin: border-box important;
             }
         }
     }
 
 // ~~
 
-MakeBackgroundOriginPaddingBox( media_query_name_array = {}, prefix =, suffix = )
+MakeBackgroundOriginPaddingBox( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}background-origin-padding-box{suffix}
     {
-        background-origin: padding-box;
+        background-origin: padding-box important;
     }
 
     for media_query_name in media_query_name_array
@@ -33,18 +33,18 @@ MakeBackgroundOriginPaddingBox( media_query_name_array = {}, prefix =, suffix = 
         {
             .{prefix}background-origin-padding-box-{media_query_name}{suffix}
             {
-                background-origin: padding-box;
+                background-origin: padding-box important;
             }
         }
     }
 
 // ~~
 
-MakeBackgroundOriginContentBox( media_query_name_array = {}, prefix =, suffix = )
+MakeBackgroundOriginContentBox( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}background-origin-content-box{suffix}
     {
-        background-origin: content-box;
+        background-origin: content-box important;
     }
 
     for media_query_name in media_query_name_array
@@ -53,18 +53,18 @@ MakeBackgroundOriginContentBox( media_query_name_array = {}, prefix =, suffix = 
         {
             .{prefix}background-origin-content-box-{media_query_name}{suffix}
             {
-                background-origin: content-box;
+                background-origin: content-box important;
             }
         }
     }
 
 // ~~
 
-MakeBackgroundClipBorderBox( media_query_name_array = {}, prefix =, suffix = )
+MakeBackgroundClipBorderBox( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}background-origin-border-box{suffix}
     {
-        background-origin: border-box;
+        background-origin: border-box important;
     }
 
     for media_query_name in media_query_name_array
@@ -73,18 +73,18 @@ MakeBackgroundClipBorderBox( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}background-origin-border-box-{media_query_name}{suffix}
             {
-                background-origin: border-box;
+                background-origin: border-box important;
             }
         }
     }
 
 // ~~
 
-MakeBackgroundClipPaddingBox( media_query_name_array = {}, prefix =, suffix = )
+MakeBackgroundClipPaddingBox( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}background-origin-padding-box{suffix}
     {
-        background-origin: padding-box;
+        background-origin: padding-box important;
     }
 
     for media_query_name in media_query_name_array
@@ -93,18 +93,18 @@ MakeBackgroundClipPaddingBox( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}background-origin-padding-box-{media_query_name}{suffix}
             {
-                background-origin: padding-box;
+                background-origin: padding-box important;
             }
         }
     }
 
 // ~~
 
-MakeBackgroundClipContentBox( media_query_name_array = {}, prefix =, suffix = )
+MakeBackgroundClipContentBox( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}background-origin-content-box{suffix}
     {
-        background-origin: content-box;
+        background-origin: content-box important;
     }
 
     for media_query_name in media_query_name_array
@@ -113,18 +113,18 @@ MakeBackgroundClipContentBox( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}background-origin-content-box-{media_query_name}{suffix}
             {
-                background-origin: content-box;
+                background-origin: content-box important;
             }
         }
     }
 
 // ~~
 
-MakeBackgroundClipText( media_query_name_array = {}, prefix =, suffix = )
+MakeBackgroundClipText( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}background-origin-content-text{suffix}
     {
-        background-origin: content-text;
+        background-origin: content-text important;
     }
 
     for media_query_name in media_query_name_array
@@ -133,18 +133,18 @@ MakeBackgroundClipText( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}background-origin-content-text-{media_query_name}{suffix}
             {
-                background-origin: content-text;
+                background-origin: content-text important;
             }
         }
     }
 
 // ~~
 
-MakeBackgroundAttachmentLocal( media_query_name_array = {}, prefix =, suffix = )
+MakeBackgroundAttachmentLocal( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}background-attachment-local{suffix}
     {
-        background-attachment: local;
+        background-attachment: local important;
     }
 
     for media_query_name in media_query_name_array
@@ -153,18 +153,18 @@ MakeBackgroundAttachmentLocal( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}background-attachment-local-{media_query_name}{suffix}
             {
-                background-attachment: local;
+                background-attachment: local important;
             }
         }
     }
 
 // ~~
 
-MakeBackgroundAttachmentScroll( media_query_name_array = {}, prefix =, suffix = )
+MakeBackgroundAttachmentScroll( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}background-attachment-scroll{suffix}
     {
-        background-attachment: scroll;
+        background-attachment: scroll important;
     }
 
     for media_query_name in media_query_name_array
@@ -173,18 +173,18 @@ MakeBackgroundAttachmentScroll( media_query_name_array = {}, prefix =, suffix = 
         {
             .{prefix}background-attachment-scroll-{media_query_name}{suffix}
             {
-                background-attachment: scroll;
+                background-attachment: scroll important;
             }
         }
     }
 
 // ~~
 
-MakeBackgroundAttachmentFixed( media_query_name_array = {}, prefix =, suffix = )
+MakeBackgroundAttachmentFixed( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}background-attachment-fixed{suffix}
     {
-        background-attachment: fixed;
+        background-attachment: fixed important;
     }
 
     for media_query_name in media_query_name_array
@@ -193,18 +193,18 @@ MakeBackgroundAttachmentFixed( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}background-attachment-fixed-{media_query_name}{suffix}
             {
-                background-attachment: fixed;
+                background-attachment: fixed important;
             }
         }
     }
 
 // ~~
 
-MakeBackgroundPositionCenter( media_query_name_array = {}, prefix =, suffix = )
+MakeBackgroundPositionCenter( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}background-position-center{suffix}
     {
-        background-position: center;
+        background-position: center important;
     }
 
     for media_query_name in media_query_name_array
@@ -213,18 +213,18 @@ MakeBackgroundPositionCenter( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}background-position-center-{media_query_name}{suffix}
             {
-                background-position: center;
+                background-position: center important;
             }
         }
     }
 
 // ~~
 
-MakeBackgroundPositionTopLeft( media_query_name_array = {}, prefix =, suffix = )
+MakeBackgroundPositionTopLeft( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}background-position-top-left{suffix}
     {
-        background-position: top left;
+        background-position: top left important;
     }
 
     for media_query_name in media_query_name_array
@@ -233,18 +233,18 @@ MakeBackgroundPositionTopLeft( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}background-position-top-left-{media_query_name}{suffix}
             {
-                background-position: top left;
+                background-position: top left important;
             }
         }
     }
 
 // ~~
 
-MakeBackgroundPositionTopRight( media_query_name_array = {}, prefix =, suffix = )
+MakeBackgroundPositionTopRight( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}background-position-top-right{suffix}
     {
-        background-position: top right;
+        background-position: top right important;
     }
 
     for media_query_name in media_query_name_array
@@ -253,18 +253,18 @@ MakeBackgroundPositionTopRight( media_query_name_array = {}, prefix =, suffix = 
         {
             .{prefix}background-position-top-right-{media_query_name}{suffix}
             {
-                background-position: top right;
+                background-position: top right important;
             }
         }
     }
 
 // ~~
 
-MakeBackgroundPositionBottomLeft( media_query_name_array = {}, prefix =, suffix = )
+MakeBackgroundPositionBottomLeft( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}background-position-bottom-left{suffix}
     {
-        background-position: bottom left;
+        background-position: bottom left important;
     }
 
     for media_query_name in media_query_name_array
@@ -273,18 +273,18 @@ MakeBackgroundPositionBottomLeft( media_query_name_array = {}, prefix =, suffix 
         {
             .{prefix}background-position-bottom-left-{media_query_name}{suffix}
             {
-                background-position: bottom left;
+                background-position: bottom left important;
             }
         }
     }
 
 // ~~
 
-MakeBackgroundPositionBottomRight( media_query_name_array = {}, prefix =, suffix = )
+MakeBackgroundPositionBottomRight( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}background-position-bottom-right{suffix}
     {
-        background-position: bottom right;
+        background-position: bottom right important;
     }
 
     for media_query_name in media_query_name_array
@@ -293,18 +293,18 @@ MakeBackgroundPositionBottomRight( media_query_name_array = {}, prefix =, suffix
         {
             .{prefix}background-position-bottom-right-{media_query_name}{suffix}
             {
-                background-position: bottom right;
+                background-position: bottom right important;
             }
         }
     }
 
 // ~~
 
-MakeBackgroundSizeAuto( media_query_name_array = {}, prefix =, suffix = )
+MakeBackgroundSizeAuto( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}background-size-auto{suffix}
     {
-        background-size: auto;
+        background-size: auto important;
     }
 
     for media_query_name in media_query_name_array
@@ -313,18 +313,18 @@ MakeBackgroundSizeAuto( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}background-size-auto-{media_query_name}{suffix}
             {
-                background-size: auto;
+                background-size: auto important;
             }
         }
     }
 
 // ~~
 
-MakeBackgroundSizeContain( media_query_name_array = {}, prefix =, suffix = )
+MakeBackgroundSizeContain( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}background-size-contain{suffix}
     {
-        background-size: contain;
+        background-size: contain important;
     }
 
     for media_query_name in media_query_name_array
@@ -333,18 +333,18 @@ MakeBackgroundSizeContain( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}background-size-contain-{media_query_name}{suffix}
             {
-                background-size: contain;
+                background-size: contain important;
             }
         }
     }
 
 // ~~
 
-MakeBackgroundSizeCover( media_query_name_array = {}, prefix =, suffix = )
+MakeBackgroundSizeCover( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}background-size-cover{suffix}
     {
-        background-size: cover;
+        background-size: cover important;
     }
 
     for media_query_name in media_query_name_array
@@ -353,18 +353,18 @@ MakeBackgroundSizeCover( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}background-size-cover-{media_query_name}{suffix}
             {
-                background-size: cover;
+                background-size: cover important;
             }
         }
     }
 
 // ~~
 
-MakeBackgroundColorValue( name, value, media_query_name_array = {}, prefix =, suffix = )
+MakeBackgroundColorValue( name, value, media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}background-color-{name}{suffix}
     {
-        background-color: value;
+        background-color: value important;
     }
 
     for media_query_name in media_query_name_array
@@ -373,7 +373,7 @@ MakeBackgroundColorValue( name, value, media_query_name_array = {}, prefix =, su
         {
             .{prefix}background-color-{name}-{media_query_name}{suffix}
             {
-                background-color: value;
+                background-color: value important;
             }
         }
     }

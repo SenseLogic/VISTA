@@ -1,10 +1,10 @@
 // -- MIXINS
 
-MakeOverflowVisible( media_query_name_array = {}, prefix =, suffix = )
+MakeOverflowVisible( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}overflow-visible{suffix}
     {
-        overflow: visible;
+        overflow: visible important;
     }
 
     for media_query_name in media_query_name_array
@@ -13,18 +13,18 @@ MakeOverflowVisible( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}overflow-visible-{media_query_name}{suffix}
             {
-                overflow: visible;
+                overflow: visible important;
             }
         }
     }
 
 // ~~
 
-MakeOverflowHidden( media_query_name_array = {}, prefix =, suffix = )
+MakeOverflowHidden( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}overflow-hidden{suffix}
     {
-        overflow: hidden;
+        overflow: hidden important;
     }
 
     for media_query_name in media_query_name_array
@@ -33,18 +33,18 @@ MakeOverflowHidden( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}overflow-hidden-{media_query_name}{suffix}
             {
-                overflow: hidden;
+                overflow: hidden important;
             }
         }
     }
 
 // ~~
 
-MakeOverflowAuto( media_query_name_array = {}, prefix =, suffix = )
+MakeOverflowAuto( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}overflow-auto{suffix}
     {
-        overflow: auto;
+        overflow: auto important;
     }
 
     for media_query_name in media_query_name_array
@@ -53,18 +53,18 @@ MakeOverflowAuto( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}overflow-auto-{media_query_name}{suffix}
             {
-                overflow: auto;
+                overflow: auto important;
             }
         }
     }
 
 // ~~
 
-MakeOverflowYVisible( media_query_name_array = {}, prefix =, suffix = )
+MakeOverflowYVisible( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}overflow-y-visible{suffix}
     {
-        overflow-y: visible;
+        overflow-y: visible important;
     }
 
     for media_query_name in media_query_name_array
@@ -73,18 +73,18 @@ MakeOverflowYVisible( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}overflow-y-visible-{media_query_name}{suffix}
             {
-                overflow-y: visible;
+                overflow-y: visible important;
             }
         }
     }
 
 // ~~
 
-MakeOverflowYHidden( media_query_name_array = {}, prefix =, suffix = )
+MakeOverflowYHidden( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}overflow-y-hidden{suffix}
     {
-        overflow-y: hidden;
+        overflow-y: hidden important;
     }
 
     for media_query_name in media_query_name_array
@@ -93,18 +93,18 @@ MakeOverflowYHidden( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}overflow-y-hidden-{media_query_name}{suffix}
             {
-                overflow-y: hidden;
+                overflow-y: hidden important;
             }
         }
     }
 
 // ~~
 
-MakeOverflowYAuto( media_query_name_array = {}, prefix =, suffix = )
+MakeOverflowYAuto( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}overflow-y-auto{suffix}
     {
-        overflow-y: auto;
+        overflow-y: auto important;
     }
 
     for media_query_name in media_query_name_array
@@ -113,18 +113,18 @@ MakeOverflowYAuto( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}overflow-y-auto-{media_query_name}{suffix}
             {
-                overflow-y: auto;
+                overflow-y: auto important;
             }
         }
     }
 
 // ~~
 
-MakeOverflowXVisible( media_query_name_array = {}, prefix =, suffix = )
+MakeOverflowXVisible( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}overflow-x-visible{suffix}
     {
-        overflow-x: visible;
+        overflow-x: visible important;
     }
 
     for media_query_name in media_query_name_array
@@ -133,18 +133,18 @@ MakeOverflowXVisible( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}overflow-x-visible-{media_query_name}{suffix}
             {
-                overflow-x: visible;
+                overflow-x: visible important;
             }
         }
     }
 
 // ~~
 
-MakeOverflowXHidden( media_query_name_array = {}, prefix =, suffix = )
+MakeOverflowXHidden( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}overflow-x-hidden{suffix}
     {
-        overflow-x: hidden;
+        overflow-x: hidden important;
     }
 
     for media_query_name in media_query_name_array
@@ -153,18 +153,18 @@ MakeOverflowXHidden( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}overflow-x-hidden-{media_query_name}{suffix}
             {
-                overflow-x: hidden;
+                overflow-x: hidden important;
             }
         }
     }
 
 // ~~
 
-MakeOverflowXAuto( media_query_name_array = {}, prefix =, suffix = )
+MakeOverflowXAuto( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}overflow-x-auto{suffix}
     {
-        overflow-x: auto;
+        overflow-x: auto important;
     }
 
     for media_query_name in media_query_name_array
@@ -173,24 +173,24 @@ MakeOverflowXAuto( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}overflow-x-auto-{media_query_name}{suffix}
             {
-                overflow-x: auto;
+                overflow-x: auto important;
             }
         }
     }
 
 // ~~
 
-MakeOverflowScrollbarHidden( media_query_name_array = {}, prefix =, suffix = )
+MakeOverflowScrollbarHidden( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}overflow-scrollbar-hidden{suffix}
     {
-        -ms-overflow-style: none;
-        scrollbar-width: none;
+        -ms-overflow-style: none important;
+        scrollbar-width: none important;
     }
 
     .{prefix}overflow-scrollbar-hidden{suffix}::-webkit-scrollbar
     {
-        display: none;
+        display: none important;
     }
 
     for media_query_name in media_query_name_array
@@ -199,26 +199,26 @@ MakeOverflowScrollbarHidden( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}overflow-scrollbar-hidden-{media_query_name}{suffix}
             {
-                -ms-overflow-style: none;
-                scrollbar-width: none;
+                -ms-overflow-style: none important;
+                scrollbar-width: none important;
             }
 
             .{prefix}overflow-scrollbar-hidden-{media_query_name}{suffix}::-webkit-scrollbar
             {
-                display: none;
+                display: none important;
             }
         }
     }
 
 // ~~
 
-MakeOverflowTiny( media_query_name_array = {}, prefix =, suffix = )
+MakeOverflowTiny( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}overflow-tiny{suffix}
     {
-        overflow: hidden;
-        height: 0;
-        width: 0;
+        overflow: hidden important;
+        height: 0 important;
+        width: 0 important;
     }
 
     for media_query_name in media_query_name_array
@@ -227,9 +227,9 @@ MakeOverflowTiny( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}overflow-tiny-{media_query_name}{suffix}
             {
-                overflow: hidden;
-                height: 0;
-                width: 0;
+                overflow: hidden important;
+                height: 0 important;
+                width: 0 important;
             }
         }
     }

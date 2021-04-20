@@ -1,10 +1,10 @@
 // -- MIXINS
 
-MakeListStyleTypeNone( media_query_name_array = {}, prefix =, suffix = )
+MakeListStyleTypeNone( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}list-style-type-none{suffix}
     {
-        list-style-type: none;
+        list-style-type: none important;
     }
 
     for media_query_name in media_query_name_array
@@ -13,18 +13,18 @@ MakeListStyleTypeNone( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}list-style-type-none-{media_query_name}{suffix}
             {
-                list-style-type: none;
+                list-style-type: none important;
             }
         }
     }
 
 // ~~
 
-MakeListStyleTypeDisc( media_query_name_array = {}, prefix =, suffix = )
+MakeListStyleTypeDisc( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}list-style-type-disc{suffix}
     {
-        list-style-type: disc;
+        list-style-type: disc important;
     }
 
     for media_query_name in media_query_name_array
@@ -33,18 +33,18 @@ MakeListStyleTypeDisc( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}list-style-type-disc-{media_query_name}{suffix}
             {
-                list-style-type: disc;
+                list-style-type: disc important;
             }
         }
     }
 
 // ~~
 
-MakeListStyleTypeCircle( media_query_name_array = {}, prefix =, suffix = )
+MakeListStyleTypeCircle( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}list-style-type-circle{suffix}
     {
-        list-style-type: circle;
+        list-style-type: circle important;
     }
 
     for media_query_name in media_query_name_array
@@ -53,18 +53,18 @@ MakeListStyleTypeCircle( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}list-style-type-circle-{media_query_name}{suffix}
             {
-                list-style-type: circle;
+                list-style-type: circle important;
             }
         }
     }
 
 // ~~
 
-MakeListStyleTypeSquare( media_query_name_array = {}, prefix =, suffix = )
+MakeListStyleTypeSquare( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}list-style-type-square{suffix}
     {
-        list-style-type: square;
+        list-style-type: square important;
     }
 
     for media_query_name in media_query_name_array
@@ -73,18 +73,18 @@ MakeListStyleTypeSquare( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}list-style-type-square-{media_query_name}{suffix}
             {
-                list-style-type: square;
+                list-style-type: square important;
             }
         }
     }
 
 // ~~
 
-MakeListStyleTypeDecimal( media_query_name_array = {}, prefix =, suffix = )
+MakeListStyleTypeDecimal( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}list-style-type-decimal{suffix}
     {
-        list-style-type: decimal;
+        list-style-type: decimal important;
     }
 
     for media_query_name in media_query_name_array
@@ -93,18 +93,18 @@ MakeListStyleTypeDecimal( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}list-style-type-decimal-{media_query_name}{suffix}
             {
-                list-style-type: decimal;
+                list-style-type: decimal important;
             }
         }
     }
 
 // ~~
 
-MakeListStylePositionInside( media_query_name_array = {}, prefix =, suffix = )
+MakeListStylePositionInside( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}list-style-position-inside{suffix}
     {
-        list-style-position: inside;
+        list-style-position: inside important;
     }
 
     for media_query_name in media_query_name_array
@@ -113,18 +113,18 @@ MakeListStylePositionInside( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}list-style-position-inside-{media_query_name}{suffix}
             {
-                list-style-position: inside;
+                list-style-position: inside important;
             }
         }
     }
 
 // ~~
 
-MakeListStylePositionOutside( media_query_name_array = {}, prefix =, suffix = )
+MakeListStylePositionOutside( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}list-style-position-outside{suffix}
     {
-        list-style-position: outside;
+        list-style-position: outside important;
     }
 
     for media_query_name in media_query_name_array
@@ -133,7 +133,7 @@ MakeListStylePositionOutside( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}list-style-position-outside-{media_query_name}{suffix}
             {
-                list-style-position: outside;
+                list-style-position: outside important;
             }
         }
     }

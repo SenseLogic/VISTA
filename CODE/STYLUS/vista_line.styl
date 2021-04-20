@@ -1,10 +1,10 @@
 // -- MIXINS
 
-MakeLineHeightValue( size, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix = )
+MakeLineHeightValue( size, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}line-height-{size}{unit_name}{suffix}
     {
-        line-height: size * unit_value;
+        line-height: size * unit_value important;
     }
 
     for media_query_name in media_query_name_array
@@ -13,18 +13,18 @@ MakeLineHeightValue( size, unit_value, unit_name, media_query_name_array = {}, p
         {
             .{prefix}line-height-{size}{unit_name}-{media_query_name}{suffix}
             {
-                line-height: size * unit_value;
+                line-height: size * unit_value important;
             }
         }
     }
 
 // ~~
 
-MakeLineHeightValueRange( start, step, count, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix = )
+MakeLineHeightValueRange( start, step, count, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix =, important = )
 
     for index in 0 .. count - 1
     {
         size = start + index * step;
 
-        MakeLineHeightValue( size, unit_value, unit_name, media_query_name_array, prefix, suffix );
+        MakeLineHeightValue( size, unit_value, unit_name, media_query_name_array, prefix, suffix, important );
     }
