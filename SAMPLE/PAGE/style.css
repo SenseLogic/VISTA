@@ -3,20 +3,24 @@
 *::before,
 *::after {
   box-sizing: border-box;
+  margin: 0;
+  outline: 0 none;
+  border: 0 none;
+  padding: 0;
 }
 body {
   margin: 0;
+  line-height: 1.5;
   font-family: sans-serif;
   font-size: 1rem;
   font-weight: 400;
-  line-height: 1.5;
   -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 hr {
   margin: 1rem 0;
-  color: inherit;
   border: 0;
   opacity: 0.25;
+  color: inherit;
 }
 hr:not([size]) {
   height: 1px;
@@ -29,8 +33,8 @@ h5,
 h6 {
   margin-top: 0;
   margin-bottom: 0.5rem;
-  font-weight: 500;
   line-height: 1.2;
+  font-weight: 500;
 }
 h1 {
   font-size: 2.5rem;
@@ -65,8 +69,8 @@ abbr[data-original-title] {
 }
 address {
   margin-bottom: 1rem;
-  font-style: normal;
   line-height: inherit;
+  font-style: normal;
 }
 ol,
 ul {
@@ -104,8 +108,8 @@ small {
 sub,
 sup {
   position: relative;
-  font-size: 0.75em;
   line-height: 0;
+  font-size: 0.75em;
   vertical-align: baseline;
 }
 sub {
@@ -122,8 +126,8 @@ a:hover {
 }
 a:not([href]),
 a:not([href]):hover {
-  color: inherit;
   text-decoration: none;
+  color: inherit;
 }
 pre,
 code,
@@ -132,16 +136,16 @@ samp {
   font-size: 1em;
 }
 pre {
-  display: block;
+  overflow: auto;
   margin-top: 0;
   margin-bottom: 1rem;
-  overflow: auto;
+  display: block;
   font-size: 0.875em;
 }
 pre code {
   font-size: inherit;
-  color: inherit;
   word-break: normal;
+  color: inherit;
 }
 code {
   font-size: 0.875em;
@@ -151,9 +155,9 @@ a > code {
   color: inherit;
 }
 kbd {
+  border-radius: 0.2rem;
   padding: 0.2rem 0.4rem;
   font-size: 0.875em;
-  border-radius: 0.2rem;
 }
 kbd kbd {
   padding: 0;
@@ -176,15 +180,15 @@ table {
 caption {
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
-  text-align: left;
   caption-side: bottom;
+  text-align: left;
 }
 th {
   text-align: inherit;
 }
 label {
-  display: inline-block;
   margin-bottom: 0.5rem;
+  display: inline-block;
 }
 button {
   border-radius: 0;
@@ -195,9 +199,9 @@ select,
 optgroup,
 textarea {
   margin: 0;
+  line-height: inherit;
   font-family: inherit;
   font-size: inherit;
-  line-height: inherit;
 }
 button,
 input {
@@ -226,8 +230,8 @@ button:not(:disabled),
   cursor: pointer;
 }
 ::-moz-focus-inner {
-  padding: 0;
   border-style: none;
+  padding: 0;
 }
 input[type="date"],
 input[type="time"],
@@ -240,20 +244,20 @@ textarea {
   resize: vertical;
 }
 fieldset {
-  min-width: 0;
-  padding: 0;
   margin: 0;
+  min-width: 0;
   border: 0;
+  padding: 0;
 }
 legend {
-  float: left;
+  margin-bottom: 0.5rem;
   width: 100%;
   padding: 0;
-  margin-bottom: 0.5rem;
-  font-size: 1.5rem;
+  float: left;
   line-height: inherit;
-  color: inherit;
+  font-size: 1.5rem;
   white-space: normal;
+  color: inherit;
 }
 mark {
   padding: 0.2em;
@@ -295,8 +299,8 @@ main {
   display: none !important;
 }
 select:-moz-focusring {
-  color: transparent;
   text-shadow: 0 0 0 #000;
+  color: transparent;
 }
 select {
   background: transparent;
@@ -313,16 +317,6 @@ a:hover {
 }
 .display-flex {
   display: flex;
-}
-.container-extended {
-  width: 100%;
-  margin-right: auto;
-  margin-left: auto;
-}
-.container-centered {
-  max-width: 60rem;
-  margin-left: auto;
-  margin-right: auto;
 }
 .flex-direction-row {
   flex-direction: row;
@@ -371,12 +365,6 @@ a:hover {
 }
 .background-color-white {
   background-color: #fff;
-}
-.text-color-black {
-  color: #000;
-}
-.text-color-white {
-  color: #fff;
 }
 html {
   background: #fff;

@@ -4,7 +4,7 @@ SetRootFontSize( font_size, font_size_array, media_query_name_array )
 
     html
     {
-        font-size: font_size important;
+        font-size: font_size;
     }
 
     for media_query_name, media_query_name_index in media_query_name_array
@@ -13,7 +13,7 @@ SetRootFontSize( font_size, font_size_array, media_query_name_array )
         {
             html
             {
-                font-size: font_size_array[ media_query_name_index ] important;
+                font-size: font_size_array[ media_query_name_index ];
             }
         }
     }
