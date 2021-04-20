@@ -1,7 +1,26 @@
+// -- IMPORTS
+
 @require "../CODE/STYLUS/vista_reset.styl"
 @require "../CODE/STYLUS/vista.styl"
 
-// ~~
+// -- CONSTANTS
+
+BlackColor = #000000;
+DarkestGrayColor = #202020;
+DarkerGrayColor = #404040;
+DarkGrayColor = #808080;
+GrayColor = #A0A0A0;
+LightGrayColor = #C0C0C0;
+LighterGrayColor = #F0F0F0;
+LightestGrayColor = #F8F8F8;
+WhiteColor = #FFFFFF;
+RedColor = #FF0000;
+GreenColor = #00FF00;
+BlueColor = #0000FF;
+
+MediaQueryNameList = above-20em, above-30em, above-40em, above-60em, above-80em;
+
+// -- ELEMENTS
 
 +Media( below-20em above-40em )
 {
@@ -11,9 +30,74 @@
     }
 }
 
-// ~~
+// -- CLASSES
 
-MediaQueryNameList = above-20em, above-30em, above-40em, above-60em, above-80em;
+MakeExtendedContainer();
+MakeMarginedContainer( 20px, 40px 80px 120px 160px 200px, above-40em above-60em above-80em above-100em above-120em, "large-" );
+MakeMarginedContainer( 20px, 80px 120px 160px 200px 240px, above-40em above-60em above-80em above-100em above-120em, "narrow-" );
+MakePaddedContainer( 20px, 40px 80px 120px 160px 200px, above-40em above-60em above-80em above-100em above-120em, "large-" );
+MakePaddedContainer( 20px, 80px 120px 160px 200px 240px, above-40em above-60em above-80em above-100em above-120em, "narrow-" );
+MakeMarginLateralValue( 8, 1px, "px" );
+MakeMarginLateralValue( 16, 1px, "px" );
+MakeMarginVerticalValue( 8, 1px, "px" );
+MakeMarginVerticalValue( 16, 1px, "px" );
+MakeHeightAuto();
+MakeHeightValue( 100, 1%, "\%" );
+MakeHeightAuto();
+MakeMinHeightValue( 100, 1vh, "vh" );
+MakeWidthValue( 100, 1%, "\%" );
+MakeFractionalWidthValueRange( 12 );
+MakePaddingLateralValue( 8, 1px, "px" );
+MakePaddingLateralValue( 16, 1px, "px" );
+MakePaddingVerticalValue( 8, 1px, "px" );
+MakePaddingVerticalValue( 16, 1px, "px" );
+
+MakeDisplayNone();
+MakeDisplayFlex();
+MakeDisplayHidden();
+MakeFlexDirectionRow();
+MakeFlexDirectionColumn();
+MakeFlexGrowValue( 1 );
+MakeJustifyContentStart();
+MakeJustifyContentCenter();
+MakeJustifyContentSpaceBetween();
+MakeJustifyContentEnd();
+MakeAlignItemsStart();
+MakeAlignItemsCenter();
+MakeAlignItemsEnd();
+MakeObjectFitCover();
+
+MakeBackgroundColorValue( "black", BlackColor );
+MakeBackgroundColorValue( "darkest-gray", DarkestGrayColor );
+MakeBackgroundColorValue( "darker-gray", DarkerGrayColor );
+MakeBackgroundColorValue( "dark-gray", DarkGrayColor );
+MakeBackgroundColorValue( "gray", GrayColor );
+MakeBackgroundColorValue( "light-gray", LightGrayColor );
+MakeBackgroundColorValue( "lighter-gray", LighterGrayColor );
+MakeBackgroundColorValue( "lightest-gray", LightestGrayColor );
+MakeBackgroundColorValue( "white", WhiteColor );
+MakeBackgroundColorValue( "red", RedColor );
+MakeBackgroundColorValue( "green", GreenColor );
+MakeBackgroundColorValue( "blue", BlueColor );
+
+SetRootFontSize( 1rem, 1.1rem 1.2rem 1.3rem 1.4rem, above-90em above-100em above-110em above-120em );
+MakeFontSizeValue( 12, 1px, "px" );
+MakeFontSizeValue( 16, 1px, "px" );
+MakeFontSizeValue( 20, 1px, "px" );
+MakeFontSizeValue( 24, 1px, "px" );
+MakeFontWeightValueRange( 100, 100, 9 );
+MakeColorValue( "black", BlackColor );
+MakeColorValue( "darkest-gray", DarkestGrayColor );
+MakeColorValue( "darker-gray", DarkerGrayColor );
+MakeColorValue( "dark-gray", DarkGrayColor );
+MakeColorValue( "gray", GrayColor );
+MakeColorValue( "light-gray", LightGrayColor );
+MakeColorValue( "lighter-gray", LighterGrayColor );
+MakeColorValue( "lightest-gray", LightestGrayColor );
+MakeColorValue( "white", WhiteColor );
+MakeColorValue( "red", RedColor );
+MakeColorValue( "green", GreenColor );
+MakeColorValue( "blue", BlueColor );
 
 // ~~
 
@@ -23,44 +107,44 @@ MakeMarginedContainer( 1rem, 2rem 3rem 4rem 5rem 6rem, MediaQueryNameList, "test
 MakePaddedContainer( 1rem, 2rem 3rem 4rem 5rem 6rem, MediaQueryNameList, "test-" );
 MakeMarginAuto( MediaQueryNameList );
 MakeMarginLateralAuto( MediaQueryNameList );
-MakeMarginLateralValueRange( 10, 10, 5, Pxm, "pxm", MediaQueryNameList );
+MakeMarginLateralValueRange( 10, 10, 5, 1px, "px", MediaQueryNameList );
 MakeMarginVerticalAuto( MediaQueryNameList );
-MakeMarginVerticalValueRange( 10, 10, 5, Pxm, "pxm", MediaQueryNameList );
+MakeMarginVerticalValueRange( 10, 10, 5, 1px, "px", MediaQueryNameList );
 MakeMarginLeftAuto( MediaQueryNameList );
-MakeMarginLeftValueRange( 10, 10, 5, Pxm, "pxm", MediaQueryNameList );
+MakeMarginLeftValueRange( 10, 10, 5, 1px, "px", MediaQueryNameList );
 MakeMarginRightAuto( MediaQueryNameList );
-MakeMarginRightValueRange( 10, 10, 5, Pxm, "pxm", MediaQueryNameList );
+MakeMarginRightValueRange( 10, 10, 5, 1px, "px", MediaQueryNameList );
 MakeMarginTopAuto( MediaQueryNameList );
-MakeMarginTopValueRange( 10, 10, 5, Pxm, "pxm", MediaQueryNameList );
+MakeMarginTopValueRange( 10, 10, 5, 1px, "px", MediaQueryNameList );
 MakeMarginBottomAuto( MediaQueryNameList );
-MakeMarginBottomValueRange( 10, 10, 5, Pxm, "pxm", MediaQueryNameList );
+MakeMarginBottomValueRange( 10, 10, 5, 1px, "px", MediaQueryNameList );
 MakeFractionalMarginLeftValueRange( 12, 12, MediaQueryNameList );
 MakeFractionalMarginRightRange( 12, 12, MediaQueryNameList );
 
 MakeHeightAuto( MediaQueryNameList );
-MakeHeightValueRange( 10, 10, 5, Pxm, "pxm", MediaQueryNameList );
-MakeMinHeightValueRange( 10, 10, 5, Pxm, "pxm", MediaQueryNameList );
-MakeMaxHeightValueRange( 10, 10, 5, Pxm, "pxm", MediaQueryNameList );
+MakeHeightValueRange( 10, 10, 5, 1px, "px", MediaQueryNameList );
+MakeMinHeightValueRange( 10, 10, 5, 1px, "px", MediaQueryNameList );
+MakeMaxHeightValueRange( 10, 10, 5, 1px, "px", MediaQueryNameList );
 MakeFractionalHeightValueRange( 12, MediaQueryNameList );
 MakeMinFractionalHeightValueRange( 12, MediaQueryNameList );
 MakeMaxFractionalHeightValueRange( 12, MediaQueryNameList );
 MakeGridHeightValueRange( 12, 100%, 2%, "col", MediaQueryNameList );
 MakeWidthAuto( MediaQueryNameList );
-MakeWidthValueRange( 10, 10, 5, Pxm, "pxm", MediaQueryNameList );
-MakeMinWidthValueRange( 10, 10, 5, Pxm, "pxm", MediaQueryNameList );
-MakeMaxWidthValueRange( 10, 10, 5, Pxm, "pxm", MediaQueryNameList );
+MakeWidthValueRange( 10, 10, 5, 1px, "px", MediaQueryNameList );
+MakeMinWidthValueRange( 10, 10, 5, 1px, "px", MediaQueryNameList );
+MakeMaxWidthValueRange( 10, 10, 5, 1px, "px", MediaQueryNameList );
 MakeFractionalWidthValueRange( 12, MediaQueryNameList );
 MakeMinFractionalWidthValueRange( 12, MediaQueryNameList );
 MakeMaxFractionalWidthValueRange( 12, MediaQueryNameList );
 MakeGridWidthValueRange( 12, 100%, 2%, "col", MediaQueryNameList );
-MakePaddingValueRange( 10, 10, 5, Pxm, "pxm", MediaQueryNameList );
-MakePaddingLateralValueRange( 10, 10, 5, Pxm, "pxm", MediaQueryNameList );
-MakePaddingVerticalValueRange( 10, 10, 5, Pxm, "pxm", MediaQueryNameList );
-MakePaddingLeftValueRange( 10, 10, 5, Pxm, "pxm", MediaQueryNameList );
-MakePaddingRightValueRange( 10, 10, 5, Pxm, "pxm", MediaQueryNameList );
-MakePaddingTopValueRange( 10, 10, 5, Pxm, "pxm", MediaQueryNameList );
-MakePaddingBottomValueRange( 10, 10, 5, Pxm, "pxm", MediaQueryNameList );
-MakeGutterValueRange( 10, 10, 5, Pxm, "pxm", MediaQueryNameList );
+MakePaddingValueRange( 10, 10, 5, 1px, "px", MediaQueryNameList );
+MakePaddingLateralValueRange( 10, 10, 5, 1px, "px", MediaQueryNameList );
+MakePaddingVerticalValueRange( 10, 10, 5, 1px, "px", MediaQueryNameList );
+MakePaddingLeftValueRange( 10, 10, 5, 1px, "px", MediaQueryNameList );
+MakePaddingRightValueRange( 10, 10, 5, 1px, "px", MediaQueryNameList );
+MakePaddingTopValueRange( 10, 10, 5, 1px, "px", MediaQueryNameList );
+MakePaddingBottomValueRange( 10, 10, 5, 1px, "px", MediaQueryNameList );
+MakeGutterValueRange( 10, 10, 5, 1px, "px", MediaQueryNameList );
 
 MakeDisplayNone( MediaQueryNameList );
 MakeDisplayNone( MediaQueryNameList, , -important, !important );
@@ -70,8 +154,8 @@ MakeFlexShrinkValueRange( 0, 1, 12, 1, "", MediaQueryNameList );
 MakeFlexGrowValueRange( 0, 1, 12, 1, "", MediaQueryNameList );
 
 MakeLineHeightValueRange( 0.5, 0.5, 4, 1, "", MediaQueryNameList );
-MakeLineHeightValueRange( 10, 10, 5, Pxm, "pxm", MediaQueryNameList );
-MakeFontSizeValueRange( 10, 10, 5, Pxm, "pxm", MediaQueryNameList );
+MakeLineHeightValueRange( 10, 10, 5, 1px, "px", MediaQueryNameList );
+MakeFontSizeValueRange( 10, 10, 5, 1px, "px", MediaQueryNameList );
 MakeFontWeightValueRange( 100, 100, 9, MediaQueryNameList );
 MakeTextAlignCenter( MediaQueryNameList );
 MakeTextTransformUppercase( MediaQueryNameList );

@@ -27,9 +27,28 @@ function ReplaceUrl(
 // ~~
 
 function GetRoute(
+    removed_prefix = undefined,
+    removed_suffix = undefined
     )
 {
-    return window.location.pathname;
+    var
+        route;
+
+    route = window.location.pathname;
+
+    if ( removed_prefix !== undefined
+         && route.startsWith( removed_prefix ) )
+    {
+        route = route.substring( removed_prefix.length );
+    }
+
+    if ( removed_suffix !== undefined
+         && route.endsWith( removed_suffix ) )
+    {
+        route = route.substring( 0, route.length - removed_suffix.length );
+    }
+
+    return route;
 }
 
 // ~~
@@ -41,6 +60,42 @@ function SetRoute(
     if ( window.location.pathname !== route )
     {
         window.history.pushState( "", "", route );
+    }
+}
+
+// ~~
+
+function GetHash(
+    )
+{
+    return window.location.hash;
+}
+
+// ~~
+
+function HandleRouteEvent(
+    called_function
+    )
+{
+    window.onpopstate = function(
+        event
+        )
+    {
+        called_function();
+    }
+}
+
+// ~~
+
+function HandleResizeEvent(
+    called_function
+    )
+{
+    window.onresize = function(
+        event
+        )
+    {
+        called_function();
     }
 }
 
