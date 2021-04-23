@@ -18,25 +18,47 @@ RedColor = #FF0000;
 GreenColor = #00FF00;
 BlueColor = #0000FF;
 
-MediaQueryNameList = above-20em, above-30em, above-40em, above-60em, above-80em;
+MediaQueryNameList = min-width-20em, min-width-30em, min-width-40em, min-width-60em, min-width-80em;
 
 // -- ELEMENTS
 
-+Media( below-20em above-40em )
+html
 {
-    html
+    background-color: #000000;
+
+    +Media( min-width-20em )
     {
-        background-color: #FFFF00;
+        background-color: #FFFFFF;
+    }
+
+    +Media( max-width-20em, min-width-40em )
+    {
+        background-color: #FF0000;
+    }
+
+    +Media( "max-width-20em || min-width-40em" )
+    {
+        background-color: #FF0000;
+    }
+
+    +Media( "max-height-40em && max-width-20em", "min-height-20em && min-width-40em" )
+    {
+        background-color: #00FF00;
+    }
+
+    +Media( "max-height-40em && max-width-20em || min-height-20em && min-width-40em" )
+    {
+        background-color: #0000FF;
     }
 }
 
 // -- CLASSES
-
+/*
 MakeExtendedContainer();
-MakeMarginedContainer( 20px, 40px 80px 120px 160px 200px, above-40em above-60em above-80em above-100em above-120em, "large-" );
-MakeMarginedContainer( 20px, 80px 120px 160px 200px 240px, above-40em above-60em above-80em above-100em above-120em, "narrow-" );
-MakePaddedContainer( 20px, 40px 80px 120px 160px 200px, above-40em above-60em above-80em above-100em above-120em, "large-" );
-MakePaddedContainer( 20px, 80px 120px 160px 200px 240px, above-40em above-60em above-80em above-100em above-120em, "narrow-" );
+MakeMarginedContainer( 20px, 40px 80px 120px 160px 200px, min-width-40em min-width-60em min-width-80em min-width-100em min-width-120em, "large-" );
+MakeMarginedContainer( 20px, 80px 120px 160px 200px 240px, min-width-40em min-width-60em min-width-80em min-width-100em min-width-120em, "narrow-" );
+MakePaddedContainer( 20px, 40px 80px 120px 160px 200px, min-width-40em min-width-60em min-width-80em min-width-100em min-width-120em, "large-" );
+MakePaddedContainer( 20px, 80px 120px 160px 200px 240px, min-width-40em min-width-60em min-width-80em min-width-100em min-width-120em, "narrow-" );
 MakeMarginLateralValue( 8, 1px, "px" );
 MakeMarginLateralValue( 16, 1px, "px" );
 MakeMarginVerticalValue( 8, 1px, "px" );
@@ -80,7 +102,7 @@ MakeBackgroundColorValue( "red", RedColor );
 MakeBackgroundColorValue( "green", GreenColor );
 MakeBackgroundColorValue( "blue", BlueColor );
 
-SetRootFontSize( 1rem, 1.1rem 1.2rem 1.3rem 1.4rem, above-90em above-100em above-110em above-120em );
+SetRootFontSize( 1rem, 1.1rem 1.2rem 1.3rem 1.4rem, min-width-90em min-width-100em min-width-110em min-width-120em );
 MakeFontSizeValue( 12, 1px, "px" );
 MakeFontSizeValue( 16, 1px, "px" );
 MakeFontSizeValue( 20, 1px, "px" );
@@ -171,3 +193,4 @@ MakeCarouselSlideValue( 4 );
 MakeCarouselSlideValue( 5 );
 MakeCarouselSlideValue( 6 );
 MakeParallax( MediaQueryNameList );
+*/

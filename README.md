@@ -64,6 +64,40 @@ Minimalistic front-end framework.
 
 ## Samples
 
+### Media queries
+
+```css
+html
+{
+    background-color: #000000;
+
+    +Media( min-width-20em )
+    {
+        background-color: #FFFFFF;
+    }
+
+    +Media( max-width-20em, min-width-40em )
+    {
+        background-color: #FF0000;
+    }
+
+    +Media( "max-width-20em || min-width-40em" )
+    {
+        background-color: #FF0000;
+    }
+
+    +Media( "max-height-40em && max-width-20em", "min-height-20em && min-width-40em" )
+    {
+        background-color: #00FF00;
+    }
+
+    +Media( "max-height-40em && max-width-20em || min-height-20em && min-width-40em" )
+    {
+        background-color: #0000FF;
+    }
+}
+```
+
 ### Traversals, manipulations and animations
 
 ```html
