@@ -103,7 +103,7 @@ Media()
 
     media_query_expression_array = arguments
     media_query_text_array = ();
-    
+
     for media_query_expression in media_query_expression_array
     {
         media_query_part_array = ();
@@ -120,10 +120,10 @@ Media()
                 push( media_query_part_array, media_query_name );
             }
         }
-        
+
         push( media_query_text_array, join( " ", media_query_part_array ) );
     }
-    
+
     media_query_text = join( ", ", media_query_text_array );
 
     @media media_query_text
