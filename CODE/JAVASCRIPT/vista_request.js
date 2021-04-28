@@ -1,4 +1,45 @@
+// -- VARIABLES
+
+var
+    RequestsAreShown = ( window.location.hostname === "localhost" );
+
 // -- FUNCTIONS
+
+function HideRequests(
+    )
+{
+    RequestsAreShown = false;
+}
+
+// ~~
+
+function ShowRequests(
+    )
+{
+    RequestsAreShown = true;
+}
+
+// ~~
+
+function ShowRequest(
+    request
+    )
+{
+    if ( RequestsAreShown )
+    {
+        Print( request.status );
+        Print( GetJsonText( request.response ) );
+
+        if ( ErrorsAreShown
+             && IsString( request.response )
+             && request.response.startsWith( "<" ) )
+        {
+            PrintError( request.response );
+        }
+    }
+}
+
+// ~~
 
 function SetRequestHeaders(
     request,
@@ -34,6 +75,14 @@ function SendRequest(
 
     request = new XMLHttpRequest();
 
+    if ( RequestsAreShown )
+    {
+        Print( request_url );
+        Print( request_method );
+        Print( GetJsonText( request_body ) );
+        Print( GetJsonText( request_header_map ) );
+    }
+
     return new Promise(
         function (
             resolve,
@@ -46,6 +95,11 @@ function SendRequest(
                   {
                       if ( request.readyState == 4 )
                       {
+                          if ( RequestsAreShown )
+                          {
+                              ShowRequest( request );
+                          }
+
                           if ( request.status >= 300 )
                           {
                               PrintError( request_method + " " + request_url, request );
@@ -80,6 +134,14 @@ function SendTextRequest(
 
     request = new XMLHttpRequest();
 
+    if ( RequestsAreShown )
+    {
+        Print( request_url );
+        Print( request_method );
+        Print( GetJsonText( request_body ) );
+        Print( GetJsonText( request_header_map ) );
+    }
+
     return new Promise(
         function (
             resolve,
@@ -92,6 +154,11 @@ function SendTextRequest(
                   {
                       if ( request.readyState == 4 )
                       {
+                          if ( RequestsAreShown )
+                          {
+                              ShowRequest( request );
+                          }
+
                           if ( request.status >= 300 )
                           {
                               PrintError( request_method + " " + request_url, request );
@@ -127,6 +194,14 @@ function SendJsonRequest(
 
     request = new XMLHttpRequest();
 
+    if ( RequestsAreShown )
+    {
+        Print( request_url );
+        Print( request_method );
+        Print( GetJsonText( request_object ) );
+        Print( GetJsonText( request_header_map ) );
+    }
+
     return new Promise(
         function (
             resolve,
@@ -139,6 +214,11 @@ function SendJsonRequest(
                   {
                       if ( request.readyState == 4 )
                       {
+                          if ( RequestsAreShown )
+                          {
+                              ShowRequest( request );
+                          }
+
                           if ( request.response === null
                                || request.response === "" )
                           {

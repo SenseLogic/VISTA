@@ -26,6 +26,14 @@ function ReplaceUrl(
 
 // ~~
 
+function GetServerName(
+    )
+{
+    return window.location.hostname;
+}
+
+// ~~
+
 function GetRoute(
     removed_prefix = undefined,
     removed_suffix = undefined

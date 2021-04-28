@@ -9,7 +9,7 @@ const
 // -- VARIABLES
 
 var
-    ErrorsAreShown = false;
+    ErrorsAreShown = ( window.location.hostname === "localhost" );
 
 // -- FUNCTIONS
 

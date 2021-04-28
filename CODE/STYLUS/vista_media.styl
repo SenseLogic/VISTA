@@ -89,6 +89,8 @@ MediaQueryMap = {
     min-width-115em: "(min-width: 115em)",
     min-width-120em: "(min-width: 120em)",
     min-width-125em: "(min-width: 125em)",
+    orientation-landscape: "(orientation: landscape)",
+    orientation-portrait: "(orientation: portrait)",
     screen: "screen",
     print: "print",
     "!": "not",
@@ -121,7 +123,8 @@ Media()
             }
         }
 
-        push( media_query_text_array, join( " ", media_query_part_array ) );
+        media_query_text = join( " ", media_query_part_array );
+        push( media_query_text_array, media_query_text );
     }
 
     media_query_text = join( ", ", media_query_text_array );
