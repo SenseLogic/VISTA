@@ -1,4 +1,28 @@
+// -- VARIABLES
+
+var
+    GoogleAnalyticsTrackingId = "",
+    GoogleAnalyticsTrackingIsEnabled = false;
+
 // -- FUNCTIONS
+
+function TrackRoute(
+    )
+{
+    if ( GoogleAnalyticsTrackingIsEnabled )
+    {
+        gtag(
+            "config",
+            GoogleAnalyticsTrackingId,
+            {
+                "page_title" : window.location.pathname,
+                "page_path" : window.location.pathname
+            }
+            );
+    }
+}
+
+// ~~
 
 function EnableGoogleAnalyticsTracking(
     tracking_id
@@ -18,6 +42,11 @@ function EnableGoogleAnalyticsTracking(
            gtag( "js", new Date() );
            gtag( "config", "${tracking_id}" );`;
     document.head.appendChild( script );
+
+    GoogleAnalyticsTrackingId = tracking_id;
+    GoogleAnalyticsTrackingIsEnabled = true;
+
+    TrackRoute();
 }
 
 // ~~
@@ -40,4 +69,7 @@ function DisableGoogleAnalyticsTracking(
            gtag( "js", new Date() );
            gtag( "config", "${tracking_id}", { "client_storage": "none", "anonymize_ip": true } );`;
     document.head.appendChild( script );
+
+    GoogleAnalyticsTrackingId = tracking_id;
+    GoogleAnalyticsTrackingIsEnabled = false;
 }
