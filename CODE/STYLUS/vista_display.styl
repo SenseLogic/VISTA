@@ -237,23 +237,3 @@ MakeDisplayInlineGrid( media_query_name_array = {}, prefix =, suffix =, importan
             }
         }
     }
-
-// ~~
-
-MakeDisplayHidden( media_query_name_array = {}, prefix =, suffix =, important = )
-
-    .{prefix}display-hidden{suffix}
-    {
-        display: none !important important;
-    }
-
-    for media_query_name in media_query_name_array
-    {
-        @media MediaQueryMap[ media_query_name ]
-        {
-            .{prefix}display-hidden-{media_query_name}{suffix}
-            {
-                display: none !important important;
-            }
-        }
-    }
