@@ -593,6 +593,19 @@ HTMLElement.prototype.ToggleClass = function (
 
 // ~~
 
+HTMLElement.prototype.AddAnimationClass = function (
+    class_name
+    )
+{
+    this.classList.remove( class_name );
+    void this.offsetWidth;
+    this.classList.add( class_name );
+
+    return this;
+}
+
+// ~~
+
 HTMLElement.prototype.SetContentHeight = function (
     )
 {
@@ -1555,6 +1568,53 @@ Array.prototype.ToggleClasses = function (
         for ( class_name of class_name_array )
         {
             element.ToggleClasses( class_name, condition );
+        }
+    }
+
+    return this;
+}
+
+// ~~
+
+Array.prototype.AddAnimationClass = function (
+    class_name
+    )
+{
+    var
+        element;
+
+    for ( element of this )
+    {
+        element.classList.remove( class_name );
+        void element.offsetWidth;
+        element.classList.add( class_name );
+    }
+
+    return this;
+}
+
+// ~~
+
+Array.prototype.AddAnimationClasses = function (
+    class_name_array
+    )
+{
+    var
+        class_name,
+        element;
+
+    for ( element of this )
+    {
+        for ( class_name of class_name_array )
+        {
+            element.classList.remove( class_name );
+        }
+        
+        void element.offsetWidth;
+        
+        for ( class_name of class_name_array )
+        {
+            element.classList.add( class_name );
         }
     }
 
