@@ -11,8 +11,11 @@ class CAROUSEL
         slide_count,
         visible_slide_count = 1,
         pause_duration = 3.0,
-        translation_duration = 5.0,
-        carousel_is_perpetual = true
+        translation_duration = 0.5,
+        carousel_is_perpetual = true,
+        slide_width = 0,
+        gap_width = 0,
+        width_unit = ""
         )
     {
         this.UpdateAnimation = this.UpdateAnimation.bind( this );
@@ -34,6 +37,9 @@ class CAROUSEL
         this.TranslationDuration = translation_duration;
         this.TranslationSpeed = 1.0 / translation_duration;
         this.IsPerpetual = carousel_is_perpetual;
+        this.SlideWidth = slide_width;
+        this.GapWidth = gap_width;
+        this.WidthUnit = width_unit;
         this.IsTranslated = false;
         this.IsAutomatic = false;
 
@@ -47,7 +53,14 @@ class CAROUSEL
     SetStripPosition(
         )
     {
-        this.StripElement.style[ "left" ] = ( this.StripPosition * -100.0 / this.VisibleSlideCount ) + "%";
+        if ( this.WidthUnit === "" )
+        {
+            this.StripElement.style[ "left" ] = ( this.StripPosition * -100.0 / this.VisibleSlideCount ) + "%";
+        }
+        else
+        {
+            this.StripElement.style[ "left" ] = ( -this.StripPosition * ( this.SlideWidth + this.GapWidth ) ) + this.WidthUnit;
+        }
     }
 
     // ~~
@@ -55,7 +68,14 @@ class CAROUSEL
     SetStripWidth(
         )
     {
-        this.StripElement.style[ "width" ] = ( ( this.SlideCount / this.VisibleSlideCount ) * 100 ) + "%";
+        if ( this.WidthUnit === "" )
+        {
+            this.StripElement.style[ "width" ] = ( ( this.SlideCount / this.VisibleSlideCount ) * 100 ) + "%";
+        }
+        else
+        {
+            this.StripElement.style[ "width" ] = ( ( this.SlideWidth + this.GapWidth ) * this.SlideCount - this.GapWidth ) + this.WidthUnit;
+        }
     }
 
     // ~~
@@ -73,7 +93,14 @@ class CAROUSEL
                 element
                 )
             {
-                element.style[ "width" ] = ( 100 / carousel.SlideCount ) + "%";
+                if ( carousel.WidthUnit === "" )
+                {
+                    element.style[ "width" ] = ( 100 / carousel.SlideCount ) + "%";
+                }
+                else
+                {
+                    element.style[ "width" ] = carousel.SlideWidth + carousel.WidthUnit;
+                }
             }
             );
     }
@@ -153,31 +180,47 @@ class CAROUSEL
     {
         if ( !this.IsTranslated )
         {
-            if ( strip_position_offset > 0 )
+            if ( this.IsPerpetual )
             {
-                if ( this.StripPosition >= this.PerpetualSlideCount )
+                if ( strip_position_offset > 0 )
                 {
-                    this.StripPosition -= this.PerpetualSlideCount;
+                    if ( this.StripPosition >= this.PerpetualSlideCount )
+                    {
+                        this.StripPosition -= this.PerpetualSlideCount;
+                    }
+                }
+                else if ( strip_position_offset < 0 )
+                {
+                    if ( this.StripPosition == 0 )
+                    {
+                        this.StripPosition += this.PerpetualSlideCount;
+                    }
                 }
             }
             else
             {
-                if ( this.StripPosition == 0 )
+                if ( this.StripPosition + strip_position_offset < 0
+                     || this.StripPosition + strip_position_offset > this.PerpetualSlideCount )
                 {
-                    this.StripPosition += this.PerpetualSlideCount;
+                    strip_position_offset = 0;
                 }
             }
 
-            this.InitialStripPosition = this.StripPosition;
-            this.FinalStripPosition = this.StripPosition + strip_position_offset;
-            this.FinalStripPositionRatio = 0.0;
-            this.IsTranslated = true;
+            if ( strip_position_offset !== 0 )
+            {
+                this.InitialStripPosition = this.StripPosition;
+                this.FinalStripPosition = this.StripPosition + strip_position_offset;
+                this.FinalStripPositionRatio = 0.0;
+                this.IsTranslated = true;
 
-            this.StopAnimation();
-            this.SetStripPosition();
-            this.StartAnimation();
+                this.StopAnimation();
+                this.SetStripPosition();
+                this.StartAnimation();
+            }
         }
     }
+
+    // ~~
 
     ShowPriorSlide(
         )
