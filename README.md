@@ -6,6 +6,7 @@ Minimalistic front-end framework.
 
 ## Goals
 
+*   Autonomous : has no external dependencies.
 *   Modest : focuses on small scale applications.
 *   Minimal : just wraps and extends native types.
 *   Concise : eliminates most boilerplate code.
