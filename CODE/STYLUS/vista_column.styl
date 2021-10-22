@@ -1,0 +1,146 @@
+// -- MIXINS
+
+MakeColumnValue( media_query_name_array = {}, prefix =, suffix =, important = )
+
+    .{prefix}column{suffix}
+    {
+        position: relative important;
+
+        min-height: 1px important;
+        width: 100% important;
+        max-width: 100% important;
+
+        flex-grow: 1 important;
+        flex-basis: 0 important;
+    }
+
+    for media_query_name in media_query_name_array
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .{prefix}column-{media_query_name}{suffix}
+            {
+                position: relative important;
+
+                min-height: 1px important;
+                width: 100% important;
+                max-width: 100% important;
+
+                flex-grow: 1 important;
+                flex-basis: 0 important;
+            }
+        }
+    }
+
+// ~~
+
+MakeAutoColumnValue( media_query_name_array = {}, prefix =, suffix =, important = )
+
+    .{prefix}auto-column{suffix}
+    {
+        position: relative important;
+
+        min-height: 1px important;
+        width: auto important;
+        max-width: none important;
+
+        flex: 0 0 auto important;
+    }
+
+    for media_query_name in media_query_name_array
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .{prefix}auto-column-{media_query_name}{suffix}
+            {
+                position: relative important;
+
+                min-height: 1px important;
+                width: auto important;
+                max-width: none important;
+
+                flex: 0 0 auto important;
+            }
+        }
+    }
+
+// ~~
+
+MakeFractionalColumnValueRange( column_count, media_query_name_array = {}, prefix =, suffix =, important = )
+
+    for column_index in 1 .. column_count
+    {
+        .{prefix}column-{column_index}\\/{column_count}{suffix}
+        {
+            position: relative important;
+
+            min-height: 1px important;
+            width: 100% important;
+            max-width: 100% * ( column_index / column_count ) important;
+
+            flex: 0 0 100% * ( column_index / column_count ) important;
+        }
+
+        for media_query_name in media_query_name_array
+        {
+            @media MediaQueryMap[ media_query_name ]
+            {
+                .{prefix}column-{column_index}\\/{column_count}-{media_query_name}{suffix}
+                {
+                    position: relative important;
+
+                    min-height: 1px important;
+                    width: 100% important;
+                    max-width: 100% * ( column_index / column_count ) important;
+
+                    flex: 0 0 100% * ( column_index / column_count ) important;
+                }
+            }
+        }
+    }
+
+// ~~
+
+MakeFractionalColumnOffsetValueRange( column_count, media_query_name_array = {}, prefix =, suffix =, important = )
+
+    for column_index in 1 .. column_count
+    {
+        .{prefix}column-offset-{column_index}\\/{column_count}{suffix}
+        {
+            margin-left: 100% * ( column_index / column_count ) important;
+        }
+
+        for media_query_name in media_query_name_array
+        {
+            @media MediaQueryMap[ media_query_name ]
+            {
+                .{prefix}column-offset-{column_index}\\/{column_count}-{media_query_name}{suffix}
+                {
+                    margin-left: 100% * ( column_index / column_count ) important;
+                }
+            }
+        }
+    }
+
+// ~~
+
+MakeColumnOrderValueRange( column_count, media_query_name_array = {}, prefix =, suffix =, important = )
+
+    for column_index in 1 .. column_count
+    {
+        .{prefix}column-order-{column_index}{suffix}
+        {
+            order: column_index important;
+        }
+
+        for media_query_name in media_query_name_array
+        {
+            @media MediaQueryMap[ media_query_name ]
+            {
+                .{prefix}column-order-{column_index}-{media_query_name}{suffix}
+                {
+                    order: column_index important;
+                }
+            }
+        }
+    }

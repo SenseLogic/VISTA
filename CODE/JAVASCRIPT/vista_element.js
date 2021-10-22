@@ -1609,9 +1609,9 @@ Array.prototype.AddAnimationClasses = function (
         {
             element.classList.remove( class_name );
         }
-        
+
         void element.offsetWidth;
-        
+
         for ( class_name of class_name_array )
         {
             element.classList.add( class_name );
