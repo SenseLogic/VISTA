@@ -1,6 +1,6 @@
 // -- FUNCTIONS
 
-function ClearLocalValues(
+function RemoveLocalValues(
     )
 {
     localStorage.clear();
@@ -8,24 +8,81 @@ function ClearLocalValues(
 
 // ~~
 
-function HasLocalValue(
-    key
+function RemoveSessionValues(
     )
 {
-    return localStorage.getItem( key ) === null;
+    sessionStorage.clear();
+}
+
+// ~~
+
+function RemoveLocalValue(
+    name
+    )
+{
+    localStorage.removeItem( name );
+}
+
+// ~~
+
+function RemoveSessionValue(
+    name
+    )
+{
+    sessionStorage.removeItem( name );
+}
+
+// ~~
+
+function HasLocalValue(
+    name
+    )
+{
+    return localStorage.getItem( name ) === null;
+}
+
+// ~~
+
+function HasSessionValue(
+    name
+    )
+{
+    return sessionStorage.getItem( name ) === null;
 }
 
 // ~~
 
 function FindLocalValue(
-    key,
+    name,
     default_value = null
     )
 {
     var
         value;
 
-    value = localStorage.getItem( key );
+    value = localStorage.getItem( name );
+
+    if ( value === null )
+    {
+        return default_value;
+    }
+    else
+    {
+        return value;
+    }
+}
+
+// ~~
+
+function FindSessionValue(
+    name,
+    default_value = null
+    )
+{
+    var
+        value;
+
+    value = sessionStorage.getItem( name );
 
     if ( value === null )
     {
@@ -40,76 +97,37 @@ function FindLocalValue(
 // ~~
 
 function GetLocalValue(
-    key
+    name
     )
 {
-    return localStorage.getItem( key );
-}
-
-// ~~
-
-function SetLocalValue(
-    value,
-    key
-    )
-{
-    localStorage.setItem( key, value );
-}
-
-// ~~
-
-function ClearSessionValues(
-    )
-{
-    sessionStorage.clear();
-}
-
-// ~~
-
-function HasSessionValue(
-    key
-    )
-{
-    return sessionStorage.getItem( key ) === null;
-}
-
-// ~~
-
-function FindSessionValue(
-    key,
-    default_value = null
-    )
-{
-    var
-        value;
-
-    value = sessionStorage.getItem( key );
-
-    if ( value === null )
-    {
-        return default_value;
-    }
-    else
-    {
-        return value;
-    }
+    return localStorage.getItem( name );
 }
 
 // ~~
 
 function GetSessionValue(
-    key
+    name
     )
 {
-    return sessionStorage.getItem( key );
+    return sessionStorage.getItem( name );
+}
+
+// ~~
+
+function SetLocalValue(
+    name,
+    value
+    )
+{
+    localStorage.setItem( name, value );
 }
 
 // ~~
 
 function SetSessionValue(
-    value,
-    key
+    name,
+    value
     )
 {
-    sessionStorage.setItem( key, value );
+    sessionStorage.setItem( name, value );
 }

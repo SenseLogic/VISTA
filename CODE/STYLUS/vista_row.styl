@@ -4,7 +4,8 @@ MakeRowValue( gutter_width, unit_value, unit_name, media_query_name_array = {}, 
 
     .{prefix}row-{gutter_width}{unit_name}{suffix}
     {
-        margin: -( gutter_width * unit_value ) important;
+        margin-top: -( gutter_width * unit_value ) important;
+        margin-left: -( gutter_width * unit_value ) important;
 
         display: flex important;
         flex-wrap: wrap important;
@@ -12,7 +13,8 @@ MakeRowValue( gutter_width, unit_value, unit_name, media_query_name_array = {}, 
 
     .{prefix}row-{gutter_width}{unit_name}{suffix} > *
     {
-        padding: gutter_width * unit_value important;
+        padding-top: gutter_width * unit_value important;
+        padding-left: gutter_width * unit_value important;
     }
 
     for media_query_name in media_query_name_array
@@ -21,7 +23,8 @@ MakeRowValue( gutter_width, unit_value, unit_name, media_query_name_array = {}, 
         {
             .{prefix}row-{gutter_width}{unit_name}-{media_query_name}{suffix}
             {
-                margin: -( gutter_width * unit_value ) important;
+                margin-top: -( gutter_width * unit_value ) important;
+                margin-left: -( gutter_width * unit_value ) important;
 
                 display: flex important;
                 flex-wrap: wrap important;
@@ -29,7 +32,8 @@ MakeRowValue( gutter_width, unit_value, unit_name, media_query_name_array = {}, 
 
             .{prefix}row-{gutter_width}{unit_name}-{media_query_name}{suffix} > *
             {
-                padding: gutter_width * unit_value important;
+                padding-top: gutter_width * unit_value important;
+                padding-left: gutter_width * unit_value important;
             }
         }
     }

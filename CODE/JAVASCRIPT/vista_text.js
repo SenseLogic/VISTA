@@ -221,3 +221,42 @@ String.prototype.GetTranslatedText = function (
         return translated_text_array[ 0 ];
     }
 }
+
+// ~~
+
+String.prototype.MatchesFilterExpression = function (
+    filter_expression,
+    or_operator = "|",
+    and_operator = "&"
+    )
+{
+    var
+        and_filter,
+        and_filter_array,
+        matching_and_filter_count,
+        or_filter,
+        or_filter_array;
+
+    or_filter_array = filter_expression.split( or_operator );
+
+    for ( or_filter of or_filter_array )
+    {
+        matching_and_filter_count = 0;
+        and_filter_array = or_filter.split( and_operator );
+
+        for ( and_filter of and_filter_array )
+        {
+            if ( this.indexOf( and_filter ) >= 0 )
+            {
+                ++matching_and_filter_count;
+            }
+        }
+
+        if ( matching_and_filter_count === and_filter_array.length )
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
