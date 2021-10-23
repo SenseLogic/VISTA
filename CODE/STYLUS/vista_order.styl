@@ -1,5 +1,28 @@
 // -- MIXINS
 
+MakeOrderValueRange( column_count, media_query_name_array = {}, prefix =, suffix =, important = )
+
+    for column_index in 1 .. column_count
+    {
+        .{prefix}order-{column_index}{suffix}
+        {
+            order: column_index important;
+        }
+
+        for media_query_name in media_query_name_array
+        {
+            @media MediaQueryMap[ media_query_name ]
+            {
+                .{prefix}order-{column_index}-{media_query_name}{suffix}
+                {
+                    order: column_index important;
+                }
+            }
+        }
+    }
+
+// ~~
+
 MakeOrderFirst( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}order-first{suffix}

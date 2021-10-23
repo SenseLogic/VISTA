@@ -234,3 +234,142 @@ MakeFlexGrowValueRange( start, step, count, unit_value = 1, unit_name = "", medi
 
         MakeFlexGrowValue( size, unit_value, unit_name, media_query_name_array, prefix, suffix, important );
     }
+
+// ~~
+
+MakeFlexRowValue( gutter_width, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix =, important = )
+
+    .{prefix}flex-row-{gutter_width}{unit_name}{suffix}
+    {
+        margin-top: -( gutter_width * unit_value ) important;
+        margin-left: -( gutter_width * unit_value ) important;
+
+        display: flex important;
+        flex-wrap: wrap important;
+    }
+
+    .{prefix}flex-row-{gutter_width}{unit_name}{suffix} > *
+    {
+        padding-top: gutter_width * unit_value important;
+        padding-left: gutter_width * unit_value important;
+    }
+
+    for media_query_name in media_query_name_array
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .{prefix}flex-row-{gutter_width}{unit_name}-{media_query_name}{suffix}
+            {
+                margin-top: -( gutter_width * unit_value ) important;
+                margin-left: -( gutter_width * unit_value ) important;
+
+                display: flex important;
+                flex-wrap: wrap important;
+            }
+
+            .{prefix}flex-row-{gutter_width}{unit_name}-{media_query_name}{suffix} > *
+            {
+                padding-top: gutter_width * unit_value important;
+                padding-left: gutter_width * unit_value important;
+            }
+        }
+    }
+
+// ~~
+
+MakeFlexRowValueRange( start, step, count, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix =, important = )
+
+    for index in 0 .. count - 1
+    {
+        gutter_width = start + index * step;
+
+        MakeFlexRowValue( gutter_width, unit_value, unit_name, media_query_name_array, prefix, suffix, important );
+    }
+
+// ~~
+
+MakeFlexColumnValue( media_query_name_array = {}, prefix =, suffix =, important = )
+
+    .{prefix}flex-column{suffix}
+    {
+        flex-grow: 1 important;
+        flex-basis: 0 important;
+    }
+
+    for media_query_name in media_query_name_array
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .{prefix}flex-column-{media_query_name}{suffix}
+            {
+                flex-grow: 1 important;
+                flex-basis: 0 important;
+            }
+        }
+    }
+
+// ~~
+
+MakeFlexColumnAutoValue( media_query_name_array = {}, prefix =, suffix =, important = )
+
+    .{prefix}flex-column-auto{suffix}
+    {
+        flex: 0 0 auto important;
+    }
+
+    for media_query_name in media_query_name_array
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .{prefix}flex-column-auto{media_query_name}{suffix}
+            {
+                flex: 0 0 auto important;
+            }
+        }
+    }
+
+// ~~
+
+MakeFractionalFlexColumnValueRange( column_count, media_query_name_array = {}, prefix =, suffix =, important = )
+
+    for column_index in 1 .. column_count
+    {
+        .{prefix}flex-column-{column_index}\\/{column_count}{suffix}
+        {
+            flex: 0 0 100% * ( column_index / column_count ) important;
+        }
+
+        for media_query_name in media_query_name_array
+        {
+            @media MediaQueryMap[ media_query_name ]
+            {
+                .{prefix}flex-column-{column_index}\\/{column_count}-{media_query_name}{suffix}
+                {
+                    flex: 0 0 100% * ( column_index / column_count ) important;
+                }
+            }
+        }
+    }
+
+// ~~
+
+MakeFractionalFlexOffsetValueRange( column_count, media_query_name_array = {}, prefix =, suffix =, important = )
+
+    for column_index in 1 .. column_count
+    {
+        .{prefix}flex-offset-{column_index}\\/{column_count}{suffix}
+        {
+            margin-left: 100% * ( column_index / column_count ) important;
+        }
+
+        for media_query_name in media_query_name_array
+        {
+            @media MediaQueryMap[ media_query_name ]
+            {
+                .{prefix}flex-offset-{column_index}\\/{column_count}-{media_query_name}{suffix}
+                {
+                    margin-left: 100% * ( column_index / column_count ) important;
+                }
+            }
+        }
+    }
