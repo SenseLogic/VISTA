@@ -60,6 +60,7 @@ Minimalistic front-end framework.
     *   shaders
     *   trackers
     *   carousels
+    *   slideshows
     *   intersections
     *   tables
 

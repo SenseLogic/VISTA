@@ -54,8 +54,7 @@ MakeCarouselStripPerpetualAnimation( slide_count, visible_slide_count = 1, pause
 
     .{prefix}carousel{infix}-strip-perpetual-animation{suffix}
     {
-        animation: ( slide_count - visible_slide_count ) * slide_duration * 0.001s prefix + "carousel" + infix + "-strip-perpetual-animation" + suffix infinite;
-        animation-timing-function: ease;
+        animation: ( slide_count - visible_slide_count ) * slide_duration * 0.001s prefix + "carousel" + infix + "-strip-perpetual-animation" + suffix infinite ease;
     }
 
 // ~~

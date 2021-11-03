@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Sample</title>
+        <link rel="stylesheet" href="style.css" type="text/css">
+    </head>
+    <body>
+        <main>
+            <div id="test-slideshow" class="test-slideshow">
+                <div class="test-slideshow-slide test-slideshow-slide-background-1">
+                    <h1>SLIDE 1</h1>
+                </div>
+                <div class="test-slideshow-slide test-slideshow-slide-background-2">
+                    <h1>SLIDE 2</h1>
+                </div>
+                <div class="test-slideshow-slide test-slideshow-slide-background-3">
+                    <h1>SLIDE 3</h1>
+                </div>
+                <div class="test-slideshow-slide test-slideshow-slide-background-4">
+                    <h1>SLIDE 4</h1>
+                </div>
+                <div class="test-slideshow-slide test-slideshow-slide-background-5">
+                    <h1>SLIDE 5</h1>
+                </div>
+                <div class="test-slideshow-slide test-slideshow-slide-background-6">
+                    <h1>SLIDE 6</h1>
+                </div>
+                <div id="test-slideshow-left-arrow" class="test-slideshow-arrow test-slideshow-left-arrow">
+                    &lt;
+                </div>
+                <div id="test-slideshow-right-arrow" class="test-slideshow-arrow test-slideshow-right-arrow">
+                    &gt;
+                </div>
+            </div>
+            <div class="test-slideshow">
+                <div class="test-slideshow-slide test-slideshow-slide-background-1 test-slideshow-slide-perpetual-animation-1">
+                    <h1>SLIDE 1</h1>
+                </div>
+                <div class="test-slideshow-slide test-slideshow-slide-background-2 test-slideshow-slide-perpetual-animation-2">
+                    <h1>SLIDE 2</h1>
+                </div>
+                <div class="test-slideshow-slide test-slideshow-slide-background-3 test-slideshow-slide-perpetual-animation-3">
+                    <h1>SLIDE 3</h1>
+                </div>
+                <div class="test-slideshow-slide test-slideshow-slide-background-4 test-slideshow-slide-perpetual-animation-4">
+                    <h1>SLIDE 4</h1>
+                </div>
+                <div class="test-slideshow-slide test-slideshow-slide-background-5 test-slideshow-slide-perpetual-animation-5">
+                    <h1>SLIDE 5</h1>
+                </div>
+                <div class="test-slideshow-slide test-slideshow-slide-background-6 test-slideshow-slide-perpetual-animation-6">
+                    <h1>SLIDE 6</h1>
+                </div>
+            </div>
+        </main>
+        <script src="../../CODE/JAVASCRIPT/vista_base.js"></script>
+        <script src="../../CODE/JAVASCRIPT/vista_math.js"></script>
+        <script src="../../CODE/JAVASCRIPT/vista_element.js"></script>
+        <script src="../../CODE/JAVASCRIPT/vista_slideshow.js"></script>
+        <script>
+            // -- STATEMENTS
+
+            var slideshow
+                = new SLIDESHOW(
+                      GetElementById( "test-slideshow" ).GetChildElements( ".test-slideshow-slide" ),
+                      0.0,
+                      3.0,
+                      0.5
+                      );
+
+            GetElementById( "test-slideshow-left-arrow" ).AddEventListener(
+                "click",
+                function (
+                    )
+                {
+                    slideshow.StopAutomaticAnimation();
+                    slideshow.ShowPriorSlide();
+                }
+                );
+
+            GetElementById( "test-slideshow-right-arrow" ).AddEventListener(
+                "click",
+                function (
+                    )
+                {
+                    slideshow.StopAutomaticAnimation();
+                    slideshow.ShowNextSlide();
+                }
+                );
+
+            slideshow.StartAutomaticAnimation();
+        </script>
+    </body>
+</html>

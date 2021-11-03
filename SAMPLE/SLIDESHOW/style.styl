@@ -12,33 +12,24 @@ html
 
 // -- CLASSES
 
-MakeCarousel( "test-" );
-MakeCarouselStrip( 1, 1, "test-" );
+MakeSlideshowSlidePerpetualAnimation( 6, 3000, 500, "test-" );
 
 // ~~
 
-MakeCarouselStrip( 7, 1, "test-", "-7-1" );
-MakeCarouselStripPerpetualAnimation( 7, 1, 3000, 500, "test-", "-7-1" );
-MakeCarouselSlide( 7, "test-", "-7" );
-
-MakeCarouselStrip( 8, 2, "test-", "-8-2" );
-MakeCarouselStripPerpetualAnimation( 8, 2, 3000, 500, "test-", "-8-2" );
-MakeCarouselSlide( 8, "test-", "-8" );
-
-MakeCarouselStrip( 9, 3, "test-", "-9-3" );
-MakeCarouselStripPerpetualAnimation( 9, 3, 3000, 500, "test-", "-9-3" );
-MakeCarouselSlide( 9, "test-", "-9" );
-
-// ~~
-
-.test-carousel
+.test-slideshow
 {
+    position: relative;
+
+    height: 100vh;
     width: 100%;
 }
 
-.test-carousel-slide
+.test-slideshow-slide
 {
-    height: 100vh;
+    position: absolute;
+
+    height: 100%;
+    width: 100%;
 
     display: flex;
     justify-content: center;
@@ -48,37 +39,37 @@ MakeCarouselSlide( 9, "test-", "-9" );
     background-size: cover;
 }
 
-.test-carousel-slide-background-1
+.test-slideshow-slide-background-1
 {
     background-image: url( "slide_1.jpg" );
 }
 
-.test-carousel-slide-background-2
+.test-slideshow-slide-background-2
 {
     background-image: url( "slide_2.jpg" );
 }
 
-.test-carousel-slide-background-3
+.test-slideshow-slide-background-3
 {
     background-image: url( "slide_3.jpg" );
 }
 
-.test-carousel-slide-background-4
+.test-slideshow-slide-background-4
 {
     background-image: url( "slide_4.jpg" );
 }
 
-.test-carousel-slide-background-5
+.test-slideshow-slide-background-5
 {
     background-image: url( "slide_5.jpg" );
 }
 
-.test-carousel-slide-background-6
+.test-slideshow-slide-background-6
 {
     background-image: url( "slide_6.jpg" );
 }
 
-.test-carousel-arrow
+.test-slideshow-arrow
 {
     font-size: 4rem;
     color: white;
@@ -86,7 +77,7 @@ MakeCarouselSlide( 9, "test-", "-9" );
     cursor: pointer;
 }
 
-.test-carousel-left-arrow
+.test-slideshow-left-arrow
 {
     position: absolute;
     top: 50%;
@@ -94,7 +85,7 @@ MakeCarouselSlide( 9, "test-", "-9" );
     transform: translateY( -50% );
 }
 
-.test-carousel-right-arrow
+.test-slideshow-right-arrow
 {
     position: absolute;
     top: 50%;

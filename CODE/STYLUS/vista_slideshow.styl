@@ -1,0 +1,34 @@
+// -- MIXINS
+
+MakeSlideshowSlidePerpetualAnimation( slide_count, pause_duration = 3000, transition_duration = 500, prefix =, infix =, suffix = )
+
+    slide_duration = pause_duration + transition_duration
+
+    vendors = official
+
+    for slide_suffix in 1 .. slide_count
+
+        @keyframes {prefix}slideshow{infix}-slide-perpetual-animation{suffix}-{slide_suffix}
+
+            for slide_index in 0 .. slide_count - 1
+
+                show_time = slide_index / slide_count
+                transition_time = ( slide_index + ( 1.0 - transition_duration / slide_duration ) ) / slide_count
+
+                {100% * show_time}
+
+                    opacity: ( slide_index + 1 == slide_suffix ) ? 1 : 0;
+
+                {100% * transition_time}
+
+                    opacity: ( slide_index + 1 == slide_suffix ) ? 1 : 0;
+
+            100%
+            {
+                opacity: ( slide_suffix == 1 ) ? 1 : 0;
+            }
+
+        .{prefix}slideshow{infix}-slide-perpetual-animation{suffix}-{slide_suffix}
+        {
+            animation: slide_count * slide_duration * 0.001s prefix + "slideshow" + infix + "-slide-perpetual-animation" + suffix + "-" + slide_suffix infinite linear;
+        }
