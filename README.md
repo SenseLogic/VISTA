@@ -43,6 +43,7 @@ Minimalistic front-end framework.
     *   transitions
     *   animations
     *   carousels
+    *   slideshows
     *   parallaxes
 *   JavaScript
     *   traversals
