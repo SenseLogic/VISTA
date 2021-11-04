@@ -250,7 +250,7 @@ function SendJsonRequest(
                   };
 
             request.open( request_method, request_url, true );
-            request.setRequestHeader( "Content-type", "application/json; charset=UTF-8" );
+            request.setRequestHeader( "Content-type", "application/json;charset=UTF-8" );
             SetRequestHeaders( request, request_header_map );
 
             if ( request_object === null )
