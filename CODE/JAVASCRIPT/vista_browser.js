@@ -26,6 +26,15 @@ function ReplaceUrl(
 
 // ~~
 
+function OpenUrl(
+    url
+    )
+{
+    window.open( url, '_blank' ).focus();
+}
+
+// ~~
+
 function GetServerName(
     )
 {
