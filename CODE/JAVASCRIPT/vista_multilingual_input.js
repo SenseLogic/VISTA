@@ -92,7 +92,7 @@ function HandleMultilingualInputTranslationInputEvent(
 
 // ~~
 
-function InitializeMultilingualTexts(
+function InitializeMultilingualInputs(
     )
 {
     var
@@ -122,7 +122,7 @@ function InitializeMultilingualTexts(
 
 // ~~
 
-function FinalizeTranslatedTexts(
+function FinalizeMultilingualInputs(
     )
 {
     GetElements( ".multilingual-input-translation" ).RemoveEventListener( "input", HandleMultilingualInputTranslationInputEvent );
