@@ -838,11 +838,11 @@ html
 
 *   Native web components require a recent browser.
 *   Trailing media queries bubbling is limited to one level.
-*   The types and functions are declared globally, on purpose.
+*   Types and functions are declared globally, on purpose.
 
 ## Version
 
-0.4
+0.5
 
 ## Author
 
