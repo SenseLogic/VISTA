@@ -35,3 +35,43 @@ function HandleScrollEvent(
         }
         );
 }
+
+// ~~
+
+function InitializeScroll(
+    )
+{
+    var
+        html_element,
+        scroll_name,
+        scroll_top;
+
+    html_element = GetElement( "html" );
+    scroll_name = "ScrollTop@" + window.location.pathname;
+    scroll_top = sessionStorage.getItem( scroll_name );
+
+    if ( scroll_top !== null )
+    {
+        html_element.scrollTop = scroll_top;
+    }
+
+    sessionStorage.setItem( scroll_name, html_element.scrollTop );
+
+    window.addEventListener(
+        'beforeunload',
+        function (
+            event
+            )
+            {
+                sessionStorage.setItem( scroll_name, html_element.scrollTop );
+            }
+        );
+}
+
+// ~~
+
+function ClearScroll(
+    )
+{
+    sessionStorage.setItem( "ScrollTop@" + window.location.pathname, 0 );
+}
