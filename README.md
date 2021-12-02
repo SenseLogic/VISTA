@@ -46,6 +46,7 @@ Minimalistic front-end framework.
     *   slideshows
     *   parallaxes
 *   JavaScript
+    *   texts
     *   traversals
     *   manipulations
     *   animations
@@ -62,8 +63,8 @@ Minimalistic front-end framework.
     *   trackers
     *   carousels
     *   slideshows
-    *   scrolls
     *   intersections
+    *   scrolls
     *   tables
     *   sorts
 
