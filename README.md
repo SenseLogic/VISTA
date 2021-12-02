@@ -65,6 +65,7 @@ Minimalistic front-end framework.
     *   scrolls
     *   intersections
     *   tables
+    *   sorts
 
 ## Samples
 
