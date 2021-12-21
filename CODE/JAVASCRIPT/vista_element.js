@@ -942,8 +942,36 @@ HTMLElement.prototype.GetLeftPosition = function (
 
 // ~~
 
+function SetScrollPosition(
+    top_position = 0,
+    left_position = 0
+    )
+{
+    if ( top_position === null )
+    {
+        top_position = 0;
+    }
+    else if ( top_position instanceof HTMLElement )
+    {
+        top_position = top_position.GetTopPosition();
+    }
+
+    if ( left_position === null )
+    {
+        left_position = 0;
+    }
+    else if ( left_position instanceof HTMLElement )
+    {
+        left_position = left_position.GetTopPosition();
+    }
+
+    window.scroll( left_position, top_position );
+}
+
+// ~~
+
 function SetScrollTop(
-    position,
+    position = 0,
     behavior = "smooth"
     )
 {
@@ -967,7 +995,7 @@ function SetScrollTop(
 // ~~
 
 function SetScrollLeft(
-    position,
+    position = 0,
     behavior = "smooth"
     )
 {
