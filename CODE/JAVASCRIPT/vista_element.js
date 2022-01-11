@@ -154,6 +154,8 @@ HTMLElement.prototype.Write = function (
     )
 {
     this.appendChild( document.createTextNode( GetArrayText( argument_array, "", true, "", "", "" ) ) );
+
+    return this;
 }
 
 // ~~
@@ -164,6 +166,8 @@ HTMLElement.prototype.WriteLine = function (
 {
     this.appendChild( document.createTextNode( GetArrayText( argument_array, "", true, "", "", "" ) ) );
     this.appendChild( document.createElement( "br" ) );
+
+    return this;
 }
 
 // ~~
@@ -174,6 +178,8 @@ HTMLElement.prototype.WriteRow = function (
 {
     this.appendChild( document.createTextNode( GetArrayText( argument_array, " ", true, "", "", "" ) ) );
     this.appendChild( document.createElement( "br" ) );
+
+    return this;
 }
 
 // ~~
@@ -182,6 +188,8 @@ HTMLElement.prototype.Dump = function (
     )
 {
     Dump( this );
+
+    return this;
 }
 
 // ~~
@@ -190,6 +198,8 @@ HTMLElement.prototype.PrintValue = function (
     )
 {
     PrintValue( this );
+
+    return this;
 }
 
 // ~~
@@ -378,11 +388,14 @@ HTMLElement.prototype.GetChildElements = function (
 }
 
 // ~~
+
 HTMLElement.prototype.PrependChildElement = function (
     child_element
     )
 {
     this.prependChild( child_element );
+
+    return this;
 }
 
 // ~~
@@ -398,6 +411,8 @@ HTMLElement.prototype.PrependChildElements = function (
     {
         this.prependChild( child_element );
     }
+
+    return this;
 }
 
 // ~~
@@ -407,6 +422,8 @@ HTMLElement.prototype.AppendChildElement = function (
     )
 {
     this.appendChild( child_element );
+
+    return this;
 }
 
 // ~~
@@ -422,6 +439,8 @@ HTMLElement.prototype.AppendChildElements = function (
     {
         this.appendChild( child_element );
     }
+
+    return this;
 }
 
 // ~~
@@ -611,6 +630,8 @@ HTMLElement.prototype.SetContentHeight = function (
 {
     this.style.height = "auto";
     this.style.height = this.scrollHeight + "px";
+
+    return this;
 }
 
 // ~~
@@ -628,6 +649,8 @@ HTMLElement.prototype.SetTextContent = function (
     )
 {
     this.textContent = text;
+
+    return this;
 }
 
 // ~~
@@ -670,6 +693,8 @@ HTMLElement.prototype.AddEventListener = function (
             passive: event_is_passive
         }
         );
+
+    return this;
 }
 
 // ~~
@@ -712,6 +737,8 @@ HTMLElement.prototype.RemoveEventListener = function (
             passive: event_is_passive
         }
         );
+
+    return this;
 }
 
 // ~~
@@ -774,6 +801,8 @@ HTMLElement.prototype.ReplaceEventListener = function (
             passive: event_is_passive
         }
         );
+
+    return this;
 }
 
 // ~~
@@ -854,11 +883,20 @@ HTMLElement.prototype.SetAttribute = function(
     )
 {
     this[ attribute_name ] = attribute_value;
+
+    return this;
 }
 
 // ~~
 
-HTMLElement.prototype.RemoveAttribute = HTMLElement.prototype.removeAttribute;
+HTMLElement.prototype.RemoveAttribute = function(
+    attribute_name
+    )
+{
+    this.removeAttribute( attribute_name );
+
+    return this;
+}
 
 // ~~
 
@@ -902,6 +940,8 @@ HTMLElement.prototype.SetScrollTop = function (
     {
         this.scrollTop = position;
     }
+
+    return this;
 }
 
 // ~~
@@ -922,6 +962,8 @@ HTMLElement.prototype.SetScrollLeft = function (
     {
         this.scrollLeft = position;
     }
+
+    return this;
 }
 
 // ~~
@@ -1045,6 +1087,8 @@ HTMLElement.prototype.SetStyle = function (
     )
 {
     this.style[ style_name ] = style_value;
+    
+    return this;
 }
 
 // ~~

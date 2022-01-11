@@ -42,6 +42,7 @@ class CAROUSEL
         this.WidthUnit = width_unit;
         this.IsTranslated = false;
         this.IsAutomatic = false;
+        this.UpdateFunction = null;
 
         this.SetStripPosition();
         this.SetStripWidth();
@@ -60,6 +61,11 @@ class CAROUSEL
         else
         {
             this.StripElement.style[ "left" ] = ( -this.StripPosition * ( this.SlideWidth + this.GapWidth ) ) + this.WidthUnit;
+        }
+
+        if ( this.UpdateFunction !== null )
+        {
+            this.UpdateFunction( this.StripPosition, this );
         }
     }
 

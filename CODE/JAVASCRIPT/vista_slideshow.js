@@ -32,6 +32,7 @@ class SLIDESHOW
         this.IsPerpetual = slideshow_is_perpetual;
         this.IsTransitioned = false;
         this.IsAutomatic = false;
+        this.UpdateFunction = null;
 
         this.SetSlideIndex();
     }
@@ -63,6 +64,11 @@ class SLIDESHOW
             }
 
             this.SlideElementArray[ slide_index ].style[ "opacity" ] = slide_opacity;
+        }
+
+        if ( this.UpdateFunction !== null )
+        {
+            this.UpdateFunction( this.SlideIndex, this );
         }
     }
 
