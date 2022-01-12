@@ -501,6 +501,7 @@ html {
   align-items: center;
   background-position: center center;
   background-size: cover;
+  color: #fff;
 }
 .test-carousel-slide-background-1 {
   background-image: url("slide_1.jpg");
@@ -519,6 +520,28 @@ html {
 }
 .test-carousel-slide-background-6 {
   background-image: url("slide_6.jpg");
+}
+.test-carousel-slide-menu {
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+}
+.test-carousel-slide-button {
+  height: 0.5rem;
+  width: 0.5rem;
+  border: 2px solid #fff;
+  border-radius: 50%;
+}
+.test-carousel-slide-button:hover,
+.test-carousel-slide-button.is-selected {
+  background: #fff;
+}
+.test-carousel-slide-button + .test-carousel-slide-button {
+  margin-left: 2rem;
 }
 .test-carousel-arrow {
   font-size: 4rem;

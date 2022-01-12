@@ -1087,7 +1087,7 @@ HTMLElement.prototype.SetStyle = function (
     )
 {
     this.style[ style_name ] = style_value;
-    
+
     return this;
 }
 

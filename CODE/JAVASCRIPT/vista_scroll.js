@@ -15,6 +15,7 @@ function HandleScrollEvent(
     window.addEventListener(
         "scroll",
         function (
+            event
             )
         {
             var

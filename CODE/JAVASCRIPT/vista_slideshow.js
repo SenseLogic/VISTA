@@ -10,9 +10,8 @@ class SLIDESHOW
         pause_duration = 3.0,
         transition_duration = 0.5,
         slideshow_is_perpetual = true,
-        slide_width = 0,
-        gap_width = 0,
-        width_unit = ""
+        slide_button_element_array = null,
+        update_function = null
         )
     {
         this.UpdateAnimation = this.UpdateAnimation.bind( this );
@@ -22,6 +21,7 @@ class SLIDESHOW
         this.AnimationFrame = null,
         this.AnimationTimestamp = null,
         this.SlideElementArray = slide_element_array;
+        this.PriorSlideIndex = -1;
         this.InitialSlideIndex = slide_index;
         this.FinalSlideIndex = slide_index;
         this.FinalSlideRatio = 1.0;
@@ -30,14 +30,171 @@ class SLIDESHOW
         this.TransitionDuration = transition_duration;
         this.TransitionSpeed = 1.0 / transition_duration;
         this.IsPerpetual = slideshow_is_perpetual;
+        this.SlideButtonElementArray = slide_button_element_array;
+        this.UpdateFunction = update_function;
         this.IsTransitioned = false;
         this.IsAutomatic = false;
-        this.UpdateFunction = null;
 
         this.SetSlideIndex();
     }
 
+    // -- INQUIRIES
+
+    GetSlideIndex(
+        )
+    {
+        var
+            slide_index;
+
+        slide_index = this.FinalSlideIndex - ( 1.0 - this.FinalSlideRatio );
+
+        if ( slide_index < 0 )
+        {
+            slide_index += this.SlideCount;
+        }
+
+        if ( slide_index >= this.SlideCount )
+        {
+            slide_index -= this.SlideCount;
+        }
+
+        return slide_index;
+    }
+
+    // ~~
+
+    GetSlideRatio(
+        slide_index
+        )
+    {
+        if ( this.SlideCount <= 1 )
+        {
+            return 1.0;
+        }
+        else if ( slide_index === this.FinalSlideIndex )
+        {
+            return this.FinalSlideRatio;
+        }
+        else if ( slide_index === this.InitialSlideIndex )
+        {
+            return 1.0 - this.FinalSlideRatio;
+        }
+        else
+        {
+            return 0.0;
+        }
+    }
+
     // -- OPERATIONS
+
+    HandleSlideButtonsClickEvent(
+        automatic_animation_is_stopped = false,
+        automatic_animation_delay_duration = undefined
+        )
+    {
+        var
+            slide_button_element,
+            slide_index,
+            slideshow;
+
+        slideshow = this;
+
+        for ( slide_index = 0;
+              slide_index < this.SlideButtonElementArray.length;
+              ++slide_index )
+        {
+            slide_button_element = this.SlideButtonElementArray[ slide_index ];
+            slide_button_element.SlideIndex = slide_index;
+            slide_button_element.AddEventListener(
+                "click",
+                function (
+                    event
+                    )
+                {
+                    if ( automatic_animation_is_stopped )
+                    {
+                        slideshow.StopAutomaticAnimation();
+                    }
+                    else if ( automatic_animation_delay_duration !== undefined )
+                    {
+                        slideshow.DelayAutomaticAnimation( automatic_animation_delay_duration );
+                    }
+
+                    slideshow.ShowSlide( event.currentTarget.SlideIndex );
+                }
+                );
+        }
+    }
+
+    // ~~
+
+    HandlePriorSlideButtonClickEvent(
+        prior_slide_button_element,
+        automatic_animation_is_stopped = false,
+        automatic_animation_delay_duration = undefined
+        )
+    {
+        var
+            slide_index,
+            slideshow;
+
+        slideshow = this;
+
+        prior_slide_button_element.AddEventListener(
+            "click",
+            function (
+                event
+                )
+            {
+                if ( automatic_animation_is_stopped )
+                {
+                    slideshow.StopAutomaticAnimation();
+                }
+                else if ( automatic_animation_delay_duration !== undefined )
+                {
+                    slideshow.DelayAutomaticAnimation( automatic_animation_delay_duration );
+                }
+
+                slideshow.ShowPriorSlide();
+            }
+            );
+    }
+
+    // ~~
+
+    HandleNextSlideButtonClickEvent(
+        next_slide_button_element,
+        automatic_animation_is_stopped = false,
+        automatic_animation_delay_duration = undefined
+        )
+    {
+        var
+            slide_index,
+            slideshow;
+
+        slideshow = this;
+
+        next_slide_button_element.AddEventListener(
+            "click",
+            function (
+                event
+                )
+            {
+                if ( automatic_animation_is_stopped )
+                {
+                    slideshow.StopAutomaticAnimation();
+                }
+                else if ( automatic_animation_delay_duration !== undefined )
+                {
+                    slideshow.DelayAutomaticAnimation( automatic_animation_delay_duration );
+                }
+
+                slideshow.ShowNextSlide();
+            }
+            );
+    }
+
+    // ~~
 
     SetSlideIndex(
         )
@@ -50,6 +207,8 @@ class SLIDESHOW
               slide_index < this.SlideCount;
               ++slide_index )
         {
+            slide_opacity = this.GetSlideRatio( slide_index );
+
             if ( slide_index === this.FinalSlideIndex )
             {
                 slide_opacity = this.FinalSlideRatio;
@@ -66,9 +225,29 @@ class SLIDESHOW
             this.SlideElementArray[ slide_index ].style[ "opacity" ] = slide_opacity;
         }
 
-        if ( this.UpdateFunction !== null )
+        slide_index = this.GetSlideIndex();
+
+        if ( slide_index !== this.PriorSlideIndex )
         {
-            this.UpdateFunction( this.SlideIndex, this );
+            this.PriorSlideIndex = slide_index;
+
+            if ( this.SlideButtonElementArray !== null )
+            {
+                for ( slide_index = 0;
+                      slide_index < this.SlideButtonElementArray.length;
+                      ++slide_index )
+                {
+                    this.SlideButtonElementArray[ slide_index ].ToggleClass(
+                        "is-selected",
+                        slide_index === this.FinalSlideIndex
+                        );
+                }
+            }
+
+            if ( this.UpdateFunction !== null )
+            {
+                this.UpdateFunction( this );
+            }
         }
     }
 
@@ -200,6 +379,18 @@ class SLIDESHOW
 
     // ~~
 
+    ShowSlide(
+        slide_index
+        )
+    {
+        if ( slide_index !== this.FinalSlideIndex )
+        {
+            this.ChangeSlide( slide_index - this.FinalSlideIndex );
+        }
+    }
+
+    // ~~
+
     StartAutomaticAnimation(
         )
     {
@@ -222,6 +413,20 @@ class SLIDESHOW
         {
             this.StopAutomaticAnimation();
         }
+    }
+
+    // ~~
+
+    DelayAutomaticAnimation(
+        delay_duration
+        )
+    {
+        if ( this.AutomaticAnimationTimeout !== null )
+        {
+            clearTimeout( this.AutomaticAnimationTimeout );
+        }
+
+        this.AutomaticAnimationTimeout = setTimeout( this.UpdateAutomaticAnimation, delay_duration * 1000.0 );
     }
 
     // ~~

@@ -596,6 +596,7 @@ html {
   align-items: center;
   background-position: center center;
   background-size: cover;
+  color: #fff;
 }
 .test-slideshow-slide-background-1 {
   background-image: url("slide_1.jpg");
@@ -614,6 +615,28 @@ html {
 }
 .test-slideshow-slide-background-6 {
   background-image: url("slide_6.jpg");
+}
+.test-slideshow-slide-menu {
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+}
+.test-slideshow-slide-button {
+  height: 0.5rem;
+  width: 0.5rem;
+  border: 2px solid #fff;
+  border-radius: 50%;
+}
+.test-slideshow-slide-button:hover,
+.test-slideshow-slide-button.is-selected {
+  background: #fff;
+}
+.test-slideshow-slide-button + .test-slideshow-slide-button {
+  margin-left: 2rem;
 }
 .test-slideshow-arrow {
   font-size: 4rem;
