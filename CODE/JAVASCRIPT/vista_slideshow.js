@@ -442,4 +442,26 @@ class SLIDESHOW
             this.AutomaticAnimationTimeout = null;
         }
     }
+
+    // ~~
+
+    Reset(
+        slide_index = 0
+        )
+    {
+        this.PriorSlideIndex = -1;
+        this.InitialSlideIndex = slide_index;
+        this.FinalSlideIndex = slide_index;
+        this.FinalSlideRatio = 1.0;
+        this.IsTransitioned = false;
+
+        this.StopAnimation();
+        this.SetSlideIndex();
+        this.StartAnimation();
+
+        if ( this.IsAutomatic )
+        {
+            this.StartAutomaticAnimation();
+        }
+    }
 }

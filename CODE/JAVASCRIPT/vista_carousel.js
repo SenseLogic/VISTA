@@ -505,4 +505,27 @@ class CAROUSEL
             this.AutomaticAnimationTimeout = null;
         }
     }
+
+    // ~~
+
+    Reset(
+        slide_index = 0
+        )
+    {
+        this.PriorSlideIndex = -1.0;
+        this.SlideIndex = slide_index;
+        this.InitialSlideIndex = slide_index;
+        this.FinalSlideIndex = slide_index;
+        this.FinalSlideRatio = 1.0;
+        this.IsTranslated = false;
+
+        this.StopAnimation();
+        this.SetSlideIndex();
+        this.StartAnimation();
+
+        if ( this.IsAutomatic )
+        {
+            this.StartAutomaticAnimation();
+        }
+    }
 }
