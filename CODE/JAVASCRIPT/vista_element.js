@@ -223,14 +223,6 @@ function GetElementById(
 
 // ~~
 
-HTMLElement.prototype.GetElementById = HTMLElement.prototype.getElementById;
-
-// ~~
-
-ShadowRoot.prototype.GetElementById = ShadowRoot.prototype.getElementById;
-
-// ~~
-
 function GetElementsByClasses(
     element_classes
     )
@@ -263,6 +255,24 @@ HTMLElement.prototype.GetElementsByName = function (
     )
 {
     return Array.from( this.getElementsByName( element_name ) );
+}
+
+// ~~
+
+function GetElementsByTagName(
+    element_tag_name
+    )
+{
+    return Array.from( document.getElementsByTagName( element_tag_name ) );
+}
+
+// ~~
+
+HTMLElement.prototype.GetElementsByTagName = function (
+    element_tag_name
+    )
+{
+    return Array.from( this.getElementsByTagName( element_tag_name ) );
 }
 
 // ~~
