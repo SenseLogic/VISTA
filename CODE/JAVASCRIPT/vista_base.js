@@ -615,7 +615,15 @@ function GetRealText(
     if ( trailing_zeroes_are_removed
          && real_text.indexOf( "." ) >= 0 )
     {
-        real_text = real_text.RemoveSuffixCharacters( "0." );
+        while ( real_text.endsWith( "0" ) )
+        {
+            real_text = real_text.substring( 0, real_text.length - 1 );
+        }
+
+        if ( real_text.endsWith( "." ) )
+        {
+            real_text = real_text.substring( 0, real_text.length - 1 );
+        }
     }
 
     if ( decimal_separator === "." )

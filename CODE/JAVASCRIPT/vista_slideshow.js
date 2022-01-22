@@ -32,7 +32,7 @@ class SLIDESHOW
         this.IsPerpetual = slideshow_is_perpetual;
         this.SlideButtonElementArray = slide_button_element_array;
         this.UpdateFunction = update_function;
-        this.IsTransitioned = false;
+        this.IsFaded = false;
         this.IsAutomatic = false;
 
         this.SetSlideIndex();
@@ -293,7 +293,7 @@ class SLIDESHOW
         }
         else
         {
-            this.IsTransitioned = false;
+            this.IsFaded = false;
             this.InitialSlideIndex = this.FinalSlideIndex;
             this.FinalSlideRatio = 1.0;
             this.SetSlideIndex();
@@ -320,7 +320,7 @@ class SLIDESHOW
         slide_index_offset
         )
     {
-        if ( !this.IsTransitioned )
+        if ( !this.IsFaded )
         {
             if ( this.IsPerpetual )
             {
@@ -352,7 +352,7 @@ class SLIDESHOW
             {
                 this.FinalSlideIndex += slide_index_offset;
                 this.FinalSlideRatio = 0.0;
-                this.IsTransitioned = true;
+                this.IsFaded = true;
 
                 this.StopAnimation();
                 this.SetSlideIndex();
@@ -453,7 +453,7 @@ class SLIDESHOW
         this.InitialSlideIndex = slide_index;
         this.FinalSlideIndex = slide_index;
         this.FinalSlideRatio = 1.0;
-        this.IsTransitioned = false;
+        this.IsFaded = false;
 
         this.StopAnimation();
         this.SetSlideIndex();

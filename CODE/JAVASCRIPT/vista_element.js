@@ -635,6 +635,23 @@ HTMLElement.prototype.AddAnimationClass = function (
 
 // ~~
 
+HTMLElement.prototype.Toggle = function (
+    element_is_shown = true,
+    hiding_class_name = "is-hidden"
+    )
+{
+    if ( element_is_shown )
+    {
+        this.classList.remove( hiding_class_name );
+    }
+    else
+    {
+        this.classList.add( hiding_class_name );
+    }
+}
+
+// ~~
+
 HTMLElement.prototype.SetContentHeight = function (
     )
 {

@@ -1110,6 +1110,8 @@ HTMLElement.prototype.AnimateStyle = function (
     this.StyleAnimationMap.SetValue( style_name, style_animation );
 
     style_animation.Start();
+
+    return this;
 }
 
 // ~~
@@ -1135,6 +1137,8 @@ HTMLElement.prototype.AnimateStyles = function (
                 );
         }
     }
+
+    return this;
 }
 
 // ~~
@@ -1177,6 +1181,8 @@ HTMLElement.prototype.PauseStyles = function (
             this.PauseStyle( style_name );
         }
     }
+
+    return this;
 }
 
 // ~~
@@ -1190,6 +1196,8 @@ HTMLElement.prototype.ResumeStyle = function (
     {
         this.StyleAnimationMap.GetValue( style_name ).Resume();
     }
+
+    return this;
 }
 
 // ~~
@@ -1219,6 +1227,8 @@ HTMLElement.prototype.ResumeStyles = function (
             this.ResumeStyle( style_name );
         }
     }
+
+    return this;
 }
 
 // ~~
@@ -1232,6 +1242,8 @@ HTMLElement.prototype.StopStyle = function (
     {
         this.StyleAnimationMap.GetValue( style_name ).Stop();
     }
+
+    return this;
 }
 
 // ~~
@@ -1261,6 +1273,64 @@ HTMLElement.prototype.StopStyles = function (
             this.StopStyle( style_name );
         }
     }
+
+    return this;
+}
+
+// ~~
+
+HTMLElement.prototype.FadeIn = function (
+    hiding_class_name = "is-hidden",
+    duration = 0.5
+    )
+{
+    this.AnimateStyles(
+        {
+            "class-list" : [ "-" + hiding_class_name, "" ],
+            "opacity" : [ ".", "1.0" ]
+        },
+        [ 0.0, duration ]
+        );
+
+    return this;
+}
+
+// ~~
+
+HTMLElement.prototype.FadeOut = function (
+    hiding_class_name = "is-hidden",
+    duration = 0.5
+    )
+{
+    this.AnimateStyles(
+        {
+            "class-list" : [ "", "+" + hiding_class_name ],
+            "opacity" : [ ".", "0.0" ]
+        },
+        [ 0.0, duration ]
+        );
+
+    return this;
+}
+
+// ~~
+
+HTMLElement.prototype.Fade = function (
+    element_is_shown = true,
+    hiding_class_name = "is-hidden",
+    duration = 0.5
+    )
+{
+    if ( element_is_shown )
+    {
+        this.FadeIn( hiding_class_name, duration );
+    }
+    else
+    {
+        this.FadeOut( hiding_class_name, duration );
+    }
+
+    return this;
 }
 
 // ~~
