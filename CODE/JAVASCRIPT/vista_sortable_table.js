@@ -20,7 +20,7 @@ function HandleSortableTableColumnClickEvent(
         cell_element_index
         )
     {
-        return row_element.GetChildElements( "td" )[ cell_element_index ].GetTextContent();
+        return row_element.GetChildElements( ".sortable-table-cell" )[ cell_element_index ].GetTextContent();
     }
 
     function GetCellComparison(
@@ -102,7 +102,7 @@ function HandleSortableTableColumnClickEvent(
         }
     }
 
-    row_element_array = table_element.GetDescendantElements( "tr:not(:first-child)" );
+    row_element_array = table_element.GetDescendantElements( ".sortable-table-row:not(:first-child)" );
     sorted_row_element_array = row_element_array.Sort( GetCellComparison( sorted_column_element_index, order_is_descending ) );
 
     for ( sorted_row_element of sorted_row_element_array )
