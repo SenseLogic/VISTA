@@ -1279,62 +1279,6 @@ HTMLElement.prototype.StopStyles = function (
 
 // ~~
 
-HTMLElement.prototype.FadeIn = function (
-    hiding_class_name = "is-hidden",
-    duration = 0.5
-    )
-{
-    this.AnimateStyles(
-        {
-            "class-list" : [ "-" + hiding_class_name, "" ],
-            "opacity" : [ ".", "1.0" ]
-        },
-        [ 0.0, duration ]
-        );
-
-    return this;
-}
-
-// ~~
-
-HTMLElement.prototype.FadeOut = function (
-    hiding_class_name = "is-hidden",
-    duration = 0.5
-    )
-{
-    this.AnimateStyles(
-        {
-            "class-list" : [ "", "+" + hiding_class_name ],
-            "opacity" : [ ".", "0.0" ]
-        },
-        [ 0.0, duration ]
-        );
-
-    return this;
-}
-
-// ~~
-
-HTMLElement.prototype.Fade = function (
-    element_is_shown = true,
-    hiding_class_name = "is-hidden",
-    duration = 0.5
-    )
-{
-    if ( element_is_shown )
-    {
-        this.FadeIn( hiding_class_name, duration );
-    }
-    else
-    {
-        this.FadeOut( hiding_class_name, duration );
-    }
-
-    return this;
-}
-
-// ~~
-
 Array.prototype.AnimateStyle = function (
     style_name,
     style_value_array,
@@ -1478,6 +1422,78 @@ Array.prototype.StopStyles = function (
     for ( element of this )
     {
         element.StopStyles( style_name_array );
+    }
+
+    return this;
+}
+
+// ~~
+
+HTMLElement.prototype.FadeIn = function (
+    duration = 0.5,
+    hiding_class_name = "is-hidden"
+    )
+{
+    if ( duration > 0.0 )
+    {
+        this.AnimateStyles(
+            {
+                "class-list" : [ "-" + hiding_class_name, "" ],
+                "opacity" : [ ".", "1.0" ]
+            },
+            [ 0.0, duration ]
+            );
+    }
+    else
+    {
+        this.RemoveClass( hiding_class_name );
+        this.SetStyle( "opacity", 1.0 );
+    }
+
+    return this;
+}
+
+// ~~
+
+HTMLElement.prototype.FadeOut = function (
+    duration = 0.5,
+    hiding_class_name = "is-hidden"
+    )
+{
+    if ( duration > 0.0 )
+    {
+        this.AnimateStyles(
+            {
+                "class-list" : [ "", "+" + hiding_class_name ],
+                "opacity" : [ ".", "0.0" ]
+            },
+            [ 0.0, duration ]
+            );
+    }
+    else
+    {
+        this.AddClass( hiding_class_name );
+        this.SetStyle( "opacity", 0.0 );
+    }
+
+    return this;
+}
+
+// ~~
+
+HTMLElement.prototype.Fade = function (
+    element_is_shown = true,
+    duration = 0.5,
+    hiding_class_name = "is-hidden"
+    )
+{
+    if ( element_is_shown )
+    {
+        this.FadeIn( duration, hiding_class_name );
+    }
+    else
+    {
+        this.FadeOut( duration, hiding_class_name );
     }
 
     return this;
