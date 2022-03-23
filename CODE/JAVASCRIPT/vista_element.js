@@ -486,6 +486,37 @@ Array.prototype.GetPrecedingElements = function (
 
 // ~~
 
+Array.prototype.GetSucceedingElements = function (
+    element_selector = undefined
+    )
+{
+    var
+        element,
+        succeeding_element,
+        succeeding_element_array;
+
+    succeeding_element_array = [];
+
+    for ( element of this )
+    {
+        for ( succeeding_element = element.nextElementSibling;
+              succeeding_element;
+              succeeding_element = succeeding_element.nextElementSibling )
+        {
+            if ( succeeding_element.nodeType === 1
+                 && ( element_selector === undefined
+                      || succeeding_element.matches( element_selector ) ) )
+            {
+                succeeding_element_array.AddLastValue( succeeding_element );
+            }
+        }
+    }
+
+    return succeeding_element_array;
+}
+
+// ~~
+
 HTMLElement.prototype.GetDescendantElements = function (
     element_selector
     )
@@ -554,9 +585,35 @@ HTMLElement.prototype.GetAncestorProperty = function (
 // ~~
 
 HTMLElement.prototype.GetParentElement = function (
+    element_selector
     )
 {
     return this.parentElement;
+}
+
+// ~~
+
+HTMLElement.prototype.GetPriorElement = function (
+    )
+{
+    return this.previousElementSibling;
+}
+
+// ~~
+
+HTMLElement.prototype.GetNextElement = function (
+    )
+{
+    return this.nextElementSibling;
+}
+
+// ~~
+
+HTMLElement.prototype.GetFirstChildElement = function (
+    element_selector
+    )
+{
+    return this.firstElementChild;
 }
 
 // ~~

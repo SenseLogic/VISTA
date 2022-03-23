@@ -104,10 +104,10 @@ function InitializeMultilingualInputs(
     {
         translation_element_array = [];
 
-        for ( translation_element = input_element.nextElementSibling;
+        for ( translation_element = input_element.GetNextElement();
               translation_element !== null
               && translation_element.classList.contains( "multilingual-input-translation" );
-              translation_element = translation_element.nextElementSibling )
+              translation_element = translation_element.GetNextElement() )
         {
             translation_element.InputElement = input_element;
             translation_element.AddEventListener( "input", HandleMultilingualInputTranslationInputEvent );
