@@ -83,11 +83,11 @@ class VISTA_COMPONENT extends HTMLElement
     // ~~
 
     GetSelector(
-        selector
+        element_selector
         )
     {
         return (
-            selector
+            element_selector
                 .ReplaceText( "{:scope:}", this.Scope )
                 .ReplaceText( "{:host:}", this.Host )
             );

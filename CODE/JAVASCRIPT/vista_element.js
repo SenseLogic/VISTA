@@ -2179,7 +2179,8 @@ function CreateIntersectionObserver(
 
             for ( intersection_observer_entry of intersection_observer_entry_array )
             {
-                if ( intersection_observer_entry.isIntersecting === element_is_intersecting )
+                if ( element_is_intersecting === null
+                     || intersection_observer_entry.isIntersecting === element_is_intersecting )
                 {
                     if ( added_class !== "" )
                     {
