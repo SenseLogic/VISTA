@@ -56,18 +56,18 @@ Minimalistic front-end framework.
     *   routers
     *   requests
     *   stores
-    *   sorts
-    *   tables
-    *   scrolls
+    *   trackers
+    *   vectors
+    *   matrices
+    *   quaternions
+    *   shaders
     *   videos
     *   carousels
     *   slideshows
     *   intersections
-    *   quaternions
-    *   matrices
-    *   vectors
-    *   shaders
-    *   trackers
+    *   scrolls
+    *   tables
+    *   sorts
 
 ## Samples
 

@@ -1431,14 +1431,14 @@ Array.prototype.StopStyles = function (
 
 HTMLElement.prototype.FadeIn = function (
     duration = 0.5,
-    hiding_class_name = "is-hidden"
+    hidden_element_class_name = "is-hidden"
     )
 {
     if ( duration > 0.0 )
     {
         this.AnimateStyles(
             {
-                "class-list" : [ "-" + hiding_class_name, "" ],
+                "class-list" : [ "-" + hidden_element_class_name, "" ],
                 "opacity" : [ ".", "1.0" ]
             },
             [ 0.0, duration ]
@@ -1446,7 +1446,7 @@ HTMLElement.prototype.FadeIn = function (
     }
     else
     {
-        this.RemoveClass( hiding_class_name );
+        this.RemoveClass( hidden_element_class_name );
         this.SetStyle( "opacity", 1.0 );
     }
 
@@ -1457,14 +1457,14 @@ HTMLElement.prototype.FadeIn = function (
 
 HTMLElement.prototype.FadeOut = function (
     duration = 0.5,
-    hiding_class_name = "is-hidden"
+    hidden_element_class_name = "is-hidden"
     )
 {
     if ( duration > 0.0 )
     {
         this.AnimateStyles(
             {
-                "class-list" : [ "", "+" + hiding_class_name ],
+                "class-list" : [ "", "+" + hidden_element_class_name ],
                 "opacity" : [ ".", "0.0" ]
             },
             [ 0.0, duration ]
@@ -1472,7 +1472,7 @@ HTMLElement.prototype.FadeOut = function (
     }
     else
     {
-        this.AddClass( hiding_class_name );
+        this.AddClass( hidden_element_class_name );
         this.SetStyle( "opacity", 0.0 );
     }
 
@@ -1484,16 +1484,16 @@ HTMLElement.prototype.FadeOut = function (
 HTMLElement.prototype.Fade = function (
     element_is_shown = true,
     duration = 0.5,
-    hiding_class_name = "is-hidden"
+    hidden_element_class_name = "is-hidden"
     )
 {
     if ( element_is_shown )
     {
-        this.FadeIn( duration, hiding_class_name );
+        this.FadeIn( duration, hidden_element_class_name );
     }
     else
     {
-        this.FadeOut( duration, hiding_class_name );
+        this.FadeOut( duration, hidden_element_class_name );
     }
 
     return this;

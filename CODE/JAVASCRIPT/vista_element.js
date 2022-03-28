@@ -558,6 +558,33 @@ HTMLElement.prototype.GetAncestorElement = function (
 
 // ~~
 
+HTMLElement.prototype.GetAncestorElements = function (
+    element_selector = undefined
+    )
+{
+    var
+        ancestor_element,
+        ancestor_element_array;
+
+    ancestor_element_array = [];
+
+    for ( ancestor_element = this.parentElement;
+          ancestor_element;
+          ancestor_element = ancestor_element.parentElement )
+    {
+        if ( ancestor_element.nodeType === 1
+             && ( element_selector === undefined
+                  || ancestor_element.matches( element_selector ) ) )
+        {
+            ancestor_element_array.AddLastValue( ancestor_element );
+        }
+    }
+
+    return ancestor_element_array;
+}
+
+// ~~
+
 HTMLElement.prototype.GetAncestorProperty = function (
     property_name,
     element_class
@@ -694,16 +721,32 @@ HTMLElement.prototype.AddAnimationClass = function (
 
 HTMLElement.prototype.Toggle = function (
     element_is_shown = true,
-    hiding_class_name = "is-hidden"
+    hidden_element_class_name = "is-hidden",
+    showing_class_name = ""
     )
 {
-    if ( element_is_shown )
+    if ( hidden_element_class_name !== "" )
     {
-        this.classList.remove( hiding_class_name );
+        if ( element_is_shown )
+        {
+            this.classList.remove( hidden_element_class_name );
+        }
+        else
+        {
+            this.classList.add( hidden_element_class_name );
+        }
     }
-    else
+
+    if ( showing_class_name !== "" )
     {
-        this.classList.add( hiding_class_name );
+        if ( element_is_shown )
+        {
+            this.classList.add( showing_class_name );
+        }
+        else
+        {
+            this.classList.remove( showing_class_name );
+        }
     }
 }
 
