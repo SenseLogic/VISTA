@@ -1056,38 +1056,74 @@ HTMLElement.prototype.GetIntersectionRatio = function (
 {
     var
         element_bottom,
+        element_height,
+        element_left,
+        element_right,
         element_top,
+        element_width,
         window_bottom,
+        window_left,
+        window_right,
         window_top;
 
-    element_top = this.offsetTop;
-    element_bottom = element_top + this.offsetHeight;
-    window_top = window.scrollY;
-    window_bottom = window_top + window.innerHeight;
-
-    if ( element_top > window_bottom
-         || element_bottom < window_top )
+    if ( this.offsetHeight === 0
+         || this.offsetWidth === 0 )
     {
         return 0;
     }
-    else if ( element_top >= window_top
-              && element_bottom <= window_bottom )
-    {
-        return 1;
-    }
     else
     {
-        if ( element_top < window_top )
-        {
-            element_top = window_top;
-        }
+        element_top = this.offsetTop;
+        element_bottom = element_top + this.offsetHeight;
+        element_left = this.offsetLeft;
+        element_right = element_left + this.offsetWidth;
 
-        if ( element_bottom > window_bottom )
-        {
-            element_bottom = window_bottom;
-        }
+        window_top = window.scrollY;
+        window_bottom = window_top + window.innerHeight;
+        window_left = window.scrollX;
+        window_right = window_left + window.innerWidth;
 
-        return ( element_bottom - element_top ) / this.offsetHeight;
+        if ( element_top > window_bottom
+             || element_bottom < window_top
+             || element_left > window_right
+             || element_right < window_left )
+        {
+            return 0;
+        }
+        else if ( element_top >= window_top
+                  && element_bottom <= window_bottom
+                  && element_left >= window_left
+                  && element_right <= window_right )
+        {
+            return 1;
+        }
+        else
+        {
+            if ( element_top < window_top )
+            {
+                element_top = window_top;
+            }
+
+            if ( element_bottom > window_bottom )
+            {
+                element_bottom = window_bottom;
+            }
+
+            if ( element_left < window_left )
+            {
+                element_left = window_left;
+            }
+
+            if ( element_right > window_right )
+            {
+                element_right = window_right;
+            }
+
+            element_height = element_bottom - element_top;
+            element_width = element_right - element_left;
+
+            return ( element_height * element_width ) / ( this.offsetHeight * this.offsetWidth );
+        }
     }
 }
 
