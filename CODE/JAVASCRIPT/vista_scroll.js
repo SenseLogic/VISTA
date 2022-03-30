@@ -43,7 +43,7 @@ function HandleScrollEvent(
             {
                 for ( element of element_array )
                 {
-                    element.style.setProperty( intersection_ratio_property_name, GetIntersectionRatio( element ) );
+                    element.style.setProperty( intersection_ratio_property_name, element.GetIntersectionRatio() );
                 }
             }
 

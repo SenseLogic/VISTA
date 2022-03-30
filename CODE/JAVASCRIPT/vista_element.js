@@ -1051,8 +1051,7 @@ HTMLElement.prototype.IsVisible = function (
 
 // ~~
 
-function GetIntersectionRatio(
-    element
+HTMLElement.prototype.GetIntersectionRatio = function (
     )
 {
     var
@@ -1061,8 +1060,8 @@ function GetIntersectionRatio(
         window_bottom,
         window_top;
 
-    element_top = element.offsetTop;
-    element_bottom = element_top + element.offsetHeight;
+    element_top = this.offsetTop;
+    element_bottom = element_top + this.offsetHeight;
     window_top = window.scrollY;
     window_bottom = window_top + window.innerHeight;
 
@@ -1088,7 +1087,7 @@ function GetIntersectionRatio(
             element_bottom = window_bottom;
         }
 
-        return ( element_bottom - element_top ) / element.offsetHeight;
+        return ( element_bottom - element_top ) / this.offsetHeight;
     }
 }
 
