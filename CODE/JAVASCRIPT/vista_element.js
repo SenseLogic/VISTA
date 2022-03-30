@@ -1051,6 +1051,49 @@ HTMLElement.prototype.IsVisible = function (
 
 // ~~
 
+function GetIntersectionRatio(
+    element
+    )
+{
+    var
+        element_bottom,
+        element_top,
+        window_bottom,
+        window_top;
+
+    element_top = element.offsetTop;
+    element_bottom = element_top + element.offsetHeight;
+    window_top = window.scrollY;
+    window_bottom = window_top + window.innerHeight;
+
+    if ( element_top > window_bottom
+         || element_bottom < window_top )
+    {
+        return 0;
+    }
+    else if ( element_top >= window_top
+              && element_bottom <= window_bottom )
+    {
+        return 1;
+    }
+    else
+    {
+        if ( element_top < window_top )
+        {
+            element_top = window_top;
+        }
+
+        if ( element_bottom > window_bottom )
+        {
+            element_bottom = window_bottom;
+        }
+
+        return ( element_bottom - element_top ) / element.offsetHeight;
+    }
+}
+
+// ~~
+
 HTMLElement.prototype.SetScrollTop = function (
     position
     )

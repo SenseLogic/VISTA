@@ -2,39 +2,60 @@
 
 function HandleScrollEvent(
     minimum_pixel_count,
-    element_selector,
+    element_array_or_selector,
     class_name,
-    called_function = null
+    called_function = null,
+    intersection_ratio_property_name = ""
     )
 {
     var
+        element_array,
+        handle_scroll_function,
         html_element;
 
     html_element = GetElement( "html" );
 
-    window.addEventListener(
-        "scroll",
-        function (
-            event
-            )
+    if ( IsArray( element_array_or_selector ) )
+    {
+        element_array = element_array_or_selector;
+    }
+    else
+    {
+        element_array = GetElements( element_array_or_selector );
+    }
+
+    handle_scroll_function
+        = function (
+              )
         {
             var
+                element,
                 html_element_is_scrolled;
 
             html_element_is_scrolled = ( html_element.scrollTop >= minimum_pixel_count );
 
-            if ( element_selector !== ""
-                 && class_name !== "" )
+            if ( class_name !== "" )
             {
-                GetElements( element_selector ).ToggleClass( class_name, html_element_is_scrolled );
+                element_array.ToggleClass( class_name, html_element_is_scrolled );
+            }
+
+            if ( intersection_ratio_property_name !== "" )
+            {
+                for ( element of element_array )
+                {
+                    element.style.setProperty( intersection_ratio_property_name, GetIntersectionRatio( element ) );
+                }
             }
 
             if ( called_function !== null )
             {
-                called_function( html_element_is_scrolled );
+                called_function( html_element_is_scrolled, element_array );
             }
-        }
-        );
+        };
+
+    window.addEventListener( "scroll", handle_scroll_function );
+
+    handle_scroll_function();
 }
 
 // ~~

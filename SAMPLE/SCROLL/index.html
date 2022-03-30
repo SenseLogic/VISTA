@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Sample</title>
+        <style>
+            .grid
+            {
+                margin: 30vh 10vw;
+
+                display: flex;
+                flex-direction: column;
+                gap: 50vh;
+            }
+
+            .row
+            {
+                display: flex;
+                justify-content: space-evenly;
+                align-items: center;
+            }
+
+            .image
+            {
+                --intersection-ratio: 0;
+
+                height: 40vmin;
+                width: 25vmin;
+
+                transform:
+                    scale( calc( var( --intersection-ratio ) * 20% + 100% ) )
+                    rotate( calc( var( --intersection-ratio ) * var( --rotation-angle ) ) );
+
+                background-position: center center;
+                background-size: cover;
+            }
+
+            .image-background-1
+            {
+                --rotation-angle: -5deg;
+
+                background-image: url( "../MEDIA/image_1.jpg" );
+            }
+
+            .image-background-2
+            {
+                --rotation-angle: 5deg;
+
+                background-image: url( "../MEDIA/image_2.jpg" );
+            }
+
+            .image-background-3
+            {
+                --rotation-angle: -10deg;
+
+                background-image: url( "../MEDIA/image_3.jpg" );
+            }
+
+            .image-background-4
+            {
+                --rotation-angle: 10deg;
+
+                background-image: url( "../MEDIA/image_4.jpg" );
+            }
+
+            .image-background-5
+            {
+                --rotation-angle: -15deg;
+
+                background-image: url( "../MEDIA/image_5.jpg" );
+            }
+
+            .image-background-6
+            {
+                --rotation-angle: 15deg;
+
+                background-image: url( "../MEDIA/image_6.jpg" );
+            }
+        </style>
+    </head>
+    <body>
+        <main>
+            <div class="grid">
+                <div class="row">
+                    <div class="image image-background-1">
+                    </div>
+                    <div class="image image-background-2">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="image image-background-3">
+                    </div>
+                    <div class="image image-background-4">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="image image-background-5">
+                    </div>
+                    <div class="image image-background-6">
+                    </div>
+                </div>
+            </div>
+        </main>
+        <script src="../../CODE/JAVASCRIPT/vista_base.js"></script>
+        <script src="../../CODE/JAVASCRIPT/vista_element.js"></script>
+        <script src="../../CODE/JAVASCRIPT/vista_scroll.js"></script>
+        <script>
+            HandleScrollEvent(
+                0,
+                GetElements( ".image" ),
+                "",
+                null,
+                "--intersection-ratio"
+                );
+        </script>
+    </body>
+</html>

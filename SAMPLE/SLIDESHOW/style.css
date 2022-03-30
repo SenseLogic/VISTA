@@ -599,22 +599,22 @@ html {
   color: #fff;
 }
 .test-slideshow-slide-background-1 {
-  background-image: url("slide_1.jpg");
+  background-image: url("../MEDIA/slide_1.jpg");
 }
 .test-slideshow-slide-background-2 {
-  background-image: url("slide_2.jpg");
+  background-image: url("../MEDIA/slide_2.jpg");
 }
 .test-slideshow-slide-background-3 {
-  background-image: url("slide_3.jpg");
+  background-image: url("../MEDIA/slide_3.jpg");
 }
 .test-slideshow-slide-background-4 {
-  background-image: url("slide_4.jpg");
+  background-image: url("../MEDIA/slide_4.jpg");
 }
 .test-slideshow-slide-background-5 {
-  background-image: url("slide_5.jpg");
+  background-image: url("../MEDIA/slide_5.jpg");
 }
 .test-slideshow-slide-background-6 {
-  background-image: url("slide_6.jpg");
+  background-image: url("../MEDIA/slide_6.jpg");
 }
 .test-slideshow-slide-menu {
   position: absolute;
