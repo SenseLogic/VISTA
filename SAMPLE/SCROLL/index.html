@@ -6,7 +6,7 @@
         <style>
             .grid
             {
-                margin: 30vh 10vw;
+                margin: 110vh 10vw;
 
                 display: flex;
                 flex-direction: column;
@@ -22,14 +22,8 @@
 
             .image
             {
-                --intersection-ratio: 0;
-
                 height: 40vmin;
                 width: 25vmin;
-
-                transform:
-                    scale( calc( var( --intersection-ratio ) * 20% + 100% ) )
-                    rotate( calc( var( --intersection-ratio ) * var( --rotation-angle ) ) );
 
                 background-position: center center;
                 background-size: cover;
@@ -37,43 +31,31 @@
 
             .image-background-1
             {
-                --rotation-angle: -5deg;
-
                 background-image: url( "../MEDIA/image_1.jpg" );
             }
 
             .image-background-2
             {
-                --rotation-angle: 5deg;
-
                 background-image: url( "../MEDIA/image_2.jpg" );
             }
 
             .image-background-3
             {
-                --rotation-angle: -10deg;
-
                 background-image: url( "../MEDIA/image_3.jpg" );
             }
 
             .image-background-4
             {
-                --rotation-angle: 10deg;
-
                 background-image: url( "../MEDIA/image_4.jpg" );
             }
 
             .image-background-5
             {
-                --rotation-angle: -15deg;
-
                 background-image: url( "../MEDIA/image_5.jpg" );
             }
 
             .image-background-6
             {
-                --rotation-angle: 15deg;
-
                 background-image: url( "../MEDIA/image_6.jpg" );
             }
         </style>
@@ -109,8 +91,19 @@
                 0,
                 GetElements( ".image" ),
                 "",
-                null,
-                "--intersection-ratio"
+                function (
+                    element
+                    )
+                {
+                    element.SetStyle(
+                        "transform",
+                        "scale( "
+                        + ( 1 + element.GetMiddleScrollingRatio() * 0.5 )
+                        + ") rotate( "
+                        + ( element.GetMiddleIntersectionRatio() * 20 )
+                        + "deg )"
+                        );
+                }
                 );
         </script>
     </body>

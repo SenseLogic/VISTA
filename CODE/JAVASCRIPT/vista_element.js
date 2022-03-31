@@ -1,5 +1,21 @@
 // -- FUNCTIONS
 
+function GetVerticalScroll(
+    )
+{
+    return window.scrollY;
+}
+
+// ~~
+
+function GetHorizontalScroll(
+    )
+{
+    return window.scrollX;
+}
+
+// ~~
+
 function GetViewportHeight(
     )
 {
@@ -1051,84 +1067,6 @@ HTMLElement.prototype.IsVisible = function (
 
 // ~~
 
-HTMLElement.prototype.GetIntersectionRatio = function (
-    )
-{
-    var
-        element_bottom,
-        element_height,
-        element_left,
-        element_right,
-        element_top,
-        element_width,
-        window_bottom,
-        window_left,
-        window_right,
-        window_top;
-
-    if ( this.offsetHeight === 0
-         || this.offsetWidth === 0 )
-    {
-        return 0;
-    }
-    else
-    {
-        element_top = this.offsetTop;
-        element_bottom = element_top + this.offsetHeight;
-        element_left = this.offsetLeft;
-        element_right = element_left + this.offsetWidth;
-
-        window_top = window.scrollY;
-        window_bottom = window_top + window.innerHeight;
-        window_left = window.scrollX;
-        window_right = window_left + window.innerWidth;
-
-        if ( element_top > window_bottom
-             || element_bottom < window_top
-             || element_left > window_right
-             || element_right < window_left )
-        {
-            return 0;
-        }
-        else if ( element_top >= window_top
-                  && element_bottom <= window_bottom
-                  && element_left >= window_left
-                  && element_right <= window_right )
-        {
-            return 1;
-        }
-        else
-        {
-            if ( element_top < window_top )
-            {
-                element_top = window_top;
-            }
-
-            if ( element_bottom > window_bottom )
-            {
-                element_bottom = window_bottom;
-            }
-
-            if ( element_left < window_left )
-            {
-                element_left = window_left;
-            }
-
-            if ( element_right > window_right )
-            {
-                element_right = window_right;
-            }
-
-            element_height = element_bottom - element_top;
-            element_width = element_right - element_left;
-
-            return ( element_height * element_width ) / ( this.offsetHeight * this.offsetWidth );
-        }
-    }
-}
-
-// ~~
-
 HTMLElement.prototype.SetScrollTop = function (
     position
     )
@@ -1313,6 +1251,41 @@ HTMLElement.prototype.SetStyles = function (
         if ( style_value_map.hasOwnProperty( style_name ) )
         {
             this.style[ style_name ] = style_value_map[ style_name ];
+        }
+    }
+
+    return this;
+}
+
+// ~~
+
+HTMLElement.prototype.SetStyleProperty = function (
+    style_property_name,
+    style_property_value
+    )
+{
+    this.style.setProperty( style_property_name, style_property_value );
+
+    return this;
+}
+
+// ~~
+
+HTMLElement.prototype.SetStyleProperties = function (
+    style_property_value_map
+    )
+{
+    var
+        element,
+        style_property_name,
+        style_property_value_array,
+        style_property_value_index;
+
+    for ( style_property_name in style_property_value_map )
+    {
+        if ( style_property_value_map.hasOwnProperty( style_property_name ) )
+        {
+            this.style.setProperty( style_property_name, style_property_value_map[ style_property_name ] );
         }
     }
 

@@ -8,15 +8,19 @@ function UpdateBackgroundParallax(
     var
         element_background_position,
         element_bottom,
+        element_height,
         element_offset,
-        element_ratio
+        element_ratio,
+        element_top;
 
-    element_bottom  = element.offsetTop + element.offsetHeight;
+    element_height = element.offsetHeight;
+    element_top = element.offsetTop;
+    element_bottom = element_top + element_height;
 
     if ( element.IsVisible() )
     {
-        element_offset = window.scrollY - element.offsetTop;
-        element_ratio = ( element_offset / element.offsetHeight ) * offset_distance;
+        element_offset = window.scrollY - element_top;
+        element_ratio = ( element_offset / element_height ) * offset_distance;
         element_background_position = "center " + ( -element_ratio * offset_ratio ) + offset_unit;
 
         element.style[ "background-position" ] = element_background_position;
