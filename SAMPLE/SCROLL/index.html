@@ -6,25 +6,25 @@
         <style>
             .grid
             {
-                margin: 110vh 10vw;
-
-                display: grid;
-                grid-auto-columns: 1fr 1fr;
-                grid-auto-rows: auto;
-                row-gap: 60vh;
+                margin: 110vh auto;
             }
 
             .row
             {
                 display: flex;
-                justify-content: space-evenly;
+                justify-content: center;
                 align-items: center;
+            }
+
+            .row + .row
+            {
+                margin-top: 60vh;
             }
 
             .image
             {
-                height: 40vmin;
-                width: 25vmin;
+                height: 40vw;
+                width: 25vw;
 
                 background-position: center center;
                 background-size: cover;
@@ -65,21 +65,21 @@
         <main>
             <div class="grid">
                 <div class="row">
-                    <div class="image image-background-1" data-angle="20" data-distance="-8">
+                    <div class="image image-background-1" data-angle="10" data-distance="-8">
                     </div>
-                    <div class="image image-background-2" data-angle="-20" data-distance="8">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="image image-background-3" data-angle="25" data-distance="-9">
-                    </div>
-                    <div class="image image-background-4" data-angle="-25" data-distance="9">
+                    <div class="image image-background-2" data-angle="-10" data-distance="8">
                     </div>
                 </div>
                 <div class="row">
-                    <div class="image image-background-5" data-angle="30" data-distance="-10">
+                    <div class="image image-background-3" data-angle="15" data-distance="-9">
                     </div>
-                    <div class="image image-background-6" data-angle="-30" data-distance="10">
+                    <div class="image image-background-4" data-angle="-15" data-distance="9">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="image image-background-5" data-angle="20" data-distance="-10">
+                    </div>
+                    <div class="image image-background-6" data-angle="-20" data-distance="10">
                     </div>
                 </div>
             </div>
@@ -107,17 +107,12 @@
 
                     element.SetStyle(
                         "transform",
-                        "perspective( 100vw ) scale( "
-                        + ( 1 + scrolling_ratio * 0.5 )
-                        + ") rotateZ( "
-                        + ( intersection_ratio * -element.dataset.angle )
-                        + "deg ) rotateX( "
-                        + ( intersection_ratio * GetPositive( element.dataset.angle ) * 0.5 )
-                        + "deg ) rotateY( "
-                        + ( intersection_ratio * element.dataset.angle )
-                        + "deg ) translateX( "
-                        + ( intersection_ratio * element.dataset.distance )
-                        + "vw )"
+                        "perspective( 100vw ) scale( " + ( 0.5 + scrolling_ratio * 0.5 ) + ") "
+                        + "rotateZ( " + ( intersection_ratio * -element.dataset.angle ) + "deg ) "
+                        + "rotateX( " + ( intersection_ratio * GetPositive( element.dataset.angle ) * 0.5 ) + "deg ) "
+                        + "rotateY( " + ( 3 *intersection_ratio * element.dataset.angle ) + "deg ) "
+                        + "translateX( " + ( ( 1 - GetCosinus( 3 * intersection_ratio ) ) * element.dataset.distance ) + "vw )"
+                        + "translateY( " + ( GetSinus( 3 * intersection_ratio ) * GetPositive( element.dataset.distance ) ) + "vw )"
                         );
                 }
                 );
