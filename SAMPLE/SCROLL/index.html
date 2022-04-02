@@ -8,9 +8,10 @@
             {
                 margin: 110vh 10vw;
 
-                display: flex;
-                flex-direction: column;
-                gap: 50vh;
+                display: grid;
+                grid-auto-columns: 1fr 1fr;
+                grid-auto-rows: auto;
+                row-gap: 60vh;
             }
 
             .row
@@ -64,26 +65,27 @@
         <main>
             <div class="grid">
                 <div class="row">
-                    <div class="image image-background-1">
+                    <div class="image image-background-1" data-angle="20" data-distance="-8">
                     </div>
-                    <div class="image image-background-2">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="image image-background-3">
-                    </div>
-                    <div class="image image-background-4">
+                    <div class="image image-background-2" data-angle="-20" data-distance="8">
                     </div>
                 </div>
                 <div class="row">
-                    <div class="image image-background-5">
+                    <div class="image image-background-3" data-angle="25" data-distance="-9">
                     </div>
-                    <div class="image image-background-6">
+                    <div class="image image-background-4" data-angle="-25" data-distance="9">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="image image-background-5" data-angle="30" data-distance="-10">
+                    </div>
+                    <div class="image image-background-6" data-angle="-30" data-distance="10">
                     </div>
                 </div>
             </div>
         </main>
         <script src="../../CODE/JAVASCRIPT/vista_base.js"></script>
+        <script src="../../CODE/JAVASCRIPT/vista_math.js"></script>
         <script src="../../CODE/JAVASCRIPT/vista_element.js"></script>
         <script src="../../CODE/JAVASCRIPT/vista_scroll.js"></script>
         <script>
@@ -95,13 +97,26 @@
                     element
                     )
                 {
+                    var
+                        intersection_ratio,
+                        scrolling_ratio;
+
+                    scrolling_ratio = element.GetMiddleScrollingRatio( 0.5 );
+                    intersection_ratio = element.GetMiddleIntersectionRatio( 0.5 );
+
                     element.SetStyle(
                         "transform",
-                        "scale( "
-                        + ( 1 + element.GetMiddleScrollingRatio() * 0.5 )
-                        + ") rotate( "
-                        + ( element.GetMiddleIntersectionRatio() * 20 )
-                        + "deg )"
+                        "perspective( 100vw ) scale( "
+                        + ( 1 + scrolling_ratio * 0.5 )
+                        + ") rotateZ( "
+                        + ( intersection_ratio * -element.dataset.angle )
+                        + "deg ) rotateX( "
+                        + ( intersection_ratio * GetPositive( element.dataset.angle ) * 0.5 )
+                        + "deg ) rotateY( "
+                        + ( intersection_ratio * element.dataset.angle )
+                        + "deg ) translateX( "
+                        + ( intersection_ratio * element.dataset.distance )
+                        + "vw )"
                         );
                 }
                 );
