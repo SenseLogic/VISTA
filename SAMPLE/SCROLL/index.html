@@ -4,9 +4,29 @@
         <meta charset="UTF-8">
         <title>Sample</title>
         <style>
+            *
+            {
+                margin: 0;
+                padding: 0;
+            }
+
+            .background
+            {
+                position: fixed;
+                inset: 0;
+                height: 100vh;
+                width: 100vw;
+
+                background: url( "../MEDIA/slide_1.jpg" ) no-repeat center center / cover;
+                filter: blur( 1vw );
+            }
+
             .container
             {
-                margin: 110vh auto;
+                margin: 15vh auto;
+                padding: 15vh 0;
+
+                overflow: hidden;
             }
 
             .row
@@ -63,6 +83,8 @@
     </head>
     <body>
         <main>
+            <div class="background">
+            </div>
             <div class="container">
                 <div class="row">
                     <div class="image image-background-1" data-angle="10" data-distance="-8">
@@ -99,20 +121,22 @@
                     )
                 {
                     var
-                        intersection_ratio,
-                        scrolling_ratio;
+                        rotation_ratio,
+                        translation_ratio;
 
-                    scrolling_ratio = element.GetMiddleScrollingRatio( 0.5 );
-                    intersection_ratio = element.GetMiddleIntersectionRatio( 0.5 );
+                    scaling_ratio = element.GetMiddleScrollingRatio( 0.5 );
+                    rotation_ratio = 1 - element.GetMiddleIntersectionRatio( 0.5 );
+                    translation_ratio = rotation_ratio;
 
                     element.SetStyle(
                         "transform",
-                        "perspective( 100vw ) scale( " + ( 0.5 + scrolling_ratio * 0.5 ) + ") "
-                        + "rotateZ( " + ( intersection_ratio * -element.dataset.angle ) + "deg ) "
-                        + "rotateX( " + ( intersection_ratio * GetPositive( element.dataset.angle ) * 0.5 ) + "deg ) "
-                        + "rotateY( " + ( 3 *intersection_ratio * element.dataset.angle ) + "deg ) "
-                        + "translateX( " + ( ( 1 - GetCosinus( 3 * intersection_ratio ) ) * element.dataset.distance ) + "vw )"
-                        + "translateY( " + ( GetSinus( 3 * intersection_ratio ) * GetPositive( element.dataset.distance ) ) + "vw )"
+                        "perspective( 100vw ) "
+                        + "scale( " + ( 0.1 + scaling_ratio * 0.9 ) + ") "
+                        + "rotateZ( " + ( rotation_ratio * -element.dataset.angle ) + "deg ) "
+                        + "rotateX( " + ( rotation_ratio * GetPositive( element.dataset.angle ) * 0.5 ) + "deg ) "
+                        + "rotateY( " + ( 3 * rotation_ratio * element.dataset.angle ) + "deg ) "
+                        + "translateX( " + ( ( 1.5 - GetCosinus( 3 * translation_ratio ) ) * element.dataset.distance ) + "vw )"
+                        + "translateY( " + ( GetSinus( 3 * translation_ratio ) * GetPositive( element.dataset.distance ) ) + "vw )"
                         );
                 }
                 );
