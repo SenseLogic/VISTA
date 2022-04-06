@@ -72,7 +72,6 @@ function CreateAutoplayIntersectionObserver(
 
 // ~~
 
-
 HTMLElement.prototype.AutoplayVideo = function (
     )
 {

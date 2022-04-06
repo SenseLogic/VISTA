@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Sample</title>
+        <style>
+            *
+            {
+                margin: 0;
+                padding: 0;
+            }
+
+            .test-scroller
+            {
+                position: relative;
+
+                overflow: hidden;
+                height: 100vh;
+            }
+
+            .test-scroller-strip
+            {
+                position: absolute;
+
+                display: flex;
+            }
+
+            .test-scroller-slide
+            {
+                height: 100vh;
+                width: 40vw;
+
+                display: flex;
+                flex-shrink: 0;
+                justify-content: center;
+                align-items: center;
+
+                background-position: center center;
+                background-size: cover;
+
+                color: white;
+            }
+
+            .test-scroller-slide-background-1
+            {
+                background-image: url( "../MEDIA/slide_1.jpg" );
+            }
+
+            .test-scroller-slide-background-2
+            {
+                background-image: url( "../MEDIA/slide_2.jpg" );
+            }
+
+            .test-scroller-slide-background-3
+            {
+                background-image: url( "../MEDIA/slide_3.jpg" );
+            }
+
+            .test-scroller-slide-background-4
+            {
+                background-image: url( "../MEDIA/slide_4.jpg" );
+            }
+
+            .test-scroller-slide-background-5
+            {
+                background-image: url( "../MEDIA/slide_5.jpg" );
+            }
+
+            .test-scroller-slide-background-6
+            {
+                background-image: url( "../MEDIA/slide_6.jpg" );
+            }
+
+            .test-scroller-track
+            {
+                position: absolute;
+                bottom: 1rem;
+                left: 1rem;
+                right: 1rem;
+
+                overflow: hidden;
+                height: 1rem;
+                border-radius: 0.5rem;
+
+                background-color: rgba( 0, 0, 0, 0.2 );
+            }
+
+            .test-scroller-slider
+            {
+                height: 1rem;
+                width: 5rem;
+                border-radius: 0.5rem;
+
+                background-color: rgba( 255, 255, 255, 0.8 );
+            }
+        </style>
+    </head>
+    <body>
+        <main>
+            <div id="test-scroller" class="test-scroller">
+                <div id="test-scroller-strip" class="test-scroller-strip">
+                    <div class="test-scroller-slide test-scroller-slide-background-1">
+                        <h1>SLIDE 1</h1>
+                    </div>
+                    <div class="test-scroller-slide test-scroller-slide-background-2">
+                        <h1>SLIDE 2</h1>
+                    </div>
+                    <div class="test-scroller-slide test-scroller-slide-background-3">
+                        <h1>SLIDE 3</h1>
+                    </div>
+                    <div class="test-scroller-slide test-scroller-slide-background-4">
+                        <h1>SLIDE 4</h1>
+                    </div>
+                    <div class="test-scroller-slide test-scroller-slide-background-5">
+                        <h1>SLIDE 5</h1>
+                    </div>
+                    <div class="test-scroller-slide test-scroller-slide-background-6">
+                        <h1>SLIDE 6</h1>
+                    </div>
+                </div>
+                <div id="test-scroller-track" class="test-scroller-track">
+                    <div id="test-scroller-slider" class="test-scroller-slider">
+                    </div>
+                </div>
+            </div>
+        </main>
+        <script src="../../CODE/JAVASCRIPT/vista_base.js"></script>
+        <script src="../../CODE/JAVASCRIPT/vista_math.js"></script>
+        <script src="../../CODE/JAVASCRIPT/vista_element.js"></script>
+        <script src="../../CODE/JAVASCRIPT/vista_scroller.js"></script>
+        <script>
+            // -- STATEMENTS
+
+            var scroller
+                = new SCROLLER(
+                      GetElementById( "test-scroller" ),
+                      true,
+                      GetElementById( "test-scroller-strip" ),
+                      "margin-left",
+                      GetElementById( "test-scroller-slider" ),
+                      "margin-left",
+                      GetElementById( "test-scroller-track" )
+                      );
+        </script>
+    </body>
+</html>
