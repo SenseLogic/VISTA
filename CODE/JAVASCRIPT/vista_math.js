@@ -257,6 +257,24 @@ function GetEaseInOutRatio(
 
 // ~~
 
+function GetEaseInRatio(
+    ratio
+    )
+{
+    return 1.0 - GetCosinus( ratio * HalfPi );
+}
+
+// ~~
+
+function GetEaseOutRatio(
+    ratio
+    )
+{
+    return GetSinus( ratio * HalfPi );
+}
+
+// ~~
+
 function GetQuadraticEaseInRatio(
     ratio
     )

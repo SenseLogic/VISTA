@@ -6,11 +6,15 @@ class SCROLLER
 
     constructor(
         scroller_element,
-        scroller_is_horizontal = false,
         strip_element,
         strip_position_property = "left",
+        strip_is_horizontal = true,
+        strip_is_draggable = true,
+        strip_animation_duration = 0.0,
         slider_element = null,
         slider_position_property = "left",
+        slider_is_horizontal = true,
+        slider_is_draggable = true,
         track_element = null,
         update_track_function = null
         )
@@ -22,44 +26,62 @@ class SCROLLER
         this.HandleTouchEndEvent = this.HandleTouchEndEvent.bind( this );
 
         this.Element = scroller_element;
-        this.IsHorizontal = scroller_is_horizontal;
+        this.StripElement = strip_element;
         this.StripElement = strip_element;
         this.StripPositionProperty = strip_position_property;
+        this.StripIsHorizontal = strip_is_horizontal;
+        this.StripIsDraggable = strip_is_draggable;
         this.StripIsDragged = false;
         this.StripWasDragged = false;
         this.StripDragPosition = 0;
         this.StripDragRatio = 0;
+        this.StripAnimationDuration = strip_animation_duration;
         this.SliderElement = slider_element;
-        this.SliderPositionProperty = slider_position_property,
+        this.SliderPositionProperty = slider_position_property;
+        this.SliderIsHorizontal = slider_is_horizontal;
+        this.SliderIsDraggable = slider_is_draggable;
         this.SliderIsDragged = false;
         this.SliderDragPosition = 0;
         this.SliderRatio = 0;
         this.TrackElement = track_element;
         this.UpdateTrackFunction = update_track_function;
 
-        this.StripElement.AddEventListener( "touchstart", this.HandleStripTouchStartEvent );
-        this.StripElement.AddEventListener( "mousedown", this.HandleStripTouchStartEvent );
-        this.SliderElement.AddEventListener( "touchstart", this.HandleSliderTouchStartEvent );
-        this.SliderElement.AddEventListener( "mousedown", this.HandleSliderTouchStartEvent );
+        if ( strip_is_draggable )
+        {
+            this.StripElement.AddEventListener( "touchstart", this.HandleStripTouchStartEvent );
+            this.StripElement.AddEventListener( "mousedown", this.HandleStripTouchStartEvent );
+        }
+
+        if ( slider_is_draggable )
+        {
+            this.SliderElement.AddEventListener( "touchstart", this.HandleSliderTouchStartEvent );
+            this.SliderElement.AddEventListener( "mousedown", this.HandleSliderTouchStartEvent );
+        }
+
+        if ( strip_is_draggable
+             || slider_is_draggable )
+        {
+            AddEventListener( "touchmove", this.HandleTouchMoveEvent );
+            AddEventListener( "mousemove", this.HandleTouchMoveEvent );
+            AddEventListener( "touchend", this.HandleTouchEndEvent );
+            AddEventListener( "touchcancel", this.HandleTouchEndEvent );
+            AddEventListener( "mouseup", this.HandleTouchEndEvent );
+        }
 
         window.addEventListener( "resize", this.HandleResizeEvent );
-        AddEventListener( "touchmove", this.HandleTouchMoveEvent );
-        AddEventListener( "mousemove", this.HandleTouchMoveEvent );
-        AddEventListener( "touchend", this.HandleTouchEndEvent );
-        AddEventListener( "touchcancel", this.HandleTouchEndEvent );
-        AddEventListener( "mouseup", this.HandleTouchEndEvent );
     }
 
     // -- INQUIRIES
 
     GetPosition(
-        event
+        event,
+        it_is_horizontal
         )
     {
         if ( event.changedTouches !== undefined
              && event.changedTouches.length > 0 )
         {
-            if ( this.IsHorizontal )
+            if ( it_is_horizontal )
             {
                 return event.changedTouches[ 0 ].pageX;
             }
@@ -70,7 +92,7 @@ class SCROLLER
         }
         else
         {
-            if ( this.IsHorizontal )
+            if ( it_is_horizontal )
             {
                 return event.pageX;
             }
@@ -86,7 +108,7 @@ class SCROLLER
     GetSize(
         )
     {
-        if ( this.IsHorizontal )
+        if ( this.StripIsHorizontal )
         {
             return this.Element.GetWidth();
         }
@@ -101,7 +123,7 @@ class SCROLLER
     GetStripSize(
         )
     {
-        if ( this.IsHorizontal )
+        if ( this.StripIsHorizontal )
         {
             return this.StripElement.GetWidth();
         }
@@ -116,7 +138,7 @@ class SCROLLER
     GetStripAmplitude(
         )
     {
-        if ( this.IsHorizontal )
+        if ( this.StripIsHorizontal )
         {
             return this.StripElement.GetWidth() - this.Element.GetWidth();
         }
@@ -139,7 +161,7 @@ class SCROLLER
     GetSliderSize(
         )
     {
-        if ( this.IsHorizontal )
+        if ( this.SliderIsHorizontal )
         {
             return this.SliderElement.GetWidth();
         }
@@ -154,7 +176,7 @@ class SCROLLER
     GetSliderAmplitude(
         )
     {
-        if ( this.IsHorizontal )
+        if ( this.SliderIsHorizontal )
         {
             return this.TrackElement.GetWidth() - this.SliderElement.GetWidth();
         }
@@ -177,7 +199,7 @@ class SCROLLER
     GetTrackSize(
         )
     {
-        if ( this.IsHorizontal )
+        if ( this.SliderIsHorizontal )
         {
             return this.TrackElement.GetWidth();
         }
@@ -192,7 +214,23 @@ class SCROLLER
     UpdateStrip(
         )
     {
-        this.StripElement.SetStyle( this.StripPositionProperty, this.GetStripPosition() + "px" );
+        if ( this.StripAnimationDuration > 0.0 )
+        {
+            this.StripElement
+                .StopStyle( this.StripPositionProperty )
+                .AnimateStyle(
+                    this.StripPositionProperty,
+                    [ ".", this.GetStripPosition() + "px" ],
+                    [ 0.0, this.StripAnimationDuration ],
+                    {
+                        GetRatioFunction : GetEaseOutRatio
+                    }
+                    );
+        }
+        else
+        {
+            this.StripElement.SetStyle( this.StripPositionProperty, this.GetStripPosition() + "px" );
+        }
     }
 
     // ~~
@@ -274,7 +312,7 @@ class SCROLLER
     {
         this.StripIsDragged = true;
         this.StripWasDragged = false;
-        this.StripDragPosition = this.GetPosition( event );
+        this.StripDragPosition = this.GetPosition( event, this.StripIsHorizontal );
         this.StripDragRatio = this.SliderRatio;
 
         event.Cancel();
@@ -287,7 +325,7 @@ class SCROLLER
         )
     {
         this.SliderIsDragged = true;
-        this.SliderDragPosition = this.GetPosition( event );
+        this.SliderDragPosition = this.GetPosition( event, this.SliderIsHorizontal );
 
         event.Cancel();
     }
@@ -300,16 +338,16 @@ class SCROLLER
     {
         if ( this.StripIsDragged )
         {
-            this.MoveStrip( this.GetPosition( event ) - this.StripDragPosition );
-            this.StripDragPosition = this.GetPosition( event );
+            this.MoveStrip( this.GetPosition( event, this.StripIsHorizontal ) - this.StripDragPosition );
+            this.StripDragPosition = this.GetPosition( event, this.StripIsHorizontal );
 
             event.Cancel();
         }
 
         if ( this.SliderIsDragged )
         {
-            this.MoveSlider( this.GetPosition( event ) - this.SliderDragPosition );
-            this.SliderDragPosition = this.GetPosition( event );
+            this.MoveSlider( this.GetPosition( event, this.SliderIsHorizontal ) - this.SliderDragPosition );
+            this.SliderDragPosition = this.GetPosition( event, this.SliderIsHorizontal );
 
             event.Cancel();
         }

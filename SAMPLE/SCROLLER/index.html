@@ -74,31 +74,55 @@
             .test-scroller-track
             {
                 position: absolute;
-                bottom: 1rem;
-                left: 1rem;
-                right: 1rem;
 
                 overflow: hidden;
-                height: 1rem;
                 border-radius: 0.5rem;
 
                 background-color: rgba( 0, 0, 0, 0.2 );
             }
 
+            .test-scroller-horizontal-track
+            {
+                bottom: 1rem;
+                left: 1rem;
+                right: 1rem;
+
+                height: 1rem;
+            }
+
+            .test-scroller-vertical-track
+            {
+                right: 1rem;
+                top: 1rem;
+                bottom: 1rem;
+
+                width: 1rem;
+            }
+
             .test-scroller-slider
             {
-                height: 1rem;
-                width: 5rem;
                 border-radius: 0.5rem;
 
                 background-color: rgba( 255, 255, 255, 0.8 );
+            }
+
+            .test-scroller-horizontal-slider
+            {
+                height: 1rem;
+                width: 5rem;
+            }
+
+            .test-scroller-vertical-slider
+            {
+                height: 5rem;
+                width: 1rem;
             }
         </style>
     </head>
     <body>
         <main>
-            <div id="test-scroller" class="test-scroller">
-                <div id="test-scroller-strip" class="test-scroller-strip">
+            <div id="test-scroller-1" class="test-scroller">
+                <div id="test-scroller-strip-1" class="test-scroller-strip">
                     <div class="test-scroller-slide test-scroller-slide-background-1">
                         <h1>SLIDE 1</h1>
                     </div>
@@ -118,8 +142,34 @@
                         <h1>SLIDE 6</h1>
                     </div>
                 </div>
-                <div id="test-scroller-track" class="test-scroller-track">
-                    <div id="test-scroller-slider" class="test-scroller-slider">
+                <div id="test-scroller-track-1" class="test-scroller-track test-scroller-horizontal-track">
+                    <div id="test-scroller-slider-1" class="test-scroller-slider test-scroller-horizontal-slider">
+                    </div>
+                </div>
+            </div>
+            <div id="test-scroller-2" class="test-scroller">
+                <div id="test-scroller-strip-2" class="test-scroller-strip">
+                    <div class="test-scroller-slide test-scroller-slide-background-1">
+                        <h1>SLIDE 1</h1>
+                    </div>
+                    <div class="test-scroller-slide test-scroller-slide-background-2">
+                        <h1>SLIDE 2</h1>
+                    </div>
+                    <div class="test-scroller-slide test-scroller-slide-background-3">
+                        <h1>SLIDE 3</h1>
+                    </div>
+                    <div class="test-scroller-slide test-scroller-slide-background-4">
+                        <h1>SLIDE 4</h1>
+                    </div>
+                    <div class="test-scroller-slide test-scroller-slide-background-5">
+                        <h1>SLIDE 5</h1>
+                    </div>
+                    <div class="test-scroller-slide test-scroller-slide-background-6">
+                        <h1>SLIDE 6</h1>
+                    </div>
+                </div>
+                <div id="test-scroller-track-2" class="test-scroller-track test-scroller-vertical-track">
+                    <div id="test-scroller-slider-2" class="test-scroller-slider test-scroller-vertical-slider">
                     </div>
                 </div>
             </div>
@@ -127,19 +177,39 @@
         <script src="../../CODE/JAVASCRIPT/vista_base.js"></script>
         <script src="../../CODE/JAVASCRIPT/vista_math.js"></script>
         <script src="../../CODE/JAVASCRIPT/vista_element.js"></script>
+        <script src="../../CODE/JAVASCRIPT/vista_animation.js"></script>
         <script src="../../CODE/JAVASCRIPT/vista_scroller.js"></script>
         <script>
             // -- STATEMENTS
 
             var scroller
                 = new SCROLLER(
-                      GetElementById( "test-scroller" ),
+                      GetElementById( "test-scroller-1" ),
+                      GetElementById( "test-scroller-strip-1" ),
+                      "margin-left",
                       true,
-                      GetElementById( "test-scroller-strip" ),
+                      true,
+                      0.8,
+                      GetElementById( "test-scroller-slider-1" ),
                       "margin-left",
-                      GetElementById( "test-scroller-slider" ),
+                      true,
+                      true,
+                      GetElementById( "test-scroller-track-1" )
+                      );
+
+            var scroller
+                = new SCROLLER(
+                      GetElementById( "test-scroller-2" ),
+                      GetElementById( "test-scroller-strip-2" ),
                       "margin-left",
-                      GetElementById( "test-scroller-track" )
+                      true,
+                      true,
+                      0.8,
+                      GetElementById( "test-scroller-slider-2" ),
+                      "margin-top",
+                      false,
+                      true,
+                      GetElementById( "test-scroller-track-2" )
                       );
         </script>
     </body>
