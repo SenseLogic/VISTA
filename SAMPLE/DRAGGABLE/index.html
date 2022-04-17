@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Sample</title>
+        <style>
+            *
+            {
+                margin: 0;
+                padding: 0;
+            }
+
+            .test-draggable-item-list
+            {
+                height: 100vh;
+                width: 100vw;
+                display: flex;
+                flex-wrap: wrap;
+            }
+
+            .test-draggable-item
+            {
+                width: 33.33333333vw;
+                height: 50vh;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .test-draggable-item-background-1
+            {
+                background-image: url( "../MEDIA/slide_1.jpg" );
+            }
+
+            .test-draggable-item-background-2
+            {
+                background-image: url( "../MEDIA/slide_2.jpg" );
+            }
+
+            .test-draggable-item-background-3
+            {
+                background-image: url( "../MEDIA/slide_3.jpg" );
+            }
+
+            .test-draggable-item-background-4
+            {
+                background-image: url( "../MEDIA/slide_4.jpg" );
+            }
+
+            .test-draggable-item-background-5
+            {
+                background-image: url( "../MEDIA/slide_5.jpg" );
+            }
+
+            .test-draggable-item-background-6
+            {
+                background-image: url( "../MEDIA/slide_6.jpg" );
+            }
+        </style>
+    </head>
+    <body>
+        <main>
+            <div id="test-draggable-item-list" class="test-draggable-item-list">
+                <div class="draggable-item test-draggable-item test-draggable-item-background-1">
+                    <h1>SLIDE 1</h1>
+                </div>
+                <div class="draggable-item test-draggable-item test-draggable-item-background-2">
+                    <h1>SLIDE 2</h1>
+                </div>
+                <div class="draggable-item test-draggable-item test-draggable-item-background-3">
+                    <h1>SLIDE 3</h1>
+                </div>
+                <div class="draggable-item test-draggable-item test-draggable-item-background-4">
+                    <h1>SLIDE 4</h1>
+                </div>
+                <div class="draggable-item test-draggable-item test-draggable-item-background-5">
+                    <h1>SLIDE 5</h1>
+                </div>
+                <div class="draggable-item test-draggable-item test-draggable-item-background-6">
+                    <h1>SLIDE 6</h1>
+                </div>
+            </div>
+        </div>
+        </main>
+        <script src="../../CODE/JAVASCRIPT/vista_base.js"></script>
+        <script src="../../CODE/JAVASCRIPT/vista_math.js"></script>
+        <script src="../../CODE/JAVASCRIPT/vista_element.js"></script>
+        <script src="../../CODE/JAVASCRIPT/vista_draggable.js"></script>
+        <script>
+            // -- STATEMENTS
+
+            InitializeDraggableItems();
+        </script>
+    </body>
+</html>

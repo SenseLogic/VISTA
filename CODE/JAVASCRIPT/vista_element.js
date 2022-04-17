@@ -149,6 +149,18 @@ Event.prototype.Cancel = function (
 
 // ~~
 
+function CancelEvent(
+    event
+    )
+{
+    event.stopPropagation();
+    event.preventDefault();
+
+    return false;
+}
+
+// ~~
+
 HTMLElement.prototype.GetHeight = function (
     )
 {
@@ -359,10 +371,10 @@ HTMLElement.prototype.GetChildElementIndex = function (
     )
 {
     var
-        index,
+        child_element_index,
         preceding_element;
 
-    index = -1;
+    child_element_index = -1;
 
     for ( preceding_element = this;
           preceding_element;
@@ -372,11 +384,11 @@ HTMLElement.prototype.GetChildElementIndex = function (
              && ( element_selector === undefined
                   || preceding_element.matches( element_selector ) ) )
         {
-            ++index;
+            ++child_element_index;
         }
     }
 
-    return index;
+    return child_element_index;
 }
 
 // ~~
@@ -464,6 +476,66 @@ HTMLElement.prototype.AppendChildElements = function (
     for ( child_element of child_element_array )
     {
         this.appendChild( child_element );
+    }
+
+    return this;
+}
+
+// ~~
+
+HTMLElement.prototype.InsertPriorElement = function (
+    prior_element
+    )
+{
+    this.insertAdjacentElement( "beforebegin", prior_element );
+
+    return this;
+}
+
+// ~~
+
+HTMLElement.prototype.InsertPriorElements = function (
+    prior_element_array
+    )
+{
+    var
+        prior_element_index;
+
+    for ( prior_element_index = prior_element_array.length - 1;
+          prior_element_index >= 0;
+          --prior_element_index )
+    {
+        this.insertAdjacentElement( "beforebegin", prior_element_array[ prior_element_index ] );
+    }
+
+    return this;
+}
+
+// ~~
+
+HTMLElement.prototype.InsertNextElement = function (
+    next_element
+    )
+{
+    this.insertAdjacentElement( "afterend", next_element );
+
+    return this;
+}
+
+// ~~
+
+HTMLElement.prototype.InsertNextElements = function (
+    next_element_array
+    )
+{
+    var
+        next_element_index;
+
+    for ( next_element_index = next_element_array.length - 1;
+          next_element_index >= 0;
+          --next_element_index )
+    {
+        this.insertAdjacentElement( "afterend", next_element_array[ next_element_index ] );
     }
 
     return this;

@@ -62,6 +62,7 @@ Minimalistic front-end framework.
     *   videos
     *   carousels
     *   slideshows
+    *   drag & drop
     *   intersections
     *   quaternions
     *   matrices
