@@ -16,7 +16,8 @@ class SCROLLER
         slider_is_horizontal = true,
         slider_is_draggable = true,
         track_element = null,
-        update_track_function = null
+        update_track_function = null,
+        hidden_element_class_name = "is-hidden"
         )
     {
         this.HandleResizeEvent = this.HandleResizeEvent.bind( this );
@@ -24,6 +25,7 @@ class SCROLLER
         this.HandleSliderTouchStartEvent = this.HandleSliderTouchStartEvent.bind( this );
         this.HandleTouchMoveEvent = this.HandleTouchMoveEvent.bind( this );
         this.HandleTouchEndEvent = this.HandleTouchEndEvent.bind( this );
+        this.HandleWheelEvent = this.HandleWheelEvent.bind( this );
 
         this.Element = scroller_element;
         this.StripElement = strip_element;
@@ -44,6 +46,7 @@ class SCROLLER
         this.SliderDragPosition = 0;
         this.SliderRatio = 0;
         this.TrackElement = track_element;
+        this.HiddenElementClassName = hidden_element_class_name;
         this.UpdateTrackFunction = update_track_function;
 
         if ( strip_is_draggable )
@@ -61,14 +64,17 @@ class SCROLLER
         if ( strip_is_draggable
              || slider_is_draggable )
         {
-            AddEventListener( "touchmove", this.HandleTouchMoveEvent );
-            AddEventListener( "mousemove", this.HandleTouchMoveEvent );
-            AddEventListener( "touchend", this.HandleTouchEndEvent );
-            AddEventListener( "touchcancel", this.HandleTouchEndEvent );
-            AddEventListener( "mouseup", this.HandleTouchEndEvent );
+            this.Element.AddEventListener( "touchmove", this.HandleTouchMoveEvent );
+            this.Element.AddEventListener( "mousemove", this.HandleTouchMoveEvent );
+            this.Element.AddEventListener( "touchend", this.HandleTouchEndEvent );
+            this.Element.AddEventListener( "touchcancel", this.HandleTouchEndEvent );
+            this.Element.AddEventListener( "mouseup", this.HandleTouchEndEvent );
+            this.Element.AddEventListener( "wheel", this.HandleWheelEvent );
         }
 
         window.addEventListener( "resize", this.HandleResizeEvent );
+
+        this.Resize();
     }
 
     // -- INQUIRIES
@@ -211,6 +217,44 @@ class SCROLLER
 
     // -- OPERATIONS
 
+    UpdateTrackVisibility(
+        )
+    {
+        this.TrackElement.RemoveClass( this.HiddenElementClassName );
+        console.log( this.GetSize() );
+        console.log( this.GetStripSize() );
+
+        if ( this.GetSize() >= this.GetStripSize() )
+        {
+            this.TrackElement.AddClass( this.HiddenElementClassName );
+        }
+    }
+
+    // ~~
+
+    UpdateSliderSize(
+        )
+    {
+        var
+            slider_size;
+
+        if ( this.GetStripSize() > 0 )
+        {
+            slider_size = this.GetTrackSize() * this.GetSize() / this.GetStripSize();
+
+            if ( this.SliderIsHorizontal )
+            {
+                this.SliderElement.SetStyle( "width", slider_size + "px" );
+            }
+            else
+            {
+                this.SliderElement.SetStyle( "height", slider_size + "px" );
+            }
+        }
+    }
+
+    // ~~
+
     UpdateStrip(
         )
     {
@@ -223,7 +267,7 @@ class SCROLLER
                     [ ".", this.GetStripPosition() + "px" ],
                     [ 0.0, this.StripAnimationDuration ],
                     {
-                        GetRatioFunction : GetEaseOutRatio
+                        GetRatioFunction : GetQuinticEaseOutRatio
                     }
                     );
         }
@@ -297,11 +341,21 @@ class SCROLLER
 
     // ~~
 
+    Resize(
+        )
+    {
+        this.UpdateTrackVisibility();
+        this.UpdateSliderSize();
+        this.Update();
+    }
+
+    // ~~
+
     HandleResizeEvent(
         event
         )
     {
-        this.Update();
+        this.Resize();
     }
 
     // ~~
@@ -361,5 +415,17 @@ class SCROLLER
     {
         this.StripIsDragged = false;
         this.SliderIsDragged = false;
+
+        event.Cancel();
+    }
+
+    // ~~
+
+    HandleWheelEvent(
+        event
+        )
+    {
+        this.MoveSlider( event.deltaY );
+        event.Cancel();
     }
 }

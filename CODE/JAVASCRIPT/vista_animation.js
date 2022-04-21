@@ -1431,7 +1431,8 @@ Array.prototype.StopStyles = function (
 
 HTMLElement.prototype.FadeIn = function (
     duration = 0.5,
-    hidden_element_class_name = "is-hidden"
+    hidden_element_class_name = "is-hidden",
+    animation_configuration = {}
     )
 {
     if ( duration > 0.0 )
@@ -1441,7 +1442,8 @@ HTMLElement.prototype.FadeIn = function (
                 "class-list" : [ "-" + hidden_element_class_name, "" ],
                 "opacity" : [ ".", "1.0" ]
             },
-            [ 0.0, duration ]
+            [ 0.0, duration ],
+            animation_configuration
             );
     }
     else
@@ -1457,7 +1459,8 @@ HTMLElement.prototype.FadeIn = function (
 
 HTMLElement.prototype.FadeOut = function (
     duration = 0.5,
-    hidden_element_class_name = "is-hidden"
+    hidden_element_class_name = "is-hidden",
+    animation_configuration = {}
     )
 {
     if ( duration > 0.0 )
@@ -1467,7 +1470,8 @@ HTMLElement.prototype.FadeOut = function (
                 "class-list" : [ "", "+" + hidden_element_class_name ],
                 "opacity" : [ ".", "0.0" ]
             },
-            [ 0.0, duration ]
+            [ 0.0, duration ],
+            animation_configuration
             );
     }
     else
@@ -1484,16 +1488,17 @@ HTMLElement.prototype.FadeOut = function (
 HTMLElement.prototype.Fade = function (
     element_is_shown = true,
     duration = 0.5,
-    hidden_element_class_name = "is-hidden"
+    hidden_element_class_name = "is-hidden",
+    animation_configuration = {}
     )
 {
     if ( element_is_shown )
     {
-        this.FadeIn( duration, hidden_element_class_name );
+        this.FadeIn( duration, hidden_element_class_name, animation_configuration );
     }
     else
     {
-        this.FadeOut( duration, hidden_element_class_name );
+        this.FadeOut( duration, hidden_element_class_name, animation_configuration );
     }
 
     return this;
