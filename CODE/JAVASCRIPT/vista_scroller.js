@@ -8,11 +8,13 @@ class SCROLLER
         scroller_element,
         strip_element,
         strip_position_property = "left",
+        strip_animation_duration = 0.0,
         strip_is_horizontal = true,
         strip_is_draggable = true,
-        strip_animation_duration = 0.0,
+        strip_section_count = 0,
         slider_element = null,
         slider_position_property = "left",
+        slider_animation_duration = 0.0,
         slider_is_horizontal = true,
         slider_is_draggable = true,
         track_element = null,
@@ -31,15 +33,17 @@ class SCROLLER
         this.StripElement = strip_element;
         this.StripElement = strip_element;
         this.StripPositionProperty = strip_position_property;
+        this.StripAnimationDuration = strip_animation_duration;
         this.StripIsHorizontal = strip_is_horizontal;
         this.StripIsDraggable = strip_is_draggable;
         this.StripIsDragged = false;
         this.StripWasDragged = false;
         this.StripDragPosition = 0;
         this.StripDragRatio = 0;
-        this.StripAnimationDuration = strip_animation_duration;
+        this.StripSectionCount = strip_section_count;
         this.SliderElement = slider_element;
         this.SliderPositionProperty = slider_position_property;
+        this.SliderAnimationDuration = slider_animation_duration;
         this.SliderIsHorizontal = slider_is_horizontal;
         this.SliderIsDraggable = slider_is_draggable;
         this.SliderIsDragged = false;
@@ -221,8 +225,6 @@ class SCROLLER
         )
     {
         this.TrackElement.RemoveClass( this.HiddenElementClassName );
-        console.log( this.GetSize() );
-        console.log( this.GetStripSize() );
 
         if ( this.GetSize() >= this.GetStripSize() )
         {
@@ -282,7 +284,23 @@ class SCROLLER
     UpdateSlider(
         )
     {
-        this.SliderElement.SetStyle( this.SliderPositionProperty, this.GetSliderPosition() + "px" );
+        if ( this.SliderAnimationDuration > 0.0 )
+        {
+            this.SliderElement
+                .StopStyle( this.SliderPositionProperty )
+                .AnimateStyle(
+                    this.SliderPositionProperty,
+                    [ ".", this.GetSliderPosition() + "px" ],
+                    [ 0.0, this.SliderAnimationDuration ],
+                    {
+                        GetRatioFunction : GetQuinticEaseOutRatio
+                    }
+                    );
+        }
+        else
+        {
+            this.SliderElement.SetStyle( this.SliderPositionProperty, this.GetSliderPosition() + "px" );
+        }
     }
 
     // ~~
@@ -313,6 +331,34 @@ class SCROLLER
         )
     {
         this.SliderRatio = GetClamp( slider_ratio, 0.0, 1.0 );
+    }
+
+    // ~~
+
+    SnapSlider(
+        )
+    {
+        var
+            slider_ratio,
+            strip_amplitude,
+            strip_position,
+            strip_section_size;
+
+        if ( this.StripSectionCount > 1
+             && this.SliderRatio < 0.99 )
+        {
+            strip_amplitude = this.GetStripAmplitude();
+
+            if ( strip_amplitude > 0 )
+            {
+                strip_section_size = this.GetStripSize() / this.StripSectionCount;
+                strip_position = GetRound( this.SliderRatio * strip_amplitude / strip_section_size ) * strip_section_size;
+                slider_ratio = strip_position / strip_amplitude;
+
+                this.SetSliderRatio( slider_ratio );
+                this.Update();
+            }
+        }
     }
 
     // ~~
@@ -413,6 +459,7 @@ class SCROLLER
         event
         )
     {
+        this.SnapSlider();
         this.StripIsDragged = false;
         this.SliderIsDragged = false;
 
@@ -425,7 +472,7 @@ class SCROLLER
         event
         )
     {
-        this.MoveSlider( event.deltaY );
+        this.MoveSlider( event.deltaY * 0.5 );
         event.Cancel();
     }
 }
