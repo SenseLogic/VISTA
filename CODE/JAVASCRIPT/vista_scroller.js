@@ -74,6 +74,8 @@ class SCROLLER
             this.Element.AddEventListener( "touchcancel", this.HandleTouchEndEvent );
             this.Element.AddEventListener( "mouseup", this.HandleTouchEndEvent );
             this.Element.AddEventListener( "wheel", this.HandleWheelEvent );
+
+            document.documentElement.AddEventListener( "mouseleave", this.HandleTouchEndEvent );
         }
 
         window.addEventListener( "resize", this.HandleResizeEvent );
