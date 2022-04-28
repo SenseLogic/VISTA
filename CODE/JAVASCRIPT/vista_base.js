@@ -3,6 +3,9 @@
 const
     MinimumInteger = -9007199254740991,
     MaximumInteger = 9007199254740991,
+    NaturalExpression = /^[0-9][0-9]*$/,
+    IntegerExpression = /^-?[0-9][0-9]*$/,
+    RealExpression = /^-?[0-9][0-9]*\.[0-9]*$/,
     NumericExpression = /^-?[0-9][0-9]*\.?[0-9]*$/,
     UnitArray = [ "%", "px", "em", "rem", "vw", "vh", "vmin", "vmax" ];
 
@@ -35,6 +38,60 @@ var
 
 // ~~
 
+function IsBooleanText(
+    text
+    )
+{
+    return text === "false" || text === "true";
+}
+
+// ~~
+
+function IsBinaryText(
+    text
+    )
+{
+    return text === "0" || text === "1";
+}
+
+// ~~
+
+function IsNaturalText(
+    text
+    )
+{
+    return text.match( NaturalExpression );
+}
+
+// ~~
+
+function IsIntegerText(
+    text
+    )
+{
+    return text.match( IntegerExpression );
+}
+
+// ~~
+
+function IsRealText(
+    text
+    )
+{
+    return text.match( RealExpression );
+}
+
+// ~~
+
+function IsNumericText(
+    text
+    )
+{
+    return text.match( NumericExpression );
+}
+
+// ~~
+
 function IsBoolean(
     value
     )
@@ -44,11 +101,11 @@ function IsBoolean(
 
 // ~~
 
-function IsNumeric(
+function IsNatural(
     value
     )
 {
-    return value.match( NumericExpression );
+    return IsInteger( value ) && GetInteger( value ) >= 0;
 }
 
 // ~~

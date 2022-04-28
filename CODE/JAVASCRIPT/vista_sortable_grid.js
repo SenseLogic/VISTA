@@ -50,8 +50,8 @@ function HandleSortableGridColumnClickEvent(
                 first_cell_element_value = GetCellValue( first_cell_element_array, cell_element_index ).trim();
                 second_cell_element_value = GetCellValue( second_cell_element_array, cell_element_index ).trim();
 
-                if ( IsNumeric( first_cell_element_value )
-                     && IsNumeric( second_cell_element_value ) )
+                if ( IsNumericText( first_cell_element_value )
+                     && IsNumericText( second_cell_element_value ) )
                 {
                     cell_element_comparison = first_cell_element_value - second_cell_element_value;
                 }

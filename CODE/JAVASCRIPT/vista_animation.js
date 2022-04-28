@@ -42,8 +42,8 @@ class VISTA_STYLE_ANIMATION
         this.Identifier = ++StyleAnimationIdentifier;
         this.Name = style_name;
         this.Element = element;
-        this.IsNumeric = IsNumericText( first_style_value );
-        this.IsColor = IsColorText( first_style_value );
+        this.IsNumeric = HasNumericPrefix( first_style_value );
+        this.IsColor = HasColorPrefix( first_style_value );
         this.IsTransform = ( style_name == "transform" );
         this.IsClass = ( style_name == "class-list" );
         this.IsConstant = ( !this.IsNumeric && !this.IsColor && !this.IsTransform );
@@ -452,7 +452,7 @@ class VISTA_STYLE_ANIMATION
 
 // -- FUNCTIONS
 
-function IsNumericText(
+function HasNumericPrefix(
     text
     )
 {
@@ -482,7 +482,7 @@ function IsNumericText(
 
 // ~~
 
-function IsColorText(
+function HasColorPrefix(
     text
     )
 {
