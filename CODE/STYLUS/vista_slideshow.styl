@@ -1,6 +1,6 @@
 // -- MIXINS
 
-MakeSlideshowSlidePerpetualAnimation( slide_count, pause_duration = 3000, transition_duration = 500, prefix =, infix =, suffix = )
+MakeSlideshowSlidePerpetualAnimation( slide_count, pause_duration = 3000, transition_duration = 500, prefix =, infix =, suffix =, important = )
 
     slide_duration = pause_duration + transition_duration
 
@@ -17,18 +17,18 @@ MakeSlideshowSlidePerpetualAnimation( slide_count, pause_duration = 3000, transi
 
                 {100% * show_time}
 
-                    opacity: ( slide_index + 1 == slide_suffix ) ? 1 : 0;
+                    opacity: ( slide_index + 1 == slide_suffix ) ? 1 : 0 important;
 
                 {100% * transition_time}
 
-                    opacity: ( slide_index + 1 == slide_suffix ) ? 1 : 0;
+                    opacity: ( slide_index + 1 == slide_suffix ) ? 1 : 0 important;
 
             100%
             {
-                opacity: ( slide_suffix == 1 ) ? 1 : 0;
+                opacity: ( slide_suffix == 1 ) ? 1 : 0 important;
             }
 
         .{prefix}slideshow{infix}-slide-perpetual-animation{suffix}-{slide_suffix}
         {
-            animation: slide_count * slide_duration * 0.001s prefix + "slideshow" + infix + "-slide-perpetual-animation" + suffix + "-" + slide_suffix infinite linear;
+            animation: slide_count * slide_duration * 0.001s prefix + "slideshow" + infix + "-slide-perpetual-animation" + suffix + "-" + slide_suffix infinite linear important;
         }

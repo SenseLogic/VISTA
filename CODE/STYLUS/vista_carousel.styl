@@ -1,32 +1,32 @@
 // -- MIXINS
 
-MakeCarousel( prefix =, suffix = )
+MakeCarousel( prefix =, suffix =, important = )
 
     .{prefix}carousel{suffix}
     {
-        position: relative;
+        position: relative important;
 
-        overflow-x: hidden;
+        overflow-x: hidden important;
     }
 
 // ~~
 
-MakeCarouselStrip( slide_count = 1, visible_slide_count = 1, prefix =, infix =, suffix = )
+MakeCarouselStrip( slide_count = 1, visible_slide_count = 1, prefix =, infix =, suffix =, important = )
 
     .{prefix}carousel{infix}-strip{suffix}
     {
-        position: relative;
-        left: 0;
+        position: relative important;
+        left: 0 important;
 
-        margin: 0;
-        width: ( slide_count / visible_slide_count ) * 100%;
+        margin: 0 important;
+        width: ( slide_count / visible_slide_count ) * 100% important;
 
-        display: flex;
+        display: flex important;
     }
 
 // ~~
 
-MakeCarouselStripPerpetualAnimation( slide_count, visible_slide_count = 1, pause_duration = 3000, translation_duration = 500, prefix =, infix =, suffix = )
+MakeCarouselStripPerpetualAnimation( slide_count, visible_slide_count = 1, pause_duration = 3000, translation_duration = 500, prefix =, infix =, suffix =, important = )
 
     slide_duration = pause_duration + translation_duration
 
@@ -41,27 +41,27 @@ MakeCarouselStripPerpetualAnimation( slide_count, visible_slide_count = 1, pause
 
             {100% * show_time}
 
-                left: -100% * slide_index * ( 1.0 / visible_slide_count );
+                left: -100% * slide_index * ( 1.0 / visible_slide_count ) important;
 
             {100% * move_time}
 
-                left: -100% * slide_index * ( 1.0 / visible_slide_count );
+                left: -100% * slide_index * ( 1.0 / visible_slide_count ) important;
 
         100%
         {
-            left: -100% * ( slide_count - visible_slide_count ) * ( 1.0 / visible_slide_count );
+            left: -100% * ( slide_count - visible_slide_count ) * ( 1.0 / visible_slide_count ) important;
         }
 
     .{prefix}carousel{infix}-strip-perpetual-animation{suffix}
     {
-        animation: ( slide_count - visible_slide_count ) * slide_duration * 0.001s prefix + "carousel" + infix + "-strip-perpetual-animation" + suffix infinite ease;
+        animation: ( slide_count - visible_slide_count ) * slide_duration * 0.001s prefix + "carousel" + infix + "-strip-perpetual-animation" + suffix infinite ease important;
     }
 
 // ~~
 
-MakeCarouselSlide( slide_count, prefix =, infix =, suffix = )
+MakeCarouselSlide( slide_count, prefix =, infix =, suffix =, important = )
 
     .{prefix}carousel{infix}-slide{suffix}
     {
-        width: ( 100% / slide_count );
+        width: ( 100% / slide_count ) important;
     }

@@ -1,6 +1,6 @@
 // -- MIXINS
 
-MakeOpacityAnimation( key_duration, key_time_array, key_value_array, delay = 0, duration = 1, timing_function = linear, iteration_count = 1, fill_mode = forwards, prefix =, suffix = )
+MakeOpacityAnimation( key_duration, key_time_array, key_value_array, delay = 0, duration = 1, timing_function = linear, iteration_count = 1, fill_mode = forwards, prefix =, suffix =, important = )
 
     key_count = length( key_time_array )
 
@@ -15,21 +15,21 @@ MakeOpacityAnimation( key_duration, key_time_array, key_value_array, delay = 0, 
 
             {100% * key_time_factor}
 
-                opacity: key_value;
+                opacity: key_value important;
 
     .{prefix}opacity-animation{suffix}
     {
-        animation-name: unquote( prefix + "opacity-animation" + suffix );
-        animation-delay: delay * 1s;
-        animation-duration: duration * 1s;
-        animation-timing-function: timing_function;
-        animation-iteration-count: iteration_count;
+        animation-name: unquote( prefix + "opacity-animation" + suffix ) important;
+        animation-delay: delay * 1s important;
+        animation-duration: duration * 1s important;
+        animation-timing-function: timing_function important;
+        animation-iteration-count: iteration_count important;
         animation-fill-mode: fill_mode
     }
 
 // ~~
 
-MakeXTranslationAnimation( key_duration, key_time_array, key_value_array, delay = 0, duration = 1, timing_function = linear, iteration_count = 1, fill_mode = forwards, prefix =, suffix = )
+MakeXTranslationAnimation( key_duration, key_time_array, key_value_array, delay = 0, duration = 1, timing_function = linear, iteration_count = 1, fill_mode = forwards, prefix =, suffix =, important = )
 
     key_count = length( key_time_array )
 
@@ -44,21 +44,21 @@ MakeXTranslationAnimation( key_duration, key_time_array, key_value_array, delay 
 
             {100% * key_time_factor}
 
-                transform: translateX( key_value );
+                transform: translateX( key_value ) important;
 
     .{prefix}x-translation-animation{suffix}
     {
-        animation-name: unquote( prefix + "x-translation-animation" + suffix );
-        animation-delay: delay * 1s;
-        animation-duration: duration * 1s;
-        animation-timing-function: timing_function;
-        animation-iteration-count: iteration_count;
-        animation-fill-mode: fill_mode
+        animation-name: unquote( prefix + "x-translation-animation" + suffix ) important;
+        animation-delay: delay * 1s important;
+        animation-duration: duration * 1s important;
+        animation-timing-function: timing_function important;
+        animation-iteration-count: iteration_count important;
+        animation-fill-mode: fill_mode important;
     }
 
 // ~~
 
-MakeYTranslationAnimation( key_duration, key_time_array, key_value_array, delay = 0, duration = 1, timing_function = linear, iteration_count = 1, fill_mode = forwards, prefix =, suffix = )
+MakeYTranslationAnimation( key_duration, key_time_array, key_value_array, delay = 0, duration = 1, timing_function = linear, iteration_count = 1, fill_mode = forwards, prefix =, suffix =, important = )
 
     key_count = length( key_time_array )
 
@@ -73,21 +73,21 @@ MakeYTranslationAnimation( key_duration, key_time_array, key_value_array, delay 
 
             {100% * key_time_factor}
 
-                transform: translateY( key_value );
+                transform: translateY( key_value ) important;
 
     .{prefix}y-translation-animation{suffix}
     {
-        animation-name: unquote( prefix + "y-translation-animation" + suffix );
-        animation-delay: delay * 1s;
-        animation-duration: duration * 1s;
-        animation-timing-function: timing_function;
-        animation-iteration-count: iteration_count;
-        animation-fill-mode: fill_mode
+        animation-name: unquote( prefix + "y-translation-animation" + suffix ) important;
+        animation-delay: delay * 1s important;
+        animation-duration: duration * 1s important;
+        animation-timing-function: timing_function important;
+        animation-iteration-count: iteration_count important;
+        animation-fill-mode: fill_mode important;
     }
 
 // ~~
 
-MakeScalingAnimation( key_duration, key_time_array, key_value_array, delay = 0, duration = 1, timing_function = linear, iteration_count = 1, fill_mode = forwards, prefix =, suffix = )
+MakeScalingAnimation( key_duration, key_time_array, key_value_array, delay = 0, duration = 1, timing_function = linear, iteration_count = 1, fill_mode = forwards, prefix =, suffix =, important = )
 
     key_count = length( key_time_array )
 
@@ -102,21 +102,21 @@ MakeScalingAnimation( key_duration, key_time_array, key_value_array, delay = 0, 
 
             {100% * key_time_factor}
 
-                transform: scale( key_value );
+                transform: scale( key_value ) important;
 
     .{prefix}x-scaling-animation{suffix}
     {
-        animation-name: unquote( prefix + "scaling-animation" + suffix );
-        animation-delay: delay * 1s;
-        animation-duration: duration * 1s;
-        animation-timing-function: timing_function;
-        animation-iteration-count: iteration_count;
-        animation-fill-mode: fill_mode
+        animation-name: unquote( prefix + "scaling-animation" + suffix ) important;
+        animation-delay: delay * 1s important;
+        animation-duration: duration * 1s important;
+        animation-timing-function: timing_function important;
+        animation-iteration-count: iteration_count important;
+        animation-fill-mode: fill_mode important;
     }
 
 // ~~
 
-MakeXScalingAnimation( key_duration, key_time_array, key_value_array, delay = 0, duration = 1, timing_function = linear, iteration_count = 1, fill_mode = forwards, prefix =, suffix = )
+MakeXScalingAnimation( key_duration, key_time_array, key_value_array, delay = 0, duration = 1, timing_function = linear, iteration_count = 1, fill_mode = forwards, prefix =, suffix =, important = )
 
     key_count = length( key_time_array )
 
@@ -131,21 +131,21 @@ MakeXScalingAnimation( key_duration, key_time_array, key_value_array, delay = 0,
 
             {100% * key_time_factor}
 
-                transform: scaleX( key_value );
+                transform: scaleX( key_value ) important;
 
     .{prefix}x-scaling-animation{suffix}
     {
-        animation-name: unquote( prefix + "x-scaling-animation" + suffix );
-        animation-delay: delay * 1s;
-        animation-duration: duration * 1s;
-        animation-timing-function: timing_function;
-        animation-iteration-count: iteration_count;
-        animation-fill-mode: fill_mode
+        animation-name: unquote( prefix + "x-scaling-animation" + suffix ) important;
+        animation-delay: delay * 1s important;
+        animation-duration: duration * 1s important;
+        animation-timing-function: timing_function important;
+        animation-iteration-count: iteration_count important;
+        animation-fill-mode: fill_mode important;
     }
 
 // ~~
 
-MakeYScalingAnimation( key_duration, key_time_array, key_value_array, delay = 0, duration = 1, timing_function = linear, iteration_count = 1, fill_mode = forwards, prefix =, suffix = )
+MakeYScalingAnimation( key_duration, key_time_array, key_value_array, delay = 0, duration = 1, timing_function = linear, iteration_count = 1, fill_mode = forwards, prefix =, suffix =, important = )
 
     key_count = length( key_time_array )
 
@@ -160,21 +160,21 @@ MakeYScalingAnimation( key_duration, key_time_array, key_value_array, delay = 0,
 
             {100% * key_time_factor}
 
-                transform: scaleY( key_value );
+                transform: scaleY( key_value ) important;
 
     .{prefix}y-scaling-animation{suffix}
     {
-        animation-name: unquote( prefix + "y-scaling-animation" + suffix );
-        animation-delay: delay * 1s;
-        animation-duration: duration * 1s;
-        animation-timing-function: timing_function;
-        animation-iteration-count: iteration_count;
-        animation-fill-mode: fill_mode
+        animation-name: unquote( prefix + "y-scaling-animation" + suffix ) important;
+        animation-delay: delay * 1s important;
+        animation-duration: duration * 1s important;
+        animation-timing-function: timing_function important;
+        animation-iteration-count: iteration_count important;
+        animation-fill-mode: fill_mode important;
     }
 
 // ~~
 
-MakeRotationAnimation( key_duration, key_time_array, key_value_array, delay = 0, duration = 1, timing_function = linear, iteration_count = 1, fill_mode = forwards, prefix =, suffix = )
+MakeRotationAnimation( key_duration, key_time_array, key_value_array, delay = 0, duration = 1, timing_function = linear, iteration_count = 1, fill_mode = forwards, prefix =, suffix =, important = )
 
     key_count = length( key_time_array )
 
@@ -189,14 +189,14 @@ MakeRotationAnimation( key_duration, key_time_array, key_value_array, delay = 0,
 
             {100% * key_time_factor}
 
-                transform: rotate( key_value );
+                transform: rotate( key_value ) important;
 
     .{prefix}rotation-animation{suffix}
     {
-        animation-name: unquote( prefix + "rotation-animation" + suffix );
-        animation-delay: delay * 1s;
-        animation-duration: duration * 1s;
-        animation-timing-function: timing_function;
-        animation-iteration-count: iteration_count;
-        animation-fill-mode: fill_mode
+        animation-name: unquote( prefix + "rotation-animation" + suffix ) important;
+        animation-delay: delay * 1s important;
+        animation-duration: duration * 1s important;
+        animation-timing-function: timing_function important;
+        animation-iteration-count: iteration_count important;
+        animation-fill-mode: fill_mode important;
     }

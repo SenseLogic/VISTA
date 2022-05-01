@@ -1,15 +1,15 @@
 // -- MIXINS
 
-MakeParallaxBackground( media_query_name_array = {}, prefix =, suffix = )
+MakeParallaxBackground( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}parallax-background{suffix}
     {
-        position : relative;
-        background-attachment : fixed;
-        background-position : center 0;
-        background-repeat : no-repeat;
-        background-size : cover;
-        height : 100vh;
+        position : relative important;
+        background-attachment : fixed important;
+        background-position : center 0 important;
+        background-repeat : no-repeat important;
+        background-size : cover important;
+        height : 100vh important;
     }
 
     for media_query_name in media_query_name_array
@@ -18,12 +18,12 @@ MakeParallaxBackground( media_query_name_array = {}, prefix =, suffix = )
         {
             .{prefix}parallax-background-{media_query_name}{suffix}
             {
-                position : relative;
-                background-attachment : fixed;
-                background-position : center 0;
-                background-repeat : no-repeat;
-                background-size : cover;
-                height : 100vh;
+                position : relative important;
+                background-attachment : fixed important;
+                background-position : center 0 important;
+                background-repeat : no-repeat important;
+                background-size : cover important;
+                height : 100vh important;
             }
         }
     }

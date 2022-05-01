@@ -1,17 +1,17 @@
 // -- MIXINS
 
-MakeOrientationLandscape( prefix =, suffix = )
+MakeOrientationLandscape( prefix =, suffix =, important = )
 
     @media ( orientation: portrait )
     {
         .{prefix}orientation-landscape{suffix}
         {
-            transform: rotate( 90deg );
-            transform-origin: bottom left;
-            position: absolute;
-            top: -100vw;
+            transform: rotate( 90deg ) important;
+            transform-origin: bottom left important;
+            position: absolute important;
+            top: -100vw important;
 
-            height: 100vw;
-            width: 100vh;
+            height: 100vw important;
+            width: 100vh important;
         }
     }
