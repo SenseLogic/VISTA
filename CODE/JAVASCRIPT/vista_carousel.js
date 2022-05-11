@@ -36,6 +36,7 @@ class CAROUSEL
         this.SlideCount = slide_count;
         this.VisibleSlideCount = visible_slide_count;
         this.PerpetualSlideCount = slide_count - visible_slide_count;
+        this.ActualSlideCount = carousel_is_perpetual ? this.PerpetualSlideCount : this.PerpetualSlideCount + 1;
         this.PauseDuration = pause_duration;
         this.TranslationDuration = translation_duration;
         this.TranslationSpeed = 1.0 / translation_duration;
@@ -467,7 +468,8 @@ class CAROUSEL
     UpdateAutomaticAnimation(
         )
     {
-        if ( this.IsAutomatic )
+        if ( this.IsAutomatic
+             && this.ActualSlideCount > 1 )
         {
             this.ShowNextSlide();
             this.AutomaticAnimationTimeout = setTimeout( this.UpdateAutomaticAnimation, ( this.TranslationDuration + this.PauseDuration ) * 1000.0 );

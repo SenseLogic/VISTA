@@ -404,7 +404,8 @@ class SLIDESHOW
     UpdateAutomaticAnimation(
         )
     {
-        if ( this.IsAutomatic )
+        if ( this.IsAutomatic
+             && this.SlideCount > 1 )
         {
             this.ShowNextSlide();
             this.AutomaticAnimationTimeout = setTimeout( this.UpdateAutomaticAnimation, ( this.TransitionDuration + this.PauseDuration ) * 1000.0 );
