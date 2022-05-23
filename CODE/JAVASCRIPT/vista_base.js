@@ -7,6 +7,7 @@ const
     IntegerExpression = /^-?[0-9][0-9]*$/,
     RealExpression = /^-?[0-9][0-9]*\.[0-9]*$/,
     NumericExpression = /^-?[0-9][0-9]*\.?[0-9]*$/,
+    SlugExpression = /^[a-z0-9]+(?:-[a-z0-9]+)*$/,
     UnitArray = [ "%", "px", "em", "rem", "vw", "vh", "vmin", "vmax" ];
 
 // -- VARIABLES
@@ -88,6 +89,15 @@ function IsNumericText(
     )
 {
     return text.match( NumericExpression );
+}
+
+// ~~
+
+function IsSlugText(
+    text
+    )
+{
+    return text.match( SlugExpression );
 }
 
 // ~~
