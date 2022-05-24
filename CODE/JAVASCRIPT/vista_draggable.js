@@ -59,13 +59,13 @@ function HandleDraggableItemDropEvent(
 function InitializeDraggableItems(
     )
 {
-    for ( draggable_element of GetElements( ".draggable-item" ) )
+    for ( item_element of GetElements( ".draggable-item" ) )
     {
-        draggable_element.setAttribute( "draggable", true );
-        draggable_element.addEventListener( "dragstart", HandleDraggableItemDragStartEvent )
-        draggable_element.addEventListener( "drop", HandleDraggableItemDropEvent )
-        draggable_element.addEventListener( "dragenter", CancelEvent )
-        draggable_element.addEventListener( "dragover", CancelEvent )
+        item_element.setAttribute( "draggable", true );
+        item_element.addEventListener( "dragstart", HandleDraggableItemDragStartEvent )
+        item_element.addEventListener( "drop", HandleDraggableItemDropEvent )
+        item_element.addEventListener( "dragenter", CancelEvent )
+        item_element.addEventListener( "dragover", CancelEvent )
     }
 }
 
@@ -74,12 +74,12 @@ function InitializeDraggableItems(
 function FinalizeDraggableItems(
     )
 {
-    for ( draggable_element of GetElements( ".draggable-item" ) )
+    for ( item_element of GetElements( ".draggable-item" ) )
     {
-        draggable_element.setAttribute( "draggable", false );
-        draggable_element.removeEventListener( "dragstart", HandleDraggableItemDragStartEvent )
-        draggable_element.removeEventListener( "drop", HandleDraggableItemDropEvent )
-        draggable_element.removeEventListener( "dragenter", CancelEvent )
-        draggable_element.removeEventListener( "dragover", CancelEvent )
+        item_element.setAttribute( "draggable", false );
+        item_element.removeEventListener( "dragstart", HandleDraggableItemDragStartEvent )
+        item_element.removeEventListener( "drop", HandleDraggableItemDropEvent )
+        item_element.removeEventListener( "dragenter", CancelEvent )
+        item_element.removeEventListener( "dragover", CancelEvent )
     }
 }
