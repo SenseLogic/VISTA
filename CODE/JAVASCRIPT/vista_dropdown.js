@@ -31,10 +31,20 @@ function HandleDropdownValueClickEvent(
     )
 {
     var
-        value_element;
+        list_element;
 
-    value_element = event.currentTarget;
-    value_element.DropdownElement.ListElement.ToggleClass( "is-hidden" );
+    list_element = event.currentTarget.DropdownElement.ListElement;
+    list_element.ToggleClass( "is-hidden" );
+
+    if ( !list_element.HasClass( "is-hidden" ) )
+    {
+        list_element.scrollIntoView(
+            {
+                block : "nearest",
+                inline: "nearest"
+            }
+            );
+    }
 }
 
 // ~~

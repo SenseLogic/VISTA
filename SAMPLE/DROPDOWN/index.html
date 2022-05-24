@@ -10,6 +10,11 @@
                 padding: 0;
             }
 
+            .filler
+            {
+                height: calc( 100vh - 2rem );
+            }
+
             .dropdown-value,
             .dropdown-option
             {
@@ -45,6 +50,8 @@
     </head>
     <body>
         <main>
+            <div class="filler">
+            </div>
             <form name="TestForm">
                 <div class="dropdown">
                     <input class="dropdown-input" name="Prefix" type="hidden" value="+7"/>
@@ -84,6 +91,8 @@
                 </div>
             </form>
             <div id="result">
+            </div>
+            <div class="filler">
             </div>
         </main>
         <script src="../../CODE/JAVASCRIPT/vista_base.js"></script>
