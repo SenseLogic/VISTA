@@ -60,6 +60,7 @@ Minimalistic front-end framework.
     *   tables
     *   scrolls
     *   videos
+    *   dropdowns
     *   carousels
     *   slideshows
     *   drag & drop

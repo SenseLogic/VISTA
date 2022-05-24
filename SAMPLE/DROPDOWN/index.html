@@ -10,8 +10,8 @@
                 padding: 0;
             }
 
-            .select-value,
-            .select-option
+            .dropdown-value,
+            .dropdown-option
             {
                 width: 3rem;
                 border: 1px solid #444444;
@@ -19,7 +19,7 @@
                 padding-bottom: 0.2rem;
             }
 
-            .select-list
+            .dropdown-list
             {
                 position: absolute;
 
@@ -29,13 +29,13 @@
                 background-color: #FFFFFF;
             }
 
-            .select-list.is-hidden
+            .dropdown-list.is-hidden
             {
                 display: none;
             }
 
-            .select-option:hover,
-            .select-option.is-selected
+            .dropdown-option:hover,
+            .dropdown-option.is-selected
             {
                 background-color: #888888;
 
@@ -46,33 +46,33 @@
     <body>
         <main>
             <form name="TestForm">
-                <div class="select-button">
-                    <input class="select-input" name="Prefix" type="hidden" value="+7"/>
-                    <div class="select-value">
+                <div class="dropdown">
+                    <input class="dropdown-input" name="Prefix" type="hidden" value="+7"/>
+                    <div class="dropdown-value">
                     </div>
-                    <div class="select-list">
-                        <div class="select-option" data-value="+1" data-selected>
+                    <div class="dropdown-list">
+                        <div class="dropdown-option" data-value="+1" data-selected>
                             +1
                         </div>
-                        <div class="select-option" data-value="+2">
+                        <div class="dropdown-option" data-value="+2">
                             +2
                         </div>
-                        <div class="select-option" data-value="+3">
+                        <div class="dropdown-option" data-value="+3">
                             +3
                         </div>
-                        <div class="select-option" data-value="+4">
+                        <div class="dropdown-option" data-value="+4">
                             +4
                         </div>
-                        <div class="select-option" data-value="+5">
+                        <div class="dropdown-option" data-value="+5">
                             +5
                         </div>
-                        <div class="select-option" data-value="+6">
+                        <div class="dropdown-option" data-value="+6">
                             +6
                         </div>
-                        <div class="select-option" data-value="+7">
+                        <div class="dropdown-option" data-value="+7">
                             +7
                         </div>
-                        <div class="select-option" data-value="+8">
+                        <div class="dropdown-option" data-value="+8">
                             +8
                         </div>
                     </div>
@@ -89,7 +89,7 @@
         <script src="../../CODE/JAVASCRIPT/vista_base.js"></script>
         <script src="../../CODE/JAVASCRIPT/vista_math.js"></script>
         <script src="../../CODE/JAVASCRIPT/vista_element.js"></script>
-        <script src="../../CODE/JAVASCRIPT/vista_select.js"></script>
+        <script src="../../CODE/JAVASCRIPT/vista_dropdown.js"></script>
         <style>
         </style>
         <script>
@@ -103,7 +103,7 @@
 
             // -- STATEMENTS
 
-            InitializeSelectButtons();
+            InitializeDropdowns();
         </script>
     </body>
 </html>
