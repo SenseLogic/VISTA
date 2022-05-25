@@ -57,9 +57,10 @@ function HandleDraggableItemDropEvent(
 // ~~
 
 function InitializeDraggableItems(
+    element_selector = ".draggable-item"
     )
 {
-    for ( item_element of GetElements( ".draggable-item" ) )
+    for ( item_element of GetElements( element_selector ) )
     {
         item_element.setAttribute( "draggable", true );
         item_element.addEventListener( "dragstart", HandleDraggableItemDragStartEvent )
@@ -72,9 +73,10 @@ function InitializeDraggableItems(
 // ~~
 
 function FinalizeDraggableItems(
+    element_selector = ".draggable-item"
     )
 {
-    for ( item_element of GetElements( ".draggable-item" ) )
+    for ( item_element of GetElements( element_selector ) )
     {
         item_element.setAttribute( "draggable", false );
         item_element.removeEventListener( "dragstart", HandleDraggableItemDragStartEvent )
