@@ -117,6 +117,62 @@
                 height: 5rem;
                 width: 1rem;
             }
+
+            .test-scroller-slide-menu
+            {
+                position: absolute;
+                bottom: 3rem;
+                left: 50%;
+                transform: translateX( -50% );
+
+                margin-left: auto;
+                margin-right: auto;
+
+                display: flex;
+            }
+
+            .test-scroller-slide-button
+            {
+                height: 0.5rem;
+                width: 0.5rem;
+                border: 2px solid white;
+                border-radius: 50%;
+            }
+
+            .test-scroller-slide-button:hover,
+            .test-scroller-slide-button.is-selected
+            {
+                background: white;
+            }
+
+            .test-scroller-slide-button + .test-scroller-slide-button
+            {
+                margin-left: 2rem;
+            }
+
+            .test-scroller-arrow
+            {
+                font-size: 4rem;
+                color: white;
+
+                cursor: pointer;
+            }
+
+            .test-scroller-left-arrow
+            {
+                position: absolute;
+                top: 50%;
+                left: 4rem;
+                transform: translateY( -50% );
+            }
+
+            .test-scroller-right-arrow
+            {
+                position: absolute;
+                top: 50%;
+                right: 4rem;
+                transform: translateY( -50% );
+            }
         </style>
     </head>
     <body>
@@ -141,6 +197,26 @@
                     <div class="test-scroller-slide test-scroller-slide-background-6">
                         <h1>SLIDE 6</h1>
                     </div>
+                </div>
+                <div class="test-scroller-slide-menu">
+                    <div class="test-scroller-slide-button">
+                    </div>
+                    <div class="test-scroller-slide-button">
+                    </div>
+                    <div class="test-scroller-slide-button">
+                    </div>
+                    <div class="test-scroller-slide-button">
+                    </div>
+                    <div class="test-scroller-slide-button">
+                    </div>
+                    <div class="test-scroller-slide-button">
+                    </div>
+                </div>
+                <div id="test-scroller-1-left-arrow" class="test-scroller-arrow test-scroller-left-arrow">
+                    &lt;
+                </div>
+                <div id="test-scroller-1-right-arrow" class="test-scroller-arrow test-scroller-right-arrow">
+                    &gt;
                 </div>
                 <div id="test-scroller-track-1" class="test-scroller-track test-scroller-horizontal-track">
                     <div id="test-scroller-slider-1" class="test-scroller-slider test-scroller-horizontal-slider">
@@ -168,6 +244,26 @@
                         <h1>SLIDE 6</h1>
                     </div>
                 </div>
+                <div class="test-scroller-slide-menu">
+                    <div class="test-scroller-slide-button">
+                    </div>
+                    <div class="test-scroller-slide-button">
+                    </div>
+                    <div class="test-scroller-slide-button">
+                    </div>
+                    <div class="test-scroller-slide-button">
+                    </div>
+                    <div class="test-scroller-slide-button">
+                    </div>
+                    <div class="test-scroller-slide-button">
+                    </div>
+                </div>
+                <div id="test-scroller-2-left-arrow" class="test-scroller-arrow test-scroller-left-arrow">
+                    &lt;
+                </div>
+                <div id="test-scroller-2-right-arrow" class="test-scroller-arrow test-scroller-right-arrow">
+                    &gt;
+                </div>
                 <div id="test-scroller-track-2" class="test-scroller-track test-scroller-vertical-track">
                     <div id="test-scroller-slider-2" class="test-scroller-slider test-scroller-vertical-slider">
                     </div>
@@ -192,12 +288,17 @@
                       true,
                       6,
                       GetElementById( "test-scroller-slider-1" ),
-                      0.5,
                       "margin-left",
+                      0.5,
                       true,
                       true,
-                      GetElementById( "test-scroller-track-1" )
+                      GetElementById( "test-scroller-track-1" ),
+                      GetElements( "#test-scroller-1 .test-scroller-slide-button" )
                       );
+
+            scroller.HandleSlideButtonsClickEvent();
+            scroller.HandlePriorSlideButtonClickEvent( GetElementById( "test-scroller-1-left-arrow" ) );
+            scroller.HandleNextSlideButtonClickEvent( GetElementById( "test-scroller-1-right-arrow" ) );
 
             var scroller
                 = new SCROLLER(
@@ -213,8 +314,13 @@
                       0.5,
                       false,
                       true,
-                      GetElementById( "test-scroller-track-2" )
+                      GetElementById( "test-scroller-track-2" ),
+                      GetElements( "#test-scroller-2 .test-scroller-slide-button" )
                       );
+
+            scroller.HandleSlideButtonsClickEvent();
+            scroller.HandlePriorSlideButtonClickEvent( GetElementById( "test-scroller-2-left-arrow" ) );
+            scroller.HandleNextSlideButtonClickEvent( GetElementById( "test-scroller-2-right-arrow" ) );
         </script>
     </body>
 </html>

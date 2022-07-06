@@ -87,115 +87,6 @@ class SLIDESHOW
 
     // -- OPERATIONS
 
-    HandleSlideButtonsClickEvent(
-        automatic_animation_is_stopped = false,
-        automatic_animation_delay_duration = undefined
-        )
-    {
-        var
-            slide_button_element,
-            slide_index,
-            slideshow;
-
-        slideshow = this;
-
-        for ( slide_index = 0;
-              slide_index < this.SlideButtonElementArray.length;
-              ++slide_index )
-        {
-            slide_button_element = this.SlideButtonElementArray[ slide_index ];
-            slide_button_element.SlideIndex = slide_index;
-            slide_button_element.AddEventListener(
-                "click",
-                function (
-                    event
-                    )
-                {
-                    if ( automatic_animation_is_stopped )
-                    {
-                        slideshow.StopAutomaticAnimation();
-                    }
-                    else if ( automatic_animation_delay_duration !== undefined )
-                    {
-                        slideshow.DelayAutomaticAnimation( automatic_animation_delay_duration );
-                    }
-
-                    slideshow.ShowSlide( event.currentTarget.SlideIndex );
-                }
-                );
-        }
-    }
-
-    // ~~
-
-    HandlePriorSlideButtonClickEvent(
-        prior_slide_button_element,
-        automatic_animation_is_stopped = false,
-        automatic_animation_delay_duration = undefined
-        )
-    {
-        var
-            slide_index,
-            slideshow;
-
-        slideshow = this;
-
-        prior_slide_button_element.AddEventListener(
-            "click",
-            function (
-                event
-                )
-            {
-                if ( automatic_animation_is_stopped )
-                {
-                    slideshow.StopAutomaticAnimation();
-                }
-                else if ( automatic_animation_delay_duration !== undefined )
-                {
-                    slideshow.DelayAutomaticAnimation( automatic_animation_delay_duration );
-                }
-
-                slideshow.ShowPriorSlide();
-            }
-            );
-    }
-
-    // ~~
-
-    HandleNextSlideButtonClickEvent(
-        next_slide_button_element,
-        automatic_animation_is_stopped = false,
-        automatic_animation_delay_duration = undefined
-        )
-    {
-        var
-            slide_index,
-            slideshow;
-
-        slideshow = this;
-
-        next_slide_button_element.AddEventListener(
-            "click",
-            function (
-                event
-                )
-            {
-                if ( automatic_animation_is_stopped )
-                {
-                    slideshow.StopAutomaticAnimation();
-                }
-                else if ( automatic_animation_delay_duration !== undefined )
-                {
-                    slideshow.DelayAutomaticAnimation( automatic_animation_delay_duration );
-                }
-
-                slideshow.ShowNextSlide();
-            }
-            );
-    }
-
-    // ~~
-
     SetSlideIndex(
         )
     {
@@ -464,5 +355,114 @@ class SLIDESHOW
         {
             this.StartAutomaticAnimation();
         }
+    }
+
+    // ~~
+
+    HandleSlideButtonsClickEvent(
+        automatic_animation_is_stopped = false,
+        automatic_animation_delay_duration = undefined
+        )
+    {
+        var
+            slide_button_element,
+            slide_index,
+            slideshow;
+
+        slideshow = this;
+
+        for ( slide_index = 0;
+              slide_index < this.SlideButtonElementArray.length;
+              ++slide_index )
+        {
+            slide_button_element = this.SlideButtonElementArray[ slide_index ];
+            slide_button_element.SlideIndex = slide_index;
+            slide_button_element.AddEventListener(
+                "click",
+                function (
+                    event
+                    )
+                {
+                    if ( automatic_animation_is_stopped )
+                    {
+                        slideshow.StopAutomaticAnimation();
+                    }
+                    else if ( automatic_animation_delay_duration !== undefined )
+                    {
+                        slideshow.DelayAutomaticAnimation( automatic_animation_delay_duration );
+                    }
+
+                    slideshow.ShowSlide( event.currentTarget.SlideIndex );
+                }
+                );
+        }
+    }
+
+    // ~~
+
+    HandlePriorSlideButtonClickEvent(
+        prior_slide_button_element,
+        automatic_animation_is_stopped = false,
+        automatic_animation_delay_duration = undefined
+        )
+    {
+        var
+            slide_index,
+            slideshow;
+
+        slideshow = this;
+
+        prior_slide_button_element.AddEventListener(
+            "click",
+            function (
+                event
+                )
+            {
+                if ( automatic_animation_is_stopped )
+                {
+                    slideshow.StopAutomaticAnimation();
+                }
+                else if ( automatic_animation_delay_duration !== undefined )
+                {
+                    slideshow.DelayAutomaticAnimation( automatic_animation_delay_duration );
+                }
+
+                slideshow.ShowPriorSlide();
+            }
+            );
+    }
+
+    // ~~
+
+    HandleNextSlideButtonClickEvent(
+        next_slide_button_element,
+        automatic_animation_is_stopped = false,
+        automatic_animation_delay_duration = undefined
+        )
+    {
+        var
+            slide_index,
+            slideshow;
+
+        slideshow = this;
+
+        next_slide_button_element.AddEventListener(
+            "click",
+            function (
+                event
+                )
+            {
+                if ( automatic_animation_is_stopped )
+                {
+                    slideshow.StopAutomaticAnimation();
+                }
+                else if ( automatic_animation_delay_duration !== undefined )
+                {
+                    slideshow.DelayAutomaticAnimation( automatic_animation_delay_duration );
+                }
+
+                slideshow.ShowNextSlide();
+            }
+            );
     }
 }

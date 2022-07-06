@@ -18,6 +18,7 @@ class SCROLLER
         slider_is_horizontal = true,
         slider_is_draggable = true,
         track_element = null,
+        slide_button_element_array = null,
         update_track_function = null,
         hidden_element_class_name = "is-hidden"
         )
@@ -50,6 +51,7 @@ class SCROLLER
         this.SliderDragPosition = 0;
         this.SliderRatio = 0;
         this.TrackElement = track_element;
+        this.SlideButtonElementArray = slide_button_element_array;
         this.HiddenElementClassName = hidden_element_class_name;
         this.UpdateTrackFunction = update_track_function;
 
@@ -147,6 +149,14 @@ class SCROLLER
 
     // ~~
 
+    GetStripSectionSize(
+        )
+    {
+        return this.GetStripSize() / this.StripSectionCount;
+    }
+
+    // ~~
+
     GetStripAmplitude(
         )
     {
@@ -204,6 +214,27 @@ class SCROLLER
         )
     {
         return this.SliderRatio * this.GetSliderAmplitude();
+    }
+
+    // ~~
+
+    GetSlideIndex(
+        )
+    {
+        var
+            strip_amplitude,
+            strip_section_size;
+
+        strip_amplitude = this.GetStripAmplitude();
+
+        if ( strip_amplitude > 0 )
+        {
+            return GetRound( this.SliderRatio * strip_amplitude / this.GetStripSectionSize() );
+        }
+        else
+        {
+            return 0;
+        }
     }
 
     // ~~
@@ -318,12 +349,45 @@ class SCROLLER
 
     // ~~
 
+    UpdateSlideButtons(
+        )
+    {
+        var
+            selected_slide_button_index,
+            slide_button_index;
+
+        selected_slide_button_index = GetRound( this.SliderRatio * ( this.SlideButtonElementArray.length - 1 ) );
+
+        if ( selected_slide_button_index >= this.SlideButtonElementArray.length )
+        {
+            selected_slide_button_index = this.SlideButtonElementArray.length;
+        }
+
+        if ( selected_slide_button_index < 0 )
+        {
+            selected_slide_button_index = 0;
+        }
+
+        for ( slide_button_index = 0;
+              slide_button_index < this.SlideButtonElementArray.length;
+              ++slide_button_index )
+        {
+            this.SlideButtonElementArray[ slide_button_index ].ToggleClass(
+                "is-selected",
+                slide_button_index === selected_slide_button_index
+                );
+        }
+    }
+
+    // ~~
+
     Update(
         )
     {
         this.UpdateStrip();
         this.UpdateSlider();
         this.UpdateTrack();
+        this.UpdateSlideButtons();
     }
 
     // ~~
@@ -337,29 +401,64 @@ class SCROLLER
 
     // ~~
 
-    SnapSlider(
+    ShowSlide(
+        slide_index
         )
     {
         var
             slider_ratio,
-            strip_amplitude,
-            strip_position,
-            strip_section_size;
+            strip_amplitude;
 
+        if ( slide_index >= this.StripSectionCount )
+        {
+            slide_index = this.StripSectionCount - 1;
+        }
+
+        if ( slide_index < 0 )
+        {
+            slide_index = 0;
+        }
+
+        strip_amplitude = this.GetStripAmplitude();
+
+        if ( strip_amplitude > 0 )
+        {
+            slider_ratio = slide_index * this.GetStripSectionSize() / strip_amplitude;
+        }
+        else
+        {
+            slider_ratio = 0.0;
+        }
+
+        this.SetSliderRatio( slider_ratio );
+        this.Update();
+    }
+
+    // ~~
+
+    ShowPriorSlide(
+        )
+    {
+        this.ShowSlide( this.GetSlideIndex() - 1 );
+    }
+
+    // ~~
+
+    ShowNextSlide(
+        )
+    {
+        this.ShowSlide( this.GetSlideIndex() + 1 );
+    }
+
+    // ~~
+
+    SnapSlider(
+        )
+    {
         if ( this.StripSectionCount > 1
              && this.SliderRatio < 0.99 )
         {
-            strip_amplitude = this.GetStripAmplitude();
-
-            if ( strip_amplitude > 0 )
-            {
-                strip_section_size = this.GetStripSize() / this.StripSectionCount;
-                strip_position = GetRound( this.SliderRatio * strip_amplitude / strip_section_size ) * strip_section_size;
-                slider_ratio = strip_position / strip_amplitude;
-
-                this.SetSliderRatio( slider_ratio );
-                this.Update();
-            }
+            this.ShowSlide( this.GetSlideIndex() );
         }
     }
 
@@ -476,5 +575,84 @@ class SCROLLER
     {
         this.MoveSlider( event.deltaY * 0.5 );
         event.Cancel();
+    }
+
+    // ~~
+
+    HandleSlideButtonsClickEvent(
+        )
+    {
+        var
+            scroller,
+            slide_button_element,
+            slide_index;
+
+        scroller = this;
+
+        for ( slide_index = 0;
+              slide_index < this.SlideButtonElementArray.length;
+              ++slide_index )
+        {
+            slide_button_element = this.SlideButtonElementArray[ slide_index ];
+            slide_button_element.SlideIndex = slide_index;
+            slide_button_element.AddEventListener(
+                "click",
+                function (
+                    event
+                    )
+                {
+                    scroller.SetSliderRatio(
+                        event.currentTarget.SlideIndex / ( scroller.SlideButtonElementArray.length - 1 )
+                        );
+                    scroller.Update();
+                }
+                );
+        }
+    }
+
+    // ~~
+
+    HandlePriorSlideButtonClickEvent(
+        prior_slide_button_element
+        )
+    {
+        var
+            slide_index,
+            scroller;
+
+        scroller = this;
+
+        prior_slide_button_element.AddEventListener(
+            "click",
+            function (
+                event
+                )
+            {
+                scroller.ShowPriorSlide();
+            }
+            );
+    }
+
+    // ~~
+
+    HandleNextSlideButtonClickEvent(
+        next_slide_button_element
+        )
+    {
+        var
+            slide_index,
+            scroller;
+
+        scroller = this;
+
+        next_slide_button_element.AddEventListener(
+            "click",
+            function (
+                event
+                )
+            {
+                scroller.ShowNextSlide();
+            }
+            );
     }
 }
