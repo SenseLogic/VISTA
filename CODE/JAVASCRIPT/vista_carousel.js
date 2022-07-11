@@ -9,7 +9,7 @@ class CAROUSEL
         strip_element,
         slide_index = 0.0,
         slide_count,
-        visible_slide_count = 1,
+        visible_slide_count_by_media_query_map = 1,
         pause_duration = 3.0,
         translation_duration = 0.5,
         carousel_is_perpetual = true,
@@ -20,6 +20,7 @@ class CAROUSEL
         width_unit = ""
         )
     {
+        this.HandleResizeEvent = this.HandleResizeEvent.bind( this );
         this.UpdateAnimation = this.UpdateAnimation.bind( this );
         this.UpdateAutomaticAnimation = this.UpdateAutomaticAnimation.bind( this );
 
@@ -34,9 +35,10 @@ class CAROUSEL
         this.FinalSlideIndex = slide_index;
         this.FinalSlideRatio = 1.0;
         this.SlideCount = slide_count;
-        this.VisibleSlideCount = visible_slide_count;
-        this.PerpetualSlideCount = slide_count - visible_slide_count;
-        this.ActualSlideCount = carousel_is_perpetual ? this.PerpetualSlideCount : this.PerpetualSlideCount + 1;
+        this.VisibleSlideCountByMediaQueryMap = visible_slide_count_by_media_query_map;
+        this.VisibleSlideCount = 0;
+        this.PerpetualSlideCount = 0;
+        this.ActualSlideCount = 0;
         this.PauseDuration = pause_duration;
         this.TranslationDuration = translation_duration;
         this.TranslationSpeed = 1.0 / translation_duration;
@@ -49,9 +51,9 @@ class CAROUSEL
         this.IsTranslated = false;
         this.IsAutomatic = false;
 
-        this.SetSlideIndex();
-        this.SetStripWidth();
-        this.SetSlideWidth();
+        window.addEventListener( "resize", this.HandleResizeEvent );
+
+        this.Resize();
     }
 
     // -- INQUIRIES
@@ -102,6 +104,138 @@ class CAROUSEL
     }
 
     // -- OPERATIONS
+
+    SetVisibleSlideCount(
+        )
+    {
+        if ( IsNumber( this.VisibleSlideCountByMediaQueryMap ) )
+        {
+            this.VisibleSlideCount = this.VisibleSlideCountByMediaQueryMap;
+        }
+        else
+        {
+            this.VisibleSlideCount = 1;
+
+            for (const [ media_query, visible_slide_count ] of Object.entries( this.VisibleSlideCountByMediaQueryMap ) )
+            {
+                if ( window.matchMedia( media_query ).matches )
+                {
+                    this.VisibleSlideCount = visible_slide_count;
+                }
+            }
+        }
+
+        this.PerpetualSlideCount = this.SlideCount - this.VisibleSlideCount;
+        this.ActualSlideCount = this.IsPerpetual ? this.PerpetualSlideCount : this.PerpetualSlideCount + 1;
+    }
+
+    // ~~
+
+    SetSlideIndex(
+        )
+    {
+        var
+            slide_index;
+
+        if ( this.WidthUnit === "" )
+        {
+            this.StripElement.style[ "left" ] = ( this.SlideIndex * -100.0 / this.VisibleSlideCount ) + "%";
+        }
+        else
+        {
+            this.StripElement.style[ "left" ] = ( -this.SlideIndex * ( this.SlideWidth + this.GapWidth ) ) + this.WidthUnit;
+        }
+
+        slide_index = this.GetSlideIndex();
+
+        if ( slide_index !== this.PriorSlideIndex )
+        {
+            this.PriorSlideIndex = slide_index;
+
+            if ( this.SlideButtonElementArray !== null )
+            {
+                for ( slide_index = 0;
+                      slide_index < this.SlideButtonElementArray.length;
+                      ++slide_index )
+                {
+                    this.SlideButtonElementArray[ slide_index ].ToggleClass(
+                        "is-selected",
+                        slide_index === this.FinalSlideIndex
+                        || ( slide_index === 0 && this.FinalSlideIndex >= this.SlideButtonElementArray.length )
+                        );
+                }
+            }
+
+            if ( this.UpdateFunction !== null )
+            {
+                this.UpdateFunction( this );
+            }
+        }
+    }
+
+    // ~~
+
+    SetStripWidth(
+        )
+    {
+        if ( this.WidthUnit === "" )
+        {
+            this.StripElement.style[ "width" ] = ( ( this.SlideCount / this.VisibleSlideCount ) * 100 ) + "%";
+        }
+        else
+        {
+            this.StripElement.style[ "width" ] = ( ( this.SlideWidth + this.GapWidth ) * this.SlideCount - this.GapWidth ) + this.WidthUnit;
+        }
+    }
+
+    // ~~
+
+    SetSlideWidth(
+        )
+    {
+        var
+            carousel;
+
+        carousel = this;
+
+        this.StripElement.GetChildElements().Iterate(
+            function (
+                element
+                )
+            {
+                if ( carousel.WidthUnit === "" )
+                {
+                    element.style[ "width" ] = ( 100 / carousel.SlideCount ) + "%";
+                }
+                else
+                {
+                    element.style[ "width" ] = carousel.SlideWidth + carousel.WidthUnit;
+                }
+            }
+            );
+    }
+
+    // ~~
+
+    Resize(
+        )
+    {
+        this.SetVisibleSlideCount();
+        this.SetSlideIndex();
+        this.SetStripWidth();
+        this.SetSlideWidth();
+    }
+
+    // ~~
+
+    HandleResizeEvent(
+        event
+        )
+    {
+        this.Resize();
+    }
+
+    // ~~
 
     HandleSlideButtonsClickEvent(
         automatic_animation_is_stopped = false,
@@ -206,92 +340,6 @@ class CAROUSEL
                 }
 
                 carousel.ShowNextSlide();
-            }
-            );
-    }
-
-    // ~~
-
-    SetSlideIndex(
-        )
-    {
-        var
-            slide_index;
-
-        if ( this.WidthUnit === "" )
-        {
-            this.StripElement.style[ "left" ] = ( this.SlideIndex * -100.0 / this.VisibleSlideCount ) + "%";
-        }
-        else
-        {
-            this.StripElement.style[ "left" ] = ( -this.SlideIndex * ( this.SlideWidth + this.GapWidth ) ) + this.WidthUnit;
-        }
-
-        slide_index = this.GetSlideIndex();
-
-        if ( slide_index !== this.PriorSlideIndex )
-        {
-            this.PriorSlideIndex = slide_index;
-
-            if ( this.SlideButtonElementArray !== null )
-            {
-                for ( slide_index = 0;
-                      slide_index < this.SlideButtonElementArray.length;
-                      ++slide_index )
-                {
-                    this.SlideButtonElementArray[ slide_index ].ToggleClass(
-                        "is-selected",
-                        slide_index === this.FinalSlideIndex
-                        || ( slide_index === 0 && this.FinalSlideIndex >= this.SlideButtonElementArray.length )
-                        );
-                }
-            }
-
-            if ( this.UpdateFunction !== null )
-            {
-                this.UpdateFunction( this );
-            }
-        }
-    }
-
-    // ~~
-
-    SetStripWidth(
-        )
-    {
-        if ( this.WidthUnit === "" )
-        {
-            this.StripElement.style[ "width" ] = ( ( this.SlideCount / this.VisibleSlideCount ) * 100 ) + "%";
-        }
-        else
-        {
-            this.StripElement.style[ "width" ] = ( ( this.SlideWidth + this.GapWidth ) * this.SlideCount - this.GapWidth ) + this.WidthUnit;
-        }
-    }
-
-    // ~~
-
-    SetSlideWidth(
-        )
-    {
-        var
-            carousel;
-
-        carousel = this;
-
-        this.StripElement.GetChildElements().Iterate(
-            function (
-                element
-                )
-            {
-                if ( carousel.WidthUnit === "" )
-                {
-                    element.style[ "width" ] = ( 100 / carousel.SlideCount ) + "%";
-                }
-                else
-                {
-                    element.style[ "width" ] = carousel.SlideWidth + carousel.WidthUnit;
-                }
             }
             );
     }
