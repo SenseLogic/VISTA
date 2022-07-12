@@ -37,6 +37,7 @@ class CAROUSEL
         this.SlideCount = slide_count;
         this.VisibleSlideCountByMediaQueryMap = visible_slide_count_by_media_query_map;
         this.VisibleSlideCount = 0;
+        this.MaximumVisibleSlideCount = 0;
         this.PerpetualSlideCount = 0;
         this.ActualSlideCount = 0;
         this.PauseDuration = pause_duration;
@@ -111,21 +112,29 @@ class CAROUSEL
         if ( IsNumber( this.VisibleSlideCountByMediaQueryMap ) )
         {
             this.VisibleSlideCount = this.VisibleSlideCountByMediaQueryMap;
+            this.MaximumVisibleSlideCount = this.VisibleSlideCount;
         }
         else
         {
             this.VisibleSlideCount = 1;
+            this.MaximumVisibleSlideCount = 1;
 
-            for (const [ media_query, visible_slide_count ] of Object.entries( this.VisibleSlideCountByMediaQueryMap ) )
+            for ( const [ media_query, visible_slide_count ] of Object.entries( this.VisibleSlideCountByMediaQueryMap ) )
             {
-                if ( window.matchMedia( media_query ).matches )
+                if ( media_query == "default" )
                 {
                     this.VisibleSlideCount = visible_slide_count;
                 }
+                else if ( window.matchMedia( media_query ).matches )
+                {
+                    this.VisibleSlideCount = visible_slide_count;
+                }
+
+                this.MaximumVisibleSlideCount = visible_slide_count;
             }
         }
 
-        this.PerpetualSlideCount = this.SlideCount - this.VisibleSlideCount;
+        this.PerpetualSlideCount = this.SlideCount - this.MaximumVisibleSlideCount;
         this.ActualSlideCount = this.IsPerpetual ? this.PerpetualSlideCount : this.PerpetualSlideCount + 1;
     }
 

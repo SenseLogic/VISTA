@@ -273,9 +273,12 @@
                       GetElementById( "test-carousel-8-2-strip" ),
                       0.0,
                       8,
-                      2,
+                      {
+                          "( min-width: 40em )" : 2
+                      },
                       3.0,
-                      0.5
+                      0.5,
+                      true
                       );
 
             carousel_8_2.HandlePriorSlideButtonClickEvent( GetElementById( "test-carousel-8-2-left-arrow" ), 10 );
@@ -290,9 +293,14 @@
                       GetElementById( "test-carousel-9-3-strip" ),
                       0.0,
                       9,
-                      3,
+                      {
+                          "default" : 1,
+                          "( min-width: 40em )" : 2,
+                          "( min-width: 60em )" : 3
+                      },
                       3.0,
-                      0.5
+                      0.5,
+                      true
                       );
 
             carousel_9_3.HandlePriorSlideButtonClickEvent( GetElementById( "test-carousel-9-3-left-arrow" ), 10 );
