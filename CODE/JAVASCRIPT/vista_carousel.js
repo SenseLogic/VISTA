@@ -121,16 +121,16 @@ class CAROUSEL
 
             for ( const [ media_query, visible_slide_count ] of Object.entries( this.VisibleSlideCountByMediaQueryMap ) )
             {
-                if ( media_query == "default" )
-                {
-                    this.VisibleSlideCount = visible_slide_count;
-                }
-                else if ( window.matchMedia( media_query ).matches )
+                if ( media_query == "default"
+                     || window.matchMedia( media_query ).matches )
                 {
                     this.VisibleSlideCount = visible_slide_count;
                 }
 
-                this.MaximumVisibleSlideCount = visible_slide_count;
+                if ( visible_slide_count > this.MaximumVisibleSlideCount )
+                {
+                    this.MaximumVisibleSlideCount = visible_slide_count;
+                }
             }
         }
 
