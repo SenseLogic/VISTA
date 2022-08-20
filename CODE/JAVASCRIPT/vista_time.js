@@ -81,16 +81,16 @@ function GetDateTimeText(
     )
 {
     return (
-        GetLeftPaddedText( date.Year.toString(), 4, "0" )
+        date.Year.toString().GetLeftPaddedText( 4, "0" )
         + ":"
-        + GetLeftPaddedText( date.Month.toString(), 2, "0" )
+        + date.Month.toString().GetLeftPaddedText( 2, "0" )
         + ":"
-        + GetLeftPaddedText( date.Day.toString(), 2, "0" )
+        + date.Day.toString().GetLeftPaddedText( 2, "0" )
         + " "
-        + GetLeftPaddedText( date.Hour.toString(), 2, "0" )
+        + date.Hour.toString().GetLeftPaddedText( 2, "0" )
         + "-"
-        + GetLeftPaddedText( date.Minute.toString(), 2, "0" )
+        + date.Minute.toString().GetLeftPaddedText( 2, "0" )
         + "-"
-        + GetLeftPaddedText( date.Second.toString(), 2, "0" )
+        + date.Second.toString().GetLeftPaddedText( 2, "0" )
         );
 }
