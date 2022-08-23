@@ -1,4 +1,68 @@
+// -- CONSTANTS
+
+const NullTuid = "AAAAAAAAAAAAAAAAAAAAAA";
+const NullUuid = "00000000-0000-0000-0000-000000000000";
+
 // -- FUNCTIONS
+
+function GetBase64FromHexadecimal(
+    hexadecimal_buffer
+    )
+{
+    let buffer = "";
+
+    for ( let byte_index = 0;
+          byte_index < hexadecimal_buffer.length;
+          byte_index += 2 )
+    {
+        buffer += String.fromCharCode( parseInt( hexadecimal_buffer.slice( byte_index, byte_index + 2 ), 16 ) );
+    }
+
+    return btoa( buffer );
+}
+
+// ~~
+
+function GetHexadecimalFromBase64(
+    base_64_buffer
+    )
+{
+    let buffer = atob( base_64_buffer );
+    let hexadecimal_buffer = "";
+
+    for ( let character_index = 0;
+          character_index < buffer.length;
+          ++character_index )
+    {
+        hexadecimal_buffer += ( "000" + this.charCodeAt( character_index ).toString( 16 ) ).slice( -4 );
+    }
+
+    return hexadecimal_buffer;
+}
+
+// ~~
+
+function GetTuid(
+    uuid
+    )
+{
+    if ( uuid === undefined )
+    {
+        uuid = crypto.randomUUID();
+    }
+
+    return GetBase64FromHexadecimal( uuid.replaceAll( "-", "" ) ).replaceAll( "=", "" );
+}
+
+// ~~
+
+function GetUuid(
+    )
+{
+    return crypto.randomUUID();
+}
+
+// ~~
 
 function GetTimeUuid(
     )
