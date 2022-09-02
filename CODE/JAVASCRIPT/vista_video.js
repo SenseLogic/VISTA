@@ -46,7 +46,8 @@ function CreateAutoplayIntersectionObserver(
 
                     if ( intersection_observer_entry.intersectionRatio > 0 )
                     {
-                        if ( video_element.paused )
+                        if ( video_element.paused
+                             && !video_element.classList.contains( "is-hidden" ) )
                         {
                             video_element.muted = true;
                             video_element.autoplay = true;
@@ -97,6 +98,8 @@ Array.prototype.AutoplayVideos = function (
     {
         video_element.AutoplayVideo();
     }
+
+    return this;
 }
 
 // ~~
@@ -130,4 +133,45 @@ function DisableVideoContextMenu(
             event.preventDefault();
         }
         );
+}
+
+// ~~
+
+HTMLElement.prototype.AutohideVideo = function (
+    )
+{
+    var
+        video_element_is_hidden;
+
+    video_element_is_hidden = window.matchMedia( "(" + this.dataset.autohideCondition + ")" ).matches;
+
+    this.ToggleClass( "is-hidden", video_element_is_hidden );
+    this.autoplay = !video_element_is_hidden;
+
+    return this;
+}
+
+// ~~
+
+Array.prototype.AutohideVideos = function (
+    )
+{
+    var
+        video_element;
+
+    for ( video_element of this )
+    {
+        video_element.AutohideVideo();
+    }
+
+    return this;
+}
+
+// ~~
+
+function InitializeAutohideVideos(
+
+    )
+{
+    GetElements( ".autohide-video" ).AutohideVideos();
 }

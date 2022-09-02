@@ -1115,6 +1115,37 @@ HTMLElement.prototype.RemoveAttribute = function(
 
 // ~~
 
+HTMLElement.prototype.ToggleAttribute = function(
+    attribute_name,
+    condition = undefined,
+    attribute_value = ""
+    )
+{
+    if ( condition === undefined )
+    {
+        if ( this.hasAttribute( attribute_name ) )
+        {
+            this.removeAttribute( attribute_name );
+        }
+        else
+        {
+            this[ attribute_name ] = attribute_value;
+        }
+    }
+    else if ( condition )
+    {
+        this[ attribute_name ] = attribute_value;
+    }
+    else
+    {
+        this.removeAttribute( attribute_name );
+    }
+
+    return this;
+}
+
+// ~~
+
 HTMLElement.prototype.IsVisible = function (
     top_offset = 0,
     bottom_offset = 0,
