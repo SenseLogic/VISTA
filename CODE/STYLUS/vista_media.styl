@@ -131,3 +131,37 @@ Media()
 
     @media media_query_text
         {block}
+
+// ~~
+
+MakeClass( class_name, class_block, media_query_name_array = {} )
+
+    .{class_name}
+
+        {class_block}
+
+    for media_query_name in media_query_name_array
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .{class_name}-{media_query_name}
+            {
+                {class_block}
+            }
+        }
+    }
+
+// ~~
+
+MakeMediaClass( class_name, class_block, media_query_name_array = {} )
+
+    for media_query_name in media_query_name_array
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .{class_name}-{media_query_name}
+            {
+                {class_block}
+            }
+        }
+    }
