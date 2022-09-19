@@ -705,7 +705,7 @@ function GetTransformStyle(
     style_name
     )
 {
-    return ParseTransformText( element.style[ style_name ] );
+    return ParseTransformText( element.style.getPropertyValue( style_name ) );
 }
 
 // ~~
@@ -736,7 +736,7 @@ function SetNumericStyle(
     number
     )
 {
-    element.style[ style_name ] = number.Amount + number.Unit;
+    element.style.setProperty( style_name, number.Amount + number.Unit );
 }
 
 // ~~
@@ -747,8 +747,7 @@ function SetColorStyle(
     color
     )
 {
-    element.style[ style_name ]
-        = "rgba(" + color.Red + "," + color.Green + "," + color.Blue + "," + color.Opacity + ")";
+    element.style.setProperty( style_name, "rgba(" + color.Red + "," + color.Green + "," + color.Blue + "," + color.Opacity + ")" );
 }
 
 // ~~
@@ -773,7 +772,7 @@ function SetTransformStyle(
         style += operation_name + "(" + operation.Amount + operation.Unit + ")";
     }
 
-    element.style[ style_name ] = style;
+    element.style.setProperty( style_name, style );
 }
 
 // ~~
@@ -784,7 +783,7 @@ function SetConstantStyle(
     constant
     )
 {
-    element.style[ style_name ] = constant;
+    element.style.setProperty( style_name, constant );
 }
 
 // ~~
