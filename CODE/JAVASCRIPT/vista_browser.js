@@ -143,3 +143,11 @@ function IsMobileBrowser(
         || user_agent.indexOf( "phone" ) >= 0
         );
 }
+
+// ~~
+
+function IsTouchBrowser(
+    )
+{
+    return window.matchMedia( "(pointer: coarse)" ).matches;
+}

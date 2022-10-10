@@ -10,6 +10,7 @@ class SCROLLER
         strip_position_property = "left",
         strip_animation_duration = 0.0,
         strip_is_horizontal = true,
+        strip_is_scrollable = false,
         strip_is_draggable = true,
         strip_section_count = 0,
         slider_element = null,
@@ -29,6 +30,7 @@ class SCROLLER
         this.HandleTouchMoveEvent = this.HandleTouchMoveEvent.bind( this );
         this.HandleTouchEndEvent = this.HandleTouchEndEvent.bind( this );
         this.HandleWheelEvent = this.HandleWheelEvent.bind( this );
+        this.HandleScrollEvent = this.HandleScrollEvent.bind( this );
 
         this.Element = scroller_element;
         this.StripElement = strip_element;
@@ -36,6 +38,7 @@ class SCROLLER
         this.StripPositionProperty = strip_position_property;
         this.StripAnimationDuration = strip_animation_duration;
         this.StripIsHorizontal = strip_is_horizontal;
+        this.StripIsScrollable = strip_is_scrollable;
         this.StripIsDraggable = strip_is_draggable;
         this.StripIsDragged = false;
         this.StripWasDragged = false;
@@ -80,12 +83,34 @@ class SCROLLER
             document.documentElement.AddEventListener( "mouseleave", this.HandleTouchEndEvent );
         }
 
-        window.addEventListener( "resize", this.HandleResizeEvent );
+        this.Element.AddEventListener( "scroll", this.HandleScrollEvent );
 
+        window.addEventListener( "resize", this.HandleResizeEvent );
         this.Resize();
     }
 
     // -- INQUIRIES
+
+    GetScrollRatio(
+        )
+    {
+        if ( this.StripIsHorizontal )
+        {
+            return (
+                this.Element.scrollLeft
+                / ( this.Element.scrollWidth - this.Element.clientWidth )
+                );
+        }
+        else
+        {
+            return (
+                this.Element.scrollTop
+                / ( this.Element.scrollHeight - this.Element.clientHeight )
+                );
+        }
+    }
+
+    // ~~
 
     GetPosition(
         event,
@@ -257,11 +282,14 @@ class SCROLLER
     UpdateTrackVisibility(
         )
     {
-        this.TrackElement.RemoveClass( this.HiddenElementClassName );
-
-        if ( this.GetSize() >= this.GetStripSize() )
+        if ( this.TrackElement !== null )
         {
-            this.TrackElement.AddClass( this.HiddenElementClassName );
+            this.TrackElement.RemoveClass( this.HiddenElementClassName );
+
+            if ( this.GetSize() >= this.GetStripSize() )
+            {
+                this.TrackElement.AddClass( this.HiddenElementClassName );
+            }
         }
     }
 
@@ -273,17 +301,20 @@ class SCROLLER
         var
             slider_size;
 
-        if ( this.GetStripSize() > 0 )
+        if ( this.SliderElement !== null )
         {
-            slider_size = this.GetTrackSize() * this.GetSize() / this.GetStripSize();
+            if ( this.GetStripSize() > 0 )
+            {
+                slider_size = this.GetTrackSize() * this.GetSize() / this.GetStripSize();
 
-            if ( this.SliderIsHorizontal )
-            {
-                this.SliderElement.SetStyle( "width", slider_size + "px" );
-            }
-            else
-            {
-                this.SliderElement.SetStyle( "height", slider_size + "px" );
+                if ( this.SliderIsHorizontal )
+                {
+                    this.SliderElement.SetStyle( "width", slider_size + "px" );
+                }
+                else
+                {
+                    this.SliderElement.SetStyle( "height", slider_size + "px" );
+                }
             }
         }
     }
@@ -293,22 +324,25 @@ class SCROLLER
     UpdateStrip(
         )
     {
-        if ( this.StripAnimationDuration > 0.0 )
+        if ( this.StripElement !== null )
         {
-            this.StripElement
-                .StopStyle( this.StripPositionProperty )
-                .AnimateStyle(
-                    this.StripPositionProperty,
-                    [ ".", this.GetStripPosition() + "px" ],
-                    [ 0.0, this.StripAnimationDuration ],
-                    {
-                        GetRatioFunction : GetQuinticEaseOutRatio
-                    }
-                    );
-        }
-        else
-        {
-            this.StripElement.SetStyle( this.StripPositionProperty, this.GetStripPosition() + "px" );
+            if ( this.StripAnimationDuration > 0.0 )
+            {
+                this.StripElement
+                    .StopStyle( this.StripPositionProperty )
+                    .AnimateStyle(
+                        this.StripPositionProperty,
+                        [ ".", this.GetStripPosition() + "px" ],
+                        [ 0.0, this.StripAnimationDuration ],
+                        {
+                            GetRatioFunction : GetQuinticEaseOutRatio
+                        }
+                        );
+            }
+            else
+            {
+                this.StripElement.SetStyle( this.StripPositionProperty, this.GetStripPosition() + "px" );
+            }
         }
     }
 
@@ -317,22 +351,25 @@ class SCROLLER
     UpdateSlider(
         )
     {
-        if ( this.SliderAnimationDuration > 0.0 )
+        if ( this.SliderElement !== null )
         {
-            this.SliderElement
-                .StopStyle( this.SliderPositionProperty )
-                .AnimateStyle(
-                    this.SliderPositionProperty,
-                    [ ".", this.GetSliderPosition() + "px" ],
-                    [ 0.0, this.SliderAnimationDuration ],
-                    {
-                        GetRatioFunction : GetQuinticEaseOutRatio
-                    }
-                    );
-        }
-        else
-        {
-            this.SliderElement.SetStyle( this.SliderPositionProperty, this.GetSliderPosition() + "px" );
+            if ( this.SliderAnimationDuration > 0.0 )
+            {
+                this.SliderElement
+                    .StopStyle( this.SliderPositionProperty )
+                    .AnimateStyle(
+                        this.SliderPositionProperty,
+                        [ ".", this.GetSliderPosition() + "px" ],
+                        [ 0.0, this.SliderAnimationDuration ],
+                        {
+                            GetRatioFunction : GetQuinticEaseOutRatio
+                        }
+                        );
+            }
+            else
+            {
+                this.SliderElement.SetStyle( this.SliderPositionProperty, this.GetSliderPosition() + "px" );
+            }
         }
     }
 
@@ -356,26 +393,36 @@ class SCROLLER
             selected_slide_button_index,
             slide_button_index;
 
-        selected_slide_button_index = GetRound( this.SliderRatio * ( this.SlideButtonElementArray.length - 1 ) );
-
-        if ( selected_slide_button_index >= this.SlideButtonElementArray.length )
+        if ( this.SlideButtonElementArray !== null )
         {
-            selected_slide_button_index = this.SlideButtonElementArray.length;
-        }
+            if ( this.StripIsScrollable )
+            {
+                selected_slide_button_index = GetRound( this.GetScrollRatio() * ( this.SlideButtonElementArray.length - 1 ) );
+            }
+            else
+            {
+                selected_slide_button_index = GetRound( this.SliderRatio * ( this.SlideButtonElementArray.length - 1 ) );
+            }
 
-        if ( selected_slide_button_index < 0 )
-        {
-            selected_slide_button_index = 0;
-        }
+            if ( selected_slide_button_index >= this.SlideButtonElementArray.length )
+            {
+                selected_slide_button_index = this.SlideButtonElementArray.length;
+            }
 
-        for ( slide_button_index = 0;
-              slide_button_index < this.SlideButtonElementArray.length;
-              ++slide_button_index )
-        {
-            this.SlideButtonElementArray[ slide_button_index ].ToggleClass(
-                "is-selected",
-                slide_button_index === selected_slide_button_index
-                );
+            if ( selected_slide_button_index < 0 )
+            {
+                selected_slide_button_index = 0;
+            }
+
+            for ( slide_button_index = 0;
+                  slide_button_index < this.SlideButtonElementArray.length;
+                  ++slide_button_index )
+            {
+                this.SlideButtonElementArray[ slide_button_index ].ToggleClass(
+                    "is-selected",
+                    slide_button_index === selected_slide_button_index
+                    );
+            }
         }
     }
 
@@ -579,6 +626,15 @@ class SCROLLER
 
     // ~~
 
+    HandleScrollEvent(
+        event
+        )
+    {
+        this.UpdateSlideButtons();
+    }
+
+    // ~~
+
     HandleSlideButtonsClickEvent(
         )
     {
@@ -587,26 +643,29 @@ class SCROLLER
             slide_button_element,
             slide_index;
 
-        scroller = this;
-
-        for ( slide_index = 0;
-              slide_index < this.SlideButtonElementArray.length;
-              ++slide_index )
+        if ( this.SlideButtonElementArray !== null )
         {
-            slide_button_element = this.SlideButtonElementArray[ slide_index ];
-            slide_button_element.SlideIndex = slide_index;
-            slide_button_element.AddEventListener(
-                "click",
-                function (
-                    event
-                    )
-                {
-                    scroller.SetSliderRatio(
-                        event.currentTarget.SlideIndex / ( scroller.SlideButtonElementArray.length - 1 )
-                        );
-                    scroller.Update();
-                }
-                );
+            scroller = this;
+
+            for ( slide_index = 0;
+                  slide_index < this.SlideButtonElementArray.length;
+                  ++slide_index )
+            {
+                slide_button_element = this.SlideButtonElementArray[ slide_index ];
+                slide_button_element.SlideIndex = slide_index;
+                slide_button_element.AddEventListener(
+                    "click",
+                    function (
+                        event
+                        )
+                    {
+                        scroller.SetSliderRatio(
+                            event.currentTarget.SlideIndex / ( scroller.SlideButtonElementArray.length - 1 )
+                            );
+                        scroller.Update();
+                    }
+                    );
+            }
         }
     }
 

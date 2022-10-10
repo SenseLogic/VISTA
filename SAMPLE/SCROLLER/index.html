@@ -10,12 +10,22 @@
                 padding: 0;
             }
 
+            .test-scroller-container
+            {
+                position: relative;
+            }
+
             .test-scroller
             {
                 position: relative;
 
                 overflow: hidden;
                 height: 100vh;
+            }
+
+            .test-scroller#test-scroller-3
+            {
+                overflow-x: scroll;
             }
 
             .test-scroller-strip
@@ -269,6 +279,44 @@
                     </div>
                 </div>
             </div>
+            <div id="test-scroller-container-3" class="test-scroller-container">
+                <div id="test-scroller-3" class="test-scroller">
+                    <div id="test-scroller-strip-3" class="test-scroller-strip">
+                        <div class="test-scroller-slide test-scroller-slide-background-1">
+                            <h1>SLIDE 1</h1>
+                        </div>
+                        <div class="test-scroller-slide test-scroller-slide-background-2">
+                            <h1>SLIDE 2</h1>
+                        </div>
+                        <div class="test-scroller-slide test-scroller-slide-background-3">
+                            <h1>SLIDE 3</h1>
+                        </div>
+                        <div class="test-scroller-slide test-scroller-slide-background-4">
+                            <h1>SLIDE 4</h1>
+                        </div>
+                        <div class="test-scroller-slide test-scroller-slide-background-5">
+                            <h1>SLIDE 5</h1>
+                        </div>
+                        <div class="test-scroller-slide test-scroller-slide-background-6">
+                            <h1>SLIDE 6</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="test-scroller-slide-menu">
+                    <div class="test-scroller-slide-button">
+                    </div>
+                    <div class="test-scroller-slide-button">
+                    </div>
+                    <div class="test-scroller-slide-button">
+                    </div>
+                    <div class="test-scroller-slide-button">
+                    </div>
+                    <div class="test-scroller-slide-button">
+                    </div>
+                    <div class="test-scroller-slide-button">
+                    </div>
+                </div>
+            </div>
         </main>
         <script src="../../CODE/JAVASCRIPT/vista_base.js"></script>
         <script src="../../CODE/JAVASCRIPT/vista_math.js"></script>
@@ -285,6 +333,7 @@
                       "margin-left",
                       0.5,
                       true,
+                      false,
                       true,
                       6,
                       GetElementById( "test-scroller-slider-1" ),
@@ -307,6 +356,7 @@
                       "margin-left",
                       0.5,
                       true,
+                      false,
                       true,
                       6,
                       GetElementById( "test-scroller-slider-2" ),
@@ -321,6 +371,25 @@
             scroller.HandleSlideButtonsClickEvent();
             scroller.HandlePriorSlideButtonClickEvent( GetElementById( "test-scroller-2-left-arrow" ) );
             scroller.HandleNextSlideButtonClickEvent( GetElementById( "test-scroller-2-right-arrow" ) );
+
+            var scroller
+                = new SCROLLER(
+                      GetElementById( "test-scroller-3" ),
+                      GetElementById( "test-scroller-strip-3" ),
+                      "margin-left",
+                      0.5,
+                      true,
+                      true,
+                      false,
+                      6,
+                      null,
+                      "margin-left",
+                      0.0,
+                      true,
+                      false,
+                      null,
+                      GetElements( "#test-scroller-container-3 .test-scroller-slide-button" )
+                      );
         </script>
     </body>
 </html>
