@@ -5,8 +5,23 @@ var
 
 // -- FUNCTIONS
 
+HTMLElement.prototype.StartVideo = function (
+    video_is_muted = undefined
+    )
+{
+    if ( video_is_muted !== undefined )
+    {
+        this.muted = video_is_muted;
+    }
+
+    this.currentTime = 0;
+    this.load();
+    this.play().catch( ( error ) => { } );
+}
+
+// ~~
+
 HTMLElement.prototype.StartUnmutedVideo = function (
-    video_element
     )
 {
     this.muted = false;

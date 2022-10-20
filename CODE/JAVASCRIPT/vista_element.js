@@ -1260,7 +1260,8 @@ function SetScrollPosition(
 
 function SetScrollTop(
     position = 0,
-    behavior = "smooth"
+    behavior = "smooth",
+    offset = 0
     )
 {
     if ( position === null )
@@ -1274,7 +1275,7 @@ function SetScrollTop(
 
     window.scroll(
         {
-            top : position,
+            top : position + offset,
             behavior : behavior
         }
         );
@@ -1284,7 +1285,8 @@ function SetScrollTop(
 
 function SetScrollLeft(
     position = 0,
-    behavior = "smooth"
+    behavior = "smooth",
+    offset = 0
     )
 {
     if ( position === null )
@@ -1298,7 +1300,7 @@ function SetScrollLeft(
 
     window.scroll(
         {
-            left : position,
+            left : position + offset,
             behavior : behavior
         }
         );
@@ -1310,19 +1312,7 @@ HTMLElement.prototype.GetStyle = function(
     style_name
     )
 {
-    var
-        style;
-
-    style = this.style.getPropertyValue( style_name );
-
-    if ( style.length > 0 )
-    {
-        return style;
-    }
-    else
-    {
-        return window.getComputedStyle( this, null ).getPropertyValue( style_name );
-    }
+    return window.getComputedStyle( this, null ).getPropertyValue( style_name );
 }
 
 // ~~

@@ -705,7 +705,7 @@ function GetTransformStyle(
     style_name
     )
 {
-    return ParseTransformText( element.style.getPropertyValue( style_name ) );
+    return ParseTransformText( element.GetStyle( style_name ) );
 }
 
 // ~~
