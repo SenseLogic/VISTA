@@ -120,7 +120,6 @@ function CreateAutoplayIntersectionObserver(
                         if ( video_element.paused
                              && !video_element.classList.contains( "is-hidden" ) )
                         {
-                            video_element.muted = true;
                             video_element.autoplay = true;
                             video_element.play();
                         }
@@ -129,6 +128,7 @@ function CreateAutoplayIntersectionObserver(
                     {
                         if ( !video_element.paused )
                         {
+                            video_element.autoplay = false;
                             video_element.pause();
                         }
                     }
