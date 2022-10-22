@@ -5,7 +5,29 @@ var
 
 // -- FUNCTIONS
 
+HTMLElement.prototype.SetVideoIsMuted = function (
+    video_is_muted = true
+    )
+{
+    this.muted = video_is_muted;
+
+    return this;
+}
+
+// ~~
+
+HTMLElement.prototype.ToggleVideoIsMuted = function (
+    )
+{
+    this.muted = !this.muted;
+
+    return this;
+}
+
+// ~~
+
 HTMLElement.prototype.StartVideo = function (
+    current_time = 0,
     video_is_muted = undefined
     )
 {
@@ -14,29 +36,63 @@ HTMLElement.prototype.StartVideo = function (
         this.muted = video_is_muted;
     }
 
-    this.currentTime = 0;
+    this.currentTime = current_time;
     this.load();
-    this.play().catch( ( error ) => { } );
+    this.play().catch( ( error ) => {} );
+
+    return this;
 }
 
-// ~~
-
-HTMLElement.prototype.StartUnmutedVideo = function (
-    )
-{
-    this.muted = false;
-    this.currentTime = 0;
-    this.load();
-    this.play().catch( ( error ) => { } );
-}
 
 // ~~
 
 HTMLElement.prototype.PauseVideo = function (
+    video_is_muted = undefined
     )
 {
-    this.muted = true;
+    if ( video_is_muted !== undefined )
+    {
+        this.muted = video_is_muted;
+    }
+
     this.pause();
+
+    return this;
+}
+
+// ~~
+
+HTMLElement.prototype.SetVideoIsPaused = function (
+    video_is_paused = true
+    )
+{
+    if ( video_is_paused )
+    {
+        this.pause();
+    }
+    else
+    {
+        this.play();
+    }
+
+    return this;
+}
+
+// ~~
+
+HTMLElement.prototype.ToggleVideoIsPaused = function (
+    )
+{
+    if ( this.paused )
+    {
+        this.play();
+    }
+    else
+    {
+        this.pause();
+    }
+
+    return this;
 }
 
 // ~~
