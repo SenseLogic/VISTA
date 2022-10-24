@@ -1146,6 +1146,38 @@ HTMLElement.prototype.ToggleAttribute = function(
 
 // ~~
 
+HTMLElement.prototype.GetTopPosition = function (
+    )
+{
+    return window.pageYOffset + this.getBoundingClientRect().top;
+}
+
+// ~~
+
+HTMLElement.prototype.GetBottomPosition = function (
+    )
+{
+    return window.pageYOffset + this.getBoundingClientRect().bottom;
+}
+
+// ~~
+
+HTMLElement.prototype.GetLeftPosition = function (
+    )
+{
+    return window.pageXOffset + this.getBoundingClientRect().left;
+}
+
+// ~~
+
+HTMLElement.prototype.GetRightPosition = function (
+    )
+{
+    return window.pageXOffset + this.getBoundingClientRect().right;
+}
+
+// ~~
+
 HTMLElement.prototype.IsVisible = function (
     top_offset = 0,
     bottom_offset = 0,
@@ -1210,22 +1242,6 @@ HTMLElement.prototype.SetScrollLeft = function (
     }
 
     return this;
-}
-
-// ~~
-
-HTMLElement.prototype.GetTopPosition = function (
-    )
-{
-    return window.pageYOffset + this.getBoundingClientRect().top;
-}
-
-// ~~
-
-HTMLElement.prototype.GetLeftPosition = function (
-    )
-{
-    return window.pageXOffset + this.getBoundingClientRect().left;
 }
 
 // ~~
