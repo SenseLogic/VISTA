@@ -1485,12 +1485,17 @@ HTMLElement.prototype.FadeOut = function (
 // ~~
 
 HTMLElement.prototype.Fade = function (
-    element_is_shown = true,
+    element_is_shown = undefined,
     duration = 0.5,
     hidden_element_class_name = "is-hidden",
     animation_configuration = {}
     )
 {
+    if ( element_is_shown === undefined )
+    {
+        element_is_shown = this.HasClass( hidden_element_class_name );
+    }
+
     if ( element_is_shown )
     {
         this.FadeIn( duration, hidden_element_class_name, animation_configuration );

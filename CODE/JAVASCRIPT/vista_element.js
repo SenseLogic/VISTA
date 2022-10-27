@@ -808,11 +808,16 @@ HTMLElement.prototype.AddAnimationClass = function (
 // ~~
 
 HTMLElement.prototype.Toggle = function (
-    element_is_shown = true,
+    element_is_shown = undefined,
     hidden_element_class_name = "is-hidden",
     showing_class_name = ""
     )
 {
+    if ( element_is_shown === undefined )
+    {
+        element_is_shown = this.HasClass( hidden_element_class_name );
+    }
+
     if ( hidden_element_class_name !== "" )
     {
         if ( element_is_shown )

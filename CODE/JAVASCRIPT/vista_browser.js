@@ -59,6 +59,11 @@ function GetRoute(
         route = route.substring( removed_prefix.length );
     }
 
+    if ( route.startsWith( '/' ) )
+    {
+        route = route.substring( 1 );
+    }
+
     if ( removed_suffix !== undefined
          && route.endsWith( removed_suffix ) )
     {
