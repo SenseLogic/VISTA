@@ -5,39 +5,139 @@ const NullUuid = "00000000-0000-0000-0000-000000000000";
 
 // -- FUNCTIONS
 
-function GetBase64FromHexadecimal(
-    hexadecimal_buffer
+function GetBase64TextFromHexadecimalText(
+    hexadecimal_text
     )
 {
-    let buffer = "";
+    var
+        byte_index,
+        text;
 
-    for ( let byte_index = 0;
-          byte_index < hexadecimal_buffer.length;
+    text = "";
+
+    for ( byte_index = 0;
+          byte_index < hexadecimal_text.length;
           byte_index += 2 )
     {
-        buffer += String.fromCharCode( parseInt( hexadecimal_buffer.slice( byte_index, byte_index + 2 ), 16 ) );
+        text += String.fromCharCode( parseInt( hexadecimal_text.slice( byte_index, byte_index + 2 ), 16 ) );
     }
 
-    return btoa( buffer );
+    return btoa( text );
 }
 
 // ~~
 
-function GetHexadecimalFromBase64(
-    base_64_buffer
+function GetTuidFromHexadecimalText(
+    hexadecimal_text
     )
 {
-    let buffer = atob( base_64_buffer );
-    let hexadecimal_buffer = "";
+    return GetBase64TextFromHexadecimalText( hexadecimal_text ).replaceAll( "+", "-" ).replaceAll( "/", "_" ).replaceAll( "=", "" );
+}
 
-    for ( let character_index = 0;
-          character_index < buffer.length;
+// ~~
+
+function GetHexadecimalTextFromBase64Text(
+    base_64_text
+    )
+{
+    var
+        character_index,
+        hexadecimal_text,
+        text;
+
+    text = atob( base_64_text );
+    hexadecimal_text = "";
+
+    for ( character_index = 0;
+          character_index < text.length;
           ++character_index )
     {
-        hexadecimal_buffer += ( "000" + this.charCodeAt( character_index ).toString( 16 ) ).slice( -4 );
+        hexadecimal_text += ( "0" + text.charCodeAt( character_index ).toString( 16 ) ).slice( -2 );
     }
 
-    return hexadecimal_buffer;
+    return hexadecimal_text;
+}
+
+// ~~
+
+function GetHexadecimalTextFromTuid(
+    tuid
+    )
+{
+    return GetHexadecimalTextFromBase64Text( tuid.replaceAll( "-", "+" ).replaceAll( "_", "/" ) + "==" );
+}
+
+// ~~
+
+function GetUuidFromHexadecimalText(
+    hexadecimal_text
+    )
+{
+    return (
+        hexadecimal_text.substring( 0, 8 )
+        + "-"
+        + hexadecimal_text.substring( 8, 12 )
+        + "-"
+        + hexadecimal_text.substring( 12, 16 )
+        + "-"
+        + hexadecimal_text.substring( 16, 20 )
+        + "-"
+        + hexadecimal_text.substring( 20, 32 )
+        );
+}
+
+// ~~
+
+function GetRandomHexadecimalText(
+    byte_count
+    )
+{
+    return GetByteArrayHexadecimalText( GetRandomByteArray( 16 ), 32 );
+}
+
+// ~~
+
+function GetTimeUuid(
+    )
+{
+    return GetUuidFromHexadecimalText(
+        GetNaturalHexadecimalText( ( GetMillisecondTimestamp() + 12219292800000 ) * 10000 )
+        + GetRandomHexadecimalText( 16 )
+        );
+}
+
+// ~~
+
+function GetRandomUuid(
+    )
+{
+    return crypto.randomUUID();
+}
+
+// ~~
+
+function GetUuidFromTuid(
+    tuid
+    )
+{
+    return GetUuidFromHexadecimalText( GetHexadecimalTextFromTuid( tuid ) );
+}
+
+// ~~
+
+function GetRandomTuid(
+    )
+{
+    return GetTuidFromUuid( GetRandomUuid() );
+}
+
+// ~~
+
+function GetTuidFromUuid(
+    uuid
+    )
+{
+    return GetTuidFromHexadecimalText( uuid.replaceAll( '-', '' ) );
 }
 
 // ~~
@@ -48,64 +148,26 @@ function GetTuid(
 {
     if ( uuid === undefined )
     {
-        uuid = crypto.randomUUID();
+        return GetRandomTuid();
     }
-
-    return GetBase64FromHexadecimal( uuid.replaceAll( "-", "" ) ).replaceAll( "=", "" );
+    else
+    {
+        return GetTuidFromUuid( uuid );
+    }
 }
 
 // ~~
 
 function GetUuid(
+    tuid
     )
 {
-    return crypto.randomUUID();
-}
-
-// ~~
-
-function GetTimeUuid(
-    )
-{
-    var
-        hexadecimal_text;
-
-    hexadecimal_text
-        = GetNaturalHexadecimalText( ( GetMillisecondTimestamp() + 12219292800000 ) * 10000 )
-          + GetByteArrayHexadecimalText( GetRandomByteArray( 16 ) );
-
-    return (
-        hexadecimal_text.substring( 7, 15 )
-        + "-"
-        + hexadecimal_text.substring( 3, 7 )
-        + "-1"
-        + hexadecimal_text.substring( 0, 3 )
-        + "-"
-        + hexadecimal_text.substring( 15, 19 )
-        + "-"
-        + hexadecimal_text.substring( 19, 31 )
-        );
-}
-
-// ~~
-
-function GetRandomUuid(
-    )
-{
-    var
-        hexadecimal_text;
-
-    hexadecimal_text = GetByteArrayHexadecimalText( GetRandomByteArray( 16 ), 32 );
-
-    return (
-        hexadecimal_text.substring( 0, 8 )
-        + "-"
-        + hexadecimal_text.substring( 8, 12 )
-        + "-4"
-        + hexadecimal_text.substring( 12, 15 )
-        + "-"
-        + hexadecimal_text.substring( 15, 19 )
-        + "-"
-        + hexadecimal_text.substring( 19, 31 )
-        );
+    if ( tuid === undefined )
+    {
+        return GetRandomUuid();
+    }
+    else
+    {
+        return GetUuidFromTuid( tuid );
+    }
 }

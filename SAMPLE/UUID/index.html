@@ -4,19 +4,72 @@
         <meta charset="UTF-8">
         <title>Sample</title>
     </head>
-    <body style="font-family:monospace">
+    <body style="font-family:monospace; font-size: 0.65rem">
         <script src="../../CODE/JAVASCRIPT/vista_base.js"></script>
         <script src="../../CODE/JAVASCRIPT/vista_time.js"></script>
         <script src="../../CODE/JAVASCRIPT/vista_uuid.js"></script>
         <script>
             var
+                hexadecimal_text,
+                hexadecimal_text_base_64_text,
+                hexadecimal_text_base_64_text_hexadecimal_text,
+                random_uuid,
+                random_uuid_tuid,
+                random_uuid_tuid_uuid,
+                random_tuid,
+                random_tuid_uuid,
+                random_tuid_uuid_tuid,
+                time_uuid,
+                time_uuid_tuid,
+                time_uuid_tuid_uuid,
                 uuid_index;
 
             for ( uuid_index = 0;
                   uuid_index < 32;
                   ++uuid_index )
             {
-                WriteLine( GetTimeUuid() + " | " + GetRandomUuid() );
+                hexadecimal_text = GetRandomHexadecimalText( 16 );
+                hexadecimal_text_base_64_text = GetBase64TextFromHexadecimalText( hexadecimal_text );
+                hexadecimal_text_base_64_text_hexadecimal_text = GetHexadecimalTextFromBase64Text( hexadecimal_text_base_64_text );
+
+                GetBase64TextFromHexadecimalText
+                random_uuid = GetRandomUuid();
+                random_uuid_tuid = GetTuid( random_uuid );
+                random_uuid_tuid_uuid = GetUuid( random_uuid_tuid );
+
+                time_uuid = GetTimeUuid();
+                time_uuid_tuid = GetTuid( time_uuid );
+                time_uuid_tuid_uuid = GetUuid( time_uuid_tuid );
+
+                random_tuid = GetRandomTuid();
+                random_tuid_uuid = GetUuid( random_tuid );
+                random_tuid_uuid_tuid = GetTuid( random_tuid_uuid );
+
+                WriteLine(
+                    hexadecimal_text
+                    + " | "
+                    + hexadecimal_text_base_64_text
+                    + " | "
+                    + hexadecimal_text_base_64_text_hexadecimal_text
+                    + " || "
+                    + random_uuid
+                    + " | "
+                    + random_uuid_tuid
+                    + " | "
+                    + random_uuid_tuid_uuid
+                    + " || "
+                    + time_uuid
+                    + " | "
+                    + time_uuid_tuid
+                    + " | "
+                    + time_uuid_tuid_uuid
+                    + " || "
+                    + random_tuid
+                    + " | "
+                    + random_tuid_uuid
+                    + " | "
+                    + random_tuid_uuid_tuid
+                    );
             }
         </script>
     </body>
