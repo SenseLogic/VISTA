@@ -20,6 +20,26 @@ MakeHeightAuto( media_query_name_array = {}, prefix =, suffix =, important = )
 
 // ~~
 
+MakeHeightViewport( media_query_name_array = {}, prefix =, suffix =, important = )
+
+    .{prefix}height-viewport{suffix}{suffix}
+    {
+        height: var( --viewport-height ) important;
+    }
+
+    for media_query_name in media_query_name_array
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .{prefix}height-viewport-{media_query_name}{suffix}
+            {
+                height: var( --viewport-height ) important;
+            }
+        }
+    }
+
+// ~~
+
 MakeHeightValue( size, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}height-{size}{unit_name}{suffix}
@@ -51,6 +71,26 @@ MakeHeightValueRange( start, step, count, unit_value, unit_name, media_query_nam
 
 // ~~
 
+MakeMinHeightViewport( media_query_name_array = {}, prefix =, suffix =, important = )
+
+    .{prefix}min-height-viewport{suffix}{suffix}
+    {
+        min-height: var( --viewport-height ) important;
+    }
+
+    for media_query_name in media_query_name_array
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .{prefix}min-height-viewport-{media_query_name}{suffix}
+            {
+                min-height: var( --viewport-height ) important;
+            }
+        }
+    }
+
+// ~~
+
 MakeMinHeightValue( size, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}min-height-{size}{unit_name}{suffix}
@@ -65,6 +105,26 @@ MakeMinHeightValue( size, unit_value, unit_name, media_query_name_array = {}, pr
             .{prefix}min-height-{size}{unit_name}-{media_query_name}{suffix}
             {
                 min-height: size * unit_value important;
+            }
+        }
+    }
+
+// ~~
+
+MakeMaxHeightViewport( media_query_name_array = {}, prefix =, suffix =, important = )
+
+    .{prefix}max-height-viewport{suffix}{suffix}
+    {
+        max-height: var( --viewport-height ) important;
+    }
+
+    for media_query_name in media_query_name_array
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .{prefix}max-height-viewport-{media_query_name}{suffix}
+            {
+                max-height: var( --viewport-height ) important;
             }
         }
     }

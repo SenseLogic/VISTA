@@ -20,6 +20,26 @@ MakeWidthAuto( media_query_name_array = {}, prefix =, suffix =, important = )
 
 // ~~
 
+MakeWidthViewport( media_query_name_array = {}, prefix =, suffix =, important = )
+
+    .{prefix}width-viewport{suffix}
+    {
+        width: var( --viewport-width ) important;
+    }
+
+    for media_query_name in media_query_name_array
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .{prefix}width-viewport-{media_query_name}{suffix}
+            {
+                width: var( --viewport-width ) important;
+            }
+        }
+    }
+
+// ~~
+
 MakeWidthValue( size, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}width-{size}{unit_name}{suffix}
@@ -51,6 +71,26 @@ MakeWidthValueRange( start, step, count, unit_value, unit_name, media_query_name
 
 // ~~
 
+MakeMinWidthViewport( media_query_name_array = {}, prefix =, suffix =, important = )
+
+    .{prefix}min-width-viewport{suffix}
+    {
+        min-width: var( --viewport-width ) important;
+    }
+
+    for media_query_name in media_query_name_array
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .{prefix}min-width-viewport-{media_query_name}{suffix}
+            {
+                min-width: var( --viewport-width ) important;
+            }
+        }
+    }
+
+// ~~
+
 MakeMinWidthValue( size, unit_value, unit_name, media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}min-width-{size}{unit_name}{suffix}
@@ -78,6 +118,26 @@ MakeMinWidthValueRange( start, step, count, unit_value, unit_name, media_query_n
         size = start + index * step;
 
         MakeMinWidthValue( size, unit_value, unit_name, media_query_name_array, prefix, suffix, important );
+    }
+
+// ~~
+
+MakeMaxWidthViewport( media_query_name_array = {}, prefix =, suffix =, important = )
+
+    .{prefix}max-width-viewport{suffix}
+    {
+        max-width: var( --viewport-width ) important;
+    }
+
+    for media_query_name in media_query_name_array
+    {
+        @media MediaQueryMap[ media_query_name ]
+        {
+            .{prefix}max-width-viewport-{media_query_name}{suffix}
+            {
+                max-width: var( --viewport-width ) important;
+            }
+        }
     }
 
 // ~~
