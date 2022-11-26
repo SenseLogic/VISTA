@@ -2422,6 +2422,7 @@ function CreateIntersectionObserver(
 // ~~
 
 Array.prototype.AddIntersectionObserver = function(
+    first_argument,
     ...argument_array
     )
 {
@@ -2429,13 +2430,13 @@ Array.prototype.AddIntersectionObserver = function(
         element,
         intersection_observer;
 
-    if ( argument_array[ 0 ] instanceof IntersectionObserver )
+    if ( first_argument instanceof IntersectionObserver )
     {
-        intersection_observer = argument_array[ 0 ];
+        intersection_observer = first_argument;
     }
     else
     {
-        intersection_observer = CreateIntersectionObserver( ...argument_array );
+        intersection_observer = CreateIntersectionObserver( first_argument, ...argument_array );
     }
 
     for ( element of this )
@@ -2462,3 +2463,118 @@ Array.prototype.RemoveIntersectionObserver = function(
 
     return this;
 }
+
+// ~~
+
+function CreateResizeObserver(
+    called_function = null
+    )
+{
+    var
+        resize_observer;
+
+    resize_observer
+        = new ResizeObserver(
+            function (
+                resize_observer_entry_array,
+                resize_observer
+                )
+            {
+                var
+                    container_height,
+                    container_width,
+                    resize_observer_entry;
+
+                for ( resize_observer_entry of resize_observer_entry_array )
+                {
+                    container_height = resize_observer_entry.contentRect.height;
+                    container_width = resize_observer_entry.contentRect.width;
+
+                    if ( container_width > 0 )
+                    {
+                        container_height_aspect_ratio = container_height / container_width;
+                    }
+                    else
+                    {
+                        container_height_aspect_ratio = 0;
+                    }
+
+                    if ( container_height > 0 )
+                    {
+                        container_width_aspect_ratio = container_width / container_height;
+                    }
+                    else
+                    {
+                        container_width_aspect_ratio = 0;
+                    }
+
+                    if ( entry.contentBoxSize )
+                    {
+                        resize_observer_entry.target.style.setProperty( "--container-height", container_height + "px" );
+                        resize_observer_entry.target.style.setProperty( "--container-height-aspect-ratio", container_height_aspect_ratio );
+                        resize_observer_entry.target.style.setProperty( "--container-width", container_width + "px" );
+                        resize_observer_entry.target.style.setProperty( "--container-width-aspect-ratio", container_width_aspect_ratio );
+
+                        if ( called_function !== null )
+                        {
+                            called_function(
+                                resize_observer_entry.target,
+                                resize_observer_entry,
+                                resize_observer
+                                );
+                        }
+                    }
+                }
+            }
+            );
+}
+
+// ~~
+
+Array.prototype.AddResizeObserver = function(
+    first_argument,
+    ...argument_array
+    )
+{
+    var
+        element,
+        resize_observer;
+
+    if ( first_argument === undefined )
+    {
+        resize_observer = CreateResizeObserver();
+    }
+    else if ( first_argument instanceof ResizeObserver )
+    {
+        resize_observer = first_argument;
+    }
+    else
+    {
+        resize_observer = CreateResizeObserver( first_argument, ...argument_array );
+    }
+
+    for ( element of this )
+    {
+        resize_observer.observe( element );
+    }
+
+    return this;
+}
+
+// ~~
+
+Array.prototype.RemoveResizeObserver = function(
+    resize_observer
+    )
+{
+    var
+        element;
+
+    for ( element of this )
+    {
+        resize_observer.unobserve( element );
+    }
+
+    return this;
+}
+
