@@ -2470,63 +2470,56 @@ function CreateResizeObserver(
     called_function = null
     )
 {
-    var
-        resize_observer;
+    return new ResizeObserver(
+        function (
+            resize_observer_entry_array,
+            resize_observer
+            )
+        {
+            var
+                container_height,
+                container_width,
+                resize_observer_entry;
 
-    resize_observer
-        = new ResizeObserver(
-            function (
-                resize_observer_entry_array,
-                resize_observer
-                )
+            for ( resize_observer_entry of resize_observer_entry_array )
             {
-                var
-                    container_height,
-                    container_width,
-                    resize_observer_entry;
+                container_height = resize_observer_entry.contentRect.height;
+                container_width = resize_observer_entry.contentRect.width;
 
-                for ( resize_observer_entry of resize_observer_entry_array )
+                if ( container_width > 0 )
                 {
-                    container_height = resize_observer_entry.contentRect.height;
-                    container_width = resize_observer_entry.contentRect.width;
+                    container_height_aspect_ratio = container_height / container_width;
+                }
+                else
+                {
+                    container_height_aspect_ratio = 0;
+                }
 
-                    if ( container_width > 0 )
-                    {
-                        container_height_aspect_ratio = container_height / container_width;
-                    }
-                    else
-                    {
-                        container_height_aspect_ratio = 0;
-                    }
+                if ( container_height > 0 )
+                {
+                    container_width_aspect_ratio = container_width / container_height;
+                }
+                else
+                {
+                    container_width_aspect_ratio = 0;
+                }
 
-                    if ( container_height > 0 )
-                    {
-                        container_width_aspect_ratio = container_width / container_height;
-                    }
-                    else
-                    {
-                        container_width_aspect_ratio = 0;
-                    }
+                resize_observer_entry.target.style.setProperty( "--container-height", container_height + "px" );
+                resize_observer_entry.target.style.setProperty( "--container-height-aspect-ratio", container_height_aspect_ratio );
+                resize_observer_entry.target.style.setProperty( "--container-width", container_width + "px" );
+                resize_observer_entry.target.style.setProperty( "--container-width-aspect-ratio", container_width_aspect_ratio );
 
-                    if ( entry.contentBoxSize )
-                    {
-                        resize_observer_entry.target.style.setProperty( "--container-height", container_height + "px" );
-                        resize_observer_entry.target.style.setProperty( "--container-height-aspect-ratio", container_height_aspect_ratio );
-                        resize_observer_entry.target.style.setProperty( "--container-width", container_width + "px" );
-                        resize_observer_entry.target.style.setProperty( "--container-width-aspect-ratio", container_width_aspect_ratio );
-
-                        if ( called_function !== null )
-                        {
-                            called_function(
-                                resize_observer_entry.target,
-                                resize_observer_entry,
-                                resize_observer
-                                );
-                        }
-                    }
+                if ( called_function !== null )
+                {
+                    called_function(
+                        resize_observer_entry.target,
+                        resize_observer_entry,
+                        resize_observer
+                        );
                 }
             }
-            );
+        }
+        );
 }
 
 // ~~
