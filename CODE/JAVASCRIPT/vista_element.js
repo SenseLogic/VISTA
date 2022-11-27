@@ -2422,7 +2422,6 @@ function CreateIntersectionObserver(
 // ~~
 
 Array.prototype.AddIntersectionObserver = function(
-    first_argument,
     ...argument_array
     )
 {
@@ -2430,13 +2429,14 @@ Array.prototype.AddIntersectionObserver = function(
         element,
         intersection_observer;
 
-    if ( first_argument instanceof IntersectionObserver )
+    if ( argument_array.length > 0
+         && argument_array[ 0 ] instanceof IntersectionObserver )
     {
-        intersection_observer = first_argument;
+        intersection_observer = argument_array[ 0 ];
     }
     else
     {
-        intersection_observer = CreateIntersectionObserver( first_argument, ...argument_array );
+        intersection_observer = CreateIntersectionObserver( ...argument_array );
     }
 
     for ( element of this )
@@ -2467,7 +2467,9 @@ Array.prototype.RemoveIntersectionObserver = function(
 // ~~
 
 function CreateResizeObserver(
-    called_function = null
+    called_function = null,
+    minimum_aspect_ratio = 0,
+    maximum_aspect_ratio = 1E9
     )
 {
     return new ResizeObserver(
@@ -2488,20 +2490,20 @@ function CreateResizeObserver(
 
                 if ( container_width > 0 )
                 {
-                    container_height_aspect_ratio = container_height / container_width;
+                    container_height_aspect_ratio = Math.min( Math.max( container_height / container_width, minimum_aspect_ratio ), maximum_aspect_ratio );
                 }
                 else
                 {
-                    container_height_aspect_ratio = 0;
+                    container_height_aspect_ratio = maximum_aspect_ratio;
                 }
 
                 if ( container_height > 0 )
                 {
-                    container_width_aspect_ratio = container_width / container_height;
+                    container_width_aspect_ratio = Math.min( Math.max( container_width / container_height, minimum_aspect_ratio ), maximum_aspect_ratio );
                 }
                 else
                 {
-                    container_width_aspect_ratio = 0;
+                    container_width_aspect_ratio = maximum_aspect_ratio;
                 }
 
                 resize_observer_entry.target.style.setProperty( "--container-height", container_height + "px" );
@@ -2525,7 +2527,6 @@ function CreateResizeObserver(
 // ~~
 
 Array.prototype.AddResizeObserver = function(
-    first_argument,
     ...argument_array
     )
 {
@@ -2533,17 +2534,14 @@ Array.prototype.AddResizeObserver = function(
         element,
         resize_observer;
 
-    if ( first_argument === undefined )
+    if ( argument_array.length > 0
+         && argument_array[ 0 ] instanceof ResizeObserver )
     {
-        resize_observer = CreateResizeObserver();
-    }
-    else if ( first_argument instanceof ResizeObserver )
-    {
-        resize_observer = first_argument;
+        resize_observer = argument_array[ 0 ];
     }
     else
     {
-        resize_observer = CreateResizeObserver( first_argument, ...argument_array );
+        resize_observer = CreateResizeObserver( ...argument_array );
     }
 
     for ( element of this )
