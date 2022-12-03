@@ -64,6 +64,40 @@ function IsPortraitOrientation(
 
 // ~~
 
+function GetRemPixelCount(
+    )
+{
+    return GetReal( window.getComputedStyle( document.body ).getPropertyValue( "font-size" ).slice( 0, -2 ) );
+}
+
+// ~~
+
+function GetRemRatio(
+    )
+{
+    return GetRemPixelCount() / 16;
+}
+
+// ~~
+
+function GetPixelCountFromRemCount(
+    rem_count
+    )
+{
+    return rem_count * GetRemPixelCount();
+}
+
+// ~~
+
+function GetRemCountFromPixelCount(
+    pixel_count
+    )
+{
+    return pixel_count / GetRemPixelCount();
+}
+
+// ~~
+
 function GetPixelCountFromVhCount(
     vh_count
     )
@@ -238,6 +272,14 @@ function CreateElement(
     )
 {
     return document.createElement( element_type, options );
+}
+
+// ~~
+
+function GetDocumentElement(
+    )
+{
+    return document.documentElement;
 }
 
 // ~~
