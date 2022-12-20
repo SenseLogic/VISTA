@@ -11,7 +11,8 @@ class SLIDESHOW
         transition_duration = 0.5,
         slideshow_is_perpetual = true,
         slide_button_element_array = null,
-        update_function = null
+        update_function = null,
+        hidden_element_class_name = "is-hidden"
         )
     {
         this.UpdateAnimation = this.UpdateAnimation.bind( this );
@@ -32,6 +33,7 @@ class SLIDESHOW
         this.IsPerpetual = slideshow_is_perpetual;
         this.SlideButtonElementArray = slide_button_element_array;
         this.UpdateFunction = update_function;
+        this.HiddenElementClassName = hidden_element_class_name;
         this.IsFaded = false;
         this.IsAutomatic = false;
 
@@ -114,6 +116,11 @@ class SLIDESHOW
             }
 
             this.SlideElementArray[ slide_index ].style[ "opacity" ] = slide_opacity;
+
+            if ( this.HiddenElementClassName !== undefined )
+            {
+                this.SlideElementArray[ slide_index ].ToggleClass( this.HiddenElementClassName, slide_opacity === 0.0 );
+            }
         }
 
         slide_index = this.GetSlideIndex();
