@@ -2,46 +2,46 @@
 
 var
     MinimumViewportAspectRatio = 0,
-    MaximumViewportAspectRatio = 1E9;
+    MaximumViewportAspectRatio = 1E9,
+    ViewportHeight = 1,
+    ViewportWidth = 1,
+    ViewportHeightPercent = 1,
+    ViewportWidthPercent = 1,
+    ViewportHeightAspectRatio = 1,
+    ViewportWidthAspectRatio = 1;
 
 // -- FUNCTIONS
 
 function UpdateViewportProperties(
     )
 {
-    var
-        viewport_height,
-        viewport_height_aspect_ratio,
-        viewport_width,
-        viewport_width_aspect_ratio;
+    ViewportHeight = window.innerHeight;
+    ViewportWidth = window.innerWidth;
 
-    viewport_height = window.innerHeight;
-    viewport_width = window.innerWidth;
-
-    if ( viewport_width > 0 )
+    if ( ViewportWidth > 0 )
     {
-        viewport_height_aspect_ratio = Math.min( Math.max( viewport_height / viewport_width, MinimumViewportAspectRatio ), MaximumViewportAspectRatio );
+        ViewportHeightAspectRatio = Math.min( Math.max( ViewportHeight / ViewportWidth, MinimumViewportAspectRatio ), MaximumViewportAspectRatio );
     }
     else
     {
-        viewport_height_aspect_ratio = MaximumViewportAspectRatio;
+        ViewportHeightAspectRatio = MaximumViewportAspectRatio;
     }
 
-    if ( viewport_height > 0 )
+    if ( ViewportHeight > 0 )
     {
-        viewport_width_aspect_ratio = Math.min( Math.max( viewport_width / viewport_height, MinimumViewportAspectRatio ), MaximumViewportAspectRatio );
+        ViewportWidthAspectRatio = Math.min( Math.max( ViewportWidth / ViewportHeight, MinimumViewportAspectRatio ), MaximumViewportAspectRatio );
     }
     else
     {
-        viewport_width_aspect_ratio = MaximumViewportAspectRatio;
+        ViewportWidthAspectRatio = MaximumViewportAspectRatio;
     }
 
-    document.documentElement.style.setProperty( "--viewport-height", viewport_height + "px" );
-    document.documentElement.style.setProperty( "--viewport-width", viewport_width + "px" );
-    document.documentElement.style.setProperty( "--viewport-height-percent", viewport_height * 0.01 + "px" );
-    document.documentElement.style.setProperty( "--viewport-width-percent", viewport_width * 0.01 + "px" );
-    document.documentElement.style.setProperty( "--viewport-height-aspect-ratio", viewport_height_aspect_ratio );
-    document.documentElement.style.setProperty( "--viewport-width-aspect-ratio", viewport_width_aspect_ratio );
+    document.documentElement.style.setProperty( "--viewport-height", ViewportHeight + "px" );
+    document.documentElement.style.setProperty( "--viewport-width", ViewportWidth + "px" );
+    document.documentElement.style.setProperty( "--viewport-height-percent", ViewportHeight * 0.01 + "px" );
+    document.documentElement.style.setProperty( "--viewport-width-percent", ViewportWidth * 0.01 + "px" );
+    document.documentElement.style.setProperty( "--viewport-height-aspect-ratio", ViewportHeightAspectRatio );
+    document.documentElement.style.setProperty( "--viewport-width-aspect-ratio", ViewportWidthAspectRatio );
 }
 
 // -- STATEMENTS
