@@ -120,6 +120,12 @@ function CreateAutoplayIntersectionObserver(
                         if ( video_element.paused
                              && !video_element.classList.contains( "is-hidden" ) )
                         {
+                            if ( !video_element.HasAttribute( "src" )
+                                 && video_element.HasAttribute( "data-video-path" ) )
+                            {
+                                video_element.src = video_element.dataset.videoPath;
+                            }
+
                             video_element.autoplay = true;
                             video_element.play();
                         }
