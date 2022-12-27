@@ -276,6 +276,15 @@ function CreateElement(
 
 // ~~
 
+HTMLElement.prototype.GetCloneElement = function (
+    children_are_cloned = true
+    )
+{
+    return this.content.cloneNode( children_are_cloned );
+}
+
+// ~~
+
 function GetDocumentElement(
     )
 {
@@ -2610,4 +2619,3 @@ Array.prototype.RemoveResizeObserver = function(
 
     return this;
 }
-

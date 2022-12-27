@@ -260,3 +260,49 @@ String.prototype.MatchesFilterExpression = function (
 
     return false;
 }
+
+// ~~
+
+String.prototype.GetSurroundingText = function (
+    character_index,
+    maximum_word_count,
+    character_step
+    )
+{
+    var
+        character,
+        surrounding_text,
+        word_count;
+
+    surrounding_text = '';
+    word_count = 0;
+
+    while ( character_index >= 0
+            && character_index < this.length )
+    {
+        character = this.charAt( character_index );
+
+        if ( character === ' ' )
+        {
+            ++word_count;
+
+            if ( word_count >= maximum_word_count )
+            {
+                break;
+            }
+        }
+
+        if ( character_step > 0 )
+        {
+            surrounding_text += character;
+        }
+        else
+        {
+            surrounding_text = character + surrounding_text;
+        }
+
+        character_index += character_step;
+    }
+
+    return surrounding_text;
+}

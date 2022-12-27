@@ -852,6 +852,30 @@ String.prototype.ReplaceText = function (
 
 // ~~
 
+String.prototype.ReplaceTexts = function (
+    old_text,
+    new_text
+    )
+{
+    var
+        old_replaced_text,
+        replaced_text;
+
+    replaced_text = this;
+
+    do
+    {
+        old_replaced_text = replaced_text;
+
+        replaced_text = replaced_text.Split( old_text ).Join( new_text );
+    }
+    while ( replaced_text !== old_replaced_text );
+
+    return old_replaced_text;
+}
+
+// ~~
+
 function GetNaturalHexadecimalText(
     natural,
     minimum_digit_count = 0
