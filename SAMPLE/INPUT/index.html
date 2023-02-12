@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Sample</title>
+    </head>
+    <style>
+        *
+        {
+            margin: 0;
+        }
+
+        input,
+        textarea
+        {
+            padding: 0;
+            border: 0;
+            outline: 1px solid lightgray;
+        }
+
+        body
+        {
+            padding: 1rem;
+        }
+
+        main
+        {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+    </style>
+    <body style="font-family:monospace">
+        <main>
+            <input-component id="input-component" value="Hello world!" placeholder="Input Component">
+            </input-component>
+            <div>
+                <button onclick="Check()">
+                    Check
+                </button>
+            </div>
+            <textarea id="values" readonly>
+            </textarea>
+        </main>
+        <script src="../../CODE/JAVASCRIPT/vista_base.js"></script>
+        <script src="../../CODE/JAVASCRIPT/vista_math.js"></script>
+        <script src="../../CODE/JAVASCRIPT/vista_element.js"></script>
+        <script src="../../CODE/JAVASCRIPT/vista_data.js"></script>
+        <script src="../../CODE/JAVASCRIPT/vista_component.js"></script>
+        <script src="../../CODE/JAVASCRIPT/vista_breakpoint.js"></script>
+        <script src="../../CODE/JAVASCRIPT/vista_input.js"></script>
+        <script>
+            // -- FUNCTIONS
+
+            function Check(
+                )
+            {
+                GetElementById( "values" ).value
+                    = "Input component : " + GetElementById( "input-component" ).Value + "\n";
+            }
+
+            // -- STATEMENTS
+
+            Check();
+        </script>
+    </body>
+</html>

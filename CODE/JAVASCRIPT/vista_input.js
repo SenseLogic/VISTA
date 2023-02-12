@@ -23,6 +23,12 @@ class VISTA_INPUT_COMPONENT extends VISTA_COMPONENT
 
         this.SetTemplate(
             Text`
+            <style>
+                {:host:} input
+                {
+                    width: 100%;
+                }
+            </style>
             <div>
                 <input id="{:scope:}-input"/>
             </div>
@@ -118,14 +124,14 @@ class VISTA_VIDEO_PATH_INPUT_LIST_COMPONENT extends VISTA_LIST_COMPONENT
 
 DefineComponent( VISTA_INPUT_COMPONENT, "input-component", [ "value", "placeholder" ] );
 DefineComponent( VISTA_TEXT_INPUT_COMPONENT, "text-input-component", [ "value", "placeholder" ] );
-DefineComponent( VISTA_MULTILINGUAL_INPUT_COMPONENT, "multilingual-text-input-component", [ "value", "placeholder" ] );
+DefineComponent( VISTA_MULTILINGUAL_INPUT_COMPONENT, "multilingual-input-component", [ "value", "placeholder" ] );
 DefineComponent( VISTA_MULTILINGUAL_TEXT_INPUT_COMPONENT, "multilingual-text-input-component", [ "value", "placeholder" ] );
 DefineComponent( VISTA_IMAGE_PATH_INPUT_COMPONENT, "image-path-input-component", [ "value", "placeholder" ] );
 DefineComponent( VISTA_VIDEO_PATH_INPUT_COMPONENT, "video-path-input-component", [ "value", "placeholder" ] );
 
 DefineComponent( VISTA_INPUT_LIST_COMPONENT, "input-list-component", [ "value", "placeholder" ] );
 DefineComponent( VISTA_TEXT_INPUT_LIST_COMPONENT, "text-input-list-component", [ "value", "placeholder" ] );
-DefineComponent( VISTA_MULTILINGUAL_INPUT_LIST_COMPONENT, "multilingual-text-input-list-component", [ "value", "placeholder" ] );
+DefineComponent( VISTA_MULTILINGUAL_INPUT_LIST_COMPONENT, "multilingual-input-list-component", [ "value", "placeholder" ] );
 DefineComponent( VISTA_MULTILINGUAL_TEXT_INPUT_LIST_COMPONENT, "multilingual-text-input-list-component", [ "value", "placeholder" ] );
 DefineComponent( VISTA_IMAGE_PATH_INPUT_LIST_COMPONENT, "image-path-input-list-component", [ "value", "placeholder" ] );
 DefineComponent( VISTA_VIDEO_PATH_INPUT_LIST_COMPONENT, "video-path-input-list-component", [ "value", "placeholder" ] );
