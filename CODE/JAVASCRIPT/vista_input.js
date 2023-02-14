@@ -8,7 +8,7 @@ class VISTA_INPUT_COMPONENT extends VISTA_COMPONENT
         event
         )
     {
-        this.Value = this.InputElement.value;
+        this.Value = this.Element.value;
     }
 
     // ~~
@@ -17,20 +17,17 @@ class VISTA_INPUT_COMPONENT extends VISTA_COMPONENT
         )
     {
         this.BindStyle();
-        this.BindProperty( "Value", "value", "" );
-        this.BindProperty( "Placeholder", "placeholder", "" );
+        this.BindProperty( "Id", "id_", "" );
+        this.BindProperty( "Class", "class_", "" );
+        this.BindProperty( "Name", "name_", "" );
+        this.BindProperty( "Value", "value_", "" );
+        this.BindProperty( "Placeholder", "placeholder_", "" );
         this.BindMethod( "HandleInputEvent" );
 
         this.SetTemplate(
             Text`
-            <style>
-                {:host:} input
-                {
-                    width: 100%;
-                }
-            </style>
             <div>
-                <input id="{:scope:}-input"/>
+                <input id="{: this.Id :}" class="{: this.Class :}" name="{: this.Name :}" value="{:% this.Value :}" placeholder="{:% this.Placeholder :}"/>
             </div>
             `
             );
@@ -41,10 +38,8 @@ class VISTA_INPUT_COMPONENT extends VISTA_COMPONENT
     PostUpdateComponent(
         )
     {
-        this.InputElement = this.GetElement( this.GetSelector( "#{:scope:}-input" ) );
-        this.InputElement.value = this.Value;
-        this.InputElement.placeholder = this.Placeholder;
-        this.InputElement.oninput = this.HandleInputEvent;
+        this.Element = this.GetElement( "input" );
+        this.Element.oninput = this.HandleInputEvent;
     }
 }
 
@@ -52,6 +47,45 @@ class VISTA_INPUT_COMPONENT extends VISTA_COMPONENT
 
 class VISTA_TEXT_INPUT_COMPONENT extends VISTA_COMPONENT
 {
+    // -- OPERATIONS
+
+    HandleInputEvent(
+        event
+        )
+    {
+        this.Value = this.Element.value;
+    }
+
+    // ~~
+
+    InitializeComponent(
+        )
+    {
+        this.BindStyle();
+        this.BindProperty( "Id", "id_", "" );
+        this.BindProperty( "Class", "class_", "" );
+        this.BindProperty( "Name", "name_", "" );
+        this.BindProperty( "Value", "value_", "" );
+        this.BindProperty( "Placeholder", "placeholder_", "" );
+        this.BindMethod( "HandleInputEvent" );
+
+        this.SetTemplate(
+            Text`
+            <div>
+                <textarea id="{: this.Id :}" class="{: this.Class :}" name="{: this.Name :}" placeholder="{:% this.Placeholder :}">{:% this.Value :}</textarea>
+            </div>
+            `
+            );
+    }
+
+    // ~~
+
+    PostUpdateComponent(
+        )
+    {
+        this.Element = this.GetElement( "textarea" );
+        this.Element.oninput = this.HandleInputEvent;
+    }
 }
 
 // ~~
