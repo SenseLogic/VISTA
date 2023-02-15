@@ -8,6 +8,14 @@ function GetUrl(
 
 // ~~
 
+function SetPriorUrl(
+    )
+{
+    window.history.back();
+}
+
+// ~~
+
 function SetUrl(
     url
     )
