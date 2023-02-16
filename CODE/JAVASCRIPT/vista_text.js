@@ -224,6 +224,65 @@ String.prototype.GetTranslatedText = function (
 
 // ~~
 
+String.prototype.GetTranslatedTextArray = function (
+    language_code_array,
+    default_language_code = "en",
+    translation_separator = "¨"
+    )
+{
+    var
+        language_code,
+        translation_array;
+
+    translated_text_array = [];
+
+    for ( language_code of language_code_array )
+    {
+        translated_text_array.push( this.GetTranslatedText( language_code, default_language_code, translation_separator ) );
+    }
+
+    return translated_text_array;
+}
+
+// ~~
+
+Array.prototype.GetMultilingualText = function (
+    language_code_array,
+    default_language_code = "en",
+    translation_separator = "¨"
+    )
+{
+    var
+        default_translated_text,
+        language_code_index,
+        multilingual_text;
+
+    multilingual_text = "";
+    default_translated_text = null;
+
+    for ( language_code_index = 0;
+          language_code_index < language_code_array.length;
+          ++language_code_index )
+    {
+        language_code = language_code_array[ language_code_index ];
+        translated_text = this[ language_code_index ];
+
+        if ( default_translated_text === null )
+        {
+            default_translated_text = this[ language_code_index ];
+            multilingual_text = default_translated_text;
+        }
+        else if ( translated_text !== default_translated_text )
+        {
+            multilingual_text += "¨" + language_code + ":" + translated_text;
+        }
+    }
+
+    return multilingual_text;
+}
+
+// ~~
+
 String.prototype.MatchesFilterExpression = function (
     filter_expression,
     or_operator = "|",

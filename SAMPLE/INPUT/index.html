@@ -33,16 +33,20 @@
     </style>
     <body style="font-family:monospace">
         <main>
-            <input-component id="input-component" id_="input" class_="input" name_="name" value_="input value" placeholder_="placeholder">
+            <input-component id_="input" class_="input" name_="name" value_="input value" placeholder_="placeholder">
             </input-component>
-            <text-input-component id="text-input-component" id_="text-input" class_="input" name_="name" value_="text input value" placeholder_="placeholder">
+            <text-input-component id_="text-input" class_="input" name_="name" value_="text input value" placeholder_="placeholder">
             </text-input-component>
+            <multilingual-input-component id_="multilingual-input" class_="input" name_="name" value_="value¨fr:valeur¨es:valor" placeholder_="placeholder" languages="en,fr,es">
+            </multilingual-input-component>
+            <multilingual-text-input-component id_="multilingual-text-input" class_="input" name_="name" value_="value¨fr:valeur¨es:valor" placeholder_="placeholder" languages="en,fr,es">
+            </multilingual-text-input-component>
             <div>
                 <button onclick="Check()">
                     Check
                 </button>
             </div>
-            <textarea id="result" readonly>
+            <textarea id="result" style="height: 8rem" readonly>
             </textarea>
         </main>
         <script src="../../CODE/JAVASCRIPT/vista_base.js"></script>
@@ -51,6 +55,7 @@
         <script src="../../CODE/JAVASCRIPT/vista_data.js"></script>
         <script src="../../CODE/JAVASCRIPT/vista_component.js"></script>
         <script src="../../CODE/JAVASCRIPT/vista_breakpoint.js"></script>
+        <script src="../../CODE/JAVASCRIPT/vista_text.js"></script>
         <script src="../../CODE/JAVASCRIPT/vista_input.js"></script>
         <script>
             // -- FUNCTIONS
@@ -59,8 +64,10 @@
                 )
             {
                 GetElementById( "result" ).value
-                    = "Input component : " + GetElementById( "input-component" ).Element.value + "\n"
-                      + "Text input component : " + GetElementById( "text-input-component" ).Element.value + "\n";
+                    = "Input component : " + GetElementById( "input" ).value + "\n"
+                      + "Text input component : " + GetElementById( "text-input" ).value + "\n"
+                      + "Multilingual input component : " + GetElementById( "multilingual-input" ).value + "\n"
+                      + "Multilingual text input component : " + GetElementById( "multilingual-text-input" ).value + "\n";
             }
 
             // -- STATEMENTS
