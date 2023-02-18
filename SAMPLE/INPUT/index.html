@@ -33,14 +33,10 @@
     </style>
     <body style="font-family:monospace">
         <main>
-            <input-component id_="input" class_="input" name_="name" value_="input value" placeholder_="placeholder">
-            </input-component>
-            <text-input-component id_="text-input" class_="input" name_="name" value_="text input value" placeholder_="placeholder">
-            </text-input-component>
-            <multilingual-input-component id_="multilingual-input" class_="input" name_="name" value_="value¨fr:valeur¨es:valor" placeholder_="placeholder" languages="en,fr,es">
-            </multilingual-input-component>
-            <multilingual-text-input-component id_="multilingual-text-input" class_="input" name_="name" value_="value¨fr:valeur¨es:valor" placeholder_="placeholder" languages="en,fr,es">
-            </multilingual-text-input-component>
+            <input-component id_="input" class_="input" name_="name" value_="input value" placeholder_="placeholder"></input-component>
+            <textarea-component id_="textarea" class_="input" name_="name" input value" placeholder_="placeholder">textarea value</textarea-component>
+            <multilingual-input-component id_="multilingual-input" class_="input" name_="name" value_="value¨fr:valeur¨es:valor" placeholder_="placeholder" language-codes="en,fr,es" language-names="English,French,Spanish"></multilingual-input-component>
+            <multilingual-textarea-component id_="multilingual-textarea" class_="input" name_="name" placeholder_="placeholder" language-codes="en,fr,es" language-names="English,French,Spanish">value¨fr:valeur¨es:valor</multilingual-textarea-component>
             <div>
                 <button onclick="Check()">
                     Check
@@ -65,9 +61,9 @@
             {
                 GetElementById( "result" ).value
                     = "Input component : " + GetElementById( "input" ).value + "\n"
-                      + "Text input component : " + GetElementById( "text-input" ).value + "\n"
+                      + "Text input component : " + GetElementById( "textarea" ).value + "\n"
                       + "Multilingual input component : " + GetElementById( "multilingual-input" ).value + "\n"
-                      + "Multilingual text input component : " + GetElementById( "multilingual-text-input" ).value + "\n";
+                      + "Multilingual text input component : " + GetElementById( "multilingual-textarea" ).value + "\n";
             }
 
             // -- STATEMENTS
