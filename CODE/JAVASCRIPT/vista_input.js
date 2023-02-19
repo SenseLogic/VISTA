@@ -286,7 +286,7 @@ class VISTA_MULTILINGUAL_TEXTAREA_COMPONENT extends VISTA_COMPONENT
         this.SetTemplate(
             Text`
             <div class="<:# this.ContainerClass :>">
-                <textarea id="<:# this.ResultId :>" class="<:# this.ResultClass :> is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.ResultReadonly !== null ? "readonly" : "" :> hidden/><:% this.ResultValue :></textarea>
+                <textarea id="<:# this.ResultId :>" class="<:# this.ResultClass :> is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.ResultReadonly !== null ? "readonly" : "" :> hidden/></textarea>
                 <: for ( let language_name of this.LanguageResultNameArray ) { :>
                     <textarea class="<:# this.ResultClass :> is-translation" value="" placeholder="<:# language_name :>" <:# this.ResultReadonly !== null ? "readonly" : "" :>></textarea>
                 <: } :>
@@ -345,25 +345,25 @@ class VISTA_IMAGE_PATH_INPUT_COMPONENT extends VISTA_COMPONENT
         this.BindProperty( "ImageClass", "image-class", null );
         this.BindProperty( "ImageErrorCode", "image-error-code", null );
         this.BindProperty( "UploadButtonClass", "upload-button-class", null );
-        this.BindProperty( "UploadIconClass", "upload-icon-class", null );
-        this.BindProperty( "UploadIconPath", "upload-icon-path", null );
-        this.BindProperty( "UploadFileClass", "upload-file-class", null );
-        this.BindProperty( "UploadCode", "upload-code", null );
-        this.BindProperty( "DeleteButtonClass", "delete-button-class", null );
-        this.BindProperty( "DeleteIconPath", "delete-icon-path", null );
-        this.BindProperty( "DeleteCode", "delete-code", null );
+        this.BindProperty( "UploadButtonImageClass", "upload-button-image-class", null );
+        this.BindProperty( "UploadButtonImagePath", "upload-button-image-path", null );
+        this.BindProperty( "UploadButtonInputClass", "upload-button-input-class", null );
+        this.BindProperty( "UploadButtonCode", "upload-button-input-class", "upload-button-code", null );
+        this.BindProperty( "DeleteButtonImageClass", "delete-button-image-class", null );
+        this.BindProperty( "DeleteButtonImagePath", "delete-button-image-path", null );
+        this.BindProperty( "DeleteButtonCode", "delete-button-code", null );
         this.BindMethod( "HandleInputEvent" );
 
         this.SetTemplate(
             Text`
             <div class="<:# this.ContainerClass :>">
                 <input id="<:# this.ResultId :>" class="<:# this.ResultClass :> is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.ResultReadonly !== null ? "readonly" : "" :>/>
-                <img class="<:# this.ImageClass :>" src="<\# field_value #\>" onerror="<:# this.ImageErrorCode :>"/>
+                <img class="<:# this.ImageClass :>" src="<:% this.ResultValue :>" onerror="<:# this.ImageErrorCode :>"/>
                 <: if ( this.ResultReadonly === null ) { :>
                     <label class="<:# this.UploadButtonClass :>">
-                        <img class="<:# this.UploadIconClass :>" src="<:# this.UploadIconPath :>"/><input class="<:# this.UploadFileClass :>" type="file" accept="image/jpeg, image/png, image/webp, image/gif, image/svg" onchange="<:# this.UploadCode :>"/>
+                        <img class="<:# this.UploadButtonImageClass :>" src="<:# this.UploadButtonImagePath :>"/><input class="<:# this.UploadButtonInputClass :>" type="file" accept="image/jpeg, image/png, image/webp, image/gif, image/svg" onchange="<:# this.UploadButtonCode :>"/>
                     </label>
-                    <img class="<:# this.DeleteButtonClass :>" src="<:# this.DeleteIconPath :>" onclick="<:# this.DeleteCode :>"/>
+                    <img class="<:# this.DeleteButtonImageClass :>" src="<:# this.DeleteButtonImagePath :>" onclick="<:# this.DeleteButtonCode :>"/>
                 <: } :>
             </div>
             `
@@ -410,25 +410,25 @@ class VISTA_VIDEO_PATH_INPUT_COMPONENT extends VISTA_COMPONENT
         this.BindProperty( "VideoClass", "video-class", null );
         this.BindProperty( "VideoErrorCode", "video-error-code", null );
         this.BindProperty( "UploadButtonClass", "upload-button-class", null );
-        this.BindProperty( "UploadIconClass", "upload-icon-class", null );
-        this.BindProperty( "UploadIconPath", "upload-icon-path", null );
-        this.BindProperty( "UploadFileClass", "upload-file-class", null );
-        this.BindProperty( "UploadCode", "upload-code", null );
-        this.BindProperty( "DeleteButtonClass", "delete-button-class", null );
-        this.BindProperty( "DeleteIconPath", "delete-icon-path", null );
-        this.BindProperty( "DeleteCode", "delete-code", null );
+        this.BindProperty( "UploadButtonImageClass", "upload-button-image-class", null );
+        this.BindProperty( "UploadButtonImagePath", "upload-button-image-path", null );
+        this.BindProperty( "UploadButtonInputClass", "upload-button-input-class", null );
+        this.BindProperty( "UploadButtonCode", "upload-button-input-class", "upload-button-code", null );
+        this.BindProperty( "DeleteButtonImageClass", "delete-button-image-class", null );
+        this.BindProperty( "DeleteButtonImagePath", "delete-button-image-path", null );
+        this.BindProperty( "DeleteButtonCode", "delete-button-code", null );
         this.BindMethod( "HandleInputEvent" );
 
         this.SetTemplate(
             Text`
             <div class="<:# this.ContainerClass :>">
                 <input id="<:# this.ResultId :>" class="<:# this.ResultClass :> is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.ResultReadonly !== null ? "readonly" : "" :>/>
-                <video class="<:# this.VideoClass :>" src="<\# field_value #\>" type="video/mp4" onerror="<:# this.VideoErrorCode :>"/></video>
+                <video class="<:# this.VideoClass :>" src="<:% this.ResultValue :>" type="video/mp4" onerror="<:# this.VideoErrorCode :>"/></video>
                 <: if ( this.ResultReadonly === null ) { :>
                     <label class="<:# this.UploadButtonClass :>">
-                        <img class="<:# this.UploadIconClass :>" src="<:# this.UploadIconPath :>"/><input class="<:# this.UploadFileClass :>" type="file" accept="video/mp4" onchange="<:# this.UploadCode :>"/>
+                        <img class="<:# this.UploadButtonImageClass :>" src="<:# this.UploadButtonImagePath :>"/><input class="<:# this.UploadButtonInputClass :>" type="file" accept="video/mp4" onchange="<:# this.UploadButtonCode :>"/>
                     </label>
-                    <img class="<:# this.DeleteButtonClass :>" src="<:# this.DeleteIconPath :>" onclick="<:# this.DeleteCode :>"/>
+                    <img class="<:# this.DeleteButtonImageClass :>" src="<:# this.DeleteButtonImagePath :>" onclick="<:# this.DeleteButtonCode :>"/>
                 <: } :>
             </div>
             `
@@ -778,7 +778,7 @@ class VISTA_MULTILINGUAL_TEXTAREA_LIST_COMPONENT extends VISTA_LIST_COMPONENT
         this.SetTemplate(
             Text`
             <div class="<:# this.ContainerClass :>">
-                <textarea id="<:# this.ResultId :>" class="<:# this.ResultClass :> is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.ResultReadonly !== null ? "readonly" : "" :> hidden/><:% this.ResultValue :></textarea>
+                <textarea id="<:# this.ResultId :>" class="<:# this.ResultClass :> is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.ResultReadonly !== null ? "readonly" : "" :> hidden/></textarea>
                 <: for ( let language_name of this.LanguageResultNameArray ) { :>
                     <textarea class="<:# this.ResultClass :> is-translation" value="" placeholder="<:# language_name :>" <:# this.ResultReadonly !== null ? "readonly" : "" :>></textarea>
                 <: } :>
@@ -906,16 +906,16 @@ class VISTA_VIDEO_PATH_INPUT_LIST_COMPONENT extends VISTA_LIST_COMPONENT
 
 // -- STATEMENTS
 
-DefineComponent( VISTA_INPUT_COMPONENT, "input-component", [ "result-id", "result-class", "result-name", "result-value", "result-placeholder", "result-readonly" ] );
-DefineComponent( VISTA_TEXTAREA_COMPONENT, "textarea-component", [ "result-id", "result-class", "result-name", "result-value", "result-placeholder", "result-readonly" ] );
-DefineComponent( VISTA_MULTILINGUAL_INPUT_COMPONENT, "multilingual-input-component", [ "result-id", "result-class", "result-name", "result-value", "result-placeholder", "result-readonly", "language-codes", "language-names" ] );
-DefineComponent( VISTA_MULTILINGUAL_TEXTAREA_COMPONENT, "multilingual-textarea-component", [ "result-id", "result-class", "result-name", "result-value", "result-placeholder", "result-readonly", "language-codes", "language-names" ] );
-DefineComponent( VISTA_IMAGE_PATH_INPUT_COMPONENT, "image-path-input-component", [ "result-id", "result-class", "result-name", "result-value", "result-placeholder", "result-readonly" ] );
-DefineComponent( VISTA_VIDEO_PATH_INPUT_COMPONENT, "video-path-input-component", [ "result-id", "result-class", "result-name", "result-value", "result-placeholder", "result-readonly" ] );
+DefineComponent( VISTA_INPUT_COMPONENT, "input-component", [ "container-class", "result-id", "result-class", "result-name", "result-value", "result-placeholder", "result-readonly" ] );
+DefineComponent( VISTA_TEXTAREA_COMPONENT, "textarea-component", [ "container-class", "result-id", "result-class", "result-name", "result-value", "result-placeholder", "result-readonly" ] );
+DefineComponent( VISTA_MULTILINGUAL_INPUT_COMPONENT, "multilingual-input-component", [ "container-class", "result-id", "result-class", "result-name", "result-value", "result-placeholder", "result-readonly", "language-codes", "language-names" ] );
+DefineComponent( VISTA_MULTILINGUAL_TEXTAREA_COMPONENT, "multilingual-textarea-component", [ "container-class", "result-id", "result-class", "result-name", "result-value", "result-placeholder", "result-readonly", "language-codes", "language-names" ] );
+DefineComponent( VISTA_IMAGE_PATH_INPUT_COMPONENT, "image-path-input-component", [ "container-class", "result-id", "result-class", "result-name", "result-value", "result-placeholder", "result-readonly", "image-class", "image-error-code", "upload-button-class", "upload-button-image-class", "upload-button-image-path", "upload-button-input-class", "upload-button-code", "delete-button-image-class", "delete-button-code" ] );
+DefineComponent( VISTA_VIDEO_PATH_INPUT_COMPONENT, "video-path-input-component", [ "container-class", "result-id", "result-class", "result-name", "result-value", "result-placeholder", "result-readonly", "video-class", "video-error-code", "upload-button-class", "upload-button-image-class", "upload-button-image-path", "upload-button-input-class", "upload-button-code", "delete-button-image-class", "delete-button-code" ] );
 
-DefineComponent( VISTA_INPUT_LIST_COMPONENT, "input-list-component", [ "result-id", "result-class", "result-name", "result-value", "result-placeholder", "result-readonly" ] );
-DefineComponent( VISTA_TEXTAREA_LIST_COMPONENT, "textarea-list-component", [ "result-id", "result-class", "result-name", "result-value", "result-placeholder", "result-readonly" ] );
-DefineComponent( VISTA_MULTILINGUAL_INPUT_LIST_COMPONENT, "multilingual-input-list-component", [ "result-id", "result-class", "result-name", "result-value", "result-placeholder", "result-readonly", "language-codes", "language-names" ] );
-DefineComponent( VISTA_MULTILINGUAL_TEXTAREA_LIST_COMPONENT, "multilingual-textarea-list-component", [ "result-id", "result-class", "result-name", "result-value", "result-placeholder", "result-readonly", "language-codes", "language-names" ] );
-DefineComponent( VISTA_IMAGE_PATH_INPUT_LIST_COMPONENT, "image-path-input-list-component", [ "result-id", "result-class", "result-name", "result-value", "result-placeholder", "result-readonly" ] );
-DefineComponent( VISTA_VIDEO_PATH_INPUT_LIST_COMPONENT, "video-path-input-list-component", [ "result-id", "result-class", "result-name", "result-value", "result-placeholder", "result-readonly" ] );
+DefineComponent( VISTA_INPUT_LIST_COMPONENT, "input-list-component", [ "container-class", "result-id", "result-class", "result-name", "result-value", "result-placeholder", "result-readonly" ] );
+DefineComponent( VISTA_TEXTAREA_LIST_COMPONENT, "textarea-list-component", [ "container-class", "result-id", "result-class", "result-name", "result-value", "result-placeholder", "result-readonly" ] );
+DefineComponent( VISTA_MULTILINGUAL_INPUT_LIST_COMPONENT, "multilingual-input-list-component", [ "container-class", "result-id", "result-class", "result-name", "result-value", "result-placeholder", "result-readonly", "language-codes", "language-names" ] );
+DefineComponent( VISTA_MULTILINGUAL_TEXTAREA_LIST_COMPONENT, "multilingual-textarea-list-component", [ "container-class", "result-id", "result-class", "result-name", "result-value", "result-placeholder", "result-readonly", "language-codes", "language-names" ] );
+DefineComponent( VISTA_IMAGE_PATH_INPUT_LIST_COMPONENT, "image-path-input-list-component", [ "container-class", "result-id", "result-class", "result-name", "result-value", "result-placeholder", "result-readonly", "image-class", "image-error-code", "upload-button-class", "upload-button-image-class", "upload-button-image-path", "upload-button-input-class", "upload-button-code", "delete-button-image-class", "delete-button-code" ] );
+DefineComponent( VISTA_VIDEO_PATH_INPUT_LIST_COMPONENT, "video-path-input-list-component", [ "container-class", "result-id", "result-class", "result-name", "result-value", "result-placeholder", "result-readonly", "video-class", "video-error-code", "upload-button-class", "upload-button-image-class", "upload-button-image-path", "upload-button-input-class", "upload-button-code", "delete-button-image-class", "delete-button-code" ] );
