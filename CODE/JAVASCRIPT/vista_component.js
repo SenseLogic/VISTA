@@ -22,6 +22,7 @@ class VISTA_COMPONENT extends HTMLElement
         this.TemplateConstantMap = new Map();
         this.TemplateConstantMap.SetValue( "scope", this.Scope );
         this.TemplateFunction = undefined;
+        this.IsDeferred = false;
 
         VISTA_COMPONENT.prototype.GetWatcherIndex = VISTA_DATA.prototype.GetWatcherIndex;
         VISTA_COMPONENT.prototype.AddWatcher = VISTA_DATA.prototype.AddWatcher;
@@ -653,7 +654,15 @@ class VISTA_COMPONENT extends HTMLElement
         this.InitializeComponent();
         this.PreUpdateComponent();
         this.UpdateComponent();
-        this.PostUpdateComponent();
+
+        if ( this.IsDeferred )
+        {
+            setTimeout( () => { this.PostUpdateComponent(); } );
+        }
+        else
+        {
+            this.PostUpdateComponent();
+        }
     }
 
     // ~~
