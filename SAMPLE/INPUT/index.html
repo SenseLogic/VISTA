@@ -30,14 +30,39 @@
         {
             width: 100%;
         }
+
+        .value-container
+        {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .button
+        {
+            height: 1rem;
+            width: 1rem;
+        }
+
+        .add-button
+        {
+            background: url( "add_icon.svg" ) no-repeat center center / contain;
+        }
+
+        .remove-button
+        {
+            background: url( "remove_icon.svg" ) no-repeat center center / contain;
+        }
     </style>
     <body style="font-family:monospace">
         <main>
             <input-component result-id="input" result-class="input" result-name="name" result-value="input value" result-placeholder="placeholder"></input-component>
-            <textarea-component result-id="textarea" result-class="input" result-name="name" input value" result-placeholder="placeholder">textarea value</textarea-component>
+            <text-input-component result-id="textarea" result-class="input" result-name="name" result-value="textarea value" result-placeholder="placeholder"></text-input-component>
             <multilingual-input-component result-id="multilingual-input" result-class="input" result-name="name" result-value="value¨fr:valeur¨es:valor" result-placeholder="placeholder" language-codes="en,fr,es" language-names="English,French,Spanish"></multilingual-input-component>
-            <multilingual-textarea-component result-id="multilingual-textarea" result-class="input" result-name="name" result-placeholder="placeholder" language-codes="en,fr,es" language-names="English,French,Spanish">value¨fr:valeur¨es:valor</multilingual-textarea-component>
-            <input-list-component result-id="input-list" result-class="input" result-name="name" result-value="[1,2,3,4,5]" result-placeholder="placeholder"></input-list-component>
+            <multilingual-text-input-component result-id="multilingual-text-input" result-class="input" result-name="name" result-value="the
+&quot;value&quot;¨fr:la
+&quot;valeur&quot;¨es:el
+&quot;valor&quot;" result-placeholder="placeholder" language-codes="en,fr,es" language-names="English,French,Spanish"></multilingual-text-input-component>
+            <input-list-component result-id="input-list" result-class="input" result-name="name" result-value="[1,2,3,4,5]" result-placeholder="placeholder" value-container-class="value-container" add-button-class="button add-button" remove-button-class="button remove-button"></input-list-component>
             <div>
                 <button onclick="Check()">
                     Check
@@ -64,7 +89,7 @@
                     = "Input component : " + GetElementById( "input" ).value + "\n"
                       + "Text input component : " + GetElementById( "textarea" ).value + "\n"
                       + "Multilingual input component : " + GetElementById( "multilingual-input" ).value + "\n"
-                      + "Multilingual text input component : " + GetElementById( "multilingual-textarea" ).value + "\n"
+                      + "Multilingual text input component : " + GetElementById( "multilingual-text-input" ).value + "\n"
                       + "Input list component : " + GetElementById( "input-list" ).value + "\n";
             }
         </script>
