@@ -222,7 +222,14 @@ class VISTA_COMPONENT extends HTMLElement
         encoding_function = undefined
         )
     {
-        if ( typeof default_value === "number"
+        if ( typeof default_value === "boolean"
+             && decoding_function === undefined
+             && encoding_function === undefined )
+        {
+            decoding_function = GetBooleanProperty;
+            encoding_function = GetBooleanText;
+        }
+        else if ( typeof default_value === "number"
              && decoding_function === undefined
              && encoding_function === undefined )
         {

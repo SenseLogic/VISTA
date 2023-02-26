@@ -178,6 +178,49 @@ function IsHtmlText(
 
 // ~~
 
+function GetBoolean(
+    text
+    )
+{
+    return (
+        text === true
+        || text === 1
+        || text === "true"
+        );
+}
+
+// ~~
+
+function GetBooleanProperty(
+    text
+    )
+{
+    return (
+        text === true
+        || text === 1
+        || text === "true"
+        || text === ""
+        );
+}
+
+// ~~
+
+function GetBooleanText(
+    boolean
+    )
+{
+    if ( boolean )
+    {
+        return "true";
+    }
+    else
+    {
+        return "false";
+    }
+}
+
+// ~~
+
 function GetTextArrayText(
     text_array,
     separator_text = ", ",
