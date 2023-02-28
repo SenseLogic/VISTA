@@ -8,7 +8,9 @@ class VISTA_INPUT_COMPONENT extends VISTA_COMPONENT
         event
         )
     {
-        this.ResultValue = this.ResultElement.value;
+        this.value = this.ResultElement.value;
+        this.ResultValue = this.value;
+
         this.EmitEvent( "result-value-changed" );
     }
 
@@ -27,6 +29,8 @@ class VISTA_INPUT_COMPONENT extends VISTA_COMPONENT
         this.BindProperty( "IsReadonly", "is-readonly", false );
         this.BindMethod( "HandleResultInputEvent" );
 
+        this.value = this.ResultValue;
+        
         this.SetTemplate(
             Text`
             <div class="<:# this.ContainerClass :>">
@@ -57,7 +61,9 @@ class VISTA_TEXT_INPUT_COMPONENT extends VISTA_COMPONENT
         event
         )
     {
-        this.ResultValue = this.ResultElement.value;
+        this.value = this.ResultElement.value;
+        this.ResultValue = this.value;
+
         this.ResultElement.SetContentHeight();
         this.EmitEvent( "result-value-changed" );
     }
@@ -77,6 +83,8 @@ class VISTA_TEXT_INPUT_COMPONENT extends VISTA_COMPONENT
         this.BindProperty( "IsReadonly", "is-readonly", false );
         this.BindMethod( "HandleResultInputEvent" );
 
+        this.value = this.ResultValue;
+        
         this.SetTemplate(
             Text`
             <div class="<:# this.ContainerClass :>">
@@ -111,7 +119,9 @@ class VISTA_MULTILINGUAL_INPUT_COMPONENT extends VISTA_COMPONENT
         var
             language_code_index;
 
-        this.ResultValue = this.ResultElement.value;
+        this.value = this.ResultElement.value;
+        this.ResultValue = this.value;
+
         this.TranslationArray = this.ResultValue.GetTranslatedTextArray( this.LanguageCodeArray );
 
         for ( language_code_index = 0;
@@ -137,7 +147,9 @@ class VISTA_MULTILINGUAL_INPUT_COMPONENT extends VISTA_COMPONENT
             this.TranslationArray[ language_code_index ] = this.TranslationElementArray[ language_code_index ].value;
         }
 
-        this.ResultValue = this.TranslationArray.GetMultilingualText( this.LanguageCodeArray );
+        this.value = this.TranslationArray.GetMultilingualText( this.LanguageCodeArray );
+        this.ResultValue = this.value;
+
         this.ResultElement.value = this.ResultValue;
     }
 
@@ -168,6 +180,7 @@ class VISTA_MULTILINGUAL_INPUT_COMPONENT extends VISTA_COMPONENT
         this.BindProperty( "LanguageNames", "language-names", "English" );
         this.BindMethod( "HandleTranslationInputEvent" );
 
+        this.value = this.ResultValue;
         this.LanguageCodeArray = this.LanguageCodes.split( "," );
         this.LanguageResultNameArray = this.LanguageNames.split( "," );
         this.TranslationArray = this.ResultValue.GetTranslatedTextArray( this.LanguageCodeArray );
@@ -216,7 +229,9 @@ class VISTA_MULTILINGUAL_TEXT_INPUT_COMPONENT extends VISTA_COMPONENT
         var
             language_code_index;
 
-        this.ResultValue = this.ResultElement.value;
+        this.value = this.ResultElement.value;
+        this.ResultValue = this.value;
+
         this.TranslationArray = this.ResultValue.GetTranslatedTextArray( this.LanguageCodeArray );
 
         for ( language_code_index = 0;
@@ -244,7 +259,9 @@ class VISTA_MULTILINGUAL_TEXT_INPUT_COMPONENT extends VISTA_COMPONENT
             this.TranslationElementArray[ language_code_index ].SetContentHeight();
         }
 
-        this.ResultValue = this.TranslationArray.GetMultilingualText( this.LanguageCodeArray );
+        this.value = this.TranslationArray.GetMultilingualText( this.LanguageCodeArray );
+        this.ResultValue = this.value;
+
         this.ResultElement.value = this.ResultValue;
         this.ResultElement.SetContentHeight();
     }
@@ -276,6 +293,7 @@ class VISTA_MULTILINGUAL_TEXT_INPUT_COMPONENT extends VISTA_COMPONENT
         this.BindProperty( "LanguageNames", "language-names", "English" );
         this.BindMethod( "HandleTranslationInputEvent" );
 
+        this.value = this.ResultValue;
         this.LanguageCodeArray = this.LanguageCodes.split( "," );
         this.LanguageResultNameArray = this.LanguageNames.split( "," );
         this.TranslationArray = this.ResultValue.GetTranslatedTextArray( this.LanguageCodeArray );
@@ -323,7 +341,9 @@ class VISTA_IMAGE_PATH_INPUT_COMPONENT extends VISTA_COMPONENT
         event
         )
     {
-        this.ResultValue = this.ResultElement.value;
+        this.value = this.ResultElement.value;
+        this.ResultValue = this.value;
+
         this.ImageElement.src = this.ResultValue;
         this.EmitEvent( "result-value-changed" );
     }
@@ -353,7 +373,9 @@ class VISTA_IMAGE_PATH_INPUT_COMPONENT extends VISTA_COMPONENT
 
             if ( request.status === 201 )
             {
-                this.ResultValue = GetJsonObject( request.response );
+                this.value = GetJsonObject( request.response );
+                this.ResultValue = this.value;
+
                 this.ResultElement.value = this.ResultValue;
                 this.ImageElement.src = this.ResultValue;
                 this.EmitEvent( "result-value-changed" );
@@ -378,6 +400,8 @@ class VISTA_IMAGE_PATH_INPUT_COMPONENT extends VISTA_COMPONENT
         if ( request.status === 201 )
         {
             this.ResultValue = "";
+            this.value = "";
+
             this.ResultElement.value = "";
             this.ImageElement.src = "";
             this.EmitEvent( "result-value-changed" );
@@ -408,6 +432,8 @@ class VISTA_IMAGE_PATH_INPUT_COMPONENT extends VISTA_COMPONENT
         this.BindMethod( "HandleFileInputChangeEvent" );
         this.BindMethod( "HandleDeleteButtonClickEvent" );
 
+        this.value = this.ResultValue;
+        
         this.SetTemplate(
             Text`
             <div class="<:# this.ContainerClass :>">
@@ -460,7 +486,9 @@ class VISTA_VIDEO_PATH_INPUT_COMPONENT extends VISTA_COMPONENT
         event
         )
     {
-        this.ResultValue = this.ResultElement.value;
+        this.value = this.ResultElement.value;
+        this.ResultValue = this.value;
+
         this.VideoElement.src = this.ResultValue;
         this.EmitEvent( "result-value-changed" );
     }
@@ -490,7 +518,9 @@ class VISTA_VIDEO_PATH_INPUT_COMPONENT extends VISTA_COMPONENT
 
             if ( request.status === 201 )
             {
-                this.ResultValue = GetJsonObject( request.response );
+                this.value = GetJsonObject( request.response );
+                this.ResultValue = this.value;
+
                 this.ResultElement.value = this.ResultValue;
                 this.VideoElement.src = this.ResultValue;
                 this.EmitEvent( "result-value-changed" );
@@ -515,6 +545,8 @@ class VISTA_VIDEO_PATH_INPUT_COMPONENT extends VISTA_COMPONENT
         if ( request.status === 201 )
         {
             this.ResultValue = "";
+            this.value = "";
+
             this.ResultElement.value = "";
             this.VideoElement.src = "";
             this.EmitEvent( "result-value-changed" );
@@ -545,6 +577,8 @@ class VISTA_VIDEO_PATH_INPUT_COMPONENT extends VISTA_COMPONENT
         this.BindMethod( "HandleFileInputChangeEvent" );
         this.BindMethod( "HandleDeleteButtonClickEvent" );
 
+        this.value = this.ResultValue;
+        
         this.SetTemplate(
             Text`
             <div class="<:# this.ContainerClass :>">
@@ -597,7 +631,9 @@ class VISTA_DOCUMENT_PATH_INPUT_COMPONENT extends VISTA_COMPONENT
         event
         )
     {
-        this.ResultValue = this.ResultElement.value;
+        this.value = this.ResultElement.value;
+        this.ResultValue = this.value;
+
         this.EmitEvent( "result-value-changed" );
     }
 
@@ -618,7 +654,9 @@ class VISTA_DOCUMENT_PATH_INPUT_COMPONENT extends VISTA_COMPONENT
 
             if ( request.status === 201 )
             {
-                this.ResultValue = GetJsonObject( request.response );
+                this.value = GetJsonObject( request.response );
+                this.ResultValue = this.value;
+
                 this.ResultElement.value = this.ResultValue;
                 this.EmitEvent( "result-value-changed" );
             }
@@ -642,6 +680,8 @@ class VISTA_DOCUMENT_PATH_INPUT_COMPONENT extends VISTA_COMPONENT
         if ( request.status === 201 )
         {
             this.ResultValue = "";
+            this.value = "";
+
             this.ResultElement.value = "";
             this.EmitEvent( "result-value-changed" );
         }
@@ -669,6 +709,8 @@ class VISTA_DOCUMENT_PATH_INPUT_COMPONENT extends VISTA_COMPONENT
         this.BindMethod( "HandleFileInputChangeEvent" );
         this.BindMethod( "HandleDeleteButtonClickEvent" );
 
+        this.value = this.ResultValue;
+        
         this.SetTemplate(
             Text`
             <div class="<:# this.ContainerClass :>">
@@ -744,7 +786,9 @@ class VISTA_LIST_COMPONENT extends VISTA_COMPONENT
             this.ValueArray[ value_index ] = this.ValueElementArray[ value_index ].ResultValue;
         }
 
-        this.ResultValue = GetJsonText( this.ValueArray );
+        this.value = GetJsonText( this.ValueArray );
+        this.ResultValue = this.value;
+
         this.ResultElement.value = this.ResultValue;
     }
 
@@ -820,7 +864,10 @@ class VISTA_LIST_COMPONENT extends VISTA_COMPONENT
 
                 this.ValueArray.splice( drag_value_index, 1 );
                 this.ValueArray.splice( drop_value_index, 0, drag_value );
-                this.ResultValue = GetJsonText( this.ValueArray );
+                
+                this.value = GetJsonText( this.ValueArray );
+                this.ResultValue = this.value;
+
                 this.DragValueIndex = -1;
                 this.SetChanged();
                 this.EmitEvent( "result-value-changed" );
@@ -847,7 +894,10 @@ class VISTA_LIST_COMPONENT extends VISTA_COMPONENT
         )
     {
         this.ValueArray.splice( GetInteger( event.currentTarget.dataset.valueIndex ), 0, "" );
-        this.ResultValue = GetJsonText( this.ValueArray );
+        
+        this.value = GetJsonText( this.ValueArray );
+        this.ResultValue = this.value;
+
         this.SetChanged();
         this.EmitEvent( "result-value-changed" );
     }
@@ -859,7 +909,10 @@ class VISTA_LIST_COMPONENT extends VISTA_COMPONENT
         )
     {
         this.ValueArray.splice( GetInteger( event.currentTarget.dataset.valueIndex ), 1 );
-        this.ResultValue = GetJsonText( this.ValueArray );
+        
+        this.value = GetJsonText( this.ValueArray );
+        this.ResultValue = this.value;
+
         this.SetChanged();
         this.EmitEvent( "result-value-changed" );
     }
@@ -891,6 +944,7 @@ class VISTA_LIST_COMPONENT extends VISTA_COMPONENT
         this.BindMethod( "HandleAddButtonClickEvent" );
         this.BindMethod( "HandleRemoveButtonClickEvent" );
 
+        this.value = this.ResultValue;
         this.ValueArray = GetJsonObject( this.ResultValue );
         this.DragValueIndex = -1;
     }
