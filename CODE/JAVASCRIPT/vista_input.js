@@ -30,7 +30,7 @@ class VISTA_INPUT_COMPONENT extends VISTA_COMPONENT
         this.BindMethod( "HandleResultInputEvent" );
 
         this.value = this.ResultValue;
-        
+
         this.SetTemplate(
             Text`
             <div class="<:# this.ContainerClass :>">
@@ -84,7 +84,7 @@ class VISTA_TEXT_INPUT_COMPONENT extends VISTA_COMPONENT
         this.BindMethod( "HandleResultInputEvent" );
 
         this.value = this.ResultValue;
-        
+
         this.SetTemplate(
             Text`
             <div class="<:# this.ContainerClass :>">
@@ -433,7 +433,7 @@ class VISTA_IMAGE_PATH_INPUT_COMPONENT extends VISTA_COMPONENT
         this.BindMethod( "HandleDeleteButtonClickEvent" );
 
         this.value = this.ResultValue;
-        
+
         this.SetTemplate(
             Text`
             <div class="<:# this.ContainerClass :>">
@@ -578,7 +578,7 @@ class VISTA_VIDEO_PATH_INPUT_COMPONENT extends VISTA_COMPONENT
         this.BindMethod( "HandleDeleteButtonClickEvent" );
 
         this.value = this.ResultValue;
-        
+
         this.SetTemplate(
             Text`
             <div class="<:# this.ContainerClass :>">
@@ -710,7 +710,7 @@ class VISTA_DOCUMENT_PATH_INPUT_COMPONENT extends VISTA_COMPONENT
         this.BindMethod( "HandleDeleteButtonClickEvent" );
 
         this.value = this.ResultValue;
-        
+
         this.SetTemplate(
             Text`
             <div class="<:# this.ContainerClass :>">
@@ -864,7 +864,7 @@ class VISTA_LIST_COMPONENT extends VISTA_COMPONENT
 
                 this.ValueArray.splice( drag_value_index, 1 );
                 this.ValueArray.splice( drop_value_index, 0, drag_value );
-                
+
                 this.value = GetJsonText( this.ValueArray );
                 this.ResultValue = this.value;
 
@@ -894,7 +894,7 @@ class VISTA_LIST_COMPONENT extends VISTA_COMPONENT
         )
     {
         this.ValueArray.splice( GetInteger( event.currentTarget.dataset.valueIndex ), 0, "" );
-        
+
         this.value = GetJsonText( this.ValueArray );
         this.ResultValue = this.value;
 
@@ -909,7 +909,7 @@ class VISTA_LIST_COMPONENT extends VISTA_COMPONENT
         )
     {
         this.ValueArray.splice( GetInteger( event.currentTarget.dataset.valueIndex ), 1 );
-        
+
         this.value = GetJsonText( this.ValueArray );
         this.ResultValue = this.value;
 
@@ -1264,6 +1264,20 @@ class VISTA_DOCUMENT_PATH_INPUT_LIST_COMPONENT extends VISTA_LIST_COMPONENT
             </div>
             `
             );
+    }
+}
+
+// -- FUNCTIONS
+
+function InitializeReadonlySelects(
+    )
+{
+    var
+        select_element;
+
+    for ( select_element of GetElements( "select[readonly]" ) )
+    {
+        select_element.onmousedown = CancelEvent;
     }
 }
 
