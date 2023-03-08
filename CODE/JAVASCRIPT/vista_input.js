@@ -775,11 +775,12 @@ class VISTA_DROPDOWN_COMPONENT extends VISTA_COMPONENT
         this.BindProperty( "ResultClass", "result-class", "" );
         this.BindProperty( "ResultName", "result-name", "" );
         this.BindProperty( "ResultValue", "result-value", "" );
-        this.BindProperty( "ResultPlaceholder", "result-placeholder", "None" );
         this.BindProperty( "IsReadonly", "is-readonly", false );
         this.BindProperty( "IsOptional", "is-optional", false );
-        this.BindProperty( "OptionValues", "option-values", "[]" );
+        this.BindProperty( "NullName", "null-name", "None" );
+        this.BindProperty( "NullValue", "null-value", "" );
         this.BindProperty( "OptionNames", "option-names", "[]" );
+        this.BindProperty( "OptionValues", "option-values", "[]" );
         this.BindMethod( "HandleResultInputEvent" );
 
         this.value = this.ResultValue;
@@ -791,7 +792,7 @@ class VISTA_DROPDOWN_COMPONENT extends VISTA_COMPONENT
             <div class="<:# this.ContainerClass :>">
                 <select id="<:# this.ResultId :>" class="<:# this.ResultClass :> is-result-element" name="<:# this.ResultName :>" <:# this.IsReadonly ? "readonly" : "" :>/>
                     <: if ( this.IsOptional ) { :>
-                        <option value="<:% this.MissingValue :>"><:% this.ResultPlaceholder :></option>
+                        <option value="<:% this.NullValue :>" <:# ( this.ResultValue === this.NullValue ) ? "selected" : "" :>><:% this.NullName :></option>
                     <: } :>
                     <: for ( let option_index = 0; option_index < this.OptionValueArray.length; ++option_index ) { :>
                         <option value="<:% this.OptionValueArray[ option_index ] :>" <:# ( this.ResultValue === this.OptionValueArray[ option_index ] ) ? "selected" : "" :>><:% this.OptionNameArray[ option_index ] :></option>
@@ -1423,7 +1424,7 @@ DefineComponent( VISTA_MULTILINGUAL_TEXT_INPUT_COMPONENT, "multilingual-text-inp
 DefineComponent( VISTA_IMAGE_PATH_INPUT_COMPONENT, "image-path-input-component", [ "container-class", "result-id", "result-class", "result-name", "result-value", "result-placeholder", "is-readonly", "image-class", "error-image-path", "upload-button-class", "upload-api-url", "delete-button-class", "delete-api-url" ] );
 DefineComponent( VISTA_VIDEO_PATH_INPUT_COMPONENT, "video-path-input-component", [ "container-class", "result-id", "result-class", "result-name", "result-value", "result-placeholder", "is-readonly", "video-class", "error-video-path", "upload-button-class", "upload-api-url", "delete-button-class", "delete-api-url" ] );
 DefineComponent( VISTA_DOCUMENT_PATH_INPUT_COMPONENT, "document-path-input-component", [ "container-class", "result-id", "result-class", "result-name", "result-value", "result-placeholder", "is-readonly", "upload-button-class", "upload-api-url", "delete-button-class", "delete-api-url" ] );
-DefineComponent( VISTA_DROPDOWN_COMPONENT, "dropdown-component", [ "container-class", "result-id", "result-class", "result-name", "result-value", "result-placeholder", "is-readonly", "is-optional", "option-values", "option-names" ] );
+DefineComponent( VISTA_DROPDOWN_COMPONENT, "dropdown-component", [ "container-class", "result-id", "result-class", "result-name", "result-value", "result-placeholder", "is-readonly", "is-optional", "null-name", "null-value", "option-names", "option-values" ] );
 DefineComponent( VISTA_INPUT_LIST_COMPONENT, "input-list-component", [ "container-class", "result-id", "result-class", "result-name", "result-value", "result-placeholder", "is-readonly", "value-container-class", "value-class", "drag-button-class", "add-button-class", "remove-button-class" ] );
 DefineComponent( VISTA_TEXT_INPUT_LIST_COMPONENT, "text-input-list-component", [ "container-class", "result-id", "result-class", "result-name", "result-value", "result-placeholder", "is-readonly", "value-container-class", "value-class", "drag-button-class", "add-button-class", "remove-button-class" ] );
 DefineComponent( VISTA_MULTILINGUAL_INPUT_LIST_COMPONENT, "multilingual-input-list-component", [ "container-class", "result-id", "result-class", "result-name", "result-value", "result-placeholder", "is-readonly", "value-container-class", "value-class", "drag-button-class", "add-button-class", "remove-button-class", "language-codes", "language-names" ] );
@@ -1431,6 +1432,6 @@ DefineComponent( VISTA_MULTILINGUAL_TEXT_INPUT_LIST_COMPONENT, "multilingual-tex
 DefineComponent( VISTA_IMAGE_PATH_INPUT_LIST_COMPONENT, "image-path-input-list-component", [ "container-class", "result-id", "result-class", "result-name", "result-value", "result-placeholder", "is-readonly", "value-container-class", "value-class", "drag-button-class", "add-button-class", "remove-button-class", "image-class", "error-image-path", "upload-button-class", "upload-api-url", "delete-button-class", "delete-api-url" ] );
 DefineComponent( VISTA_VIDEO_PATH_INPUT_LIST_COMPONENT, "video-path-input-list-component", [ "container-class", "result-id", "result-class", "result-name", "result-value", "result-placeholder", "is-readonly", "value-container-class", "value-class", "drag-button-class", "add-button-class", "remove-button-class", "video-class", "error-video-path", "upload-button-class", "upload-api-url", "delete-button-class", "delete-api-url" ] );
 DefineComponent( VISTA_DOCUMENT_PATH_INPUT_LIST_COMPONENT, "document-path-input-list-component", [ "container-class", "result-id", "result-class", "result-name", "result-value", "result-placeholder", "is-readonly", "value-container-class", "value-class", "drag-button-class", "add-button-class", "remove-button-class", "upload-button-class", "upload-api-url", "delete-button-class", "delete-api-url" ] );
-DefineComponent( VISTA_DROPDOWN_LIST_COMPONENT, "dropdown-list-component", [ "container-class", "result-id", "result-class", "result-name", "result-value", "result-placeholder", "is-readonly", "is-optional", "option-values", "option-names", "value-container-class", "value-class", "drag-button-class", "add-button-class", "remove-button-class" ] );
+DefineComponent( VISTA_DROPDOWN_LIST_COMPONENT, "dropdown-list-component", [ "container-class", "result-id", "result-class", "result-name", "result-value", "is-readonly", "is-optional", "null-name", "null-value", "option-names", "option-values", "value-container-class", "value-class", "drag-button-class", "add-button-class", "remove-button-class" ] );
 
 DelayCall( InitializeInputs );

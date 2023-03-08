@@ -8,6 +8,7 @@ const
     RealExpression = /^-?[0-9][0-9]*\.[0-9]*$/,
     NumericExpression = /^-?[0-9][0-9]*\.?[0-9]*$/,
     SlugExpression = /^[a-z0-9]+(?:-[a-z0-9]+)*$/,
+    SnakeExpression = /^[a-z0-9]+(?:_[a-z0-9]+)*$/,
     UnitArray = [ "%", "px", "em", "rem", "vw", "vh", "vmin", "vmax" ];
 
 // -- VARIABLES
@@ -98,6 +99,15 @@ function IsSlugText(
     )
 {
     return text.match( SlugExpression );
+}
+
+// ~~
+
+function IsSnakeText(
+    text
+    )
+{
+    return text.match( SnakeExpression );
 }
 
 // ~~
