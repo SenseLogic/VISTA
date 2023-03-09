@@ -784,6 +784,16 @@ HTMLElement.prototype.GetFirstChildElement = function (
 
 // ~~
 
+HTMLElement.prototype.SubmitForm = function (
+    )
+{
+    this.GetAncestorElement( "form" ).submit();
+
+    return this;
+}
+
+// ~~
+
 HTMLElement.prototype.HasClass = function (
     class_name
     )

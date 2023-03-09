@@ -1,12 +1,4 @@
-// -- FUNCTIONS
-
-function GetUrl(
-    )
-{
-    return window.location.href;
-}
-
-// ~~
+// -- FUNCTIONS// ~~
 
 function SetPriorUrl(
     )
@@ -15,6 +7,14 @@ function SetPriorUrl(
 }
 
 // ~~
+
+function GetUrl(
+    )
+{
+    return window.location.href;
+}
+
+
 
 function SetUrl(
     url
