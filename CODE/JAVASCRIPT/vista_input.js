@@ -461,8 +461,19 @@ class VISTA_IMAGE_PATH_INPUT_COMPONENT extends VISTA_COMPONENT
         this.ResultElement.oninput = this.HandleResultInputEvent;
 
         this.ImageElement = this.GetElement( ".is-image-element" );
-        this.ImageElement.src = this.ResultValue;
+
+        if ( this.ResultValue !== '' )
+        {
+            this.ImageElement.src = this.ResultValue;
+        }
+        else
+        {
+            this.ImageElement.src = this.ErrorImagePath;
+        }
+
         this.ImageElement.onerror = this.HandleImageErrorEvent;
+
+
 
         if ( !this.IsReadonly )
         {
@@ -606,7 +617,16 @@ class VISTA_VIDEO_PATH_INPUT_COMPONENT extends VISTA_COMPONENT
         this.ResultElement.oninput = this.HandleResultInputEvent;
 
         this.VideoElement = this.GetElement( ".is-video-element" );
-        this.VideoElement.src = this.ResultValue;
+
+        if ( this.ResultValue !== '' )
+        {
+            this.VideoElement.src = this.ResultValue;
+        }
+        else
+        {
+            this.VideoElement.src = this.ErrorVideoPath;
+        }
+
         this.VideoElement.onerror = this.HandleVideoErrorEvent;
 
         if ( !this.IsReadonly )
@@ -942,7 +962,6 @@ class VISTA_LIST_COMPONENT extends VISTA_COMPONENT
 
                 this.DragValueIndex = -1;
                 this.SetChanged();
-                this.EmitEvent( "result-value-changed" );
             }
         }
 
@@ -956,7 +975,17 @@ class VISTA_LIST_COMPONENT extends VISTA_COMPONENT
         )
     {
         this.UpdateResultValue();
-        this.EmitEvent( "result-value-changed" );
+    }
+
+    // ~~
+
+    HandleResultValueChangedEvent(
+        event
+        )
+    {
+        this.UpdateResultValue();
+
+        this.SetChanged();
     }
 
     // ~~
@@ -971,7 +1000,6 @@ class VISTA_LIST_COMPONENT extends VISTA_COMPONENT
         this.ResultValue = this.value;
 
         this.SetChanged();
-        this.EmitEvent( "result-value-changed" );
     }
 
     // ~~
@@ -986,7 +1014,6 @@ class VISTA_LIST_COMPONENT extends VISTA_COMPONENT
         this.ResultValue = this.value;
 
         this.SetChanged();
-        this.EmitEvent( "result-value-changed" );
     }
 
     // ~~
@@ -1016,8 +1043,10 @@ class VISTA_LIST_COMPONENT extends VISTA_COMPONENT
         this.BindMethod( "HandleValueContainerDragLeaveEvent" );
         this.BindMethod( "HandleValueContainerDropEvent" );
         this.BindMethod( "HandleValueInputEvent" );
+        this.BindMethod( "HandleResultValueChangedEvent" );
         this.BindMethod( "HandleAddButtonClickEvent" );
         this.BindMethod( "HandleRemoveButtonClickEvent" );
+        this.BindEvent( this, "result-value-changed", this.HandleResultValueChangedEvent );
 
         this.value = this.ResultValue;
         this.ValueArray = GetJsonObject( this.ResultValue );
@@ -1082,7 +1111,7 @@ class VISTA_INPUT_LIST_COMPONENT extends VISTA_LIST_COMPONENT
                 <input id="<:# this.ResultId :>" class="<:# this.ResultClass :> is-result-element" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden/>
                 <: for ( var value_index = 0; value_index < this.ValueArray.length; ++value_index ) { :>
                     <div class="<:# this.ValueContainerClass :> is-value-container-element" data-value-index="<:# value_index :>" draggable="true">
-                        <input-component class="is-value-element" container-class="<:# this.ContainerClass :>" result-class="<:# this.ValueClass :>" <:# this.IsReadonly ? "is-readonly" : "" :>></input-component>
+                        <input-component class="<:# this.ValueClass :> is-value-element" container-class="<:# this.ContainerClass :>" result-class="<:# this.ResultClass :>" <:# this.IsReadonly ? "is-readonly" : "" :>></input-component>
                         <: if ( !this.IsReadonly ) { :>
                             <div class="<:# this.DragButtonClass :> is-drag-button-element data-value-index="<:# value_index + 1 :>">
                             </div>
@@ -1120,7 +1149,7 @@ class VISTA_TEXT_INPUT_LIST_COMPONENT extends VISTA_LIST_COMPONENT
                 <textarea id="<:# this.ResultId :>" class="<:# this.ResultClass :> is-result-element" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden></textarea>
                 <: for ( var value_index = 0; value_index < this.ValueArray.length; ++value_index ) { :>
                     <div class="<:# this.ValueContainerClass :> is-value-container-element" data-value-index="<:# value_index :>" draggable="true">
-                        <text-input-component class="is-value-element" container-class="<:# this.ContainerClass :>" result-class="<:# this.ValueClass :>" <:# this.IsReadonly ? "is-readonly" : "" :>></text-input-component>
+                        <text-input-component class="<:# this.ValueClass :> is-value-element" container-class="<:# this.ContainerClass :>" result-class="<:# this.ResultClass :>" <:# this.IsReadonly ? "is-readonly" : "" :>></text-input-component>
                         <: if ( !this.IsReadonly ) { :>
                             <div class="<:# this.DragButtonClass :> is-drag-button-element data-value-index="<:# value_index + 1 :>">
                             </div>
@@ -1161,7 +1190,7 @@ class VISTA_MULTILINGUAL_INPUT_LIST_COMPONENT extends VISTA_LIST_COMPONENT
                 <input id="<:# this.ResultId :>" class="<:# this.ResultClass :> is-result-element" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden/>
                 <: for ( var value_index = 0; value_index < this.ValueArray.length; ++value_index ) { :>
                     <div class="<:# this.ValueContainerClass :> is-value-container-element" data-value-index="<:# value_index :>" draggable="true">
-                        <multilingual-input-component class="is-value-element" container-class="<:# this.ContainerClass :>" result-class="<:# this.ValueClass :>" <:# this.IsReadonly ? "is-readonly" : "" :> language-codes="<:% this.LanguageCodes :>" language-names="<:% this.LanguageNames :>"></multilingual-input-component>
+                        <multilingual-input-component class="<:# this.ValueClass :> is-value-element" container-class="<:# this.ContainerClass :>" result-class="<:# this.ResultClass :>" <:# this.IsReadonly ? "is-readonly" : "" :> language-codes="<:% this.LanguageCodes :>" language-names="<:% this.LanguageNames :>"></multilingual-input-component>
                         <: if ( !this.IsReadonly ) { :>
                             <div class="<:# this.DragButtonClass :> is-drag-button-element data-value-index="<:# value_index + 1 :>">
                             </div>
@@ -1202,7 +1231,7 @@ class VISTA_MULTILINGUAL_TEXT_INPUT_LIST_COMPONENT extends VISTA_LIST_COMPONENT
                 <textarea id="<:# this.ResultId :>" class="<:# this.ResultClass :> is-result-element" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden></textarea>
                 <: for ( var value_index = 0; value_index < this.ValueArray.length; ++value_index ) { :>
                     <div class="<:# this.ValueContainerClass :> is-value-container-element" data-value-index="<:# value_index :>" draggable="true">
-                        <multilingual-text-input-component class="is-value-element" container-class="<:# this.ContainerClass :>" result-class="<:# this.ValueClass :>" <:# this.IsReadonly ? "is-readonly" : "" :> language-codes="<:% this.LanguageCodes :>" language-names="<:% this.LanguageNames :>"></multilingual-text-input-component>
+                        <multilingual-text-input-component class="<:# this.ValueClass :> is-value-element" container-class="<:# this.ContainerClass :>" result-class="<:# this.ResultClass :>" <:# this.IsReadonly ? "is-readonly" : "" :> language-codes="<:% this.LanguageCodes :>" language-names="<:% this.LanguageNames :>"></multilingual-text-input-component>
                         <: if ( !this.IsReadonly ) { :>
                             <div class="<:# this.DragButtonClass :> is-drag-button-element data-value-index="<:# value_index + 1 :>">
                             </div>
@@ -1247,7 +1276,7 @@ class VISTA_IMAGE_PATH_INPUT_LIST_COMPONENT extends VISTA_LIST_COMPONENT
                 <input id="<:# this.ResultId :>" class="<:# this.ResultClass :> is-result-element" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden/>
                 <: for ( var value_index = 0; value_index < this.ValueArray.length; ++value_index ) { :>
                     <div class="<:# this.ValueContainerClass :> is-value-container-element" data-value-index="<:# value_index :>" draggable="true">
-                        <image-path-input-component class="is-value-element" container-class="<:# this.ContainerClass :>" result-class="<:# this.ValueClass :>" <:# this.IsReadonly ? "is-readonly" : "" :> image-class="<:% this.ImageClass :>" error-image-path="<:% this.ErrorImagePath :>" upload-button-class="<:% this.UploadButtonClass :>" upload-api-url="<:% this.UploadApiUrl :>" delete-button-class="<:% this.DeleteButtonClass :>" delete-api-url="<:% this.DeleteApiUrl :>" ></image-path-input-component>
+                        <image-path-input-component class="<:# this.ValueClass :> is-value-element" container-class="<:# this.ContainerClass :>" result-class="<:# this.ResultClass :>" <:# this.IsReadonly ? "is-readonly" : "" :> image-class="<:% this.ImageClass :>" error-image-path="<:% this.ErrorImagePath :>" upload-button-class="<:% this.UploadButtonClass :>" upload-api-url="<:% this.UploadApiUrl :>" delete-button-class="<:% this.DeleteButtonClass :>" delete-api-url="<:% this.DeleteApiUrl :>" ></image-path-input-component>
                         <: if ( !this.IsReadonly ) { :>
                             <div class="<:# this.DragButtonClass :> is-drag-button-element data-value-index="<:# value_index + 1 :>">
                             </div>
@@ -1292,7 +1321,7 @@ class VISTA_VIDEO_PATH_INPUT_LIST_COMPONENT extends VISTA_LIST_COMPONENT
                 <input id="<:# this.ResultId :>" class="<:# this.ResultClass :> is-result-element" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden/>
                 <: for ( var value_index = 0; value_index < this.ValueArray.length; ++value_index ) { :>
                     <div class="<:# this.ValueContainerClass :> is-value-container-element" data-value-index="<:# value_index :>" draggable="true">
-                        <video-path-input-component class="is-value-element" container-class="<:# this.ContainerClass :>" result-class="<:# this.ValueClass :>" <:# this.IsReadonly ? "is-readonly" : "" :> video-class="<:% this.VideoClass :>" error-video-path="<:% this.ErrorVideoPath :>" upload-button-class="<:% this.UploadButtonClass :>" upload-api-url="<:% this.UploadApiUrl :>" delete-button-class="<:% this.DeleteButtonClass :>" delete-api-url="<:% this.DeleteApiUrl :>" ></video-path-input-component>
+                        <video-path-input-component class="<:# this.ValueClass :> is-value-element" container-class="<:# this.ContainerClass :>" result-class="<:# this.ResultClass :>" <:# this.IsReadonly ? "is-readonly" : "" :> video-class="<:% this.VideoClass :>" error-video-path="<:% this.ErrorVideoPath :>" upload-button-class="<:% this.UploadButtonClass :>" upload-api-url="<:% this.UploadApiUrl :>" delete-button-class="<:% this.DeleteButtonClass :>" delete-api-url="<:% this.DeleteApiUrl :>" ></video-path-input-component>
                         <: if ( !this.IsReadonly ) { :>
                             <div class="<:# this.DragButtonClass :> is-drag-button-element data-value-index="<:# value_index + 1 :>">
                             </div>
@@ -1335,7 +1364,7 @@ class VISTA_DOCUMENT_PATH_INPUT_LIST_COMPONENT extends VISTA_LIST_COMPONENT
                 <input id="<:# this.ResultId :>" class="<:# this.ResultClass :> is-result-element" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden/>
                 <: for ( var value_index = 0; value_index < this.ValueArray.length; ++value_index ) { :>
                     <div class="<:# this.ValueContainerClass :> is-value-container-element" data-value-index="<:# value_index :>" draggable="true">
-                        <document-path-input-component class="is-value-element" container-class="<:# this.ContainerClass :>" result-class="<:# this.ValueClass :>" <:# this.IsReadonly ? "is-readonly" : "" :> upload-button-class="<:% this.UploadButtonClass :>" upload-api-url="<:% this.UploadApiUrl :>" delete-button-class="<:% this.DeleteButtonClass :>" delete-api-url="<:% this.DeleteApiUrl :>" ></document-path-input-component>
+                        <document-path-input-component class="<:# this.ValueClass :> is-value-element" container-class="<:# this.ContainerClass :>" result-class="<:# this.ResultClass :>" <:# this.IsReadonly ? "is-readonly" : "" :> upload-button-class="<:% this.UploadButtonClass :>" upload-api-url="<:% this.UploadApiUrl :>" delete-button-class="<:% this.DeleteButtonClass :>" delete-api-url="<:% this.DeleteApiUrl :>" ></document-path-input-component>
                         <: if ( !this.IsReadonly ) { :>
                             <div class="<:# this.DragButtonClass :> is-drag-button-element data-value-index="<:# value_index + 1 :>">
                             </div>
@@ -1377,7 +1406,7 @@ class VISTA_DROPDOWN_LIST_COMPONENT extends VISTA_LIST_COMPONENT
                 <input id="<:# this.ResultId :>" class="<:# this.ResultClass :> is-result-element" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden/>
                 <: for ( var value_index = 0; value_index < this.ValueArray.length; ++value_index ) { :>
                     <div class="<:# this.ValueContainerClass :> is-value-container-element" data-value-index="<:# value_index :>" draggable="true">
-                        <dropdown-component class="is-value-element" container-class="<:# this.ContainerClass :>" result-class="<:# this.ValueClass :>" result-placeholder="<:# this.ResultPlaceholder :>" <:# this.IsReadonly ? "is-readonly" : "" :> <:# this.IsOptional ? "is-readonly" : "" :> option-values="<:% this.OptionValues :>" option-names="<:% this.OptionNames :>"></dropdown-component>
+                        <dropdown-component class="<:# this.ValueClass :> is-value-element" container-class="<:# this.ContainerClass :>" result-class="<:# this.ResultClass :>" result-placeholder="<:# this.ResultPlaceholder :>" <:# this.IsReadonly ? "is-readonly" : "" :> <:# this.IsOptional ? "is-readonly" : "" :> option-values="<:% this.OptionValues :>" option-names="<:% this.OptionNames :>"></dropdown-component>
                         <: if ( !this.IsReadonly ) { :>
                             <div class="<:# this.DragButtonClass :> is-drag-button-element data-value-index="<:# value_index + 1 :>">
                             </div>
