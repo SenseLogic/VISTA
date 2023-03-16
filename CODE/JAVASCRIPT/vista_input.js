@@ -125,7 +125,7 @@ class VISTA_TEXT_INPUT_COMPONENT extends VISTA_COMPONENT
         this.SetTemplate(
             Text`
             <div class="<:# this.ContainerClass :>">
-                <textarea id="<:# this.ResultId :>" class="<:# this.ResultClass :> is-result-element" name="<:# this.ResultName :>" value="<:% this.ResultValue >" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :>></textarea>
+                <textarea id="<:# this.ResultId :>" class="<:# this.ResultClass :> is-result-element" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :>><:% this.ResultValue :></textarea>
             </div>
             `
             );
@@ -235,10 +235,10 @@ class VISTA_MULTILINGUAL_INPUT_COMPONENT extends VISTA_COMPONENT
         this.BindMethod( "HandleTranslationChangeEvent" );
 
         this.value = this.ResultValue;
+
         this.LanguageCodeArray = GetJsonObject( this.LanguageCodes );
         this.LanguageNameArray = GetJsonObject( this.LanguageNames );
         this.TranslationArray = this.ResultValue.GetTranslatedTextArray( this.LanguageCodeArray );
-
         this.MaintainsState = true;
 
         this.SetTemplate(
@@ -368,10 +368,10 @@ class VISTA_MULTILINGUAL_TEXT_INPUT_COMPONENT extends VISTA_COMPONENT
         this.BindMethod( "HandleTranslationChangeEvent" );
 
         this.value = this.ResultValue;
+
         this.LanguageCodeArray = GetJsonObject( this.LanguageCodes );
         this.LanguageNameArray = GetJsonObject( this.LanguageNames );
         this.TranslationArray = this.ResultValue.GetTranslatedTextArray( this.LanguageCodeArray );
-
         this.MaintainsState = true;
 
         this.SetTemplate(
@@ -983,15 +983,13 @@ class VISTA_DROPDOWN_COMPONENT extends VISTA_COMPONENT
         this.BindMethod( "HandleResultChangeEvent" );
 
         this.value = this.ResultValue;
+
         this.OptionValueArray = GetJsonObject( this.OptionValues );
         this.OptionNameArray = GetJsonObject( this.OptionNames );
-
         this.HasValidValue
             = ( ( this.OptionValueArray.indexOf( this.ResultValue ) >= 0 )
                 || ( this.IsOptional
                      && this.ResultValue === this.NullValue ) );
-
-
         this.MaintainsState = true;
 
         this.SetTemplate(
@@ -1240,6 +1238,7 @@ class VISTA_LIST_COMPONENT extends VISTA_COMPONENT
         this.BindEvent( this, "result-value-changed", this.HandleResultValueChangedEvent );
 
         this.value = this.ResultValue;
+
         this.ValueArray = GetJsonObject( this.ResultValue );
         this.DragValueIndex = -1;
     }

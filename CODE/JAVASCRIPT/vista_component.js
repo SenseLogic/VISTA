@@ -79,7 +79,16 @@ class VISTA_COMPONENT extends HTMLElement
     GetContent(
         )
     {
-        return this.TemplateFunction();
+        try
+        {
+            return this.TemplateFunction();
+        }
+        catch ( error )
+        {
+            PrintError( error, this.TemplateFunction );
+
+            return "";
+        }
     }
 
     // ~~
