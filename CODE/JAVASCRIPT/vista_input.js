@@ -10,6 +10,7 @@ class VISTA_INPUT_COMPONENT extends VISTA_COMPONENT
     {
         this.value = this.ResultElement.value;
         this.ResultValue = this.value;
+        this.EmitEvent( "value-changed" );
 
         event.Cancel();
 
@@ -22,7 +23,8 @@ class VISTA_INPUT_COMPONENT extends VISTA_COMPONENT
         event
         )
     {
-        this.EmitEvent( "result-value-changed" );
+        this.EmitEvent( "value-changed" );
+        this.EmitEvent( "sub-value-changed" );
 
         event.Cancel();
 
@@ -95,7 +97,8 @@ class VISTA_TEXT_INPUT_COMPONENT extends VISTA_COMPONENT
         event
         )
     {
-        this.EmitEvent( "result-value-changed" );
+        this.EmitEvent( "value-changed" );
+        this.EmitEvent( "sub-value-changed" );
 
         event.Cancel();
 
@@ -186,8 +189,8 @@ class VISTA_MULTILINGUAL_INPUT_COMPONENT extends VISTA_COMPONENT
 
         this.value = this.TranslationArray.GetMultilingualText( this.LanguageCodeArray );
         this.ResultValue = this.value;
-
         this.ResultElement.value = this.ResultValue;
+        this.EmitEvent( "value-changed" );
     }
 
     // ~~
@@ -209,7 +212,8 @@ class VISTA_MULTILINGUAL_INPUT_COMPONENT extends VISTA_COMPONENT
         event
         )
     {
-        this.EmitEvent( "result-value-changed" );
+        this.EmitEvent( "value-changed" );
+        this.EmitEvent( "sub-value-changed" );
 
         event.Cancel();
 
@@ -318,9 +322,9 @@ class VISTA_MULTILINGUAL_TEXT_INPUT_COMPONENT extends VISTA_COMPONENT
 
         this.value = this.TranslationArray.GetMultilingualText( this.LanguageCodeArray );
         this.ResultValue = this.value;
-
         this.ResultElement.value = this.ResultValue;
         this.ResultElement.SetContentHeight();
+        this.EmitEvent( "value-changed" );
     }
 
     // ~~
@@ -342,7 +346,8 @@ class VISTA_MULTILINGUAL_TEXT_INPUT_COMPONENT extends VISTA_COMPONENT
         event
         )
     {
-        this.EmitEvent( "result-value-changed" );
+        this.EmitEvent( "value-changed" );
+        this.EmitEvent( "sub-value-changed" );
 
         event.Cancel();
 
@@ -421,6 +426,7 @@ class VISTA_IMAGE_PATH_INPUT_COMPONENT extends VISTA_COMPONENT
         this.value = this.ResultElement.value;
         this.ResultValue = this.value;
         this.ImageElement.src = this.ResultValue;
+        this.EmitEvent( "value-changed" );
 
         event.Cancel();
 
@@ -433,7 +439,8 @@ class VISTA_IMAGE_PATH_INPUT_COMPONENT extends VISTA_COMPONENT
         event
         )
     {
-        this.EmitEvent( "result-value-changed" );
+        this.EmitEvent( "value-changed" );
+        this.EmitEvent( "sub-value-changed" );
 
         event.Cancel();
 
@@ -470,7 +477,8 @@ class VISTA_IMAGE_PATH_INPUT_COMPONENT extends VISTA_COMPONENT
 
                 this.ResultElement.value = this.ResultValue;
                 this.ImageElement.src = this.ResultValue;
-                this.EmitEvent( "result-value-changed" );
+                this.EmitEvent( "value-changed" );
+                this.EmitEvent( "sub-value-changed" );
             }
         }
     }
@@ -498,7 +506,8 @@ class VISTA_IMAGE_PATH_INPUT_COMPONENT extends VISTA_COMPONENT
 
             this.ResultElement.value = "";
             this.ImageElement.src = "";
-            this.EmitEvent( "result-value-changed" );
+            this.EmitEvent( "value-changed" );
+            this.EmitEvent( "sub-value-changed" );
         }
     }
 
@@ -596,6 +605,7 @@ class VISTA_VIDEO_PATH_INPUT_COMPONENT extends VISTA_COMPONENT
         this.value = this.ResultElement.value;
         this.ResultValue = this.value;
         this.VideoElement.src = this.ResultValue;
+        this.EmitEvent( "value-changed" );
 
         event.Cancel();
 
@@ -608,7 +618,8 @@ class VISTA_VIDEO_PATH_INPUT_COMPONENT extends VISTA_COMPONENT
         event
         )
     {
-        this.EmitEvent( "result-value-changed" );
+        this.EmitEvent( "value-changed" );
+        this.EmitEvent( "sub-value-changed" );
 
         event.Cancel();
 
@@ -645,7 +656,8 @@ class VISTA_VIDEO_PATH_INPUT_COMPONENT extends VISTA_COMPONENT
 
                 this.ResultElement.value = this.ResultValue;
                 this.VideoElement.src = this.ResultValue;
-                this.EmitEvent( "result-value-changed" );
+                this.EmitEvent( "value-changed" );
+                this.EmitEvent( "sub-value-changed" );
             }
         }
     }
@@ -673,7 +685,8 @@ class VISTA_VIDEO_PATH_INPUT_COMPONENT extends VISTA_COMPONENT
 
             this.ResultElement.value = "";
             this.VideoElement.src = "";
-            this.EmitEvent( "result-value-changed" );
+            this.EmitEvent( "value-changed" );
+            this.EmitEvent( "sub-value-changed" );
         }
     }
 
@@ -780,6 +793,8 @@ class VISTA_DOCUMENT_PATH_INPUT_COMPONENT extends VISTA_COMPONENT
             this.ImageElement.src = this.ErrorImagePath;
         }
 
+        this.EmitEvent( "value-changed" );
+
         event.Cancel();
 
         return false;
@@ -791,7 +806,8 @@ class VISTA_DOCUMENT_PATH_INPUT_COMPONENT extends VISTA_COMPONENT
         event
         )
     {
-        this.EmitEvent( "result-value-changed" );
+        this.EmitEvent( "value-changed" );
+        this.EmitEvent( "sub-value-changed" );
 
         event.Cancel();
 
@@ -820,7 +836,8 @@ class VISTA_DOCUMENT_PATH_INPUT_COMPONENT extends VISTA_COMPONENT
 
                 this.ResultElement.value = this.ResultValue;
                 this.ImageElement.src = this.DocumentImagePath;
-                this.EmitEvent( "result-value-changed" );
+                this.EmitEvent( "value-changed" );
+                this.EmitEvent( "sub-value-changed" );
             }
         }
     }
@@ -848,7 +865,8 @@ class VISTA_DOCUMENT_PATH_INPUT_COMPONENT extends VISTA_COMPONENT
 
             this.ResultElement.value = "";
             this.ImageElement.src = this.ErrorImagePath;
-            this.EmitEvent( "result-value-changed" );
+            this.EmitEvent( "value-changed" );
+            this.EmitEvent( "sub-value-changed" );
         }
     }
 
@@ -943,6 +961,7 @@ class VISTA_DROPDOWN_COMPONENT extends VISTA_COMPONENT
     {
         this.value = this.ResultElement.value;
         this.ResultValue = this.value;
+        this.EmitEvent( "value-changed" );
 
         event.Cancel();
 
@@ -955,7 +974,8 @@ class VISTA_DROPDOWN_COMPONENT extends VISTA_COMPONENT
         event
         )
     {
-        this.EmitEvent( "result-value-changed" );
+        this.EmitEvent( "value-changed" );
+        this.EmitEvent( "sub-value-changed" );
 
         event.Cancel();
 
@@ -1060,8 +1080,8 @@ class VISTA_LIST_COMPONENT extends VISTA_COMPONENT
 
         this.value = GetJsonText( this.ValueArray );
         this.ResultValue = this.value;
-
         this.ResultElement.value = this.ResultValue;
+        this.EmitEvent( "value-changed" );
     }
 
     // ~~
@@ -1167,7 +1187,7 @@ class VISTA_LIST_COMPONENT extends VISTA_COMPONENT
 
     // ~~
 
-    HandleResultValueChangedEvent(
+    HandleSubValueChangedEvent(
         event
         )
     {
@@ -1232,10 +1252,10 @@ class VISTA_LIST_COMPONENT extends VISTA_COMPONENT
         this.BindMethod( "HandleValueContainerDropEvent" );
         this.BindMethod( "HandleValueInputEvent" );
         this.BindMethod( "HandleValueChangeEvent" );
-        this.BindMethod( "HandleResultValueChangedEvent" );
+        this.BindMethod( "HandleSubValueChangedEvent" );
         this.BindMethod( "HandleAddButtonClickEvent" );
         this.BindMethod( "HandleRemoveButtonClickEvent" );
-        this.BindEvent( this, "result-value-changed", this.HandleResultValueChangedEvent );
+        this.BindEvent( this, "sub-value-changed", this.HandleSubValueChangedEvent );
 
         this.value = this.ResultValue;
 

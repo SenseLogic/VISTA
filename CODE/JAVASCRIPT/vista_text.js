@@ -365,3 +365,29 @@ String.prototype.GetSurroundingText = function (
 
     return surrounding_text;
 }
+
+// ~~
+
+String.prototype.FindCharacterIndexes = function (
+    searched_text
+    )
+{
+    var
+        searched_text_character_index,
+        searched_text_character_index_array;
+
+    searched_text_character_index_array = [];
+
+    if ( searched_text !== "" )
+    {
+        let searched_text_character_index = this.indexOf( searched_text );
+
+        while ( searched_text_character_index !== -1 )
+        {
+            searched_text_character_index_array.push( searched_text_character_index );
+            searched_text_character_index = this.indexOf( searched_text, searched_text_character_index + searched_text.length );
+        }
+    }
+
+    return searched_text_character_index_array;
+}
