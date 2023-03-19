@@ -1,0 +1,172 @@
+.form-component .is-translation + .is-translation,
+{
+    margin-top: 0.25rem;
+}
+
+.form-component .is-input,
+.form-component .is-select
+{
+    min-height: 2rem;
+    width: 100%;
+    border: 1 * Pxm solid BorderColor;
+    border-radius: 0.25rem;
+    padding: 0.25rem;
+
+    display: block;
+
+    background-color: WhiteColor;
+}
+
+.form-component .is-textarea
+{
+    overflow: hidden;
+    height: 2.25rem;
+    min-height: 2.25rem;
+    width: 100%;
+    border: 1 * Pxm solid BorderColor;
+    border-radius: 0.25rem;
+    padding: 0.25rem;
+
+    display: block;
+}
+
+.form-component .is-input:not([hidden]) + .is-input:not([hidden]),
+.form-component .is-textarea:not([hidden]) + .is-textarea:not([hidden])
+{
+    margin-top: 0.5rem;
+}
+
+.form-component .is-upload-container
+{
+    display: grid;
+    grid-template-rows: auto auto;
+    grid-template-columns: auto auto auto 1fr;
+    grid-template-areas : \
+        "input input input input" \
+        "preview upload-button delete-button .";
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.form-component .is-upload-container.is-readonly
+{
+    gap: 0;
+}
+
+.form-component .is-upload-input
+{
+    grid-area: input;
+}
+
+.form-component .is-upload-image,
+.form-component .is-upload-video
+{
+    height: 12.5rem;
+    width: auto;
+    max-width: 50vw;
+    border-radius: 0.25rem;
+
+    grid-area: preview;
+}
+
+.form-component .is-upload-button
+{
+    grid-area: upload-button;
+    background: url( "/static/image/admin/upload_icon.svg" ) no-repeat center center / contain;
+}
+
+.form-component .is-upload-file
+{
+    overflow: hidden;
+    height: 0;
+    width: 0;
+}
+
+.form-component .is-delete-button
+{
+    grid-area: delete-button;
+    background: url( "/static/image/admin/delete_icon.svg" ) no-repeat center center / contain;
+}
+
+.form-component .is-upload-button + .is-delete-button
+{
+    margin-left: 0;
+}
+
+.form-component .is-multilingual-container
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.form-component .is-list-container
+{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-component .is-list-container.is-readonly
+{
+    gap: 0;
+}
+
+.form-component .is-value-container
+{
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: 1fr auto auto auto;
+    grid-template-areas: \
+        "list-value drag-button add-button remove-button";
+    gap: 0.5rem;
+}
+
+.form-component .is-list-container.is-readonly .is-value-container
+{
+    gap: 0;
+}
+
+.form-component .is-value
+{
+    grid-area: list-value;
+}
+
+
+.form-component .is-button
+{
+    height: 1.2rem;
+    width: 1.2rem;
+    border: none;
+
+    display: inline-block;
+
+    cursor: pointer;
+}
+
+.form-component .is-button + .is-button
+{
+    margin-left: 0.25rem;
+}
+
+.form-component .is-drag-button
+{
+    grid-area: drag-button;
+    background: url( "/static/image/admin/drag_icon.svg" ) no-repeat center center / contain;
+}
+
+.form-component .is-add-button
+{
+    grid-area: add-button;
+    background: url( "/static/image/admin/add_icon.svg" ) no-repeat center center / contain;
+}
+
+.form-component .is-remove-button
+{
+    grid-area: remove-button;
+    background: url( "/static/image/admin/remove_icon.svg" ) no-repeat center center / contain;
+}
+
+.form-component .is-add-button + .is-remove-button
+{
+    margin-left: 0;
+}
