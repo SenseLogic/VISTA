@@ -23,7 +23,6 @@ class VISTA_COMPONENT extends HTMLElement
         this.TemplateConstantMap.SetValue( "scope", this.Scope );
         this.TemplateFunction = undefined;
         this.IsLateUpdated = false;
-        this.MaintainsState = false;
 
         VISTA_COMPONENT.prototype.GetWatcherIndex = VISTA_DATA.prototype.GetWatcherIndex;
         VISTA_COMPONENT.prototype.AddWatcher = VISTA_DATA.prototype.AddWatcher;
@@ -627,79 +626,6 @@ class VISTA_COMPONENT extends HTMLElement
 
     // ~~
 
-    StoreInputState(
-        new_element,
-        old_element
-        )
-    {
-        var
-            child_element_index;
-
-        if ( new_element.tagName === old_element.tagName )
-        {
-            if ( old_element === document.activeElement )
-            {
-                new_element.HasFocus = true;
-            }
-
-            if ( new_element.children.length === old_element.children.length )
-            {
-                for ( child_element_index = 0;
-                      child_element_index < new_element.children.length;
-                      ++child_element_index )
-                {
-                    this.StoreInputState(
-                        new_element.children[ child_element_index ],
-                        old_element.children[ child_element_index ]
-                        );
-                }
-            }
-        }
-    }
-
-    // ~~
-
-    CopyInputState(
-        new_element,
-        old_element
-        )
-    {
-        var
-            child_element_index;
-
-        if ( new_element.tagName === old_element.tagName )
-        {
-            if ( old_element.HasFocus === true )
-            {
-                new_element.focus();
-                new_element.HasFocus = false;
-                old_element.HasFocus = false;
-            }
-
-            if ( new_element.tagName === 'input'
-                 || new_element.tagName === 'textarea'
-                 || new_element.tagName === 'select' )
-            {
-                new_element.value = old_element.value;
-            }
-
-            if ( new_element.children.length === old_element.children.length )
-            {
-                for ( child_element_index = 0;
-                      child_element_index < new_element.children.length;
-                      ++child_element_index )
-                {
-                    this.CopyInputState(
-                        new_element.children[ child_element_index ],
-                        old_element.children[ child_element_index ]
-                        );
-                }
-            }
-        }
-    }
-
-    // ~~
-
     UpdateContent(
         content = undefined
         )
@@ -712,18 +638,7 @@ class VISTA_COMPONENT extends HTMLElement
              content = this.GetContent();
         }
 
-        if ( this.MaintainsState )
-        {
-            root_element = this.RootElement.cloneNode( true );
-            this.StoreInputState( root_element, this.RootElement );
-            this.RootElement.innerHTML = content;
-            this.CopyInputState( this.RootElement, root_element );
-        }
-        else
-        {
-            this.RootElement.innerHTML = content;
-        }
-
+        this.RootElement.innerHTML = content;
         this.SetUpdated();
     }
 

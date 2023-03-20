@@ -4,28 +4,42 @@ class VISTA_INPUT_COMPONENT extends VISTA_COMPONENT
 {
     // -- OPERATIONS
 
-    HandleResultInputEvent(
-        event
+    UpdateView(
         )
     {
-        this.value = this.ResultElement.value;
-        this.ResultValue = this.value;
-        this.EmitEvent( "value-changed" );
-
-        event.Cancel();
-
-        return false;
+        this.ResultElement.value = this.ResultValue;
     }
 
     // ~~
 
-    HandleResultChangeEvent(
+    SetValue(
+        value
+        )
+    {
+        this.ResultValue = value;
+        this.value = value;
+        this.UpdateView();
+    }
+
+    // ~~
+
+    UpdateValue(
+        )
+    {
+        this.ResultValue = this.ResultElement.value;
+        this.value = this.ResultValue;
+    }
+
+    // ~~
+
+    HandleResultInputEvent(
         event
         )
     {
+        this.UpdateValue();
+
         this.EmitEvent( "value-changed" );
         this.EmitEvent( "sub-value-changed" );
-
         event.Cancel();
 
         return false;
@@ -43,11 +57,6 @@ class VISTA_INPUT_COMPONENT extends VISTA_COMPONENT
         this.BindProperty( "ResultPlaceholder", "result-placeholder", "" );
         this.BindProperty( "IsReadonly", "is-readonly", false );
         this.BindMethod( "HandleResultInputEvent" );
-        this.BindMethod( "HandleResultChangeEvent" );
-
-        this.value = this.ResultValue;
-
-        this.MaintainsState = true;
 
         this.SetTemplate(
             Text`
@@ -64,9 +73,9 @@ class VISTA_INPUT_COMPONENT extends VISTA_COMPONENT
         )
     {
         this.ResultElement = this.GetElement( ".is-result" );
-        this.ResultElement.value = this.ResultValue;
+
+        this.UpdateView();
         this.ResultElement.oninput = this.HandleResultInputEvent;
-        this.ResultElement.onchange = this.HandleResultChangeEvent;
     }
 }
 
@@ -76,28 +85,44 @@ class VISTA_TEXT_INPUT_COMPONENT extends VISTA_COMPONENT
 {
     // -- OPERATIONS
 
-    HandleResultInputEvent(
-        event
+    UpdateView(
         )
     {
-        this.value = this.ResultElement.value;
-        this.ResultValue = this.value;
+        this.ResultElement.value = this.ResultValue;
         this.ResultElement.SetContentHeight();
-
-        event.Cancel();
-
-        return false;
     }
 
     // ~~
 
-    HandleResultChangeEvent(
+    SetValue(
+        value
+        )
+    {
+        this.ResultValue = value;
+        this.value = value;
+        this.UpdateView();
+    }
+
+    // ~~
+
+    UpdateValue(
+        )
+    {
+        this.ResultValue = this.ResultElement.value;
+        this.value = this.ResultValue;
+    }
+
+    // ~~
+
+    HandleResultInputEvent(
         event
         )
     {
+        event.currentTarget.SetContentHeight();
+        this.UpdateValue();
+
         this.EmitEvent( "value-changed" );
         this.EmitEvent( "sub-value-changed" );
-
         event.Cancel();
 
         return false;
@@ -115,11 +140,6 @@ class VISTA_TEXT_INPUT_COMPONENT extends VISTA_COMPONENT
         this.BindProperty( "ResultPlaceholder", "result-placeholder", "" );
         this.BindProperty( "IsReadonly", "is-readonly", false );
         this.BindMethod( "HandleResultInputEvent" );
-        this.BindMethod( "HandleResultChangeEvent" );
-
-        this.value = this.ResultValue;
-
-        this.MaintainsState = true;
 
         this.SetTemplate(
             Text`
@@ -136,10 +156,9 @@ class VISTA_TEXT_INPUT_COMPONENT extends VISTA_COMPONENT
         )
     {
         this.ResultElement = this.GetElement( ".is-result" );
-        this.ResultElement.value = this.ResultValue;
-        this.ResultElement.SetContentHeight();
+
+        this.SetResultValue( this.ResultValue );
         this.ResultElement.oninput = this.HandleResultInputEvent;
-        this.ResultElement.onchange = this.HandleResultChangeEvent;
     }
 }
 
@@ -149,14 +168,11 @@ class VISTA_MULTILINGUAL_INPUT_COMPONENT extends VISTA_COMPONENT
 {
     // -- OPERATIONS
 
-    UpdateTranslationArray(
+    UpdateView(
         )
     {
         var
             language_code_index;
-
-        this.value = this.ResultElement.value;
-        this.ResultValue = this.value;
 
         this.TranslationArray = this.ResultValue.GetTranslatedTextArray( this.LanguageCodeArray );
 
@@ -170,7 +186,18 @@ class VISTA_MULTILINGUAL_INPUT_COMPONENT extends VISTA_COMPONENT
 
     // ~~
 
-    UpdateResultValue(
+    SetValue(
+        value
+        )
+    {
+        this.ResultValue = value;
+        this.value = value;
+        this.UpdateView();
+    }
+
+    // ~~
+
+    UpdateValue(
         )
     {
         var
@@ -183,10 +210,9 @@ class VISTA_MULTILINGUAL_INPUT_COMPONENT extends VISTA_COMPONENT
             this.TranslationArray[ language_code_index ] = this.TranslationElementArray[ language_code_index ].value;
         }
 
-        this.value = this.TranslationArray.GetMultilingualText( this.LanguageCodeArray );
-        this.ResultValue = this.value;
+        this.ResultValue = this.TranslationArray.GetMultilingualText( this.LanguageCodeArray );
+        this.value = this.ResultValue;
         this.ResultElement.value = this.ResultValue;
-        this.EmitEvent( "value-changed" );
     }
 
     // ~~
@@ -195,22 +221,10 @@ class VISTA_MULTILINGUAL_INPUT_COMPONENT extends VISTA_COMPONENT
         event
         )
     {
-        this.UpdateResultValue();
+        this.UpdateValue();
 
-        event.Cancel();
-
-        return false;
-    }
-
-    // ~~
-
-    HandleTranslationChangeEvent(
-        event
-        )
-    {
         this.EmitEvent( "value-changed" );
         this.EmitEvent( "sub-value-changed" );
-
         event.Cancel();
 
         return false;
@@ -222,7 +236,6 @@ class VISTA_MULTILINGUAL_INPUT_COMPONENT extends VISTA_COMPONENT
         )
     {
         this.BindStyle();
-
         this.BindProperty( "ResultId", "result-id", "" );
         this.BindProperty( "ResultName", "result-name", "" );
         this.BindProperty( "ResultValue", "result-value", "" );
@@ -231,15 +244,10 @@ class VISTA_MULTILINGUAL_INPUT_COMPONENT extends VISTA_COMPONENT
         this.BindProperty( "LanguageCodes", "language-codes", "[\"en\"]" );
         this.BindProperty( "LanguageNames", "language-names", "[\"English\"]" );
         this.BindMethod( "HandleTranslationInputEvent" );
-        this.BindMethod( "HandleTranslationChangeEvent" );
-
-        this.value = this.ResultValue;
 
         this.LanguageCodeArray = GetJsonObject( this.LanguageCodes );
         this.LanguageNameArray = GetJsonObject( this.LanguageNames );
         this.TranslationArray = this.ResultValue.GetTranslatedTextArray( this.LanguageCodeArray );
-        this.MaintainsState = true;
-
         this.SetTemplate(
             Text`
             <div class="is-component is-container is-multilingual-container">
@@ -261,14 +269,13 @@ class VISTA_MULTILINGUAL_INPUT_COMPONENT extends VISTA_COMPONENT
             translation_element;
 
         this.ResultElement = this.GetElement( ".is-result" );
-        this.ResultElement.value = this.ResultValue;
         this.TranslationElementArray = this.GetElements( ".is-translation" );
-        this.UpdateTranslationArray();
+
+        this.UpdateView();
 
         for ( translation_element of this.TranslationElementArray )
         {
             translation_element.oninput = this.HandleTranslationInputEvent;
-            translation_element.onchange = this.HandleTranslationChangeEvent;
         }
     }
 }
@@ -279,14 +286,11 @@ class VISTA_MULTILINGUAL_TEXT_INPUT_COMPONENT extends VISTA_COMPONENT
 {
     // -- OPERATIONS
 
-    UpdateTranslationArray(
+    UpdateView(
         )
     {
         var
             language_code_index;
-
-        this.value = this.ResultElement.value;
-        this.ResultValue = this.value;
 
         this.TranslationArray = this.ResultValue.GetTranslatedTextArray( this.LanguageCodeArray );
 
@@ -301,7 +305,18 @@ class VISTA_MULTILINGUAL_TEXT_INPUT_COMPONENT extends VISTA_COMPONENT
 
     // ~~
 
-    UpdateResultValue(
+    SetValue(
+        value
+        )
+    {
+        this.ResultValue = value;
+        this.value = value;
+        this.UpdateView();
+    }
+
+    // ~~
+
+    UpdateValue(
         )
     {
         var
@@ -312,14 +327,11 @@ class VISTA_MULTILINGUAL_TEXT_INPUT_COMPONENT extends VISTA_COMPONENT
               ++language_code_index )
         {
             this.TranslationArray[ language_code_index ] = this.TranslationElementArray[ language_code_index ].value;
-            this.TranslationElementArray[ language_code_index ].SetContentHeight();
         }
 
-        this.value = this.TranslationArray.GetMultilingualText( this.LanguageCodeArray );
-        this.ResultValue = this.value;
+        this.ResultValue = this.TranslationArray.GetMultilingualText( this.LanguageCodeArray );
+        this.value = this.ResultValue;
         this.ResultElement.value = this.ResultValue;
-        this.ResultElement.SetContentHeight();
-        this.EmitEvent( "value-changed" );
     }
 
     // ~~
@@ -328,22 +340,11 @@ class VISTA_MULTILINGUAL_TEXT_INPUT_COMPONENT extends VISTA_COMPONENT
         event
         )
     {
-        this.UpdateResultValue();
+        event.currentTarget.SetContentHeight();
+        this.UpdateValue();
 
-        event.Cancel();
-
-        return false;
-    }
-
-    // ~~
-
-    HandleTranslationChangeEvent(
-        event
-        )
-    {
         this.EmitEvent( "value-changed" );
         this.EmitEvent( "sub-value-changed" );
-
         event.Cancel();
 
         return false;
@@ -363,15 +364,10 @@ class VISTA_MULTILINGUAL_TEXT_INPUT_COMPONENT extends VISTA_COMPONENT
         this.BindProperty( "LanguageCodes", "language-codes", "[\"en\"]" );
         this.BindProperty( "LanguageNames", "language-names", "[\"English\"]" );
         this.BindMethod( "HandleTranslationInputEvent" );
-        this.BindMethod( "HandleTranslationChangeEvent" );
-
-        this.value = this.ResultValue;
 
         this.LanguageCodeArray = GetJsonObject( this.LanguageCodes );
         this.LanguageNameArray = GetJsonObject( this.LanguageNames );
         this.TranslationArray = this.ResultValue.GetTranslatedTextArray( this.LanguageCodeArray );
-        this.MaintainsState = true;
-
         this.SetTemplate(
             Text`
             <div class="is-component is-container is-multilingual-container">
@@ -393,15 +389,13 @@ class VISTA_MULTILINGUAL_TEXT_INPUT_COMPONENT extends VISTA_COMPONENT
             translation_element;
 
         this.ResultElement = this.GetElement( ".is-result" );
-        this.ResultElement.value = this.ResultValue;
-        this.ResultElement.SetContentHeight();
         this.TranslationElementArray = this.GetElements( ".is-translation" );
-        this.UpdateTranslationArray();
+
+        this.UpdateView();
 
         for ( translation_element of this.TranslationElementArray )
         {
             translation_element.oninput = this.HandleTranslationInputEvent;
-            translation_element.onchange = this.HandleTranslationChangeEvent;
         }
     }
 }
@@ -412,30 +406,43 @@ class VISTA_IMAGE_PATH_INPUT_COMPONENT extends VISTA_COMPONENT
 {
     // -- OPERATIONS
 
-    HandleResultInputEvent(
-        event
+    UpdateView(
         )
     {
-        this.value = this.ResultElement.value;
-        this.ResultValue = this.value;
-        this.ImageElement.src = this.ResultValue;
-        this.EmitEvent( "value-changed" );
+        this.ResultElement.value = this.ResultValue;
 
-        event.Cancel();
-
-        return false;
+        if ( this.ResultValue !== '' )
+        {
+            this.ImageElement.src = this.ResultValue;
+        }
+        else
+        {
+            this.ImageElement.src = this.ErrorImagePath;
+        }
     }
 
     // ~~
 
-    HandleResultChangeEvent(
+    SetValue(
+        value
+        )
+    {
+        this.ResultValue = value;
+        this.value = value;
+        this.UpdateView();
+    }
+
+    // ~~
+
+    HandleResultInputEvent(
         event
         )
     {
-        this.EmitEvent( "value-changed" );
-        this.EmitEvent( "sub-value-changed" );
+        this.SetValue( this.ResultElement.value );
 
         event.Cancel();
+        this.EmitEvent( "value-changed" );
+        this.EmitEvent( "sub-value-changed" );
 
         return false;
     }
@@ -451,6 +458,7 @@ class VISTA_IMAGE_PATH_INPUT_COMPONENT extends VISTA_COMPONENT
     // ~~
 
     async HandleFileInputChangeEvent(
+        event
         )
     {
         var
@@ -465,20 +473,21 @@ class VISTA_IMAGE_PATH_INPUT_COMPONENT extends VISTA_COMPONENT
 
             if ( request.status === 201 )
             {
-                this.value = GetJsonObject( request.response );
-                this.ResultValue = this.value;
-
-                this.ResultElement.value = this.ResultValue;
-                this.ImageElement.src = this.ResultValue;
+                this.SetValue( GetJsonObject( request.response ) );
                 this.EmitEvent( "value-changed" );
                 this.EmitEvent( "sub-value-changed" );
             }
         }
+
+        event.Cancel();
+
+        return false;
     }
 
     // ~~
 
     async HandleDeleteButtonClickEvent(
+        event
         )
     {
         var
@@ -494,14 +503,14 @@ class VISTA_IMAGE_PATH_INPUT_COMPONENT extends VISTA_COMPONENT
 
         if ( request.status === 201 )
         {
-            this.ResultValue = "";
-            this.value = "";
-
-            this.ResultElement.value = "";
-            this.ImageElement.src = "";
+            this.SetValue( "" );
             this.EmitEvent( "value-changed" );
             this.EmitEvent( "sub-value-changed" );
         }
+
+        event.Cancel();
+
+        return false;
     }
 
     // ~~
@@ -519,14 +528,11 @@ class VISTA_IMAGE_PATH_INPUT_COMPONENT extends VISTA_COMPONENT
         this.BindProperty( "UploadApiUrl", "upload-api-url", "" );
         this.BindProperty( "DeleteApiUrl", "delete-api-url", "" );
         this.BindMethod( "HandleResultInputEvent" );
-        this.BindMethod( "HandleResultChangeEvent" );
         this.BindMethod( "HandleImageErrorEvent" );
         this.BindMethod( "HandleFileInputChangeEvent" );
         this.BindMethod( "HandleDeleteButtonClickEvent" );
 
         this.value = this.ResultValue;
-
-        this.MaintainsState = true;
 
         this.SetTemplate(
             Text`
@@ -551,22 +557,12 @@ class VISTA_IMAGE_PATH_INPUT_COMPONENT extends VISTA_COMPONENT
         )
     {
         this.ResultElement = this.GetElement( ".is-result" );
-        this.ResultElement.value = this.ResultValue;
-        this.ResultElement.oninput = this.HandleResultInputEvent;
-        this.ResultElement.onchange = this.HandleResultChangeEvent;
-
         this.ImageElement = this.GetElement( ".is-image" );
 
-        if ( this.ResultValue !== '' )
-        {
-            this.ImageElement.src = this.ResultValue;
-        }
-        else
-        {
-            this.ImageElement.src = this.ErrorImagePath;
-        }
+        this.UpdateView();
 
         this.ImageElement.onerror = this.HandleImageErrorEvent;
+        this.ResultElement.oninput = this.HandleResultInputEvent;
 
         if ( !this.IsReadonly )
         {
@@ -586,30 +582,43 @@ class VISTA_VIDEO_PATH_INPUT_COMPONENT extends VISTA_COMPONENT
 {
     // -- OPERATIONS
 
-    HandleResultInputEvent(
-        event
+    UpdateView(
         )
     {
-        this.value = this.ResultElement.value;
-        this.ResultValue = this.value;
-        this.VideoElement.src = this.ResultValue;
-        this.EmitEvent( "value-changed" );
+        this.ResultElement.value = this.ResultValue;
 
-        event.Cancel();
-
-        return false;
+        if ( this.ResultValue !== '' )
+        {
+            this.VideoElement.src = this.ResultValue;
+        }
+        else
+        {
+            this.VideoElement.src = this.ErrorVideoPath;
+        }
     }
 
     // ~~
 
-    HandleResultChangeEvent(
+    SetValue(
+        value
+        )
+    {
+        this.ResultValue = value;
+        this.value = value;
+        this.UpdateView();
+    }
+
+    // ~~
+
+    HandleResultInputEvent(
         event
         )
     {
-        this.EmitEvent( "value-changed" );
-        this.EmitEvent( "sub-value-changed" );
+        this.SetValue( this.ResultElement.value );
 
         event.Cancel();
+        this.EmitEvent( "value-changed" );
+        this.EmitEvent( "sub-value-changed" );
 
         return false;
     }
@@ -625,6 +634,7 @@ class VISTA_VIDEO_PATH_INPUT_COMPONENT extends VISTA_COMPONENT
     // ~~
 
     async HandleFileInputChangeEvent(
+        event
         )
     {
         var
@@ -639,20 +649,21 @@ class VISTA_VIDEO_PATH_INPUT_COMPONENT extends VISTA_COMPONENT
 
             if ( request.status === 201 )
             {
-                this.value = GetJsonObject( request.response );
-                this.ResultValue = this.value;
-
-                this.ResultElement.value = this.ResultValue;
-                this.VideoElement.src = this.ResultValue;
+                this.SetValue( GetJsonObject( request.response ) );
                 this.EmitEvent( "value-changed" );
                 this.EmitEvent( "sub-value-changed" );
             }
         }
+
+        event.Cancel();
+
+        return false;
     }
 
     // ~~
 
     async HandleDeleteButtonClickEvent(
+        event
         )
     {
         var
@@ -668,14 +679,14 @@ class VISTA_VIDEO_PATH_INPUT_COMPONENT extends VISTA_COMPONENT
 
         if ( request.status === 201 )
         {
-            this.ResultValue = "";
-            this.value = "";
-
-            this.ResultElement.value = "";
-            this.VideoElement.src = "";
+            this.SetValue( "" );
             this.EmitEvent( "value-changed" );
             this.EmitEvent( "sub-value-changed" );
         }
+
+        event.Cancel();
+
+        return false;
     }
 
     // ~~
@@ -693,14 +704,11 @@ class VISTA_VIDEO_PATH_INPUT_COMPONENT extends VISTA_COMPONENT
         this.BindProperty( "UploadApiUrl", "upload-api-url", "" );
         this.BindProperty( "DeleteApiUrl", "delete-api-url", "" );
         this.BindMethod( "HandleResultInputEvent" );
-        this.BindMethod( "HandleResultChangeEvent" );
         this.BindMethod( "HandleVideoErrorEvent" );
         this.BindMethod( "HandleFileInputChangeEvent" );
         this.BindMethod( "HandleDeleteButtonClickEvent" );
 
         this.value = this.ResultValue;
-
-        this.MaintainsState = true;
 
         this.SetTemplate(
             Text`
@@ -725,22 +733,12 @@ class VISTA_VIDEO_PATH_INPUT_COMPONENT extends VISTA_COMPONENT
         )
     {
         this.ResultElement = this.GetElement( ".is-result" );
-        this.ResultElement.value = this.ResultValue;
-        this.ResultElement.oninput = this.HandleResultInputEvent;
-        this.ResultElement.onchange = this.HandleResultChangeEvent;
-
         this.VideoElement = this.GetElement( ".is-video" );
 
-        if ( this.ResultValue !== '' )
-        {
-            this.VideoElement.src = this.ResultValue;
-        }
-        else
-        {
-            this.VideoElement.src = this.ErrorVideoPath;
-        }
+        this.UpdateView();
 
         this.VideoElement.onerror = this.HandleVideoErrorEvent;
+        this.ResultElement.oninput = this.HandleResultInputEvent;
 
         if ( !this.IsReadonly )
         {
@@ -760,14 +758,12 @@ class VISTA_DOCUMENT_PATH_INPUT_COMPONENT extends VISTA_COMPONENT
 {
     // -- OPERATIONS
 
-    HandleResultInputEvent(
-        event
+    UpdateView(
         )
     {
-        this.value = this.ResultElement.value;
-        this.ResultValue = this.value;
+        this.ResultElement.value = this.ResultValue;
 
-        if ( this.ResultValue !== "" )
+        if ( this.ResultValue !== '' )
         {
             this.ImageElement.src = this.DocumentImagePath;
         }
@@ -775,24 +771,30 @@ class VISTA_DOCUMENT_PATH_INPUT_COMPONENT extends VISTA_COMPONENT
         {
             this.ImageElement.src = this.ErrorImagePath;
         }
-
-        this.EmitEvent( "value-changed" );
-
-        event.Cancel();
-
-        return false;
     }
 
     // ~~
 
-    HandleResultChangeEvent(
+    SetValue(
+        value
+        )
+    {
+        this.ResultValue = value;
+        this.value = value;
+        this.UpdateView();
+    }
+
+    // ~~
+
+    HandleResultInputEvent(
         event
         )
     {
-        this.EmitEvent( "value-changed" );
-        this.EmitEvent( "sub-value-changed" );
+        this.SetValue( this.ResultElement.value );
 
         event.Cancel();
+        this.EmitEvent( "value-changed" );
+        this.EmitEvent( "sub-value-changed" );
 
         return false;
     }
@@ -800,6 +802,7 @@ class VISTA_DOCUMENT_PATH_INPUT_COMPONENT extends VISTA_COMPONENT
     // ~~
 
     async HandleFileInputChangeEvent(
+        event
         )
     {
         var
@@ -814,20 +817,21 @@ class VISTA_DOCUMENT_PATH_INPUT_COMPONENT extends VISTA_COMPONENT
 
             if ( request.status === 201 )
             {
-                this.value = GetJsonObject( request.response );
-                this.ResultValue = this.value;
-
-                this.ResultElement.value = this.ResultValue;
-                this.ImageElement.src = this.DocumentImagePath;
+                this.SetValue( GetJsonObject( request.response ) );
                 this.EmitEvent( "value-changed" );
                 this.EmitEvent( "sub-value-changed" );
             }
         }
+
+        event.Cancel();
+
+        return false;
     }
 
     // ~~
 
     async HandleDeleteButtonClickEvent(
+        event
         )
     {
         var
@@ -843,14 +847,14 @@ class VISTA_DOCUMENT_PATH_INPUT_COMPONENT extends VISTA_COMPONENT
 
         if ( request.status === 201 )
         {
-            this.ResultValue = "";
-            this.value = "";
-
-            this.ResultElement.value = "";
-            this.ImageElement.src = this.ErrorImagePath;
+            this.SetValue( "" );
             this.EmitEvent( "value-changed" );
             this.EmitEvent( "sub-value-changed" );
         }
+
+        event.Cancel();
+
+        return false;
     }
 
     // ~~
@@ -869,13 +873,10 @@ class VISTA_DOCUMENT_PATH_INPUT_COMPONENT extends VISTA_COMPONENT
         this.BindProperty( "UploadApiUrl", "upload-api-url", "" );
         this.BindProperty( "DeleteApiUrl", "delete-api-url", "" );
         this.BindMethod( "HandleResultInputEvent" );
-        this.BindMethod( "HandleResultChangeEvent" );
         this.BindMethod( "HandleFileInputChangeEvent" );
         this.BindMethod( "HandleDeleteButtonClickEvent" );
 
         this.value = this.ResultValue;
-
-        this.MaintainsState = true;
 
         this.SetTemplate(
             Text`
@@ -900,20 +901,11 @@ class VISTA_DOCUMENT_PATH_INPUT_COMPONENT extends VISTA_COMPONENT
         )
     {
         this.ResultElement = this.GetElement( ".is-result" );
-        this.ResultElement.value = this.ResultValue;
-        this.ResultElement.oninput = this.HandleResultInputEvent;
-        this.ResultElement.onchange = this.HandleResultChangeEvent;
-
         this.ImageElement = this.GetElement( ".is-image" );
 
-        if ( this.ResultValue !== '' )
-        {
-            this.ImageElement.src = this.DocumentImagePath;
-        }
-        else
-        {
-            this.ImageElement.src = this.ErrorImagePath;
-        }
+        this.UpdateView();
+
+        this.ResultElement.oninput = this.HandleResultInputEvent;
 
         if ( !this.IsReadonly )
         {
@@ -933,25 +925,39 @@ class VISTA_DROPDOWN_COMPONENT extends VISTA_COMPONENT
 {
     // -- OPERATIONS
 
-    HandleResultInputEvent(
-        event
+    UpdateView(
         )
     {
-        this.value = this.ResultElement.value;
-        this.ResultValue = this.value;
-        this.EmitEvent( "value-changed" );
-
-        event.Cancel();
-
-        return false;
+        this.ResultElement.value = this.ResultValue;
     }
 
     // ~~
 
-    HandleResultChangeEvent(
+    SetValue(
+        value
+        )
+    {
+        this.ResultValue = value;
+        this.value = value;
+        this.UpdateView();
+    }
+
+    // ~~
+
+    UpdateValue(
+        )
+    {
+        this.ResultValue = this.ResultElement.value;
+        this.value = this.ResultValue;
+    }
+
+    // ~~
+
+    HandleResultInputEvent(
         event
         )
     {
+        this.UpdateValue();
         this.EmitEvent( "value-changed" );
         this.EmitEvent( "sub-value-changed" );
 
@@ -976,9 +982,6 @@ class VISTA_DROPDOWN_COMPONENT extends VISTA_COMPONENT
         this.BindProperty( "OptionNames", "option-names", "[]" );
         this.BindProperty( "OptionValues", "option-values", "[]" );
         this.BindMethod( "HandleResultInputEvent" );
-        this.BindMethod( "HandleResultChangeEvent" );
-
-        this.value = this.ResultValue;
 
         this.OptionValueArray = GetJsonObject( this.OptionValues );
         this.OptionNameArray = GetJsonObject( this.OptionNames );
@@ -986,8 +989,6 @@ class VISTA_DROPDOWN_COMPONENT extends VISTA_COMPONENT
             = ( ( this.OptionValueArray.indexOf( this.ResultValue ) >= 0 )
                 || ( this.IsOptional
                      && this.ResultValue === this.NullValue ) );
-        this.MaintainsState = true;
-
         this.SetTemplate(
             Text`
             <div class="is-component is-container is-dropdown-container">
@@ -1010,9 +1011,9 @@ class VISTA_DROPDOWN_COMPONENT extends VISTA_COMPONENT
         )
     {
         this.ResultElement = this.GetElement( ".is-result" );
-        this.ResultElement.value = this.ResultValue;
+
+        this.UpdateView();
         this.ResultElement.oninput = this.HandleResultInputEvent;
-        this.ResultElement.onchange = this.HandleResultChangeEvent;
     }
 }
 
@@ -1021,6 +1022,28 @@ class VISTA_DROPDOWN_COMPONENT extends VISTA_COMPONENT
 class VISTA_LIST_COMPONENT extends VISTA_COMPONENT
 {
     // -- OPERATIONS
+
+    SetDraggable(
+        draggable
+        )
+    {
+        var
+           value_container_element,
+            value_container_input_element;
+
+        for ( value_container_element of this.GetElements( ".is-value-container" ) )
+        {
+            value_container_element.setAttribute( "draggable", draggable );
+
+            for ( value_container_input_element of value_container_element.GetElements( "input, textarea" ) )
+            {
+                value_container_input_element.setAttribute( "draggable", false );
+                value_container_input_element.ondragstart = CancelEvent;
+            }
+        }
+    }
+
+    // ~~
 
     UpdateValueArray(
         )
@@ -1034,8 +1057,7 @@ class VISTA_LIST_COMPONENT extends VISTA_COMPONENT
               value_index < this.ValueArray.length;
               ++value_index )
         {
-            this.ValueElementArray[ value_index ].ResultValue = this.ValueArray[ value_index ];
-            this.ValueElementArray[ value_index ].SetChanged();
+            this.ValueElementArray[ value_index ].SetValue( this.ValueArray[ value_index ] );
         }
     }
 
@@ -1054,10 +1076,9 @@ class VISTA_LIST_COMPONENT extends VISTA_COMPONENT
             this.ValueArray[ value_index ] = this.ValueElementArray[ value_index ].ResultValue;
         }
 
-        this.value = GetJsonText( this.ValueArray );
-        this.ResultValue = this.value;
+        this.ResultValue = GetJsonText( this.ValueArray );
+        this.value = this.ResultValue;
         this.ResultElement.value = this.ResultValue;
-        this.EmitEvent( "value-changed" );
     }
 
     // ~~
@@ -1133,32 +1154,17 @@ class VISTA_LIST_COMPONENT extends VISTA_COMPONENT
                 this.ValueArray.splice( drag_value_index, 1 );
                 this.ValueArray.splice( drop_value_index, 0, drag_value );
 
-                this.value = GetJsonText( this.ValueArray );
-                this.ResultValue = this.value;
+                this.ResultValue = GetJsonText( this.ValueArray );
+                this.value = this.ResultValue;
+                this.ResultElement.value = this.ResultValue;
+
+                this.UpdateValueArray();
 
                 this.DragValueIndex = -1;
-                this.SetChanged();
             }
         }
 
         event.preventDefault();
-    }
-
-    // ~~
-
-    HandleValueInputEvent(
-        event
-        )
-    {
-    }
-
-    // ~~
-
-    HandleValueChangeEvent(
-        event
-        )
-    {
-        this.UpdateResultValue();
     }
 
     // ~~
@@ -1168,8 +1174,24 @@ class VISTA_LIST_COMPONENT extends VISTA_COMPONENT
         )
     {
         this.UpdateResultValue();
+    }
 
-        this.SetChanged();
+    // ~~
+
+    HandleDragButtonMouseEnterEvent(
+        event
+        )
+    {
+        this.SetDraggable( true );
+    }
+
+    // ~~
+
+    HandleDragButtonMouseLeaveEvent(
+        event
+        )
+    {
+        this.SetDraggable( false );
     }
 
     // ~~
@@ -1218,9 +1240,9 @@ class VISTA_LIST_COMPONENT extends VISTA_COMPONENT
         this.BindMethod( "HandleValueContainerDragOverEvent" );
         this.BindMethod( "HandleValueContainerDragLeaveEvent" );
         this.BindMethod( "HandleValueContainerDropEvent" );
-        this.BindMethod( "HandleValueInputEvent" );
-        this.BindMethod( "HandleValueChangeEvent" );
         this.BindMethod( "HandleSubValueChangedEvent" );
+        this.BindMethod( "HandleDragButtonMouseEnterEvent" );
+        this.BindMethod( "HandleDragButtonMouseLeaveEvent" );
         this.BindMethod( "HandleAddButtonClickEvent" );
         this.BindMethod( "HandleRemoveButtonClickEvent" );
         this.BindEvent( this, "sub-value-changed", this.HandleSubValueChangedEvent );
@@ -1242,10 +1264,10 @@ class VISTA_LIST_COMPONENT extends VISTA_COMPONENT
         this.ResultElement = this.GetElement( ".is-result" );
         this.ResultElement.value = this.ResultValue;
         this.ResultElement.oninput = this.HandleResultInputEvent;
-        this.ResultElement.onchange = this.HandleResultChangeEvent;
 
         this.ValueContainerElementArray = this.GetElements( ".is-value-container" );
         this.ValueElementArray = this.GetElements( ".is-value" );
+        this.DragButtonElementArray = this.GetElements( ".is-drag-button" );
         this.AddButtonElementArray = this.GetElements( ".is-add-button" );
         this.RemoveButtonElementArray = this.GetElements( ".is-remove-button" );
 
@@ -1263,8 +1285,8 @@ class VISTA_LIST_COMPONENT extends VISTA_COMPONENT
                 this.ValueContainerElementArray[ value_index ].ondragover = this.HandleValueContainerDragOverEvent;
                 this.ValueContainerElementArray[ value_index ].ondragleave = this.HandleValueContainerDragLeaveEvent;
                 this.ValueContainerElementArray[ value_index ].ondrop = this.HandleValueContainerDropEvent;
-                this.ValueElementArray[ value_index ].oninput = this.HandleValueInputEvent;
-                this.ValueElementArray[ value_index ].onchange = this.HandleValueChangeEvent;
+                this.DragButtonElementArray[ value_index ].onmouseenter = this.HandleDragButtonMouseEnterEvent;
+                this.DragButtonElementArray[ value_index ].onmouseleave = this.HandleDragButtonMouseLeaveEvent;
                 this.AddButtonElementArray[ value_index ].onclick = this.HandleAddButtonClickEvent;
                 this.RemoveButtonElementArray[ value_index ].onclick = this.HandleRemoveButtonClickEvent;
             }
@@ -1285,14 +1307,12 @@ class VISTA_INPUT_LIST_COMPONENT extends VISTA_LIST_COMPONENT
     {
         super.InitializeComponent();
 
-        this.MaintainsState = true;
-
         this.SetTemplate(
             Text`
             <div class="is-component is-list-container">
                 <input id="<:# this.ResultId :>" class="is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden/>
                 <: for ( var value_index = 0; value_index < this.ValueArray.length; ++value_index ) { :>
-                    <div class="is-value-container" data-value-index="<:# value_index :>" draggable="true">
+                    <div class="is-value-container" data-value-index="<:# value_index :>">
                         <input-component class="is-value" container-class="is-container" <:# this.IsReadonly ? "is-readonly" : "" :>></input-component>
                         <: if ( !this.IsReadonly ) { :>
                             <div class="is-button is-drag-button data-value-index="<:# value_index + 1 :>">
@@ -1325,14 +1345,12 @@ class VISTA_TEXT_INPUT_LIST_COMPONENT extends VISTA_LIST_COMPONENT
     {
         super.InitializeComponent();
 
-        this.MaintainsState = true;
-
         this.SetTemplate(
             Text`
             <div class="is-component is-list-container">
                 <textarea id="<:# this.ResultId :>" class="is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden></textarea>
                 <: for ( var value_index = 0; value_index < this.ValueArray.length; ++value_index ) { :>
-                    <div class="is-value-container" data-value-index="<:# value_index :>" draggable="true">
+                    <div class="is-value-container" data-value-index="<:# value_index :>">
                         <text-input-component class="is-value" container-class="is-container" <:# this.IsReadonly ? "is-readonly" : "" :>></text-input-component>
                         <: if ( !this.IsReadonly ) { :>
                             <div class="is-button is-drag-button data-value-index="<:# value_index + 1 :>">
@@ -1368,14 +1386,12 @@ class VISTA_MULTILINGUAL_INPUT_LIST_COMPONENT extends VISTA_LIST_COMPONENT
         this.BindProperty( "LanguageCodes", "language-codes", "[\"en\"]" );
         this.BindProperty( "LanguageNames", "language-names", "[\"English\"]" );
 
-        this.MaintainsState = true;
-
         this.SetTemplate(
             Text`
             <div class="is-component is-list-container">
                 <input id="<:# this.ResultId :>" class="is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden/>
                 <: for ( var value_index = 0; value_index < this.ValueArray.length; ++value_index ) { :>
-                    <div class="is-value-container" data-value-index="<:# value_index :>" draggable="true">
+                    <div class="is-value-container" data-value-index="<:# value_index :>">
                         <multilingual-input-component class="is-value" container-class="is-container" <:# this.IsReadonly ? "is-readonly" : "" :> language-codes="<:% this.LanguageCodes :>" language-names="<:% this.LanguageNames :>"></multilingual-input-component>
                         <: if ( !this.IsReadonly ) { :>
                             <div class="is-button is-drag-button data-value-index="<:# value_index + 1 :>">
@@ -1411,14 +1427,12 @@ class VISTA_MULTILINGUAL_TEXT_INPUT_LIST_COMPONENT extends VISTA_LIST_COMPONENT
         this.BindProperty( "LanguageCodes", "language-codes", "[\"en\"]" );
         this.BindProperty( "LanguageNames", "language-names", "[\"English\"]" );
 
-        this.MaintainsState = true;
-
         this.SetTemplate(
             Text`
             <div class="is-component is-list-container">
                 <textarea id="<:# this.ResultId :>" class="is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden></textarea>
                 <: for ( var value_index = 0; value_index < this.ValueArray.length; ++value_index ) { :>
-                    <div class="is-value-container" data-value-index="<:# value_index :>" draggable="true">
+                    <div class="is-value-container" data-value-index="<:# value_index :>">
                         <multilingual-text-input-component class="is-value" container-class="is-container" <:# this.IsReadonly ? "is-readonly" : "" :> language-codes="<:% this.LanguageCodes :>" language-names="<:% this.LanguageNames :>"></multilingual-text-input-component>
                         <: if ( !this.IsReadonly ) { :>
                             <div class="is-button is-drag-button data-value-index="<:# value_index + 1 :>">
@@ -1455,14 +1469,12 @@ class VISTA_IMAGE_PATH_INPUT_LIST_COMPONENT extends VISTA_LIST_COMPONENT
         this.BindProperty( "UploadApiUrl", "upload-api-url", "" );
         this.BindProperty( "DeleteApiUrl", "delete-api-url", "" );
 
-        this.MaintainsState = true;
-
         this.SetTemplate(
             Text`
             <div class="is-component is-list-container">
                 <input id="<:# this.ResultId :>" class="is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden/>
                 <: for ( var value_index = 0; value_index < this.ValueArray.length; ++value_index ) { :>
-                    <div class="is-value-container" data-value-index="<:# value_index :>" draggable="true">
+                    <div class="is-value-container" data-value-index="<:# value_index :>">
                         <image-path-input-component class="is-value" container-class="is-container" <:# this.IsReadonly ? "is-readonly" : "" :> error-image-path="<:% this.ErrorImagePath :>" upload-api-url="<:% this.UploadApiUrl :>" delete-api-url="<:% this.DeleteApiUrl :>" ></image-path-input-component>
                         <: if ( !this.IsReadonly ) { :>
                             <div class="is-button is-drag-button data-value-index="<:# value_index + 1 :>">
@@ -1499,14 +1511,12 @@ class VISTA_VIDEO_PATH_INPUT_LIST_COMPONENT extends VISTA_LIST_COMPONENT
         this.BindProperty( "UploadApiUrl", "upload-api-url", "" );
         this.BindProperty( "DeleteApiUrl", "delete-api-url", "" );
 
-        this.MaintainsState = true;
-
         this.SetTemplate(
             Text`
             <div class="is-component is-list-container">
                 <input id="<:# this.ResultId :>" class="is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden/>
                 <: for ( var value_index = 0; value_index < this.ValueArray.length; ++value_index ) { :>
-                    <div class="is-value-container" data-value-index="<:# value_index :>" draggable="true">
+                    <div class="is-value-container" data-value-index="<:# value_index :>">
                         <video-path-input-component class="is-value" container-class="is-container" <:# this.IsReadonly ? "is-readonly" : "" :> error-video-path="<:% this.ErrorVideoPath :>" upload-api-url="<:% this.UploadApiUrl :>" delete-api-url="<:% this.DeleteApiUrl :>" ></video-path-input-component>
                         <: if ( !this.IsReadonly ) { :>
                             <div class="is-button is-drag-button data-value-index="<:# value_index + 1 :>">
@@ -1544,14 +1554,12 @@ class VISTA_DOCUMENT_PATH_INPUT_LIST_COMPONENT extends VISTA_LIST_COMPONENT
         this.BindProperty( "UploadApiUrl", "upload-api-url", "" );
         this.BindProperty( "DeleteApiUrl", "delete-api-url", "" );
 
-        this.MaintainsState = true;
-
         this.SetTemplate(
             Text`
             <div class="is-component is-list-container">
                 <input id="<:# this.ResultId :>" class="is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden/>
                 <: for ( var value_index = 0; value_index < this.ValueArray.length; ++value_index ) { :>
-                    <div class="is-value-container" data-value-index="<:# value_index :>" draggable="true">
+                    <div class="is-value-container" data-value-index="<:# value_index :>">
                         <document-path-input-component class="is-value" container-class="is-container" <:# this.IsReadonly ? "is-readonly" : "" :> error-image-path="<:% this.ErrorImagePath :>" document-image-path="<:% this.DocumentImagePath :>" upload-api-url="<:% this.UploadApiUrl :>" delete-api-url="<:% this.DeleteApiUrl :>" ></document-path-input-component>
                         <: if ( !this.IsReadonly ) { :>
                             <div class="is-button is-drag-button data-value-index="<:# value_index + 1 :>">
@@ -1588,15 +1596,13 @@ class VISTA_DROPDOWN_LIST_COMPONENT extends VISTA_LIST_COMPONENT
         this.BindProperty( "OptionValues", "option-values", "[]" );
         this.BindProperty( "OptionNames", "option-names", "[]" );
 
-        this.MaintainsState = true;
-
         this.SetTemplate(
             Text`
             <div class="is-component is-list-container">
                 <input id="<:# this.ResultId :>" class="is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden/>
                 <: for ( var value_index = 0; value_index < this.ValueArray.length; ++value_index ) { :>
-                    <div class="is-value-container" data-value-index="<:# value_index :>" draggable="true">
-                        <dropdown-component class="is-value" container-class="is-container" result-placeholder="<:# this.ResultPlaceholder :>" <:# this.IsReadonly ? "is-readonly" : "" :> <:# this.IsOptional ? "is-readonly" : "" :> option-values="<:% this.OptionValues :>" option-names="<:% this.OptionNames :>"></dropdown-component>
+                    <div class="is-value-container" data-value-index="<:# value_index :>">
+                        <dropdown-component class="is-value" container-class="is-container" result-placeholder="<:# this.ResultPlaceholder :>" <:# this.IsReadonly ? "is-readonly" : "" :> <:# this.IsOptional ? "is-optional" : "" :> option-values="<:% this.OptionValues :>" option-names="<:% this.OptionNames :>"></dropdown-component>
                         <: if ( !this.IsReadonly ) { :>
                             <div class="is-button is-drag-button data-value-index="<:# value_index + 1 :>">
                             </div>
@@ -1623,22 +1629,11 @@ function InitializeInputs(
     )
 {
     var
-        readonly_select_element,
-        value_container_element,
-        value_container_input_element;
+        readonly_select_element;
 
     for ( readonly_select_element of GetElements( "select[readonly]" ) )
     {
         readonly_select_element.onmousedown = CancelEvent;
-    }
-
-    for ( value_container_element of GetElements( ".is-value-container" ) )
-    {
-        for ( value_container_input_element of value_container_element.GetElements( "input, textarea" ) )
-        {
-            value_container_input_element.setAttribute( "draggable", true );
-            value_container_input_element.ondragstart = CancelEvent;
-        }
     }
 }
 
