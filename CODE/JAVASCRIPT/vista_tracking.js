@@ -1,6 +1,7 @@
 // -- VARIABLES
 
 var
+    GoogleAnalyticsTrackingScriptElement = null,
     GoogleAnalyticsTrackingId = "",
     GoogleAnalyticsTrackingIsEnabled = false;
 
@@ -24,27 +25,44 @@ function TrackRoute(
 
 // ~~
 
+function ImportGoogleAnalyticsScript(
+    tracking_id
+    )
+{
+    if ( GoogleAnalyticsTrackingScriptElement === null )
+    {
+        GoogleAnalyticsTrackingScriptElement = document.createElement( "script" );
+        GoogleAnalyticsTrackingScriptElement.setAttribute( "src", "https://www.googletagmanager.com/gtag/js?id=" + tracking_id );
+        GoogleAnalyticsTrackingScriptElement.setAttribute( "data-gtag-js", "" );
+        document.head.appendChild( GoogleAnalyticsTrackingScriptElement );
+    }
+}
+
+// ~~
+
 function EnableGoogleAnalyticsTracking(
     tracking_id
     )
 {
     var
-        script;
+        script_element;
 
-    script = document.createElement( "script" );
-    script.setAttribute( "src", "https://www.googletagmanager.com/gtag/js?id=" + tracking_id );
-    document.head.appendChild( script );
+    if ( !GoogleAnalyticsTrackingIsEnabled )
+    {
+        ImportGoogleAnalyticsScript();
 
-    script = document.createElement( "script" );
-    script.text
-        = `window.dataLayer = window.dataLayer || [];
-           function gtag() { dataLayer.push( arguments ); }
-           gtag( "js", new Date() );
-           gtag( "config", "${tracking_id}" );`;
-    document.head.appendChild( script );
+        script_element = document.createElement( "script" );
+        script_element.text
+            = `window.dataLayer = window.dataLayer || [];
+               function gtag() { dataLayer.push( arguments ); }
+               gtag( "js", new Date() );
+               gtag( "config", "${tracking_id}" );`;
 
-    GoogleAnalyticsTrackingId = tracking_id;
-    GoogleAnalyticsTrackingIsEnabled = true;
+        document.head.appendChild( script_element );
+
+        GoogleAnalyticsTrackingId = tracking_id;
+        GoogleAnalyticsTrackingIsEnabled = true;
+    }
 
     TrackRoute();
 }
@@ -56,20 +74,20 @@ function DisableGoogleAnalyticsTracking(
     )
 {
     var
-        script;
+        script_element;
 
-    script = document.createElement( "script" );
-    script.setAttribute( "src", "https://www.googletagmanager.com/gtag/js?id=" + tracking_id  );
-    document.head.appendChild( script );
+    if ( GoogleAnalyticsTrackingIsEnabled )
+    {
+        script_element = document.createElement( "script" );
+        script_element.text
+            = `window.dataLayer = window.dataLayer || [];
+               function gtag() { dataLayer.push( arguments ); }
+               gtag( "js", new Date() );
+               gtag( "config", "${tracking_id}", { "client_storage" : "none", "anonymize_ip" : true, "send_to" : null } );`;
 
-    script = document.createElement( "script" );
-    script.text
-        = `window.dataLayer = window.dataLayer || [];
-           function gtag() { dataLayer.push( arguments ); }
-           gtag( "js", new Date() );
-           gtag( "config", "${tracking_id}", { "client_storage": "none", "anonymize_ip": true } );`;
-    document.head.appendChild( script );
+        document.head.appendChild( script_element );
 
-    GoogleAnalyticsTrackingId = tracking_id;
-    GoogleAnalyticsTrackingIsEnabled = false;
+        GoogleAnalyticsTrackingId = tracking_id;
+        GoogleAnalyticsTrackingIsEnabled = false;
+    }
 }
