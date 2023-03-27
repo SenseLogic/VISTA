@@ -43,7 +43,6 @@ HTMLElement.prototype.StartVideo = function (
     return this;
 }
 
-
 // ~~
 
 HTMLElement.prototype.PauseVideo = function (

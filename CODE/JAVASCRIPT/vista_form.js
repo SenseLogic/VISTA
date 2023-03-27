@@ -74,7 +74,7 @@ class VISTA_INPUT_COMPONENT extends VISTA_COMPONENT
     {
         this.ResultElement = this.GetElement( ".is-result" );
 
-        this.UpdateView();
+        this.SetValue( this.ResultValue );
         this.ResultElement.oninput = this.HandleResultInputEvent;
     }
 }
@@ -157,7 +157,7 @@ class VISTA_TEXT_INPUT_COMPONENT extends VISTA_COMPONENT
     {
         this.ResultElement = this.GetElement( ".is-result" );
 
-        this.SetResultValue( this.ResultValue );
+        this.SetValue( this.ResultValue );
         this.ResultElement.oninput = this.HandleResultInputEvent;
     }
 }
@@ -174,6 +174,7 @@ class VISTA_MULTILINGUAL_INPUT_COMPONENT extends VISTA_COMPONENT
         var
             language_code_index;
 
+        this.ResultElement.value = this.ResultValue;
         this.TranslationArray = this.ResultValue.GetTranslatedTextArray( this.LanguageCodeArray );
 
         for ( language_code_index = 0;
@@ -271,7 +272,7 @@ class VISTA_MULTILINGUAL_INPUT_COMPONENT extends VISTA_COMPONENT
         this.ResultElement = this.GetElement( ".is-result" );
         this.TranslationElementArray = this.GetElements( ".is-translation" );
 
-        this.UpdateView();
+        this.SetValue( this.ResultValue );
 
         for ( translation_element of this.TranslationElementArray )
         {
@@ -292,6 +293,7 @@ class VISTA_MULTILINGUAL_TEXT_INPUT_COMPONENT extends VISTA_COMPONENT
         var
             language_code_index;
 
+        this.ResultElement.value = this.ResultValue;
         this.TranslationArray = this.ResultValue.GetTranslatedTextArray( this.LanguageCodeArray );
 
         for ( language_code_index = 0;
@@ -391,7 +393,7 @@ class VISTA_MULTILINGUAL_TEXT_INPUT_COMPONENT extends VISTA_COMPONENT
         this.ResultElement = this.GetElement( ".is-result" );
         this.TranslationElementArray = this.GetElements( ".is-translation" );
 
-        this.UpdateView();
+        this.SetValue( this.ResultValue );
 
         for ( translation_element of this.TranslationElementArray )
         {
@@ -559,7 +561,7 @@ class VISTA_IMAGE_PATH_INPUT_COMPONENT extends VISTA_COMPONENT
         this.ResultElement = this.GetElement( ".is-result" );
         this.ImageElement = this.GetElement( ".is-image" );
 
-        this.UpdateView();
+        this.SetValue( this.ResultValue );
 
         this.ImageElement.onerror = this.HandleImageErrorEvent;
         this.ResultElement.oninput = this.HandleResultInputEvent;
@@ -735,7 +737,7 @@ class VISTA_VIDEO_PATH_INPUT_COMPONENT extends VISTA_COMPONENT
         this.ResultElement = this.GetElement( ".is-result" );
         this.VideoElement = this.GetElement( ".is-video" );
 
-        this.UpdateView();
+        this.SetValue( this.ResultValue );
 
         this.VideoElement.onerror = this.HandleVideoErrorEvent;
         this.ResultElement.oninput = this.HandleResultInputEvent;
@@ -903,7 +905,7 @@ class VISTA_DOCUMENT_PATH_INPUT_COMPONENT extends VISTA_COMPONENT
         this.ResultElement = this.GetElement( ".is-result" );
         this.ImageElement = this.GetElement( ".is-image" );
 
-        this.UpdateView();
+        this.SetValue( this.ResultValue );
 
         this.ResultElement.oninput = this.HandleResultInputEvent;
 
@@ -1012,7 +1014,7 @@ class VISTA_DROPDOWN_COMPONENT extends VISTA_COMPONENT
     {
         this.ResultElement = this.GetElement( ".is-result" );
 
-        this.UpdateView();
+        this.SetValue( this.ResultValue );
         this.ResultElement.oninput = this.HandleResultInputEvent;
     }
 }
@@ -1079,6 +1081,26 @@ class VISTA_LIST_COMPONENT extends VISTA_COMPONENT
         this.ResultValue = GetJsonText( this.ValueArray );
         this.value = this.ResultValue;
         this.ResultElement.value = this.ResultValue;
+    }
+
+    // ~~
+
+    UpdateView(
+        )
+    {
+        this.ResultElement.value = this.ResultValue;
+        this.UpdateValueArray();
+    }
+
+    // ~~
+
+    SetValue(
+        value
+        )
+    {
+        this.ResultValue = value;
+        this.value = value;
+        this.UpdateView();
     }
 
     // ~~
@@ -1262,8 +1284,6 @@ class VISTA_LIST_COMPONENT extends VISTA_COMPONENT
             value_index;
 
         this.ResultElement = this.GetElement( ".is-result" );
-        this.ResultElement.value = this.ResultValue;
-        this.ResultElement.oninput = this.HandleResultInputEvent;
 
         this.ValueContainerElementArray = this.GetElements( ".is-value-container" );
         this.ValueElementArray = this.GetElements( ".is-value" );
@@ -1271,7 +1291,8 @@ class VISTA_LIST_COMPONENT extends VISTA_COMPONENT
         this.AddButtonElementArray = this.GetElements( ".is-add-button" );
         this.RemoveButtonElementArray = this.GetElements( ".is-remove-button" );
 
-        this.UpdateValueArray();
+        this.SetValue( this.ResultValue );
+        this.ResultElement.oninput = this.HandleResultInputEvent;
 
         if ( !this.IsReadonly )
         {

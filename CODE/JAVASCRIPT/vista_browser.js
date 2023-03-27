@@ -14,8 +14,6 @@ function GetUrl(
     return window.location.href;
 }
 
-
-
 function SetUrl(
     url
     )
