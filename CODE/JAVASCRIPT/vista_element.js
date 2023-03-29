@@ -170,6 +170,21 @@ function GetVmaxCountFromPixelCount(
 
 // ~~
 
+function GetClickEventName(
+    )
+{
+    if ( "ontouchstart" in window )
+    {
+        return "touchstart";
+    }
+    else
+    {
+        return "click";
+    }
+}
+
+// ~~
+
 Event.prototype.Stop = Event.prototype.stopPropagation;
 
 // ~~
