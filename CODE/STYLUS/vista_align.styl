@@ -4,7 +4,7 @@ MakeAlignItemsStart( media_query_name_array = {}, prefix =, suffix =, important 
 
     .{prefix}align-items-start{suffix}
     {
-        align-items: flex-start important;
+        align-items: start important;
     }
 
     for media_query_name in media_query_name_array
@@ -13,7 +13,7 @@ MakeAlignItemsStart( media_query_name_array = {}, prefix =, suffix =, important 
         {
             .{prefix}align-items-start-{media_query_name}{suffix}
             {
-                align-items: flex-start important;
+                align-items: start important;
             }
         }
     }
@@ -44,7 +44,7 @@ MakeAlignItemsEnd( media_query_name_array = {}, prefix =, suffix =, important = 
 
     .{prefix}align-items-end{suffix}
     {
-        align-items: flex-end important;
+        align-items: end important;
     }
 
     for media_query_name in media_query_name_array
@@ -53,7 +53,7 @@ MakeAlignItemsEnd( media_query_name_array = {}, prefix =, suffix =, important = 
         {
             .{prefix}align-items-end-{media_query_name}{suffix}
             {
-                align-items: flex-end important;
+                align-items: end important;
             }
         }
     }
@@ -104,7 +104,7 @@ MakeAlignSelfStart( media_query_name_array = {}, prefix =, suffix =, important =
 
     .{prefix}align-self-start{suffix}
     {
-        align-self: flex-start important;
+        align-self: start important;
     }
 
     for media_query_name in media_query_name_array
@@ -113,7 +113,7 @@ MakeAlignSelfStart( media_query_name_array = {}, prefix =, suffix =, important =
         {
             .{prefix}align-self-start-{media_query_name}{suffix}
             {
-                align-self: flex-start important;
+                align-self: start important;
             }
         }
     }
@@ -144,7 +144,7 @@ MakeAlignSelfEnd( media_query_name_array = {}, prefix =, suffix =, important = )
 
     .{prefix}align-self-end{suffix}
     {
-        align-self: flex-end important;
+        align-self: end important;
     }
 
     for media_query_name in media_query_name_array
@@ -153,7 +153,7 @@ MakeAlignSelfEnd( media_query_name_array = {}, prefix =, suffix =, important = )
         {
             .{prefix}align-self-end-{media_query_name}{suffix}
             {
-                align-self: flex-end important;
+                align-self: end important;
             }
         }
     }

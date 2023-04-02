@@ -4,7 +4,7 @@ MakeJustifyContentStart( media_query_name_array = {}, prefix =, suffix =, import
 
     .{prefix}justify-content-start{suffix}
     {
-        justify-content: flex-start important;
+        justify-content: start important;
     }
 
     for media_query_name in media_query_name_array
@@ -13,7 +13,7 @@ MakeJustifyContentStart( media_query_name_array = {}, prefix =, suffix =, import
         {
             .{prefix}justify-content-start-{media_query_name}{suffix}
             {
-                justify-content: flex-start important;
+                justify-content: start important;
             }
         }
     }
@@ -44,7 +44,7 @@ MakeJustifyContentEnd( media_query_name_array = {}, prefix =, suffix =, importan
 
     .{prefix}justify-content-end{suffix}
     {
-        justify-content: flex-end important;
+        justify-content: end important;
     }
 
     for media_query_name in media_query_name_array
@@ -53,7 +53,7 @@ MakeJustifyContentEnd( media_query_name_array = {}, prefix =, suffix =, importan
         {
             .{prefix}justify-content-end-{media_query_name}{suffix}
             {
-                justify-content: flex-end important;
+                justify-content: end important;
             }
         }
     }
@@ -104,7 +104,7 @@ MakeJustifySelfStart( media_query_name_array = {}, prefix =, suffix =, important
 
     .{prefix}justify-self-start{suffix}
     {
-        justify-self: flex-start important;
+        justify-self: start important;
     }
 
     for media_query_name in media_query_name_array
@@ -113,7 +113,7 @@ MakeJustifySelfStart( media_query_name_array = {}, prefix =, suffix =, important
         {
             .{prefix}justify-self-start-{media_query_name}{suffix}
             {
-                justify-self: flex-start important;
+                justify-self: start important;
             }
         }
     }
@@ -144,7 +144,7 @@ MakeJustifySelfEnd( media_query_name_array = {}, prefix =, suffix =, important =
 
     .{prefix}justify-self-end{suffix}
     {
-        justify-self: flex-end important;
+        justify-self: end important;
     }
 
     for media_query_name in media_query_name_array
@@ -153,7 +153,7 @@ MakeJustifySelfEnd( media_query_name_array = {}, prefix =, suffix =, important =
         {
             .{prefix}justify-self-end-{media_query_name}{suffix}
             {
-                justify-self: flex-end important;
+                justify-self: end important;
             }
         }
     }
