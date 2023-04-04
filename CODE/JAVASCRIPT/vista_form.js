@@ -939,6 +939,14 @@ class VISTA_DROPDOWN_COMPONENT extends VISTA_COMPONENT
         value
         )
     {
+        if ( !( this.IsOptional
+                && value === this.NullValue )
+             && this.OptionValueArray.indexOf( value ) < 0
+             && this.OptionValueArray.length > 0 )
+        {
+            value = this.OptionValueArray[ 0 ];
+        }
+
         this.ResultValue = value;
         this.value = value;
         this.UpdateView();
@@ -987,10 +995,6 @@ class VISTA_DROPDOWN_COMPONENT extends VISTA_COMPONENT
 
         this.OptionValueArray = GetJsonObject( this.OptionValues );
         this.OptionNameArray = GetJsonObject( this.OptionNames );
-        this.HasValidValue
-            = ( ( this.OptionValueArray.indexOf( this.ResultValue ) >= 0 )
-                || ( this.IsOptional
-                     && this.ResultValue === this.NullValue ) );
         this.SetTemplate(
             Text`
             <div class="is-component is-container is-dropdown-container">
@@ -999,7 +1003,7 @@ class VISTA_DROPDOWN_COMPONENT extends VISTA_COMPONENT
                         <option class="is-option is-dropdown-option" value="<:% this.NullValue :>" <:# ( this.ResultValue === this.NullValue ) ? "selected" : "" :>><:% this.NullName :></option>
                     <: } :>
                     <: for ( let option_index = 0; option_index < this.OptionValueArray.length; ++option_index ) { :>
-                        <option class="is-option is-dropdown-option" value="<:% this.OptionValueArray[ option_index ] :>" <:# ( ( this.ResultValue === this.OptionValueArray[ option_index ] ) || ( option_index === 0 && !this.HasValidValue ) ) ? "selected" : "" :>><:% this.OptionNameArray[ option_index ] :></option>
+                        <option class="is-option is-dropdown-option" value="<:% this.OptionValueArray[ option_index ] :>"><:% this.OptionNameArray[ option_index ] :></option>
                     <: } :>
                 </select>
             </div>

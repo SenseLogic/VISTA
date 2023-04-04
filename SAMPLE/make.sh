@@ -4,7 +4,7 @@ cd ANIMATION
 stylus style.styl
 cd ../CAROUSEL
 stylus style.styl
-cd ../FORM
+cd ../INPUT
 stylus style.styl
 cd ../PAGE
 stylus style.styl

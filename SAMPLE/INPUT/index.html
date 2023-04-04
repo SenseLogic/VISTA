@@ -3,154 +3,26 @@
     <head>
         <meta charset="UTF-8">
         <title>Sample</title>
+        <link rel="stylesheet" href="style.css" type="text/css">
     </head>
-    <style>
-        *,
-        input,
-        textarea,
-        select
-        {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body
-        {
-            padding: 1rem;
-        }
-
-        main
-        {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .input
-        {
-            width: 100%;
-        }
-
-        .select
-        {
-            width: 100%;
-        }
-
-        .value-container
-        {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .button
-        {
-            height: 1rem;
-            width: 1rem;
-
-            display: inline-block;
-
-            cursor: pointer;
-        }
-
-        .drag-button
-        {
-            background: url( "../MEDIA/drag_icon.svg" ) no-repeat center center / contain;
-        }
-
-        .add-button
-        {
-            background: url( "../MEDIA/add_icon.svg" ) no-repeat center center / contain;
-        }
-
-        .remove-button
-        {
-            background: url( "../MEDIA/remove_icon.svg" ) no-repeat center center / contain;
-        }
-
-        .upload-button
-        {
-            background: url( "../MEDIA/upload_icon.svg" ) no-repeat center center / contain;
-        }
-
-        .delete-button
-        {
-            background: url( "../MEDIA/delete_icon.svg" ) no-repeat center center / contain;
-        }
-
-        .image,
-        .video
-        {
-            height: 9rem;
-            width: auto;
-        }
-
-        #result
-        {
-            height: 16rem;
-        }
-    </style>
-    <body style="font-family:monospace">
-        <main>
-            <input-component result-id="input" result-class="input" result-name="name" result-value="input value" result-placeholder="placeholder"></input-component>
-            <text-input-component result-id="text-input" result-class="input" result-name="name" result-value="text-input value" result-placeholder="placeholder"></text-input-component>
-            <multilingual-input-component result-id="multilingual-input" result-class="input" result-name="name" result-value="value¨fr:valeur¨es:valor" result-placeholder="placeholder" language-codes="[&quot;en&quot;,&quot;fr&quot;,&quot;es&quot;]" language-names="[&quot;English&quot;,&quot;French&quot;,&quot;Spanish&quot;]"></multilingual-input-component>
-            <multilingual-text-input-component result-id="multilingual-text-input" result-class="input" result-name="name" result-value="the
-&quot;value&quot;¨fr:la
-&quot;valeur&quot;¨es:el
-&quot;valor&quot;" result-placeholder="placeholder" language-codes="[&quot;en&quot;,&quot;fr&quot;,&quot;es&quot;]" language-names="[&quot;English&quot;,&quot;French&quot;,&quot;Spanish&quot;]"></multilingual-text-input-component>
-            <image-path-input-component result-id="image-path-input" result-class="input" result-name="name" result-value="../MEDIA/background_1.jpg" result-placeholder="placeholder" image-class="image" error-image-path="../MEDIA/missing_image.svg" upload-button-container-class="button-container" upload-button-class="button upload-button" upload-api-url="/admin/upload/image" delete-button-class="button delete-button" delete-api-url="/admin/delete/file"></image-path-input-component>
-            <video-path-input-component result-id="video-path-input" result-class="input" result-name="name" result-value="../MEDIA/bus.mp4" result-placeholder="placeholder" video-class="video" error-video-path="../MEDIA/missing_video.mp4" upload-button-container-class="button-container" upload-button-class="button upload-button" upload-api-url="/admin/upload/video" delete-button-class="button delete-button" delete-api-url="/admin/delete/file"></video-path-input-component>
-            <dropdown-component result-id="dropdown" result-class="dropdown" result-name="name" result-value="1" option-values="[1,2,3,4,5]" option-names="[1,2,3,4,5]"></dropdown-component>
-            <input-list-component result-id="input-list" result-class="input" result-name="name" result-value="[1,2,3,4,5]" result-placeholder="placeholder" value-container-class="value-container" drag-button-class="button drag-button" add-button-class="button add-button" remove-button-class="button remove-button"></input-list-component>
-            <text-input-list-component result-id="text-input-list" result-class="input" result-name="name" result-value="[1,2,3,4,5]" result-placeholder="placeholder" value-container-class="value-container" drag-button-class="button drag-button" add-button-class="button add-button" remove-button-class="button remove-button"></text-input-list-component>
-            <multilingual-input-list-component result-id="multilingual-input-list" result-class="input" result-name="name" result-value="[&quot;value1¨fr:valeur1¨es:valor1&quot;,&quot;value2¨fr:valeur2¨es:valor2&quot;]" result-placeholder="placeholder" language-codes="[&quot;en&quot;,&quot;fr&quot;,&quot;es&quot;]" language-names="[&quot;English&quot;,&quot;French&quot;,&quot;Spanish&quot;]" value-container-class="value-container" drag-button-class="button drag-button" add-button-class="button add-button" remove-button-class="button remove-button"></multilingual-input-list-component>
-            <multilingual-text-input-list-component result-id="multilingual-text-input-list" result-class="input" result-name="name" result-value="[&quot;value1¨fr:valeur1¨es:valor1&quot;,&quot;value2¨fr:valeur2¨es:valor2&quot;]" result-placeholder="placeholder" language-codes="[&quot;en&quot;,&quot;fr&quot;,&quot;es&quot;]" language-names="[&quot;English&quot;,&quot;French&quot;,&quot;Spanish&quot;]" value-container-class="value-container" drag-button-class="button drag-button" add-button-class="button add-button" remove-button-class="button remove-button"></multilingual-text-input-list-component>
-            <image-path-input-list-component result-id="image-path-input-list" result-class="input" result-name="name" result-value="[&quot;../MEDIA/background_1.jpg&quot;,&quot;../MEDIA/background_2.jpg&quot;]" result-placeholder="placeholder" image-class="image" error-image-path="../MEDIA/missing_image.svg" upload-button-container-class="button-container" upload-button-class="button upload-button" upload-api-url="/admin/upload/image" delete-button-class="button delete-button" delete-api-url="/admin/delete/file" value-container-class="value-container" drag-button-class="button drag-button" add-button-class="button add-button" remove-button-class="button remove-button"></image-path-input-list-component>
-            <video-path-input-list-component result-id="video-path-input-list" result-class="input" result-name="name" result-value="[&quot;../MEDIA/bus.mp4&quot;,&quot;../MEDIA/train.mp4&quot;]" result-placeholder="placeholder" video-class="video" error-video-path="../MEDIA/missing_video.mp4" upload-button-container-class="button-container" upload-button-class="button upload-button" upload-api-url="/admin/upload/video" delete-button-class="button delete-button" delete-api-url="/admin/delete/file" value-container-class="value-container" drag-button-class="button drag-button" add-button-class="button add-button" remove-button-class="button remove-button"></video-path-input-list-component>
-            <dropdown-list-component result-id="dropdown-list" result-class="dropdown" result-name="name" result-value="[1,2,3,4,5]" option-values="[1,2,3,4,5,6,7,8,9,10]" option-names="[1,2,3,4,5,6,7,8,9,10]" value-container-class="value-container" drag-button-class="button drag-button" add-button-class="button add-button" remove-button-class="button remove-button"></dropdown-list-component>
+    <body>
+        <header class="height-80pxm display-flex flex-direction-row justify-content-center align-items-center background-color-gray text-color-white">
             <div>
-                <button onclick="Check()">
-                    Check
-                </button>
+                SAMPLE
             </div>
-            <textarea id="result" readonly>
-            </textarea>
+        </header>
+        <main class="container-centered background-color-light-gray text-color-black">
+            <form class="display-flex flex-direction-column align-items-center padding-vertical-20pxm">
+                <select class="width-480pxm border-radius-10pxm padding-lateral-5pxm padding-vertical-10pxm">
+                    <option>First option</option>
+                    <option>Second option</option>
+                    <option>Third option</option>
+                    <option>Fourth option</option>
+                </select>
+                <input class="width-480pxm margin-top-10pxm border-radius-10pxm padding-10pxm" type="email" placeholder="E-mail">
+                <input class="width-480pxm margin-top-10pxm border-radius-10pxm padding-10pxm" type="password" placeholder="Password">
+                <input class="margin-top-20pxm border-radius-10pxm padding-10pxm" type="submit" value="Submit">
+            </form>
         </main>
-        <script src="../../CODE/JAVASCRIPT/vista_base.js"></script>
-        <script src="../../CODE/JAVASCRIPT/vista_math.js"></script>
-        <script src="../../CODE/JAVASCRIPT/vista_element.js"></script>
-        <script src="../../CODE/JAVASCRIPT/vista_data.js"></script>
-        <script src="../../CODE/JAVASCRIPT/vista_component.js"></script>
-        <script src="../../CODE/JAVASCRIPT/vista_breakpoint.js"></script>
-        <script src="../../CODE/JAVASCRIPT/vista_text.js"></script>
-        <script src="../../CODE/JAVASCRIPT/vista_input.js"></script>
-        <script>
-            // -- FUNCTIONS
-
-            function Check(
-                )
-            {
-                GetElementById( "result" ).value
-                    = "Input component : " + GetElementById( "input" ).value + "\n"
-                      + "Text input component : " + GetElementById( "text-input" ).value + "\n"
-                      + "Multilingual input component : " + GetElementById( "multilingual-input" ).value + "\n"
-                      + "Multilingual text input component : " + GetElementById( "multilingual-text-input" ).value + "\n"
-                      + "Image path input component : " + GetElementById( "image-path-input" ).value + "\n"
-                      + "Video path input component : " + GetElementById( "video-path-input" ).value + "\n"
-                      + "Dropdown component : " + GetElementById( "dropdown" ).value + "\n"
-                      + "Input list component : " + GetElementById( "input-list" ).value + "\n"
-                      + "Text input list component : " + GetElementById( "text-input-list" ).value + "\n"
-                      + "Multilingual input list component : " + GetElementById( "multilingual-input-list" ).value + "\n"
-                      + "Multilingual text input list component : " + GetElementById( "multilingual-text-input-list" ).value + "\n"
-                      + "Image path input list component : " + GetElementById( "image-path-input-list" ).value + "\n"
-                      + "Video path input list component : " + GetElementById( "video-path-input-list" ).value + "\n"
-                      + "Dropdown list component : " + GetElementById( "dropdown-list" ).value + "\n";
-            }
-
-            // -- STATEMENTS
-
-            Check();
-        </script>
     </body>
 </html>
