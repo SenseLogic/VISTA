@@ -18,12 +18,17 @@ class SCROLLER
         slider_animation_duration = 0.0,
         slider_is_horizontal = true,
         slider_is_draggable = true,
+        slide_element_array = null,
+        slide_click_function = null,
         track_element = null,
         slide_button_element_array = null,
         update_track_function = null,
         hidden_element_class_name = "is-hidden"
         )
     {
+        var
+            slide_index;
+
         this.HandleResizeEvent = this.HandleResizeEvent.bind( this );
         this.HandleStripTouchStartEvent = this.HandleStripTouchStartEvent.bind( this );
         this.HandleSliderTouchStartEvent = this.HandleSliderTouchStartEvent.bind( this );
@@ -53,6 +58,9 @@ class SCROLLER
         this.SliderIsDragged = false;
         this.SliderDragPosition = 0;
         this.SliderRatio = 0;
+        this.SlideElementArray = slide_element_array;
+        this.SlideIsClickable = ( slide_click_function !== null );
+        this.SlideClickFunction = slide_click_function;
         this.TrackElement = track_element;
         this.SlideButtonElementArray = slide_button_element_array;
         this.HiddenElementClassName = hidden_element_class_name;
@@ -81,6 +89,21 @@ class SCROLLER
             this.Element.AddEventListener( "wheel", this.HandleWheelEvent );
 
             document.documentElement.AddEventListener( "mouseleave", this.HandleTouchEndEvent );
+        }
+
+        if ( this.SlideIsClickable )
+        {
+            slide_index = 0;
+
+            for ( slide_index = 0;
+                  slide_index < this.SlideElementArray.length;
+                  ++slide_index )
+            {
+                this.SlideElementArray[ slide_index ].AddEventListener(
+                    "click",
+                    this.SlideClickFunction
+                    );
+            }
         }
 
         this.Element.AddEventListener( "scroll", this.HandleScrollEvent );
