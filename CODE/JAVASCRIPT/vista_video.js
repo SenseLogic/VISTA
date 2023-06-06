@@ -108,7 +108,13 @@ function CreateAutoplayIntersectionObserver(
             {
                 var
                     intersection_observer_entry,
-                    video_element;
+                    query_character_index,
+                    video_element,
+                    video_path,
+                    video_path_entry,
+                    video_path_entry_array,
+                    video_query,
+                    video_source;
 
                 for ( intersection_observer_entry of intersection_observer_entry_array )
                 {
@@ -119,14 +125,37 @@ function CreateAutoplayIntersectionObserver(
                         if ( video_element.paused
                              && !video_element.classList.contains( "is-hidden" ) )
                         {
-                            if ( !video_element.HasAttribute( "src" )
-                                 && video_element.HasAttribute( "data-video-path" ) )
+                            video_source = "";
+                            video_path_entry_array = video_element.dataset.videoPath.split( "|" );
+
+                            for ( video_path_entry of video_path_entry_array )
                             {
-                                video_element.src = video_element.dataset.videoPath;
+                                query_character_index = video_path_entry.indexOf( "@" );
+
+                                if ( query_character_index >= 0 )
+                                {
+                                    video_path = video_path_entry.substring( 0, query_character_index );
+                                    video_query = video_path_entry.substring( query_character_index + 1 );
+                                }
+                                else
+                                {
+                                    video_path = video_path_entry;
+                                    video_query = "";
+                                }
+
+                                if ( video_query === ""
+                                     || window.matchMedia( "(" + video_query + ")" ).matches )
+                                {
+                                    video_source = video_path;
+                                }
                             }
 
-                            video_element.autoplay = true;
-                            video_element.play();
+                            if ( video_source !== "" )
+                            {
+                                video_element.src = video_source;
+                                video_element.autoplay = true;
+                                video_element.play();
+                            }
                         }
                     }
                     else
