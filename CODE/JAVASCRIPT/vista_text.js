@@ -184,6 +184,14 @@ String.prototype.GetKebabCaseText = function (
 
 // ~~
 
+String.prototype.GetFormText = function (
+    )
+{
+    return this.replaceAll( "\r", "" );
+}
+
+// ~~
+
 String.prototype.GetTranslatedText = function (
     language_code,
     default_language_code = "en",

@@ -26,7 +26,7 @@ class VISTA_INPUT_COMPONENT extends VISTA_COMPONENT
     UpdateValue(
         )
     {
-        this.ResultValue = this.ResultElement.value;
+        this.ResultValue = this.ResultElement.value.GetFormText();
         this.value = this.ResultValue;
     }
 
@@ -108,7 +108,7 @@ class VISTA_TEXT_INPUT_COMPONENT extends VISTA_COMPONENT
     UpdateValue(
         )
     {
-        this.ResultValue = this.ResultElement.value;
+        this.ResultValue = this.ResultElement.value.GetFormText();
         this.value = this.ResultValue;
     }
 
@@ -208,7 +208,7 @@ class VISTA_MULTILINGUAL_INPUT_COMPONENT extends VISTA_COMPONENT
               language_code_index < this.TranslationArray.length;
               ++language_code_index )
         {
-            this.TranslationArray[ language_code_index ] = this.TranslationElementArray[ language_code_index ].value;
+            this.TranslationArray[ language_code_index ] = this.TranslationElementArray[ language_code_index ].value.GetFormText();
         }
 
         this.ResultValue = this.TranslationArray.GetMultilingualText( this.LanguageCodeArray );
@@ -328,7 +328,7 @@ class VISTA_MULTILINGUAL_TEXT_INPUT_COMPONENT extends VISTA_COMPONENT
               language_code_index < this.TranslationArray.length;
               ++language_code_index )
         {
-            this.TranslationArray[ language_code_index ] = this.TranslationElementArray[ language_code_index ].value;
+            this.TranslationArray[ language_code_index ] = this.TranslationElementArray[ language_code_index ].value.GetFormText();
         }
 
         this.ResultValue = this.TranslationArray.GetMultilingualText( this.LanguageCodeArray );
