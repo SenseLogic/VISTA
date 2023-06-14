@@ -581,7 +581,7 @@ function ParseColorText(
     var
         component_array;
 
-    text = text.ReplaceText( " ", "" );
+    text = text.replaceAll( " ", "" );
 
     if ( text.HasPrefix( "#" ) )
     {
@@ -608,7 +608,7 @@ function ParseColorText(
     {
         if ( text.HasPrefix( "rgb(" ) )
         {
-            component_array = text.substring( 4, text.length - 1 ).Split( "," );
+            component_array = text.substring( 4, text.length - 1 ).split( "," );
 
             return {
                 Red : GetReal( component_array[ 0 ] ),
@@ -619,7 +619,7 @@ function ParseColorText(
         }
         else if ( text.HasPrefix( "rgba(" ) )
         {
-            component_array = text.substring( 5, text.length - 1 ).Split( "," );
+            component_array = text.substring( 5, text.length - 1 ).split( "," );
 
             return {
                 Red : GetReal( component_array[ 0 ] ),
@@ -651,7 +651,7 @@ function ParseTransformText(
         transform;
 
     transform = new Map();
-    component_array = text.ReplaceText( " ", "" ).Split( ")" );
+    component_array = text.replaceAll( " ", "" ).split( ")" );
 
     for ( component of component_array )
     {

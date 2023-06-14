@@ -55,7 +55,7 @@ class VISTA_WAVEFRONT_MODEL
         var
             part_array;
 
-        part_array = line.Split( " " );
+        part_array = line.split( " " );
 
         return GetReal( part_array[ 1 ] );
     }
@@ -69,7 +69,7 @@ class VISTA_WAVEFRONT_MODEL
         var
             part_array;
 
-        part_array = line.Split( " " );
+        part_array = line.split( " " );
 
         return [
             GetReal( part_array[ 1 ] ),
@@ -86,7 +86,7 @@ class VISTA_WAVEFRONT_MODEL
         var
             part_array;
 
-        part_array = line.Split( " " );
+        part_array = line.split( " " );
 
         return [
             GetReal( part_array[ 1 ] ),
@@ -127,13 +127,13 @@ class VISTA_WAVEFRONT_MODEL
         normal_index_array = [];
         vertex_count = 0;
 
-        part_array = line.Split( " " );
+        part_array = line.split( " " );
 
         for ( part_index = 1;
               part_index < part_array.length;
               ++part_index )
         {
-            index_array = part_array[ part_index ].Split( "/" );
+            index_array = part_array[ part_index ].split( "/" );
 
             if ( index_array.length > 0
                  && index_array[ 0 ].length > 0 )
@@ -225,7 +225,7 @@ class VISTA_WAVEFRONT_MODEL
             line,
             line_array;
 
-        line_array = material_file_text.ReplaceText( "\r", "" ).ReplaceText( "  ", " " ).Split( "\n" );
+        line_array = material_file_text.replaceAll( "\r", "" ).replaceAll( "  ", " " ).split( "\n" );
 
         for ( line of line_array )
         {
@@ -277,7 +277,7 @@ class VISTA_WAVEFRONT_MODEL
             line,
             line_array;
 
-        line_array = model_file_text.ReplaceText( "\r", "" ).ReplaceText( "  ", " " ).Split( "\n" );
+        line_array = model_file_text.replaceAll( "\r", "" ).replaceAll( "  ", " " ).split( "\n" );
 
         for ( line of line_array )
         {

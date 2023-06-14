@@ -121,19 +121,19 @@ class VISTA_DATA
             section_text,
             function_code;
 
-        section_array = template_text.Split( "<:" );
+        section_array = template_text.split( "<:" );
         function_code = "() => {\nvar result = " + GetJsonText( section_array[ 0 ] ) + ";\n";
 
         for ( section_index = 1;
               section_index < section_array.length;
               ++section_index )
         {
-            section_part_array = section_array[ section_index ].Split( ":>" );
+            section_part_array = section_array[ section_index ].split( ":>" );
 
             if ( section_part_array.length >= 2 )
             {
                 section_code = section_part_array.RemoveFirstValue();
-                section_text = section_part_array.Join( ":>" );
+                section_text = section_part_array.join( ":>" );
 
                 if ( section_code.HasPrefix( "#" ) )
                 {
@@ -165,10 +165,10 @@ class VISTA_DATA
 
         function_code
             = function_code
-                  .ReplaceText( "<\\:", "<:" )
-                  .ReplaceText( ":\\>", ":>" )
-                  .ReplaceText( "<\\\\:", "<:" )
-                  .ReplaceText( ":\\\\>", ":>" );
+                  .replaceAll( "<\\:", "<:" )
+                  .replaceAll( ":\\>", ":>" )
+                  .replaceAll( "<\\\\:", "<:" )
+                  .replaceAll( ":\\\\>", ":>" );
 
         try
         {

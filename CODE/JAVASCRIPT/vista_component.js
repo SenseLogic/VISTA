@@ -98,8 +98,8 @@ class VISTA_COMPONENT extends HTMLElement
     {
         return (
             element_selector
-                .ReplaceText( "{:scope:}", this.Scope )
-                .ReplaceText( "{:host:}", this.Host )
+                .replaceAll( "{:scope:}", this.Scope )
+                .replaceAll( "{:host:}", this.Host )
             );
     }
 
@@ -440,13 +440,13 @@ class VISTA_COMPONENT extends HTMLElement
 
         while ( template_text.indexOf( "{:" ) >= 0 )
         {
-            section_array = template_text.Split( "{:" );
+            section_array = template_text.split( "{:" );
 
             for ( section_index = 1;
                   section_index < section_array.length;
                   ++section_index )
             {
-                section_part_array = section_array[ section_index ].Split( ":}" );
+                section_part_array = section_array[ section_index ].split( ":}" );
 
                 if ( section_part_array.length >= 2 )
                 {
@@ -459,7 +459,7 @@ class VISTA_COMPONENT extends HTMLElement
                     }
 
                     section_code = section_code.Trim();
-                    section_text = section_part_array.Join( ":}" );
+                    section_text = section_part_array.join( ":}" );
 
                     if ( this.TemplateConstantMap.HasKey( section_code ) )
                     {
@@ -487,7 +487,7 @@ class VISTA_COMPONENT extends HTMLElement
                 }
             }
 
-            template_text = section_array.Join( "" );
+            template_text = section_array.join( "" );
             ++iteration_index;
 
             if ( iteration_index === 100 )
@@ -500,8 +500,8 @@ class VISTA_COMPONENT extends HTMLElement
 
         return (
             template_text
-                .ReplaceText( "{\\:", "{:" )
-                .ReplaceText( ":\\}", ":}" )
+                .replaceAll( "{\\:", "{:" )
+                .replaceAll( ":\\}", ":}" )
             );
     }
 
@@ -524,14 +524,14 @@ class VISTA_COMPONENT extends HTMLElement
 
         if ( template_text.indexOf( "@media " ) >= 0 )
         {
-            section_array = template_text.Split( "<style>\n" );
+            section_array = template_text.split( "<style>\n" );
 
             for ( section_index = 1;
                   section_index < section_array.length;
                   ++section_index )
             {
-                section_part_array = section_array[ section_index ].Split( "</style>\n" );
-                line_array = section_part_array[ 0 ].Split( "\n" );
+                section_part_array = section_array[ section_index ].split( "</style>\n" );
+                line_array = section_part_array[ 0 ].split( "\n" );
                 brace_level = 0;
                 selector_text = "";
 
@@ -586,11 +586,11 @@ class VISTA_COMPONENT extends HTMLElement
                     }
                 }
 
-                section_part_array[ 0 ] = line_array.Join( "\n" );
-                section_array[ section_index ] = section_part_array.Join( "</style>\n" );
+                section_part_array[ 0 ] = line_array.join( "\n" );
+                section_array[ section_index ] = section_part_array.join( "</style>\n" );
             }
 
-            template_text = section_array.Join( "<style>\n" );
+            template_text = section_array.join( "<style>\n" );
         }
 
         return template_text;
@@ -610,7 +610,7 @@ class VISTA_COMPONENT extends HTMLElement
         template_text
             = this.ProcessTemplateStyle(
                   this.ProcessTemplateExpressions(
-                      template_text.ReplaceText( "\r", "" )
+                      template_text.replaceAll( "\r", "" )
                       )
                   );
 

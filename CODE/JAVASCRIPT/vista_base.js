@@ -242,7 +242,7 @@ function GetTextArrayText(
     var
         text_array_text;
 
-    text_array_text = text_array.Join( separator_text );
+    text_array_text = text_array.join( separator_text );
 
     if ( text_array_text === "" )
     {
@@ -612,16 +612,16 @@ function GetEscapedHtml(
     {
         return (
             text
-                .ReplaceText( "&", "&amp;" )
-                .ReplaceText( "<", "&lt;" )
-                .ReplaceText( ">", "&gt;" )
-                .ReplaceText( "{", "&#40;" )
-                .ReplaceText( "}", "&#41;" )
-                .ReplaceText( "(", "&#40;" )
-                .ReplaceText( ")", "&#41;" )
-                .ReplaceText( "\\", "&#92;" )
-                .ReplaceText( "\"", "&#34;" )
-                .ReplaceText( "'", "&#39;" )
+                .replaceAll( "&", "&amp;" )
+                .replaceAll( "<", "&lt;" )
+                .replaceAll( ">", "&gt;" )
+                .replaceAll( "{", "&#40;" )
+                .replaceAll( "}", "&#41;" )
+                .replaceAll( "(", "&#40;" )
+                .replaceAll( ")", "&#41;" )
+                .replaceAll( "\\", "&#92;" )
+                .replaceAll( "\"", "&#34;" )
+                .replaceAll( "'", "&#39;" )
             );
     }
     else
@@ -752,7 +752,7 @@ function GetRealText(
     }
     else
     {
-        return real_text.ReplaceText( ".", decimal_separator );
+        return real_text.replaceAll( ".", decimal_separator );
     }
 }
 
@@ -895,13 +895,7 @@ String.prototype.GetRightPaddedText = function (
 
 // ~~
 
-String.prototype.ReplaceText = function (
-    old_text,
-    new_text
-    )
-{
-    return this.Split( old_text ).Join( new_text );
-}
+String.prototype.ReplaceText = String.prototype.replaceAll;
 
 // ~~
 
@@ -920,7 +914,7 @@ String.prototype.ReplaceTexts = function (
     {
         old_replaced_text = replaced_text;
 
-        replaced_text = replaced_text.Split( old_text ).Join( new_text );
+        replaced_text = replaced_text.replaceAll( old_text, new_text );
     }
     while ( replaced_text !== old_replaced_text );
 

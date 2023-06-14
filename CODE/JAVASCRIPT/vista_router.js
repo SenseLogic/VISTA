@@ -38,8 +38,8 @@ class VISTA_ROUTER_COMPONENT extends VISTA_COMPONENT
 
         if ( filter.indexOf( "{" ) >= 0 )
         {
-            route_part_array = this.Route.Split( "/" );
-            filter_part_array = filter.Split( "/" );
+            route_part_array = this.Route.split( "/" );
+            filter_part_array = filter.split( "/" );
 
             if ( route_part_array.length === filter_part_array.length )
             {
