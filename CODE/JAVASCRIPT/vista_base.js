@@ -148,6 +148,19 @@ function IsString(
 
 // ~~
 
+function IsObject(
+    value
+    )
+{
+    return (
+        value !== null
+        && typeof value === "object"
+        && !Array.isArray( value )
+        );
+}
+
+// ~~
+
 function IsArray(
     value
     )
