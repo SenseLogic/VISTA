@@ -1,12 +1,16 @@
-// -- FUNCTIONS
+// -- CONSTANTS
 
 var
     DefaultPrecision = 0.00001,
     HalfPi = Math.PI * 0.5,
     Pi = Math.PI,
-    TwoPi = Math.PI * 2.0,
-    DegreesToRadians = Math.PI / 180.0,
-    RadiansToDegrees = 180.0 / Math.PI,
+    TwoPi = Math.PI * 2,
+    DegreesToRadians = Math.PI / 180,
+    RadiansToDegrees = 180 / Math.PI;
+
+// -- FUNCTIONS
+
+var
     GetMinimum = Math.min,
     GetMaximum = Math.max,
     GetPositive = Math.abs,
@@ -54,8 +58,8 @@ function IsRoughlyOne(
     )
 {
     return (
-        value >= 1.0 - precision
-        && value <= 1.0 + precision
+        value >= 1 - precision
+        && value <= 1 + precision
         );
 }
 
@@ -67,8 +71,8 @@ function IsRoughlyMinusOne(
     )
 {
     return (
-        value >= -1.0 - precision
-        && value <= -1.0 + precision
+        value >= -1 - precision
+        && value <= -1 + precision
         );
 }
 
@@ -147,18 +151,18 @@ function GetVectorAngle(
 
     if ( IsRoughlyZero( length ) )
     {
-        return 0.0;
+        return 0;
     }
     else
     {
-        one_over_length = 1.0 / length;
+        one_over_length = 1 / length;
 
         cosinus = x * one_over_length;
         sinus = y * one_over_length;
 
         if ( IsRoughlyOne( cosinus ) )
         {
-            return 0.0;
+            return 0;
         }
         else if ( IsRoughlyOne( sinus ) )
         {
@@ -170,7 +174,7 @@ function GetVectorAngle(
         }
         else if ( IsRoughlyMinusOne( cosinus ) )
         {
-            if ( sinus >= 0.0 )
+            if ( sinus >= 0 )
             {
                 return Pi;
             }
@@ -183,27 +187,27 @@ function GetVectorAngle(
         {
             if ( IsRoughlyZero( sinus ) )
             {
-                cosinus = GetClamp( cosinus, -1.0, 1.0 );
+                cosinus = GetClamp( cosinus, -1, 1 );
 
                 angle = GetArcCosinus( GetPositive( cosinus ) );
             }
             else
             {
-                sinus = GetClamp( sinus, -1.0, 1.0 );
+                sinus = GetClamp( sinus, -1, 1 );
 
                 angle = GetArcSinus( GetPositive( sinus ) );
             }
 
-            if ( cosinus >= 0.0 )
+            if ( cosinus >= 0 )
             {
-                if ( sinus < 0.0 )
+                if ( sinus < 0 )
                 {
                     angle = -angle ;
                 }
             }
             else
             {
-                if ( sinus >= 0.0 )
+                if ( sinus >= 0 )
                 {
                     angle = Pi - angle;
                 }
@@ -253,7 +257,7 @@ function GetEaseInOutRatio(
     ratio
     )
 {
-    return ( 3.0 - 2.0 * ratio ) * ratio * ratio;
+    return ( 3 - 2 * ratio ) * ratio * ratio;
 }
 
 // ~~
@@ -262,7 +266,7 @@ function GetEaseInRatio(
     ratio
     )
 {
-    return 1.0 - GetCosinus( ratio * HalfPi );
+    return 1 - GetCosinus( ratio * HalfPi );
 }
 
 // ~~
@@ -289,7 +293,7 @@ function GetQuadraticEaseOutRatio(
     ratio
     )
 {
-    return ratio * ( 2.0 - ratio );
+    return ratio * ( 2 - ratio );
 }
 
 // ~~
@@ -300,11 +304,11 @@ function GetQuadraticEaseInOutRatio(
 {
     if ( ratio < 0.5 )
     {
-        return 2.0 * ratio * ratio;
+        return 2 * ratio * ratio;
     }
     else
     {
-        return ( 4.0 - 2.0 * ratio ) * ratio - 1.0;
+        return ( 4 - 2 * ratio ) * ratio - 1;
     }
 }
 
@@ -323,9 +327,9 @@ function GetCubicEaseOutRatio(
     ratio
     )
 {
-    ratio -= 1.0;
+    ratio -= 1;
 
-    return ratio * ratio * ratio + 1.0;
+    return ratio * ratio * ratio + 1;
 }
 
 // ~~
@@ -336,11 +340,11 @@ function GetCubicEaseInOutRatio(
 {
     if ( ratio < 0.5 )
     {
-        return 4.0 * ratio * ratio * ratio;
+        return 4 * ratio * ratio * ratio;
     }
     else
     {
-        return ( ratio - 1.0 ) * ( 2.0 * ratio - 2.0 ) * ( 2.0 * ratio - 2.0 ) + 1.0;
+        return ( ratio - 1 ) * ( 2 * ratio - 2 ) * ( 2 * ratio - 2 ) + 1;
     }
 }
 
@@ -359,9 +363,9 @@ function GetQuarticEaseOutRatio(
     ratio
     )
 {
-    ratio -= 1.0;
+    ratio -= 1;
 
-    return 1.0 - ratio * ratio * ratio * ratio;
+    return 1 - ratio * ratio * ratio * ratio;
 }
 
 // ~~
@@ -372,13 +376,13 @@ function GetQuarticEaseInOutRatio(
 {
     if ( ratio < 0.5 )
     {
-        return 8.0 * ratio * ratio * ratio * ratio;
+        return 8 * ratio * ratio * ratio * ratio;
     }
     else
     {
-        ratio -= 1.0;
+        ratio -= 1;
 
-        return 1.0 - 8.0 * ratio * ratio * ratio * ratio;
+        return 1 - 8 * ratio * ratio * ratio * ratio;
     }
 }
 
@@ -397,9 +401,9 @@ function GetQuinticEaseOutRatio(
     ratio
     )
 {
-    ratio -= 1.0;
+    ratio -= 1;
 
-    return ratio * ratio * ratio * ratio * ratio + 1.0;
+    return ratio * ratio * ratio * ratio * ratio + 1;
 }
 
 // ~~
@@ -410,13 +414,13 @@ function GetQuinticEaseInOutRatio(
 {
     if ( ratio < 0.5 )
     {
-        return 16.0 * ratio * ratio * ratio * ratio * ratio;
+        return 16 * ratio * ratio * ratio * ratio * ratio;
     }
     else
     {
-        ratio -= 1.0;
+        ratio -= 1;
 
-        return 16.0 * ratio * ratio * ratio * ratio * ratio + 1.0;
+        return 16 * ratio * ratio * ratio * ratio * ratio + 1;
     }
 }
 
@@ -650,7 +654,7 @@ function GetBounceInRatio(
     ratio
     )
 {
-    return 1 - easeOutBounce( 1 - ratio );
+    return 1 - GetBounceOutRatio( 1 - ratio );
 }
 
 // ~~
@@ -698,10 +702,10 @@ function GetBounceInOutRatio(
 {
     if ( ratio < 0.5 )
     {
-        return ( 1 - easeOutBounce( 1 - 2 * ratio ) ) * 0.5;
+        return ( 1 - GetBounceOutRatio( 1 - 2 * ratio ) ) * 0.5;
     }
     else
     {
-        return ( 1 + easeOutBounce( 2 * ratio - 1 ) ) * 0.5;
+        return ( 1 + GetBounceOutRatio( 2 * ratio - 1 ) ) * 0.5;
     }
 }
