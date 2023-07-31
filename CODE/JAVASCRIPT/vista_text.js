@@ -192,97 +192,184 @@ String.prototype.GetFormText = function (
 
 // ~~
 
-String.prototype.GetTranslatedText = function (
-    language_code,
-    default_language_code = "en",
-    translation_separator = "¨"
+String.prototype.GetUntranslatedText = function (
+    )
+{
+    return this.split( "¨" )[ 0 ];
+}
+
+// ~~
+
+String.prototype.MatchesLanguages = function (
+    language_specifier
     )
 {
     var
-        translated_text,
-        translated_text_array,
-        translated_text_index;
+        language_tag_part_array,
+        language_specifier_tag,
+        language_specifier_tag_part_array;
 
-    if ( this === "" )
-    {
-        return "";
-    }
-    else
-    {
-        translated_text_array = this.split( translation_separator );
+    language_tag_part_array = ( this + "--" ).split( "-" );
 
-        if ( language_code !== default_language_code )
+    for( language_specifier_tag of language_specifier.split( "," ) )
+    {
+        language_specifier_tag_part_array = ( language_specifier_tag + "--" ).split( "-" );
+
+        if ( ( language_tag_part_array[ 0 ] === ""
+               || language_specifier_tag_part_array[ 0 ] === ""
+               || language_tag_part_array[ 0 ] === language_specifier_tag_part_array[ 0 ] )
+             && ( language_tag_part_array[ 1 ] === ""
+                  || language_specifier_tag_part_array[ 1 ] === ""
+                  || language_tag_part_array[ 1 ] === language_specifier_tag_part_array[ 1 ] )
+             && ( language_tag_part_array[ 2 ] === ""
+                  || language_specifier_tag_part_array[ 2 ] === ""
+                  || language_tag_part_array[ 2 ] === language_specifier_tag_part_array[ 2 ] ) )
         {
-            for ( translated_text_index = 1;
-                  translated_text_index < translated_text_array.length;
-                  ++translated_text_index )
-            {
-                translated_text = translated_text_array[ translated_text_index ];
+            return true;
+        }
+    }
 
-                if ( translated_text.substring( 0, 2 ) === language_code )
+    return false;
+}
+
+// ~~
+
+String.prototype.GetTranslatedText = function(
+    language_tag,
+    default_language_tag = "en"
+    )
+{
+    var
+        colon_character_index,
+        translated_text,
+        translated_text_array;
+
+    translated_text_array = this.split( "¨" );
+
+    if ( language_tag !== default_language_tag )
+    {
+        for ( translated_text_index = translated_text_array.length - 1;
+              translated_text_index >= 1;
+              --translated_text_index)
+        {
+            translated_text = translated_text_array[ translated_text_index ];
+            colon_character_index = translated_text.indexOf( ":" );
+
+            if ( colon_character_index >= 0 )
+            {
+                if ( language_tag.MatchesLanguages( translated_text.substring( 0, colon_character_index ) ) )
                 {
-                    return translated_text.substring( 3 );
+                    return translated_text.substring( colon_character_index + 1 );
                 }
             }
         }
+    }
 
-        return translated_text_array[ 0 ];
+    return translated_text_array[ 0 ];
+}
+
+// ~~
+
+function GetTranslatedNumber(
+    number,
+    decimal_separator
+    )
+{
+    if ( decimal_separator === "," )
+    {
+        return number.toString().replace( ".", "," );
+    }
+    else
+    {
+        return number.toString();
     }
 }
 
 // ~~
 
-String.prototype.GetTranslatedTextArray = function (
-    language_code_array,
-    default_language_code = "en",
-    translation_separator = "¨"
+function GetLanguageDecimalSeparator(
+    language_code
+    )
+{
+    if ( language_code === "en"
+         || language_code === "ja"
+         || language_code === "ko"
+         || language_code === "zh" )
+    {
+        return ".";
+    }
+    else
+    {
+        return ",";
+    }
+}
+
+// ~~
+
+String.prototype.GetTranslationArray = function (
     )
 {
     var
-        language_code,
+        colon_character_index,
+        translated_text,
+        translated_text_array,
+        translated_text_index,
         translation_array;
 
-    translated_text_array = [];
+    translation_array = [];
+    translated_text_array = this.split( "¨" );
 
-    for ( language_code of language_code_array )
+    translation_array.push(
+        {
+            Languages : "",
+            Text : translated_text_array[ 0 ]
+        }
+        );
+
+    for ( translated_text_index = 1;
+          translated_text_index < translated_text_array.length;
+          ++translated_text_index)
     {
-        translated_text_array.push( this.GetTranslatedText( language_code, default_language_code, translation_separator ) );
+        translated_text = translated_text_array[ translated_text_index ];
+        colon_character_index = translated_text.indexOf( ":" );
+
+        if ( colon_character_index >= 0 )
+        {
+            translation_array.push(
+                {
+                    Languages : translated_text.substring( 0, colon_character_index ),
+                    Text : translated_text.substring( colon_character_index + 1 )
+                }
+                );
+        }
     }
 
-    return translated_text_array;
+    return translation_array;
 }
 
 // ~~
 
 Array.prototype.GetMultilingualText = function (
-    language_code_array,
-    default_language_code = "en",
-    translation_separator = "¨"
     )
 {
     var
-        default_translated_text,
-        language_code_index,
-        multilingual_text;
+        multilingual_text,
+        translation,
+        translation_index;
 
     multilingual_text = "";
-    default_translated_text = null;
 
-    for ( language_code_index = 0;
-          language_code_index < language_code_array.length;
-          ++language_code_index )
+    if ( this.length > 0 )
     {
-        language_code = language_code_array[ language_code_index ];
-        translated_text = this[ language_code_index ];
+        multilingual_text = this[ 0 ].Text;
 
-        if ( default_translated_text === null )
+        for ( translation_index = 1;
+              translation_index < this.length;
+              ++translation_index )
         {
-            default_translated_text = this[ language_code_index ];
-            multilingual_text = default_translated_text;
-        }
-        else if ( translated_text !== default_translated_text )
-        {
-            multilingual_text += "¨" + language_code + ":" + translated_text;
+            translation = this[ translation_index ];
+
+            multilingual_text += translation.Languages + ":" + translation.Text;
         }
     }
 
