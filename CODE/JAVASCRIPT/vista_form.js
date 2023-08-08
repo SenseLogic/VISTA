@@ -164,225 +164,72 @@ class VISTA_TEXT_INPUT_COMPONENT extends VISTA_COMPONENT
 
 // ~~
 
-class VISTA_TRANSLATION_INPUT_COMPONENT extends VISTA_COMPONENT
+class VISTA_MULTILINGUAL_COMPONENT extends VISTA_COMPONENT
 {
     // -- OPERATIONS
 
-    UpdateView(
-        )
-    {
-        this.ResultElement.value = this.ResultValue;
-    }
-
-    // ~~
-
-    SetValue(
-        value
-        )
-    {
-        this.ResultValue = value;
-        this.value = value;
-        this.UpdateView();
-    }
-
-    // ~~
-
-    UpdateValue(
-        )
-    {
-        this.ResultValue = this.ResultElement.value.GetFormText();
-        this.value = this.ResultValue;
-    }
-
-    // ~~
-
-    HandleResultInputEvent(
-        event
-        )
-    {
-        this.UpdateValue();
-
-        this.EmitEvent( "value-changed" );
-        this.EmitEvent( "sub-value-changed" );
-        event.Cancel();
-
-        return false;
-    }
-
-    // ~~
-
-    InitializeComponent(
-        )
-    {
-        this.BindStyle();
-        this.BindProperty( "ResultId", "result-id", "" );
-        this.BindProperty( "ResultName", "result-name", "" );
-        this.BindProperty( "ResultValue", "result-value", "" );
-        this.BindProperty( "ResultPlaceholder", "result-placeholder", "" );
-        this.BindProperty( "IsReadonly", "is-readonly", false );
-        this.BindMethod( "HandleResultInputEvent" );
-
-        this.SetTemplate(
-            Text`
-            <div class="is-component is-container">
-                <input id="<:# this.ResultId :>" class="is-input is-result" name="<:# this.ResultName :>" value="<:% this.ResultValue :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :>/>
-            </div>
-            `
-            );
-    }
-
-    // ~~
-
-    PostUpdateComponent(
-        )
-    {
-        this.ResultElement = this.GetElement( ".is-result" );
-
-        this.SetValue( this.ResultValue );
-        this.ResultElement.oninput = this.HandleResultInputEvent;
-    }
-}
-
-// ~~
-
-class VISTA_TRANSLATION_TEXT_INPUT_COMPONENT extends VISTA_COMPONENT
-{
-    // -- OPERATIONS
-
-    UpdateView(
-        )
-    {
-        this.ResultElement.value = this.ResultValue;
-        this.ResultElement.SetContentHeight();
-    }
-
-    // ~~
-
-    SetValue(
-        value
-        )
-    {
-        this.ResultValue = value;
-        this.value = value;
-        this.UpdateView();
-    }
-
-    // ~~
-
-    UpdateValue(
-        )
-    {
-        this.ResultValue = this.ResultElement.value.GetFormText();
-        this.value = this.ResultValue;
-    }
-
-    // ~~
-
-    HandleResultInputEvent(
-        event
-        )
-    {
-        event.currentTarget.SetContentHeight();
-        this.UpdateValue();
-
-        this.EmitEvent( "value-changed" );
-        this.EmitEvent( "sub-value-changed" );
-        event.Cancel();
-
-        return false;
-    }
-
-    // ~~
-
-    InitializeComponent(
-        )
-    {
-        this.BindStyle();
-        this.BindProperty( "ResultId", "result-id", "" );
-        this.BindProperty( "ResultName", "result-name", "" );
-        this.BindProperty( "ResultValue", "result-value", "" );
-        this.BindProperty( "ResultPlaceholder", "result-placeholder", "" );
-        this.BindProperty( "IsReadonly", "is-readonly", false );
-        this.BindMethod( "HandleResultInputEvent" );
-
-        this.SetTemplate(
-            Text`
-            <div class="is-component is-container">
-                <textarea id="<:# this.ResultId :>" class="is-textarea is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :>><:% this.ResultValue :></textarea>
-            </div>
-            `
-            );
-    }
-
-    // ~~
-
-    PostUpdateComponent(
-        )
-    {
-        this.ResultElement = this.GetElement( ".is-result" );
-
-        this.SetValue( this.ResultValue );
-        this.ResultElement.oninput = this.HandleResultInputEvent;
-    }
-}
-
-// ~~
-
-class VISTA_MULTILINGUAL_INPUT_COMPONENT extends VISTA_COMPONENT
-{
-    // -- OPERATIONS
-
-    UpdateView(
+    GetNextLanguageTag(
         )
     {
         var
-            language_tag_index;
+            language_tag,
+            language_tag_index,
+            translation,
+            translation_index;
 
-        this.ResultElement.value = this.ResultValue;
-        this.TranslationArray = this.ResultValue.GetTranslationArray();
-
-        for ( language_tag_index = 0;
-              language_tag_index < this.TranslationArray.length;
+        for ( language_tag_index = 1;
+              language_tag_index < this.LanguageTagArray.length;
               ++language_tag_index )
         {
-            this.TranslationElementArray[ language_tag_index ].value = this.TranslationArray[ language_tag_index ];
+            language_tag = this.LanguageTagArray[ language_tag_index ];
+
+            for ( translation_index = 0;
+                  translation_index < this.TranslationArray.length;
+                  ++translation_index )
+            {
+                translation = this.TranslationArray[ translation_index ];
+
+                if ( translation.Specifier.indexOf( language_tag ) >= 0 )
+                {
+                    language_tag = "";
+
+                    break;
+                }
+            }
+
+            if ( language_tag !== "" )
+            {
+                return language_tag;
+            }
+        }
+
+        return "";
+    }
+
+    // ~~
+
+    SetValue(
+        value
+        )
+    {
+        var
+            old_value;
+
+        old_value = this.value;
+
+        this.ResultValue = value;
+        this.value = value;
+        this.UpdateView();
+
+        if ( value != old_value )
+        {
+            this.SetChanged();
         }
     }
 
     // ~~
 
-    SetValue(
-        value
-        )
-    {
-        this.ResultValue = value;
-        this.value = value;
-        this.UpdateView();
-    }
-
-    // ~~
-
-    UpdateValue(
-        )
-    {
-        var
-            language_tag_index;
-
-        for ( language_tag_index = 0;
-              language_tag_index < this.TranslationArray.length;
-              ++language_tag_index )
-        {
-            this.TranslationArray[ language_tag_index ] = this.TranslationElementArray[ language_tag_index ].value.GetFormText();
-        }
-
-        this.ResultValue = this.TranslationArray.GetMultilingualText();
-        this.value = this.ResultValue;
-        this.ResultElement.value = this.ResultValue;
-    }
-
-    // ~~
-
-    HandleTranslationInputEvent(
+    HandleTranslationSpecifierInputEvent(
         event
         )
     {
@@ -393,6 +240,26 @@ class VISTA_MULTILINGUAL_INPUT_COMPONENT extends VISTA_COMPONENT
         event.Cancel();
 
         return false;
+    }
+
+    // ~~
+
+    HandleTranslationAddButtonClickEvent(
+        event
+        )
+    {
+        this.TranslationArray.splice( GetInteger( event.currentTarget.dataset.translationIndex ), 0, { Specifier : this.GetNextLanguageTag(), Data : "" } );
+        this.SetValue( this.TranslationArray.GetMultilingualText() );
+    }
+
+    // ~~
+
+    HandleTranslationRemoveButtonClickEvent(
+        event
+        )
+    {
+        this.TranslationArray.splice( GetInteger( event.currentTarget.dataset.translationIndex ), 1 );
+        this.SetValue( this.TranslationArray.GetMultilingualText() );
     }
 
     // ~~
@@ -408,49 +275,171 @@ class VISTA_MULTILINGUAL_INPUT_COMPONENT extends VISTA_COMPONENT
         this.BindProperty( "IsReadonly", "is-readonly", false );
         this.BindProperty( "LanguageTags", "language-tags", "[\"en\"]" );
         this.BindProperty( "LanguageNames", "language-names", "[\"English\"]" );
-        this.BindMethod( "HandleTranslationInputEvent" );
+        this.BindMethod( "HandleTranslationSpecifierInputEvent" );
+        this.BindMethod( "HandleTranslationAddButtonClickEvent" );
+        this.BindMethod( "HandleTranslationRemoveButtonClickEvent" );
 
         this.LanguageTagArray = GetJsonObject( this.LanguageTags );
         this.LanguageNameArray = GetJsonObject( this.LanguageNames );
         this.TranslationArray = this.ResultValue.GetTranslationArray();
+    }
+
+    // ~~
+
+    PostUpdateComponent(
+        )
+    {
+        var
+            translation_add_button_element,
+            translation_index,
+            translation_remove_button_element;
+
+        this.ResultElement = this.GetElement( ".is-result" );
+        this.TranslationInputElementArray = this.GetElements( ".is-translation-data" );
+        this.TranslationSpecifierElementArray = this.GetElements( ".is-translation-specifier" );
+        this.TranslationAddButtonElementArray = this.GetElements( ".is-translation-add-button" );
+        this.TranslationRemoveButtonElementArray = this.GetElements( ".is-translation-remove-button" );
+        this.SetValue( this.ResultValue );
+
+        for ( translation_index = 0;
+              translation_index < this.TranslationArray.length;
+              ++translation_index )
+        {
+            if ( translation_index < this.TranslationInputElementArray.length )
+            {
+                this.TranslationInputElementArray[ translation_index ].oninput = this.HandleTranslationDataInputEvent;
+            }
+
+            if ( translation_index < this.TranslationSpecifierElementArray.length )
+            {
+                this.TranslationSpecifierElementArray[ translation_index ].oninput = this.HandleTranslationSpecifierInputEvent;
+            }
+        }
+
+        for ( translation_add_button_element of this.TranslationAddButtonElementArray )
+        {
+            translation_add_button_element.onclick = this.HandleTranslationAddButtonClickEvent;
+        }
+
+        for ( translation_remove_button_element of this.TranslationRemoveButtonElementArray )
+        {
+            translation_remove_button_element.onclick = this.HandleTranslationRemoveButtonClickEvent;
+        }
+    }
+}
+
+// ~~
+
+class VISTA_MULTILINGUAL_INPUT_COMPONENT extends VISTA_MULTILINGUAL_COMPONENT
+{
+    // -- OPERATIONS
+
+    UpdateView(
+        )
+    {
+        var
+            translation_index;
+
+        this.ResultElement.value = this.ResultValue;
+        this.TranslationArray = this.ResultValue.GetTranslationArray();
+
+        for ( translation_index = 0;
+              translation_index < this.TranslationArray.length;
+              ++translation_index )
+        {
+            if ( translation_index < this.TranslationInputElementArray.length )
+            {
+                this.TranslationInputElementArray[ translation_index ].value = this.TranslationArray[ translation_index ].Data;
+            }
+
+            if ( translation_index < this.TranslationSpecifierElementArray.length )
+            {
+                this.TranslationSpecifierElementArray[ translation_index ].value = this.TranslationArray[ translation_index ].Specifier;
+            }
+        }
+    }
+
+    // ~~
+
+    UpdateValue(
+        )
+    {
+        var
+            translation_index;
+
+        for ( translation_index = 0;
+              translation_index < this.TranslationArray.length;
+              ++translation_index )
+        {
+            if ( translation_index < this.TranslationInputElementArray.length )
+            {
+                this.TranslationArray[ translation_index ].Data = this.TranslationInputElementArray[ translation_index ].value.GetFormText();
+            }
+
+            if ( translation_index < this.TranslationSpecifierElementArray.length )
+            {
+                this.TranslationArray[ translation_index ].Specifier = this.TranslationSpecifierElementArray[ translation_index ].value.GetFormText();
+            }
+        }
+
+        this.ResultValue = this.TranslationArray.GetMultilingualText();
+        this.value = this.ResultValue;
+        this.ResultElement.value = this.ResultValue;
+    }
+
+    // ~~
+
+    HandleTranslationDataInputEvent(
+        event
+        )
+    {
+        this.UpdateValue();
+
+        this.EmitEvent( "value-changed" );
+        this.EmitEvent( "sub-value-changed" );
+        event.Cancel();
+
+        return false;
+    }
+
+    // ~~
+
+    InitializeComponent(
+        )
+    {
+        super.InitializeComponent();
+
+        this.BindMethod( "HandleTranslationDataInputEvent" );
+
         this.SetTemplate(
             Text`
-            <div class="is-component is-container is-multilingual-container">
+            <div class="is-component is-container is-translation-container">
                 <input id="<:# this.ResultId :>" class="is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden/>
-                <: for ( let translation_index = 0; translation_index < this.LanguageNameArray.length; ++translation_index ) { :>
+                <: for ( let translation_index = 0; translation_index < this.TranslationArray.length; ++translation_index ) { :>
                     <div class="is-translation">
-                        <input class="is-input is-translation-text" value="<:% this.TranslationArray[ translation_index ].Text :>" <:# this.IsReadonly ? "readonly" : "" :>/>
-                        <input class="is-input is-translation-languages" value="<:% this.TranslationArray[ translation_index ].Languages :>" <:# this.IsReadonly ? "readonly" : "" :>/>
+                        <input class="is-input is-translation-data" value="<:% this.TranslationArray[ translation_index ].Data :>" <:# this.IsReadonly ? "readonly" : "" :>/>
+                        <input class="is-input is-translation-specifier" placeholder="<:# translation_index === 0 ? this.LanguageTagArray[ 0 ] : "" :>" value="<:% this.TranslationArray[ translation_index ].Specifier :>" <:# ( this.IsReadonly || translation_index === 0 )  ? "readonly" : "" :>/>
+                        <div>
+                            <: if ( !this.IsReadonly ) { :>
+                                <div class="is-button is-translation-add-button" data-translation-index="<:# translation_index + 1 :>">
+                                </div>
+                                <: if ( translation_index > 0 ) { :>
+                                    <div class="is-button is-translation-remove-button" data-translation-index="<:# translation_index :>">
+                                    </div>
+                                <: } :>
+                            <: } :>
+                        </div>
                     </div>
                 <: } :>
             </div>
             `
             );
     }
-
-    // ~~
-
-    PostUpdateComponent(
-        )
-    {
-        var
-            translation_element;
-
-        this.ResultElement = this.GetElement( ".is-result" );
-        this.TranslationElementArray = this.GetElements( ".is-translation" );
-
-        this.SetValue( this.ResultValue );
-
-        for ( translation_element of this.TranslationElementArray )
-        {
-            translation_element.oninput = this.HandleTranslationInputEvent;
-        }
-    }
 }
 
 // ~~
 
-class VISTA_MULTILINGUAL_TEXT_INPUT_COMPONENT extends VISTA_COMPONENT
+class VISTA_MULTILINGUAL_TEXT_INPUT_COMPONENT extends VISTA_MULTILINGUAL_COMPONENT
 {
     // -- OPERATIONS
 
@@ -458,29 +447,26 @@ class VISTA_MULTILINGUAL_TEXT_INPUT_COMPONENT extends VISTA_COMPONENT
         )
     {
         var
-            language_tag_index;
+            translation_index;
 
         this.ResultElement.value = this.ResultValue;
         this.TranslationArray = this.ResultValue.GetTranslationArray();
 
-        for ( language_tag_index = 0;
-              language_tag_index < this.TranslationArray.length;
-              ++language_tag_index )
+        for ( translation_index = 0;
+              translation_index < this.TranslationArray.length;
+              ++translation_index )
         {
-            this.TranslationElementArray[ language_tag_index ].value = this.TranslationArray[ language_tag_index ];
-            this.TranslationElementArray[ language_tag_index ].SetContentHeight();
+            if ( translation_index < this.TranslationInputElementArray.length )
+            {
+                this.TranslationInputElementArray[ translation_index ].value = this.TranslationArray[ translation_index ].Data;
+                this.TranslationInputElementArray[ translation_index ].SetContentHeight();
+            }
+
+            if ( translation_index < this.TranslationSpecifierElementArray.length )
+            {
+                this.TranslationSpecifierElementArray[ translation_index ].value = this.TranslationArray[ translation_index ].Specifier;
+            }
         }
-    }
-
-    // ~~
-
-    SetValue(
-        value
-        )
-    {
-        this.ResultValue = value;
-        this.value = value;
-        this.UpdateView();
     }
 
     // ~~
@@ -489,13 +475,21 @@ class VISTA_MULTILINGUAL_TEXT_INPUT_COMPONENT extends VISTA_COMPONENT
         )
     {
         var
-            language_tag_index;
+            translation_index;
 
-        for ( language_tag_index = 0;
-              language_tag_index < this.TranslationArray.length;
-              ++language_tag_index )
+        for ( translation_index = 0;
+              translation_index < this.TranslationArray.length;
+              ++translation_index )
         {
-            this.TranslationArray[ language_tag_index ] = this.TranslationElementArray[ language_tag_index ].value.GetFormText();
+            if ( translation_index < this.TranslationInputElementArray.length )
+            {
+                this.TranslationArray[ translation_index ].Data = this.TranslationInputElementArray[ translation_index ].value.GetFormText();
+            }
+
+            if ( translation_index < this.TranslationSpecifierElementArray.length )
+            {
+                this.TranslationArray[ translation_index ].Specifier = this.TranslationSpecifierElementArray[ translation_index ].value.GetFormText();
+            }
         }
 
         this.ResultValue = this.TranslationArray.GetMultilingualText();
@@ -505,7 +499,7 @@ class VISTA_MULTILINGUAL_TEXT_INPUT_COMPONENT extends VISTA_COMPONENT
 
     // ~~
 
-    HandleTranslationInputEvent(
+    HandleTranslationDataInputEvent(
         event
         )
     {
@@ -524,48 +518,33 @@ class VISTA_MULTILINGUAL_TEXT_INPUT_COMPONENT extends VISTA_COMPONENT
     InitializeComponent(
         )
     {
-        this.BindStyle();
-        this.BindProperty( "ResultId", "result-id", "" );
-        this.BindProperty( "ResultName", "result-name", "" );
-        this.BindProperty( "ResultValue", "result-value", "" );
-        this.BindProperty( "ResultPlaceholder", "result-placeholder", "" );
-        this.BindProperty( "IsReadonly", "is-readonly", false );
-        this.BindProperty( "LanguageTags", "language-tags", "[\"en\"]" );
-        this.BindProperty( "LanguageNames", "language-names", "[\"English\"]" );
-        this.BindMethod( "HandleTranslationInputEvent" );
+        super.InitializeComponent();
 
-        this.LanguageTagArray = GetJsonObject( this.LanguageTags );
-        this.LanguageNameArray = GetJsonObject( this.LanguageNames );
-        this.TranslationArray = this.ResultValue.GetTranslationArray();
+        this.BindMethod( "HandleTranslationDataInputEvent" );
+
         this.SetTemplate(
             Text`
-            <div class="is-component is-container is-multilingual-container">
+            <div class="is-component is-container is-translation-container">
                 <textarea id="<:# this.ResultId :>" class="is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden></textarea>
-                <: for ( let translation_index = 0; translation_index < this.LanguageNameArray.length; ++translation_index ) { :>
-                    <textarea class="is-textarea is-translation" placeholder="<:% this.LanguageNameArray[ translation_index ] :>" <:# this.IsReadonly ? "readonly" : "" :>><:% this.TranslationArray[ translation_index ] :></textarea>
+                <: for ( let translation_index = 0; translation_index < this.TranslationArray.length; ++translation_index ) { :>
+                    <div class="is-translation">
+                        <textarea class="is-textarea is-translation-data" <:# this.IsReadonly ? "readonly" : "" :>><:% this.TranslationArray[ translation_index ].Data :></textarea>
+                        <input class="is-input is-translation-specifier" placeholder="<:# translation_index === 0 ? this.LanguageTagArray[ 0 ] : "" :>" value="<:% this.TranslationArray[ translation_index ].Specifier :>" <:# ( this.IsReadonly || translation_index === 0 ) ? "readonly" : "" :>/>
+                        <div>
+                            <: if ( !this.IsReadonly ) { :>
+                                <div class="is-button is-translation-add-button" data-translation-index="<:# translation_index + 1 :>">
+                                </div>
+                                <: if ( translation_index > 0 ) { :>
+                                    <div class="is-button is-translation-remove-button" data-translation-index="<:# translation_index :>">
+                                    </div>
+                                <: } :>
+                            <: } :>
+                        </div>
+                    </div>
                 <: } :>
             </div>
             `
             );
-    }
-
-    // ~~
-
-    PostUpdateComponent(
-        )
-    {
-        var
-            translation_element;
-
-        this.ResultElement = this.GetElement( ".is-result" );
-        this.TranslationElementArray = this.GetElements( ".is-translation" );
-
-        this.SetValue( this.ResultValue );
-
-        for ( translation_element of this.TranslationElementArray )
-        {
-            translation_element.oninput = this.HandleTranslationInputEvent;
-        }
     }
 }
 

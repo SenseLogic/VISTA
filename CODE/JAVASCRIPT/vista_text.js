@@ -321,8 +321,8 @@ String.prototype.GetTranslationArray = function (
 
     translation_array.push(
         {
-            Languages : "",
-            Text : translated_text_array[ 0 ]
+            Specifier : "",
+            Data : translated_text_array[ 0 ]
         }
         );
 
@@ -337,8 +337,8 @@ String.prototype.GetTranslationArray = function (
         {
             translation_array.push(
                 {
-                    Languages : translated_text.substring( 0, colon_character_index ),
-                    Text : translated_text.substring( colon_character_index + 1 )
+                    Specifier : translated_text.substring( 0, colon_character_index ),
+                    Data : translated_text.substring( colon_character_index + 1 )
                 }
                 );
         }
@@ -361,7 +361,7 @@ Array.prototype.GetMultilingualText = function (
 
     if ( this.length > 0 )
     {
-        multilingual_text = this[ 0 ].Text;
+        multilingual_text = this[ 0 ].Data;
 
         for ( translation_index = 1;
               translation_index < this.length;
@@ -369,7 +369,7 @@ Array.prototype.GetMultilingualText = function (
         {
             translation = this[ translation_index ];
 
-            multilingual_text += translation.Languages + ":" + translation.Text;
+            multilingual_text += "¨" + translation.Specifier + ":" + translation.Data;
         }
     }
 
