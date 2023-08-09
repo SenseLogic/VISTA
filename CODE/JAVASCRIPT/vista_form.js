@@ -274,13 +274,11 @@ class VISTA_MULTILINGUAL_COMPONENT extends VISTA_COMPONENT
         this.BindProperty( "ResultPlaceholder", "result-placeholder", "" );
         this.BindProperty( "IsReadonly", "is-readonly", false );
         this.BindProperty( "LanguageTags", "language-tags", "[\"en\"]" );
-        this.BindProperty( "LanguageNames", "language-names", "[\"English\"]" );
         this.BindMethod( "HandleTranslationSpecifierInputEvent" );
         this.BindMethod( "HandleTranslationAddButtonClickEvent" );
         this.BindMethod( "HandleTranslationRemoveButtonClickEvent" );
 
         this.LanguageTagArray = GetJsonObject( this.LanguageTags );
-        this.LanguageNameArray = GetJsonObject( this.LanguageNames );
         this.TranslationArray = this.ResultValue.GetTranslationArray();
     }
 
@@ -416,10 +414,10 @@ class VISTA_MULTILINGUAL_INPUT_COMPONENT extends VISTA_MULTILINGUAL_COMPONENT
             <div class="is-component is-container is-translation-container">
                 <input id="<:# this.ResultId :>" class="is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden/>
                 <: for ( let translation_index = 0; translation_index < this.TranslationArray.length; ++translation_index ) { :>
-                    <div class="is-translation">
+                    <div class="is-translation <:# this.IsReadonly ? "is-readonly" : "" :>">
                         <input class="is-input is-translation-data" value="<:% this.TranslationArray[ translation_index ].Data :>" <:# this.IsReadonly ? "readonly" : "" :>/>
                         <input class="is-input is-translation-specifier" placeholder="<:# translation_index === 0 ? this.LanguageTagArray[ 0 ] : "" :>" value="<:% this.TranslationArray[ translation_index ].Specifier :>" <:# ( this.IsReadonly || translation_index === 0 )  ? "readonly" : "" :>/>
-                        <div>
+                        <div class="is-translation-button-container">
                             <: if ( !this.IsReadonly ) { :>
                                 <div class="is-button is-translation-add-button" data-translation-index="<:# translation_index + 1 :>">
                                 </div>
@@ -527,7 +525,7 @@ class VISTA_MULTILINGUAL_TEXT_INPUT_COMPONENT extends VISTA_MULTILINGUAL_COMPONE
             <div class="is-component is-container is-translation-container">
                 <textarea id="<:# this.ResultId :>" class="is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden></textarea>
                 <: for ( let translation_index = 0; translation_index < this.TranslationArray.length; ++translation_index ) { :>
-                    <div class="is-translation">
+                    <div class="is-translation <:# this.IsReadonly ? "is-readonly" : "" :>">
                         <textarea class="is-textarea is-translation-data" <:# this.IsReadonly ? "readonly" : "" :>><:% this.TranslationArray[ translation_index ].Data :></textarea>
                         <input class="is-input is-translation-specifier" placeholder="<:# translation_index === 0 ? this.LanguageTagArray[ 0 ] : "" :>" value="<:% this.TranslationArray[ translation_index ].Specifier :>" <:# ( this.IsReadonly || translation_index === 0 ) ? "readonly" : "" :>/>
                         <div>
@@ -1555,7 +1553,6 @@ class VISTA_MULTILINGUAL_INPUT_LIST_COMPONENT extends VISTA_LIST_COMPONENT
         super.InitializeComponent();
 
         this.BindProperty( "LanguageTags", "language-tags", "[\"en\"]" );
-        this.BindProperty( "LanguageNames", "language-names", "[\"English\"]" );
 
         this.SetTemplate(
             Text`
@@ -1563,7 +1560,7 @@ class VISTA_MULTILINGUAL_INPUT_LIST_COMPONENT extends VISTA_LIST_COMPONENT
                 <input id="<:# this.ResultId :>" class="is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden/>
                 <: for ( var value_index = 0; value_index < this.ValueArray.length; ++value_index ) { :>
                     <div class="is-value-container" data-value-index="<:# value_index :>">
-                        <multilingual-input-component class="is-value" container-class="is-container" <:# this.IsReadonly ? "is-readonly" : "" :> language-tags="<:% this.LanguageTags :>" language-names="<:% this.LanguageNames :>"></multilingual-input-component>
+                        <multilingual-input-component class="is-value" container-class="is-container" <:# this.IsReadonly ? "is-readonly" : "" :> language-tags="<:% this.LanguageTags :>"></multilingual-input-component>
                         <: if ( !this.IsReadonly ) { :>
                             <div class="is-button is-drag-button data-value-index="<:# value_index + 1 :>">
                             </div>
@@ -1596,7 +1593,6 @@ class VISTA_MULTILINGUAL_TEXT_INPUT_LIST_COMPONENT extends VISTA_LIST_COMPONENT
         super.InitializeComponent();
 
         this.BindProperty( "LanguageTags", "language-tags", "[\"en\"]" );
-        this.BindProperty( "LanguageNames", "language-names", "[\"English\"]" );
 
         this.SetTemplate(
             Text`
@@ -1604,7 +1600,7 @@ class VISTA_MULTILINGUAL_TEXT_INPUT_LIST_COMPONENT extends VISTA_LIST_COMPONENT
                 <textarea id="<:# this.ResultId :>" class="is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden></textarea>
                 <: for ( var value_index = 0; value_index < this.ValueArray.length; ++value_index ) { :>
                     <div class="is-value-container" data-value-index="<:# value_index :>">
-                        <multilingual-text-input-component class="is-value" container-class="is-container" <:# this.IsReadonly ? "is-readonly" : "" :> language-tags="<:% this.LanguageTags :>" language-names="<:% this.LanguageNames :>"></multilingual-text-input-component>
+                        <multilingual-text-input-component class="is-value" container-class="is-container" <:# this.IsReadonly ? "is-readonly" : "" :> language-tags="<:% this.LanguageTags :>"></multilingual-text-input-component>
                         <: if ( !this.IsReadonly ) { :>
                             <div class="is-button is-drag-button data-value-index="<:# value_index + 1 :>">
                             </div>
