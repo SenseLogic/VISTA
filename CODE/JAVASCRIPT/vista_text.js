@@ -316,9 +316,9 @@ String.prototype.GetTranslationArray = function (
         translated_text_index,
         translation_array;
 
-    translation_array = [];
     translated_text_array = this.split( "¨" );
 
+    translation_array = [];
     translation_array.push(
         {
             Specifier : "",
