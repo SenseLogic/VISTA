@@ -1,7 +1,7 @@
 // -- VARIABLES
 
 var
-    AutoplayIntersectionObserver;
+    VideoIntersectionObserver;
 
 // -- FUNCTIONS
 
@@ -96,7 +96,7 @@ HTMLElement.prototype.ToggleVideoIsPaused = function (
 
 // ~~
 
-function CreateAutoplayIntersectionObserver(
+function CreateVideoIntersectionObserver(
     )
 {
     return (
@@ -181,12 +181,12 @@ function CreateAutoplayIntersectionObserver(
 HTMLElement.prototype.AutoplayVideo = function (
     )
 {
-    if ( AutoplayIntersectionObserver === undefined )
+    if ( VideoIntersectionObserver === undefined )
     {
-        AutoplayIntersectionObserver = CreateAutoplayIntersectionObserver();
+        VideoIntersectionObserver = CreateVideoIntersectionObserver();
     }
 
-    AutoplayIntersectionObserver.observe( this );
+    VideoIntersectionObserver.observe( this );
 
     return this;
 }
@@ -221,7 +221,7 @@ function InitializeAutoplayVideos(
 function FinalizeAutoplayVideos(
     )
 {
-    AutoplayIntersectionObserver.disconnect();
+    VideoIntersectionObserver.disconnect();
 }
 
 // ~~
