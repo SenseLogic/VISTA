@@ -164,390 +164,6 @@ class VISTA_TEXT_INPUT_COMPONENT extends VISTA_COMPONENT
 
 // ~~
 
-class VISTA_MULTILINGUAL_COMPONENT extends VISTA_COMPONENT
-{
-    // -- OPERATIONS
-
-    GetNextLanguageTag(
-        )
-    {
-        var
-            language_tag,
-            language_tag_index,
-            translation,
-            translation_index;
-
-        for ( language_tag_index = 1;
-              language_tag_index < this.LanguageTagArray.length;
-              ++language_tag_index )
-        {
-            language_tag = this.LanguageTagArray[ language_tag_index ];
-
-            for ( translation_index = 0;
-                  translation_index < this.TranslationArray.length;
-                  ++translation_index )
-            {
-                translation = this.TranslationArray[ translation_index ];
-
-                if ( translation.Specifier.indexOf( language_tag ) >= 0 )
-                {
-                    language_tag = "";
-
-                    break;
-                }
-            }
-
-            if ( language_tag !== "" )
-            {
-                return language_tag;
-            }
-        }
-
-        return "";
-    }
-
-    // ~~
-
-    SetValue(
-        value
-        )
-    {
-        var
-            old_value;
-
-        old_value = this.value;
-
-        this.ResultValue = value;
-        this.value = value;
-        this.UpdateView();
-
-        if ( value != old_value )
-        {
-            this.SetChanged();
-        }
-    }
-
-    // ~~
-
-    HandleTranslationSpecifierInputEvent(
-        event
-        )
-    {
-        this.UpdateValue();
-
-        this.EmitEvent( "value-changed" );
-        this.EmitEvent( "sub-value-changed" );
-        event.Cancel();
-
-        return false;
-    }
-
-    // ~~
-
-    HandleTranslationAddButtonClickEvent(
-        event
-        )
-    {
-        this.TranslationArray.splice( GetInteger( event.currentTarget.dataset.translationIndex ), 0, { Specifier : this.GetNextLanguageTag(), Data : "" } );
-        this.SetValue( this.TranslationArray.GetMultilingualText() );
-    }
-
-    // ~~
-
-    HandleTranslationRemoveButtonClickEvent(
-        event
-        )
-    {
-        this.TranslationArray.splice( GetInteger( event.currentTarget.dataset.translationIndex ), 1 );
-        this.SetValue( this.TranslationArray.GetMultilingualText() );
-    }
-
-    // ~~
-
-    InitializeComponent(
-        )
-    {
-        this.BindStyle();
-        this.BindProperty( "ResultId", "result-id", "" );
-        this.BindProperty( "ResultName", "result-name", "" );
-        this.BindProperty( "ResultValue", "result-value", "" );
-        this.BindProperty( "ResultPlaceholder", "result-placeholder", "" );
-        this.BindProperty( "IsReadonly", "is-readonly", false );
-        this.BindProperty( "LanguageTags", "language-tags", "[\"en\"]" );
-        this.BindMethod( "HandleTranslationSpecifierInputEvent" );
-        this.BindMethod( "HandleTranslationAddButtonClickEvent" );
-        this.BindMethod( "HandleTranslationRemoveButtonClickEvent" );
-
-        this.LanguageTagArray = GetJsonObject( this.LanguageTags );
-        this.TranslationArray = this.ResultValue.GetTranslationArray();
-    }
-
-    // ~~
-
-    PostUpdateComponent(
-        )
-    {
-        var
-            translation_add_button_element,
-            translation_index,
-            translation_remove_button_element;
-
-        this.ResultElement = this.GetElement( ".is-result" );
-        this.TranslationInputElementArray = this.GetElements( ".is-translation-data" );
-        this.TranslationSpecifierElementArray = this.GetElements( ".is-translation-specifier" );
-        this.TranslationAddButtonElementArray = this.GetElements( ".is-translation-add-button" );
-        this.TranslationRemoveButtonElementArray = this.GetElements( ".is-translation-remove-button" );
-        this.SetValue( this.ResultValue );
-
-        for ( translation_index = 0;
-              translation_index < this.TranslationArray.length;
-              ++translation_index )
-        {
-            if ( translation_index < this.TranslationInputElementArray.length )
-            {
-                this.TranslationInputElementArray[ translation_index ].oninput = this.HandleTranslationDataInputEvent;
-            }
-
-            if ( translation_index < this.TranslationSpecifierElementArray.length )
-            {
-                this.TranslationSpecifierElementArray[ translation_index ].oninput = this.HandleTranslationSpecifierInputEvent;
-            }
-        }
-
-        for ( translation_add_button_element of this.TranslationAddButtonElementArray )
-        {
-            translation_add_button_element.onclick = this.HandleTranslationAddButtonClickEvent;
-        }
-
-        for ( translation_remove_button_element of this.TranslationRemoveButtonElementArray )
-        {
-            translation_remove_button_element.onclick = this.HandleTranslationRemoveButtonClickEvent;
-        }
-    }
-}
-
-// ~~
-
-class VISTA_MULTILINGUAL_INPUT_COMPONENT extends VISTA_MULTILINGUAL_COMPONENT
-{
-    // -- OPERATIONS
-
-    UpdateView(
-        )
-    {
-        var
-            translation_index;
-
-        this.ResultElement.value = this.ResultValue;
-        this.TranslationArray = this.ResultValue.GetTranslationArray();
-
-        for ( translation_index = 0;
-              translation_index < this.TranslationArray.length;
-              ++translation_index )
-        {
-            if ( translation_index < this.TranslationInputElementArray.length )
-            {
-                this.TranslationInputElementArray[ translation_index ].value = this.TranslationArray[ translation_index ].Data;
-            }
-
-            if ( translation_index < this.TranslationSpecifierElementArray.length )
-            {
-                this.TranslationSpecifierElementArray[ translation_index ].value = this.TranslationArray[ translation_index ].Specifier;
-            }
-        }
-    }
-
-    // ~~
-
-    UpdateValue(
-        )
-    {
-        var
-            translation_index;
-
-        for ( translation_index = 0;
-              translation_index < this.TranslationArray.length;
-              ++translation_index )
-        {
-            if ( translation_index < this.TranslationInputElementArray.length )
-            {
-                this.TranslationArray[ translation_index ].Data = this.TranslationInputElementArray[ translation_index ].value.GetFormText();
-            }
-
-            if ( translation_index < this.TranslationSpecifierElementArray.length )
-            {
-                this.TranslationArray[ translation_index ].Specifier = this.TranslationSpecifierElementArray[ translation_index ].value.GetFormText();
-            }
-        }
-
-        this.ResultValue = this.TranslationArray.GetMultilingualText();
-        this.value = this.ResultValue;
-        this.ResultElement.value = this.ResultValue;
-    }
-
-    // ~~
-
-    HandleTranslationDataInputEvent(
-        event
-        )
-    {
-        this.UpdateValue();
-
-        this.EmitEvent( "value-changed" );
-        this.EmitEvent( "sub-value-changed" );
-        event.Cancel();
-
-        return false;
-    }
-
-    // ~~
-
-    InitializeComponent(
-        )
-    {
-        super.InitializeComponent();
-
-        this.BindMethod( "HandleTranslationDataInputEvent" );
-
-        this.SetTemplate(
-            Text`
-            <div class="is-component is-container is-translation-container">
-                <input id="<:# this.ResultId :>" class="is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden/>
-                <: for ( let translation_index = 0; translation_index < this.TranslationArray.length; ++translation_index ) { :>
-                    <div class="is-translation <:# this.IsReadonly ? "is-readonly" : "" :>">
-                        <input class="is-input is-translation-data" value="<:% this.TranslationArray[ translation_index ].Data :>" <:# this.IsReadonly ? "readonly" : "" :>/>
-                        <input class="is-input is-translation-specifier" placeholder="<:# translation_index === 0 ? this.LanguageTagArray[ 0 ] : "" :>" value="<:% this.TranslationArray[ translation_index ].Specifier :>" <:# ( this.IsReadonly || translation_index === 0 )  ? "readonly" : "" :>/>
-                        <div class="is-translation-button-container">
-                            <: if ( !this.IsReadonly ) { :>
-                                <div class="is-button is-translation-add-button" data-translation-index="<:# translation_index + 1 :>">
-                                </div>
-                                <: if ( translation_index > 0 ) { :>
-                                    <div class="is-button is-translation-remove-button" data-translation-index="<:# translation_index :>">
-                                    </div>
-                                <: } :>
-                            <: } :>
-                        </div>
-                    </div>
-                <: } :>
-            </div>
-            `
-            );
-    }
-}
-
-// ~~
-
-class VISTA_MULTILINGUAL_TEXT_INPUT_COMPONENT extends VISTA_MULTILINGUAL_COMPONENT
-{
-    // -- OPERATIONS
-
-    UpdateView(
-        )
-    {
-        var
-            translation_index;
-
-        this.ResultElement.value = this.ResultValue;
-        this.TranslationArray = this.ResultValue.GetTranslationArray();
-
-        for ( translation_index = 0;
-              translation_index < this.TranslationArray.length;
-              ++translation_index )
-        {
-            if ( translation_index < this.TranslationInputElementArray.length )
-            {
-                this.TranslationInputElementArray[ translation_index ].value = this.TranslationArray[ translation_index ].Data;
-                this.TranslationInputElementArray[ translation_index ].SetContentHeight();
-            }
-
-            if ( translation_index < this.TranslationSpecifierElementArray.length )
-            {
-                this.TranslationSpecifierElementArray[ translation_index ].value = this.TranslationArray[ translation_index ].Specifier;
-            }
-        }
-    }
-
-    // ~~
-
-    UpdateValue(
-        )
-    {
-        var
-            translation_index;
-
-        for ( translation_index = 0;
-              translation_index < this.TranslationArray.length;
-              ++translation_index )
-        {
-            if ( translation_index < this.TranslationInputElementArray.length )
-            {
-                this.TranslationArray[ translation_index ].Data = this.TranslationInputElementArray[ translation_index ].value.GetFormText();
-            }
-
-            if ( translation_index < this.TranslationSpecifierElementArray.length )
-            {
-                this.TranslationArray[ translation_index ].Specifier = this.TranslationSpecifierElementArray[ translation_index ].value.GetFormText();
-            }
-        }
-
-        this.ResultValue = this.TranslationArray.GetMultilingualText();
-        this.value = this.ResultValue;
-        this.ResultElement.value = this.ResultValue;
-    }
-
-    // ~~
-
-    HandleTranslationDataInputEvent(
-        event
-        )
-    {
-        event.currentTarget.SetContentHeight();
-        this.UpdateValue();
-
-        this.EmitEvent( "value-changed" );
-        this.EmitEvent( "sub-value-changed" );
-        event.Cancel();
-
-        return false;
-    }
-
-    // ~~
-
-    InitializeComponent(
-        )
-    {
-        super.InitializeComponent();
-
-        this.BindMethod( "HandleTranslationDataInputEvent" );
-
-        this.SetTemplate(
-            Text`
-            <div class="is-component is-container is-translation-container">
-                <textarea id="<:# this.ResultId :>" class="is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden></textarea>
-                <: for ( let translation_index = 0; translation_index < this.TranslationArray.length; ++translation_index ) { :>
-                    <div class="is-translation <:# this.IsReadonly ? "is-readonly" : "" :>">
-                        <textarea class="is-textarea is-translation-data" <:# this.IsReadonly ? "readonly" : "" :>><:% this.TranslationArray[ translation_index ].Data :></textarea>
-                        <input class="is-input is-translation-specifier" placeholder="<:# translation_index === 0 ? this.LanguageTagArray[ 0 ] : "" :>" value="<:% this.TranslationArray[ translation_index ].Specifier :>" <:# ( this.IsReadonly || translation_index === 0 ) ? "readonly" : "" :>/>
-                        <div>
-                            <: if ( !this.IsReadonly ) { :>
-                                <div class="is-button is-translation-add-button" data-translation-index="<:# translation_index + 1 :>">
-                                </div>
-                                <: if ( translation_index > 0 ) { :>
-                                    <div class="is-button is-translation-remove-button" data-translation-index="<:# translation_index :>">
-                                    </div>
-                                <: } :>
-                            <: } :>
-                        </div>
-                    </div>
-                <: } :>
-            </div>
-            `
-            );
-    }
-}
-
-// ~~
-
 class VISTA_IMAGE_PATH_INPUT_COMPONENT extends VISTA_COMPONENT
 {
     // -- OPERATIONS
@@ -1014,8 +630,8 @@ class VISTA_DOCUMENT_PATH_INPUT_COMPONENT extends VISTA_COMPONENT
         this.BindProperty( "ResultValue", "result-value", "" );
         this.BindProperty( "ResultPlaceholder", "result-placeholder", "" );
         this.BindProperty( "IsReadonly", "is-readonly", false );
-        this.BindProperty( "ErrorImagePath", "error-image-path", "" );
         this.BindProperty( "DocumentImagePath", "document-image-path", "" );
+        this.BindProperty( "ErrorImagePath", "error-image-path", "" );
         this.BindProperty( "UploadApiUrl", "upload-api-url", "" );
         this.BindProperty( "DeleteApiUrl", "delete-api-url", "" );
         this.BindMethod( "HandleResultInputEvent" );
@@ -1482,7 +1098,7 @@ class VISTA_INPUT_LIST_COMPONENT extends VISTA_LIST_COMPONENT
                 <input id="<:# this.ResultId :>" class="is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden/>
                 <: for ( var value_index = 0; value_index < this.ValueArray.length; ++value_index ) { :>
                     <div class="is-value-container" data-value-index="<:# value_index :>">
-                        <input-component class="is-value" container-class="is-container" <:# this.IsReadonly ? "is-readonly" : "" :>></input-component>
+                        <input-component class="is-value" <:# this.IsReadonly ? "is-readonly" : "" :>></input-component>
                         <: if ( !this.IsReadonly ) { :>
                             <div class="is-button is-drag-button data-value-index="<:# value_index + 1 :>">
                             </div>
@@ -1520,87 +1136,7 @@ class VISTA_TEXT_INPUT_LIST_COMPONENT extends VISTA_LIST_COMPONENT
                 <textarea id="<:# this.ResultId :>" class="is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden></textarea>
                 <: for ( var value_index = 0; value_index < this.ValueArray.length; ++value_index ) { :>
                     <div class="is-value-container" data-value-index="<:# value_index :>">
-                        <text-input-component class="is-value" container-class="is-container" <:# this.IsReadonly ? "is-readonly" : "" :>></text-input-component>
-                        <: if ( !this.IsReadonly ) { :>
-                            <div class="is-button is-drag-button data-value-index="<:# value_index + 1 :>">
-                            </div>
-                            <div class="is-button is-add-button" data-value-index="<:# value_index + 1 :>">
-                            </div>
-                            <div class="is-button is-remove-button" data-value-index="<:# value_index :>">
-                            </div>
-                        <: } :>
-                    </div>
-                <: } :>
-                <: if ( !this.IsReadonly ) { :>
-                    <div class="is-button is-add-button" data-value-index="<:# this.ValueArray.length :>">
-                    </div>
-                <: } :>
-            </div>
-            `
-            );
-    }
-}
-
-// ~~
-
-class VISTA_MULTILINGUAL_INPUT_LIST_COMPONENT extends VISTA_LIST_COMPONENT
-{
-    // -- OPERATIONS
-
-    InitializeComponent(
-        )
-    {
-        super.InitializeComponent();
-
-        this.BindProperty( "LanguageTags", "language-tags", "[\"en\"]" );
-
-        this.SetTemplate(
-            Text`
-            <div class="is-component is-list-container">
-                <input id="<:# this.ResultId :>" class="is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden/>
-                <: for ( var value_index = 0; value_index < this.ValueArray.length; ++value_index ) { :>
-                    <div class="is-value-container" data-value-index="<:# value_index :>">
-                        <multilingual-input-component class="is-value" container-class="is-container" <:# this.IsReadonly ? "is-readonly" : "" :> language-tags="<:% this.LanguageTags :>"></multilingual-input-component>
-                        <: if ( !this.IsReadonly ) { :>
-                            <div class="is-button is-drag-button data-value-index="<:# value_index + 1 :>">
-                            </div>
-                            <div class="is-button is-add-button" data-value-index="<:# value_index + 1 :>">
-                            </div>
-                            <div class="is-button is-remove-button" data-value-index="<:# value_index :>">
-                            </div>
-                        <: } :>
-                    </div>
-                <: } :>
-                <: if ( !this.IsReadonly ) { :>
-                    <div class="is-button is-add-button" data-value-index="<:# this.ValueArray.length :>">
-                    </div>
-                <: } :>
-            </div>
-            `
-            );
-    }
-}
-
-// ~~
-
-class VISTA_MULTILINGUAL_TEXT_INPUT_LIST_COMPONENT extends VISTA_LIST_COMPONENT
-{
-    // -- OPERATIONS
-
-    InitializeComponent(
-        )
-    {
-        super.InitializeComponent();
-
-        this.BindProperty( "LanguageTags", "language-tags", "[\"en\"]" );
-
-        this.SetTemplate(
-            Text`
-            <div class="is-component is-list-container">
-                <textarea id="<:# this.ResultId :>" class="is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden></textarea>
-                <: for ( var value_index = 0; value_index < this.ValueArray.length; ++value_index ) { :>
-                    <div class="is-value-container" data-value-index="<:# value_index :>">
-                        <multilingual-text-input-component class="is-value" container-class="is-container" <:# this.IsReadonly ? "is-readonly" : "" :> language-tags="<:% this.LanguageTags :>"></multilingual-text-input-component>
+                        <text-input-component class="is-value" <:# this.IsReadonly ? "is-readonly" : "" :>></text-input-component>
                         <: if ( !this.IsReadonly ) { :>
                             <div class="is-button is-drag-button data-value-index="<:# value_index + 1 :>">
                             </div>
@@ -1642,7 +1178,7 @@ class VISTA_IMAGE_PATH_INPUT_LIST_COMPONENT extends VISTA_LIST_COMPONENT
                 <input id="<:# this.ResultId :>" class="is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden/>
                 <: for ( var value_index = 0; value_index < this.ValueArray.length; ++value_index ) { :>
                     <div class="is-value-container" data-value-index="<:# value_index :>">
-                        <image-path-input-component class="is-value" container-class="is-container" <:# this.IsReadonly ? "is-readonly" : "" :> error-image-path="<:% this.ErrorImagePath :>" upload-api-url="<:% this.UploadApiUrl :>" delete-api-url="<:% this.DeleteApiUrl :>" ></image-path-input-component>
+                        <image-path-input-component class="is-value" <:# this.IsReadonly ? "is-readonly" : "" :> error-image-path="<:% this.ErrorImagePath :>" upload-api-url="<:% this.UploadApiUrl :>" delete-api-url="<:% this.DeleteApiUrl :>" ></image-path-input-component>
                         <: if ( !this.IsReadonly ) { :>
                             <div class="is-button is-drag-button data-value-index="<:# value_index + 1 :>">
                             </div>
@@ -1684,7 +1220,7 @@ class VISTA_VIDEO_PATH_INPUT_LIST_COMPONENT extends VISTA_LIST_COMPONENT
                 <input id="<:# this.ResultId :>" class="is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden/>
                 <: for ( var value_index = 0; value_index < this.ValueArray.length; ++value_index ) { :>
                     <div class="is-value-container" data-value-index="<:# value_index :>">
-                        <video-path-input-component class="is-value" container-class="is-container" <:# this.IsReadonly ? "is-readonly" : "" :> error-video-path="<:% this.ErrorVideoPath :>" upload-api-url="<:% this.UploadApiUrl :>" delete-api-url="<:% this.DeleteApiUrl :>" ></video-path-input-component>
+                        <video-path-input-component class="is-value" <:# this.IsReadonly ? "is-readonly" : "" :> error-video-path="<:% this.ErrorVideoPath :>" upload-api-url="<:% this.UploadApiUrl :>" delete-api-url="<:% this.DeleteApiUrl :>" ></video-path-input-component>
                         <: if ( !this.IsReadonly ) { :>
                             <div class="is-button is-drag-button data-value-index="<:# value_index + 1 :>">
                             </div>
@@ -1716,8 +1252,8 @@ class VISTA_DOCUMENT_PATH_INPUT_LIST_COMPONENT extends VISTA_LIST_COMPONENT
     {
         super.InitializeComponent();
 
-        this.BindProperty( "ErrorImagePath", "error-image-path", "" );
         this.BindProperty( "DocumentImagePath", "document-image-path", "" );
+        this.BindProperty( "ErrorImagePath", "error-image-path", "" );
         this.BindProperty( "UploadApiUrl", "upload-api-url", "" );
         this.BindProperty( "DeleteApiUrl", "delete-api-url", "" );
 
@@ -1727,7 +1263,7 @@ class VISTA_DOCUMENT_PATH_INPUT_LIST_COMPONENT extends VISTA_LIST_COMPONENT
                 <input id="<:# this.ResultId :>" class="is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden/>
                 <: for ( var value_index = 0; value_index < this.ValueArray.length; ++value_index ) { :>
                     <div class="is-value-container" data-value-index="<:# value_index :>">
-                        <document-path-input-component class="is-value" container-class="is-container" <:# this.IsReadonly ? "is-readonly" : "" :> error-image-path="<:% this.ErrorImagePath :>" document-image-path="<:% this.DocumentImagePath :>" upload-api-url="<:% this.UploadApiUrl :>" delete-api-url="<:% this.DeleteApiUrl :>" ></document-path-input-component>
+                        <document-path-input-component class="is-value" <:# this.IsReadonly ? "is-readonly" : "" :> document-image-path="<:% this.DocumentImagePath :>" error-image-path="<:% this.ErrorImagePath :>" upload-api-url="<:% this.UploadApiUrl :>" delete-api-url="<:% this.DeleteApiUrl :>" ></document-path-input-component>
                         <: if ( !this.IsReadonly ) { :>
                             <div class="is-button is-drag-button data-value-index="<:# value_index + 1 :>">
                             </div>
@@ -1769,7 +1305,694 @@ class VISTA_DROPDOWN_LIST_COMPONENT extends VISTA_LIST_COMPONENT
                 <input id="<:# this.ResultId :>" class="is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden/>
                 <: for ( var value_index = 0; value_index < this.ValueArray.length; ++value_index ) { :>
                     <div class="is-value-container" data-value-index="<:# value_index :>">
-                        <dropdown-component class="is-value" container-class="is-container" result-placeholder="<:# this.ResultPlaceholder :>" <:# this.IsReadonly ? "is-readonly" : "" :> <:# this.IsOptional ? "is-optional" : "" :> option-values="<:% this.OptionValues :>" option-names="<:% this.OptionNames :>"></dropdown-component>
+                        <dropdown-component class="is-value" result-placeholder="<:# this.ResultPlaceholder :>" <:# this.IsReadonly ? "is-readonly" : "" :> <:# this.IsOptional ? "is-optional" : "" :> option-values="<:% this.OptionValues :>" option-names="<:% this.OptionNames :>"></dropdown-component>
+                        <: if ( !this.IsReadonly ) { :>
+                            <div class="is-button is-drag-button data-value-index="<:# value_index + 1 :>">
+                            </div>
+                            <div class="is-button is-add-button" data-value-index="<:# value_index + 1 :>">
+                            </div>
+                            <div class="is-button is-remove-button" data-value-index="<:# value_index :>">
+                            </div>
+                        <: } :>
+                    </div>
+                <: } :>
+                <: if ( !this.IsReadonly ) { :>
+                    <div class="is-button is-add-button" data-value-index="<:# this.ValueArray.length :>">
+                    </div>
+                <: } :>
+            </div>
+            `
+            );
+    }
+}
+
+// ~~
+
+class VISTA_MULTILINGUAL_COMPONENT extends VISTA_COMPONENT
+{
+    // -- OPERATIONS
+
+    GetNextLanguageTag(
+        )
+    {
+        var
+            language_tag,
+            language_tag_index,
+            translation,
+            translation_index;
+
+        for ( language_tag_index = 1;
+              language_tag_index < this.LanguageTagArray.length;
+              ++language_tag_index )
+        {
+            language_tag = this.LanguageTagArray[ language_tag_index ];
+
+            for ( translation_index = 0;
+                  translation_index < this.TranslationArray.length;
+                  ++translation_index )
+            {
+                translation = this.TranslationArray[ translation_index ];
+
+                if ( translation.Specifier.indexOf( language_tag ) >= 0 )
+                {
+                    language_tag = "";
+
+                    break;
+                }
+            }
+
+            if ( language_tag !== "" )
+            {
+                return language_tag;
+            }
+        }
+
+        return "";
+    }
+
+    // ~~
+
+    SetValue(
+        value
+        )
+    {
+        var
+            old_value;
+
+        old_value = this.value;
+
+        this.ResultValue = value;
+        this.value = value;
+        this.UpdateView();
+
+        if ( value != old_value )
+        {
+            this.SetChanged();
+        }
+    }
+
+    // ~~
+
+    UpdateView(
+        )
+    {
+        var
+            translation_index;
+
+        this.ResultElement.value = this.ResultValue;
+        this.TranslationArray = this.ResultValue.GetTranslationArray();
+
+        for ( translation_index = 0;
+              translation_index < this.TranslationArray.length;
+              ++translation_index )
+        {
+            if ( translation_index < this.TranslationInputElementArray.length )
+            {
+                this.TranslationInputElementArray[ translation_index ].value = this.TranslationArray[ translation_index ].Data;
+            }
+
+            if ( translation_index < this.TranslationSpecifierElementArray.length )
+            {
+                this.TranslationSpecifierElementArray[ translation_index ].value = this.TranslationArray[ translation_index ].Specifier;
+            }
+        }
+    }
+
+    // ~~
+
+    UpdateValue(
+        )
+    {
+        var
+            translation_index;
+
+        for ( translation_index = 0;
+              translation_index < this.TranslationArray.length;
+              ++translation_index )
+        {
+            if ( translation_index < this.TranslationInputElementArray.length )
+            {
+                this.TranslationArray[ translation_index ].Data = this.TranslationInputElementArray[ translation_index ].value.GetFormText();
+            }
+
+            if ( translation_index < this.TranslationSpecifierElementArray.length )
+            {
+                this.TranslationArray[ translation_index ].Specifier = this.TranslationSpecifierElementArray[ translation_index ].value.GetFormText();
+            }
+        }
+
+        this.ResultValue = this.TranslationArray.GetMultilingualText();
+        this.value = this.ResultValue;
+        this.ResultElement.value = this.ResultValue;
+    }
+
+    // ~~
+
+    HandleTranslationDataInputEvent(
+        event
+        )
+    {
+        this.UpdateValue();
+
+        this.EmitEvent( "value-changed" );
+        this.EmitEvent( "sub-value-changed" );
+        event.Cancel();
+
+        return false;
+    }
+
+    // ~~
+
+    HandleTranslationSpecifierInputEvent(
+        event
+        )
+    {
+        this.UpdateValue();
+
+        this.EmitEvent( "value-changed" );
+        this.EmitEvent( "sub-value-changed" );
+        event.Cancel();
+
+        return false;
+    }
+
+    // ~~
+
+    HandleTranslationAddButtonClickEvent(
+        event
+        )
+    {
+        this.TranslationArray.splice( GetInteger( event.currentTarget.dataset.translationIndex ), 0, { Specifier : this.GetNextLanguageTag(), Data : "" } );
+        this.SetValue( this.TranslationArray.GetMultilingualText() );
+    }
+
+    // ~~
+
+    HandleTranslationRemoveButtonClickEvent(
+        event
+        )
+    {
+        this.TranslationArray.splice( GetInteger( event.currentTarget.dataset.translationIndex ), 1 );
+        this.SetValue( this.TranslationArray.GetMultilingualText() );
+    }
+
+    // ~~
+
+    InitializeComponent(
+        )
+    {
+        this.BindStyle();
+        this.BindProperty( "ResultId", "result-id", "" );
+        this.BindProperty( "ResultName", "result-name", "" );
+        this.BindProperty( "ResultValue", "result-value", "" );
+        this.BindProperty( "ResultPlaceholder", "result-placeholder", "" );
+        this.BindProperty( "IsReadonly", "is-readonly", false );
+        this.BindProperty( "LanguageTags", "language-tags", "[\"en\"]" );
+        this.BindMethod( "HandleTranslationDataInputEvent" );
+        this.BindMethod( "HandleTranslationSpecifierInputEvent" );
+        this.BindMethod( "HandleTranslationAddButtonClickEvent" );
+        this.BindMethod( "HandleTranslationRemoveButtonClickEvent" );
+
+        this.LanguageTagArray = GetJsonObject( this.LanguageTags );
+        this.TranslationArray = this.ResultValue.GetTranslationArray();
+    }
+
+    // ~~
+
+    PostUpdateComponent(
+        )
+    {
+        var
+            translation_add_button_element,
+            translation_index,
+            translation_remove_button_element;
+
+        this.ResultElement = this.GetElement( ".is-result" );
+        this.TranslationInputElementArray = this.GetElements( ".is-translation-data" );
+        this.TranslationSpecifierElementArray = this.GetElements( ".is-translation-specifier" );
+        this.TranslationAddButtonElementArray = this.GetElements( ".is-translation-add-button" );
+        this.TranslationRemoveButtonElementArray = this.GetElements( ".is-translation-remove-button" );
+        this.SetValue( this.ResultValue );
+
+        for ( translation_index = 0;
+              translation_index < this.TranslationArray.length;
+              ++translation_index )
+        {
+            if ( translation_index < this.TranslationInputElementArray.length )
+            {
+                this.TranslationInputElementArray[ translation_index ].oninput = this.HandleTranslationDataInputEvent;
+            }
+
+            if ( translation_index < this.TranslationSpecifierElementArray.length )
+            {
+                this.TranslationSpecifierElementArray[ translation_index ].oninput = this.HandleTranslationSpecifierInputEvent;
+            }
+        }
+
+        for ( translation_add_button_element of this.TranslationAddButtonElementArray )
+        {
+            translation_add_button_element.onclick = this.HandleTranslationAddButtonClickEvent;
+        }
+
+        for ( translation_remove_button_element of this.TranslationRemoveButtonElementArray )
+        {
+            translation_remove_button_element.onclick = this.HandleTranslationRemoveButtonClickEvent;
+        }
+    }
+}
+
+// ~~
+
+class VISTA_MULTILINGUAL_INPUT_COMPONENT extends VISTA_MULTILINGUAL_COMPONENT
+{
+    // -- OPERATIONS
+
+    InitializeComponent(
+        )
+    {
+        super.InitializeComponent();
+
+        this.SetTemplate(
+            Text`
+            <div class="is-component is-container is-translation-container">
+                <input id="<:# this.ResultId :>" class="is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden/>
+                <: for ( let translation_index = 0; translation_index < this.TranslationArray.length; ++translation_index ) { :>
+                    <div class="is-translation <:# this.IsReadonly ? "is-readonly" : "" :>">
+                        <input class="is-input is-translation-data" value="<:% this.TranslationArray[ translation_index ].Data :>" <:# this.IsReadonly ? "readonly" : "" :>/>
+                        <input class="is-input is-translation-specifier" placeholder="<:# translation_index === 0 ? this.LanguageTagArray[ 0 ] : "" :>" value="<:% this.TranslationArray[ translation_index ].Specifier :>" <:# ( this.IsReadonly || translation_index === 0 )  ? "readonly" : "" :>/>
+                        <div class="is-translation-button-container">
+                            <: if ( !this.IsReadonly ) { :>
+                                <div class="is-button is-translation-add-button" data-translation-index="<:# translation_index + 1 :>">
+                                </div>
+                                <: if ( translation_index > 0 ) { :>
+                                    <div class="is-button is-translation-remove-button" data-translation-index="<:# translation_index :>">
+                                    </div>
+                                <: } :>
+                            <: } :>
+                        </div>
+                    </div>
+                <: } :>
+            </div>
+            `
+            );
+    }
+}
+
+// ~~
+
+class VISTA_MULTILINGUAL_TEXT_INPUT_COMPONENT extends VISTA_MULTILINGUAL_COMPONENT
+{
+    // -- OPERATIONS
+
+    UpdateView(
+        )
+    {
+        var
+            translation_index;
+
+        this.ResultElement.value = this.ResultValue;
+        this.TranslationArray = this.ResultValue.GetTranslationArray();
+
+        for ( translation_index = 0;
+              translation_index < this.TranslationArray.length;
+              ++translation_index )
+        {
+            if ( translation_index < this.TranslationInputElementArray.length )
+            {
+                this.TranslationInputElementArray[ translation_index ].value = this.TranslationArray[ translation_index ].Data;
+                this.TranslationInputElementArray[ translation_index ].SetContentHeight();
+            }
+
+            if ( translation_index < this.TranslationSpecifierElementArray.length )
+            {
+                this.TranslationSpecifierElementArray[ translation_index ].value = this.TranslationArray[ translation_index ].Specifier;
+            }
+        }
+    }
+
+    // ~~
+
+    HandleTranslationDataInputEvent(
+        event
+        )
+    {
+        event.currentTarget.SetContentHeight();
+        this.UpdateValue();
+
+        this.EmitEvent( "value-changed" );
+        this.EmitEvent( "sub-value-changed" );
+        event.Cancel();
+
+        return false;
+    }
+
+    // ~~
+
+    InitializeComponent(
+        )
+    {
+        super.InitializeComponent();
+
+        this.SetTemplate(
+            Text`
+            <div class="is-component is-container is-translation-container">
+                <textarea id="<:# this.ResultId :>" class="is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden></textarea>
+                <: for ( let translation_index = 0; translation_index < this.TranslationArray.length; ++translation_index ) { :>
+                    <div class="is-translation <:# this.IsReadonly ? "is-readonly" : "" :>">
+                        <textarea class="is-textarea is-translation-data" <:# this.IsReadonly ? "readonly" : "" :>><:% this.TranslationArray[ translation_index ].Data :></textarea>
+                        <input class="is-input is-translation-specifier" placeholder="<:# translation_index === 0 ? this.LanguageTagArray[ 0 ] : "" :>" value="<:% this.TranslationArray[ translation_index ].Specifier :>" <:# ( this.IsReadonly || translation_index === 0 ) ? "readonly" : "" :>/>
+                        <div>
+                            <: if ( !this.IsReadonly ) { :>
+                                <div class="is-button is-translation-add-button" data-translation-index="<:# translation_index + 1 :>">
+                                </div>
+                                <: if ( translation_index > 0 ) { :>
+                                    <div class="is-button is-translation-remove-button" data-translation-index="<:# translation_index :>">
+                                    </div>
+                                <: } :>
+                            <: } :>
+                        </div>
+                    </div>
+                <: } :>
+            </div>
+            `
+            );
+    }
+}
+
+// ~~
+
+class VISTA_MULTILINGUAL_IMAGE_PATH_INPUT_COMPONENT extends VISTA_MULTILINGUAL_COMPONENT
+{
+    // -- OPERATIONS
+
+    InitializeComponent(
+        )
+    {
+        super.InitializeComponent();
+
+        this.BindProperty( "ErrorImagePath", "error-image-path", "" );
+        this.BindProperty( "UploadApiUrl", "upload-api-url", "" );
+        this.BindProperty( "DeleteApiUrl", "delete-api-url", "" );
+
+        this.SetTemplate(
+            Text`
+            <div class="is-component is-container is-translation-container">
+                <input id="<:# this.ResultId :>" class="is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden/>
+                <: for ( let translation_index = 0; translation_index < this.TranslationArray.length; ++translation_index ) { :>
+                    <div class="is-translation <:# this.IsReadonly ? "is-readonly" : "" :>">
+                        <image-path-input-component class="is-input is-translation-data" result-value="<:% this.TranslationArray[ translation_index ].Data :>" <:# this.IsReadonly ? "is-readonly" : "" :> error-image-path="<:% this.ErrorImagePath :>" upload-api-url="<:% this.UploadApiUrl :>" delete-api-url="<:% this.DeleteApiUrl :>" ></image-path-input-component>
+                        <input class="is-input is-translation-specifier" placeholder="<:# translation_index === 0 ? this.LanguageTagArray[ 0 ] : "" :>" value="<:% this.TranslationArray[ translation_index ].Specifier :>" <:# ( this.IsReadonly || translation_index === 0 )  ? "readonly" : "" :>/>
+                        <div class="is-translation-button-container">
+                            <: if ( !this.IsReadonly ) { :>
+                                <div class="is-button is-translation-add-button" data-translation-index="<:# translation_index + 1 :>">
+                                </div>
+                                <: if ( translation_index > 0 ) { :>
+                                    <div class="is-button is-translation-remove-button" data-translation-index="<:# translation_index :>">
+                                    </div>
+                                <: } :>
+                            <: } :>
+                        </div>
+                    </div>
+                <: } :>
+            </div>
+            `
+            );
+    }
+}
+
+// ~~
+
+class VISTA_MULTILINGUAL_VIDEO_PATH_INPUT_COMPONENT extends VISTA_MULTILINGUAL_COMPONENT
+{
+    // -- OPERATIONS
+
+    InitializeComponent(
+        )
+    {
+        super.InitializeComponent();
+
+        this.BindProperty( "ErrorVideoPath", "error-video-path", "" );
+        this.BindProperty( "UploadApiUrl", "upload-api-url", "" );
+        this.BindProperty( "DeleteApiUrl", "delete-api-url", "" );
+
+        this.SetTemplate(
+            Text`
+            <div class="is-component is-container is-translation-container">
+                <input id="<:# this.ResultId :>" class="is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden/>
+                <: for ( let translation_index = 0; translation_index < this.TranslationArray.length; ++translation_index ) { :>
+                    <div class="is-translation <:# this.IsReadonly ? "is-readonly" : "" :>">
+                        <video-path-input-component class="is-input is-translation-data" result-value="<:% this.TranslationArray[ translation_index ].Data :>" <:# this.IsReadonly ? "is-readonly" : "" :> error-video-path="<:% this.ErrorVideoPath :>" upload-api-url="<:% this.UploadApiUrl :>" delete-api-url="<:% this.DeleteApiUrl :>" ></video-path-input-component>
+                        <input class="is-input is-translation-specifier" placeholder="<:# translation_index === 0 ? this.LanguageTagArray[ 0 ] : "" :>" value="<:% this.TranslationArray[ translation_index ].Specifier :>" <:# ( this.IsReadonly || translation_index === 0 )  ? "readonly" : "" :>/>
+                        <div class="is-translation-button-container">
+                            <: if ( !this.IsReadonly ) { :>
+                                <div class="is-button is-translation-add-button" data-translation-index="<:# translation_index + 1 :>">
+                                </div>
+                                <: if ( translation_index > 0 ) { :>
+                                    <div class="is-button is-translation-remove-button" data-translation-index="<:# translation_index :>">
+                                    </div>
+                                <: } :>
+                            <: } :>
+                        </div>
+                    </div>
+                <: } :>
+            </div>
+            `
+            );
+    }
+}
+
+// ~~
+
+class VISTA_MULTILINGUAL_DOCUMENT_PATH_INPUT_COMPONENT extends VISTA_MULTILINGUAL_COMPONENT
+{
+    // -- OPERATIONS
+
+    InitializeComponent(
+        )
+    {
+        super.InitializeComponent();
+
+        this.BindProperty( "DocumentImagePath", "document-image-path", "" );
+        this.BindProperty( "ErrorImagePath", "error-image-path", "" );
+        this.BindProperty( "UploadApiUrl", "upload-api-url", "" );
+        this.BindProperty( "DeleteApiUrl", "delete-api-url", "" );
+
+        this.SetTemplate(
+            Text`
+            <div class="is-component is-container is-translation-container">
+                <input id="<:# this.ResultId :>" class="is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden/>
+                <: for ( let translation_index = 0; translation_index < this.TranslationArray.length; ++translation_index ) { :>
+                    <div class="is-translation <:# this.IsReadonly ? "is-readonly" : "" :>">
+                        <document-path-input-component class="is-input is-translation-data" result-value="<:% this.TranslationArray[ translation_index ].Data :>" <:# this.IsReadonly ? "is-readonly" : "" :> document-image-path="<:% this.DocumentImagePath :>" error-image-path="<:% this.ErrorImagePath :>" upload-api-url="<:% this.UploadApiUrl :>" delete-api-url="<:% this.DeleteApiUrl :>" ></document-path-input-component>
+                        <input class="is-input is-translation-specifier" placeholder="<:# translation_index === 0 ? this.LanguageTagArray[ 0 ] : "" :>" value="<:% this.TranslationArray[ translation_index ].Specifier :>" <:# ( this.IsReadonly || translation_index === 0 )  ? "readonly" : "" :>/>
+                        <div class="is-translation-button-container">
+                            <: if ( !this.IsReadonly ) { :>
+                                <div class="is-button is-translation-add-button" data-translation-index="<:# translation_index + 1 :>">
+                                </div>
+                                <: if ( translation_index > 0 ) { :>
+                                    <div class="is-button is-translation-remove-button" data-translation-index="<:# translation_index :>">
+                                    </div>
+                                <: } :>
+                            <: } :>
+                        </div>
+                    </div>
+                <: } :>
+            </div>
+            `
+            );
+    }
+}
+
+// ~~
+
+class VISTA_MULTILINGUAL_INPUT_LIST_COMPONENT extends VISTA_LIST_COMPONENT
+{
+    // -- OPERATIONS
+
+    InitializeComponent(
+        )
+    {
+        super.InitializeComponent();
+
+        this.BindProperty( "LanguageTags", "language-tags", "[\"en\"]" );
+
+        this.SetTemplate(
+            Text`
+            <div class="is-component is-list-container">
+                <input id="<:# this.ResultId :>" class="is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden/>
+                <: for ( var value_index = 0; value_index < this.ValueArray.length; ++value_index ) { :>
+                    <div class="is-value-container" data-value-index="<:# value_index :>">
+                        <multilingual-input-component class="is-value" <:# this.IsReadonly ? "is-readonly" : "" :> language-tags="<:% this.LanguageTags :>"></multilingual-input-component>
+                        <: if ( !this.IsReadonly ) { :>
+                            <div class="is-button is-drag-button data-value-index="<:# value_index + 1 :>">
+                            </div>
+                            <div class="is-button is-add-button" data-value-index="<:# value_index + 1 :>">
+                            </div>
+                            <div class="is-button is-remove-button" data-value-index="<:# value_index :>">
+                            </div>
+                        <: } :>
+                    </div>
+                <: } :>
+                <: if ( !this.IsReadonly ) { :>
+                    <div class="is-button is-add-button" data-value-index="<:# this.ValueArray.length :>">
+                    </div>
+                <: } :>
+            </div>
+            `
+            );
+    }
+}
+
+// ~~
+
+class VISTA_MULTILINGUAL_TEXT_INPUT_LIST_COMPONENT extends VISTA_LIST_COMPONENT
+{
+    // -- OPERATIONS
+
+    InitializeComponent(
+        )
+    {
+        super.InitializeComponent();
+
+        this.BindProperty( "LanguageTags", "language-tags", "[\"en\"]" );
+
+        this.SetTemplate(
+            Text`
+            <div class="is-component is-list-container">
+                <textarea id="<:# this.ResultId :>" class="is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden></textarea>
+                <: for ( var value_index = 0; value_index < this.ValueArray.length; ++value_index ) { :>
+                    <div class="is-value-container" data-value-index="<:# value_index :>">
+                        <multilingual-text-input-component class="is-value" <:# this.IsReadonly ? "is-readonly" : "" :> language-tags="<:% this.LanguageTags :>"></multilingual-text-input-component>
+                        <: if ( !this.IsReadonly ) { :>
+                            <div class="is-button is-drag-button data-value-index="<:# value_index + 1 :>">
+                            </div>
+                            <div class="is-button is-add-button" data-value-index="<:# value_index + 1 :>">
+                            </div>
+                            <div class="is-button is-remove-button" data-value-index="<:# value_index :>">
+                            </div>
+                        <: } :>
+                    </div>
+                <: } :>
+                <: if ( !this.IsReadonly ) { :>
+                    <div class="is-button is-add-button" data-value-index="<:# this.ValueArray.length :>">
+                    </div>
+                <: } :>
+            </div>
+            `
+            );
+    }
+}
+
+// ~~
+
+class VISTA_MULTILINGUAL_IMAGE_PATH_INPUT_LIST_COMPONENT extends VISTA_LIST_COMPONENT
+{
+    // -- OPERATIONS
+
+    InitializeComponent(
+        )
+    {
+        super.InitializeComponent();
+
+        this.BindProperty( "ErrorImagePath", "error-image-path", "" );
+        this.BindProperty( "UploadApiUrl", "upload-api-url", "" );
+        this.BindProperty( "DeleteApiUrl", "delete-api-url", "" );
+        this.BindProperty( "LanguageTags", "language-tags", "[\"en\"]" );
+
+        this.SetTemplate(
+            Text`
+            <div class="is-component is-list-container">
+                <input id="<:# this.ResultId :>" class="is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden/>
+                <: for ( var value_index = 0; value_index < this.ValueArray.length; ++value_index ) { :>
+                    <div class="is-value-container" data-value-index="<:# value_index :>">
+                        <multilingual-image-path-input-component class="is-value" <:# this.IsReadonly ? "is-readonly" : "" :> error-image-path="<:% this.ErrorImagePath :>" upload-api-url="<:% this.UploadApiUrl :>" delete-api-url="<:% this.DeleteApiUrl :>" language-tags="<:% this.LanguageTags :>"></multilingual-image-path-input-component>
+                        <: if ( !this.IsReadonly ) { :>
+                            <div class="is-button is-drag-button data-value-index="<:# value_index + 1 :>">
+                            </div>
+                            <div class="is-button is-add-button" data-value-index="<:# value_index + 1 :>">
+                            </div>
+                            <div class="is-button is-remove-button" data-value-index="<:# value_index :>">
+                            </div>
+                        <: } :>
+                    </div>
+                <: } :>
+                <: if ( !this.IsReadonly ) { :>
+                    <div class="is-button is-add-button" data-value-index="<:# this.ValueArray.length :>">
+                    </div>
+                <: } :>
+            </div>
+            `
+            );
+    }
+}
+
+// ~~
+
+class VISTA_MULTILINGUAL_VIDEO_PATH_INPUT_LIST_COMPONENT extends VISTA_LIST_COMPONENT
+{
+    // -- OPERATIONS
+
+    InitializeComponent(
+        )
+    {
+        super.InitializeComponent();
+
+        this.BindProperty( "ErrorVideoPath", "error-video-path", "" );
+        this.BindProperty( "UploadApiUrl", "upload-api-url", "" );
+        this.BindProperty( "DeleteApiUrl", "delete-api-url", "" );
+        this.BindProperty( "LanguageTags", "language-tags", "[\"en\"]" );
+
+        this.SetTemplate(
+            Text`
+            <div class="is-component is-list-container">
+                <input id="<:# this.ResultId :>" class="is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden/>
+                <: for ( var value_index = 0; value_index < this.ValueArray.length; ++value_index ) { :>
+                    <div class="is-value-container" data-value-index="<:# value_index :>">
+                        <multilingual-video-path-input-component class="is-value" <:# this.IsReadonly ? "is-readonly" : "" :> error-video-path="<:% this.ErrorVideoPath :>" upload-api-url="<:% this.UploadApiUrl :>" delete-api-url="<:% this.DeleteApiUrl :>" language-tags="<:% this.LanguageTags :>"></multilingual-video-path-input-component>
+                        <: if ( !this.IsReadonly ) { :>
+                            <div class="is-button is-drag-button data-value-index="<:# value_index + 1 :>">
+                            </div>
+                            <div class="is-button is-add-button" data-value-index="<:# value_index + 1 :>">
+                            </div>
+                            <div class="is-button is-remove-button" data-value-index="<:# value_index :>">
+                            </div>
+                        <: } :>
+                    </div>
+                <: } :>
+                <: if ( !this.IsReadonly ) { :>
+                    <div class="is-button is-add-button" data-value-index="<:# this.ValueArray.length :>">
+                    </div>
+                <: } :>
+            </div>
+            `
+            );
+    }
+}
+
+// ~~
+
+class VISTA_MULTILINGUAL_DOCUMENT_PATH_INPUT_LIST_COMPONENT extends VISTA_LIST_COMPONENT
+{
+    // -- OPERATIONS
+
+    InitializeComponent(
+        )
+    {
+        super.InitializeComponent();
+
+        this.BindProperty( "DocumentImagePath", "document-image-path", "" );
+        this.BindProperty( "ErrorImagePath", "error-image-path", "" );
+        this.BindProperty( "UploadApiUrl", "upload-api-url", "" );
+        this.BindProperty( "DeleteApiUrl", "delete-api-url", "" );
+        this.BindProperty( "LanguageTags", "language-tags", "[\"en\"]" );
+
+        this.SetTemplate(
+            Text`
+            <div class="is-component is-list-container">
+                <input id="<:# this.ResultId :>" class="is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden/>
+                <: for ( var value_index = 0; value_index < this.ValueArray.length; ++value_index ) { :>
+                    <div class="is-value-container" data-value-index="<:# value_index :>">
+                        <multilingual-document-path-input-component class="is-value" <:# this.IsReadonly ? "is-readonly" : "" :> document-image-path="<:% this.DocumentImagePath :>" error-image-path="<:% this.ErrorImagePath :>" upload-api-url="<:% this.UploadApiUrl :>" delete-api-url="<:% this.DeleteApiUrl :>" language-tags="<:% this.LanguageTags :>"></multilingual-document-path-input-component>
                         <: if ( !this.IsReadonly ) { :>
                             <div class="is-button is-drag-button data-value-index="<:# value_index + 1 :>">
                             </div>
@@ -1808,19 +2031,25 @@ function InitializeInputs(
 
 DefineComponent( VISTA_INPUT_COMPONENT, "input-component", [ "result-id", "result-name", "result-value", "result-placeholder", "is-readonly" ] );
 DefineComponent( VISTA_TEXT_INPUT_COMPONENT, "text-input-component", [ "result-id", "result-name", "result-value", "result-placeholder", "is-readonly" ] );
-DefineComponent( VISTA_MULTILINGUAL_INPUT_COMPONENT, "multilingual-input-component", [ "result-id", "result-name", "result-value", "result-placeholder", "is-readonly", "language-tags", "language-names" ] );
-DefineComponent( VISTA_MULTILINGUAL_TEXT_INPUT_COMPONENT, "multilingual-text-input-component", [ "result-id", "result-name", "result-value", "result-placeholder", "is-readonly", "language-tags", "language-names" ] );
 DefineComponent( VISTA_IMAGE_PATH_INPUT_COMPONENT, "image-path-input-component", [ "result-id", "result-name", "result-value", "result-placeholder", "is-readonly", "error-image-path", "upload-api-url", "delete-api-url" ] );
 DefineComponent( VISTA_VIDEO_PATH_INPUT_COMPONENT, "video-path-input-component", [ "result-id", "result-name", "result-value", "result-placeholder", "is-readonly", "error-video-path", "upload-api-url", "delete-api-url" ] );
-DefineComponent( VISTA_DOCUMENT_PATH_INPUT_COMPONENT, "document-path-input-component", [ "result-id", "result-name", "result-value", "result-placeholder", "is-readonly", "error-image-path", "document-image-path", "upload-api-url", "delete-api-url" ] );
+DefineComponent( VISTA_DOCUMENT_PATH_INPUT_COMPONENT, "document-path-input-component", [ "result-id", "result-name", "result-value", "result-placeholder", "is-readonly", "document-image-path", "error-image-path", "upload-api-url", "delete-api-url" ] );
 DefineComponent( VISTA_DROPDOWN_COMPONENT, "dropdown-component", [ "result-id", "result-name", "result-value", "result-placeholder", "is-readonly", "is-optional", "null-name", "null-value", "option-names", "option-values" ] );
 DefineComponent( VISTA_INPUT_LIST_COMPONENT, "input-list-component", [ "result-id", "result-name", "result-value", "result-placeholder", "is-readonly", "added-value" ] );
 DefineComponent( VISTA_TEXT_INPUT_LIST_COMPONENT, "text-input-list-component", [ "result-id", "result-name", "result-value", "result-placeholder", "is-readonly", "added-value" ] );
-DefineComponent( VISTA_MULTILINGUAL_INPUT_LIST_COMPONENT, "multilingual-input-list-component", [ "result-id", "result-name", "result-value", "result-placeholder", "is-readonly", "added-value", "language-tags", "language-names" ] );
-DefineComponent( VISTA_MULTILINGUAL_TEXT_INPUT_LIST_COMPONENT, "multilingual-text-input-list-component", [ "result-id", "result-name", "result-value", "result-placeholder", "is-readonly", "added-value", "language-tags", "language-names" ] );
 DefineComponent( VISTA_IMAGE_PATH_INPUT_LIST_COMPONENT, "image-path-input-list-component", [ "result-id", "result-name", "result-value", "result-placeholder", "is-readonly", "added-value", "error-image-path", "upload-api-url", "delete-api-url" ] );
 DefineComponent( VISTA_VIDEO_PATH_INPUT_LIST_COMPONENT, "video-path-input-list-component", [ "result-id", "result-name", "result-value", "result-placeholder", "is-readonly", "added-value", "error-video-path", "upload-api-url", "delete-api-url" ] );
-DefineComponent( VISTA_DOCUMENT_PATH_INPUT_LIST_COMPONENT, "document-path-input-list-component", [ "result-id", "result-name", "result-value", "result-placeholder", "is-readonly", "added-value", "error-image-path", "document-image-path", "upload-api-url", "delete-api-url" ] );
+DefineComponent( VISTA_DOCUMENT_PATH_INPUT_LIST_COMPONENT, "document-path-input-list-component", [ "result-id", "result-name", "result-value", "result-placeholder", "is-readonly", "added-value", "document-image-path", "error-image-path", "upload-api-url", "delete-api-url" ] );
 DefineComponent( VISTA_DROPDOWN_LIST_COMPONENT, "dropdown-list-component", [ "result-id", "result-name", "result-value", "is-readonly", "is-optional", "null-name", "null-value", "option-names", "option-values", "added-value" ] );
+DefineComponent( VISTA_MULTILINGUAL_INPUT_COMPONENT, "multilingual-input-component", [ "result-id", "result-name", "result-value", "result-placeholder", "is-readonly", "language-tags" ] );
+DefineComponent( VISTA_MULTILINGUAL_TEXT_INPUT_COMPONENT, "multilingual-text-input-component", [ "result-id", "result-name", "result-value", "result-placeholder", "is-readonly", "language-tags" ] );
+DefineComponent( VISTA_MULTILINGUAL_IMAGE_PATH_INPUT_COMPONENT, "multilingual-image-path-input-component", [ "result-id", "result-name", "result-value", "result-placeholder", "is-readonly", "error-image-path", "upload-api-url", "delete-api-url", "language-tags" ] );
+DefineComponent( VISTA_MULTILINGUAL_VIDEO_PATH_INPUT_COMPONENT, "multilingual-video-path-input-component", [ "result-id", "result-name", "result-value", "result-placeholder", "is-readonly", "error-video-path", "upload-api-url", "delete-api-url", "language-tags" ] );
+DefineComponent( VISTA_MULTILINGUAL_DOCUMENT_PATH_INPUT_COMPONENT, "multilingual-document-path-input-component", [ "result-id", "result-name", "result-value", "result-placeholder", "is-readonly", "document-image-path", "error-image-path", "upload-api-url", "delete-api-url", "language-tags" ] );
+DefineComponent( VISTA_MULTILINGUAL_INPUT_LIST_COMPONENT, "multilingual-input-list-component", [ "result-id", "result-name", "result-value", "result-placeholder", "is-readonly", "added-value", "language-tags" ] );
+DefineComponent( VISTA_MULTILINGUAL_TEXT_INPUT_LIST_COMPONENT, "multilingual-text-input-list-component", [ "result-id", "result-name", "result-value", "result-placeholder", "is-readonly", "added-value", "language-tags" ] );
+DefineComponent( VISTA_MULTILINGUAL_IMAGE_PATH_INPUT_LIST_COMPONENT, "multilingual-image-path-input-list-component", [ "result-id", "result-name", "result-value", "result-placeholder", "is-readonly", "added-value", "error-image-path", "upload-api-url", "delete-api-url", "language-tags" ] );
+DefineComponent( VISTA_MULTILINGUAL_VIDEO_PATH_INPUT_LIST_COMPONENT, "multilingual-video-path-input-list-component", [ "result-id", "result-name", "result-value", "result-placeholder", "is-readonly", "added-value", "error-video-path", "upload-api-url", "delete-api-url", "language-tags" ] );
+DefineComponent( VISTA_MULTILINGUAL_DOCUMENT_PATH_INPUT_LIST_COMPONENT, "multilingual-document-path-input-list-component", [ "result-id", "result-name", "result-value", "result-placeholder", "is-readonly", "added-value", "document-image-path", "error-image-path", "upload-api-url", "delete-api-url", "language-tags" ] );
 
 DelayCall( InitializeInputs );

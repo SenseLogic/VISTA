@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 172 204"
+   version="1.1"
+   id="svg3117"
+   sodipodi:docname="document_icon.svg"
+   width="172"
+   height="204"
+   inkscape:version="1.2.2 (732a01da63, 2022-12-09)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs3121" />
+  <sodipodi:namedview
+     id="namedview3119"
+     pagecolor="#ffffff"
+     bordercolor="#999999"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="0.921875"
+     inkscape:cx="-197.9661"
+     inkscape:cy="180.61017"
+     inkscape:window-width="1920"
+     inkscape:window-height="1051"
+     inkscape:window-x="-9"
+     inkscape:window-y="-9"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg3117" />
+  <g
+     id="g3363"
+     style="stroke:#7f7f7f;stroke-opacity:1">
+    <path
+       d="M 158,198.00001 H 14 a 8,8 0 0 1 -8,-8 V 14 a 8,8 0 0 1 8,-8 h 96 l 56,56 v 128.00001 a 8,8 0 0 1 -8,8 z"
+       fill="none"
+       stroke="#000000"
+       stroke-linecap="round"
+       stroke-linejoin="round"
+       stroke-width="12"
+       id="path3109"
+       style="stroke:#7f7f7f;stroke-opacity:1" />
+    <polyline
+       points="152 32 152 88 208 88"
+       fill="none"
+       stroke="#000000"
+       stroke-linecap="round"
+       stroke-linejoin="round"
+       stroke-width="12"
+       id="polyline3111"
+       transform="translate(-42,-26)"
+       style="stroke:#7f7f7f;stroke-opacity:1" />
+    <line
+       x1="54.000011"
+       y1="110"
+       x2="118.00002"
+       y2="110"
+       fill="none"
+       stroke="#000000"
+       stroke-linecap="round"
+       stroke-linejoin="round"
+       stroke-width="12"
+       id="line3113"
+       style="stroke:#7f7f7f;stroke-opacity:1" />
+    <line
+       x1="54.000011"
+       y1="142"
+       x2="118.00002"
+       y2="142"
+       fill="none"
+       stroke="#000000"
+       stroke-linecap="round"
+       stroke-linejoin="round"
+       stroke-width="12"
+       id="line3115"
+       style="stroke:#7f7f7f;stroke-opacity:1" />
+  </g>
+</svg>

@@ -163,4 +163,3 @@ function FinalizeAutoplayYoutubeVideos(
 {
     YoutubeVideoIntersectionObserver.disconnect();
 }
-
