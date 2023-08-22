@@ -110,7 +110,7 @@
     </style>
     <body style="font-family:monospace">
         <main>
-            <input-component result-id="input" result-name="name" result-value="input value" result-placeholder="placeholder"></input-component>
+            <!--<input-component result-id="input" result-name="name" result-value="input value" result-placeholder="placeholder"></input-component>
             <text-input-component result-id="text-input" result-name="name" result-value="text-input value" result-placeholder="placeholder"></text-input-component>
             <image-path-input-component result-id="image-path-input" result-name="name" result-value="../MEDIA/background_1.jpg" result-placeholder="placeholder" error-image-path="../MEDIA/missing_image.svg" upload-api-url="/admin/upload/image" delete-api-url="/admin/delete/file"></image-path-input-component>
             <video-path-input-component result-id="video-path-input" result-name="name" result-value="../MEDIA/bus.mp4" result-placeholder="placeholder" error-video-path="../MEDIA/missing_video.mp4" upload-api-url="/admin/upload/video" delete-api-url="/admin/delete/file"></video-path-input-component>
@@ -129,15 +129,15 @@
 &quot;value&quot;¨fr:la
 &quot;valeur&quot;¨es:el
 &quot;valor&quot;" result-placeholder="placeholder" language-tags="[&quot;en&quot;,&quot;fr&quot;,&quot;es&quot;]" language-names="[&quot;English&quot;,&quot;French&quot;,&quot;Spanish&quot;]"></multilingual-text-input-component>
-            <multilingual-image-path-input-component result-id="multilingual-image-path-input" result-name="name" result-value="../MEDIA/background_1.jpg" result-placeholder="placeholder" error-image-path="../MEDIA/missing_image.svg" upload-api-url="/admin/upload/image" delete-api-url="/admin/delete/file"></multilingual-image-path-input-component>
-            <multilingual-video-path-input-component result-id="multilingual-video-path-input" result-name="name" result-value="../MEDIA/bus.mp4" result-placeholder="placeholder" error-video-path="../MEDIA/missing_video.mp4" upload-api-url="/admin/upload/video" delete-api-url="/admin/delete/file"></multilingual-video-path-input-component>
-            <multilingual-document-path-input-component result-id="multilingual-document-path-input" result-name="name" result-value="../MEDIA/background_1.jpg" result-placeholder="placeholder" document-image-path="../MEDIA/document_icon.svg" error-image-path="../MEDIA/missing_image.svg" upload-api-url="/admin/upload/image" delete-api-url="/admin/delete/file"></multilingual-document-path-input-component>
+            --><multilingual-image-path-input-component result-id="multilingual-image-path-input" result-name="name" result-value="../MEDIA/background_1.jpg¨fr:../MEDIA/background_2.jpg¨es:../MEDIA/background_3.jpg" result-placeholder="placeholder" error-image-path="../MEDIA/missing_image.svg" upload-api-url="/admin/upload/image" delete-api-url="/admin/delete/file"></multilingual-image-path-input-component>
+            <multilingual-video-path-input-component result-id="multilingual-video-path-input" result-name="name" result-value="../MEDIA/bus.mp4¨fr:../MEDIA/train.mp4" result-placeholder="placeholder" error-video-path="../MEDIA/missing_video.mp4" upload-api-url="/admin/upload/video" delete-api-url="/admin/delete/file"></multilingual-video-path-input-component>
+            <!--<multilingual-document-path-input-component result-id="multilingual-document-path-input" result-name="name" result-value="../MEDIA/background_1.jpg" result-placeholder="placeholder" document-image-path="../MEDIA/document_icon.svg" error-image-path="../MEDIA/missing_image.svg" upload-api-url="/admin/upload/image" delete-api-url="/admin/delete/file"></multilingual-document-path-input-component>
             <multilingual-input-list-component result-id="multilingual-input-list" result-name="name" result-value="[&quot;value1¨fr:valeur1¨es:valor1&quot;,&quot;value2¨fr:valeur2¨es:valor2&quot;]" result-placeholder="placeholder" language-tags="[&quot;en&quot;,&quot;fr&quot;,&quot;es&quot;]" language-names="[&quot;English&quot;,&quot;French&quot;,&quot;Spanish&quot;]"></multilingual-input-list-component>
             <multilingual-text-input-list-component result-id="multilingual-text-input-list" result-name="name" result-value="[&quot;value1¨fr:valeur1¨es:valor1&quot;,&quot;value2¨fr:valeur2¨es:valor2&quot;]" result-placeholder="placeholder" language-tags="[&quot;en&quot;,&quot;fr&quot;,&quot;es&quot;]" language-names="[&quot;English&quot;,&quot;French&quot;,&quot;Spanish&quot;]"></multilingual-text-input-list-component>
             <multilingual-image-path-input-list-component result-id="multilingual-image-path-input-list" result-name="name" result-value="[&quot;../MEDIA/background_1.jpg&quot;]" result-placeholder="placeholder" error-image-path="../MEDIA/missing_image.svg" upload-api-url="/admin/upload/image" delete-api-url="/admin/delete/file"></multilingual-image-path-input-list-component>
             <multilingual-video-path-input-list-component result-id="multilingual-video-path-input-list" result-name="name" result-value="[&quot;../MEDIA/bus.mp4&quot;]" result-placeholder="placeholder" error-video-path="../MEDIA/missing_video.mp4" upload-api-url="/admin/upload/video" delete-api-url="/admin/delete/file"></multilingual-video-path-input-list-component>
             <multilingual-document-path-input-list-component result-id="multilingual-document-path-input-list" result-name="name" result-value="[&quot;../MEDIA/background_1.jpg&quot;]" result-placeholder="placeholder" document-image-path="../MEDIA/document_icon.svg" error-image-path="../MEDIA/missing_image.svg" upload-api-url="/admin/upload/image" delete-api-url="/admin/delete/file"></multilingual-document-path-input-list-component>
-            <div>
+            --><div>
                 <button onclick="Check()">
                     Check
                 </button>
@@ -160,7 +160,7 @@
                 )
             {
                 GetElementById( "result" ).value
-                    = "Input component : " + GetElementById( "input" ).value + "\n"
+                    = /*"Input component : " + GetElementById( "input" ).value + "\n"
                       + "Text input component : " + GetElementById( "text-input" ).value + "\n"
                       + "Image path input component : " + GetElementById( "image-path-input" ).value + "\n"
                       + "Video path input component : " + GetElementById( "video-path-input" ).value + "\n"
@@ -176,14 +176,14 @@
                       + "Dropdown list component : " + GetElementById( "dropdown-list" ).value + "\n"
                       + "Multilingual input component : " + GetElementById( "multilingual-input" ).value + "\n"
                       + "Multilingual text input component : " + GetElementById( "multilingual-text-input" ).value + "\n"
-                      + "Multilingual image path input component : " + GetElementById( "multilingual-image-path-input" ).value + "\n"
+                      + */"Multilingual image path input component : " + GetElementById( "multilingual-image-path-input" ).value + "\n"
                       + "Multilingual video path input component : " + GetElementById( "multilingual-video-path-input" ).value + "\n"
-                      + "Multilingual document path input component : " + GetElementById( "multilingual-document-path-input" ).value + "\n"
+                      /*+ "Multilingual document path input component : " + GetElementById( "multilingual-document-path-input" ).value + "\n"
                       + "Multilingual input list component : " + GetElementById( "multilingual-input-list" ).value + "\n"
                       + "Multilingual text input list component : " + GetElementById( "multilingual-text-input-list" ).value + "\n"
                       + "Multilingual image path input list component : " + GetElementById( "multilingual-image-path-input-list" ).value + "\n"
                       + "Multilingual video path input list component : " + GetElementById( "multilingual-video-path-input-list" ).value + "\n"
-                      + "Multilingual document path input list component : " + GetElementById( "multilingual-document-path-input-list" ).value + "\n";
+                      + "Multilingual document path input list component : " + GetElementById( "multilingual-document-path-input-list" ).value + "\n"*/;
             }
 
             // -- STATEMENTS

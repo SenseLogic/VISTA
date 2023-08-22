@@ -60,7 +60,7 @@ class VISTA_INPUT_COMPONENT extends VISTA_COMPONENT
 
         this.SetTemplate(
             Text`
-            <div class="is-component is-container">
+            <div class="is-component is-container <:# this.IsReadonly ? "is-readonly" : "" :>">
                 <input id="<:# this.ResultId :>" class="is-input is-result" name="<:# this.ResultName :>" value="<:% this.ResultValue :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :>/>
             </div>
             `
@@ -143,7 +143,7 @@ class VISTA_TEXT_INPUT_COMPONENT extends VISTA_COMPONENT
 
         this.SetTemplate(
             Text`
-            <div class="is-component is-container">
+            <div class="is-component is-container <:# this.IsReadonly ? "is-readonly" : "" :>">
                 <textarea id="<:# this.ResultId :>" class="is-textarea is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :>><:% this.ResultValue :></textarea>
             </div>
             `
@@ -164,26 +164,9 @@ class VISTA_TEXT_INPUT_COMPONENT extends VISTA_COMPONENT
 
 // ~~
 
-class VISTA_IMAGE_PATH_INPUT_COMPONENT extends VISTA_COMPONENT
+class VISTA_PATH_INPUT_COMPONENT extends VISTA_COMPONENT
 {
     // -- OPERATIONS
-
-    UpdateView(
-        )
-    {
-        this.ResultElement.value = this.ResultValue;
-
-        if ( this.ResultValue !== '' )
-        {
-            this.ImageElement.src = this.ResultValue;
-        }
-        else
-        {
-            this.ImageElement.src = this.ErrorImagePath;
-        }
-    }
-
-    // ~~
 
     SetValue(
         value
@@ -207,14 +190,6 @@ class VISTA_IMAGE_PATH_INPUT_COMPONENT extends VISTA_COMPONENT
         this.EmitEvent( "sub-value-changed" );
 
         return false;
-    }
-
-    // ~~
-
-    HandleImageErrorEvent(
-        )
-    {
-        this.ImageElement.src = this.ErrorImagePath;
     }
 
     // ~~
@@ -274,6 +249,36 @@ class VISTA_IMAGE_PATH_INPUT_COMPONENT extends VISTA_COMPONENT
 
         return false;
     }
+}
+
+// ~~
+
+class VISTA_IMAGE_PATH_INPUT_COMPONENT extends VISTA_PATH_INPUT_COMPONENT
+{
+    // -- OPERATIONS
+
+    UpdateView(
+        )
+    {
+        this.ResultElement.value = this.ResultValue;
+
+        if ( this.ResultValue !== '' )
+        {
+            this.ImageElement.src = this.ResultValue;
+        }
+        else
+        {
+            this.ImageElement.src = this.ErrorImagePath;
+        }
+    }
+
+    // ~~
+
+    HandleImageErrorEvent(
+        )
+    {
+        this.ImageElement.src = this.ErrorImagePath;
+    }
 
     // ~~
 
@@ -298,7 +303,7 @@ class VISTA_IMAGE_PATH_INPUT_COMPONENT extends VISTA_COMPONENT
 
         this.SetTemplate(
             Text`
-            <div class="is-component is-container is-upload-container">
+            <div class="is-component is-container is-upload-container <:# this.IsReadonly ? "is-readonly" : "" :>">
                 <input id="<:# this.ResultId :>" class="is-input is-upload-input is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :>/>
                 <img class="is-image is-upload-image"/>
                 <: if ( !this.IsReadonly ) { :>
@@ -340,7 +345,7 @@ class VISTA_IMAGE_PATH_INPUT_COMPONENT extends VISTA_COMPONENT
 
 // ~~
 
-class VISTA_VIDEO_PATH_INPUT_COMPONENT extends VISTA_COMPONENT
+class VISTA_VIDEO_PATH_INPUT_COMPONENT extends VISTA_PATH_INPUT_COMPONENT
 {
     // -- OPERATIONS
 
@@ -361,94 +366,10 @@ class VISTA_VIDEO_PATH_INPUT_COMPONENT extends VISTA_COMPONENT
 
     // ~~
 
-    SetValue(
-        value
-        )
-    {
-        this.ResultValue = value;
-        this.value = value;
-        this.UpdateView();
-    }
-
-    // ~~
-
-    HandleResultInputEvent(
-        event
-        )
-    {
-        this.SetValue( this.ResultElement.value );
-
-        event.Cancel();
-        this.EmitEvent( "value-changed" );
-        this.EmitEvent( "sub-value-changed" );
-
-        return false;
-    }
-
-    // ~~
-
     HandleVideoErrorEvent(
         )
     {
         this.VideoElement.src = this.ErrorVideoPath;
-    }
-
-    // ~~
-
-    async HandleFileInputChangeEvent(
-        event
-        )
-    {
-        var
-            request,
-            form_data;
-
-        if ( this.FileInputElement.files.length > 0 )
-        {
-            form_data = new FormData();
-            form_data.append( "File", this.FileInputElement.files[ 0 ] );
-            request = await SendRequest( this.UploadApiUrl, "POST", form_data );
-
-            if ( request.status === 201 )
-            {
-                this.SetValue( GetJsonObject( request.response ) );
-                this.EmitEvent( "value-changed" );
-                this.EmitEvent( "sub-value-changed" );
-            }
-        }
-
-        event.Cancel();
-
-        return false;
-    }
-
-    // ~~
-
-    async HandleDeleteButtonClickEvent(
-        event
-        )
-    {
-        var
-            file_path,
-            file_path_input_element,
-            file_element,
-            request,
-            form_data;
-
-        form_data = new FormData();
-        form_data.append( "FilePath", this.ResultElement.value );
-        request = await SendRequest( this.DeleteApiUrl, "POST", form_data );
-
-        if ( request.status === 201 )
-        {
-            this.SetValue( "" );
-            this.EmitEvent( "value-changed" );
-            this.EmitEvent( "sub-value-changed" );
-        }
-
-        event.Cancel();
-
-        return false;
     }
 
     // ~~
@@ -474,7 +395,7 @@ class VISTA_VIDEO_PATH_INPUT_COMPONENT extends VISTA_COMPONENT
 
         this.SetTemplate(
             Text`
-            <div class="is-component is-container is-upload-container">
+            <div class="is-component is-container is-upload-container <:# this.IsReadonly ? "is-readonly" : "" :>">
                 <input id="<:# this.ResultId :>" class="is-input is-upload-input is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :>/>
                 <video class="is-video is-upload-video" type="video/mp4"></video>
                 <: if ( !this.IsReadonly ) { :>
@@ -516,7 +437,7 @@ class VISTA_VIDEO_PATH_INPUT_COMPONENT extends VISTA_COMPONENT
 
 // ~~
 
-class VISTA_DOCUMENT_PATH_INPUT_COMPONENT extends VISTA_COMPONENT
+class VISTA_DOCUMENT_PATH_INPUT_COMPONENT extends VISTA_PATH_INPUT_COMPONENT
 {
     // -- OPERATIONS
 
@@ -533,90 +454,6 @@ class VISTA_DOCUMENT_PATH_INPUT_COMPONENT extends VISTA_COMPONENT
         {
             this.ImageElement.src = this.ErrorImagePath;
         }
-    }
-
-    // ~~
-
-    SetValue(
-        value
-        )
-    {
-        this.ResultValue = value;
-        this.value = value;
-        this.UpdateView();
-    }
-
-    // ~~
-
-    HandleResultInputEvent(
-        event
-        )
-    {
-        this.SetValue( this.ResultElement.value );
-
-        event.Cancel();
-        this.EmitEvent( "value-changed" );
-        this.EmitEvent( "sub-value-changed" );
-
-        return false;
-    }
-
-    // ~~
-
-    async HandleFileInputChangeEvent(
-        event
-        )
-    {
-        var
-            request,
-            form_data;
-
-        if ( this.FileInputElement.files.length > 0 )
-        {
-            form_data = new FormData();
-            form_data.append( "File", this.FileInputElement.files[ 0 ] );
-            request = await SendRequest( this.UploadApiUrl, "POST", form_data );
-
-            if ( request.status === 201 )
-            {
-                this.SetValue( GetJsonObject( request.response ) );
-                this.EmitEvent( "value-changed" );
-                this.EmitEvent( "sub-value-changed" );
-            }
-        }
-
-        event.Cancel();
-
-        return false;
-    }
-
-    // ~~
-
-    async HandleDeleteButtonClickEvent(
-        event
-        )
-    {
-        var
-            file_path,
-            file_path_input_element,
-            file_element,
-            request,
-            form_data;
-
-        form_data = new FormData();
-        form_data.append( "FilePath", this.ResultElement.value );
-        request = await SendRequest( this.DeleteApiUrl, "POST", form_data );
-
-        if ( request.status === 201 )
-        {
-            this.SetValue( "" );
-            this.EmitEvent( "value-changed" );
-            this.EmitEvent( "sub-value-changed" );
-        }
-
-        event.Cancel();
-
-        return false;
     }
 
     // ~~
@@ -642,7 +479,7 @@ class VISTA_DOCUMENT_PATH_INPUT_COMPONENT extends VISTA_COMPONENT
 
         this.SetTemplate(
             Text`
-            <div class="is-component is-container is-upload-container">
+            <div class="is-component is-container is-upload-container <:# this.IsReadonly ? "is-readonly" : "" :>">
                 <input id="<:# this.ResultId :>" class="is-input is-upload-input is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :>/>
                 <img class="is-image is-upload-image"/>
                 <: if ( !this.IsReadonly ) { :>
@@ -757,7 +594,7 @@ class VISTA_DROPDOWN_COMPONENT extends VISTA_COMPONENT
         this.OptionNameArray = GetJsonObject( this.OptionNames );
         this.SetTemplate(
             Text`
-            <div class="is-component is-container is-dropdown-container">
+            <div class="is-component is-container is-dropdown-container <:# this.IsReadonly ? "is-readonly" : "" :>">
                 <select id="<:# this.ResultId :>" class="is-select is-result" name="<:# this.ResultName :>" <:# this.IsReadonly ? "readonly" : "" :>/>
                     <: if ( this.IsOptional ) { :>
                         <option class="is-option is-dropdown-option" value="<:% this.NullValue :>" <:# ( this.ResultValue === this.NullValue ) ? "selected" : "" :>><:% this.NullName :></option>
@@ -1094,7 +931,7 @@ class VISTA_INPUT_LIST_COMPONENT extends VISTA_LIST_COMPONENT
 
         this.SetTemplate(
             Text`
-            <div class="is-component is-list-container">
+            <div class="is-component is-list-container <:# this.IsReadonly ? "is-readonly" : "" :>">
                 <input id="<:# this.ResultId :>" class="is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden/>
                 <: for ( var value_index = 0; value_index < this.ValueArray.length; ++value_index ) { :>
                     <div class="is-value-container" data-value-index="<:# value_index :>">
@@ -1132,7 +969,7 @@ class VISTA_TEXT_INPUT_LIST_COMPONENT extends VISTA_LIST_COMPONENT
 
         this.SetTemplate(
             Text`
-            <div class="is-component is-list-container">
+            <div class="is-component is-list-container <:# this.IsReadonly ? "is-readonly" : "" :>">
                 <textarea id="<:# this.ResultId :>" class="is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden></textarea>
                 <: for ( var value_index = 0; value_index < this.ValueArray.length; ++value_index ) { :>
                     <div class="is-value-container" data-value-index="<:# value_index :>">
@@ -1174,7 +1011,7 @@ class VISTA_IMAGE_PATH_INPUT_LIST_COMPONENT extends VISTA_LIST_COMPONENT
 
         this.SetTemplate(
             Text`
-            <div class="is-component is-list-container">
+            <div class="is-component is-list-container <:# this.IsReadonly ? "is-readonly" : "" :>">
                 <input id="<:# this.ResultId :>" class="is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden/>
                 <: for ( var value_index = 0; value_index < this.ValueArray.length; ++value_index ) { :>
                     <div class="is-value-container" data-value-index="<:# value_index :>">
@@ -1216,7 +1053,7 @@ class VISTA_VIDEO_PATH_INPUT_LIST_COMPONENT extends VISTA_LIST_COMPONENT
 
         this.SetTemplate(
             Text`
-            <div class="is-component is-list-container">
+            <div class="is-component is-list-container <:# this.IsReadonly ? "is-readonly" : "" :>">
                 <input id="<:# this.ResultId :>" class="is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden/>
                 <: for ( var value_index = 0; value_index < this.ValueArray.length; ++value_index ) { :>
                     <div class="is-value-container" data-value-index="<:# value_index :>">
@@ -1259,7 +1096,7 @@ class VISTA_DOCUMENT_PATH_INPUT_LIST_COMPONENT extends VISTA_LIST_COMPONENT
 
         this.SetTemplate(
             Text`
-            <div class="is-component is-list-container">
+            <div class="is-component is-list-container <:# this.IsReadonly ? "is-readonly" : "" :>">
                 <input id="<:# this.ResultId :>" class="is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden/>
                 <: for ( var value_index = 0; value_index < this.ValueArray.length; ++value_index ) { :>
                     <div class="is-value-container" data-value-index="<:# value_index :>">
@@ -1301,7 +1138,7 @@ class VISTA_DROPDOWN_LIST_COMPONENT extends VISTA_LIST_COMPONENT
 
         this.SetTemplate(
             Text`
-            <div class="is-component is-list-container">
+            <div class="is-component is-list-container <:# this.IsReadonly ? "is-readonly" : "" :>">
                 <input id="<:# this.ResultId :>" class="is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden/>
                 <: for ( var value_index = 0; value_index < this.ValueArray.length; ++value_index ) { :>
                     <div class="is-value-container" data-value-index="<:# value_index :>">
@@ -1448,6 +1285,15 @@ class VISTA_MULTILINGUAL_COMPONENT extends VISTA_COMPONENT
 
     // ~~
 
+    HandleSubValueChangedEvent(
+        event
+        )
+    {
+        this.UpdateValue();
+    }
+
+    // ~~
+
     HandleTranslationDataInputEvent(
         event
         )
@@ -1512,6 +1358,7 @@ class VISTA_MULTILINGUAL_COMPONENT extends VISTA_COMPONENT
         this.BindMethod( "HandleTranslationSpecifierInputEvent" );
         this.BindMethod( "HandleTranslationAddButtonClickEvent" );
         this.BindMethod( "HandleTranslationRemoveButtonClickEvent" );
+        this.BindEvent( this, "sub-value-changed", this.HandleSubValueChangedEvent );
 
         this.LanguageTagArray = GetJsonObject( this.LanguageTags );
         this.TranslationArray = this.ResultValue.GetTranslationArray();
@@ -1574,7 +1421,7 @@ class VISTA_MULTILINGUAL_INPUT_COMPONENT extends VISTA_MULTILINGUAL_COMPONENT
 
         this.SetTemplate(
             Text`
-            <div class="is-component is-container is-translation-container">
+            <div class="is-component is-container is-translation-container <:# this.IsReadonly ? "is-readonly" : "" :>">
                 <input id="<:# this.ResultId :>" class="is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden/>
                 <: for ( let translation_index = 0; translation_index < this.TranslationArray.length; ++translation_index ) { :>
                     <div class="is-translation <:# this.IsReadonly ? "is-readonly" : "" :>">
@@ -1655,7 +1502,7 @@ class VISTA_MULTILINGUAL_TEXT_INPUT_COMPONENT extends VISTA_MULTILINGUAL_COMPONE
 
         this.SetTemplate(
             Text`
-            <div class="is-component is-container is-translation-container">
+            <div class="is-component is-container is-translation-container <:# this.IsReadonly ? "is-readonly" : "" :>">
                 <textarea id="<:# this.ResultId :>" class="is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden></textarea>
                 <: for ( let translation_index = 0; translation_index < this.TranslationArray.length; ++translation_index ) { :>
                     <div class="is-translation <:# this.IsReadonly ? "is-readonly" : "" :>">
@@ -1696,11 +1543,11 @@ class VISTA_MULTILINGUAL_IMAGE_PATH_INPUT_COMPONENT extends VISTA_MULTILINGUAL_C
 
         this.SetTemplate(
             Text`
-            <div class="is-component is-container is-translation-container">
+            <div class="is-component is-container is-translation-container <:# this.IsReadonly ? "is-readonly" : "" :>">
                 <input id="<:# this.ResultId :>" class="is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden/>
                 <: for ( let translation_index = 0; translation_index < this.TranslationArray.length; ++translation_index ) { :>
                     <div class="is-translation <:# this.IsReadonly ? "is-readonly" : "" :>">
-                        <image-path-input-component class="is-input is-translation-data" result-value="<:% this.TranslationArray[ translation_index ].Data :>" <:# this.IsReadonly ? "is-readonly" : "" :> error-image-path="<:% this.ErrorImagePath :>" upload-api-url="<:% this.UploadApiUrl :>" delete-api-url="<:% this.DeleteApiUrl :>" ></image-path-input-component>
+                        <image-path-input-component class="is-path is-input is-translation-data" result-value="<:% this.TranslationArray[ translation_index ].Data :>" <:# this.IsReadonly ? "is-readonly" : "" :> error-image-path="<:% this.ErrorImagePath :>" upload-api-url="<:% this.UploadApiUrl :>" delete-api-url="<:% this.DeleteApiUrl :>" ></image-path-input-component>
                         <input class="is-input is-translation-specifier" placeholder="<:# translation_index === 0 ? this.LanguageTagArray[ 0 ] : "" :>" value="<:% this.TranslationArray[ translation_index ].Specifier :>" <:# ( this.IsReadonly || translation_index === 0 )  ? "readonly" : "" :>/>
                         <div class="is-translation-button-container">
                             <: if ( !this.IsReadonly ) { :>
@@ -1737,11 +1584,11 @@ class VISTA_MULTILINGUAL_VIDEO_PATH_INPUT_COMPONENT extends VISTA_MULTILINGUAL_C
 
         this.SetTemplate(
             Text`
-            <div class="is-component is-container is-translation-container">
+            <div class="is-component is-container is-translation-container <:# this.IsReadonly ? "is-readonly" : "" :>">
                 <input id="<:# this.ResultId :>" class="is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden/>
                 <: for ( let translation_index = 0; translation_index < this.TranslationArray.length; ++translation_index ) { :>
                     <div class="is-translation <:# this.IsReadonly ? "is-readonly" : "" :>">
-                        <video-path-input-component class="is-input is-translation-data" result-value="<:% this.TranslationArray[ translation_index ].Data :>" <:# this.IsReadonly ? "is-readonly" : "" :> error-video-path="<:% this.ErrorVideoPath :>" upload-api-url="<:% this.UploadApiUrl :>" delete-api-url="<:% this.DeleteApiUrl :>" ></video-path-input-component>
+                        <video-path-input-component class="is-path is-input is-translation-data" result-value="<:% this.TranslationArray[ translation_index ].Data :>" <:# this.IsReadonly ? "is-readonly" : "" :> error-video-path="<:% this.ErrorVideoPath :>" upload-api-url="<:% this.UploadApiUrl :>" delete-api-url="<:% this.DeleteApiUrl :>" ></video-path-input-component>
                         <input class="is-input is-translation-specifier" placeholder="<:# translation_index === 0 ? this.LanguageTagArray[ 0 ] : "" :>" value="<:% this.TranslationArray[ translation_index ].Specifier :>" <:# ( this.IsReadonly || translation_index === 0 )  ? "readonly" : "" :>/>
                         <div class="is-translation-button-container">
                             <: if ( !this.IsReadonly ) { :>
@@ -1779,11 +1626,11 @@ class VISTA_MULTILINGUAL_DOCUMENT_PATH_INPUT_COMPONENT extends VISTA_MULTILINGUA
 
         this.SetTemplate(
             Text`
-            <div class="is-component is-container is-translation-container">
+            <div class="is-component is-container is-translation-container <:# this.IsReadonly ? "is-readonly" : "" :>">
                 <input id="<:# this.ResultId :>" class="is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden/>
                 <: for ( let translation_index = 0; translation_index < this.TranslationArray.length; ++translation_index ) { :>
                     <div class="is-translation <:# this.IsReadonly ? "is-readonly" : "" :>">
-                        <document-path-input-component class="is-input is-translation-data" result-value="<:% this.TranslationArray[ translation_index ].Data :>" <:# this.IsReadonly ? "is-readonly" : "" :> document-image-path="<:% this.DocumentImagePath :>" error-image-path="<:% this.ErrorImagePath :>" upload-api-url="<:% this.UploadApiUrl :>" delete-api-url="<:% this.DeleteApiUrl :>" ></document-path-input-component>
+                        <document-path-input-component class="is-path is-input is-translation-data" result-value="<:% this.TranslationArray[ translation_index ].Data :>" <:# this.IsReadonly ? "is-readonly" : "" :> document-image-path="<:% this.DocumentImagePath :>" error-image-path="<:% this.ErrorImagePath :>" upload-api-url="<:% this.UploadApiUrl :>" delete-api-url="<:% this.DeleteApiUrl :>" ></document-path-input-component>
                         <input class="is-input is-translation-specifier" placeholder="<:# translation_index === 0 ? this.LanguageTagArray[ 0 ] : "" :>" value="<:% this.TranslationArray[ translation_index ].Specifier :>" <:# ( this.IsReadonly || translation_index === 0 )  ? "readonly" : "" :>/>
                         <div class="is-translation-button-container">
                             <: if ( !this.IsReadonly ) { :>
@@ -1818,7 +1665,7 @@ class VISTA_MULTILINGUAL_INPUT_LIST_COMPONENT extends VISTA_LIST_COMPONENT
 
         this.SetTemplate(
             Text`
-            <div class="is-component is-list-container">
+            <div class="is-component is-list-container <:# this.IsReadonly ? "is-readonly" : "" :>">
                 <input id="<:# this.ResultId :>" class="is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden/>
                 <: for ( var value_index = 0; value_index < this.ValueArray.length; ++value_index ) { :>
                     <div class="is-value-container" data-value-index="<:# value_index :>">
@@ -1858,7 +1705,7 @@ class VISTA_MULTILINGUAL_TEXT_INPUT_LIST_COMPONENT extends VISTA_LIST_COMPONENT
 
         this.SetTemplate(
             Text`
-            <div class="is-component is-list-container">
+            <div class="is-component is-list-container <:# this.IsReadonly ? "is-readonly" : "" :>">
                 <textarea id="<:# this.ResultId :>" class="is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden></textarea>
                 <: for ( var value_index = 0; value_index < this.ValueArray.length; ++value_index ) { :>
                     <div class="is-value-container" data-value-index="<:# value_index :>">
@@ -1901,7 +1748,7 @@ class VISTA_MULTILINGUAL_IMAGE_PATH_INPUT_LIST_COMPONENT extends VISTA_LIST_COMP
 
         this.SetTemplate(
             Text`
-            <div class="is-component is-list-container">
+            <div class="is-component is-list-container <:# this.IsReadonly ? "is-readonly" : "" :>">
                 <input id="<:# this.ResultId :>" class="is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden/>
                 <: for ( var value_index = 0; value_index < this.ValueArray.length; ++value_index ) { :>
                     <div class="is-value-container" data-value-index="<:# value_index :>">
@@ -1944,7 +1791,7 @@ class VISTA_MULTILINGUAL_VIDEO_PATH_INPUT_LIST_COMPONENT extends VISTA_LIST_COMP
 
         this.SetTemplate(
             Text`
-            <div class="is-component is-list-container">
+            <div class="is-component is-list-container <:# this.IsReadonly ? "is-readonly" : "" :>">
                 <input id="<:# this.ResultId :>" class="is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden/>
                 <: for ( var value_index = 0; value_index < this.ValueArray.length; ++value_index ) { :>
                     <div class="is-value-container" data-value-index="<:# value_index :>">
@@ -1988,7 +1835,7 @@ class VISTA_MULTILINGUAL_DOCUMENT_PATH_INPUT_LIST_COMPONENT extends VISTA_LIST_C
 
         this.SetTemplate(
             Text`
-            <div class="is-component is-list-container">
+            <div class="is-component is-list-container <:# this.IsReadonly ? "is-readonly" : "" :>">
                 <input id="<:# this.ResultId :>" class="is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden/>
                 <: for ( var value_index = 0; value_index < this.ValueArray.length; ++value_index ) { :>
                     <div class="is-value-container" data-value-index="<:# value_index :>">
