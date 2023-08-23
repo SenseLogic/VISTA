@@ -4,10 +4,19 @@ class VISTA_INPUT_COMPONENT extends VISTA_COMPONENT
 {
     // -- OPERATIONS
 
+    ResizeElement(
+        element
+        )
+    {
+    }
+
+    // ~~
+
     UpdateView(
         )
     {
         this.ResultElement.value = this.ResultValue;
+        this.ResizeElement( this.ResultElement );
     }
 
     // ~~
@@ -36,6 +45,7 @@ class VISTA_INPUT_COMPONENT extends VISTA_COMPONENT
         event
         )
     {
+        this.ResizeElement( event.currentTarget );
         this.UpdateValue();
 
         this.EmitEvent( "value-changed" );
@@ -76,56 +86,27 @@ class VISTA_INPUT_COMPONENT extends VISTA_COMPONENT
 
         this.SetValue( this.ResultValue );
         this.ResultElement.oninput = this.HandleResultInputEvent;
+
+        setTimeout(
+            () =>
+            {
+                this.ResizeElement( this.ResultElement );
+            }
+            );
     }
 }
 
 // ~~
 
-class VISTA_TEXT_INPUT_COMPONENT extends VISTA_COMPONENT
+class VISTA_TEXT_INPUT_COMPONENT extends VISTA_INPUT_COMPONENT
 {
     // -- OPERATIONS
 
-    UpdateView(
+    ResizeElement(
+        element
         )
     {
-        this.ResultElement.value = this.ResultValue;
-        this.ResultElement.SetContentHeight();
-    }
-
-    // ~~
-
-    SetValue(
-        value
-        )
-    {
-        this.ResultValue = value;
-        this.value = value;
-        this.UpdateView();
-    }
-
-    // ~~
-
-    UpdateValue(
-        )
-    {
-        this.ResultValue = this.ResultElement.value.GetFormText();
-        this.value = this.ResultValue;
-    }
-
-    // ~~
-
-    HandleResultInputEvent(
-        event
-        )
-    {
-        event.currentTarget.SetContentHeight();
-        this.UpdateValue();
-
-        this.EmitEvent( "value-changed" );
-        this.EmitEvent( "sub-value-changed" );
-        event.Cancel();
-
-        return false;
+        element.SetContentHeight();
     }
 
     // ~~
@@ -148,17 +129,6 @@ class VISTA_TEXT_INPUT_COMPONENT extends VISTA_COMPONENT
             </div>
             `
             );
-    }
-
-    // ~~
-
-    PostUpdateComponent(
-        )
-    {
-        this.ResultElement = this.GetElement( ".is-result" );
-
-        this.SetValue( this.ResultValue );
-        this.ResultElement.oninput = this.HandleResultInputEvent;
     }
 }
 
@@ -234,15 +204,18 @@ class VISTA_PATH_INPUT_COMPONENT extends VISTA_COMPONENT
             request,
             form_data;
 
-        form_data = new FormData();
-        form_data.append( "FilePath", this.ResultElement.value );
-        request = await SendRequest( this.DeleteApiUrl, "POST", form_data );
-
-        if ( request.status === 201 )
+        if ( this.ResultElement.value !== "" )
         {
-            this.SetValue( "" );
-            this.EmitEvent( "value-changed" );
-            this.EmitEvent( "sub-value-changed" );
+            form_data = new FormData();
+            form_data.append( "FilePath", this.ResultElement.value );
+            request = await SendRequest( this.DeleteApiUrl, "POST", form_data );
+
+            if ( request.status === 201 )
+            {
+                this.SetValue( "" );
+                this.EmitEvent( "value-changed" );
+                this.EmitEvent( "sub-value-changed" );
+            }
         }
 
         event.Cancel();
@@ -1425,7 +1398,7 @@ class VISTA_MULTILINGUAL_INPUT_COMPONENT extends VISTA_MULTILINGUAL_COMPONENT
                 <input id="<:# this.ResultId :>" class="is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden/>
                 <: for ( let translation_index = 0; translation_index < this.TranslationArray.length; ++translation_index ) { :>
                     <div class="is-translation <:# this.IsReadonly ? "is-readonly" : "" :>">
-                        <input class="is-input is-translation-data" value="<:% this.TranslationArray[ translation_index ].Data :>" <:# this.IsReadonly ? "readonly" : "" :>/>
+                        <input-component class="is-translation-data" result-value="<:% this.TranslationArray[ translation_index ].Data :>" <:# this.IsReadonly ? "is-readonly" : "" :>></input-component>
                         <input class="is-input is-translation-specifier" placeholder="<:# translation_index === 0 ? this.LanguageTagArray[ 0 ] : "" :>" value="<:% this.TranslationArray[ translation_index ].Specifier :>" <:# ( this.IsReadonly || translation_index === 0 )  ? "readonly" : "" :>/>
                         <div class="is-translation-button-container">
                             <: if ( !this.IsReadonly ) { :>
@@ -1451,50 +1424,6 @@ class VISTA_MULTILINGUAL_TEXT_INPUT_COMPONENT extends VISTA_MULTILINGUAL_COMPONE
 {
     // -- OPERATIONS
 
-    UpdateView(
-        )
-    {
-        var
-            translation_index;
-
-        this.ResultElement.value = this.ResultValue;
-        this.TranslationArray = this.ResultValue.GetTranslationArray();
-
-        for ( translation_index = 0;
-              translation_index < this.TranslationArray.length;
-              ++translation_index )
-        {
-            if ( translation_index < this.TranslationInputElementArray.length )
-            {
-                this.TranslationInputElementArray[ translation_index ].value = this.TranslationArray[ translation_index ].Data;
-                this.TranslationInputElementArray[ translation_index ].SetContentHeight();
-            }
-
-            if ( translation_index < this.TranslationSpecifierElementArray.length )
-            {
-                this.TranslationSpecifierElementArray[ translation_index ].value = this.TranslationArray[ translation_index ].Specifier;
-            }
-        }
-    }
-
-    // ~~
-
-    HandleTranslationDataInputEvent(
-        event
-        )
-    {
-        event.currentTarget.SetContentHeight();
-        this.UpdateValue();
-
-        this.EmitEvent( "value-changed" );
-        this.EmitEvent( "sub-value-changed" );
-        event.Cancel();
-
-        return false;
-    }
-
-    // ~~
-
     InitializeComponent(
         )
     {
@@ -1506,7 +1435,7 @@ class VISTA_MULTILINGUAL_TEXT_INPUT_COMPONENT extends VISTA_MULTILINGUAL_COMPONE
                 <textarea id="<:# this.ResultId :>" class="is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden></textarea>
                 <: for ( let translation_index = 0; translation_index < this.TranslationArray.length; ++translation_index ) { :>
                     <div class="is-translation <:# this.IsReadonly ? "is-readonly" : "" :>">
-                        <textarea class="is-textarea is-translation-data" <:# this.IsReadonly ? "readonly" : "" :>><:% this.TranslationArray[ translation_index ].Data :></textarea>
+                        <text-input-component class="is-translation-data" result-value="<:% this.TranslationArray[ translation_index ].Data :>" <:# this.IsReadonly ? "is-readonly" : "" :>></text-input-component>
                         <input class="is-input is-translation-specifier" placeholder="<:# translation_index === 0 ? this.LanguageTagArray[ 0 ] : "" :>" value="<:% this.TranslationArray[ translation_index ].Specifier :>" <:# ( this.IsReadonly || translation_index === 0 ) ? "readonly" : "" :>/>
                         <div>
                             <: if ( !this.IsReadonly ) { :>
