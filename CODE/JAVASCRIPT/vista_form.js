@@ -597,6 +597,14 @@ class VISTA_DROPDOWN_COMPONENT extends VISTA_COMPONENT
 
 class VISTA_LIST_COMPONENT extends VISTA_COMPONENT
 {
+    // -- INQUIRIES
+
+    GetAddedValue(
+        )
+    {
+        return this.AddedValue;
+    }
+
     // -- OPERATIONS
 
     SetDraggable(
@@ -796,7 +804,7 @@ class VISTA_LIST_COMPONENT extends VISTA_COMPONENT
         event
         )
     {
-        this.ValueArray.splice( GetInteger( event.currentTarget.dataset.valueIndex ), 0, this.AddedValue );
+        this.ValueArray.splice( GetInteger( event.currentTarget.dataset.valueIndex ), 0, this.GetAddedValue() );
 
         this.value = GetJsonText( this.ValueArray );
         this.ResultValue = this.value;
@@ -1098,6 +1106,25 @@ class VISTA_DOCUMENT_PATH_INPUT_LIST_COMPONENT extends VISTA_LIST_COMPONENT
 
 class VISTA_DROPDOWN_LIST_COMPONENT extends VISTA_LIST_COMPONENT
 {
+    // -- INQUIRIES
+
+    GetAddedValue(
+        )
+    {
+        if ( this.OptionValueArray.indexOf( this.AddedValue ) >= 0 )
+        {
+            return this.AddedValue;
+        }
+        else if ( this.OptionValueArray.length > 0 )
+        {
+            return this.OptionValueArray[ 0 ];
+        }
+        else
+        {
+            return this.AddedValue;
+        }
+    }
+
     // -- OPERATIONS
 
     InitializeComponent(
@@ -1109,6 +1136,8 @@ class VISTA_DROPDOWN_LIST_COMPONENT extends VISTA_LIST_COMPONENT
         this.BindProperty( "OptionValues", "option-values", "[]" );
         this.BindProperty( "OptionNames", "option-names", "[]" );
 
+        this.OptionValueArray = GetJsonObject( this.OptionValues );
+        this.OptionNameArray = GetJsonObject( this.OptionNames );
         this.SetTemplate(
             Text`
             <div class="is-component is-list-container <:# this.IsReadonly ? "is-readonly" : "" :>">
