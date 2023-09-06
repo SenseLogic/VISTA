@@ -802,7 +802,16 @@ HTMLElement.prototype.GetFirstChildElement = function (
 HTMLElement.prototype.SubmitForm = function (
     )
 {
-    this.GetAncestorElement( "form" ).submit();
+    this.GetAncestorElement( "form" )
+        .dispatchEvent(
+            new Event(
+                'submit',
+                {
+                    'bubbles': true,
+                    'cancelable': true
+                }
+                )
+            );
 
     return this;
 }
