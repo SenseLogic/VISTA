@@ -211,7 +211,7 @@ String.prototype.MatchesLanguages = function (
 
     language_tag_part_array = ( this + "--" ).split( "-" );
 
-    for( language_specifier_tag of language_specifier.split( "," ) )
+    for ( language_specifier_tag of language_specifier.split( "," ) )
     {
         language_specifier_tag_part_array = ( language_specifier_tag + "--" ).split( "-" );
 
@@ -242,7 +242,8 @@ String.prototype.GetTranslatedText = function(
     var
         colon_character_index,
         translated_text,
-        translated_text_array;
+        translated_text_array,
+        translated_text_index;
 
     translated_text_array = this.split( "¨" );
 
