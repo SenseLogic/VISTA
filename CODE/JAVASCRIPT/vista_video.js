@@ -96,6 +96,45 @@ HTMLElement.prototype.ToggleVideoIsPaused = function (
 
 // ~~
 
+HTMLElement.prototype.PlayYoutubeVideo = function (
+    )
+{
+    this.contentWindow.postMessage(
+        '{"event":"command","func":"playvideo","args":""}',
+        "*"
+        );
+
+    return this;
+}
+
+// ~~
+
+HTMLElement.prototype.PauseYoutubeVideo = function (
+    )
+{
+    this.contentWindow.postMessage(
+        '{"event":"command","func":"pausevideo","args":""}',
+        "*"
+        );
+
+    return this;
+}
+
+// ~~
+
+HTMLElement.prototype.StopYoutubeVideo = function (
+    )
+{
+    this.contentWindow.postMessage(
+        '{"event":"command","func":"stopvideo","args":""}',
+        "*"
+        );
+
+    return this;
+}
+
+// ~~
+
 function CreateVideoIntersectionObserver(
     )
 {
