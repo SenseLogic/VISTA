@@ -38,7 +38,7 @@ function HasLocalValue(
     name
     )
 {
-    return localStorage.getItem( name ) === null;
+    return localStorage.getItem( name ) !== null;
 }
 
 // ~~
@@ -47,7 +47,7 @@ function HasSessionValue(
     name
     )
 {
-    return sessionStorage.getItem( name ) === null;
+    return sessionStorage.getItem( name ) !== null;
 }
 
 // ~~

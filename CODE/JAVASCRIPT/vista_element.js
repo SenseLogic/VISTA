@@ -2025,6 +2025,78 @@ Array.prototype.ToggleClasses = function (
 
 // ~~
 
+Array.prototype.AddVisibilityClass = function (
+    class_name,
+    top_offset = 0,
+    bottom_offset = 0,
+    left_offset = 0,
+    right_offset = 0
+    )
+{
+    var
+        element;
+
+    for ( element of this )
+    {
+        if ( element.IsVisible( top_offset, bottom_offset, left_offset, right_offset ) )
+        {
+            element.classList.add( class_name );
+        }
+    }
+
+    return this;
+}
+
+// ~~
+
+Array.prototype.RemoveVisibilityClass = function (
+    class_name,
+    top_offset = 0,
+    bottom_offset = 0,
+    left_offset = 0,
+    right_offset = 0
+    )
+{
+    var
+        element;
+
+    for ( element of this )
+    {
+        if ( !element.IsVisible( top_offset, bottom_offset, left_offset, right_offset ) )
+        {
+            element.classList.remove( class_name );
+        }
+    }
+
+    return this;
+}
+
+// ~~
+
+Array.prototype.ToggleVisibilityClass = function (
+    class_name,
+    top_offset = 0,
+    bottom_offset = 0,
+    left_offset = 0,
+    right_offset = 0
+    )
+{
+    var
+        element;
+
+    for ( element of this )
+    {
+        element.ToggleClass(
+            class_name,
+            element.IsVisible( top_offset, bottom_offset, left_offset, right_offset )
+            );
+    }
+
+    return this;
+}
+
+// ~~
+
 Array.prototype.AddAnimationClass = function (
     class_name
     )
