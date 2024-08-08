@@ -960,6 +960,27 @@ HTMLElement.prototype.SetTextContent = function (
 
 // ~~
 
+function AddWindowEventListener(
+    event_name,
+    event_function,
+    event_is_captured = false,
+    event_is_unique = false,
+    event_is_passive = false
+    )
+{
+    window.addEventListener(
+        event_name,
+        event_function,
+        {
+            capture: event_is_captured,
+            once: event_is_unique,
+            passive: event_is_passive
+        }
+        );
+}
+
+// ~~
+
 function AddEventListener(
     event_name,
     event_function,

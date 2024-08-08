@@ -25,9 +25,9 @@ function UpdateMultilingualInputTranslations(
         {
             translation = translation_array[ translation_index ];
 
-            if ( translation.substring( 0, 2 ) === language_code )
+            if ( translation.slice( 0, 2 ) === language_code )
             {
-                translation_element.value = translation.substring( 3 );
+                translation_element.value = translation.slice( 3 );
 
                 break;
             }

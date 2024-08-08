@@ -74,15 +74,15 @@ function GetUuidFromHexadecimalText(
     )
 {
     return (
-        hexadecimal_text.substring( 0, 8 )
+        hexadecimal_text.slice( 0, 8 )
         + "-"
-        + hexadecimal_text.substring( 8, 12 )
+        + hexadecimal_text.slice( 8, 12 )
         + "-"
-        + hexadecimal_text.substring( 12, 16 )
+        + hexadecimal_text.slice( 12, 16 )
         + "-"
-        + hexadecimal_text.substring( 16, 20 )
+        + hexadecimal_text.slice( 16, 20 )
         + "-"
-        + hexadecimal_text.substring( 20, 32 )
+        + hexadecimal_text.slice( 20, 32 )
         );
 }
 

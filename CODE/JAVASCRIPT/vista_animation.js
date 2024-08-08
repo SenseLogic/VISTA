@@ -608,7 +608,7 @@ function ParseColorText(
     {
         if ( text.HasPrefix( "rgb(" ) )
         {
-            component_array = text.substring( 4, text.length - 1 ).split( "," );
+            component_array = text.slice( 4, text.length - 1 ).split( "," );
 
             return {
                 Red : GetReal( component_array[ 0 ] ),
@@ -619,7 +619,7 @@ function ParseColorText(
         }
         else if ( text.HasPrefix( "rgba(" ) )
         {
-            component_array = text.substring( 5, text.length - 1 ).split( "," );
+            component_array = text.slice( 5, text.length - 1 ).split( "," );
 
             return {
                 Red : GetReal( component_array[ 0 ] ),
@@ -660,8 +660,8 @@ function ParseTransformText(
         if ( parenthesis_character_index > 0 )
         {
             transform.set(
-                component.substring( 0, parenthesis_character_index ),
-                ParseNumericText( component.substring( parenthesis_character_index + 1 ) )
+                component.slice( 0, parenthesis_character_index ),
+                ParseNumericText( component.slice( parenthesis_character_index + 1 ) )
                 );
         }
     }
@@ -803,11 +803,11 @@ function SetClassStyle(
         {
             if ( class_name.startsWith( "-" ) )
             {
-                element.classList.remove( class_name.substring( 1 ) );
+                element.classList.remove( class_name.slice( 1 ) );
             }
             else if ( class_name.startsWith( "+" ) )
             {
-                element.classList.add( class_name.substring( 1 ) );
+                element.classList.add( class_name.slice( 1 ) );
             }
             else
             {

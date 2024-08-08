@@ -234,7 +234,7 @@ class VISTA_WAVEFRONT_MODEL
             if ( line.HasPrefix( "newmtl " ) )
             {
                 this.MaterialIndex = this.MaterialArray.length;
-                this.MaterialArray.AddLastValue( new VISTA_PHONG_MATERIAL( line.substring( 7 ) ) );
+                this.MaterialArray.AddLastValue( new VISTA_PHONG_MATERIAL( line.slice( 7 ) ) );
             }
             else if ( line.HasPrefix( "Ka " ) )
             {
@@ -302,16 +302,16 @@ class VISTA_WAVEFRONT_MODEL
             else if ( line.HasPrefix( "o " ) )
             {
                 this.ObjectIndex = this.ObjectArray.length;
-                this.ObjectArray.AddLastValue( line.substring( 2 ) );
+                this.ObjectArray.AddLastValue( line.slice( 2 ) );
             }
             else if ( line.HasPrefix( "g " ) )
             {
                 this.GroupIndex = this.GroupArray.length;
-                this.GroupArray.AddLastValue( line.substring( 2 ) );
+                this.GroupArray.AddLastValue( line.slice( 2 ) );
             }
             else if ( line.HasPrefix( "usemtl " ) )
             {
-                this.MaterialIndex = this.MaterialArray.indexOf( line.substring( 7 ) );
+                this.MaterialIndex = this.MaterialArray.indexOf( line.slice( 7 ) );
             }
         }
     }

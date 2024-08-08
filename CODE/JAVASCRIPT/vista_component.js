@@ -455,7 +455,7 @@ class VISTA_COMPONENT extends HTMLElement
 
                     if ( section_code_is_escaped )
                     {
-                        section_code = section_code.substring( 2 );
+                        section_code = section_code.slice( 2 );
                     }
 
                     section_code = section_code.Trim();
@@ -492,7 +492,7 @@ class VISTA_COMPONENT extends HTMLElement
 
             if ( iteration_index === 100 )
             {
-                PrintError( "Invalid template expression:", template_text.substring( template_text.indexOf( "{:" ) ) );
+                PrintError( "Invalid template expression:", template_text.slice( template_text.indexOf( "{:" ) ) );
 
                 break;
             }

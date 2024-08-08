@@ -258,9 +258,9 @@ String.prototype.GetTranslatedText = function(
 
             if ( colon_character_index >= 0 )
             {
-                if ( language_tag.MatchesLanguages( translated_text.substring( 0, colon_character_index ) ) )
+                if ( language_tag.MatchesLanguages( translated_text.slice( 0, colon_character_index ) ) )
                 {
-                    return translated_text.substring( colon_character_index + 1 );
+                    return translated_text.slice( colon_character_index + 1 );
                 }
             }
         }
@@ -338,8 +338,8 @@ String.prototype.GetTranslationArray = function (
         {
             translation_array.push(
                 {
-                    Specifier : translated_text.substring( 0, colon_character_index ),
-                    Data : translated_text.substring( colon_character_index + 1 )
+                    Specifier : translated_text.slice( 0, colon_character_index ),
+                    Data : translated_text.slice( colon_character_index + 1 )
                 }
                 );
         }

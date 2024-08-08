@@ -750,12 +750,12 @@ function GetRealText(
     {
         while ( real_text.endsWith( "0" ) )
         {
-            real_text = real_text.substring( 0, real_text.length - 1 );
+            real_text = real_text.slice( 0, real_text.length - 1 );
         }
 
         if ( real_text.endsWith( "." ) )
         {
-            real_text = real_text.substring( 0, real_text.length - 1 );
+            real_text = real_text.slice( 0, real_text.length - 1 );
         }
     }
 
@@ -811,7 +811,7 @@ String.prototype.RemovePrefix = function (
     if ( prefix !== ""
          && this.HasPrefix( prefix ) )
     {
-        return this.substring( prefix.length );
+        return this.slice( prefix.length );
     }
     else
     {
@@ -828,7 +828,7 @@ String.prototype.RemoveSuffix = function (
     if ( suffix !== ""
          && this.HasSuffix( suffix ) )
     {
-        return this.substring( 0, this.length - suffix.length );
+        return this.slice( 0, this.length - suffix.length );
     }
     else
     {
@@ -864,7 +864,7 @@ String.prototype.RemoveSuffixCharacters = function (
 
     if ( character_count < this.length )
     {
-        return this.substring( 0, character_count );
+        return this.slice( 0, character_count );
     }
     else
     {

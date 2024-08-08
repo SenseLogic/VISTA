@@ -137,11 +137,11 @@ class VISTA_DATA
 
                 if ( section_code.HasPrefix( "#" ) )
                 {
-                    function_code += "result += " + section_code.substring( 1 ).Trim() + ";\n";
+                    function_code += "result += " + section_code.slice( 1 ).Trim() + ";\n";
                 }
                 else if ( section_code.HasPrefix( "%" ) )
                 {
-                    function_code += "result += GetEscapedHtml( " +  section_code.substring( 1 ).Trim() + " );\n";
+                    function_code += "result += GetEscapedHtml( " +  section_code.slice( 1 ).Trim() + " );\n";
                 }
                 else
                 {

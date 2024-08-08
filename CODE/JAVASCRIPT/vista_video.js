@@ -173,8 +173,8 @@ function CreateVideoIntersectionObserver(
 
                                 if ( query_character_index >= 0 )
                                 {
-                                    video_path = video_path_entry.substring( 0, query_character_index );
-                                    video_query = video_path_entry.substring( query_character_index + 1 );
+                                    video_path = video_path_entry.slice( 0, query_character_index );
+                                    video_query = video_path_entry.slice( query_character_index + 1 );
                                 }
                                 else
                                 {

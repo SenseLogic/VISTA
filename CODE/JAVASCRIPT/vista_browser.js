@@ -62,18 +62,18 @@ function GetRoute(
     if ( removed_prefix !== undefined
          && route.startsWith( removed_prefix ) )
     {
-        route = route.substring( removed_prefix.length );
+        route = route.slice( removed_prefix.length );
     }
 
     if ( route.startsWith( '/' ) )
     {
-        route = route.substring( 1 );
+        route = route.slice( 1 );
     }
 
     if ( removed_suffix !== undefined
          && route.endsWith( removed_suffix ) )
     {
-        route = route.substring( 0, route.length - removed_suffix.length );
+        route = route.slice( 0, route.length - removed_suffix.length );
     }
 
     return route;
