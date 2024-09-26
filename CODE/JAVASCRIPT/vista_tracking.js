@@ -28,18 +28,20 @@ function TrackRoute(
             GoogleAnalyticsTrackingId,
             {
                 "page_title" : window.location.pathname,
-                "page_path" : window.location.pathname
+                "page_path" : window.location.pathname,
+                "page_location" : window.location.href
             }
             );
     }
 
     if ( GoogleTagManagerTrackingIsEnabled )
     {
-        gtag(
+        window.dataLayer.push(
             {
-                'event': 'pageView',
-                'pagePath': window.location.pathname,
-                'pageTitle': document.title
+                "event" : "page_view",
+                "page_title" : document.title,
+                "page_path" : window.location.pathname,
+                "page_location" : window.location.href
             }
             );
     }
@@ -55,13 +57,14 @@ function EnableGoogleAnalyticsTracking(
     {
         GoogleAnalyticsTrackingIsEnabled = true;
         GoogleAnalyticsTrackingId = tracking_id;
+
+        window.dataLayer = window.dataLayer || [];
+
         GoogleAnalyticsTrackingScript = document.createElement( "script" );
         GoogleAnalyticsTrackingScript.async = true;
         GoogleAnalyticsTrackingScript.src = "https://www.googletagmanager.com/gtag/js?id=" + tracking_id;
 
         document.head.insertBefore( GoogleAnalyticsTrackingScript, document.head.firstChild );
-
-        window.dataLayer = window.dataLayer || [];
 
         gtag( "js", new Date() );
         gtag( "config", tracking_id );
@@ -99,12 +102,20 @@ function EnableGoogleTagManagerTracking(
     {
         GoogleTagManagerTrackingIsEnabled = true;
         GoogleTagManagerTrackingId = tracking_id;
-        GoogleTagManagerTrackingScript = document.createElement( "script" );
-        GoogleTagManagerTrackingScript.innerHTML = `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${tracking_id}');`;
-
-        document.head.insertBefore( GoogleTagManagerTrackingScript, document.head.firstChild );
 
         window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push(
+            {
+                "gtm.start" : new Date().getTime(),
+                event: "gtm.js"
+            }
+            );
+
+        GoogleTagManagerTrackingScript = document.createElement( "script" );
+        GoogleTagManagerTrackingScript.async = true;
+        GoogleTagManagerTrackingScript.src = "https://www.googletagmanager.com/gtm.js?id=" + tracking_id;
+
+        document.head.insertBefore( GoogleTagManagerTrackingScript, document.head.firstChild );
 
         TrackRoute();
     }
@@ -120,6 +131,8 @@ function DisableGoogleTagManagerTracking(
          && GoogleTagManagerTrackingId === tracking_id )
     {
         document.head.removeChild( GoogleTagManagerTrackingScript );
+
+        window.dataLayer = [];
 
         GoogleTagManagerTrackingIsEnabled = false;
         GoogleTagManagerTrackingId = "";
