@@ -1153,7 +1153,8 @@ function EmitEvent(
                 }
                 )
             )
-        );}
+        );
+}
 
 // ~~
 
