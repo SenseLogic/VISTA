@@ -1821,12 +1821,13 @@ class VISTA_MULTILINGUAL_DOCUMENT_PATH_INPUT_LIST_COMPONENT extends VISTA_LIST_C
 // -- FUNCTIONS
 
 function InitializeInputs(
+    root_element = undefined
     )
 {
     var
         readonly_select_element;
 
-    for ( readonly_select_element of GetElements( "select[readonly]" ) )
+    for ( readonly_select_element of GetRootElement( root_element ).GetElements( "select[readonly]" ) )
     {
         readonly_select_element.onmousedown = CancelEvent;
     }

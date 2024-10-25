@@ -501,20 +501,20 @@ function InitializeScroll(
     )
 {
     var
-        html_element,
+        document_element,
         scroll_name,
         scroll_top;
 
-    html_element = GetElement( "html" );
+    document_element = GetDocumentElement();
     scroll_name = "ScrollTop@" + window.location.pathname;
     scroll_top = sessionStorage.getItem( scroll_name );
 
     if ( scroll_top !== null )
     {
-        html_element.scrollTop = scroll_top;
+        document_element.scrollTop = scroll_top;
     }
 
-    sessionStorage.setItem( scroll_name, html_element.scrollTop );
+    sessionStorage.setItem( scroll_name, document_element.scrollTop );
 
     window.addEventListener(
         'beforeunload',
@@ -522,7 +522,7 @@ function InitializeScroll(
             event
             )
             {
-                sessionStorage.setItem( scroll_name, html_element.scrollTop );
+                sessionStorage.setItem( scroll_name, document_element.scrollTop );
             }
         );
 }

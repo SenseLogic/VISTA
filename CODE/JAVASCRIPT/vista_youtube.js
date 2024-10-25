@@ -113,9 +113,10 @@ Array.prototype.AutoplayYoutubeVideos = function (
 // ~~
 
 function AutoplayYoutubeVideos(
+    root_element = undefined
     )
 {
-    GetElements( ".autoplay-youtube-video" ).AutoplayYoutubeVideos();
+    GetRootElement( root_element ).GetElements( ".autoplay-youtube-video" ).AutoplayYoutubeVideos();
 }
 
 // ~~
@@ -134,6 +135,7 @@ function onYouTubeIframeAPIReady(
 // ~~
 
 function InitializeAutoplayYoutubeVideos(
+    root_element = undefined
     )
 {
     var
@@ -144,7 +146,7 @@ function InitializeAutoplayYoutubeVideos(
 
     if ( YouTubeVideoApiIsReady )
     {
-        AutoplayYoutubeVideos();
+        AutoplayYoutubeVideos( root_element );
     }
     else
     {

@@ -300,10 +300,45 @@ HTMLElement.prototype.GetCloneElement = function (
 
 // ~~
 
+function SetDocumentTitleAndDescription(
+    title,
+    description
+    )
+{
+    var
+        meta_description_element;
+
+    document.title = title;
+    meta_description_element = GetElement( 'meta[name="description"]' );
+
+    if ( meta_description_element !== null )
+    {
+        meta_description_element.setAttribute( 'content', description );
+    }
+}
+
+// ~~
+
 function GetDocumentElement(
     )
 {
     return document.documentElement;
+}
+
+// ~~
+
+function GetRootElement(
+    root_element = undefined
+    )
+{
+    if ( root_element !== undefined )
+    {
+        return root_element;
+    }
+    else
+    {
+        return document.documentElement;
+    }
 }
 
 // ~~

@@ -114,12 +114,13 @@ function HandleSortableTableColumnClickEvent(
 // ~~
 
 function InitializeSortableTableColumns(
+    root_element = undefined
     )
 {
     var
         column_element;
 
-    for ( column_element of GetElements( ".sortable-table-column" ) )
+    for ( column_element of GetRootElement( root_element ).GetElements( ".sortable-table-column" ) )
     {
         column_element.OrderIsDescending = column_element.HasClass( "order-is-descending" );
         column_element.AddEventListener( "click", HandleSortableTableColumnClickEvent );
@@ -129,7 +130,8 @@ function InitializeSortableTableColumns(
 // ~~
 
 function FinalizeSortableTableColumns(
+    root_element = undefined
     )
 {
-    GetElements( ".sortable-table-column" ).RemoveEventListener( "click", HandleSortableTableColumnClickEvent );
+    GetRootElement( root_element ).GetElements( ".sortable-table-column" ).RemoveEventListener( "click", HandleSortableTableColumnClickEvent );
 }

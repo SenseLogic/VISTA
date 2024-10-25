@@ -249,10 +249,10 @@ Array.prototype.AutoplayVideos = function (
 // ~~
 
 function InitializeAutoplayVideos(
-
+    root_element = undefined
     )
 {
-    GetElements( ".autoplay-video" ).AutoplayVideos();
+    GetRootElement( root_element ).GetElements( ".autoplay-video" ).AutoplayVideos();
 }
 
 // ~~
@@ -314,8 +314,8 @@ Array.prototype.AutohideVideos = function (
 // ~~
 
 function InitializeAutohideVideos(
-
+    root_element = undefined
     )
 {
-    GetElements( ".autohide-video" ).AutohideVideos();
+    GetRootElement( root_element ).GetElements( ".autohide-video" ).AutohideVideos();
 }

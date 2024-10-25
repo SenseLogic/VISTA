@@ -68,14 +68,15 @@ function HandleDropdownOptionClickEvent(
 // ~~
 
 function InitializeDropdowns(
-    element_selector = ".dropdown"
+    element_selector = ".dropdown",
+    root_element = undefined
     )
 {
     var
         dropdown_element,
         option_element;
 
-    for ( dropdown_element of GetElements( element_selector ) )
+    for ( dropdown_element of GetRootElement( root_element ).GetElements( element_selector ) )
     {
         dropdown_element.InputElement = dropdown_element.GetElement( element_selector + "-input" );
         dropdown_element.InputElement.DropdownElement = dropdown_element;
@@ -102,13 +103,14 @@ function InitializeDropdowns(
 // ~~
 
 function FinalizeDropdowns(
-    element_selector = ".dropdown"
+    element_selector = ".dropdown",
+    root_element = undefined
     )
 {
     var
         dropdown_element;
 
-    for ( dropdown_element of GetElements( element_selector ) )
+    for ( dropdown_element of GetRootElement( root_element ).GetElements( element_selector ) )
     {
         dropdown_element.ValueElement.RemoveEventListener( "click", HandleDropdownValueClickEvent );
         dropdown_element.OptionElementArray.RemoveEventListener( "click", HandleDropdownOptionClickEvent );

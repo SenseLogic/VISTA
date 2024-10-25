@@ -93,6 +93,7 @@ function HandleMultilingualInputTranslationInputEvent(
 // ~~
 
 function InitializeMultilingualInputs(
+    root_element = undefined
     )
 {
     var
@@ -100,7 +101,7 @@ function InitializeMultilingualInputs(
         translation_element,
         translation_element_array;
 
-    for ( input_element of GetElements( ".multilingual-input" ) )
+    for ( input_element of GetRootElement( root_element ).GetElements( ".multilingual-input" ) )
     {
         translation_element_array = [];
 
@@ -123,7 +124,8 @@ function InitializeMultilingualInputs(
 // ~~
 
 function FinalizeMultilingualInputs(
+    root_element = undefined
     )
 {
-    GetElements( ".multilingual-input-translation" ).RemoveEventListener( "input", HandleMultilingualInputTranslationInputEvent );
+    GetRootElement( root_element ).GetElements( ".multilingual-input-translation" ).RemoveEventListener( "input", HandleMultilingualInputTranslationInputEvent );
 }
