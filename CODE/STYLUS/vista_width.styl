@@ -24,7 +24,7 @@ MakeWidthViewport( media_query_name_array = {}, prefix =, suffix =, important = 
 
     .{prefix}width-viewport{suffix}
     {
-        width: var( --viewport-width ) important;
+        width: 100lvw important;
     }
 
     for media_query_name in media_query_name_array
@@ -33,7 +33,7 @@ MakeWidthViewport( media_query_name_array = {}, prefix =, suffix =, important = 
         {
             .{prefix}width-viewport-{media_query_name}{suffix}
             {
-                width: var( --viewport-width ) important;
+                width: 100lvw important;
             }
         }
     }
@@ -75,7 +75,7 @@ MakeMinWidthViewport( media_query_name_array = {}, prefix =, suffix =, important
 
     .{prefix}min-width-viewport{suffix}
     {
-        min-width: var( --viewport-width ) important;
+        min-width: 100lvw important;
     }
 
     for media_query_name in media_query_name_array
@@ -84,7 +84,7 @@ MakeMinWidthViewport( media_query_name_array = {}, prefix =, suffix =, important
         {
             .{prefix}min-width-viewport-{media_query_name}{suffix}
             {
-                min-width: var( --viewport-width ) important;
+                min-width: 100lvw important;
             }
         }
     }
@@ -126,7 +126,7 @@ MakeMaxWidthViewport( media_query_name_array = {}, prefix =, suffix =, important
 
     .{prefix}max-width-viewport{suffix}
     {
-        max-width: var( --viewport-width ) important;
+        max-width: 100lvw important;
     }
 
     for media_query_name in media_query_name_array
@@ -135,7 +135,7 @@ MakeMaxWidthViewport( media_query_name_array = {}, prefix =, suffix =, important
         {
             .{prefix}max-width-viewport-{media_query_name}{suffix}
             {
-                max-width: var( --viewport-width ) important;
+                max-width: 100lvw important;
             }
         }
     }

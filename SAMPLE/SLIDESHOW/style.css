@@ -584,7 +584,7 @@ html {
 }
 .test-slideshow {
   position: relative;
-  height: 100vh;
+  height: 100dvh;
   width: 100%;
 }
 .test-slideshow-slide {

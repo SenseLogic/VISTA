@@ -24,7 +24,7 @@ MakeHeightViewport( media_query_name_array = {}, prefix =, suffix =, important =
 
     .{prefix}height-viewport{suffix}{suffix}
     {
-        height: var( --viewport-height ) important;
+        height: 100dvh important;
     }
 
     for media_query_name in media_query_name_array
@@ -33,7 +33,7 @@ MakeHeightViewport( media_query_name_array = {}, prefix =, suffix =, important =
         {
             .{prefix}height-viewport-{media_query_name}{suffix}
             {
-                height: var( --viewport-height ) important;
+                height: 100dvh important;
             }
         }
     }
@@ -75,7 +75,7 @@ MakeMinHeightViewport( media_query_name_array = {}, prefix =, suffix =, importan
 
     .{prefix}min-height-viewport{suffix}{suffix}
     {
-        min-height: var( --viewport-height ) important;
+        min-height: 100dvh important;
     }
 
     for media_query_name in media_query_name_array
@@ -84,7 +84,7 @@ MakeMinHeightViewport( media_query_name_array = {}, prefix =, suffix =, importan
         {
             .{prefix}min-height-viewport-{media_query_name}{suffix}
             {
-                min-height: var( --viewport-height ) important;
+                min-height: 100dvh important;
             }
         }
     }
@@ -115,7 +115,7 @@ MakeMaxHeightViewport( media_query_name_array = {}, prefix =, suffix =, importan
 
     .{prefix}max-height-viewport{suffix}{suffix}
     {
-        max-height: var( --viewport-height ) important;
+        max-height: 100dvh important;
     }
 
     for media_query_name in media_query_name_array
@@ -124,7 +124,7 @@ MakeMaxHeightViewport( media_query_name_array = {}, prefix =, suffix =, importan
         {
             .{prefix}max-height-viewport-{media_query_name}{suffix}
             {
-                max-height: var( --viewport-height ) important;
+                max-height: 100dvh important;
             }
         }
     }

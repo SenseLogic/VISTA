@@ -321,7 +321,7 @@ a:hover {
   background-position: center 0;
   background-repeat: no-repeat;
   background-size: cover;
-  height: 100vh;
+  height: 100dvh;
 }
 .background-1 {
   background-image: url("../MEDIA/background_1.jpg");
