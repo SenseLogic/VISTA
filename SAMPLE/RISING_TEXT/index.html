@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Sample</title>
+        <style>
+            .rising-text-word-wrapper
+            {
+                display: inline-block;
+                overflow: hidden;
+                line-height: inherit;
+            }
+
+            @keyframes rising-text-word-animation
+            {
+                to
+                {
+                    transform: translateY(0);
+                }
+            }
+
+            .rising-text-word
+            {
+                display: inline-block;
+                transform: translateY( 100% );
+                animation: rising-text-word-animation 0.5s forwards;
+                line-height: inherit;
+            }
+        </style>
+    </head>
+    <div class="rising-text">
+        This is a <b>text with bold words</b><br>
+        <div>
+            with a sub div.
+        </div>
+    </div>
+    <div class="rising-text">
+        This is some <b>sample text</b> that will rise.<br>
+        This is some sample text that will rise.
+        This is some sample text that will rise.
+        This is some sample text that will rise.
+        This is some sample text that will rise.<br>
+        This is some sample text that will rise.
+        This is some sample text that will rise.
+        This is some sample text that will rise.
+    </div>
+    <body>
+        <script src="../../CODE/JAVASCRIPT/vista_element.js"></script>
+        <script src="../../CODE/JAVASCRIPT/vista_rising_text.js"></script>
+        <script>
+            // -- STATEMENTS
+
+            InitializeRisingTexts();
+        </script>
+    </body>
+</html>
