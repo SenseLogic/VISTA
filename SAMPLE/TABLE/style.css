@@ -7,6 +7,9 @@
   outline: 0 none;
   border: 0 none;
   padding: 0;
+  line-height: inherit;
+  font-family: inherit;
+  font-size: inherit;
 }
 body {
   margin: 0;
@@ -187,7 +190,6 @@ th {
   text-align: inherit;
 }
 label {
-  margin-bottom: 0.5rem;
   display: inline-block;
 }
 button {
@@ -314,6 +316,10 @@ select:focus {
 a:active,
 a:hover {
   outline: 0;
+}
+a,
+a:visited {
+  color: inherit;
 }
 th,
 td {

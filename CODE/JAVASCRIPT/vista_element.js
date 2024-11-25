@@ -996,64 +996,127 @@ HTMLElement.prototype.SetTextContent = function (
 // ~~
 
 function AddWindowEventListener(
-    event_name,
+    event_name_array,
     event_function,
     event_is_captured = false,
     event_is_unique = false,
     event_is_passive = false
     )
 {
-    window.addEventListener(
-        event_name,
-        event_function,
+    var
+        event_name;
+
+    if ( event_name_array instanceof Array )
+    {
+        for ( event_name of event_name_array )
         {
-            capture: event_is_captured,
-            once: event_is_unique,
-            passive: event_is_passive
+            window.addEventListener(
+                event_name,
+                event_function,
+                {
+                    capture: event_is_captured,
+                    once: event_is_unique,
+                    passive: event_is_passive
+                }
+                );
         }
-        );
+    }
+    else
+    {
+        window.addEventListener(
+            event_name_array,
+            event_function,
+            {
+                capture: event_is_captured,
+                once: event_is_unique,
+                passive: event_is_passive
+            }
+            );
+    }
 }
 
 // ~~
 
 function AddEventListener(
-    event_name,
+    event_name_array,
     event_function,
     event_is_captured = false,
     event_is_unique = false,
     event_is_passive = false
     )
 {
-    document.addEventListener(
-        event_name,
-        event_function,
+    var
+        event_name;
+
+    if ( event_name_array instanceof Array )
+    {
+        for ( event_name of event_name_array )
         {
-            capture: event_is_captured,
-            once: event_is_unique,
-            passive: event_is_passive
+            document.addEventListener(
+                event_name,
+                event_function,
+                {
+                    capture: event_is_captured,
+                    once: event_is_unique,
+                    passive: event_is_passive
+                }
+                );
         }
-        );
+    }
+    else
+    {
+        document.addEventListener(
+            event_name_array,
+            event_function,
+            {
+                capture: event_is_captured,
+                once: event_is_unique,
+                passive: event_is_passive
+            }
+            );
+    }
 }
 
 // ~~
 
 HTMLElement.prototype.AddEventListener = function (
-    event_name,
+    event_name_array,
     event_function,
     event_is_captured = false,
     event_is_unique = false,
     event_is_passive = false
     )
 {
-    this.addEventListener(
-        event_name,
-        event_function,
+    var
+        event_name;
+
+    if ( event_name_array instanceof Array )
+    {
+        for ( event_name of event_name_array )
         {
-            capture: event_is_captured,
-            once: event_is_unique,
-            passive: event_is_passive
+            this.addEventListener(
+                event_name,
+                event_function,
+                {
+                    capture: event_is_captured,
+                    once: event_is_unique,
+                    passive: event_is_passive
+                }
+                );
         }
-        );
+    }
+    else
+    {
+        this.addEventListener(
+            event_name_array,
+            event_function,
+            {
+                capture: event_is_captured,
+                once: event_is_unique,
+                passive: event_is_passive
+            }
+            );
+    }
 
     return this;
 }
@@ -1061,43 +1124,77 @@ HTMLElement.prototype.AddEventListener = function (
 // ~~
 
 function RemoveEventListener(
-    event_name,
+    event_name_array,
     event_function,
     event_is_captured = false,
     event_is_unique = false,
     event_is_passive = false
     )
 {
-    document.removeEventListener(
-        event_name,
-        event_function,
+    var
+        event_name;
+
+    if ( event_name_array instanceof Array )
+    {
+        for ( event_name of event_name_array )
         {
-            capture: event_is_captured,
-            once: event_is_unique,
-            passive: event_is_passive
+            document.removeEventListener(
+                event_name,
+                event_function,
+                {
+                    capture: event_is_captured
+                }
+                );
         }
-        );
+    }
+    else
+    {
+        document.removeEventListener(
+            event_name_array,
+            event_function,
+            {
+                capture: event_is_captured
+            }
+            );
+    }
 }
 
 // ~~
 
 HTMLElement.prototype.RemoveEventListener = function (
-    event_name,
+    event_name_array,
     event_function,
     event_is_captured = false,
     event_is_unique = false,
     event_is_passive = false
     )
 {
-    this.removeEventListener(
-        event_name,
-        event_function,
+    var
+        event_name;
+
+    if ( event_name_array instanceof Array )
+    {
+        for ( event_name of event_name_array )
         {
-            capture: event_is_captured,
-            once: event_is_unique,
-            passive: event_is_passive
+            this.removeEventListener(
+                event_name,
+                event_function,
+                {
+                    capture: event_is_captured
+                }
+                );
         }
-        );
+    }
+    else
+    {
+        this.removeEventListener(
+            event_name_array,
+            event_function,
+            {
+                capture: event_is_captured
+            }
+            );
+    }
 
     return this;
 }
@@ -1105,63 +1202,117 @@ HTMLElement.prototype.RemoveEventListener = function (
 // ~~
 
 function ReplaceEventListener(
-    event_name,
+    event_name_array,
     event_function,
     event_is_captured = false,
     event_is_unique = false,
     event_is_passive = false
     )
 {
-    document.removeEventListener(
-        event_name,
-        event_function,
-        {
-            capture: event_is_captured,
-            once: event_is_unique,
-            passive: event_is_passive
-        }
-        );
+    var
+        event_name;
 
-    document.addEventListener(
-        event_name,
-        event_function,
+    if ( event_name_array instanceof Array )
+    {
+        for ( event_name of event_name_array )
         {
-            capture: event_is_captured,
-            once: event_is_unique,
-            passive: event_is_passive
+            document.removeEventListener(
+                event_name,
+                event_function,
+                {
+                    capture: event_is_captured
+                }
+                );
+
+            document.addEventListener(
+                event_name,
+                event_function,
+                {
+                    capture: event_is_captured,
+                    once: event_is_unique,
+                    passive: event_is_passive
+                }
+                );
         }
-        );
+    }
+    else
+    {
+        document.removeEventListener(
+            event_name_array,
+            event_function,
+            {
+                capture: event_is_captured
+            }
+            );
+
+        document.addEventListener(
+            event_name_array,
+            event_function,
+            {
+                capture: event_is_captured,
+                once: event_is_unique,
+                passive: event_is_passive
+            }
+            );
+    }
 }
 
 // ~~
 
 HTMLElement.prototype.ReplaceEventListener = function (
-    event_name,
+    event_name_array,
     event_function,
     event_is_captured = false,
     event_is_unique = false,
     event_is_passive = false
     )
 {
-    this.removeEventListener(
-        event_name,
-        event_function,
-        {
-            capture: event_is_captured,
-            once: event_is_unique,
-            passive: event_is_passive
-        }
-        );
+    var
+        event_name;
 
-    this.addEventListener(
-        event_name,
-        event_function,
+    if ( event_name_array instanceof Array )
+    {
+        for ( event_name of event_name_array )
         {
-            capture: event_is_captured,
-            once: event_is_unique,
-            passive: event_is_passive
+            this.removeEventListener(
+                event_name,
+                event_function,
+                {
+                    capture: event_is_captured
+                }
+                );
+
+            this.addEventListener(
+                event_name,
+                event_function,
+                {
+                    capture: event_is_captured,
+                    once: event_is_unique,
+                    passive: event_is_passive
+                }
+                );
         }
-        );
+    }
+    else
+    {
+        this.removeEventListener(
+            event_name_array,
+            event_function,
+            {
+                capture: event_is_captured
+            }
+            );
+
+        this.addEventListener(
+            event_name_array,
+            event_function,
+            {
+                capture: event_is_captured,
+                once: event_is_unique,
+                passive: event_is_passive
+            }
+            );
+    }
 
     return this;
 }

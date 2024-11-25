@@ -439,7 +439,7 @@ function HandleScrollEvent(
 
     html_element = GetElement( "html" );
 
-    if ( IsArray( element_array_or_selector ) )
+    if ( element_array_or_selector instanceof Array )
     {
         element_array = element_array_or_selector;
     }

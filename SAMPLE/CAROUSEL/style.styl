@@ -112,7 +112,7 @@ MakeCarouselSlide( 9, "test-", "-9" );
     margin-left: 2rem;
 }
 
-.test-carousel-arrow
+.test-carousel-arrow-button
 {
     font-size: 4rem;
     color: white;
@@ -120,7 +120,7 @@ MakeCarouselSlide( 9, "test-", "-9" );
     cursor: pointer;
 }
 
-.test-carousel-left-arrow
+.test-carousel-left-arrow-button
 {
     position: absolute;
     top: 50%;
@@ -128,10 +128,23 @@ MakeCarouselSlide( 9, "test-", "-9" );
     transform: translateY( -50% );
 }
 
-.test-carousel-right-arrow
+.test-carousel-right-arrow-button
 {
     position: absolute;
     top: 50%;
     right: 4rem;
     transform: translateY( -50% );
+}
+
+.test-carousel-reset-button
+{
+    position: absolute;
+    bottom: 4rem;
+    left: 50%;
+    transform: translateX( -50% ) translateY( -50% );
+
+    font-size: 4rem;
+    color: white;
+
+    cursor: pointer;
 }

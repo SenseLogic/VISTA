@@ -45,11 +45,14 @@
                     <div class="test-carousel-slide-button">
                     </div>
                 </div>
-                <div id="test-carousel-7-1-left-arrow" class="test-carousel-arrow test-carousel-left-arrow">
+                <div id="test-carousel-7-1-left-arrow-button" class="test-carousel-arrow-button test-carousel-left-arrow-button">
                     &lt;
                 </div>
-                <div id="test-carousel-7-1-right-arrow" class="test-carousel-arrow test-carousel-right-arrow">
+                <div id="test-carousel-7-1-right-arrow-button" class="test-carousel-arrow-button test-carousel-right-arrow-button">
                     &gt;
+                </div>
+                <div id="test-carousel-7-1-reset-button" class="test-carousel-reset-button">
+                    !
                 </div>
             </div>
             <div class="test-carousel">
@@ -104,10 +107,10 @@
                         <h1>SLIDE 2</h1>
                     </div>
                 </div>
-                <div id="test-carousel-8-2-left-arrow" class="test-carousel-arrow test-carousel-left-arrow">
+                <div id="test-carousel-8-2-left-arrow-button" class="test-carousel-arrow-button test-carousel-left-arrow-button">
                     &lt;
                 </div>
-                <div id="test-carousel-8-2-right-arrow" class="test-carousel-arrow test-carousel-right-arrow">
+                <div id="test-carousel-8-2-right-arrow-button" class="test-carousel-arrow-button test-carousel-right-arrow-button">
                     &gt;
                 </div>
             </div>
@@ -169,10 +172,10 @@
                         <h1>SLIDE 3</h1>
                     </div>
                 </div>
-                <div id="test-carousel-9-3-left-arrow" class="test-carousel-arrow test-carousel-left-arrow">
+                <div id="test-carousel-9-3-left-arrow-button" class="test-carousel-arrow-button test-carousel-left-arrow-button">
                     &lt;
                 </div>
-                <div id="test-carousel-9-3-right-arrow" class="test-carousel-arrow test-carousel-right-arrow">
+                <div id="test-carousel-9-3-right-arrow-button" class="test-carousel-arrow-button test-carousel-right-arrow-button">
                     &gt;
                 </div>
             </div>
@@ -261,9 +264,17 @@
                       );
 
             carousel_7_1.HandleSlideButtonsClickEvent( false, 10 );
-            carousel_7_1.HandlePriorSlideButtonClickEvent( GetElementById( "test-carousel-7-1-left-arrow" ), false, 10 );
-            carousel_7_1.HandleNextSlideButtonClickEvent( GetElementById( "test-carousel-7-1-right-arrow" ), false, 10 );
+            carousel_7_1.HandlePriorSlideButtonClickEvent( GetElementById( "test-carousel-7-1-left-arrow-button" ), false, 10 );
+            carousel_7_1.HandleNextSlideButtonClickEvent( GetElementById( "test-carousel-7-1-right-arrow-button" ), false, 10 );
             carousel_7_1.StartAutomaticAnimation();
+
+            GetElementById( "test-carousel-7-1-reset-button" ).AddEventListener(
+                "click",
+                () =>
+                {
+                    carousel_7_1.ShowSlide( 0, false );
+                }
+                );
 
             // ~~
 
@@ -281,8 +292,8 @@
                       true
                       );
 
-            carousel_8_2.HandlePriorSlideButtonClickEvent( GetElementById( "test-carousel-8-2-left-arrow" ), 10 );
-            carousel_8_2.HandleNextSlideButtonClickEvent( GetElementById( "test-carousel-8-2-right-arrow" ), 10 );
+            carousel_8_2.HandlePriorSlideButtonClickEvent( GetElementById( "test-carousel-8-2-left-arrow-button" ), 10 );
+            carousel_8_2.HandleNextSlideButtonClickEvent( GetElementById( "test-carousel-8-2-right-arrow-button" ), 10 );
             carousel_8_2.StartAutomaticAnimation();
 
             // ~~
@@ -303,8 +314,8 @@
                       true
                       );
 
-            carousel_9_3.HandlePriorSlideButtonClickEvent( GetElementById( "test-carousel-9-3-left-arrow" ), 10 );
-            carousel_9_3.HandleNextSlideButtonClickEvent( GetElementById( "test-carousel-9-3-right-arrow" ), 10 );
+            carousel_9_3.HandlePriorSlideButtonClickEvent( GetElementById( "test-carousel-9-3-left-arrow-button" ), 10 );
+            carousel_9_3.HandleNextSlideButtonClickEvent( GetElementById( "test-carousel-9-3-right-arrow-button" ), 10 );
             carousel_9_3.StartAutomaticAnimation();
         </script>
     </body>

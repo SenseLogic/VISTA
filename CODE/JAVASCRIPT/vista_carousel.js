@@ -26,7 +26,7 @@ class CAROUSEL
 
         this.AnimationTimeout = null;
         this.AnimationFrame = null,
-        this.AnimationTimestamp = null,
+        this.AnimationTimestamp = null;
         this.Element = carousel_element;
         this.StripElement = strip_element;
         this.PriorSlideIndex = -1.0;
@@ -488,7 +488,8 @@ class CAROUSEL
     // ~~
 
     ShowSlide(
-        slide_index
+        slide_index,
+        strip_is_animated = true
         )
     {
         var
@@ -506,7 +507,21 @@ class CAROUSEL
 
         if ( slide_index !== current_slide_index )
         {
-            this.ChangeSlide( slide_index - current_slide_index );
+            if ( strip_is_animated )
+            {
+                this.ChangeSlide( slide_index - current_slide_index, strip_is_animated );
+            }
+            else
+            {
+                this.InitialSlideIndex = this.SlideIndex;
+                this.FinalSlideIndex = slide_index;
+                this.FinalSlideRatio = 0.99999999;
+                this.IsTranslated = true;
+
+                this.StopAnimation();
+                this.SetSlideIndex();
+                this.StartAnimation();
+            }
         }
     }
 
