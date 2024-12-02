@@ -703,7 +703,7 @@ function DelayCall(
         }
         else
         {
-            window.addEventListener( "load", called_function );
+            window.addEventListener( "load", () => called_function() );
 
             return null;
         }

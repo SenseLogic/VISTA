@@ -331,14 +331,7 @@ function GetRootElement(
     root_element = undefined
     )
 {
-    if ( root_element !== undefined )
-    {
-        return root_element;
-    }
-    else
-    {
-        return document.documentElement;
-    }
+    return root_element ?? document.documentElement;
 }
 
 // ~~
