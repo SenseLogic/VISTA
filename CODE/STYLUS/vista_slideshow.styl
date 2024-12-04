@@ -30,5 +30,5 @@ MakeSlideshowSlidePerpetualAnimation( slide_count, pause_duration = 3000, transi
 
         .{prefix}slideshow{infix}-slide-perpetual-animation{suffix}-{slide_suffix}
         {
-            animation: slide_count * slide_duration * 0.001s prefix + "slideshow" + infix + "-slide-perpetual-animation" + suffix + "-" + slide_suffix infinite linear important;
+            animation: unquote( prefix + "slideshow" + infix + "-slide-perpetual-animation" + suffix + "-" + slide_suffix ) slide_count * slide_duration * 0.001s infinite linear important;
         }

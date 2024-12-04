@@ -343,7 +343,7 @@ html {
   display: flex;
 }
 .test-carousel-7-1-strip-perpetual-animation {
-  animation: 21s 'test-carousel-7-1-strip-perpetual-animation' infinite ease;
+  animation: test-carousel-7-1-strip-perpetual-animation 21s infinite ease;
 }
 @keyframes test-carousel-7-1-strip-perpetual-animation {
   0% {
@@ -397,7 +397,7 @@ html {
   display: flex;
 }
 .test-carousel-8-2-strip-perpetual-animation {
-  animation: 21s 'test-carousel-8-2-strip-perpetual-animation' infinite ease;
+  animation: test-carousel-8-2-strip-perpetual-animation 21s infinite ease;
 }
 @keyframes test-carousel-8-2-strip-perpetual-animation {
   0% {
@@ -451,7 +451,7 @@ html {
   display: flex;
 }
 .test-carousel-9-3-strip-perpetual-animation {
-  animation: 21s 'test-carousel-9-3-strip-perpetual-animation' infinite ease;
+  animation: test-carousel-9-3-strip-perpetual-animation 21s infinite ease;
 }
 @keyframes test-carousel-9-3-strip-perpetual-animation {
   0% {

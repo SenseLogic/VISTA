@@ -325,7 +325,7 @@ html {
   background: #fff;
 }
 .test-slideshow-slide-perpetual-animation-1 {
-  animation: 21s 'test-slideshow-slide-perpetual-animation-1' infinite linear;
+  animation: test-slideshow-slide-perpetual-animation-1 21s infinite linear;
 }
 @keyframes test-slideshow-slide-perpetual-animation-1 {
   0% {
@@ -369,7 +369,7 @@ html {
   }
 }
 .test-slideshow-slide-perpetual-animation-2 {
-  animation: 21s 'test-slideshow-slide-perpetual-animation-2' infinite linear;
+  animation: test-slideshow-slide-perpetual-animation-2 21s infinite linear;
 }
 @keyframes test-slideshow-slide-perpetual-animation-2 {
   0% {
@@ -413,7 +413,7 @@ html {
   }
 }
 .test-slideshow-slide-perpetual-animation-3 {
-  animation: 21s 'test-slideshow-slide-perpetual-animation-3' infinite linear;
+  animation: test-slideshow-slide-perpetual-animation-3 21s infinite linear;
 }
 @keyframes test-slideshow-slide-perpetual-animation-3 {
   0% {
@@ -457,7 +457,7 @@ html {
   }
 }
 .test-slideshow-slide-perpetual-animation-4 {
-  animation: 21s 'test-slideshow-slide-perpetual-animation-4' infinite linear;
+  animation: test-slideshow-slide-perpetual-animation-4 21s infinite linear;
 }
 @keyframes test-slideshow-slide-perpetual-animation-4 {
   0% {
@@ -501,7 +501,7 @@ html {
   }
 }
 .test-slideshow-slide-perpetual-animation-5 {
-  animation: 21s 'test-slideshow-slide-perpetual-animation-5' infinite linear;
+  animation: test-slideshow-slide-perpetual-animation-5 21s infinite linear;
 }
 @keyframes test-slideshow-slide-perpetual-animation-5 {
   0% {
@@ -545,7 +545,7 @@ html {
   }
 }
 .test-slideshow-slide-perpetual-animation-6 {
-  animation: 21s 'test-slideshow-slide-perpetual-animation-6' infinite linear;
+  animation: test-slideshow-slide-perpetual-animation-6 21s infinite linear;
 }
 @keyframes test-slideshow-slide-perpetual-animation-6 {
   0% {
