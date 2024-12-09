@@ -57,8 +57,8 @@ function HandleDraggableItemDropEvent(
 // ~~
 
 function InitializeDraggableItems(
-    element_selector = ".draggable-item",
-    root_element = undefined
+    root_element = undefined,
+    element_selector = ".draggable-item"
     )
 {
     for ( item_element of GetRootElement( root_element ).GetElements( element_selector ) )
@@ -74,8 +74,8 @@ function InitializeDraggableItems(
 // ~~
 
 function FinalizeDraggableItems(
-    element_selector = ".draggable-item",
-    root_element = undefined
+    root_element = undefined,
+    element_selector = ".draggable-item"
     )
 {
     for ( item_element of GetRootElement( root_element ).GetElements( element_selector ) )

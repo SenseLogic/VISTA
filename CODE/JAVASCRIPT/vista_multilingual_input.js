@@ -93,7 +93,8 @@ function HandleMultilingualInputTranslationInputEvent(
 // ~~
 
 function InitializeMultilingualInputs(
-    root_element = undefined
+    root_element = undefined,
+    element_selector = ".multilingual-input"
     )
 {
     var
@@ -101,7 +102,7 @@ function InitializeMultilingualInputs(
         translation_element,
         translation_element_array;
 
-    for ( input_element of GetRootElement( root_element ).GetElements( ".multilingual-input" ) )
+    for ( input_element of GetRootElement( root_element ).GetElements( element_selector ) )
     {
         translation_element_array = [];
 

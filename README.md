@@ -848,7 +848,7 @@ html
 
 ## Version
 
-0.5
+0.6
 
 ## Author
 

@@ -70,8 +70,8 @@ function InitializeRisingTextElement(
 // ~~
 
 function InitializeRisingTexts(
-    element_selector = ".rising-text",
     root_element = undefined,
+    element_selector = ".rising-text",
     word_wrapper_class = "rising-text-word-wrapper",
     word_class = "rising-text-word"
     )

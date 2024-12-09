@@ -249,10 +249,11 @@ Array.prototype.AutoplayVideos = function (
 // ~~
 
 function InitializeAutoplayVideos(
-    root_element = undefined
+    root_element = undefined,
+    element_selector = ".autoplay-video"
     )
 {
-    GetRootElement( root_element ).GetElements( ".autoplay-video" ).AutoplayVideos();
+    GetRootElement( root_element ).GetElements( element_selector ).AutoplayVideos();
 }
 
 // ~~
@@ -314,8 +315,9 @@ Array.prototype.AutohideVideos = function (
 // ~~
 
 function InitializeAutohideVideos(
-    root_element = undefined
+    root_element = undefined,
+    element_selector = ".autohide-video"
     )
 {
-    GetRootElement( root_element ).GetElements( ".autohide-video" ).AutohideVideos();
+    GetRootElement( root_element ).GetElements( element_selector ).AutohideVideos();
 }

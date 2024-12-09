@@ -68,8 +68,8 @@ function HandleDropdownOptionClickEvent(
 // ~~
 
 function InitializeDropdowns(
-    element_selector = ".dropdown",
-    root_element = undefined
+    root_element = undefined,
+    element_selector = ".dropdown"
     )
 {
     var
@@ -103,8 +103,8 @@ function InitializeDropdowns(
 // ~~
 
 function FinalizeDropdowns(
-    element_selector = ".dropdown",
-    root_element = undefined
+    root_element = undefined,
+    element_selector = ".dropdown"
     )
 {
     var
