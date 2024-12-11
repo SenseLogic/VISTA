@@ -4,13 +4,17 @@
         <meta charset="UTF-8">
         <title>Sample</title>
         <style>
+            .rising-text
+            {
+            }
+
             .rising-text-word-wrapper
             {
                 overflow: hidden;
 
                 display: inline-block;
 
-                line-height: inherit;
+                vertical-align: top;
             }
 
             @keyframes rising-text-word-animation
@@ -27,19 +31,22 @@
 
                 display: inline-block;
 
-                line-height: inherit;
-
                 animation: rising-text-word-animation 0.5s forwards;
+            }
+
+            .sample-text
+            {
+                line-height: 1.1;
             }
         </style>
     </head>
-    <div class="rising-text">
+    <div class="rising-text sample-text">
         This is a <b>text with bold words</b><br>
         <div>
             with a sub div.
         </div>
     </div>
-    <div class="rising-text">
+    <div class="rising-text sample-text">
         This is some <b>sample text</b> that will rise.<br>
         This is some sample text that will rise.
         This is some sample text that will rise.
