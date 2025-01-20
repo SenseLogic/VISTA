@@ -281,7 +281,7 @@ class VISTA_IMAGE_PATH_INPUT_COMPONENT extends VISTA_PATH_INPUT_COMPONENT
                 <img class="is-image is-upload-image"/>
                 <: if ( !this.IsReadonly ) { :>
                     <label class="is-button is-upload-button">
-                        <input class="is-file-input" type="file" accept="image/jpeg, image/png, image/webp, image/gif, image/svg" hidden/>
+                        <input class="is-file-input" type="file" accept="image/avif, image/gif, image/jpeg, image/png, image/webp, image/svg" hidden/>
                     </label>
                     <label class="is-button is-delete-button">
                     </label>
