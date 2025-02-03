@@ -1,0 +1,121 @@
+// -- IMPORTS
+
+@require "../../CODE/STYLUS/vista_reset.styl"
+@require "../../CODE/STYLUS/vista.styl"
+@require "../../CODE/STYLUS/vista_form.styl"
+
+// -- ELEMENTS
+
+*
+{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body
+{
+    padding: 1rem;
+}
+
+main
+{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+input,
+textarea,
+select
+{
+    width: 100%;
+}
+
+// -- CLASSES
+
+.form-component
+{
+    border: 1px solid #C0C0C0;
+}
+
+.form-translation
+{
+    display: grid;
+    grid-template-columns: 1fr 5rem 3rem;
+    gap: 0.5rem;
+    align-items: start;
+}
+
+.form-translation-data
+{
+}
+
+.form-translation-specifier
+{
+}
+
+.form-input
+{
+    width: 100%;
+}
+
+.form-select
+{
+    width: 100%;
+}
+
+.form-value-container
+{
+    display: flex;
+    gap: 0.5rem;
+}
+
+.form-button
+{
+    height: 1rem;
+    width: 1rem;
+
+    display: inline-block;
+
+    cursor: pointer;
+}
+
+.form-drag-button
+{
+    background: url( "../MEDIA/drag_icon.svg" ) no-repeat center center / contain;
+}
+
+.form-add-button,
+.form-translation-add-button
+{
+    background: url( "../MEDIA/add_icon.svg" ) no-repeat center center / contain;
+}
+
+.form-remove-button,
+.form-translation-remove-button
+{
+    background: url( "../MEDIA/remove_icon.svg" ) no-repeat center center / contain;
+}
+
+.form-upload-button
+{
+    background: url( "../MEDIA/upload_icon.svg" ) no-repeat center center / contain;
+}
+
+.form-delete-button
+{
+    background: url( "../MEDIA/delete_icon.svg" ) no-repeat center center / contain;
+}
+
+.form-image,
+.form-video
+{
+    height: 9rem;
+    width: auto;
+}
+
+#result
+{
+    height: 25rem;
+}

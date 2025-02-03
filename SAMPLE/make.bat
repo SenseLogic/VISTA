@@ -2,6 +2,8 @@ cd ANIMATION
 call stylus style.styl
 cd ..\CAROUSEL
 call stylus style.styl
+cd ..\FORM
+call stylus style.styl
 cd ..\INPUT
 call stylus style.styl
 cd ..\PAGE

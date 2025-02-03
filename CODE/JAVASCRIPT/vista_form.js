@@ -70,8 +70,8 @@ class VISTA_INPUT_COMPONENT extends VISTA_COMPONENT
 
         this.SetTemplate(
             Text`
-            <div class="is-component is-container <:# this.IsReadonly ? "is-readonly" : "" :>">
-                <input id="<:# this.ResultId :>" class="is-input is-result" name="<:# this.ResultName :>" value="<:% this.ResultValue :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :>/>
+            <div class="form-component form-container <:# this.IsReadonly ? "is-readonly" : "" :>">
+                <input id="<:# this.ResultId :>" class="form-input form-result" name="<:# this.ResultName :>" value="<:% this.ResultValue :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :>/>
             </div>
             `
             );
@@ -82,7 +82,7 @@ class VISTA_INPUT_COMPONENT extends VISTA_COMPONENT
     PostUpdateComponent(
         )
     {
-        this.ResultElement = this.GetElement( ".is-result" );
+        this.ResultElement = this.GetElement( ".form-result" );
 
         this.SetValue( this.ResultValue );
         this.ResultElement.oninput = this.HandleResultInputEvent;
@@ -124,8 +124,8 @@ class VISTA_TEXT_INPUT_COMPONENT extends VISTA_INPUT_COMPONENT
 
         this.SetTemplate(
             Text`
-            <div class="is-component is-container <:# this.IsReadonly ? "is-readonly" : "" :>">
-                <textarea id="<:# this.ResultId :>" class="is-textarea is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :>><:% this.ResultValue :></textarea>
+            <div class="form-component form-container <:# this.IsReadonly ? "is-readonly" : "" :>">
+                <textarea id="<:# this.ResultId :>" class="form-textarea form-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :>><:% this.ResultValue :></textarea>
             </div>
             `
             );
@@ -276,14 +276,14 @@ class VISTA_IMAGE_PATH_INPUT_COMPONENT extends VISTA_PATH_INPUT_COMPONENT
 
         this.SetTemplate(
             Text`
-            <div class="is-component is-container is-upload-container <:# this.IsReadonly ? "is-readonly" : "" :>">
-                <input id="<:# this.ResultId :>" class="is-input is-upload-input is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :>/>
-                <img class="is-image is-upload-image"/>
+            <div class="form-component form-container form-upload-container <:# this.IsReadonly ? "is-readonly" : "" :>">
+                <input id="<:# this.ResultId :>" class="form-input form-upload-input form-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :>/>
+                <img class="form-image form-upload-image"/>
                 <: if ( !this.IsReadonly ) { :>
-                    <label class="is-button is-upload-button">
-                        <input class="is-file-input" type="file" accept="image/avif, image/gif, image/jpeg, image/png, image/webp, image/svg" hidden/>
+                    <label class="form-button form-upload-button">
+                        <input class="form-file-input" type="file" accept="image/avif, image/gif, image/jpeg, image/png, image/webp, image/svg" hidden/>
                     </label>
-                    <label class="is-button is-delete-button">
+                    <label class="form-button form-delete-button">
                     </label>
                 <: } :>
             </div>
@@ -296,8 +296,8 @@ class VISTA_IMAGE_PATH_INPUT_COMPONENT extends VISTA_PATH_INPUT_COMPONENT
     PostUpdateComponent(
         )
     {
-        this.ResultElement = this.GetElement( ".is-result" );
-        this.ImageElement = this.GetElement( ".is-image" );
+        this.ResultElement = this.GetElement( ".form-result" );
+        this.ImageElement = this.GetElement( ".form-image" );
 
         this.SetValue( this.ResultValue );
 
@@ -306,11 +306,11 @@ class VISTA_IMAGE_PATH_INPUT_COMPONENT extends VISTA_PATH_INPUT_COMPONENT
 
         if ( !this.IsReadonly )
         {
-            this.FileInputElement = this.GetElement( ".is-file-input" );
+            this.FileInputElement = this.GetElement( ".form-file-input" );
             this.FileInputElement.src = this.ResultValue;
             this.FileInputElement.onchange = this.HandleFileInputChangeEvent;
 
-            this.DeleteButtonElement = this.GetElement( ".is-delete-button" );
+            this.DeleteButtonElement = this.GetElement( ".form-delete-button" );
             this.DeleteButtonElement.onclick = this.HandleDeleteButtonClickEvent;
         }
     }
@@ -368,14 +368,14 @@ class VISTA_VIDEO_PATH_INPUT_COMPONENT extends VISTA_PATH_INPUT_COMPONENT
 
         this.SetTemplate(
             Text`
-            <div class="is-component is-container is-upload-container <:# this.IsReadonly ? "is-readonly" : "" :>">
-                <input id="<:# this.ResultId :>" class="is-input is-upload-input is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :>/>
-                <video class="is-video is-upload-video" type="video/mp4"></video>
+            <div class="form-component form-container form-upload-container <:# this.IsReadonly ? "is-readonly" : "" :>">
+                <input id="<:# this.ResultId :>" class="form-input form-upload-input form-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :>/>
+                <video class="form-video form-upload-video" type="video/mp4"></video>
                 <: if ( !this.IsReadonly ) { :>
-                    <label class="is-button is-upload-button">
-                        <input class="is-file-input" type="file" accept="video/mp4" hidden/>
+                    <label class="form-button form-upload-button">
+                        <input class="form-file-input" type="file" accept="video/mp4" hidden/>
                     </label>
-                    <div class="is-button is-delete-button">
+                    <div class="form-button form-delete-button">
                     </div>
                 <: } :>
             </div>
@@ -388,8 +388,8 @@ class VISTA_VIDEO_PATH_INPUT_COMPONENT extends VISTA_PATH_INPUT_COMPONENT
     PostUpdateComponent(
         )
     {
-        this.ResultElement = this.GetElement( ".is-result" );
-        this.VideoElement = this.GetElement( ".is-video" );
+        this.ResultElement = this.GetElement( ".form-result" );
+        this.VideoElement = this.GetElement( ".form-video" );
 
         this.SetValue( this.ResultValue );
 
@@ -398,11 +398,11 @@ class VISTA_VIDEO_PATH_INPUT_COMPONENT extends VISTA_PATH_INPUT_COMPONENT
 
         if ( !this.IsReadonly )
         {
-            this.FileInputElement = this.GetElement( ".is-file-input" );
+            this.FileInputElement = this.GetElement( ".form-file-input" );
             this.FileInputElement.src = this.ResultValue;
             this.FileInputElement.onchange = this.HandleFileInputChangeEvent;
 
-            this.DeleteButtonElement = this.GetElement( ".is-delete-button" );
+            this.DeleteButtonElement = this.GetElement( ".form-delete-button" );
             this.DeleteButtonElement.onclick = this.HandleDeleteButtonClickEvent;
         }
     }
@@ -452,14 +452,14 @@ class VISTA_DOCUMENT_PATH_INPUT_COMPONENT extends VISTA_PATH_INPUT_COMPONENT
 
         this.SetTemplate(
             Text`
-            <div class="is-component is-container is-upload-container <:# this.IsReadonly ? "is-readonly" : "" :>">
-                <input id="<:# this.ResultId :>" class="is-input is-upload-input is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :>/>
-                <img class="is-image is-upload-image"/>
+            <div class="form-component form-container form-upload-container <:# this.IsReadonly ? "is-readonly" : "" :>">
+                <input id="<:# this.ResultId :>" class="form-input form-upload-input form-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :>/>
+                <img class="form-image form-upload-image"/>
                 <: if ( !this.IsReadonly ) { :>
-                    <label class="is-button is-upload-button">
-                        <input class="is-file-input" type="file" accept="application/pdf" hidden/>
+                    <label class="form-button form-upload-button">
+                        <input class="form-file-input" type="file" accept="application/pdf" hidden/>
                     </label>
-                    <label class="is-button is-delete-button">
+                    <label class="form-button form-delete-button">
                     </label>
                 <: } :>
             </div>
@@ -472,8 +472,8 @@ class VISTA_DOCUMENT_PATH_INPUT_COMPONENT extends VISTA_PATH_INPUT_COMPONENT
     PostUpdateComponent(
         )
     {
-        this.ResultElement = this.GetElement( ".is-result" );
-        this.ImageElement = this.GetElement( ".is-image" );
+        this.ResultElement = this.GetElement( ".form-result" );
+        this.ImageElement = this.GetElement( ".form-image" );
 
         this.SetValue( this.ResultValue );
 
@@ -481,11 +481,11 @@ class VISTA_DOCUMENT_PATH_INPUT_COMPONENT extends VISTA_PATH_INPUT_COMPONENT
 
         if ( !this.IsReadonly )
         {
-            this.FileInputElement = this.GetElement( ".is-file-input" );
+            this.FileInputElement = this.GetElement( ".form-file-input" );
             this.FileInputElement.src = this.ResultValue;
             this.FileInputElement.onchange = this.HandleFileInputChangeEvent;
 
-            this.DeleteButtonElement = this.GetElement( ".is-delete-button" );
+            this.DeleteButtonElement = this.GetElement( ".form-delete-button" );
             this.DeleteButtonElement.onclick = this.HandleDeleteButtonClickEvent;
         }
     }
@@ -567,13 +567,13 @@ class VISTA_DROPDOWN_COMPONENT extends VISTA_COMPONENT
         this.OptionNameArray = GetJsonObject( this.OptionNames );
         this.SetTemplate(
             Text`
-            <div class="is-component is-container is-dropdown-container <:# this.IsReadonly ? "is-readonly" : "" :>">
-                <select id="<:# this.ResultId :>" class="is-select is-result" name="<:# this.ResultName :>" <:# this.IsReadonly ? "readonly" : "" :>/>
+            <div class="form-component form-container form-dropdown-container <:# this.IsReadonly ? "is-readonly" : "" :>">
+                <select id="<:# this.ResultId :>" class="form-select form-result" name="<:# this.ResultName :>" <:# this.IsReadonly ? "readonly" : "" :>/>
                     <: if ( this.IsOptional ) { :>
-                        <option class="is-option is-dropdown-option" value="<:% this.NullValue :>" <:# ( this.ResultValue === this.NullValue ) ? "selected" : "" :>><:% this.NullName :></option>
+                        <option class="form-option form-dropdown-option" value="<:% this.NullValue :>" <:# ( this.ResultValue === this.NullValue ) ? "selected" : "" :>><:% this.NullName :></option>
                     <: } :>
                     <: for ( let option_index = 0; option_index < this.OptionValueArray.length; ++option_index ) { :>
-                        <option class="is-option is-dropdown-option" value="<:% this.OptionValueArray[ option_index ] :>"><:% this.OptionNameArray[ option_index ] :></option>
+                        <option class="form-option form-dropdown-option" value="<:% this.OptionValueArray[ option_index ] :>"><:% this.OptionNameArray[ option_index ] :></option>
                     <: } :>
                 </select>
             </div>
@@ -586,7 +586,7 @@ class VISTA_DROPDOWN_COMPONENT extends VISTA_COMPONENT
     PostUpdateComponent(
         )
     {
-        this.ResultElement = this.GetElement( ".is-result" );
+        this.ResultElement = this.GetElement( ".form-result" );
 
         this.SetValue( this.ResultValue );
         this.ResultElement.oninput = this.HandleResultInputEvent;
@@ -615,7 +615,7 @@ class VISTA_LIST_COMPONENT extends VISTA_COMPONENT
            value_container_element,
             value_container_input_element;
 
-        for ( value_container_element of this.GetElements( ".is-value-container" ) )
+        for ( value_container_element of this.GetElements( ".form-value-container" ) )
         {
             value_container_element.setAttribute( "draggable", draggable );
 
@@ -865,13 +865,13 @@ class VISTA_LIST_COMPONENT extends VISTA_COMPONENT
         var
             value_index;
 
-        this.ResultElement = this.GetElement( ".is-result" );
+        this.ResultElement = this.GetElement( ".form-result" );
 
-        this.ValueContainerElementArray = this.GetElements( ".is-value-container" );
-        this.ValueElementArray = this.GetElements( ".is-value" );
-        this.DragButtonElementArray = this.GetElements( ".is-drag-button" );
-        this.AddButtonElementArray = this.GetElements( ".is-add-button" );
-        this.RemoveButtonElementArray = this.GetElements( ".is-remove-button" );
+        this.ValueContainerElementArray = this.GetElements( ".form-value-container" );
+        this.ValueElementArray = this.GetElements( ".form-value" );
+        this.DragButtonElementArray = this.GetElements( ".form-drag-button" );
+        this.AddButtonElementArray = this.GetElements( ".form-add-button" );
+        this.RemoveButtonElementArray = this.GetElements( ".form-remove-button" );
 
         this.SetValue( this.ResultValue );
         this.ResultElement.oninput = this.HandleResultInputEvent;
@@ -912,23 +912,23 @@ class VISTA_INPUT_LIST_COMPONENT extends VISTA_LIST_COMPONENT
 
         this.SetTemplate(
             Text`
-            <div class="is-component is-list-container <:# this.IsReadonly ? "is-readonly" : "" :>">
-                <input id="<:# this.ResultId :>" class="is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden/>
+            <div class="form-component form-list-container <:# this.IsReadonly ? "is-readonly" : "" :>">
+                <input id="<:# this.ResultId :>" class="form-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden/>
                 <: for ( var value_index = 0; value_index < this.ValueArray.length; ++value_index ) { :>
-                    <div class="is-value-container" data-value-index="<:# value_index :>">
-                        <input-component class="is-value" <:# this.IsReadonly ? "is-readonly" : "" :>></input-component>
+                    <div class="form-value-container" data-value-index="<:# value_index :>">
+                        <input-component class="form-value" <:# this.IsReadonly ? "is-readonly" : "" :>></input-component>
                         <: if ( !this.IsReadonly ) { :>
-                            <div class="is-button is-drag-button data-value-index="<:# value_index + 1 :>">
+                            <div class="form-button form-drag-button data-value-index="<:# value_index + 1 :>">
                             </div>
-                            <div class="is-button is-add-button" data-value-index="<:# value_index + 1 :>">
+                            <div class="form-button form-add-button" data-value-index="<:# value_index + 1 :>">
                             </div>
-                            <div class="is-button is-remove-button" data-value-index="<:# value_index :>">
+                            <div class="form-button form-remove-button" data-value-index="<:# value_index :>">
                             </div>
                         <: } :>
                     </div>
                 <: } :>
                 <: if ( !this.IsReadonly ) { :>
-                    <div class="is-button is-add-button" data-value-index="<:# this.ValueArray.length :>">
+                    <div class="form-button form-add-button" data-value-index="<:# this.ValueArray.length :>">
                     </div>
                 <: } :>
             </div>
@@ -950,23 +950,23 @@ class VISTA_TEXT_INPUT_LIST_COMPONENT extends VISTA_LIST_COMPONENT
 
         this.SetTemplate(
             Text`
-            <div class="is-component is-list-container <:# this.IsReadonly ? "is-readonly" : "" :>">
-                <textarea id="<:# this.ResultId :>" class="is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden></textarea>
+            <div class="form-component form-list-container <:# this.IsReadonly ? "is-readonly" : "" :>">
+                <textarea id="<:# this.ResultId :>" class="form-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden></textarea>
                 <: for ( var value_index = 0; value_index < this.ValueArray.length; ++value_index ) { :>
-                    <div class="is-value-container" data-value-index="<:# value_index :>">
-                        <text-input-component class="is-value" <:# this.IsReadonly ? "is-readonly" : "" :>></text-input-component>
+                    <div class="form-value-container" data-value-index="<:# value_index :>">
+                        <text-input-component class="form-value" <:# this.IsReadonly ? "is-readonly" : "" :>></text-input-component>
                         <: if ( !this.IsReadonly ) { :>
-                            <div class="is-button is-drag-button data-value-index="<:# value_index + 1 :>">
+                            <div class="form-button form-drag-button data-value-index="<:# value_index + 1 :>">
                             </div>
-                            <div class="is-button is-add-button" data-value-index="<:# value_index + 1 :>">
+                            <div class="form-button form-add-button" data-value-index="<:# value_index + 1 :>">
                             </div>
-                            <div class="is-button is-remove-button" data-value-index="<:# value_index :>">
+                            <div class="form-button form-remove-button" data-value-index="<:# value_index :>">
                             </div>
                         <: } :>
                     </div>
                 <: } :>
                 <: if ( !this.IsReadonly ) { :>
-                    <div class="is-button is-add-button" data-value-index="<:# this.ValueArray.length :>">
+                    <div class="form-button form-add-button" data-value-index="<:# this.ValueArray.length :>">
                     </div>
                 <: } :>
             </div>
@@ -992,23 +992,23 @@ class VISTA_IMAGE_PATH_INPUT_LIST_COMPONENT extends VISTA_LIST_COMPONENT
 
         this.SetTemplate(
             Text`
-            <div class="is-component is-list-container <:# this.IsReadonly ? "is-readonly" : "" :>">
-                <input id="<:# this.ResultId :>" class="is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden/>
+            <div class="form-component form-list-container <:# this.IsReadonly ? "is-readonly" : "" :>">
+                <input id="<:# this.ResultId :>" class="form-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden/>
                 <: for ( var value_index = 0; value_index < this.ValueArray.length; ++value_index ) { :>
-                    <div class="is-value-container" data-value-index="<:# value_index :>">
-                        <image-path-input-component class="is-value" <:# this.IsReadonly ? "is-readonly" : "" :> error-image-path="<:% this.ErrorImagePath :>" upload-api-url="<:% this.UploadApiUrl :>" delete-api-url="<:% this.DeleteApiUrl :>" ></image-path-input-component>
+                    <div class="form-value-container" data-value-index="<:# value_index :>">
+                        <image-path-input-component class="form-value" <:# this.IsReadonly ? "is-readonly" : "" :> error-image-path="<:% this.ErrorImagePath :>" upload-api-url="<:% this.UploadApiUrl :>" delete-api-url="<:% this.DeleteApiUrl :>" ></image-path-input-component>
                         <: if ( !this.IsReadonly ) { :>
-                            <div class="is-button is-drag-button data-value-index="<:# value_index + 1 :>">
+                            <div class="form-button form-drag-button data-value-index="<:# value_index + 1 :>">
                             </div>
-                            <div class="is-button is-add-button" data-value-index="<:# value_index + 1 :>">
+                            <div class="form-button form-add-button" data-value-index="<:# value_index + 1 :>">
                             </div>
-                            <div class="is-button is-remove-button" data-value-index="<:# value_index :>">
+                            <div class="form-button form-remove-button" data-value-index="<:# value_index :>">
                             </div>
                         <: } :>
                     </div>
                 <: } :>
                 <: if ( !this.IsReadonly ) { :>
-                    <div class="is-button is-add-button" data-value-index="<:# this.ValueArray.length :>">
+                    <div class="form-button form-add-button" data-value-index="<:# this.ValueArray.length :>">
                     </div>
                 <: } :>
             </div>
@@ -1034,23 +1034,23 @@ class VISTA_VIDEO_PATH_INPUT_LIST_COMPONENT extends VISTA_LIST_COMPONENT
 
         this.SetTemplate(
             Text`
-            <div class="is-component is-list-container <:# this.IsReadonly ? "is-readonly" : "" :>">
-                <input id="<:# this.ResultId :>" class="is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden/>
+            <div class="form-component form-list-container <:# this.IsReadonly ? "is-readonly" : "" :>">
+                <input id="<:# this.ResultId :>" class="form-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden/>
                 <: for ( var value_index = 0; value_index < this.ValueArray.length; ++value_index ) { :>
-                    <div class="is-value-container" data-value-index="<:# value_index :>">
-                        <video-path-input-component class="is-value" <:# this.IsReadonly ? "is-readonly" : "" :> error-video-path="<:% this.ErrorVideoPath :>" upload-api-url="<:% this.UploadApiUrl :>" delete-api-url="<:% this.DeleteApiUrl :>" ></video-path-input-component>
+                    <div class="form-value-container" data-value-index="<:# value_index :>">
+                        <video-path-input-component class="form-value" <:# this.IsReadonly ? "is-readonly" : "" :> error-video-path="<:% this.ErrorVideoPath :>" upload-api-url="<:% this.UploadApiUrl :>" delete-api-url="<:% this.DeleteApiUrl :>" ></video-path-input-component>
                         <: if ( !this.IsReadonly ) { :>
-                            <div class="is-button is-drag-button data-value-index="<:# value_index + 1 :>">
+                            <div class="form-button form-drag-button data-value-index="<:# value_index + 1 :>">
                             </div>
-                            <div class="is-button is-add-button" data-value-index="<:# value_index + 1 :>">
+                            <div class="form-button form-add-button" data-value-index="<:# value_index + 1 :>">
                             </div>
-                            <div class="is-button is-remove-button" data-value-index="<:# value_index :>">
+                            <div class="form-button form-remove-button" data-value-index="<:# value_index :>">
                             </div>
                         <: } :>
                     </div>
                 <: } :>
                 <: if ( !this.IsReadonly ) { :>
-                    <div class="is-button is-add-button" data-value-index="<:# this.ValueArray.length :>">
+                    <div class="form-button form-add-button" data-value-index="<:# this.ValueArray.length :>">
                     </div>
                 <: } :>
             </div>
@@ -1077,23 +1077,23 @@ class VISTA_DOCUMENT_PATH_INPUT_LIST_COMPONENT extends VISTA_LIST_COMPONENT
 
         this.SetTemplate(
             Text`
-            <div class="is-component is-list-container <:# this.IsReadonly ? "is-readonly" : "" :>">
-                <input id="<:# this.ResultId :>" class="is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden/>
+            <div class="form-component form-list-container <:# this.IsReadonly ? "is-readonly" : "" :>">
+                <input id="<:# this.ResultId :>" class="form-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden/>
                 <: for ( var value_index = 0; value_index < this.ValueArray.length; ++value_index ) { :>
-                    <div class="is-value-container" data-value-index="<:# value_index :>">
-                        <document-path-input-component class="is-value" <:# this.IsReadonly ? "is-readonly" : "" :> document-image-path="<:% this.DocumentImagePath :>" error-image-path="<:% this.ErrorImagePath :>" upload-api-url="<:% this.UploadApiUrl :>" delete-api-url="<:% this.DeleteApiUrl :>" ></document-path-input-component>
+                    <div class="form-value-container" data-value-index="<:# value_index :>">
+                        <document-path-input-component class="form-value" <:# this.IsReadonly ? "is-readonly" : "" :> document-image-path="<:% this.DocumentImagePath :>" error-image-path="<:% this.ErrorImagePath :>" upload-api-url="<:% this.UploadApiUrl :>" delete-api-url="<:% this.DeleteApiUrl :>" ></document-path-input-component>
                         <: if ( !this.IsReadonly ) { :>
-                            <div class="is-button is-drag-button data-value-index="<:# value_index + 1 :>">
+                            <div class="form-button form-drag-button data-value-index="<:# value_index + 1 :>">
                             </div>
-                            <div class="is-button is-add-button" data-value-index="<:# value_index + 1 :>">
+                            <div class="form-button form-add-button" data-value-index="<:# value_index + 1 :>">
                             </div>
-                            <div class="is-button is-remove-button" data-value-index="<:# value_index :>">
+                            <div class="form-button form-remove-button" data-value-index="<:# value_index :>">
                             </div>
                         <: } :>
                     </div>
                 <: } :>
                 <: if ( !this.IsReadonly ) { :>
-                    <div class="is-button is-add-button" data-value-index="<:# this.ValueArray.length :>">
+                    <div class="form-button form-add-button" data-value-index="<:# this.ValueArray.length :>">
                     </div>
                 <: } :>
             </div>
@@ -1140,23 +1140,23 @@ class VISTA_DROPDOWN_LIST_COMPONENT extends VISTA_LIST_COMPONENT
         this.OptionNameArray = GetJsonObject( this.OptionNames );
         this.SetTemplate(
             Text`
-            <div class="is-component is-list-container <:# this.IsReadonly ? "is-readonly" : "" :>">
-                <input id="<:# this.ResultId :>" class="is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden/>
+            <div class="form-component form-list-container <:# this.IsReadonly ? "is-readonly" : "" :>">
+                <input id="<:# this.ResultId :>" class="form-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden/>
                 <: for ( var value_index = 0; value_index < this.ValueArray.length; ++value_index ) { :>
-                    <div class="is-value-container" data-value-index="<:# value_index :>">
-                        <dropdown-component class="is-value" result-placeholder="<:# this.ResultPlaceholder :>" <:# this.IsReadonly ? "is-readonly" : "" :> <:# this.IsOptional ? "is-optional" : "" :> option-values="<:% this.OptionValues :>" option-names="<:% this.OptionNames :>"></dropdown-component>
+                    <div class="form-value-container" data-value-index="<:# value_index :>">
+                        <dropdown-component class="form-value" result-placeholder="<:# this.ResultPlaceholder :>" <:# this.IsReadonly ? "is-readonly" : "" :> <:# this.IsOptional ? "is-optional" : "" :> option-values="<:% this.OptionValues :>" option-names="<:% this.OptionNames :>"></dropdown-component>
                         <: if ( !this.IsReadonly ) { :>
-                            <div class="is-button is-drag-button data-value-index="<:# value_index + 1 :>">
+                            <div class="form-button form-drag-button data-value-index="<:# value_index + 1 :>">
                             </div>
-                            <div class="is-button is-add-button" data-value-index="<:# value_index + 1 :>">
+                            <div class="form-button form-add-button" data-value-index="<:# value_index + 1 :>">
                             </div>
-                            <div class="is-button is-remove-button" data-value-index="<:# value_index :>">
+                            <div class="form-button form-remove-button" data-value-index="<:# value_index :>">
                             </div>
                         <: } :>
                     </div>
                 <: } :>
                 <: if ( !this.IsReadonly ) { :>
-                    <div class="is-button is-add-button" data-value-index="<:# this.ValueArray.length :>">
+                    <div class="form-button form-add-button" data-value-index="<:# this.ValueArray.length :>">
                     </div>
                 <: } :>
             </div>
@@ -1376,11 +1376,11 @@ class VISTA_MULTILINGUAL_COMPONENT extends VISTA_COMPONENT
             translation_index,
             translation_remove_button_element;
 
-        this.ResultElement = this.GetElement( ".is-result" );
-        this.TranslationInputElementArray = this.GetElements( ".is-translation-data" );
-        this.TranslationSpecifierElementArray = this.GetElements( ".is-translation-specifier" );
-        this.TranslationAddButtonElementArray = this.GetElements( ".is-translation-add-button" );
-        this.TranslationRemoveButtonElementArray = this.GetElements( ".is-translation-remove-button" );
+        this.ResultElement = this.GetElement( ".form-result" );
+        this.TranslationInputElementArray = this.GetElements( ".form-translation-data" );
+        this.TranslationSpecifierElementArray = this.GetElements( ".form-translation-specifier" );
+        this.TranslationAddButtonElementArray = this.GetElements( ".form-translation-add-button" );
+        this.TranslationRemoveButtonElementArray = this.GetElements( ".form-translation-remove-button" );
         this.SetValue( this.ResultValue );
 
         for ( translation_index = 0;
@@ -1423,18 +1423,18 @@ class VISTA_MULTILINGUAL_INPUT_COMPONENT extends VISTA_MULTILINGUAL_COMPONENT
 
         this.SetTemplate(
             Text`
-            <div class="is-component is-container is-translation-container <:# this.IsReadonly ? "is-readonly" : "" :>">
-                <input id="<:# this.ResultId :>" class="is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden/>
+            <div class="form-component form-container form-translation-container <:# this.IsReadonly ? "is-readonly" : "" :>">
+                <input id="<:# this.ResultId :>" class="form-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden/>
                 <: for ( let translation_index = 0; translation_index < this.TranslationArray.length; ++translation_index ) { :>
-                    <div class="is-translation <:# this.IsReadonly ? "is-readonly" : "" :>">
-                        <input-component class="is-translation-data" result-value="<:% this.TranslationArray[ translation_index ].Data :>" <:# this.IsReadonly ? "is-readonly" : "" :>></input-component>
-                        <input class="is-input is-translation-specifier" placeholder="<:# translation_index === 0 ? this.LanguageTagArray[ 0 ] : "" :>" value="<:% this.TranslationArray[ translation_index ].Specifier :>" <:# ( this.IsReadonly || translation_index === 0 )  ? "readonly" : "" :>/>
-                        <div class="is-translation-button-container">
+                    <div class="form-translation <:# this.IsReadonly ? "is-readonly" : "" :>">
+                        <input-component class="form-translation-data" result-value="<:% this.TranslationArray[ translation_index ].Data :>" <:# this.IsReadonly ? "is-readonly" : "" :>></input-component>
+                        <input class="form-input form-translation-specifier" placeholder="<:# translation_index === 0 ? this.LanguageTagArray[ 0 ] : "" :>" value="<:% this.TranslationArray[ translation_index ].Specifier :>" <:# ( this.IsReadonly || translation_index === 0 )  ? "readonly" : "" :>/>
+                        <div class="form-translation-button-container">
                             <: if ( !this.IsReadonly ) { :>
-                                <div class="is-button is-translation-add-button" data-translation-index="<:# translation_index + 1 :>">
+                                <div class="form-button form-translation-add-button" data-translation-index="<:# translation_index + 1 :>">
                                 </div>
                                 <: if ( translation_index > 0 ) { :>
-                                    <div class="is-button is-translation-remove-button" data-translation-index="<:# translation_index :>">
+                                    <div class="form-button form-translation-remove-button" data-translation-index="<:# translation_index :>">
                                     </div>
                                 <: } :>
                             <: } :>
@@ -1460,18 +1460,18 @@ class VISTA_MULTILINGUAL_TEXT_INPUT_COMPONENT extends VISTA_MULTILINGUAL_COMPONE
 
         this.SetTemplate(
             Text`
-            <div class="is-component is-container is-translation-container <:# this.IsReadonly ? "is-readonly" : "" :>">
-                <textarea id="<:# this.ResultId :>" class="is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden></textarea>
+            <div class="form-component form-container form-translation-container <:# this.IsReadonly ? "is-readonly" : "" :>">
+                <textarea id="<:# this.ResultId :>" class="form-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden></textarea>
                 <: for ( let translation_index = 0; translation_index < this.TranslationArray.length; ++translation_index ) { :>
-                    <div class="is-translation <:# this.IsReadonly ? "is-readonly" : "" :>">
-                        <text-input-component class="is-translation-data" result-value="<:% this.TranslationArray[ translation_index ].Data :>" <:# this.IsReadonly ? "is-readonly" : "" :>></text-input-component>
-                        <input class="is-input is-translation-specifier" placeholder="<:# translation_index === 0 ? this.LanguageTagArray[ 0 ] : "" :>" value="<:% this.TranslationArray[ translation_index ].Specifier :>" <:# ( this.IsReadonly || translation_index === 0 ) ? "readonly" : "" :>/>
+                    <div class="form-translation <:# this.IsReadonly ? "is-readonly" : "" :>">
+                        <text-input-component class="form-translation-data" result-value="<:% this.TranslationArray[ translation_index ].Data :>" <:# this.IsReadonly ? "is-readonly" : "" :>></text-input-component>
+                        <input class="form-input form-translation-specifier" placeholder="<:# translation_index === 0 ? this.LanguageTagArray[ 0 ] : "" :>" value="<:% this.TranslationArray[ translation_index ].Specifier :>" <:# ( this.IsReadonly || translation_index === 0 ) ? "readonly" : "" :>/>
                         <div>
                             <: if ( !this.IsReadonly ) { :>
-                                <div class="is-button is-translation-add-button" data-translation-index="<:# translation_index + 1 :>">
+                                <div class="form-button form-translation-add-button" data-translation-index="<:# translation_index + 1 :>">
                                 </div>
                                 <: if ( translation_index > 0 ) { :>
-                                    <div class="is-button is-translation-remove-button" data-translation-index="<:# translation_index :>">
+                                    <div class="form-button form-translation-remove-button" data-translation-index="<:# translation_index :>">
                                     </div>
                                 <: } :>
                             <: } :>
@@ -1501,18 +1501,18 @@ class VISTA_MULTILINGUAL_IMAGE_PATH_INPUT_COMPONENT extends VISTA_MULTILINGUAL_C
 
         this.SetTemplate(
             Text`
-            <div class="is-component is-container is-translation-container <:# this.IsReadonly ? "is-readonly" : "" :>">
-                <input id="<:# this.ResultId :>" class="is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden/>
+            <div class="form-component form-container form-translation-container <:# this.IsReadonly ? "is-readonly" : "" :>">
+                <input id="<:# this.ResultId :>" class="form-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden/>
                 <: for ( let translation_index = 0; translation_index < this.TranslationArray.length; ++translation_index ) { :>
-                    <div class="is-translation <:# this.IsReadonly ? "is-readonly" : "" :>">
-                        <image-path-input-component class="is-path is-input is-translation-data" result-value="<:% this.TranslationArray[ translation_index ].Data :>" <:# this.IsReadonly ? "is-readonly" : "" :> error-image-path="<:% this.ErrorImagePath :>" upload-api-url="<:% this.UploadApiUrl :>" delete-api-url="<:% this.DeleteApiUrl :>" ></image-path-input-component>
-                        <input class="is-input is-translation-specifier" placeholder="<:# translation_index === 0 ? this.LanguageTagArray[ 0 ] : "" :>" value="<:% this.TranslationArray[ translation_index ].Specifier :>" <:# ( this.IsReadonly || translation_index === 0 )  ? "readonly" : "" :>/>
-                        <div class="is-translation-button-container">
+                    <div class="form-translation <:# this.IsReadonly ? "is-readonly" : "" :>">
+                        <image-path-input-component class="form-path form-input form-translation-data" result-value="<:% this.TranslationArray[ translation_index ].Data :>" <:# this.IsReadonly ? "is-readonly" : "" :> error-image-path="<:% this.ErrorImagePath :>" upload-api-url="<:% this.UploadApiUrl :>" delete-api-url="<:% this.DeleteApiUrl :>" ></image-path-input-component>
+                        <input class="form-input form-translation-specifier" placeholder="<:# translation_index === 0 ? this.LanguageTagArray[ 0 ] : "" :>" value="<:% this.TranslationArray[ translation_index ].Specifier :>" <:# ( this.IsReadonly || translation_index === 0 )  ? "readonly" : "" :>/>
+                        <div class="form-translation-button-container">
                             <: if ( !this.IsReadonly ) { :>
-                                <div class="is-button is-translation-add-button" data-translation-index="<:# translation_index + 1 :>">
+                                <div class="form-button form-translation-add-button" data-translation-index="<:# translation_index + 1 :>">
                                 </div>
                                 <: if ( translation_index > 0 ) { :>
-                                    <div class="is-button is-translation-remove-button" data-translation-index="<:# translation_index :>">
+                                    <div class="form-button form-translation-remove-button" data-translation-index="<:# translation_index :>">
                                     </div>
                                 <: } :>
                             <: } :>
@@ -1542,18 +1542,18 @@ class VISTA_MULTILINGUAL_VIDEO_PATH_INPUT_COMPONENT extends VISTA_MULTILINGUAL_C
 
         this.SetTemplate(
             Text`
-            <div class="is-component is-container is-translation-container <:# this.IsReadonly ? "is-readonly" : "" :>">
-                <input id="<:# this.ResultId :>" class="is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden/>
+            <div class="form-component form-container form-translation-container <:# this.IsReadonly ? "is-readonly" : "" :>">
+                <input id="<:# this.ResultId :>" class="form-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden/>
                 <: for ( let translation_index = 0; translation_index < this.TranslationArray.length; ++translation_index ) { :>
-                    <div class="is-translation <:# this.IsReadonly ? "is-readonly" : "" :>">
-                        <video-path-input-component class="is-path is-input is-translation-data" result-value="<:% this.TranslationArray[ translation_index ].Data :>" <:# this.IsReadonly ? "is-readonly" : "" :> error-video-path="<:% this.ErrorVideoPath :>" upload-api-url="<:% this.UploadApiUrl :>" delete-api-url="<:% this.DeleteApiUrl :>" ></video-path-input-component>
-                        <input class="is-input is-translation-specifier" placeholder="<:# translation_index === 0 ? this.LanguageTagArray[ 0 ] : "" :>" value="<:% this.TranslationArray[ translation_index ].Specifier :>" <:# ( this.IsReadonly || translation_index === 0 )  ? "readonly" : "" :>/>
-                        <div class="is-translation-button-container">
+                    <div class="form-translation <:# this.IsReadonly ? "is-readonly" : "" :>">
+                        <video-path-input-component class="form-path form-input form-translation-data" result-value="<:% this.TranslationArray[ translation_index ].Data :>" <:# this.IsReadonly ? "is-readonly" : "" :> error-video-path="<:% this.ErrorVideoPath :>" upload-api-url="<:% this.UploadApiUrl :>" delete-api-url="<:% this.DeleteApiUrl :>" ></video-path-input-component>
+                        <input class="form-input form-translation-specifier" placeholder="<:# translation_index === 0 ? this.LanguageTagArray[ 0 ] : "" :>" value="<:% this.TranslationArray[ translation_index ].Specifier :>" <:# ( this.IsReadonly || translation_index === 0 )  ? "readonly" : "" :>/>
+                        <div class="form-translation-button-container">
                             <: if ( !this.IsReadonly ) { :>
-                                <div class="is-button is-translation-add-button" data-translation-index="<:# translation_index + 1 :>">
+                                <div class="form-button form-translation-add-button" data-translation-index="<:# translation_index + 1 :>">
                                 </div>
                                 <: if ( translation_index > 0 ) { :>
-                                    <div class="is-button is-translation-remove-button" data-translation-index="<:# translation_index :>">
+                                    <div class="form-button form-translation-remove-button" data-translation-index="<:# translation_index :>">
                                     </div>
                                 <: } :>
                             <: } :>
@@ -1584,18 +1584,18 @@ class VISTA_MULTILINGUAL_DOCUMENT_PATH_INPUT_COMPONENT extends VISTA_MULTILINGUA
 
         this.SetTemplate(
             Text`
-            <div class="is-component is-container is-translation-container <:# this.IsReadonly ? "is-readonly" : "" :>">
-                <input id="<:# this.ResultId :>" class="is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden/>
+            <div class="form-component form-container form-translation-container <:# this.IsReadonly ? "is-readonly" : "" :>">
+                <input id="<:# this.ResultId :>" class="form-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden/>
                 <: for ( let translation_index = 0; translation_index < this.TranslationArray.length; ++translation_index ) { :>
-                    <div class="is-translation <:# this.IsReadonly ? "is-readonly" : "" :>">
-                        <document-path-input-component class="is-path is-input is-translation-data" result-value="<:% this.TranslationArray[ translation_index ].Data :>" <:# this.IsReadonly ? "is-readonly" : "" :> document-image-path="<:% this.DocumentImagePath :>" error-image-path="<:% this.ErrorImagePath :>" upload-api-url="<:% this.UploadApiUrl :>" delete-api-url="<:% this.DeleteApiUrl :>" ></document-path-input-component>
-                        <input class="is-input is-translation-specifier" placeholder="<:# translation_index === 0 ? this.LanguageTagArray[ 0 ] : "" :>" value="<:% this.TranslationArray[ translation_index ].Specifier :>" <:# ( this.IsReadonly || translation_index === 0 )  ? "readonly" : "" :>/>
-                        <div class="is-translation-button-container">
+                    <div class="form-translation <:# this.IsReadonly ? "is-readonly" : "" :>">
+                        <document-path-input-component class="form-path form-input form-translation-data" result-value="<:% this.TranslationArray[ translation_index ].Data :>" <:# this.IsReadonly ? "is-readonly" : "" :> document-image-path="<:% this.DocumentImagePath :>" error-image-path="<:% this.ErrorImagePath :>" upload-api-url="<:% this.UploadApiUrl :>" delete-api-url="<:% this.DeleteApiUrl :>" ></document-path-input-component>
+                        <input class="form-input form-translation-specifier" placeholder="<:# translation_index === 0 ? this.LanguageTagArray[ 0 ] : "" :>" value="<:% this.TranslationArray[ translation_index ].Specifier :>" <:# ( this.IsReadonly || translation_index === 0 )  ? "readonly" : "" :>/>
+                        <div class="form-translation-button-container">
                             <: if ( !this.IsReadonly ) { :>
-                                <div class="is-button is-translation-add-button" data-translation-index="<:# translation_index + 1 :>">
+                                <div class="form-button form-translation-add-button" data-translation-index="<:# translation_index + 1 :>">
                                 </div>
                                 <: if ( translation_index > 0 ) { :>
-                                    <div class="is-button is-translation-remove-button" data-translation-index="<:# translation_index :>">
+                                    <div class="form-button form-translation-remove-button" data-translation-index="<:# translation_index :>">
                                     </div>
                                 <: } :>
                             <: } :>
@@ -1623,23 +1623,23 @@ class VISTA_MULTILINGUAL_INPUT_LIST_COMPONENT extends VISTA_LIST_COMPONENT
 
         this.SetTemplate(
             Text`
-            <div class="is-component is-list-container <:# this.IsReadonly ? "is-readonly" : "" :>">
-                <input id="<:# this.ResultId :>" class="is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden/>
+            <div class="form-component form-list-container <:# this.IsReadonly ? "is-readonly" : "" :>">
+                <input id="<:# this.ResultId :>" class="form-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden/>
                 <: for ( var value_index = 0; value_index < this.ValueArray.length; ++value_index ) { :>
-                    <div class="is-value-container" data-value-index="<:# value_index :>">
-                        <multilingual-input-component class="is-value" <:# this.IsReadonly ? "is-readonly" : "" :> language-tags="<:% this.LanguageTags :>"></multilingual-input-component>
+                    <div class="form-value-container" data-value-index="<:# value_index :>">
+                        <multilingual-input-component class="form-value" <:# this.IsReadonly ? "is-readonly" : "" :> language-tags="<:% this.LanguageTags :>"></multilingual-input-component>
                         <: if ( !this.IsReadonly ) { :>
-                            <div class="is-button is-drag-button data-value-index="<:# value_index + 1 :>">
+                            <div class="form-button form-drag-button data-value-index="<:# value_index + 1 :>">
                             </div>
-                            <div class="is-button is-add-button" data-value-index="<:# value_index + 1 :>">
+                            <div class="form-button form-add-button" data-value-index="<:# value_index + 1 :>">
                             </div>
-                            <div class="is-button is-remove-button" data-value-index="<:# value_index :>">
+                            <div class="form-button form-remove-button" data-value-index="<:# value_index :>">
                             </div>
                         <: } :>
                     </div>
                 <: } :>
                 <: if ( !this.IsReadonly ) { :>
-                    <div class="is-button is-add-button" data-value-index="<:# this.ValueArray.length :>">
+                    <div class="form-button form-add-button" data-value-index="<:# this.ValueArray.length :>">
                     </div>
                 <: } :>
             </div>
@@ -1663,23 +1663,23 @@ class VISTA_MULTILINGUAL_TEXT_INPUT_LIST_COMPONENT extends VISTA_LIST_COMPONENT
 
         this.SetTemplate(
             Text`
-            <div class="is-component is-list-container <:# this.IsReadonly ? "is-readonly" : "" :>">
-                <textarea id="<:# this.ResultId :>" class="is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden></textarea>
+            <div class="form-component form-list-container <:# this.IsReadonly ? "is-readonly" : "" :>">
+                <textarea id="<:# this.ResultId :>" class="form-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden></textarea>
                 <: for ( var value_index = 0; value_index < this.ValueArray.length; ++value_index ) { :>
-                    <div class="is-value-container" data-value-index="<:# value_index :>">
-                        <multilingual-text-input-component class="is-value" <:# this.IsReadonly ? "is-readonly" : "" :> language-tags="<:% this.LanguageTags :>"></multilingual-text-input-component>
+                    <div class="form-value-container" data-value-index="<:# value_index :>">
+                        <multilingual-text-input-component class="form-value" <:# this.IsReadonly ? "is-readonly" : "" :> language-tags="<:% this.LanguageTags :>"></multilingual-text-input-component>
                         <: if ( !this.IsReadonly ) { :>
-                            <div class="is-button is-drag-button data-value-index="<:# value_index + 1 :>">
+                            <div class="form-button form-drag-button data-value-index="<:# value_index + 1 :>">
                             </div>
-                            <div class="is-button is-add-button" data-value-index="<:# value_index + 1 :>">
+                            <div class="form-button form-add-button" data-value-index="<:# value_index + 1 :>">
                             </div>
-                            <div class="is-button is-remove-button" data-value-index="<:# value_index :>">
+                            <div class="form-button form-remove-button" data-value-index="<:# value_index :>">
                             </div>
                         <: } :>
                     </div>
                 <: } :>
                 <: if ( !this.IsReadonly ) { :>
-                    <div class="is-button is-add-button" data-value-index="<:# this.ValueArray.length :>">
+                    <div class="form-button form-add-button" data-value-index="<:# this.ValueArray.length :>">
                     </div>
                 <: } :>
             </div>
@@ -1706,23 +1706,23 @@ class VISTA_MULTILINGUAL_IMAGE_PATH_INPUT_LIST_COMPONENT extends VISTA_LIST_COMP
 
         this.SetTemplate(
             Text`
-            <div class="is-component is-list-container <:# this.IsReadonly ? "is-readonly" : "" :>">
-                <input id="<:# this.ResultId :>" class="is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden/>
+            <div class="form-component form-list-container <:# this.IsReadonly ? "is-readonly" : "" :>">
+                <input id="<:# this.ResultId :>" class="form-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden/>
                 <: for ( var value_index = 0; value_index < this.ValueArray.length; ++value_index ) { :>
-                    <div class="is-value-container" data-value-index="<:# value_index :>">
-                        <multilingual-image-path-input-component class="is-value" <:# this.IsReadonly ? "is-readonly" : "" :> error-image-path="<:% this.ErrorImagePath :>" upload-api-url="<:% this.UploadApiUrl :>" delete-api-url="<:% this.DeleteApiUrl :>" language-tags="<:% this.LanguageTags :>"></multilingual-image-path-input-component>
+                    <div class="form-value-container" data-value-index="<:# value_index :>">
+                        <multilingual-image-path-input-component class="form-value" <:# this.IsReadonly ? "is-readonly" : "" :> error-image-path="<:% this.ErrorImagePath :>" upload-api-url="<:% this.UploadApiUrl :>" delete-api-url="<:% this.DeleteApiUrl :>" language-tags="<:% this.LanguageTags :>"></multilingual-image-path-input-component>
                         <: if ( !this.IsReadonly ) { :>
-                            <div class="is-button is-drag-button data-value-index="<:# value_index + 1 :>">
+                            <div class="form-button form-drag-button data-value-index="<:# value_index + 1 :>">
                             </div>
-                            <div class="is-button is-add-button" data-value-index="<:# value_index + 1 :>">
+                            <div class="form-button form-add-button" data-value-index="<:# value_index + 1 :>">
                             </div>
-                            <div class="is-button is-remove-button" data-value-index="<:# value_index :>">
+                            <div class="form-button form-remove-button" data-value-index="<:# value_index :>">
                             </div>
                         <: } :>
                     </div>
                 <: } :>
                 <: if ( !this.IsReadonly ) { :>
-                    <div class="is-button is-add-button" data-value-index="<:# this.ValueArray.length :>">
+                    <div class="form-button form-add-button" data-value-index="<:# this.ValueArray.length :>">
                     </div>
                 <: } :>
             </div>
@@ -1749,23 +1749,23 @@ class VISTA_MULTILINGUAL_VIDEO_PATH_INPUT_LIST_COMPONENT extends VISTA_LIST_COMP
 
         this.SetTemplate(
             Text`
-            <div class="is-component is-list-container <:# this.IsReadonly ? "is-readonly" : "" :>">
-                <input id="<:# this.ResultId :>" class="is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden/>
+            <div class="form-component form-list-container <:# this.IsReadonly ? "is-readonly" : "" :>">
+                <input id="<:# this.ResultId :>" class="form-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden/>
                 <: for ( var value_index = 0; value_index < this.ValueArray.length; ++value_index ) { :>
-                    <div class="is-value-container" data-value-index="<:# value_index :>">
-                        <multilingual-video-path-input-component class="is-value" <:# this.IsReadonly ? "is-readonly" : "" :> error-video-path="<:% this.ErrorVideoPath :>" upload-api-url="<:% this.UploadApiUrl :>" delete-api-url="<:% this.DeleteApiUrl :>" language-tags="<:% this.LanguageTags :>"></multilingual-video-path-input-component>
+                    <div class="form-value-container" data-value-index="<:# value_index :>">
+                        <multilingual-video-path-input-component class="form-value" <:# this.IsReadonly ? "is-readonly" : "" :> error-video-path="<:% this.ErrorVideoPath :>" upload-api-url="<:% this.UploadApiUrl :>" delete-api-url="<:% this.DeleteApiUrl :>" language-tags="<:% this.LanguageTags :>"></multilingual-video-path-input-component>
                         <: if ( !this.IsReadonly ) { :>
-                            <div class="is-button is-drag-button data-value-index="<:# value_index + 1 :>">
+                            <div class="form-button form-drag-button data-value-index="<:# value_index + 1 :>">
                             </div>
-                            <div class="is-button is-add-button" data-value-index="<:# value_index + 1 :>">
+                            <div class="form-button form-add-button" data-value-index="<:# value_index + 1 :>">
                             </div>
-                            <div class="is-button is-remove-button" data-value-index="<:# value_index :>">
+                            <div class="form-button form-remove-button" data-value-index="<:# value_index :>">
                             </div>
                         <: } :>
                     </div>
                 <: } :>
                 <: if ( !this.IsReadonly ) { :>
-                    <div class="is-button is-add-button" data-value-index="<:# this.ValueArray.length :>">
+                    <div class="form-button form-add-button" data-value-index="<:# this.ValueArray.length :>">
                     </div>
                 <: } :>
             </div>
@@ -1793,23 +1793,23 @@ class VISTA_MULTILINGUAL_DOCUMENT_PATH_INPUT_LIST_COMPONENT extends VISTA_LIST_C
 
         this.SetTemplate(
             Text`
-            <div class="is-component is-list-container <:# this.IsReadonly ? "is-readonly" : "" :>">
-                <input id="<:# this.ResultId :>" class="is-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden/>
+            <div class="form-component form-list-container <:# this.IsReadonly ? "is-readonly" : "" :>">
+                <input id="<:# this.ResultId :>" class="form-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden/>
                 <: for ( var value_index = 0; value_index < this.ValueArray.length; ++value_index ) { :>
-                    <div class="is-value-container" data-value-index="<:# value_index :>">
-                        <multilingual-document-path-input-component class="is-value" <:# this.IsReadonly ? "is-readonly" : "" :> document-image-path="<:% this.DocumentImagePath :>" error-image-path="<:% this.ErrorImagePath :>" upload-api-url="<:% this.UploadApiUrl :>" delete-api-url="<:% this.DeleteApiUrl :>" language-tags="<:% this.LanguageTags :>"></multilingual-document-path-input-component>
+                    <div class="form-value-container" data-value-index="<:# value_index :>">
+                        <multilingual-document-path-input-component class="form-value" <:# this.IsReadonly ? "is-readonly" : "" :> document-image-path="<:% this.DocumentImagePath :>" error-image-path="<:% this.ErrorImagePath :>" upload-api-url="<:% this.UploadApiUrl :>" delete-api-url="<:% this.DeleteApiUrl :>" language-tags="<:% this.LanguageTags :>"></multilingual-document-path-input-component>
                         <: if ( !this.IsReadonly ) { :>
-                            <div class="is-button is-drag-button data-value-index="<:# value_index + 1 :>">
+                            <div class="form-button form-drag-button data-value-index="<:# value_index + 1 :>">
                             </div>
-                            <div class="is-button is-add-button" data-value-index="<:# value_index + 1 :>">
+                            <div class="form-button form-add-button" data-value-index="<:# value_index + 1 :>">
                             </div>
-                            <div class="is-button is-remove-button" data-value-index="<:# value_index :>">
+                            <div class="form-button form-remove-button" data-value-index="<:# value_index :>">
                             </div>
                         <: } :>
                     </div>
                 <: } :>
                 <: if ( !this.IsReadonly ) { :>
-                    <div class="is-button is-add-button" data-value-index="<:# this.ValueArray.length :>">
+                    <div class="form-button form-add-button" data-value-index="<:# this.ValueArray.length :>">
                     </div>
                 <: } :>
             </div>
