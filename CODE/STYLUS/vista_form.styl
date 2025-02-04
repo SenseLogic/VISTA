@@ -1,4 +1,4 @@
-@keyframes is-uploaded-animation
+@keyframes upload-animation
 {
     0%
     {
@@ -10,7 +10,7 @@
     }
 }
 
-.is-uploaded-image
+.has-upload-animation
 {
     height: 100%;
     width: 100%;
@@ -20,16 +20,16 @@
     background-position: 0 calc( 100% + 15px );
     padding-left: 0.25rem;
     padding-right: 0.25rem;
-    animation: is-uploaded-animation 8s infinite linear;
+    animation: upload-animation 8s infinite linear;
 }
 
-.form-component .form-translation + .form-translation,
+.form-translation + .form-translation,
 {
     margin-top: 0.25rem;
 }
 
-.form-component .form-input,
-.form-component .form-select
+.form-input,
+.form-select
 {
     min-height: 2rem;
     width: 100%;
@@ -42,7 +42,7 @@
     background-color: WhiteColor;
 }
 
-.form-component .form-textarea
+.form-textarea
 {
     overflow: hidden;
     height: 2.25rem;
@@ -55,13 +55,13 @@
     display: block;
 }
 
-.form-component .form-input:not([hidden]) + .form-input:not([hidden]),
-.form-component .form-textarea:not([hidden]) + .form-textarea:not([hidden])
+.form-input:not([hidden]) + .form-input:not([hidden]),
+.form-textarea:not([hidden]) + .form-textarea:not([hidden])
 {
     margin-top: 0.5rem;
 }
 
-.form-component .form-translation
+.form-translation
 {
     display: grid;
     grid-template-columns: 1fr 5rem 3rem;
@@ -69,33 +69,33 @@
     column-gap: 0.5rem;
 }
 
-.form-component .form-translation.is-readonly
+.form-translation.is-readonly
 {
     grid-template-columns: 1fr 5rem;
 }
 
-.form-component .form-path.form-translation-data
+.form-path.form-translation-data
 {
     border: none !important;
     padding: 0 !important;
 }
 
-.form-component .form-translation-specifier
+.form-translation-specifier
 {
     margin-top: 0 !important;
 }
 
-.form-component .form-translation-add-button
+.form-translation-add-button
 {
     background: url( "/static/image/admin/add_icon.svg" ) no-repeat center center / contain;
 }
 
-.form-component .form-translation-remove-button
+.form-translation-remove-button
 {
     background: url( "/static/image/admin/remove_icon.svg" ) no-repeat center center / contain;
 }
 
-.form-component .form-upload-container
+.form-upload-container
 {
     display: grid;
     grid-template-rows: auto auto;
@@ -103,26 +103,25 @@
     grid-template-areas : \
         "input input input input" \
         "preview upload-button delete-button .";
-    row-gap: 0.5rem;
+    gap: 0.5rem;
     align-items: center;
-    column-gap: 0.5rem;
 }
 
-.form-component .form-upload-container.is-readonly
+.form-upload-container.is-readonly
 {
     column-gap: 0;
 }
 
-.form-component .form-upload-input
+.form-upload-input
 {
     grid-area: input;
 }
 
-.form-component .form-upload-image,
-.form-component .form-upload-video
+.form-upload-image,
+.form-upload-video
 {
     height: 12.5rem;
-    //width: 100%;
+    width: 100%;
     max-width: 50vw;
     border-radius: 0.25rem;
 
@@ -130,72 +129,71 @@
     object-fit: cover;
 }
 
-.form-component .form-upload-button
+.form-upload-button
 {
     grid-area: upload-button;
 
     background: url( "/static/image/admin/upload_icon.svg" ) no-repeat center center / contain;
 }
 
-.form-component .form-upload-file
+.form-upload-file
 {
     overflow: hidden;
     height: 0;
     width: 0;
 }
 
-.form-component .form-delete-button
+.form-delete-button
 {
     grid-area: delete-button;
 
     background: url( "/static/image/admin/delete_icon.svg" ) no-repeat center center / contain;
 }
 
-.form-component .form-upload-button + .form-delete-button
+.form-upload-button + .form-delete-button
 {
     margin-left: 0;
 }
 
-.form-component .form-multilingual-container
+.form-multilingual-container
 {
     display: flex;
     flex-direction: column;
 }
 
-.form-component .form-list-container
+.form-list-container
 {
     display: flex;
     flex-direction: column;
-    row-gap: 0.5rem;
-    column-gap: 0.5rem;
+    gap: 0.5rem;
 }
 
-.form-component .form-list-container.is-readonly
+.form-list-container.is-readonly
 {
     column-gap: 0;
 }
 
-.form-component .form-value-container
+.form-value-container
 {
     display: grid;
     grid-template-rows: auto;
     grid-template-columns: 1fr auto auto auto;
     grid-template-areas: \
-        "list-value drag-button add-button remove-button";
+        "value drag-button add-button remove-button";
     column-gap: 0.5rem;
 }
 
-.form-component .form-list-container.is-readonly .form-value-container
+.form-list-container.is-readonly .form-value-container
 {
     column-gap: 0;
 }
 
-.form-component .form-value
+.form-value
 {
-    grid-area: list-value;
+    grid-area: value;
 }
 
-.form-component .form-button
+.form-button
 {
     height: 1.2rem;
     width: 1.2rem;
@@ -206,33 +204,211 @@
     cursor: pointer;
 }
 
-.form-component .form-button + .form-button
+.form-button + .form-button
 {
     margin-left: 0.25rem;
 }
 
-.form-component .form-drag-button
+.form-drag-button
 {
     grid-area: drag-button;
 
     background: url( "/static/image/admin/drag_icon.svg" ) no-repeat center center / contain;
 }
 
-.form-component .form-add-button
+.form-add-button
 {
     grid-area: add-button;
 
     background: url( "/static/image/admin/add_icon.svg" ) no-repeat center center / contain;
 }
 
-.form-component .form-remove-button
+.form-remove-button
 {
     grid-area: remove-button;
 
     background: url( "/static/image/admin/remove_icon.svg" ) no-repeat center center / contain;
 }
 
-.form-component .form-add-button + .form-remove-button
+.form-add-button + .form-remove-button
 {
     margin-left: 0;
+}
+
+.form-container
+{
+    width: 100%;
+
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-gap: 1rem;
+    justify-content: center;
+    align-items: start;
+}
+
+.form-container-small
+{
+    max-width: 30rem;
+}
+
+.form-limited
+{
+    max-width: calc( 100lvw - 2rem );
+}
+
+.form-extended
+{
+    grid-column: 1 / -1;
+}
+
+.form-translation-list
+{
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 0.25rem 0.5rem;
+}
+
+.form-translation-data
+{
+}
+
+.form-field-error,
+.form-field-error + div input:not([readonly]),
+.form-field-error + div textarea:not([readonly]),
+.form-field-error + div select:not([readonly])
+{
+    outline: solid red 1px;
+}
+
+.form-field-name
+{
+    padding-top: 0.25rem;
+
+    font-weight: 700;
+}
+
+.form-field-value
+{
+}
+
+.form-column-name
+{
+    font-weight: 700;
+}
+
+.form-centered
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-text-button
+{
+    border-radius: 0.25rem;
+    padding: 0.5rem 1rem;
+
+    background-color: RedColor;
+
+    color: WhiteColor;
+}
+
+.form-button-large
+{
+    height: 2rem;
+    width: 2rem;
+}
+
+.form-button-tooltip
+{
+    display: none;
+}
+
+.form-button:hover + .form-button-tooltip
+{
+    margin-left: 0.5rem;
+    border-top-right-radius: 0.25rem;
+    border-bottom-right-radius: 0.25rem;
+    padding: 0.25rem 0.75rem 0.25rem 0.5rem;
+
+    display: inline-block;
+
+    color: WhiteColor;
+}
+
+.form-upload-input
+{
+    grid-area: input;
+}
+
+.form-upload-button
+{
+    grid-area: upload-button;
+}
+
+.form-upload-file
+{
+    overflow: hidden;
+    height: 0;
+    width: 0;
+}
+
+.form-delete-button
+{
+    grid-area: delete-button;
+}
+
+.form-upload-button + .form-delete-button
+{
+    margin-left: 0;
+}
+
+.form-list-container
+{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-value
+{
+    grid-area: value;
+}
+
+.form-drag-value-button
+{
+    grid-area: drag-button;
+}
+
+.form-add-value-button
+{
+    grid-area: add-button;
+}
+
+.form-remove-value-button
+{
+    grid-area: remove-button;
+}
+
+.form-add-value-button + .form-remove-value-button
+{
+    margin-left: 0;
+}
+
+.form-title
+{
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.form-toolbar
+{
+    margin-top: 1rem;
+
+    display: flex;
+    justify-content: end;
+    align-items: center;
 }

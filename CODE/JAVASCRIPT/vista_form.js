@@ -70,7 +70,7 @@ class VISTA_INPUT_COMPONENT extends VISTA_COMPONENT
 
         this.SetTemplate(
             Text`
-            <div class="form-component form-container <:# this.IsReadonly ? "is-readonly" : "" :>">
+            <div class="form-component <:# this.IsReadonly ? "is-readonly" : "" :>">
                 <input id="<:# this.ResultId :>" class="form-input form-result" name="<:# this.ResultName :>" value="<:% this.ResultValue :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :>/>
             </div>
             `
@@ -124,7 +124,7 @@ class VISTA_TEXT_INPUT_COMPONENT extends VISTA_INPUT_COMPONENT
 
         this.SetTemplate(
             Text`
-            <div class="form-component form-container <:# this.IsReadonly ? "is-readonly" : "" :>">
+            <div class="form-component <:# this.IsReadonly ? "is-readonly" : "" :>">
                 <textarea id="<:# this.ResultId :>" class="form-textarea form-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :>><:% this.ResultValue :></textarea>
             </div>
             `
@@ -137,6 +137,20 @@ class VISTA_TEXT_INPUT_COMPONENT extends VISTA_INPUT_COMPONENT
 class VISTA_PATH_INPUT_COMPONENT extends VISTA_COMPONENT
 {
     // -- OPERATIONS
+
+    ShowUploadAnimation(
+        )
+    {
+    }
+
+    // ~~
+
+    HideUploadAnimation(
+        )
+    {
+    }
+
+    // ~~
 
     SetValue(
         value
@@ -174,12 +188,14 @@ class VISTA_PATH_INPUT_COMPONENT extends VISTA_COMPONENT
 
         if ( this.FileInputElement.files.length > 0 )
         {
+            this.ShowUploadAnimation();
             form_data = new FormData();
             form_data.append( "File", this.FileInputElement.files[ 0 ] );
             request = await SendRequest( this.UploadApiUrl, "POST", form_data );
 
             if ( request.status === 201 )
             {
+                this.HideUploadAnimation();
                 this.SetValue( GetJsonObject( request.response ) );
                 this.EmitEvent( "value-changed" );
                 this.EmitEvent( "sub-value-changed" );
@@ -230,6 +246,22 @@ class VISTA_IMAGE_PATH_INPUT_COMPONENT extends VISTA_PATH_INPUT_COMPONENT
 {
     // -- OPERATIONS
 
+    ShowUploadAnimation(
+        )
+    {
+        this.ImageElement.AddClass( "has-upload-animation" );
+    }
+
+    // ~~
+
+    HideUploadAnimation(
+        )
+    {
+        this.ImageElement.RemoveClass( "has-upload-animation" );
+    }
+
+    // ~~
+
     UpdateView(
         )
     {
@@ -276,7 +308,7 @@ class VISTA_IMAGE_PATH_INPUT_COMPONENT extends VISTA_PATH_INPUT_COMPONENT
 
         this.SetTemplate(
             Text`
-            <div class="form-component form-container form-upload-container <:# this.IsReadonly ? "is-readonly" : "" :>">
+            <div class="form-component form-upload-container <:# this.IsReadonly ? "is-readonly" : "" :>">
                 <input id="<:# this.ResultId :>" class="form-input form-upload-input form-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :>/>
                 <img class="form-image form-upload-image"/>
                 <: if ( !this.IsReadonly ) { :>
@@ -321,6 +353,22 @@ class VISTA_IMAGE_PATH_INPUT_COMPONENT extends VISTA_PATH_INPUT_COMPONENT
 class VISTA_VIDEO_PATH_INPUT_COMPONENT extends VISTA_PATH_INPUT_COMPONENT
 {
     // -- OPERATIONS
+
+    ShowUploadAnimation(
+        )
+    {
+        this.VideoElement.AddClass( "has-upload-animation" );
+    }
+
+    // ~~
+
+    HideUploadAnimation(
+        )
+    {
+        this.VideoElement.RemoveClass( "has-upload-animation" );
+    }
+
+    // ~~
 
     UpdateView(
         )
@@ -368,7 +416,7 @@ class VISTA_VIDEO_PATH_INPUT_COMPONENT extends VISTA_PATH_INPUT_COMPONENT
 
         this.SetTemplate(
             Text`
-            <div class="form-component form-container form-upload-container <:# this.IsReadonly ? "is-readonly" : "" :>">
+            <div class="form-component form-upload-container <:# this.IsReadonly ? "is-readonly" : "" :>">
                 <input id="<:# this.ResultId :>" class="form-input form-upload-input form-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :>/>
                 <video class="form-video form-upload-video" type="video/mp4"></video>
                 <: if ( !this.IsReadonly ) { :>
@@ -452,7 +500,7 @@ class VISTA_DOCUMENT_PATH_INPUT_COMPONENT extends VISTA_PATH_INPUT_COMPONENT
 
         this.SetTemplate(
             Text`
-            <div class="form-component form-container form-upload-container <:# this.IsReadonly ? "is-readonly" : "" :>">
+            <div class="form-component form-upload-container <:# this.IsReadonly ? "is-readonly" : "" :>">
                 <input id="<:# this.ResultId :>" class="form-input form-upload-input form-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :>/>
                 <img class="form-image form-upload-image"/>
                 <: if ( !this.IsReadonly ) { :>
@@ -567,7 +615,7 @@ class VISTA_DROPDOWN_COMPONENT extends VISTA_COMPONENT
         this.OptionNameArray = GetJsonObject( this.OptionNames );
         this.SetTemplate(
             Text`
-            <div class="form-component form-container form-dropdown-container <:# this.IsReadonly ? "is-readonly" : "" :>">
+            <div class="form-component form-dropdown-container <:# this.IsReadonly ? "is-readonly" : "" :>">
                 <select id="<:# this.ResultId :>" class="form-select form-result" name="<:# this.ResultName :>" <:# this.IsReadonly ? "readonly" : "" :>/>
                     <: if ( this.IsOptional ) { :>
                         <option class="form-option form-dropdown-option" value="<:% this.NullValue :>" <:# ( this.ResultValue === this.NullValue ) ? "selected" : "" :>><:% this.NullName :></option>
@@ -1423,7 +1471,7 @@ class VISTA_MULTILINGUAL_INPUT_COMPONENT extends VISTA_MULTILINGUAL_COMPONENT
 
         this.SetTemplate(
             Text`
-            <div class="form-component form-container form-translation-container <:# this.IsReadonly ? "is-readonly" : "" :>">
+            <div class="form-component form-translation-container <:# this.IsReadonly ? "is-readonly" : "" :>">
                 <input id="<:# this.ResultId :>" class="form-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden/>
                 <: for ( let translation_index = 0; translation_index < this.TranslationArray.length; ++translation_index ) { :>
                     <div class="form-translation <:# this.IsReadonly ? "is-readonly" : "" :>">
@@ -1460,7 +1508,7 @@ class VISTA_MULTILINGUAL_TEXT_INPUT_COMPONENT extends VISTA_MULTILINGUAL_COMPONE
 
         this.SetTemplate(
             Text`
-            <div class="form-component form-container form-translation-container <:# this.IsReadonly ? "is-readonly" : "" :>">
+            <div class="form-component form-translation-container <:# this.IsReadonly ? "is-readonly" : "" :>">
                 <textarea id="<:# this.ResultId :>" class="form-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden></textarea>
                 <: for ( let translation_index = 0; translation_index < this.TranslationArray.length; ++translation_index ) { :>
                     <div class="form-translation <:# this.IsReadonly ? "is-readonly" : "" :>">
@@ -1501,7 +1549,7 @@ class VISTA_MULTILINGUAL_IMAGE_PATH_INPUT_COMPONENT extends VISTA_MULTILINGUAL_C
 
         this.SetTemplate(
             Text`
-            <div class="form-component form-container form-translation-container <:# this.IsReadonly ? "is-readonly" : "" :>">
+            <div class="form-component form-translation-container <:# this.IsReadonly ? "is-readonly" : "" :>">
                 <input id="<:# this.ResultId :>" class="form-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden/>
                 <: for ( let translation_index = 0; translation_index < this.TranslationArray.length; ++translation_index ) { :>
                     <div class="form-translation <:# this.IsReadonly ? "is-readonly" : "" :>">
@@ -1542,7 +1590,7 @@ class VISTA_MULTILINGUAL_VIDEO_PATH_INPUT_COMPONENT extends VISTA_MULTILINGUAL_C
 
         this.SetTemplate(
             Text`
-            <div class="form-component form-container form-translation-container <:# this.IsReadonly ? "is-readonly" : "" :>">
+            <div class="form-component form-translation-container <:# this.IsReadonly ? "is-readonly" : "" :>">
                 <input id="<:# this.ResultId :>" class="form-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden/>
                 <: for ( let translation_index = 0; translation_index < this.TranslationArray.length; ++translation_index ) { :>
                     <div class="form-translation <:# this.IsReadonly ? "is-readonly" : "" :>">
@@ -1584,7 +1632,7 @@ class VISTA_MULTILINGUAL_DOCUMENT_PATH_INPUT_COMPONENT extends VISTA_MULTILINGUA
 
         this.SetTemplate(
             Text`
-            <div class="form-component form-container form-translation-container <:# this.IsReadonly ? "is-readonly" : "" :>">
+            <div class="form-component form-translation-container <:# this.IsReadonly ? "is-readonly" : "" :>">
                 <input id="<:# this.ResultId :>" class="form-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" <:# this.IsReadonly ? "readonly" : "" :> hidden/>
                 <: for ( let translation_index = 0; translation_index < this.TranslationArray.length; ++translation_index ) { :>
                     <div class="form-translation <:# this.IsReadonly ? "is-readonly" : "" :>">
