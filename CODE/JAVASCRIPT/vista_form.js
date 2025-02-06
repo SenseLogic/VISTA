@@ -462,6 +462,22 @@ class VISTA_DOCUMENT_PATH_INPUT_COMPONENT extends VISTA_PATH_INPUT_COMPONENT
 {
     // -- OPERATIONS
 
+    ShowUploadAnimation(
+        )
+    {
+        this.ImageElement.AddClass( "has-upload-animation" );
+    }
+
+    // ~~
+
+    HideUploadAnimation(
+        )
+    {
+        this.ImageElement.RemoveClass( "has-upload-animation" );
+    }
+
+    // ~~
+
     UpdateView(
         )
     {
