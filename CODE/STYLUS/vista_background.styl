@@ -377,3 +377,39 @@ MakeBackgroundColorValue( name, value, media_query_name_array = {}, prefix =, su
             }
         }
     }
+
+// ~~
+
+MakeZoomedBackground( transition_duration = 0.8s, timing_function = ease, scaling_factor = 1.05, prefix =, suffix =, important = )
+
+    .{prefix}zoomed-background{suffix}
+    {
+        position: relative important;
+
+        overflow: hidden important;
+    }
+
+    .{prefix}zoomed-background{suffix}::after
+    {
+        position: absolute important;
+        top: 0 important;
+        bottom: 0 important;
+        left: 0 important;
+        right: 0 important;
+
+        content: "" important;
+        background: inherit important;
+
+        transition: transform transition_duration timing_function important;
+    }
+
+    .{prefix}zoomed-background{suffix}:hover::after
+    {
+        transform: scale( scaling_factor ) important;
+    }
+
+    .{prefix}zoomed-background{suffix} > *
+    {
+        z-index: 1 important;
+        position: relative important;
+    }
