@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Sample</title>
+        <style>
+            *
+            {
+                margin: 0;
+                padding: 0;
+            }
+
+            .test-scrollable-container
+            {
+                overflow-x: hidden;
+
+                display: flex;
+            }
+
+            .test-scrollable-strip
+            {
+                height: 100%;
+
+                display: flex;
+                flex-wrap: nowrap;
+                flex-shrink: 0;
+                gap: 1rem;
+            }
+
+            .test-scrollable-slide
+            {
+                height: 100dvh;
+                width: 40vw;
+
+                display: flex;
+                flex-shrink: 0;
+                justify-content: center;
+                align-items: center;
+
+                background-position: center center;
+                background-size: cover;
+
+                color: white;
+            }
+
+            .test-scrollable-slide-background-1
+            {
+                background-image: url( "../MEDIA/slide_1.jpg" );
+            }
+
+            .test-scrollable-slide-background-2
+            {
+                background-image: url( "../MEDIA/slide_2.jpg" );
+            }
+
+            .test-scrollable-slide-background-3
+            {
+                background-image: url( "../MEDIA/slide_3.jpg" );
+            }
+
+            .test-scrollable-slide-background-4
+            {
+                background-image: url( "../MEDIA/slide_4.jpg" );
+            }
+
+            .test-scrollable-slide-background-5
+            {
+                background-image: url( "../MEDIA/slide_5.jpg" );
+            }
+
+            .test-scrollable-slide-background-6
+            {
+                background-image: url( "../MEDIA/slide_6.jpg" );
+            }
+        </style>
+    </head>
+    <body>
+        <main>
+            <div class="scrollable-container test-scrollable-container">
+                <div class="test-scrollable-strip">
+                    <div class="test-scrollable-slide test-scrollable-slide-background-1">
+                        <h1>SLIDE 1</h1>
+                    </div>
+                    <div class="test-scrollable-slide test-scrollable-slide-background-2">
+                        <h1>SLIDE 2</h1>
+                    </div>
+                    <div class="test-scrollable-slide test-scrollable-slide-background-3">
+                        <h1>SLIDE 3</h1>
+                    </div>
+                    <div class="test-scrollable-slide test-scrollable-slide-background-4">
+                        <h1>SLIDE 4</h1>
+                    </div>
+                    <div class="test-scrollable-slide test-scrollable-slide-background-5">
+                        <h1>SLIDE 5</h1>
+                    </div>
+                    <div class="test-scrollable-slide test-scrollable-slide-background-6">
+                        <h1>SLIDE 6</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="scrollable-container test-scrollable-container">
+                <div class="test-scrollable-strip">
+                    <div class="test-scrollable-slide test-scrollable-slide-background-1">
+                        <h1>SLIDE 1</h1>
+                    </div>
+                    <div class="test-scrollable-slide test-scrollable-slide-background-2">
+                        <h1>SLIDE 2</h1>
+                    </div>
+                    <div class="test-scrollable-slide test-scrollable-slide-background-3">
+                        <h1>SLIDE 3</h1>
+                    </div>
+                    <div class="test-scrollable-slide test-scrollable-slide-background-4">
+                        <h1>SLIDE 4</h1>
+                    </div>
+                    <div class="test-scrollable-slide test-scrollable-slide-background-5">
+                        <h1>SLIDE 5</h1>
+                    </div>
+                    <div class="test-scrollable-slide test-scrollable-slide-background-6">
+                        <h1>SLIDE 6</h1>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <script src="../../CODE/JAVASCRIPT/vista_base.js"></script>
+        <script src="../../CODE/JAVASCRIPT/vista_math.js"></script>
+        <script src="../../CODE/JAVASCRIPT/vista_element.js"></script>
+        <script src="../../CODE/JAVASCRIPT/vista_animation.js"></script>
+        <script src="../../CODE/JAVASCRIPT/vista_scrollable.js"></script>
+        <script>
+            // -- STATEMENTS
+
+            InitializeScrollableContainers();
+        </script>
+    </body>
+</html>
