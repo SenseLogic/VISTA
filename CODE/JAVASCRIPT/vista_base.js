@@ -609,6 +609,103 @@ function GetUnit(
 
 // ~~
 
+function ParseDistance(
+    distance
+    )
+{
+    var
+        parsed_distance;
+
+    parsed_distance =
+        {
+            value: 0,
+            unit: ""
+        };
+
+    if ( typeof distance === "number" )
+    {
+        parsed_distance.value = distance;
+        parsed_distance.unit = "px";
+    }
+    else if ( typeof distance === "string" )
+    {
+        parsed_distance.value = GetReal( distance );
+
+        if ( distance.endsWith( "%" ) )
+        {
+            parsed_distance.unit = distance.slice( -1 );
+        }
+        else if ( distance.endsWith( "px" )
+             || distance.endsWith( "em" )
+             || distance.endsWith( "vw" )
+             || distance.endsWith( "vh" ) )
+        {
+            parsed_distance.unit = distance.slice( -2 );
+        }
+        else if ( distance.endsWith( "rem" ) )
+        {
+            parsed_distance.unit = distance.slice( -3 );
+        }
+        else
+        {
+             if ( !isNaN( parsed_distance.value ) && parsed_distance.unit === "" )
+             {
+                parsed_distance.unit = "px";
+             }
+        }
+    }
+
+    return parsed_distance;
+}
+
+// ~~
+
+function GetUnitPixelCount(
+    unit,
+    element
+    )
+{
+    switch ( unit )
+    {
+        case "px":
+        {
+            return 1;
+        }
+
+        case "rem":
+        {
+            return GetReal( getComputedStyle( document.documentElement ).fontSize ) || 16;
+        }
+
+        case "em":
+        {
+            return GetReal( getComputedStyle( element ).fontSize ) || 16;
+        }
+
+        case "vw":
+        {
+            return window.innerWidth / 100;
+        }
+
+        case "vh":
+        {
+            return window.innerHeight / 100;
+        }
+
+        case "%":
+        {
+            return element.offsetWidth / 100;
+        }
+
+        default:
+        {
+            return 1;
+        }
+    }
+}
+
+// ~~
+
 function GetEscapedHtml(
     text
     )
