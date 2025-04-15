@@ -609,53 +609,38 @@ function GetUnit(
 
 // ~~
 
-function ParseDistance(
-    distance
+function GetDimension(
+    length,
+    default_unit = "px"
     )
 {
     var
-        parsed_distance;
+        match,
+        dimension;
 
-    parsed_distance =
+    dimension =
         {
-            value: 0,
-            unit: ""
+            unit: "",
+            value: 0
         };
 
-    if ( typeof distance === "number" )
+    if ( typeof length === "number" )
     {
-        parsed_distance.value = distance;
-        parsed_distance.unit = "px";
+        dimension.unit = default_unit;
+        dimension.value = length;
     }
-    else if ( typeof distance === "string" )
+    else if ( typeof length === "string" )
     {
-        parsed_distance.value = GetReal( distance );
+        match = length.match(/^([-+]?\d*\.?\d+)([%/a-z]*)$/i);
 
-        if ( distance.endsWith( "%" ) )
+        if ( match )
         {
-            parsed_distance.unit = distance.slice( -1 );
-        }
-        else if ( distance.endsWith( "px" )
-             || distance.endsWith( "em" )
-             || distance.endsWith( "vw" )
-             || distance.endsWith( "vh" ) )
-        {
-            parsed_distance.unit = distance.slice( -2 );
-        }
-        else if ( distance.endsWith( "rem" ) )
-        {
-            parsed_distance.unit = distance.slice( -3 );
-        }
-        else
-        {
-             if ( !isNaN( parsed_distance.value ) && parsed_distance.unit === "" )
-             {
-                parsed_distance.unit = "px";
-             }
+            dimension.unit = match[ 2 ] || default_unit;
+            dimension.value = GetReal( match[ 1 ] );
         }
     }
 
-    return parsed_distance;
+    return dimension;
 }
 
 // ~~
@@ -702,6 +687,16 @@ function GetUnitPixelCount(
             return 1;
         }
     }
+}
+
+// ~~
+
+function GetDimensionPixelCount(
+    dimension,
+    element
+    )
+{
+    return dimension.value * GetUnitPixelCount( dimension.unit, element );
 }
 
 // ~~
