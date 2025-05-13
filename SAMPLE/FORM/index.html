@@ -11,6 +11,7 @@
             <img class="is-uploaded-image" src="../MEDIA/background_2.jpg"/>
             <input-component result-id="input" result-name="name" result-value="input value" result-placeholder="placeholder"></input-component>
             <text-input-component result-id="text-input" result-name="name" result-value="text-input value" result-placeholder="placeholder"></text-input-component>
+            <color-input-component result-id="color-input" result-name="name" result-value="#123456" result-placeholder="placeholder"></color-input-component>
             <image-path-input-component result-id="image-path-input" result-name="name" result-value="../MEDIA/background_1.jpg" result-placeholder="placeholder" error-image-path="../MEDIA/missing_image.svg" upload-api-url="/admin/upload/image" delete-api-url="/admin/delete/file"></image-path-input-component>
             <video-path-input-component result-id="video-path-input" result-name="name" result-value="../MEDIA/bus.mp4" result-placeholder="placeholder" error-video-path="../MEDIA/missing_video.mp4" upload-api-url="/admin/upload/video" delete-api-url="/admin/delete/file"></video-path-input-component>
             <document-path-input-component result-id="document-path-input" result-name="name" result-value="../MEDIA/background_1.jpg" result-placeholder="placeholder" document-image-path="../MEDIA/document_icon.svg" error-image-path="../MEDIA/missing_image.svg" upload-api-url="/admin/upload/image" delete-api-url="/admin/delete/file"></document-path-input-component>
@@ -59,8 +60,9 @@
                 )
             {
                 GetElementById( "result" ).value
-                    = /*"Input component : " + GetElementById( "input" ).value + "\n"
+                    = "Input component : " + GetElementById( "input" ).value + "\n"
                       + "Text input component : " + GetElementById( "text-input" ).value + "\n"
+                      + "Color input component : " + GetElementById( "color-input" ).value + "\n"
                       + "Image path input component : " + GetElementById( "image-path-input" ).value + "\n"
                       + "Video path input component : " + GetElementById( "video-path-input" ).value + "\n"
                       + "Document path input component : " + GetElementById( "document-path-input" ).value + "\n"
@@ -75,14 +77,14 @@
                       + "Dropdown list component : " + GetElementById( "dropdown-list" ).value + "\n"
                       + "Multilingual input component : " + GetElementById( "multilingual-input" ).value + "\n"
                       + "Multilingual text input component : " + GetElementById( "multilingual-text-input" ).value + "\n"
-                      + */"Multilingual image path input component : " + GetElementById( "multilingual-image-path-input" ).value + "\n"
+                      + "Multilingual image path input component : " + GetElementById( "multilingual-image-path-input" ).value + "\n"
                       + "Multilingual video path input component : " + GetElementById( "multilingual-video-path-input" ).value + "\n"
-                      /*+ "Multilingual document path input component : " + GetElementById( "multilingual-document-path-input" ).value + "\n"
+                      + "Multilingual document path input component : " + GetElementById( "multilingual-document-path-input" ).value + "\n"
                       + "Multilingual input list component : " + GetElementById( "multilingual-input-list" ).value + "\n"
                       + "Multilingual text input list component : " + GetElementById( "multilingual-text-input-list" ).value + "\n"
                       + "Multilingual image path input list component : " + GetElementById( "multilingual-image-path-input-list" ).value + "\n"
                       + "Multilingual video path input list component : " + GetElementById( "multilingual-video-path-input-list" ).value + "\n"
-                      + "Multilingual document path input list component : " + GetElementById( "multilingual-document-path-input-list" ).value + "\n"*/;
+                      + "Multilingual document path input list component : " + GetElementById( "multilingual-document-path-input-list" ).value + "\n";
             }
 
             // -- STATEMENTS

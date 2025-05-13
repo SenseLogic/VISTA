@@ -134,6 +134,33 @@ class VISTA_TEXT_INPUT_COMPONENT extends VISTA_INPUT_COMPONENT
 
 // ~~
 
+class VISTA_COLOR_INPUT_COMPONENT extends VISTA_INPUT_COMPONENT
+{
+    // -- OPERATIONS
+
+    InitializeComponent(
+        )
+    {
+        this.BindStyle();
+        this.BindProperty( "ResultId", "result-id", "" );
+        this.BindProperty( "ResultName", "result-name", "" );
+        this.BindProperty( "ResultValue", "result-value", "" );
+        this.BindProperty( "ResultPlaceholder", "result-placeholder", "" );
+        this.BindProperty( "IsReadonly", "is-readonly", false );
+        this.BindMethod( "HandleResultInputEvent" );
+
+        this.SetTemplate(
+            Text`
+            <div class="form-component <:# this.IsReadonly ? "is-readonly" : "" :>">
+                <input id="<:# this.ResultId :>" class="form-input form-result" name="<:# this.ResultName :>" placeholder="<:% this.ResultPlaceholder :>" type="color" <:# this.IsReadonly ? "readonly" : "" :>/>
+            </div>
+            `
+            );
+    }
+}
+
+// ~~
+
 class VISTA_PATH_INPUT_COMPONENT extends VISTA_COMPONENT
 {
     // -- OPERATIONS
@@ -1901,6 +1928,7 @@ function InitializeInputs(
 
 DefineComponent( VISTA_INPUT_COMPONENT, "input-component", [ "result-id", "result-name", "result-value", "result-placeholder", "is-readonly" ] );
 DefineComponent( VISTA_TEXT_INPUT_COMPONENT, "text-input-component", [ "result-id", "result-name", "result-value", "result-placeholder", "is-readonly" ] );
+DefineComponent( VISTA_COLOR_INPUT_COMPONENT, "color-input-component", [ "result-id", "result-name", "result-value", "result-placeholder", "is-readonly" ] );
 DefineComponent( VISTA_IMAGE_PATH_INPUT_COMPONENT, "image-path-input-component", [ "result-id", "result-name", "result-value", "result-placeholder", "is-readonly", "error-image-path", "upload-api-url", "delete-api-url" ] );
 DefineComponent( VISTA_VIDEO_PATH_INPUT_COMPONENT, "video-path-input-component", [ "result-id", "result-name", "result-value", "result-placeholder", "is-readonly", "error-video-path", "upload-api-url", "delete-api-url" ] );
 DefineComponent( VISTA_DOCUMENT_PATH_INPUT_COMPONENT, "document-path-input-component", [ "result-id", "result-name", "result-value", "result-placeholder", "is-readonly", "document-image-path", "error-image-path", "upload-api-url", "delete-api-url" ] );
