@@ -177,11 +177,11 @@ function GetDateText(
     )
 {
     return (
-        GetLeftPaddedText( date.Year.toString(), 4, "0" )
+        date.Year.toString().GetLeftPaddedText( 4, "0" )
         + ":"
-        + GetLeftPaddedText( date.Month.toString(), 2, "0" )
+        + date.Month.toString().GetLeftPaddedText( 2, "0" )
         + ":"
-        + GetLeftPaddedText( date.Day.toString(), 2, "0" )
+        + date.Day.toString().GetLeftPaddedText( 2, "0" )
         + suffix
         );
 }
@@ -194,11 +194,11 @@ function GetTimeText(
     )
 {
     return (
-        GetLeftPaddedText( time.Hour.toString(), 2, "0" )
+        time.Hour.toString().GetLeftPaddedText( 2, "0" )
         + "-"
-        + GetLeftPaddedText( time.Minute.toString(), 2, "0" )
+        + time.Minute.toString().GetLeftPaddedText( 2, "0" )
         + "-"
-        + GetLeftPaddedText( time.Second.toString(), 2, "0" )
+        + time.Second.toString().GetLeftPaddedText( 2, "0" )
         + suffix
         );
 }
@@ -212,17 +212,17 @@ function GetDateTimeText(
     )
 {
     return (
-        GetLeftPaddedText( date_time.Year.toString(), 4, "0" )
+        date_time.Year.toString().GetLeftPaddedText( 4, "0" )
         + "-"
-        + GetLeftPaddedText( date_time.Month.toString(), 2, "0" )
+        + date_time.Month.toString().GetLeftPaddedText( 2, "0" )
         + "-"
-        + GetLeftPaddedText( date_time.Day.toString(), 2, "0" )
+        + date_time.Day.toString().GetLeftPaddedText( 2, "0" )
         + infix
-        + GetLeftPaddedText( date_time.Hour.toString(), 2, "0" )
+        + date_time.Hour.toString().GetLeftPaddedText( 2, "0" )
         + ":"
-        + GetLeftPaddedText( date_time.Minute.toString(), 2, "0" )
+        + date_time.Minute.toString().GetLeftPaddedText( 2, "0" )
         + ":"
-        + GetLeftPaddedText( date_time.Second.toString(), 2, "0" )
+        + date_time.Second.toString().GetLeftPaddedText( 2, "0" )
         + suffix
         );
 }

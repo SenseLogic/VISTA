@@ -14,12 +14,14 @@
 {
     height: 100%;
     width: 100%;
-    background: linear-gradient( 0deg, blue 50%, transparent 50% );
-    background-repeat: repeat-y;
-    background-size: 100% 15px;
-    background-position: 0 calc( 100% + 15px );
     padding-left: 0.25rem;
     padding-right: 0.25rem;
+
+    background: linear-gradient( 0deg, blue 50%, transparent 50% );
+    background-position: 0 calc( 100% + 15px );
+    background-repeat: repeat-y;
+    background-size: 100% 15px;
+
     animation: upload-animation 8s infinite linear;
 }
 
@@ -120,12 +122,13 @@
 .form-upload-image,
 .form-upload-video
 {
+    grid-area: preview;
+
     height: 12.5rem;
     width: 100%;
     max-width: 50vw;
     border-radius: 0.25rem;
 
-    grid-area: preview;
     object-fit: cover;
 }
 
