@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Sample</title>
+    </head>
+    <body style="font-family:monospace">
+        <script src="../../CODE/JAVASCRIPT/vista_base.js"></script>
+        <script src="../../CODE/JAVASCRIPT/vista_time.js"></script>
+        <script>
+            WriteLine( "Millisecond Timestamp: " + GetMillisecondTimestamp() );
+            WriteLine( "Local Date: " + GetDateText( GetLocalDate() ) );
+            WriteLine( "Local Time: " + GetTimeText( GetLocalTime() ) );
+            WriteLine( "Local DateTime: " + GetDateTimeText( GetLocalDateTime() ) );
+            WriteLine( "UTC Date: " + GetDateText( GetUniversalDate() ) );
+            WriteLine( "UTC Time: " + GetTimeText( GetUniversalTime() ) );
+            WriteLine( "UTC DateTime: " + GetDateTimeText( GetUniversalDateTime() ) );
+            WriteLine( "Custom Date: " + GetDateTimeText( GetLocalDateTime( new Date( 2024, 0, 1, 12, 30, 45 ) ) ) );
+        </script>
+    </body>
+</html>
