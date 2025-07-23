@@ -126,7 +126,7 @@ class SCROLLLABLE_ROW
                 strip_position -= strip_width;
             }
         }
-//console.log( this.ContainerElement.classList, old_strip_position, strip_position, container_width, strip_width );
+
         this.ContainerElement.scrollLeft = strip_position;
         this.StripPosition = strip_position;
     }
