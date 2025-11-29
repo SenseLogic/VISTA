@@ -1,3 +1,46 @@
+// -- FUNCTIONS
+
+function StartVideoSlide(
+    slide_element
+    )
+{
+    var
+        video_element;
+
+    if ( slide_element !== null
+         && slide_element.querySelector !== undefined )
+    {
+        video_element = slide_element.querySelector( "video" );
+
+        if ( video_element !== null )
+        {
+            video_element.currentTime = 0;
+            video_element.play();
+        }
+    }
+}
+
+// ~~
+
+function StopVideoSlide(
+    slide_element
+    )
+{
+    var
+        video_element;
+
+    if ( slide_element !== null
+         && slide_element.querySelector !== undefined )
+    {
+        video_element = slide_element.querySelector( "video" );
+
+        if ( video_element !== null )
+        {
+            video_element.pause();
+        }
+    }
+}
+
 // -- TYPES
 
 class SLIDESHOW
@@ -7,12 +50,14 @@ class SLIDESHOW
     constructor(
         slide_element_array,
         slide_index = 0.0,
-        pause_duration = 3.0,
+        slide_duration_array = 3.0,
         transition_duration = 0.5,
         slideshow_is_perpetual = true,
         slide_button_element_array = null,
         update_function = null,
-        hidden_element_class_name = "is-hidden"
+        hidden_element_class_name = "is-hidden",
+        start_slide_function = StartVideoSlide,
+        stop_slide_function = StopVideoSlide
         )
     {
         this.UpdateAnimation = this.UpdateAnimation.bind( this );
@@ -20,24 +65,41 @@ class SLIDESHOW
 
         this.AnimationTimeout = null;
         this.AnimationFrame = null,
-        this.AnimationTimestamp = null,
+        this.AnimationTimestamp = null;
         this.SlideElementArray = slide_element_array;
         this.PriorSlideIndex = -1;
         this.InitialSlideIndex = slide_index;
         this.FinalSlideIndex = slide_index;
         this.FinalSlideRatio = 1.0;
         this.SlideCount = slide_element_array.length;
-        this.PauseDuration = pause_duration;
+
+        if ( typeof slide_duration_array === "number" )
+        {
+            this.SlideDurationArray = new Array( slide_element_array.length ).fill( slide_duration_array );
+        }
+        else
+        {
+            this.SlideDurationArray = slide_duration_array;
+        }
+
         this.TransitionDuration = transition_duration;
         this.TransitionSpeed = 1.0 / transition_duration;
         this.IsPerpetual = slideshow_is_perpetual;
         this.SlideButtonElementArray = slide_button_element_array;
         this.UpdateFunction = update_function;
         this.HiddenElementClassName = hidden_element_class_name;
+        this.StartSlideFunction = start_slide_function;
+        this.StopSlideFunction = stop_slide_function;
         this.IsFaded = false;
         this.IsAutomatic = false;
 
         this.SetSlideIndex();
+
+        if ( this.StartSlideFunction !== null
+             && this.SlideCount > 0 )
+        {
+            this.StartSlideFunction( this.SlideElementArray[ this.GetFinalSlideIndex() ] );
+        }
     }
 
     // -- INQUIRIES
@@ -49,6 +111,52 @@ class SLIDESHOW
             slide_index;
 
         slide_index = this.FinalSlideIndex - ( 1.0 - this.FinalSlideRatio );
+
+        if ( slide_index < 0 )
+        {
+            slide_index += this.SlideCount;
+        }
+
+        if ( slide_index >= this.SlideCount )
+        {
+            slide_index -= this.SlideCount;
+        }
+
+        return slide_index;
+    }
+
+    // ~~
+
+    GetInitialSlideIndex(
+        )
+    {
+        var
+            slide_index;
+
+        slide_index = this.InitialSlideIndex;
+
+        if ( slide_index < 0 )
+        {
+            slide_index += this.SlideCount;
+        }
+
+        if ( slide_index >= this.SlideCount )
+        {
+            slide_index -= this.SlideCount;
+        }
+
+        return slide_index;
+    }
+
+    // ~~
+
+    GetFinalSlideIndex(
+        )
+    {
+        var
+            slide_index;
+
+        slide_index = this.FinalSlideIndex;
 
         if ( slide_index < 0 )
         {
@@ -191,6 +299,11 @@ class SLIDESHOW
         }
         else
         {
+            if ( this.StopSlideFunction !== null )
+            {
+                this.StopSlideFunction( this.SlideElementArray[ this.GetInitialSlideIndex() ] );
+            }
+
             this.IsFaded = false;
             this.InitialSlideIndex = this.FinalSlideIndex;
             this.FinalSlideRatio = 1.0;
@@ -252,9 +365,20 @@ class SLIDESHOW
                 this.FinalSlideRatio = 0.0;
                 this.IsFaded = true;
 
+                if ( this.StartSlideFunction !== null )
+                {
+                    this.StartSlideFunction( this.SlideElementArray[ this.GetFinalSlideIndex() ] );
+                }
+
                 this.StopAnimation();
                 this.SetSlideIndex();
                 this.StartAnimation();
+
+                if ( this.IsAutomatic )
+                {
+                    this.StopAutomaticAnimation();
+                    this.StartAutomaticAnimation();
+                }
             }
         }
     }
@@ -294,7 +418,13 @@ class SLIDESHOW
     {
         this.StopAutomaticAnimation();
         this.IsAutomatic = true;
-        this.AutomaticAnimationTimeout = setTimeout( this.UpdateAutomaticAnimation, this.PauseDuration * 1000.0 );
+
+        if ( this.AutomaticAnimationTimeout !== null )
+        {
+            clearTimeout( this.AutomaticAnimationTimeout );
+        }
+
+        this.AutomaticAnimationTimeout = setTimeout( this.UpdateAutomaticAnimation, this.SlideDurationArray[ this.GetFinalSlideIndex() ] * 1000.0 );
     }
 
     // ~~
@@ -306,7 +436,13 @@ class SLIDESHOW
              && this.SlideCount > 1 )
         {
             this.ShowNextSlide();
-            this.AutomaticAnimationTimeout = setTimeout( this.UpdateAutomaticAnimation, ( this.TransitionDuration + this.PauseDuration ) * 1000.0 );
+
+            if ( this.AutomaticAnimationTimeout !== null )
+            {
+                clearTimeout( this.AutomaticAnimationTimeout );
+            }
+
+            this.AutomaticAnimationTimeout = setTimeout( this.UpdateAutomaticAnimation, ( this.TransitionDuration + this.SlideDurationArray[ this.GetFinalSlideIndex() ] ) * 1000.0 );
         }
         else
         {
@@ -361,6 +497,12 @@ class SLIDESHOW
         if ( this.IsAutomatic )
         {
             this.StartAutomaticAnimation();
+        }
+
+        if ( this.StartSlideFunction !== null
+             && this.SlideCount > 0 )
+        {
+            this.StartSlideFunction( this.SlideElementArray[ this.GetFinalSlideIndex() ] );
         }
     }
 
