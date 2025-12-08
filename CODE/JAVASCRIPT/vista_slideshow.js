@@ -15,7 +15,16 @@ function StartVideoSlide(
         if ( video_element !== null )
         {
             video_element.currentTime = 0;
-            video_element.play();
+            video_element.muted = ( localStorage.getItem( "video-is-muted" ) === "true" );
+            video_element.dataset.muted = video_element.muted ? "true" : "false";
+            video_element.play().catch(
+                () =>
+                {
+                    video_element.muted = true;
+                    video_element.dataset.muted = "true";
+                    video_element.play();
+                }
+                );
         }
     }
 }
@@ -299,7 +308,8 @@ class SLIDESHOW
         }
         else
         {
-            if ( this.StopSlideFunction !== null )
+            if ( this.StopSlideFunction !== null
+                 && this.InitialSlideIndex !== this.FinalSlideIndex )
             {
                 this.StopSlideFunction( this.SlideElementArray[ this.GetInitialSlideIndex() ] );
             }
