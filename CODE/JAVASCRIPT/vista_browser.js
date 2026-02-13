@@ -1,4 +1,4 @@
-// -- FUNCTIONS// ~~
+// -- FUNCTIONS
 
 function SetPriorUrl(
     )
@@ -57,7 +57,7 @@ function GetRoute(
     var
         route;
 
-    route = window.location.pathname;
+    route = window.location.pathname + '/';
 
     if ( removed_prefix !== undefined
          && route.startsWith( removed_prefix ) )
@@ -65,9 +65,14 @@ function GetRoute(
         route = route.slice( removed_prefix.length );
     }
 
-    if ( route.startsWith( '/' ) )
+    while ( route.startsWith( '/' ) )
     {
         route = route.slice( 1 );
+    }
+
+    while ( route.endsWith( '/' ) )
+    {
+        route = route.slice( 0, -1 );
     }
 
     if ( removed_suffix !== undefined
