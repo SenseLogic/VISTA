@@ -596,13 +596,33 @@ class VISTA_DROPDOWN_COMPONENT extends VISTA_COMPONENT
 
     // ~~
 
+    HasOptionValue(
+        value
+        )
+    {
+        var
+            option_value;
+
+        for ( option_value of this.OptionValueArray )
+        {
+            if ( option_value == value )
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    // ~~
+
     SetValue(
         value
         )
     {
         if ( !( this.IsOptional
                 && value === this.NullValue )
-             && this.OptionValueArray.indexOf( value ) < 0
+             && !this.HasOptionValue( value )
              && this.OptionValueArray.length > 0 )
         {
             value = this.OptionValueArray[ 0 ];
@@ -1199,10 +1219,30 @@ class VISTA_DROPDOWN_LIST_COMPONENT extends VISTA_LIST_COMPONENT
 {
     // -- INQUIRIES
 
+    HasOptionValue(
+        value
+        )
+    {
+        var
+            option_value;
+
+        for ( option_value of this.OptionValueArray )
+        {
+            if ( option_value == value )
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    // ~~
+
     GetAddedValue(
         )
     {
-        if ( this.OptionValueArray.indexOf( this.AddedValue ) >= 0 )
+        if ( this.HasOptionValue( this.AddedValue ) )
         {
             return this.AddedValue;
         }
